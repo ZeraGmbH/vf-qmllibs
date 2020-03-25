@@ -17,7 +17,7 @@ Module {
     }
     Component {
         name: "EthernetTab"
-        exports: ["networksettings/WifiTab 1.0"]
+        exports: ["networksettings/EthernetTab 1.0"]
 	prototype: "QObject"
 
         Property { name: "fontPixelSize"; type: "int"; isReadonly: false } 
