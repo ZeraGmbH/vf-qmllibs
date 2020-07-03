@@ -42,16 +42,19 @@ endif()
 target_link_libraries(
     vf-qmllibs-examples
     PRIVATE
+
         Qt5::Core
         Qt5::Quick
         Qt5::Qml
         Qt5::DBus
         Qt5::Xml
         Qt5::Widgets
+        -Wl,--whole-archive
         vfnetworkmanager
-        zeracomplib
+        #zeracomplib
         anmlib
         notificationmanager
+        -Wl,--no-whole-archive
 )
 
 install(TARGETS vf-qmllibs-examples

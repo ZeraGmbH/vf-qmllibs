@@ -139,6 +139,7 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/anmlibConfig.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/anmlib
     )
 
+
 # install targets cmake-files
 install(EXPORT anmlibExport
     FILE anmlibTargets.cmake
