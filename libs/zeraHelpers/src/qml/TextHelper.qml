@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import GlobalConfig 1.0
+import QmlHelpersConfig 1.0
 
 Item {
   function strToCLocale(str, isNumeric, isDouble) {
@@ -19,7 +19,7 @@ Item {
         str = String(parseInt(str, 10))
       }
       else {
-        str = String(parseFloat(str)).replace(GC.locale.decimalPoint === "," ? "." : ",", GC.locale.decimalPoint)
+        str = String(parseFloat(str)).replace(QHC.locale.decimalPoint === "," ? "." : ",", QHC.locale.decimalPoint)
       }
     }
     return str
@@ -51,7 +51,7 @@ Item {
     var valid = true
     if(isDouble) {
       // Sometimes wrong decimal separator is accepted by DoubleValidator so check for it
-      if(GC.locale.decimalPoint === "," ? text.includes(".") : text.includes(",")) {
+      if(QHC.locale.decimalPoint === "," ? text.includes(".") : text.includes(",")) {
         valid = false
       }
     }
