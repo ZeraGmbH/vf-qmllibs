@@ -76,7 +76,6 @@ target_link_libraries(
     PUBLIC
     Qt5::Quick
     PRIVATE
-    globalconfig
     qmlhelpers
     )
 
