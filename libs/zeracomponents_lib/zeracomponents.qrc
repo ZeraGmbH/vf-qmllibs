@@ -7,5 +7,6 @@
         <file>src/qml/ZSpinBox.qml</file>
         <file>src/qml/ZUnitComboBox.qml</file>
         <file>src/qml/ZVisualComboBox.qml</file>
+        <file>src/qml/ZeraComponentsConfig.qml</file>
     </qresource>
 </RCC>

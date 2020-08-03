@@ -11,6 +11,9 @@ void ZeraComponents::init()
 
 
 void ZeraComponents::registerTypes(const char* uri) {
+    // Register config interface
+    qmlRegisterSingletonType(QUrl("qrc:/src/qml/ZeraComponentsConfig.qml"), "ZeraComponentsConfig", 1, 0, "ZCC");
+    // Register controls
     qmlRegisterType(QUrl("qrc:/src/qml/ZButton.qml"),uri,1,0,"ZButton");
     qmlRegisterType(QUrl("qrc:/src/qml/ZComboBox.qml"),uri,1,0,"ZComboBox");
     qmlRegisterType(QUrl("qrc:/src/qml/ZDoubleValidator.qml"),uri,1,0,"ZDoubleValidator");

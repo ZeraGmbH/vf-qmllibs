@@ -1,8 +1,9 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
-import GlobalConfig 1.0
+import ZeraComponentsConfig 1.0
 import QmlHelpers 1.0 as HELPERS
+import QmlHelpersConfig 1.0
 
 Item {
   Layout.alignment: Qt.AlignVCenter
@@ -61,7 +62,7 @@ Item {
   // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
   readonly property bool isNumeric: validator !== undefined && 'bottom' in validator && 'top' in validator
   readonly property bool isDouble: isNumeric && 'decimals' in validator
-  readonly property string localeName: GC.localeName
+  readonly property string localeName: QHC.localeName
   function applyInput() {
     if(hasValidInput())
     {
@@ -89,22 +90,22 @@ Item {
     verticalAlignment: Text.AlignVCenter
     font.pointSize: root.pointSize
     anchors.left: parent.left
-    anchors.rightMargin: text !== "" ? GC.standardMargin : 0
+    anchors.rightMargin: text !== "" ? ZCC.standardMargin : 0
   }
   Item {
     anchors.left: descriptionText.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: unitLabel.left
-    anchors.rightMargin: unitLabel.text !== "" ? GC.standardMargin : 0
+    anchors.rightMargin: unitLabel.text !== "" ? ZCC.standardMargin : 0
 
     TextField {
       id: tField
       anchors.fill: parent
-      anchors.leftMargin: GC.standardTextHorizMargin
-      anchors.rightMargin: GC.standardTextHorizMargin
+      anchors.leftMargin: ZCC.standardTextHorizMargin
+      anchors.rightMargin: ZCC.standardTextHorizMargin
       horizontalAlignment: Text.AlignRight
-      bottomPadding: GC.standardTextBottomMargin
+      bottomPadding: ZCC.standardTextBottomMargin
       font.pointSize: root.pointSize
 
       mouseSelectionMode: TextInput.SelectWords
@@ -169,7 +170,7 @@ Item {
     height: parent.height
     font.pointSize: root.pointSize
     anchors.right: parent.right
-    anchors.rightMargin: text !== "" ? GC.standardMargin : 0
+    anchors.rightMargin: text !== "" ? ZCC.standardMargin : 0
     verticalAlignment: Text.AlignVCenter
   }
 }
