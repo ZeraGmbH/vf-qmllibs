@@ -27,6 +27,8 @@ Item {
                 return  key;
             }
         }
-
+    }
+    function changeLanguage(language) {
+        ZTR.changeLanguage(language)
     }
 }
