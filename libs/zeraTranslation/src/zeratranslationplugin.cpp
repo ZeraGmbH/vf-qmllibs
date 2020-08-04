@@ -12,10 +12,12 @@ void ZeraTranslationPlugin::init()
 
 
 void ZeraTranslationPlugin::registerTypes(const char* uri) {
-  ZeraTranslation* zeraTranslation=ZeraTranslation::getInstance();
-  zeraTranslation->changeLanguage("C");
-  qmlRegisterSingletonType<ZeraTranslation>(QString().append(uri).append("backend").toLatin1(), 1, 0, "ZTR", ZeraTranslation::getStaticInstance);
-  qmlRegisterSingletonType(QUrl("qrc:/src/qml/TranslationHelper.qml"), uri, 1, 0, "Z");
+    ZeraTranslation* zeraTranslation=ZeraTranslation::getInstance();
+    zeraTranslation->changeLanguage("C");
+    // Register internal worker not intended for external use
+    qmlRegisterSingletonType<ZeraTranslation>(QString().append(uri).append("backend").toLatin1(), 1, 0, "ZTR", ZeraTranslation::getStaticInstance);
+    // Register our magic Z.tr("<text-to-translate>")
+    qmlRegisterSingletonType(QUrl("qrc:/src/qml/TranslationHelper.qml"), uri, 1, 0, "Z");
 }
 
 
