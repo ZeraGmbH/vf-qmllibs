@@ -1,6 +1,5 @@
-#ifndef UIVECTORGRAPICS_H
-#define UIVECTORGRAPICS_H
-
+#ifndef ZERATRANSLATIONPLUGIN_H
+#define ZERATRANSLATIONPLUGIN_H
 
 #include <QtQml/QQmlExtensionPlugin>
 
@@ -26,4 +25,4 @@ public:
     void registerTypes(const char* uri) override;
 };
 
-#endif // ADVANCEDNETWORKMANAGER_H
+#endif // ZERATRANSLATIONPLUGIN_H

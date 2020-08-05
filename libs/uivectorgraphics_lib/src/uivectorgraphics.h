@@ -27,4 +27,4 @@ public:
     void registerTypes(const char* uri) override;
 };
 
-#endif // ADVANCEDNETWORKMANAGER_H
+#endif // UIVECTORGRAPICS_H

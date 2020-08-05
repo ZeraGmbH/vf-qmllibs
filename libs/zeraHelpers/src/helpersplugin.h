@@ -1,5 +1,5 @@
-#ifndef UIVECTORGRAPICS_H
-#define UIVECTORGRAPICS_H
+#ifndef HELPERSPLUGIN_H
+#define HELPERSPLUGIN_H
 
 
 #include <QtQml/QQmlExtensionPlugin>
@@ -26,4 +26,4 @@ public:
     void registerTypes(const char* uri) override;
 };
 
-#endif // ADVANCEDNETWORKMANAGER_H
+#endif // HELPERSPLUGIN_H

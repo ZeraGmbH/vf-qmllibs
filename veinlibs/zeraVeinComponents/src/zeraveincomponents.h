@@ -1,5 +1,5 @@
-#ifndef UIVECTORGRAPICS_H
-#define UIVECTORGRAPICS_H
+#ifndef ZERAVEINCOMPONENTS_H
+#define ZERAVEINCOMPONENTS_H
 
 
 #include <QtQml/QQmlExtensionPlugin>
@@ -26,4 +26,4 @@ public:
     void registerTypes(const char* uri) override;
 };
 
-#endif // ADVANCEDNETWORKMANAGER_H
+#endif // ZERAVEINCOMPONENTS_H

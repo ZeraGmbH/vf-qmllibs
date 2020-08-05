@@ -1,5 +1,5 @@
-#ifndef UIVECTORGRAPICS_H
-#define UIVECTORGRAPICS_H
+#ifndef QTWEBCHARTS_H
+#define QTWEBCHARTS_H
 
 
 #include <QtQml/QQmlExtensionPlugin>
@@ -26,4 +26,4 @@ public:
     void registerTypes(const char* uri) override;
 };
 
-#endif // ADVANCEDNETWORKMANAGER_H
+#endif // QTWEBCHARTS_H
