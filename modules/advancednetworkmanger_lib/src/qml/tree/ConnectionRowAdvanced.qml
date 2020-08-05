@@ -2,10 +2,7 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import anmsettings 1.0
-
 import ZeraFa 1.0
-
-
 
 Item{
     id: rootItm
@@ -17,9 +14,9 @@ Item{
     property var devices_
     property var deviceNames_
     property bool stored_ : {
-        if(nmPath === ""){
+        if(nmPath === "") {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -29,15 +26,13 @@ Item{
 
     onConnected_Changed: {
         actswitch.checked = connected_;
-
     }
 
     signal edit(string p_path)
     signal remove(string p_path)
     signal activate(string p_path, string device)
     signal deactivate(string p_path)
-
-     signal notification(string title,string msg);
+    signal notification(string title,string msg);
 
     MouseArea{
         id: itemMouseArea
@@ -62,21 +57,21 @@ Item{
             }
         }
 
-            ComboBox{
-                id: devices
-                Layout.fillHeight: true
-                property string dev : model[currentIndex]
-                visible: {
-                    if(count < 2){
-                        return false;
-                    }else{
-                        return true;
-                    }
+        ComboBox{
+            id: devices
+            Layout.fillHeight: true
+            property string dev : model[currentIndex]
+            visible: {
+                if(count < 2){
+                    return false;
+                } else {
+                    return true;
                 }
-
-                Layout.preferredWidth: rootItm.width/5
-                model: rootItm.deviceNames_
             }
+
+            Layout.preferredWidth: rootItm.width/5
+            model: rootItm.deviceNames_
+        }
 
         Row{
             Layout.preferredWidth: rootItm.width/10
@@ -89,44 +84,42 @@ Item{
                 position: {
                     if (rootItm.connected_ === true){
                         return 1;
-                    }else{
+                    } else {
                         return 0;
                     }
                 }
 
                 checked : rootItm.connected_
-
                 onClicked: {
                     if(position === 1){
                         activate(rootItm.nmPath_,rootItm.devices_[devices.model[devices.currentIndex]]);
                         //position = 0;
                         checked = rootItm.connected_
-                    }else{
+                    } else {
                         deactivate(rootItm.nmPath_);
                         //position = 1;
                         checked = rootItm.connected_
                     }
                 }
             }
-
         }
-        Row{
+        Row {
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
+
             SignalIcon{
                 anchors.verticalCenter: parent.verticalCenter
                 signals: rootItm.signals_
                 width: 20
                 height: 20
                 visible: {
-                    if(type_ === 1 && available_){
+                    if(type_ === 1 && available_) {
                         return true;
-                    }else{
+                    } else {
                         return false;
                     }
                 }
-
             }
 
             Rectangle{
@@ -137,17 +130,14 @@ Item{
                 visible: {
                     if(type_ !== 1 || !available_){
                         return true;
-                    }else{
+                    } else{
                         return false;
                     }
                 }
-
-
             }
-
         }
 
-        Row{
+        Row {
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
@@ -167,7 +157,7 @@ Item{
             }
         }
 
-        Row{
+        Row {
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
@@ -185,12 +175,6 @@ Item{
                 }
             }
         }
-
-
     }
-
-
-
-
 }
 

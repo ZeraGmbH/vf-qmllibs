@@ -2,7 +2,6 @@ import QtQuick 2.0
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import QtQuick.Controls.Material 2.12
-
 import anmsettings 1.0
 import ZeraFa 1.0
 
@@ -22,31 +21,27 @@ Dialog {
         backend.mode = "CLIENT";
     }
 
-
     WirelessConnectionSettingsInterface{
         id: backend
     }
-
-
-        Column{
-            anchors.fill: parent
+    Column {
+        anchors.fill: parent
         RowLayout{
             id: pwInput
             width: parent.width
-            Label{
+            Label {
                 id: pwLabel
                 text: "Password: "
             }
-
-            TextField{
+            TextField {
                 id: pw
                 echoMode: TextInput.Password
                 Layout.fillWidth: true
                 validator: RegExpValidator{ regExp: /.{8,}/}
-                Material.accent:  {
-                    if(!acceptableInput){
+                Material.accent: {
+                    if(!acceptableInput) {
                         return Material.Red;
-                    }else{
+                    } else {
                         return Material.Green;
                     }
                 }
@@ -54,12 +49,10 @@ Dialog {
                 Keys.onEscapePressed: {
                   focus = false
                 }
-
                 onEditingFinished: {
                     backend.password=text;
                 }
             }
-
             Button{
                 id: pwvisible
                 font.family: FA.old
@@ -78,15 +71,14 @@ Dialog {
                 }
             }
         }
-
-        RowLayout{
+        RowLayout {
             id: devInput
             width: parent.width
-            Label{
+            Label {
                 id: devLabel
                 text: "Device: "
             }
-            ComboBox{
+            ComboBox {
                 id: devBinding
                 Layout.fillWidth: true
                 model: backend.devices;
@@ -94,20 +86,13 @@ Dialog {
                     rootItm.device=backend.getDevicePath(model[currentIndex]);
                 }
             }
-
         }
-        }
-
-
-
+    }
     onAccepted: {
         backend.saveAndActivate(rootItm.device,rootItm.path);
     }
-
     onDiscarded: {
         backend.discard();
     }
-
     standardButtons: Dialog.Ok | Dialog.Cancel
-
 }

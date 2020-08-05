@@ -2,31 +2,20 @@ import QtQuick 2.0
 import QtQuick.Controls 2.12
 import SortFilterProxyModel 0.2
 import QtQuick.Layouts 1.12
-
-import anmsettings 1.0
-
-import "qrc:/src/qml/settings"
 import ZeraFa 1.0
+import anmsettings 1.0
+import "qrc:/src/qml/settings"
 
-Pane{
+Pane {
     id: rootItm
     padding: 0
 
     signal notification(string title,string msg);
-
-
-
     ConnectionTreeInterface{
         id: backend;
     }
-
-
-
-
-
     Component{
         id: ethtab
-
         EthernetSettings{
             anchors.fill: parent
             anchors.margins: 0
@@ -40,36 +29,29 @@ Pane{
             onNotification: {
                 rootItm.notification(title,msg);
             }
-
         }
     }
-
     Component{
         id: wifitab
-
-        WifiSettings{
-
+        WifiSettings {
             anchors.fill: parent
             anchors.margins: 0
             visible: true
             z: 10
             onVisibleChanged: {
-                if(!visible){
+                if(!visible) {
                     wifiLoader.active = false;
                 }
             }
             onNotification: {
                 rootItm.notification(title,msg);
             }
-
         }
     }
 
-
     Component{
         id: infotab
-        ConnectionInfo{
-
+        ConnectionInfo {
             anchors.top: parent.top
             anchors.bottom: showall.top
             anchors.left: parent.left
@@ -79,11 +61,6 @@ Pane{
             z: 10
         }
     }
-
-
-
-
-
 
     Component{
         id: pwDialog
@@ -111,7 +88,7 @@ Pane{
             item.init();
         }
         onActiveChanged: {
-            if(!active){
+            if(!active) {
                 path = "";
             }
         }
@@ -167,13 +144,8 @@ Pane{
         }
     }
 
-
-
-
     Component {
         id: sectionHeading
-
-
         Item{
             id: rect
             width: list.width
@@ -197,8 +169,6 @@ Pane{
             }
         }
     }
-
-
     ListView{
         id: list
         anchors.top: parent.top
@@ -257,10 +227,7 @@ Pane{
                     }
 
                 }
-
-
             ]
-
             sorters: StringSorter { roleName: "groupe" }
         }
         delegate: ConnectionRowAdvanced{
@@ -277,19 +244,17 @@ Pane{
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: parent.width/30
-
             height: 30
 
-
             onEdit: {
-                if(groupe_ == "ETHERNET"){
+                if(groupe_ == "ETHERNET") {
                     ethLoader.path = p_path;
                     ethLoader.active = true;
-                }else if(groupe_ === "WIFI"){
+                } else if(groupe_ === "WIFI"){
                     wifiLoader.path = p_path;
                     wifiLoader.active = true;
 
-                }else if(groupe_ === "HOTSPOT"){
+                } else if(groupe_ === "HOTSPOT"){
                     wifiLoader.path = p_path;
                     wifiLoader.active = true;
                 }
@@ -300,15 +265,14 @@ Pane{
             }
 
             onActivate: {
-
                 var Device = device;
-                if(!stored_ && Device !== ""){
+                if(!stored_ && Device !== "") {
                   //  Device= device
                     smartConnectLoader.ssid = name_;
                     smartConnectLoader.device = Device;
                     smartConnectLoader.path = p_path;
                     smartConnectLoader.active=true;
-                }else if(Device !== ""){
+                } else if(Device !== "") {
 
                     backend.connect(p_path,Device);
                 }
@@ -338,7 +302,6 @@ Pane{
                 }
             }
         }
-
     }
 
     Button {
@@ -427,19 +390,12 @@ Pane{
         onClicked: {
             if(infoLoader.active === false){
                 infoLoader.active = true;
-            }else{
+            } else {
                 infoLoader.active = false;
             }
 
         }
     }
-
-
-
-
-
-
-
 }
 
 
