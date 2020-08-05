@@ -1,8 +1,8 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
-import QtQuick.VirtualKeyboard.Settings 2.2
 import QmlHelpers 1.0
+import ZeraLocale 1.0
 
 Item {
   Layout.alignment: Qt.AlignVCenter
@@ -29,13 +29,13 @@ Item {
     return tField.acceptableInput && TextHelper.hasValidInput(isDouble, tField.text)
   }
   function discardInput() {
-    tField.text = TextHelper.strToLocal(text, isNumeric, isDouble)
+    tField.text = ZLocale.strToLocal(text, isNumeric, isDouble)
   }
 
   // signal handler
   onTextChanged: {
     if(!inApply) {
-      sBox.value = sBox.valueFromText(text, Qt.locale())
+      sBox.value = sBox.valueFromText(text, ZLocale.getLocale())
       discardInput()
     }
     inApply = false
@@ -61,7 +61,7 @@ Item {
     sBox.editable = !readOnly
   }
   onLocaleNameChanged: {
-    sBox.locale = Qt.locale(localeName)
+    sBox.locale = ZLocale.getLocale()
     discardInput()
   }
 
@@ -72,14 +72,14 @@ Item {
   readonly property bool isDouble: isNumeric && 'decimals' in sBox.validator
   property bool inApply: false
   property bool inFocusKill: false
-  readonly property string localeName: VirtualKeyboardSettings.locale
+  readonly property string localeName: ZLocale.localeName
   function applyInput() {
     if(hasValidInput())
     {
       if(hasAlteredValue())
       {
         inApply = true
-        var newText = TextHelper.strToCLocale(tField.text, isNumeric, isDouble)
+        var newText = ZLocale.strToCLocale(tField.text, isNumeric, isDouble)
         if(doApplyInput(newText)) {
           text = newText
           inApply = false
@@ -108,10 +108,10 @@ Item {
       if (isNumeric) {
         if(isDouble) {
           var val = value / Math.pow(10, validator.decimals)
-          return TextHelper.strToLocal(val.toString(), isNumeric, isDouble)
+          return ZLocale.strToLocal(val.toString(), isNumeric, isDouble)
         }
         else {
-          return TextHelper.strToLocal(value.toString(), isNumeric, isDouble)
+          return ZLocale.strToLocal(value.toString(), isNumeric, isDouble)
         }
       }
       else {
@@ -167,7 +167,7 @@ Item {
     onValueModified: {
       if(!inApply) {
         // TODO Text spins
-        tField.text = textFromValue(value, Qt.locale(VirtualKeyboardSettings.locale))
+        tField.text = textFromValue(value, ZLocale.getLocale())
         if(!sBox.focus)
           applyInput()
       }

@@ -3,7 +3,7 @@ import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import ZeraComponentsConfig 1.0
 import QmlHelpers 1.0
-import QmlHelpersConfig 1.0
+import ZeraLocale 1.0
 
 Item {
   Layout.alignment: Qt.AlignVCenter
@@ -35,7 +35,7 @@ Item {
     return tField.acceptableInput && TextHelper.hasValidInput(isDouble, tField.text)
   }
   function discardInput() {
-    tField.text = TextHelper.strToLocal(text, isNumeric, isDouble)
+    tField.text = ZLocale.strToLocal(text, isNumeric, isDouble)
   }
 
   // signal handler
@@ -58,13 +58,13 @@ Item {
   // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
   readonly property bool isNumeric: validator !== undefined && 'bottom' in validator && 'top' in validator
   readonly property bool isDouble: isNumeric && 'decimals' in validator
-  readonly property string localeName: QHC.localeName
+  readonly property string localeName: ZLocale.localeName
   function applyInput() {
     if(hasValidInput())
     {
       if(hasAlteredValue())
       {
-        var newText = TextHelper.strToCLocale(tField.text, isNumeric, isDouble)
+        var newText = ZLocale.strToCLocale(tField.text, isNumeric, isDouble)
         if(doApplyInput(newText)) {
           text = newText
         }
