@@ -16,7 +16,7 @@ void HelpersPlugin::registerTypes(const char* uri) {
     // Register config interface
     qmlRegisterSingletonType(QUrl("qrc:/src/qml/ZeraHelpersConfig.qml"), "QmlHelpersConfig", 1, 0, "QHC");
     // Register helper functions
-    qmlRegisterType(QUrl("qrc:/src/qml/TextHelper.qml"),uri,1,0,"TextHelper");
+    qmlRegisterSingletonType(QUrl("qrc:/src/qml/TextHelper.qml"), uri, 1, 0, "TextHelper");
 }
 
 

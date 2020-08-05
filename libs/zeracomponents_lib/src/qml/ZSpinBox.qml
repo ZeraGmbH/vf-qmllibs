@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import QtQuick.VirtualKeyboard.Settings 2.2
-import QmlHelpers 1.0 as HELPERS
+import QmlHelpers 1.0
 
 Item {
   Layout.alignment: Qt.AlignVCenter
@@ -23,13 +23,13 @@ Item {
   function doApplyInput(newText) {return true} //  (return true: apply immediate)
   function hasAlteredValue() {
     var decimals = isDouble ? validator.decimals : 0
-    return tHelper.hasAlteredValue(isNumeric, isDouble, decimals, tField.text, text)
+    return TextHelper.hasAlteredValue(isNumeric, isDouble, decimals, tField.text, text)
   }
   function hasValidInput() {
-    return tField.acceptableInput && tHelper.hasValidInput(isDouble, tField.text)
+    return tField.acceptableInput && TextHelper.hasValidInput(isDouble, tField.text)
   }
   function discardInput() {
-    tField.text = tHelper.strToLocal(text, isNumeric, isDouble)
+    tField.text = TextHelper.strToLocal(text, isNumeric, isDouble)
   }
 
   // signal handler
@@ -65,11 +65,6 @@ Item {
     discardInput()
   }
 
-  // helpers
-  HELPERS.TextHelper {
-    id: tHelper
-  }
-
   property var tField: sBox.contentItem
 
   // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
@@ -84,7 +79,7 @@ Item {
       if(hasAlteredValue())
       {
         inApply = true
-        var newText = tHelper.strToCLocale(tField.text, isNumeric, isDouble)
+        var newText = TextHelper.strToCLocale(tField.text, isNumeric, isDouble)
         if(doApplyInput(newText)) {
           text = newText
           inApply = false
@@ -113,10 +108,10 @@ Item {
       if (isNumeric) {
         if(isDouble) {
           var val = value / Math.pow(10, validator.decimals)
-          return tHelper.strToLocal(val.toString(), isNumeric, isDouble)
+          return TextHelper.strToLocal(val.toString(), isNumeric, isDouble)
         }
         else {
-          return tHelper.strToLocal(value.toString(), isNumeric, isDouble)
+          return TextHelper.strToLocal(value.toString(), isNumeric, isDouble)
         }
       }
       else {

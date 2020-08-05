@@ -2,7 +2,7 @@ import QtQuick 2.12
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import ZeraComponentsConfig 1.0
-import QmlHelpers 1.0 as HELPERS
+import QmlHelpers 1.0
 import QmlHelpersConfig 1.0
 
 Item {
@@ -29,13 +29,13 @@ Item {
   function doApplyInput(newText) {return true} // (return true: apply immediate)
   function hasAlteredValue() {
     var decimals = isDouble ? validator.decimals : 0
-    return tHelper.hasAlteredValue(isNumeric, isDouble, decimals, tField.text, text)
+    return TextHelper.hasAlteredValue(isNumeric, isDouble, decimals, tField.text, text)
   }
   function hasValidInput() {
-    return tField.acceptableInput && tHelper.hasValidInput(isDouble, tField.text)
+    return tField.acceptableInput && TextHelper.hasValidInput(isDouble, tField.text)
   }
   function discardInput() {
-    tField.text = tHelper.strToLocal(text, isNumeric, isDouble)
+    tField.text = TextHelper.strToLocal(text, isNumeric, isDouble)
   }
 
   // signal handler
@@ -55,10 +55,6 @@ Item {
     discardInput()
   }
 
-  // helpers
-  HELPERS.TextHelper {
-    id: tHelper
-  }
   // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
   readonly property bool isNumeric: validator !== undefined && 'bottom' in validator && 'top' in validator
   readonly property bool isDouble: isNumeric && 'decimals' in validator
@@ -68,7 +64,7 @@ Item {
     {
       if(hasAlteredValue())
       {
-        var newText = tHelper.strToCLocale(tField.text, isNumeric, isDouble)
+        var newText = TextHelper.strToCLocale(tField.text, isNumeric, isDouble)
         if(doApplyInput(newText)) {
           text = newText
         }

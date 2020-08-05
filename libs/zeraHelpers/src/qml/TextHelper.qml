@@ -1,3 +1,4 @@
+pragma Singleton
 import QtQuick 2.0
 import QmlHelpersConfig 1.0
 
