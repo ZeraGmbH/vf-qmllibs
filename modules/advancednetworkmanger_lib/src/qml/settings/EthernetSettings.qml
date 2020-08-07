@@ -6,7 +6,6 @@ import QtQuick.Layouts 1.12
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.12
 import anmsettings 1.0
-
 import ZeraFa 1.0
 
 Pane{
@@ -18,126 +17,105 @@ Pane{
     signal notification(string title,string msg);
 
     function init() {
-        if(path === ""){
+        if(path === "") {
             backend.create();
-        }else{
+        } else {
             backend.load(path);
         }
     }
-
-    NetworkmanagerAbstraction{
+    NetworkmanagerAbstraction {
         id: generalbackend
     }
-
-    WiredConnectionSettingsInterface{
+    WiredConnectionSettingsInterface {
         id: backend
         onLoadComplete: {
             name.text = backend.conName;
-            if(backend.ipv4Mode === "DHCP"){
+            if(backend.ipv4Mode === "DHCP") {
                 ipv4Mode.currentIndex = 0
-            }else if(backend.ipv4Mode === "MANUAL"){
+            } else if(backend.ipv4Mode === "MANUAL"){
                 ipv4Mode.currentIndex = 1
             }
-
             ipv4.text = backend.ipv4;
             sub4.text = backend.ipv4Sub;
             ipv6.text = backend.ipv6;
             sub6.text = backend.ipv6Sub;
             var index = devices.find(backend.device,Qt.MatchExactly);
-            if(index >= 0 ){
+            if(index >= 0 ) {
                 devices.currentIndex = index;
-            }else{
+            } else {
                 devices.currentIndex = 0;
             }
             backend.device = devices.model[devices.currentIndex]
 
             if(backend.ipv6Mode === "DHCP"){
                 ipv6Mode.currentIndex = 0
-            }else if(backend.ipv6Mode === "MANUAL"){
+            } else if(backend.ipv6Mode === "MANUAL"){
                 ipv6Mode.currentIndex = 1
             }
-
-
         }
     }
-
-
-    VisualItemModel{
+    VisualItemModel {
         id: clientModel
         property int labelWidth : rootItm.width/4
-        Label{
+        Label {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
             font.pixelSize: 18
             horizontalAlignment: Label.AlignHCenter
-
             text: "ETHERNET CONNECTION SETTINGS"
         }
-
-
-
-        RowLayout{
+        //--------------------------
+        // Connection name area
+        RowLayout {
             id: conName
             anchors.left: parent.left
             anchors.right: parent.right
-
-
             Label{
                 id: nameLabel
                 text: "CONNECTION NAME"
                 Layout.preferredWidth: clientModel.labelWidth
             }
-
-            TextField{
+            TextField {
                 id: name
-                validator: RegExpValidator{ regExp: /.{3,}/}
+                Layout.fillWidth: true
+                validator: RegExpValidator{ regExp: /.{3,}/ }
                 Material.accent:  {
-                    if(!acceptableInput){
+                    if(!acceptableInput) {
                         return Material.Red;
-                    }else{
+                    } else {
                         return Material.Green;
                     }
                 }
-
-                Layout.fillWidth: true
-
                 Keys.onEscapePressed: {
                   focus = false
                 }
-
                 onEditingFinished: {
                     backend.conName = text;
                 }
             }
-
-
         }
-
-
-
-
-        Label{
+        //--------------------------
+        // IPv4 area
+        Label {
             id: ipv4header
             anchors.left: parent.left
             anchors.right: parent.right
             font.bold: true
             text: "IPV4"
         }
-
-
-        RowLayout{
+        RowLayout {
             id: ipv4ModeL
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
             spacing: 0
-            Label{
+            Label {
                 id: ipv4ModeLabel
                 text: "MODE"
                 Layout.preferredWidth: clientModel.labelWidth
             }
-            ComboBox{
+            ComboBox {
                 id: ipv4Mode
                 Layout.fillWidth: true
                 model: ["DHCP", "MANUAL"]
@@ -146,15 +124,13 @@ Pane{
                 }
             }
         }
-
-
-        RowLayout{
+        RowLayout {
             id: ipv4ip
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
             spacing: 0
-            Label{
+            Label {
                 id: ipv4ipLabel
                 text: "IP"
                 Layout.preferredWidth: clientModel.labelWidth
@@ -162,41 +138,37 @@ Pane{
             TextField {
                 id: ipv4
                 horizontalAlignment : TextInput.AlignRight
+                Layout.fillWidth: true
                 validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
                 Material.accent:  {
-                    if(!acceptableInput){
+                    if(!acceptableInput) {
                         return Material.Red;
-                    }else{
+                    } else {
                         return Material.Green;
                     }
                 }
-                Layout.fillWidth: true
-
                 Keys.onEscapePressed: {
                   focus = false
                 }
-
                 onEditingFinished: {
                     backend.ipv4 = text;
                 }
                 enabled: {
                     if(ipv4Mode.currentText === "DHCP"){
                         return false;
-                    }else{
+                    } else {
                         return true;
                     }
                 }
             }
         }
-
-
-        RowLayout{
+        RowLayout {
             id: ipv4Sub
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
             spacing: 0
-            Label{
+            Label {
                 id: ipv4SubLabel
                 text: "SUBNETMASK"
                 Layout.preferredWidth: clientModel.labelWidth
@@ -204,54 +176,52 @@ Pane{
             TextField {
                 id: sub4
                 horizontalAlignment : TextInput.AlignRight
+                Layout.fillWidth: true
                 validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
                 Material.accent:  {
-                    if(!acceptableInput){
+                    if(!acceptableInput) {
                         return Material.Red;
-                    }else{
+                    } else {
                         return Material.Green;
                     }
                 }
-                Layout.fillWidth: true
                 enabled: {
-                    if(ipv4Mode.currentText === "DHCP"){
+                    if(ipv4Mode.currentText === "DHCP") {
                         return false;
-                    }else{
+                    } else {
                         return true;
                     }
                 }
-
                 Keys.onEscapePressed: {
-                  focus = false
+                    focus = false
                 }
-
                 onEditingFinished: {
                     backend.ipv4Sub = text;
                 }
-
             }
         }
 
-        Label{
+        //--------------------------
+        // IPv6 area
+        Label {
             id: ipv6header
             anchors.left: parent.left
             anchors.right: parent.right
             font.bold: true
             text: "IPV6"
         }
-
-        RowLayout{
+        RowLayout {
             id: ipv6ModeL
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
             spacing: 0
-            Label{
+            Label {
                 id: ipv6ModeLabel
                 text: "MODE"
                 Layout.preferredWidth: clientModel.labelWidth
             }
-            ComboBox{
+            ComboBox {
                 id: ipv6Mode
                 Layout.fillWidth: true
                 model: ["DHCP", "MANUAL"]
@@ -260,16 +230,13 @@ Pane{
                 }
             }
         }
-
-
-
-        RowLayout{
+        RowLayout {
             id: ipv6ip
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
             spacing: 0
-            Label{
+            Label {
                 id: ipv6ipLabel
                 text: "IP"
                 Layout.preferredWidth: clientModel.labelWidth
@@ -281,7 +248,7 @@ Pane{
                 Material.accent:  {
                     if(!acceptableInput){
                         return Material.Red;
-                    }else{
+                    } else {
                         return Material.Green;
                     }
                 }
@@ -289,19 +256,16 @@ Pane{
                 enabled: {
                     if(ipv6Mode.currentText === "DHCP"){
                         return false;
-                    }else{
+                    } else {
                         return true;
                     }
                 }
                 onEditingFinished: {
                     backend.ipv6 = text;
                 }
-
             }
         }
-
-
-        RowLayout{
+        RowLayout {
             id: ipv6Sub
             anchors.left: parent.left
             anchors.right: parent.right
@@ -315,47 +279,44 @@ Pane{
             TextField {
                 id: sub6
                 horizontalAlignment : TextInput.AlignRight
+                Layout.fillWidth: true
                 validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
                 Material.accent:  {
                     if(!acceptableInput){
                         return Material.Red;
-                    }else{
+                    } else{
                         return Material.Green;
                     }
                 }
-                Layout.fillWidth: true
                 enabled: {
                     if(ipv6Mode.currentText === "DHCP"){
                         return false;
-                    }else{
+                    } else{
                         return true;
                     }
                 }
                 Keys.onEscapePressed: {
-                  focus = false
+                    focus = false
                 }
                 onEditingFinished: {
                     backend.ipv6Sub = text;
                 }
             }
         }
-
     }
-
-
-
-
-    ListView{
+    //--------------------------
+    // What's this list?
+    ListView {
         id: list
         anchors.top: parent.top
         anchors.bottom: save.top
         anchors.left: parent.left
         anchors.right: parent.right
-        model:clientModel
+        model: clientModel
         clip: true
     }
-
-
+    //--------------------------
+    // Cancel / Save buttons
     Button{
         id: cancel
         text: "CANCEL"
@@ -367,7 +328,6 @@ Pane{
             rootItm.visible = false
         }
     }
-
     Button{
         id: save
         anchors.right: parent.right
@@ -381,33 +341,27 @@ Pane{
             if(!ipv6.acceptableInput && ipv6.enabled){
                 good = false;
                 errorField="IPV6 IP"
-            }else if(!sub6.acceptableInput && sub6.enabled){
+            } else if(!sub6.acceptableInput && sub6.enabled){
                 good = false;
                 errorField="IPV6 SUBNETMASK"
-            }else if(!ipv4.acceptableInput &&ipv4.enabled){
+            } else if(!ipv4.acceptableInput &&ipv4.enabled){
                 good = false;
                 errorField="IPV4 IP"
-            }else if(!sub4.acceptableInput && sub4.enabled){
+            } else if(!sub4.acceptableInput && sub4.enabled){
                 good = false;
                 errorField="IPV4 SUBNETMASK"
-            }else if(!name.acceptableInput){
+            } else if(!name.acceptableInput){
                 good = false;
                 errorField="NAME"
             }
-
-
-
-            if(good){
+            if(good) {
                 backend.save();
                 rootItm.visible = false
-            }else{
+            } else {
                 notification("NM", "invalid settings in field: " + errorField)
             }
         }
     }
-
-
-
 }
 
 
