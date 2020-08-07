@@ -2,7 +2,6 @@
 
 WiredConnectionSettingsInterface::WiredConnectionSettingsInterface(QObject* parent) : AbstractConnectionSettingsInterface(parent)
 {
-
 }
 
 void WiredConnectionSettingsInterface::create()
@@ -22,7 +21,7 @@ QStringList WiredConnectionSettingsInterface::getDevices()
 {
     NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
     QStringList list;
-    for(NetworkManager::Device::Ptr dev : devList){
+    for(NetworkManager::Device::Ptr dev : devList) {
         if(dev->type() == NetworkManager::Device::Type::Ethernet){
             list.append(dev->interfaceName());
         }
@@ -33,11 +32,10 @@ QStringList WiredConnectionSettingsInterface::getDevices()
 
 QString WiredConnectionSettingsInterface::getIpv4Mode()
 {
-
     QString ret = "";
     NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set != NULL){
-        switch(set->method()){
+    if(set != NULL) {
+        switch(set->method()) {
         case NetworkManager::Ipv4Setting::ConfigMethod::Manual:
             ret= "MANUAL";
             break;
@@ -61,23 +59,23 @@ QString WiredConnectionSettingsInterface::getIpv4Mode()
 
 void WiredConnectionSettingsInterface::setIpv4Mode(QString p_ipv4Mode)
 {
-    if(m_settings != nullptr){
-    NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(p_ipv4Mode == "DHCP"){
-        set->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Automatic);
-    }else if(p_ipv4Mode == "MANUAL"){
-        set->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Manual);
-    }
-    emit ipv4ModeChanged();
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+        if(p_ipv4Mode == "DHCP") {
+            set->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Automatic);
+        } else if(p_ipv4Mode == "MANUAL"){
+            set->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Manual);
+        }
+        emit ipv4ModeChanged();
     }
 }
 
 QString WiredConnectionSettingsInterface::getIpv4()
 {
     NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set->addresses().size() > 0){
+    if(set->addresses().size() > 0) {
         return set->addresses().at(0).ip().toString();
-    }else{
+    } else {
         return "";
     }
 }
@@ -86,11 +84,11 @@ void WiredConnectionSettingsInterface::setIpv4(QString p_ipv4)
 {
     NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
     NMVariantMapList addressData=set->addressData();
-    if(addressData.size()==0){
+    if(addressData.size()==0) {
         addressData.append(QVariantMap());
     }
     QList< NetworkManager::IpAddress > addresses=set->addresses();
-    if(addresses.size()==0){
+    if(addresses.size()==0) {
         addresses.append(NetworkManager::IpAddress());
     }
 
@@ -104,21 +102,20 @@ void WiredConnectionSettingsInterface::setIpv4(QString p_ipv4)
 QString WiredConnectionSettingsInterface::getIpv4Sub()
 {
     NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set->addresses().size() > 0){
+    if(set->addresses().size() > 0) {
         QNetworkAddressEntry formatAdapter;
         formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
         formatAdapter.setPrefixLength(set->addressData()[0]["prefix"].toInt());
         return formatAdapter.netmask().toString();
-    }else{
+    } else {
         return "";
     }
 }
 
 void WiredConnectionSettingsInterface::setIpv4Sub(QString p_ipv4Sub)
 {
-
-    if(m_settings!=nullptr){
-         NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+    if(m_settings!=nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
         QNetworkAddressEntry formatAdapter;
         formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
         formatAdapter.setNetmask(QHostAddress(p_ipv4Sub));
@@ -143,8 +140,8 @@ QString WiredConnectionSettingsInterface::getIpv6Mode()
 {
     QString ret = "";
     NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();
-    if(set != NULL){
-        switch(set->method()){
+    if(set != NULL) {
+        switch(set->method()) {
         case NetworkManager::Ipv6Setting::ConfigMethod::Manual:
             ret= "MANUAL";
             break;
@@ -161,11 +158,11 @@ QString WiredConnectionSettingsInterface::getIpv6Mode()
 
 void WiredConnectionSettingsInterface::setIpv6Mode(QString p_ipv6Mode)
 {
-    if(m_settings != nullptr){
+    if(m_settings != nullptr) {
         NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
         if(p_ipv6Mode == "DHCP"){
             set->setMethod(NetworkManager::Ipv6Setting::ConfigMethod::Automatic);
-        }else if(p_ipv6Mode == "MANUAL"){
+        } else if(p_ipv6Mode == "MANUAL") {
             set->setMethod(NetworkManager::Ipv6Setting::ConfigMethod::Manual);
         }
         emit ipv6ModeChanged();
@@ -175,9 +172,9 @@ void WiredConnectionSettingsInterface::setIpv6Mode(QString p_ipv6Mode)
 QString WiredConnectionSettingsInterface::getIpv6()
 {
     NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
-    if(set->addresses().size() > 0){
+    if(set->addresses().size() > 0) {
         return set->addresses().at(0).ip().toString();
-    }else{
+    } else {
         return "";
     }
 }
@@ -186,14 +183,13 @@ void WiredConnectionSettingsInterface::setIpv6(QString p_ipv6)
 {
     NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv6Setting>();
     NMVariantMapList addressData=set->addressData();
-    if(addressData.size()==0){
+    if(addressData.size()==0) {
         addressData.append(QVariantMap());
     }
     QList< NetworkManager::IpAddress > addresses=set->addresses();
-    if(addresses.size()==0){
+    if(addresses.size()==0) {
         addresses.append(NetworkManager::IpAddress());
     }
-
     addressData[0]["address"]=p_ipv6;
     addresses[0].setIp(QHostAddress(p_ipv6));
     set->setAddressData(addressData);
@@ -204,24 +200,24 @@ void WiredConnectionSettingsInterface::setIpv6(QString p_ipv6)
 QString WiredConnectionSettingsInterface::getIpv6Sub()
 {
     NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
-    if(set->addresses().size() > 0){
+    if(set->addresses().size() > 0) {
         return set->addresses().at(0).netmask().toString();
-    }else{
+    } else {
         return "";
     }
 }
 
 void WiredConnectionSettingsInterface::setIpv6Sub(QString p_ipv6Sub)
 {
-    if(m_settings!=nullptr){
+    if(m_settings!=nullptr) {
          NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv6Setting>();
          NMVariantMapList addressData=set->addressData();
-         if(addressData.size()==0){
+         if(addressData.size()==0) {
              addressData.append(QVariantMap());
          }
          addressData[0]["prefix"]=p_ipv6Sub.toInt();
          QList< NetworkManager::IpAddress > addresses=set->addresses();
-         if(addresses.size()==0){
+         if(addresses.size()==0) {
              addresses.append(NetworkManager::IpAddress());
          }
          addresses[0].setPrefixLength(p_ipv6Sub.toInt());
