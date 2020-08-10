@@ -7,7 +7,6 @@ import ZeraLocale 1.0
 //
 Item {
     // margin properties
-    property real standardMargin: 0
     property real standardTextHorizMargin: 8
     property real standardTextBottomMargin: 8
 }

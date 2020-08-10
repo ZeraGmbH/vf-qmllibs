@@ -86,14 +86,12 @@ Item {
     verticalAlignment: Text.AlignVCenter
     font.pointSize: root.pointSize
     anchors.left: parent.left
-    anchors.rightMargin: text !== "" ? ZCC.standardMargin : 0
   }
   Item {
     anchors.left: descriptionText.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: unitLabel.left
-    anchors.rightMargin: unitLabel.text !== "" ? ZCC.standardMargin : 0
 
     TextField {
       id: tField
@@ -166,7 +164,6 @@ Item {
     height: parent.height
     font.pointSize: root.pointSize
     anchors.right: parent.right
-    anchors.rightMargin: text !== "" ? ZCC.standardMargin : 0
     verticalAlignment: Text.AlignVCenter
   }
 }

@@ -8,7 +8,7 @@ Button {
 
   // Button has special ideas - force our margins
   background.anchors.fill: root
-  background.anchors.topMargin: ZCC.standardMargin
-  background.anchors.bottomMargin: ZCC.standardMargin
-  background.anchors.rightMargin: ZCC.standardMargin
+  background.anchors.topMargin: 0
+  background.anchors.bottomMargin: 0
+  background.anchors.rightMargin: 0
 }
