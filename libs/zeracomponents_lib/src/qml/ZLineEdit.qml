@@ -87,76 +87,72 @@ Item {
     font.pointSize: root.pointSize
     anchors.left: parent.left
   }
-  Item {
+  TextField {
+    id: tField
     anchors.left: descriptionText.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     anchors.right: unitLabel.left
+    anchors.leftMargin: ZCC.standardTextHorizMargin
+    anchors.rightMargin: ZCC.standardTextHorizMargin
+    horizontalAlignment: Text.AlignRight
+    bottomPadding: ZCC.standardTextBottomMargin
+    font.pointSize: root.pointSize
 
-    TextField {
-      id: tField
-      anchors.fill: parent
-      anchors.leftMargin: ZCC.standardTextHorizMargin
-      anchors.rightMargin: ZCC.standardTextHorizMargin
-      horizontalAlignment: Text.AlignRight
-      bottomPadding: ZCC.standardTextBottomMargin
-      font.pointSize: root.pointSize
-
-      mouseSelectionMode: TextInput.SelectWords
-      selectByMouse: true
-      inputMethodHints: Qt.ImhNoAutoUppercase
-      onAccepted: {
-        if(hasValidInput()) {
-          applyInput()
-          focus = false
-        }
-      }
-      Keys.onEscapePressed: {
-        discardInput()
+    mouseSelectionMode: TextInput.SelectWords
+    selectByMouse: true
+    inputMethodHints: Qt.ImhNoAutoUppercase
+    onAccepted: {
+      if(hasValidInput()) {
+        applyInput()
         focus = false
       }
-      /* Avoid QML magic: when the cursor is at start/end position,
-         left/right keys are used to change tab. We don't want that */
-      Keys.onLeftPressed: {
-        if(cursorPosition > 0 || selectedText !== "") {
-          event.accepted = false;
-        }
+    }
+    Keys.onEscapePressed: {
+      discardInput()
+      focus = false
+    }
+    /* Avoid QML magic: when the cursor is at start/end position,
+       left/right keys are used to change tab. We don't want that */
+    Keys.onLeftPressed: {
+      if(cursorPosition > 0 || selectedText !== "") {
+        event.accepted = false;
       }
-      Keys.onRightPressed: {
-        if(cursorPosition < text.length || selectedText !== "") {
-          event.accepted = false;
-        }
+    }
+    Keys.onRightPressed: {
+      if(cursorPosition < text.length || selectedText !== "") {
+        event.accepted = false;
       }
+    }
 
-      onFocusChanged: {
-        if(changeOnFocusLost && !focus) {
-          if(hasAlteredValue()) {
-            if(hasValidInput()) {
-              applyInput()
-            }
-            else {
-              discardInput()
-            }
+    onFocusChanged: {
+      if(changeOnFocusLost && !focus) {
+        if(hasAlteredValue()) {
+          if(hasValidInput()) {
+            applyInput()
+          }
+          else {
+            discardInput()
           }
         }
-        // Hmm - maybe we should add an option for this...
-        /*else {
-          selectAll()
-        }*/
       }
+      // Hmm - maybe we should add an option for this...
+      /*else {
+        selectAll()
+      }*/
+    }
 
-      Rectangle {
-        color: "red"
-        opacity: 0.2
-        visible: hasValidInput() === false && tField.enabled
-        anchors.fill: parent
-      }
-      Rectangle {
-        color: "green"
-        opacity: 0.2
-        visible: hasValidInput() && tField.enabled && hasAlteredValue()
-        anchors.fill: parent
-      }
+    Rectangle {
+      color: "red"
+      opacity: 0.2
+      visible: hasValidInput() === false && tField.enabled
+      anchors.fill: parent
+    }
+    Rectangle {
+      color: "green"
+      opacity: 0.2
+      visible: hasValidInput() && tField.enabled && hasAlteredValue()
+      anchors.fill: parent
     }
   }
   Label { // compatibility - see comment above
