@@ -4,11 +4,11 @@ import QtQuick.Controls.Material 2.0
 import ZeraComponentsConfig 1.0
 
 Button {
-  id: root
+    id: root
 
-  // Button has special ideas - force our margins
-  background.anchors.fill: root
-  background.anchors.topMargin: 0
-  background.anchors.bottomMargin: 0
-  background.anchors.rightMargin: 0
+    // Button has special ideas - force our margins
+    background.anchors.fill: root
+    background.anchors.topMargin: 0
+    background.anchors.bottomMargin: 0
+    background.anchors.rightMargin: 0
 }
