@@ -5,8 +5,10 @@ import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.12
 import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.12
+import QtQuick.VirtualKeyboard.Settings 2.2
 import anmsettings 1.0
 import ZeraFa 1.0
+import ZeraLocale 1.0
 import ZeraComponents 1.0
 
 Pane{
@@ -129,9 +131,16 @@ Pane{
             pointSize: clientModel.pointSize
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: ipv4Mode.currentText !== "DHCP"
+            // overrides
             function doApplyInput(newText) {
                 backend.ipv4 = newText;
                 return true
+            }
+            function activeFocusChange(actFocus) {
+                baseActiveFocusChange(actFocus)
+                // hack: force virtual keyboard numeric with decimal point
+                textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
+                VirtualKeyboardSettings.locale = actFocus ? "en_GB" : ZLocale.localeName
             }
         }
         ZLineEdit {
@@ -145,9 +154,16 @@ Pane{
             pointSize: clientModel.pointSize
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: ipv4Mode.currentText !== "DHCP"
+            // overrides
             function doApplyInput(newText) {
                 backend.ipv4Sub = newText;
                 return true
+            }
+            function activeFocusChange(actFocus) {
+                baseActiveFocusChange(actFocus)
+                // hack: force virtual keyboard numeric with decimal point
+                textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
+                VirtualKeyboardSettings.locale = actFocus ? "en_GB" : ZLocale.localeName
             }
         }
 
@@ -195,6 +211,7 @@ Pane{
             pointSize: clientModel.pointSize
             validator: RegExpValidator { regExp: /([a-f0-9:]+:+)+[a-f0-9]+/}
             enabled: ipv6Mode.currentText !== "DHCP"
+            // overrides
             function doApplyInput(newText) {
                 backend.ipv6 = newText;
                 return true
@@ -212,6 +229,7 @@ Pane{
             // TODO: This looks like a copy & paste from IPv4
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: ipv6Mode.currentText !== "DHCP"
+            // overrides
             function doApplyInput(newText) {
                 backend.ipv6Sub = newText;
                 return true
