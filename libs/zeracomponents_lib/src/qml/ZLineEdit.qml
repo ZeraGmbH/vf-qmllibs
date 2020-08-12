@@ -37,6 +37,9 @@ Item {
     function discardInput() {
         tField.text = ZLocale.strToLocal(text, isNumeric, isDouble)
     }
+    function activeFocusChange(actFocus) {
+        baseActiveFocusChange(actFocus)
+    }
 
     // signal handler
     onTextChanged: {
@@ -53,6 +56,24 @@ Item {
     }
     onLocaleNameChanged: {
         discardInput()
+    }
+
+    // base implementations
+    function baseActiveFocusChange(actFocus) {
+        if(changeOnFocusLost && !actFocus) {
+            if(hasAlteredValue()) {
+                if(hasValidInput()) {
+                    applyInput()
+                }
+                else {
+                    discardInput()
+                }
+            }
+        }
+        // Hmm - maybe we should add an option for this...
+        /*else {
+            selectAll()
+        }*/
     }
 
     // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
@@ -124,22 +145,8 @@ Item {
                 event.accepted = false;
             }
         }
-
-        onFocusChanged: {
-            if(changeOnFocusLost && !focus) {
-                if(hasAlteredValue()) {
-                    if(hasValidInput()) {
-                        applyInput()
-                    }
-                    else {
-                        discardInput()
-                    }
-                }
-            }
-            // Hmm - maybe we should add an option for this...
-            /*else {
-                selectAll()
-            }*/
+        onActiveFocusChanged: {
+            activeFocusChange(activeFocus)
         }
 
         Rectangle {

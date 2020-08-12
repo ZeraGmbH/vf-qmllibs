@@ -30,7 +30,7 @@ Rectangle {
     readonly property bool modelInitialized: arrayMode === true && model.length>0;
     onModelInitializedChanged: updateFakeModel();
 
-    color: Qt.darker(Material.frameColor, (focus ? 1.25 : 2.0)) //buttonPressColor
+    color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
     //border.color: Material.dropShadowColor
     opacity: enabled ? 1.0 : 0.7
     radius: 4
@@ -72,8 +72,8 @@ Rectangle {
         return text;
     }
 
-    onFocusChanged: {
-        if(!focus) {
+    onActiveFocusChanged: {
+        if(!activeFocus) {
             expanded = false
         }
     }
@@ -132,7 +132,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(root.enabled && root.count > 0) {
-                root.focus = true
+                root.focus = true // here focus is intended
                 root.expanded=true
             }
         }
@@ -212,7 +212,7 @@ Rectangle {
                                 }
                             }
                             selectionDialog.close()
-                            root.focus = false
+                            root.focus = false // here focus is intended
                         }
                     }
 

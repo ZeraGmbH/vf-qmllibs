@@ -31,6 +31,9 @@ Item {
     function discardInput() {
         tField.text = ZLocale.strToLocal(text, isNumeric, isDouble)
     }
+    function activeFocusChange(actFocus) {
+        baseActiveFocusChange(actFocus)
+    }
 
     // signal handler
     onTextChanged: {
@@ -63,6 +66,24 @@ Item {
     onLocaleNameChanged: {
         sBox.locale = ZLocale.getLocale()
         discardInput()
+    }
+
+    // base implementations
+    function baseActiveFocusChange(actFocus) {
+        if(changeOnFocusLost && !inFocusKill && !actFocus) {
+            if(hasAlteredValue()) {
+                if(hasValidInput()) {
+                    applyInput()
+                }
+                else {
+                    discardInput()
+                }
+            }
+        }
+        // Hmm - maybe we should add an option for this...
+        /*else {
+            selectAll()
+        }*/
     }
 
     property var tField: sBox.contentItem
@@ -172,22 +193,8 @@ Item {
                     applyInput()
             }
         }
-
-        onFocusChanged: {
-            if(changeOnFocusLost && !inFocusKill && !focus) {
-                if(hasAlteredValue()) {
-                    if(hasValidInput()) {
-                        applyInput()
-                    }
-                    else {
-                        discardInput()
-                    }
-                }
-            }
-            // Hmm - maybe we should add an option for this...
-            /*else {
-                selectAll()
-            }*/
+        onActiveFocusChanged: {
+            activeFocusChange(activeFocus)
         }
 
         // Background rects
