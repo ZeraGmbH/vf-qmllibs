@@ -11,7 +11,7 @@ import ZeraFa 1.0
 import ZeraLocale 1.0
 import ZeraComponents 1.0
 
-Pane{
+Pane {
     id: rootItm
     padding: 0
     topPadding: 5
@@ -61,13 +61,14 @@ Pane{
         id: clientModel
         readonly property int labelWidth : rootItm.width/4
         readonly property int rowHeight : rootItm.height/12
-        property real pointSize: clientModel.rowHeight / 2.5 // smaller fonts than ZLineEdit default
+        property real pointSize: clientModel.rowHeight / 2.8 // reduce ZLineEdit default slightly
         Label {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
             height: clientModel.rowHeight
             font.pointSize: clientModel.pointSize
+            font.bold: true
             horizontalAlignment: Label.AlignHCenter
             text: "Ethernet Connection Settings"
         }
@@ -248,43 +249,32 @@ Pane{
         clip: true
     }
     //--------------------------
-    // Cancel / Save buttons
-    Button{
-        id: cancel
-        text: "CANCEL"
+    // Cancel / OK buttons
+    ZButton{
+        id: save
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        anchors.margins: 0
-        onClicked: {
-            backend.discard();
-            rootItm.visible = false
-        }
-    }
-    Button{
-        id: save
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.margins: 0
-        text: "SAVE"
+        height: clientModel.rowHeight
+        text: "OK"
         onClicked: {
             var good = true;
             var errorField;
 
-            if(!ipv6.acceptableInput && ipv6.enabled){
+            if(!ipv6.acceptableInput && ipv6.enabled) {
                 good = false;
                 errorField="IPV6 IP"
-            } else if(!sub6.acceptableInput && sub6.enabled){
+            } else if(!sub6.acceptableInput && sub6.enabled) {
                 good = false;
-                errorField="IPV6 SUBNETMASK"
-            } else if(!ipv4.acceptableInput &&ipv4.enabled){
+                errorField="IPV6 Subnetmask"
+            } else if(!ipv4.acceptableInput &&ipv4.enabled) {
                 good = false;
                 errorField="IPV4 IP"
-            } else if(!sub4.acceptableInput && sub4.enabled){
+            } else if(!sub4.acceptableInput && sub4.enabled) {
                 good = false;
-                errorField="IPV4 SUBNETMASK"
+                errorField="IPV4 Subnetmask"
             } else if(!name.acceptableInput){
                 good = false;
-                errorField="NAME"
+                errorField="Name"
             }
             if(good) {
                 backend.save();
@@ -294,13 +284,15 @@ Pane{
             }
         }
     }
+    ZButton{
+        id: cancel
+        anchors.right: parent.right
+        anchors.bottom: parent.bottom
+        height: clientModel.rowHeight
+        text: "Cancel"
+        onClicked: {
+            backend.discard();
+            rootItm.visible = false
+        }
+    }
 }
-
-
-
-
-
-
-
-
-
