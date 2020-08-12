@@ -7,6 +7,7 @@ import QtQuick.Controls.Styles 1.4
 import QtQuick.Controls.Material 2.12
 import anmsettings 1.0
 import ZeraFa 1.0
+import ZeraComponents 1.0
 
 Pane{
     id: rootItm
@@ -56,43 +57,32 @@ Pane{
     }
     VisualItemModel {
         id: clientModel
-        property int labelWidth : rootItm.width/4
+        readonly property int labelWidth : rootItm.width/4
+        readonly property int rowHeight : rootItm.height/12
+        property real pointSize: clientModel.rowHeight / 2.5 // smaller fonts than ZLineEdit default
         Label {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: 18
+            height: clientModel.rowHeight
+            font.pointSize: clientModel.pointSize
             horizontalAlignment: Label.AlignHCenter
-            text: "ETHERNET CONNECTION SETTINGS"
+            text: "Ethernet Connection Settings"
         }
         //--------------------------
         // Connection name area
-        RowLayout {
-            id: conName
+        ZLineEdit {
+            id: name
             anchors.left: parent.left
             anchors.right: parent.right
-            Label{
-                id: nameLabel
-                text: "CONNECTION NAME"
-                Layout.preferredWidth: clientModel.labelWidth
-            }
-            TextField {
-                id: name
-                Layout.fillWidth: true
-                validator: RegExpValidator{ regExp: /.{3,}/ }
-                Material.accent:  {
-                    if(!acceptableInput) {
-                        return Material.Red;
-                    } else {
-                        return Material.Green;
-                    }
-                }
-                Keys.onEscapePressed: {
-                  focus = false
-                }
-                onEditingFinished: {
-                    backend.conName = text;
-                }
+            height: clientModel.rowHeight
+            pointSize: clientModel.pointSize
+            description.text: "Connection name"
+            description.width: clientModel.labelWidth
+            validator: RegExpValidator{ regExp: /.{3,}/ }
+            function doApplyInput(newText) {
+                backend.conName = newText;
+                return true
             }
         }
         //--------------------------
@@ -101,103 +91,63 @@ Pane{
             id: ipv4header
             anchors.left: parent.left
             anchors.right: parent.right
+            height: clientModel.rowHeight
+            font.pointSize: clientModel.pointSize
             font.bold: true
-            text: "IPV4"
+            text: "IPv4"
         }
         RowLayout {
             id: ipv4ModeL
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
             Label {
                 id: ipv4ModeLabel
-                text: "MODE"
+                text: "Mode"
                 Layout.preferredWidth: clientModel.labelWidth
+                font.pointSize: clientModel.pointSize
             }
             ComboBox {
                 id: ipv4Mode
+                height: clientModel.rowHeight
                 Layout.fillWidth: true
+                font.pointSize: clientModel.pointSize
                 model: ["DHCP", "MANUAL"]
                 onCurrentIndexChanged: {
                     backend.ipv4Mode = model[currentIndex]
                 }
             }
         }
-        RowLayout {
-            id: ipv4ip
+        ZLineEdit {
+            id: ipv4
             anchors.left: parent.left
-            anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
-            Label {
-                id: ipv4ipLabel
-                text: "IP"
-                Layout.preferredWidth: clientModel.labelWidth
-            }
-            TextField {
-                id: ipv4
-                horizontalAlignment : TextInput.AlignRight
-                Layout.fillWidth: true
-                validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
-                Material.accent:  {
-                    if(!acceptableInput) {
-                        return Material.Red;
-                    } else {
-                        return Material.Green;
-                    }
-                }
-                Keys.onEscapePressed: {
-                  focus = false
-                }
-                onEditingFinished: {
-                    backend.ipv4 = text;
-                }
-                enabled: {
-                    if(ipv4Mode.currentText === "DHCP"){
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
+            anchors.right: parent.right
+            description.text: "IP"
+            description.width: clientModel.labelWidth
+            height: clientModel.rowHeight
+            pointSize: clientModel.pointSize
+            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            enabled: ipv4Mode.currentText !== "DHCP"
+            function doApplyInput(newText) {
+                backend.ipv4 = newText;
+                return true
             }
         }
-        RowLayout {
-            id: ipv4Sub
+        ZLineEdit {
+            id: sub4
             anchors.left: parent.left
-            anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
-            Label {
-                id: ipv4SubLabel
-                text: "SUBNETMASK"
-                Layout.preferredWidth: clientModel.labelWidth
-            }
-            TextField {
-                id: sub4
-                horizontalAlignment : TextInput.AlignRight
-                Layout.fillWidth: true
-                validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
-                Material.accent:  {
-                    if(!acceptableInput) {
-                        return Material.Red;
-                    } else {
-                        return Material.Green;
-                    }
-                }
-                enabled: {
-                    if(ipv4Mode.currentText === "DHCP") {
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                Keys.onEscapePressed: {
-                    focus = false
-                }
-                onEditingFinished: {
-                    backend.ipv4Sub = text;
-                }
+            anchors.right: parent.right
+            description.text: "Subnetmask"
+            description.width: clientModel.labelWidth
+            height: clientModel.rowHeight
+            pointSize: clientModel.pointSize
+            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            enabled: ipv4Mode.currentText !== "DHCP"
+            function doApplyInput(newText) {
+                backend.ipv4Sub = newText;
+                return true
             }
         }
 
@@ -207,105 +157,69 @@ Pane{
             id: ipv6header
             anchors.left: parent.left
             anchors.right: parent.right
+            height: clientModel.rowHeight
+            font.pointSize: clientModel.pointSize
             font.bold: true
-            text: "IPV6"
+            text: "IPv6"
         }
         RowLayout {
             id: ipv6ModeL
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
             Label {
                 id: ipv6ModeLabel
-                text: "MODE"
+                text: "Mode"
                 Layout.preferredWidth: clientModel.labelWidth
+                font.pointSize: clientModel.pointSize
             }
             ComboBox {
                 id: ipv6Mode
+                height: clientModel.rowHeight
                 Layout.fillWidth: true
+                font.pointSize: clientModel.pointSize
                 model: ["DHCP", "MANUAL"]
                 onCurrentIndexChanged: {
                     backend.ipv6Mode = model[currentIndex]
                 }
             }
         }
-        RowLayout {
-            id: ipv6ip
+        ZLineEdit {
+            id: ipv6
             anchors.left: parent.left
-            anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
-            Label {
-                id: ipv6ipLabel
-                text: "IP"
-                Layout.preferredWidth: clientModel.labelWidth
-            }
-            TextField {
-                id: ipv6
-                horizontalAlignment : TextInput.AlignRight
-                validator: RegExpValidator { regExp: /([a-f0-9:]+:+)+[a-f0-9]+/}
-                Material.accent:  {
-                    if(!acceptableInput){
-                        return Material.Red;
-                    } else {
-                        return Material.Green;
-                    }
-                }
-                Layout.fillWidth: true
-                enabled: {
-                    if(ipv6Mode.currentText === "DHCP"){
-                        return false;
-                    } else {
-                        return true;
-                    }
-                }
-                onEditingFinished: {
-                    backend.ipv6 = text;
-                }
+            anchors.right: parent.right
+            description.text: "IP"
+            description.width: clientModel.labelWidth
+            height: clientModel.rowHeight
+            pointSize: clientModel.pointSize
+            validator: RegExpValidator { regExp: /([a-f0-9:]+:+)+[a-f0-9]+/}
+            enabled: ipv6Mode.currentText !== "DHCP"
+            function doApplyInput(newText) {
+                backend.ipv6 = newText;
+                return true
             }
         }
-        RowLayout {
-            id: ipv6Sub
+        ZLineEdit {
+            id: sub6
             anchors.left: parent.left
-            anchors.right: parent.right
             anchors.leftMargin: 20
-            spacing: 0
-            Label{
-                id: ipv6SubLabel
-                text: "SUBNETMASK"
-                Layout.preferredWidth: clientModel.labelWidth
-            }
-            TextField {
-                id: sub6
-                horizontalAlignment : TextInput.AlignRight
-                Layout.fillWidth: true
-                validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
-                Material.accent:  {
-                    if(!acceptableInput){
-                        return Material.Red;
-                    } else{
-                        return Material.Green;
-                    }
-                }
-                enabled: {
-                    if(ipv6Mode.currentText === "DHCP"){
-                        return false;
-                    } else{
-                        return true;
-                    }
-                }
-                Keys.onEscapePressed: {
-                    focus = false
-                }
-                onEditingFinished: {
-                    backend.ipv6Sub = text;
-                }
+            anchors.right: parent.right
+            description.text: "Subnetmask"
+            description.width: clientModel.labelWidth
+            height: clientModel.rowHeight
+            pointSize: clientModel.pointSize
+            // TODO: This looks like a copy & paste from IPv4
+            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            enabled: ipv6Mode.currentText !== "DHCP"
+            function doApplyInput(newText) {
+                backend.ipv6Sub = newText;
+                return true
             }
         }
     }
     //--------------------------
-    // What's this list?
+    // This is the list view for VisualItemModel id:clientModel
     ListView {
         id: list
         anchors.top: parent.top
