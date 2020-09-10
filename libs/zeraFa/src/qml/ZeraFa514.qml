@@ -28,14 +28,21 @@ Item {
         id: variables
     }
 
-    function icon(symbols, color) {
-        var colorStart="";
-        var colorEnd="";
-        if(color!=null) //implicit conversion is intentional
-        {
-            colorStart="<font color='"+color+"'>";
-            colorEnd="</font>";
+    // Tiny helper for colored glyphs
+    function colorize(glyph, color) {
+        var colorStart = "";
+        var colorEnd = "";
+        if(color !== "") {
+            colorStart = "<font color='" + color + "'>";
+            colorEnd = "</font>";
         }
-        return colorStart+symbols+" "+colorEnd;
+        return colorStart + glyph + colorEnd;
+    }
+
+    // Tiny helper just appending a space after glyph
+    // just for sake of compatibility - suggested usage:
+    // text: icon(glyph, color) + "your text"
+    function icon(glyph, color) {
+        return colorize(glyph + " ", color)
     }
 }
