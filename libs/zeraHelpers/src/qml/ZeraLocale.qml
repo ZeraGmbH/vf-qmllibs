@@ -10,10 +10,19 @@ Item {
 
     // convenient getters
     function getLocale() {
-        return Qt.locale(localeName)
+        if(!_locale_) {
+            _locale_ = Qt.locale(localeName)
+        }
+        return _locale_
     }
     function getDecimalPoint() {
         return getLocale().decimalPoint
+    }
+
+    // internal helpers
+    property var _locale_
+    onLocaleNameChanged: {
+        _locale_ = Qt.locale(localeName)
     }
 
     // Locale -> C string conversions
