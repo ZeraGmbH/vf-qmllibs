@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
     //This following line is not neccesary, if you run in qtCreator
     //For more information take a look into the Readmes
-    //engine.addImportPath("<your path>/usr/lib64/zera-qml-modules");
+    engine.addImportPath("qrc:/src/qml/");
     engine.load(QUrl(QLatin1String("qrc:/main.qml")));
     if (engine.rootObjects().isEmpty()) {
         return -1;

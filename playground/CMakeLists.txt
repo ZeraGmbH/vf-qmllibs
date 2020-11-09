@@ -53,9 +53,8 @@ target_link_libraries(
         Qt5::Xml
         Qt5::Widgets
         ZeraTranslation::ZeraTranslation
-        #vfnetworkmanager
-        #zeracomplib
         anmlib
+        qmlhelpers
         zeracomponents
         notificationmanager
         uivlib

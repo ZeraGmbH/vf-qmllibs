@@ -5,7 +5,8 @@ import QtQuick.Layouts 1.12
 import ZeraFa 1.0
 import anmsettings 1.0
 import ZeraTranslation 1.0
-import "qrc:/src/qml/settings"
+//import "qrc:/src/qml/advancednetworkmanager/settings"
+import advancednetworkmanager 1.0
 
 Pane {
     id: rootItm
@@ -56,7 +57,7 @@ Pane {
         id: infotab
         ConnectionInfo {
             anchors.top: parent.top
-            anchors.bottom: showall.top
+            //anchors.bottom: showall.top
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 0

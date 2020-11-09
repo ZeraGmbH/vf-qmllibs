@@ -4,9 +4,10 @@ import SortFilterProxyModel 0.2
 import QtQuick.Layouts 1.12
 import anmsettings 1.0
 import ZeraFa 1.0
-import "qrc:/src/qml/settings"
-import "qrc:/src/qml/tree"
+import "qrc:/src/qml/advancednetworkmanager/settings/"
+import "qrc:/src/qml/advancednetworkmanager/tree/"
 
+import advancednetworkmanager 1.0
 
 Pane{
     id: rootItm
@@ -25,6 +26,9 @@ Pane{
         anchors.fill: parent
         onNotification: {
             rootItm.notification(title, msg);
+        }
+        Component.onCompleted: {
+            console.log("test")
         }
     }
 }

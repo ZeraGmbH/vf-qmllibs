@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>src/qml/advancednetworkmanager/tree/ConnectionTree.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/ConnectionRowAdvanced.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/SignalIcon.qml</file>
+        <file>src/qml/advancednetworkmanager/settings/WifiSettings.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/SmartConnect.qml</file>
+        <file>src/qml/advancednetworkmanager/settings/AvailableApDialog.qml</file>
+        <file>src/qml/advancednetworkmanager/settings/EthernetSettings.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/ConnectionInfo.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/DeviceDialog.qml</file>
+        <file>src/qml/advancednetworkmanager/NetworkManager.qml</file>
+        <file>src/qml/advancednetworkmanager/tree/PasswordDialog.qml</file>
+        <file>src/qml/advancednetworkmanager/settings/AvailableDevDialog.qml</file>
+        <file>src/qml/advancednetworkmanager/qmldir</file>
+    </qresource>
+</RCC>

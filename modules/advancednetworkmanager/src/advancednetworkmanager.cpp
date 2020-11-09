@@ -3,6 +3,7 @@
 #include <QCoreApplication>
 #include <QtQml/QtQml>
 #include <zeratranslationplugin.h>
+#include <QQmlEngine>
 
 void AdvancedNetworkmanager::init()
 {

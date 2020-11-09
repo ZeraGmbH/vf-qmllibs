@@ -29,17 +29,13 @@ ApplicationWindow {
 
 
     Loader {
-        id: netLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    } //Networksettings Loader
-
-
-    Loader {
         id: compLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
     } //Networksettings Loader
+
+
+
 
     Loader {
         id: anmLoader
@@ -66,28 +62,7 @@ ApplicationWindow {
         columns: 2
 
         //Networkcomponents checkbox
-        CheckBox{
-            id: showNetComp
-            checked: false;
-            Layout.fillWidth: true;
-            text: "Load netComp"
-            Component.onCompleted: {
-                if(checked){
-                    netLoader.active=true;
-                    netLoader.source = "Networksettings.qml";
-                }else{
-                    netLoader.active=false;
-                }
-            }
-            onCheckStateChanged: {
-                if(checked){
-                    netLoader.active=true;
-                    netLoader.source = "Networksettings.qml";
-                }else{
-                    netLoader.active=false;
-                }
-            }
-        }
+
 
 
         CheckBox{

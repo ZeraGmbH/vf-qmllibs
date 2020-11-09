@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/NotificationManager.qml</file>
-        <file>src/qml/Notification.qml</file>
+        <file>src/qml/notificationmanager/NotificationManager.qml</file>
+        <file>src/qml/notificationmanager/Notification.qml</file>
+        <file>src/qml/notificationmanager/qmldir</file>
     </qresource>
 </RCC>

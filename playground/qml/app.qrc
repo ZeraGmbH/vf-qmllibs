@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
-        <file>Networksettings.qml</file>
         <file>../qtquickcontrols2.conf</file>
         <file>zeracomps.qml</file>
         <file>anmsettings.qml</file>

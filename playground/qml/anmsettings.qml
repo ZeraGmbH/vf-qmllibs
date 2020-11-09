@@ -8,9 +8,15 @@ import Qt.labs.platform 1.0
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
+import advancednetworkmanager 1.0
+import notificationmanager 1.0
+
+
 import "qrc:/"
-import "qrc:/src/qml/"
-import "qrc:/src/qml/tree"
+//import "qrc:/src/qml/advancednetworkmanager/"
+//import "qrc:/src/qml/advancednetworkmanager/tree"
+//notificationmanager
+import "qrc:/src/qml"
 
 ApplicationWindow {
     id: mainWindow

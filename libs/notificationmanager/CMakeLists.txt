@@ -48,7 +48,7 @@ file(GLOB_RECURSE APP_SOURCES
     src/*.cpp
     )
 
-set(OTHER_FILES qmldir plugins.qmltypes)
+set(OTHER_FILES )
 
 HEADER_DIRECTORIES("src" header_dir_list)
 include_directories(${header_dir_list})

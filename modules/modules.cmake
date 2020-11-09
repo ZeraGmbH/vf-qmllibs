@@ -1,1 +1,1 @@
-add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/advancednetworkmanger_lib)
+add_subdirectory(${CMAKE_CURRENT_LIST_DIR}/advancednetworkmanager)
