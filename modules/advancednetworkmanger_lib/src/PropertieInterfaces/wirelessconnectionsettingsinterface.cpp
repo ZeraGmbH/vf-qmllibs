@@ -7,7 +7,7 @@ WirelessConnectionSettingsInterface::WirelessConnectionSettingsInterface(QObject
 
 void WirelessConnectionSettingsInterface::saveAndActivate(const QString &p_devUni,const QString &p_apPath)
 {
-    if(m_connection == NULL && m_settings != NULL){
+    if(m_settings != NULL){
         NMVariantMapMap map = m_settings->toMap();
         NetworkManager::Connection::Ptr con = NetworkManager::findConnection(p_apPath);
         if(con==NULL){

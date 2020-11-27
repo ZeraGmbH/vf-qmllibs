@@ -25,7 +25,13 @@ Dialog {
             backend.ssid = ssid;
             backend.mode = "CLIENT";
         }else{
+            rootItm.path = path;
             backend.load(rootItm.path)
+            pw.text = backend.password
+            rootItm.device = device;
+            backend.conName = ssid;
+            backend.ssid = ssid;
+            backend.mode = "CLIENT";
         }
 
     }
@@ -46,6 +52,7 @@ Dialog {
                 echoMode: TextInput.Password
                 Layout.fillWidth: true
                 validator: RegExpValidator{ regExp: /.{8,}/}
+                horizontalAlignment: Text.AlignRight
                 Material.accent: {
                     if(!acceptableInput) {
                         return Material.Red;
