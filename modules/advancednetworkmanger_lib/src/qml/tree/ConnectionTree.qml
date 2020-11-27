@@ -151,7 +151,7 @@ Pane {
         property string ssid: ""
         property string device: ""
         property string path: ""
-        property string newCon: ""
+        property bool newCon: true
         onLoaded: {
             item.init(ssid,device,path,newCon)
         }
