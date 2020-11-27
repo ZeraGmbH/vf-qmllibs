@@ -62,8 +62,14 @@ Dialog {
                 }
                 //focus: true
                 Keys.onEscapePressed: {
-                  focus = false
+                    focus = false;
                 }
+
+                Keys.onReturnPressed: {
+                    backend.password=text;
+                    rootItm.accept();
+                }
+
                 onEditingFinished: {
                     backend.password=text;
                 }
