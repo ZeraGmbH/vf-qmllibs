@@ -183,7 +183,7 @@ Item {
     readonly property string fa_deviantart              : "\uf1bd"
     readonly property string fa_digg                    : "\uf1a6"
     readonly property string fa_dollar                  : "\uf155"
-    readonly property string fa_dot_circle_o            : "\uf192"
+    readonly property string fa_dot_circle              : "\uf192"
     readonly property string fa_download                : "\uf019"
     readonly property string fa_dribbble                : "\uf17d"
     readonly property string fa_dropbox                 : "\uf16b"
