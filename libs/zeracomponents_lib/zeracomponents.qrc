@@ -1,12 +1,12 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/ZButton.qml</file>
-        <file>src/qml/ZComboBox.qml</file>
-        <file>src/qml/ZDoubleValidator.qml</file>
-        <file>src/qml/ZLineEdit.qml</file>
-        <file>src/qml/ZSpinBox.qml</file>
-        <file>src/qml/ZUnitComboBox.qml</file>
-        <file>src/qml/ZVisualComboBox.qml</file>
-        <file>src/qml/ZeraComponentsConfig.qml</file>
+        <file>src/qml/ZeraComponents/ZButton.qml</file>
+        <file>src/qml/ZeraComponents/ZComboBox.qml</file>
+        <file>src/qml/ZeraComponents/ZDoubleValidator.qml</file>
+        <file>src/qml/ZeraComponents/ZLineEdit.qml</file>
+        <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
+        <file>src/qml/ZeraComponents/ZUnitComboBox.qml</file>
+        <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
+        <file>src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
     </qresource>
 </RCC>
