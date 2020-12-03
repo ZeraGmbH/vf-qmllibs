@@ -144,7 +144,8 @@ Item {
         valueFromText: function(text, locale) {
             if (isNumeric) {
                 if(isDouble) {
-                    return Number.fromLocaleString(locale, text)*Math.pow(10, validator.decimals)
+                    var str = ZLocale.strToLocal(text, isNumeric, isDouble)
+                    return Number.fromLocaleString(locale, str)*Math.pow(10, validator.decimals)
                 }
                 else {
                     return parseInt(text, 10)
