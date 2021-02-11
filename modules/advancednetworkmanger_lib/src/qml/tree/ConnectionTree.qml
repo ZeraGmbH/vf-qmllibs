@@ -1,6 +1,8 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.12
 import SortFilterProxyModel 0.2
+import QtQuick.Controls 2.0
+import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.12
 import ZeraFa 1.0
 import anmsettings 1.0
@@ -394,13 +396,15 @@ Pane {
         visible: false
         text: Z.tr("BLUETOOTH")
     }
-    Button {
+    ToolButton {
         id: infoButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         font.family: FA.old
         text: FA.fa_info_circle
         font.pixelSize: 22
+        highlighted: infoLoader.active
+        Material.accent: Material.Amber
         background: Rectangle{
             color: "transparent"
         }
