@@ -67,6 +67,48 @@ QVariant InfoInterface::data(const QModelIndex &index, int role) const
 void InfoInterface::addActiveConnection(const QString &p_path)
 {
     NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(p_path);
+    // The connection data can change. They are also available later than the object.
+    // So we connect the change event with this lambda function which updates the model.
+    connect(acon.data(),&NetworkManager::ActiveConnection::ipV4ConfigChanged,[this,acon](){
+        if(!acon.isNull()){
+            // Searching for the corresponding model object using the path.
+            for(int i = 0; i < this->m_activeCons.size(); ++i){
+                if(m_activeCons[i].path==acon->path()){
+                    if(acon->ipV4Config().addresses().size()>0){
+                        m_activeCons[i].ipv4 = acon->ipV4Config().addresses().at(0).ip().toString();
+                    }else{
+                        m_activeCons[i].ipv4 = "N/A";
+                    }
+                    if(acon->ipV4Config().addresses().size()>0){
+                        m_activeCons[i].subnetmask = acon->ipV4Config().addresses().at(0).netmask().toString();
+                    }else{
+                        m_activeCons[i].subnetmask = "N/A";
+                    }
+                    emit this->dataChanged(this->index(i),this->index(i));
+                    break;
+                }
+            }
+        }
+
+    });
+    connect(acon.data(),&NetworkManager::ActiveConnection::ipV6ConfigChanged,[this,acon](){
+        if(!acon.isNull()){
+            // Searching for the corresponding model object using the path.
+            for(int i = 0; i < this->m_activeCons.size(); ++i){
+                if(m_activeCons[i].path==acon->path()){
+                    if(acon->ipV6Config().addresses().size()>0){
+                        m_activeCons[i].ipv6= acon->ipV6Config().addresses().at(0).ip().toString();
+                    }else{
+                        m_activeCons[i].ipv6 = "N/A";
+                    }
+                    emit this->dataChanged(this->index(i),this->index(i));
+                    break;
+                }
+            }
+        }
+
+    });
+
     if(acon != NULL){
         const int index = m_activeCons.size();
         emit beginInsertRows(QModelIndex(), index, index);
