@@ -71,48 +71,41 @@ void PhasorDiagram::drawVoltageArrows(QPainter *t_painter, float t_factor)
 
     drawArrowHead(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
     drawVectorLine(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
-    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10)
-    {
+    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10) {
         drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
     }
 
     drawArrowHead(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
     drawVectorLine(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
-    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage * t_factor / 10)
-    {
+    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage * t_factor / 10) {
         drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
     }
 
     drawArrowHead(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
     drawVectorLine(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
-    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage * t_factor / 10)
-    {
+    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage * t_factor / 10) {
         drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
     }
 }
 
 void PhasorDiagram::drawCurrentArrows(QPainter *t_painter)
 {
-    if(m_currentVisible)
-    {
+    if(m_currentVisible) {
         drawVectorLine(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
         drawArrowHead(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
-        if(m_vector4Label.isEmpty() == false && m_vector4.length() > m_maxCurrent / 10)
-        {
+        if(m_vector4Label.isEmpty() == false && m_vector4.length() > m_maxCurrent / 10) {
             drawLabel(t_painter, m_vector4Label, atan2(m_vector4.y(), m_vector4.x()), m_vector4Color, 0.5, m_labelPhiOffset);
         }
 
         drawVectorLine(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
         drawArrowHead(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
-        if(m_vector5Label.isEmpty() == false && m_vector5.length() > m_maxCurrent / 10)
-        {
+        if(m_vector5Label.isEmpty() == false && m_vector5.length() > m_maxCurrent / 10) {
             drawLabel(t_painter, m_vector5Label, atan2(m_vector5.y(), m_vector5.x()), m_vector5Color, 0.5, m_labelPhiOffset);
         }
 
         drawVectorLine(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
         drawArrowHead(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
-        if(m_vector6Label.isEmpty() == false && m_vector6.length() > m_maxCurrent / 10)
-        {
+        if(m_vector6Label.isEmpty() == false && m_vector6.length() > m_maxCurrent / 10) {
             drawLabel(t_painter, m_vector6Label, atan2(m_vector6.y(), m_vector6.x()), m_vector6Color, 0.5, m_labelPhiOffset);
         }
     }
@@ -120,8 +113,6 @@ void PhasorDiagram::drawCurrentArrows(QPainter *t_painter)
 
 void PhasorDiagram::drawTriangle(QPainter *t_painter)
 {
-
-
     //Scale vectors and convert to x/y
     //v1
     const float v1Phi = atan2(m_vector1.y(), m_vector1.x()) - m_phiOrigin;
@@ -154,35 +145,28 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     grd3.setColorAt(0,m_vector3Color);
     grd3.setColorAt(1,m_vector1Color);
 
-
     //--Draw--//////////////////////// v1 -> v2
     t_painter->setPen(QPen(grd1, 2));
     t_painter->drawLine(v1X, v1Y,v2X, v2Y);
 
-
     //--Draw--//////////////////////// v2 -> v3
     t_painter->setPen(QPen(grd2, 2));
     t_painter->drawLine(v2X, v2Y,v3X, v3Y);
-
-
 
     //--Draw--//////////////////////// v3 -> v1
     t_painter->setPen(QPen(grd3, 2));
     t_painter->drawLine(v3X, v3Y,v1X, v1Y);
 
 
-    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10)
-    {
+    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
         drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
     }
 
-    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10)
-    {
+    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
         drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
     }
 
-    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage / 10)
-    {
+    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage / 10) {
         drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
     }
 }
@@ -192,8 +176,7 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
     t_painter->setPen(QPen(Qt::gray, 1));
 
     //grid
-    if(m_gridVisible)
-    {
+    if(m_gridVisible) {
         //x axis
         t_painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
 
@@ -202,8 +185,7 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
     }
 
     //circle
-    if(m_circleVisible)
-    {
+    if(m_circleVisible) {
         t_painter->drawArc(m_fromX-(m_gridScale * m_circleValue), m_fromY-(m_gridScale * m_circleValue),2 * m_gridScale * m_circleValue,2 * m_gridScale * m_circleValue, 0, 5760);
     }
 }
@@ -247,33 +229,27 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     m_vector6Label = realItem->vector6Label();
 
     QList<double> tmpData = realItem->vector1Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector1 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
     tmpData = realItem->vector2Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector2 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
     tmpData = realItem->vector3Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector3 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
     tmpData = realItem->vector4Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector4 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
     tmpData = realItem->vector5Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector5 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
     tmpData = realItem->vector6Data();
-    if(tmpData.length() > 1)
-    {
+    if(tmpData.length() > 1) {
         m_vector6 = QVector2D(tmpData.at(0), tmpData.at(1));
     }
 }
@@ -295,23 +271,16 @@ void PhasorDiagram::paint(QPainter *t_painter)
     switch(m_vectorView)
     {
     case PhasorDiagram::VectorView::VIEW_STAR:
-    {
         drawVoltageArrows(t_painter);
         drawCurrentArrows(t_painter);
         break;
-    }
     case PhasorDiagram::VectorView::VIEW_TRIANGLE:
-    {
         drawTriangle(t_painter);
         drawCurrentArrows(t_painter);
         break;
-    }
     case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
-    {
         drawVoltageArrows(t_painter, sqrt(3.0f)); //concatenated voltage
         drawCurrentArrows(t_painter);
         break;
     }
-    }
 }
-
