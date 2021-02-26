@@ -67,8 +67,6 @@ void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QCol
 
 void PhasorDiagram::drawVoltageArrows(QPainter *t_painter, float t_factor)
 {
-    m_defaultFont.setPixelSize(20);
-
     drawArrowHead(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
     drawVectorLine(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
     if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10) {
@@ -257,7 +255,6 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
 
 PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 {
-    m_defaultFont.setPixelSize(20);
     m_vector1Data.append(10);
     m_vector1Data.append(20);
 }
@@ -266,6 +263,7 @@ PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 void PhasorDiagram::paint(QPainter *t_painter)
 {
     synchronize((QQuickItem*)this);
+    m_defaultFont.setPixelSize(height() / 25);
     drawGridAndCircle(t_painter);
 
     switch(m_vectorView)
