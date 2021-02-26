@@ -27,7 +27,7 @@ void PhasorDiagram::drawLabel(QPainter *t_painter, const QString &t_label, float
 void PhasorDiagram::drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue)
 {
     t_painter->setPen(QPen(t_color, 2));
-    float arrowHeadSize = 12.0f;
+    float arrowHeadSize = height() / 35;
 
     const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
     const float tmpToX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
