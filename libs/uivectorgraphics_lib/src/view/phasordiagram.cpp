@@ -67,44 +67,54 @@ void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QCol
 
 void PhasorDiagram::drawVoltageArrows(QPainter *t_painter, float t_factor)
 {
-    drawArrowHead(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
-    drawVectorLine(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
-    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10) {
-        drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
+    if(m_vector1.length() > m_minVoltage) {
+        drawArrowHead(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
+        drawVectorLine(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
+        if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10) {
+            drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
+        }
     }
-
-    drawArrowHead(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
-    drawVectorLine(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
-    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage * t_factor / 10) {
-        drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
+    if(m_vector2.length() > m_minVoltage) {
+        drawArrowHead(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
+        drawVectorLine(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
+        if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage * t_factor / 10) {
+            drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
+        }
     }
-
-    drawArrowHead(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
-    drawVectorLine(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
-    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage * t_factor / 10) {
-        drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
+    if(m_vector3.length() > m_minVoltage) {
+        drawArrowHead(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
+        drawVectorLine(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
+        if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage * t_factor / 10) {
+            drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
+        }
     }
 }
 
 void PhasorDiagram::drawCurrentArrows(QPainter *t_painter)
 {
     if(m_currentVisible) {
-        drawVectorLine(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
-        drawArrowHead(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
-        if(m_vector4Label.isEmpty() == false && m_vector4.length() > m_maxCurrent / 10) {
-            drawLabel(t_painter, m_vector4Label, atan2(m_vector4.y(), m_vector4.x()), m_vector4Color, 0.5, m_labelPhiOffset);
+        if(m_vector4.length() > m_minCurrent) {
+            drawVectorLine(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
+            drawArrowHead(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
+            if(m_vector4Label.isEmpty() == false && m_vector4.length() > m_maxCurrent / 10) {
+                drawLabel(t_painter, m_vector4Label, atan2(m_vector4.y(), m_vector4.x()), m_vector4Color, 0.5, m_labelPhiOffset);
+            }
         }
 
-        drawVectorLine(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
-        drawArrowHead(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
-        if(m_vector5Label.isEmpty() == false && m_vector5.length() > m_maxCurrent / 10) {
-            drawLabel(t_painter, m_vector5Label, atan2(m_vector5.y(), m_vector5.x()), m_vector5Color, 0.5, m_labelPhiOffset);
+        if(m_vector5.length() > m_minCurrent) {
+            drawVectorLine(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
+            drawArrowHead(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
+            if(m_vector5Label.isEmpty() == false && m_vector5.length() > m_maxCurrent / 10) {
+                drawLabel(t_painter, m_vector5Label, atan2(m_vector5.y(), m_vector5.x()), m_vector5Color, 0.5, m_labelPhiOffset);
+            }
         }
 
-        drawVectorLine(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
-        drawArrowHead(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
-        if(m_vector6Label.isEmpty() == false && m_vector6.length() > m_maxCurrent / 10) {
-            drawLabel(t_painter, m_vector6Label, atan2(m_vector6.y(), m_vector6.x()), m_vector6Color, 0.5, m_labelPhiOffset);
+        if(m_vector6.length() > m_minCurrent) {
+            drawVectorLine(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
+            drawArrowHead(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
+            if(m_vector6Label.isEmpty() == false && m_vector6.length() > m_maxCurrent / 10) {
+                drawLabel(t_painter, m_vector6Label, atan2(m_vector6.y(), m_vector6.x()), m_vector6Color, 0.5, m_labelPhiOffset);
+            }
         }
     }
 }
@@ -200,7 +210,9 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     m_fromY = realItem->fromY();
     m_phiOrigin = realItem->phiOrigin();
     m_gridScale = realItem->gridScale();
+    m_minVoltage = realItem->minVoltage();
     m_maxVoltage = realItem->maxVoltage();
+    m_minCurrent = realItem->minCurrent();
     m_maxCurrent = realItem->maxCurrent();
     m_currentVisible = realItem->currentVisible();
     m_vectorView = realItem->vectorView();
