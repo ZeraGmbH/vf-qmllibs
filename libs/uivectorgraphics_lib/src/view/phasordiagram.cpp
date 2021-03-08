@@ -39,8 +39,8 @@ void PhasorDiagram::drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColo
     if((pixelScale(t_maxValue) * t_vector.length()) != 0){
         QVector<QPoint> points = {
             QPoint(tmpToX, tmpToY),
-            QPoint(tmpToX - arrowHeadSize * cos(angle - M_PI / 6),tmpToY - arrowHeadSize * sin(angle - M_PI / 6)),
-            QPoint(tmpToX - arrowHeadSize * cos(angle + M_PI / 6), tmpToY - arrowHeadSize * sin(angle + M_PI / 6)),
+            QPoint(tmpToX - arrowHeadSize * cos(angle - M_PI / 8),tmpToY - arrowHeadSize * sin(angle - M_PI / 8)),
+            QPoint(tmpToX - arrowHeadSize * cos(angle + M_PI / 8), tmpToY - arrowHeadSize * sin(angle + M_PI / 8)),
         };
 
         QPolygon poly(points);
