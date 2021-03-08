@@ -7,6 +7,8 @@
 
 // HelloItemPainter contains the painting code
 
+static constexpr float LABEL_ROTATE_ANGLE =  -25.0 * M_PI/180;
+
 float PhasorDiagram::pixelScale(float t_base)
 {
     return std::min(height(), width())/t_base/2;
@@ -65,56 +67,110 @@ void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QCol
     t_painter->drawLine(m_fromX, m_fromY, tmpX, tmpY);
 }
 
-void PhasorDiagram::drawVoltageArrows(QPainter *t_painter, float t_factor)
+void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
 {
-    if(m_vector1.length() > m_minVoltage) {
-        drawArrowHead(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
-        drawVectorLine(t_painter, m_vector1, m_vector1Color, m_maxVoltage * t_factor);
-        if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage * t_factor / 10) {
-            drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
-        }
-    }
-    if(m_vector2.length() > m_minVoltage) {
-        drawArrowHead(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
-        drawVectorLine(t_painter, m_vector2, m_vector2Color, m_maxVoltage * t_factor);
-        if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage * t_factor / 10) {
-            drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
-        }
-    }
-    if(m_vector3.length() > m_minVoltage) {
-        drawArrowHead(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
-        drawVectorLine(t_painter, m_vector3, m_vector3Color, m_maxVoltage * t_factor);
-        if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage * t_factor / 10) {
-            drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
-        }
-    }
-}
-
-void PhasorDiagram::drawCurrentArrows(QPainter *t_painter)
-{
-    if(m_currentVisible) {
-        if(m_vector4.length() > m_minCurrent) {
-            drawVectorLine(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
-            drawArrowHead(t_painter, m_vector4, m_vector4Color, m_maxCurrent);
-            if(m_vector4Label.isEmpty() == false && m_vector4.length() > m_maxCurrent / 10) {
-                drawLabel(t_painter, m_vector4Label, atan2(m_vector4.y(), m_vector4.x()), m_vector4Color, 0.5, m_labelPhiOffset);
-            }
+    // To get a nice experience, vectors are drawn in the sequence of their
+    // visible lengths: Long vectors first / short vectors last
+    // To accomplish, we use QMultiMap with key containing visible length
+    struct TVectorData {
+        TVectorData(QVector2D vector,
+                    QColor colour,
+                    float maxVal,
+                    float factorVal,
+                    bool drawLabel,
+                    QString label,
+                    float labelPositionScale,
+                    float labelPhiOffset) {
+            this->vector = vector;
+            this->colour = colour;
+            this->maxVal = maxVal;
+            this->factorVal = factorVal;
+            this->drawLabel = drawLabel;
+            this->label = label;
+            this->labelPositionScale = labelPositionScale;
+            this->labelPhiOffset = labelPhiOffset;
         }
 
-        if(m_vector5.length() > m_minCurrent) {
-            drawVectorLine(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
-            drawArrowHead(t_painter, m_vector5, m_vector5Color, m_maxCurrent);
-            if(m_vector5Label.isEmpty() == false && m_vector5.length() > m_maxCurrent / 10) {
-                drawLabel(t_painter, m_vector5Label, atan2(m_vector5.y(), m_vector5.x()), m_vector5Color, 0.5, m_labelPhiOffset);
+        QVector2D vector;
+        QColor colour;
+        float maxVal;
+        float factorVal;
+        bool drawLabel;
+        QString label;
+        float labelPositionScale;
+        float labelPhiOffset;
+    };
+    QMultiMap<float, TVectorData> sortedVectors;
+
+    QVector2D vectorUScreen[3];
+    QVector2D vectorIScreen[3];
+
+    // add voltages sorted
+    if(drawVoltages) {
+        QVector2D vectors[] = { m_vector1, m_vector2, m_vector3 };
+        QColor colors[] = { m_vector1Color, m_vector2Color, m_vector3Color };
+        QString labels[] = { m_vector1Label, m_vector2Label, m_vector3Label };
+        for(int idx = 0; idx < 3; ++idx) {
+            QVector2D vector = vectors[idx];
+            vectorUScreen[idx] = vector / (m_maxVoltage * t_voltageFactor);
+            QString label = labels[idx];
+            if(vector.length() > m_minVoltage * t_voltageFactor) {
+                float screenLen = vectorUScreen[idx].length();
+                TVectorData currVectorData(vector,
+                                           colors[idx],
+                                           m_maxVoltage,
+                                           t_voltageFactor,
+                                           !label.isEmpty() && vector.length() > m_maxVoltage * t_voltageFactor / 10,
+                                           label,
+                                           labelVectorLen(screenLen),
+                                           (1-screenLen)*LABEL_ROTATE_ANGLE);
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLen, currVectorData);
             }
         }
+    }
+    // add currents sorted
+    if(drawCurrents) {
+        QVector2D vectors[] = { m_vector4, m_vector5, m_vector6 };
+        QColor colors[] = { m_vector4Color, m_vector5Color, m_vector6Color };
+        QString labels[] = { m_vector4Label, m_vector5Label, m_vector6Label };
+        for(int idx = 0; idx < 3; ++idx) {
+            QVector2D vector = vectors[idx];
+            vectorIScreen[idx] = vector / m_maxCurrent;
+            QString label = labels[idx];
+            if(vector.length() > m_minCurrent) {
+                float screenLen = vectorIScreen[idx].length();
+                TVectorData currVectorData(vector,
+                                           colors[idx],
+                                           m_maxCurrent,
+                                           1.0,
+                                           !label.isEmpty() && vector.length() > m_maxCurrent / 10,
+                                           label,
+                                           labelVectorLen(screenLen),
+                                           (screenLen-1)*LABEL_ROTATE_ANGLE);
+                // In case we have identical vectors for current and voltage:
+                // display voltage topmost
+                float lenUPreferFactor = 1.0;
+                if(drawVoltages) {
+                    for(int uidx = 0; uidx<3; ++uidx) {
+                        if(vectorIScreen[idx].distanceToPoint(vectorUScreen[uidx]) < 0.02) {
+                            lenUPreferFactor = 1.02;
+                            break;
+                        }
+                    }
+                }
 
-        if(m_vector6.length() > m_minCurrent) {
-            drawVectorLine(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
-            drawArrowHead(t_painter, m_vector6, m_vector6Color, m_maxCurrent);
-            if(m_vector6Label.isEmpty() == false && m_vector6.length() > m_maxCurrent / 10) {
-                drawLabel(t_painter, m_vector6Label, atan2(m_vector6.y(), m_vector6.x()), m_vector6Color, 0.5, m_labelPhiOffset);
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLen*lenUPreferFactor, currVectorData);
             }
+        }
+    }
+    // draw sorted long -> short
+    for(auto vData : sortedVectors) {
+        drawArrowHead(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
+        drawVectorLine(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
+        if(vData.drawLabel) {
+            drawLabel(t_painter, vData.label, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
         }
     }
 }
@@ -167,15 +223,27 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
 
 
     if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
-        drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color);
+        QVector2D vectorUScreen = m_vector1 / m_maxVoltage;
+        float screenLen = vectorUScreen.length();
+        drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color,
+                  labelVectorLen(screenLen),
+                  (1-screenLen)*LABEL_ROTATE_ANGLE);
     }
 
     if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
-        drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color);
+        QVector2D vectorUScreen = m_vector2 / m_maxVoltage;
+        float screenLen = vectorUScreen.length();
+        drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color,
+                  labelVectorLen(screenLen),
+                  (1-screenLen)*LABEL_ROTATE_ANGLE);
     }
 
     if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage / 10) {
-        drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color);
+        QVector2D vectorUScreen = m_vector3 / m_maxVoltage;
+        float screenLen = vectorUScreen.length();
+        drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color,
+                  labelVectorLen(screenLen),
+                  (1-screenLen)*LABEL_ROTATE_ANGLE);
     }
 }
 
@@ -198,8 +266,10 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
     }
 }
 
-
-
+float PhasorDiagram::labelVectorLen(float screenLen)
+{
+    return screenLen*1.25 > 1.1 ? 1.1 : screenLen*1.25;
+}
 
 void PhasorDiagram::synchronize(QQuickItem *t_item)
 {
@@ -281,16 +351,14 @@ void PhasorDiagram::paint(QPainter *t_painter)
     switch(m_vectorView)
     {
     case PhasorDiagram::VectorView::VIEW_STAR:
-        drawVoltageArrows(t_painter);
-        drawCurrentArrows(t_painter);
+        drawVectors(t_painter, true, m_currentVisible);
         break;
     case PhasorDiagram::VectorView::VIEW_TRIANGLE:
         drawTriangle(t_painter);
-        drawCurrentArrows(t_painter);
+        drawVectors(t_painter, false, m_currentVisible);
         break;
     case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
-        drawVoltageArrows(t_painter, sqrt(3.0f)); //concatenated voltage
-        drawCurrentArrows(t_painter);
+        drawVectors(t_painter, true, m_currentVisible, sqrt(3.0f)/*concatenated voltage */);
         break;
     }
 }

@@ -107,13 +107,15 @@ private:
 
     void drawVectorLine(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
 
-    void drawVoltageArrows(QPainter *t_painter, float t_factor=1);
+    void drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
 
     void drawCurrentArrows(QPainter *t_painter);
 
     void drawTriangle(QPainter *t_painter);
 
     void drawGridAndCircle(QPainter *t_painter);
+
+    float labelVectorLen(float screenLen);
 
   protected:
 
