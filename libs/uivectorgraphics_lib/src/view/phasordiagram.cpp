@@ -292,7 +292,6 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     m_circleVisible = realItem->circleVisible();
     m_circleColor = realItem->circleColor();
     m_circleValue = realItem->circleValue();
-    m_labelPhiOffset = realItem->labelPhiOffset();
 
     m_vector1Color = realItem->vector1Color();
     m_vector2Color = realItem->vector2Color();

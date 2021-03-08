@@ -223,7 +223,6 @@ ApplicationWindow {
           vector6Label: "v3";
 
           phiOrigin: 0
-          labelPhiOffset: -10 * Math.PI/180
           maxVoltage: maxVol.text
           maxCurrent: maxCur.text
 

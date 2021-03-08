@@ -63,7 +63,6 @@ public:
     QNANO_PROPERTY(bool, m_circleVisible, circleVisible, setCircleVisible)
     QNANO_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
     QNANO_PROPERTY(float, m_circleValue, circleValue, setCircleValue)
-    QNANO_PROPERTY(float, m_labelPhiOffset, labelPhiOffset, setLabelPhiOffset)
 
     QNANO_PROPERTY(QList<double>, m_vector1Data, vector1Data, setVector1Data)
     QNANO_PROPERTY(QList<double>, m_vector2Data, vector2Data, setVector2Data)
