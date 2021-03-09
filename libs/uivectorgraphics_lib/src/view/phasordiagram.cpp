@@ -173,6 +173,11 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
             drawLabel(t_painter, vData.label, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
         }
     }
+
+    // do not leave center on random colour
+    if(sortedVectors.count() >1) {
+        drawCenterPoint(t_painter);
+    }
 }
 
 void PhasorDiagram::drawTriangle(QPainter *t_painter)
@@ -272,6 +277,12 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
                     2 * (m_gridScale * m_circleValue + radiusAdd),
                     0, 5760);
     }
+}
+
+void PhasorDiagram::drawCenterPoint(QPainter *t_painter)
+{
+    t_painter->setPen(QPen(Qt::gray, 2));
+    t_painter->drawPoint(m_fromX, m_fromY);
 }
 
 float PhasorDiagram::labelVectorLen(float screenLen)

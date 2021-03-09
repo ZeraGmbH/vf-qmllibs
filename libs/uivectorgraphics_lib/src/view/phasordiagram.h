@@ -114,6 +114,8 @@ private:
 
     void drawGridAndCircle(QPainter *t_painter);
 
+    void drawCenterPoint(QPainter *t_painter);
+
     float labelVectorLen(float screenLen);
 
   protected:
