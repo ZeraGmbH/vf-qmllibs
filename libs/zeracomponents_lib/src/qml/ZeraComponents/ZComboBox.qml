@@ -115,7 +115,6 @@ Rectangle {
                 }
                 return retVal;
             }
-            textFormat: Text.PlainText
             font.pixelSize: root.fontSize
         }
     }
@@ -226,7 +225,6 @@ Rectangle {
                             return retVal;
                         }
 
-                        textFormat: Text.PlainText
                         font.pixelSize: root.fontSize
                     }
                 }
