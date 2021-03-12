@@ -143,7 +143,7 @@ Rectangle {
         property int heightOffset: (root.centerVertical ? -popupElement.height/2 : 0) + root.centerVerticalOffset
         property int widthOffset: (root.contentMaxRows > 0) ? -(root.contentRowWidth / (1+Math.floor(root.model.length / root.contentMaxRows))) : 0
 
-        closePolicy: Popup.CloseOnPressOutside
+        closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
 
         onVisibleChanged: {
             root.expanded = visible
