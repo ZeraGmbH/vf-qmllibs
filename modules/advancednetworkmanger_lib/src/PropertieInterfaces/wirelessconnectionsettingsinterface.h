@@ -24,6 +24,8 @@ public:
     QStringList getDevices() override;
     Q_INVOKABLE QString getDevicePath(const QString &p_interfaceName) override;
 
+    Q_INVOKABLE QString getNextHotspotName(QString p_name);
+
     QString getSsid();
     void setSsid(QString p_ssid);
 

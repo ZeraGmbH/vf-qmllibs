@@ -47,11 +47,14 @@ Pane {
             return ret
         }
         onLoadComplete: {
+            // do not change the order mode sets some values to defaults.
+            // incase this is a existing connection we do not want those defaults
+            // but the actual set value.
             name.text = backend.conName;
             ssid.text = backend.ssid;
+            mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode);
             pw.text = backend.password;
             device.text = backend.device;
-            mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode)
 
             autoConCheckbox.checked = backend.autoconnect;
         }
@@ -178,6 +181,17 @@ Pane {
                 model: backend.modeModelDisplay
                 onCurrentIndexChanged: {
                     backend.mode = backend.modeModelBackend[currentIndex];
+                    if(backend.mode === "HOTSPOT"){
+                        if(ssid.text === ""){
+                            ssid.text = backend.getHostName();
+                            ssid.doApplyInput(ssid.text)
+                        }
+                        if(name.text === ""){
+                            name.text = backend.getNextHotspotName(Z.tr("Hotspot "));
+                            name.doApplyInput(name.text)
+                        }
+                        autoConCheckbox.checked=false;
+                    }
                 }
             }
         }

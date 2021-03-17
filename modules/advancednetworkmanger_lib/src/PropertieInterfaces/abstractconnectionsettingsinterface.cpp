@@ -102,6 +102,16 @@ QString AbstractConnectionSettingsInterface::getDevicePath(const QString &p_inte
     return QString();
 }
 
+QString AbstractConnectionSettingsInterface::getHostName()
+{
+    QString retVal;
+    retVal = NetworkManager::hostname();
+    if(!retVal.contains("zera-")){
+        retVal="";
+    }
+    return retVal;
+}
+
 QString AbstractConnectionSettingsInterface::getDevice()
 {
     if(m_connection != NULL){

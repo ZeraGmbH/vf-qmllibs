@@ -64,6 +64,26 @@ QString WirelessConnectionSettingsInterface::getDevicePath(const QString &p_inte
 
 }
 
+QString WirelessConnectionSettingsInterface::getNextHotspotName(QString p_name)
+{
+    QString name=p_name;
+    QString retVal=p_name;
+    retVal.append("0");
+    QStringList names;
+    for(NetworkManager::Connection::Ptr con : NetworkManager::listConnections()){
+        names.append(con->name());
+    }
+    for(int i = 0;i<100;++i){
+        QString tmpName=name;
+        tmpName.append(QString::number(i));
+        if(!names.contains(tmpName)){
+            retVal=tmpName;
+            break;
+        }
+    }
+    return retVal;
+}
+
 QString WirelessConnectionSettingsInterface::getSsid()
 {
     if(m_settings == NULL) return "";
