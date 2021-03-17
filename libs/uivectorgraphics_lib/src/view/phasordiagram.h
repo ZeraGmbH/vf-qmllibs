@@ -88,13 +88,18 @@ public:
     //QList<double> m_vector1Data;
 
 private:
+    static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;
     QVector2D m_vector2;
     QVector2D m_vector3;
     QVector2D m_vector4;
     QVector2D m_vector5;
     QVector2D m_vector6;
+    QVector2D m_vectorUScreen[COUNT_PHASES];
+    QSet<int> m_SetUCollisions; // key: I
     QFont m_defaultFont;
+    float m_currLabelRotateAngleU;
+    float m_currLabelRotateAngleI;
     // Reimplement
     void paint(QPainter *t_painter) override;
 
@@ -117,6 +122,8 @@ private:
     void drawCenterPoint(QPainter *t_painter);
 
     float labelVectorLen(float screenLen);
+
+    float detectCollision(int uPhase);
 
   protected:
 
