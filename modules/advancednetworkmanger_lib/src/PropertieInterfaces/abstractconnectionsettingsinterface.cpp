@@ -132,6 +132,8 @@ QString AbstractConnectionSettingsInterface::getConName()
 
 void AbstractConnectionSettingsInterface::setConName(QString p_conName)
 {
-    m_settings->setId(p_conName);
-    emit conNameChanged();
+    if(m_settings != nullptr){
+        m_settings->setId(p_conName);
+        emit conNameChanged();
+    }
 }
