@@ -12,7 +12,9 @@ class WirelessConnectionSettingsInterface : public AbstractConnectionSettingsInt
     Q_PROPERTY(QString ssid READ getSsid WRITE setSsid NOTIFY ssidChanged)
     Q_PROPERTY(QString password READ getPassword WRITE setPassword NOTIFY passwordChanged)
     Q_PROPERTY(QString mode READ getMode WRITE setMode NOTIFY modeChanged)
+    Q_PROPERTY(bool autoconnect READ getAutoconnect WRITE setAutoconnect NOTIFY devicesChanged)
     Q_PROPERTY(QStringList devices READ getDevices NOTIFY devicesChanged)
+
 public:
     WirelessConnectionSettingsInterface(QObject *parent = nullptr);
 
@@ -30,6 +32,9 @@ public:
 
     QString getMode();
     void setMode(QString p_mode);
+
+    bool getAutoconnect();
+    void setAutoconnect(bool p_autoconnect);
 protected:
     QString m_smartConnectPath;
 signals:
@@ -37,6 +42,7 @@ signals:
     void passwordChanged();
     void modeChanged();
     void devicesChanged();
+    void autoconnectChanged();
 
 };
 

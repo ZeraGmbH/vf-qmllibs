@@ -11,7 +11,7 @@ void DeviceManager::init()
 {
     m_devList = NetworkManager::networkInterfaces();
     for(NetworkManager::Device::Ptr dev : m_devList){
-        dev->setAutoconnect(false);
+        //dev->setAutoconnect(false);
     }
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceAdded,this,&DeviceManager::deviceAdded);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceRemoved,this,&DeviceManager::deviceRemoved);
@@ -56,7 +56,7 @@ void DeviceManager::deviceAdded(const QString &p_uni)
 {
     m_devList = NetworkManager::networkInterfaces();
     NetworkManager::Device::Ptr dev = getDevice(p_uni);
-    dev->setAutoconnect(false);
+    //dev->setAutoconnect(false);
     NmCppNotification::sendNotifiaction("NM", "A network device was added");
     emit addDevice(dev->type(), p_uni);
 }

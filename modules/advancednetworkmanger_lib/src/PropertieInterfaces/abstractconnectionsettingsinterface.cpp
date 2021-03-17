@@ -12,7 +12,7 @@ void AbstractConnectionSettingsInterface::load(QString p_path)
         m_settings = m_connection->settings();
         m_connectionMap = m_connection->settings()->toMap();
         QString iname = m_settings->interfaceName();
-        m_settings->setAutoconnect(false);
+        //m_settings->setAutoconnect(false);
         emit loadComplete();
     }else{
         create();

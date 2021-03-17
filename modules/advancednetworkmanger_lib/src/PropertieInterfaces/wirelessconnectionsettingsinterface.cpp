@@ -32,7 +32,7 @@ void WirelessConnectionSettingsInterface::create()
     NMVariantMapMap map = m_settings->toMap();
     map.remove("802-1x");
     m_settings->fromMap(map);
-    m_settings->setAutoconnect(false);
+    //m_settings->setAutoconnect(false);
     emit loadComplete();
 }
 
@@ -131,5 +131,22 @@ void WirelessConnectionSettingsInterface::setMode(QString p_mode)
             m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->setMode(NetworkManager::WirelessSetting::NetworkMode::Ap);
             m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>()->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Shared);
         }
+    }
+}
+
+bool WirelessConnectionSettingsInterface::getAutoconnect()
+{
+    bool retVal=false;
+    if(m_settings != NULL){
+        retVal=m_settings->autoconnect();
+    }
+    return retVal;
+}
+
+void WirelessConnectionSettingsInterface::setAutoconnect(bool p_autoconnect)
+{
+    if(m_settings != NULL){
+        m_settings->setAutoconnect(p_autoconnect);
+        emit autoconnectChanged();
     }
 }

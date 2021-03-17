@@ -52,6 +52,8 @@ Pane {
             pw.text = backend.password;
             device.text = backend.device;
             mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode)
+
+            autoConCheckbox.checked = backend.autoconnect;
         }
     }
     ObjectModel {
@@ -176,6 +178,25 @@ Pane {
                 model: backend.modeModelDisplay
                 onCurrentIndexChanged: {
                     backend.mode = backend.modeModelBackend[currentIndex];
+                }
+            }
+        }
+
+        RowLayout{
+            width: parent.width
+            height: parent.rowHeight
+            Label {
+                id: autoconLabel
+                font.pointSize: clientModel.pointSize
+                text: Z.tr("Autoconnect:")
+                Layout.preferredWidth: clientModel.labelWidth - ZCC.standardTextHorizMargin
+            }
+            CheckBox{
+                id: autoConCheckbox
+                display: AbstractButton.IconOnly
+                Layout.alignment: Qt.AlignRight
+                onCheckedChanged: {
+                    backend.autoconnect=checked;
                 }
             }
         }
