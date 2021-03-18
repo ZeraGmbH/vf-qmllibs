@@ -26,6 +26,15 @@ Pane {
             backend.load(path);
         }
     }
+    function autoMoveFocusToNext() {
+        if(!ssid.text.focus && ssid.text === "") {
+            ssid.textField.focus = true
+        }
+        else if(!pw.text.focus && pw.text === "") {
+            pw.textField.focus = true
+        }
+
+    }
     NetworkmanagerAbstraction {
         id: generalbackend
     }
@@ -55,8 +64,17 @@ Pane {
             mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode);
             pw.text = backend.password;
             device.text = backend.device;
-
             autoConCheckbox.checked = backend.autoconnect;
+            if(path === "") {
+                if(backend.mode === "CLIENT") {
+                    name.text = backend.getNextHotspotName(Z.tr("Wifi"));
+                }
+                else if(backend.mode === "HOTSPOT") {
+                    name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                }
+                backend.conName = name.text
+                name.textField.forceActiveFocus()
+            }
         }
     }
     ObjectModel {
@@ -86,6 +104,9 @@ Pane {
                 backend.conName = newText;
                 return true
             }
+            textField.onAccepted: {
+                autoMoveFocusToNext()
+            }
         }
         Item {
             anchors.left: parent.left
@@ -105,6 +126,9 @@ Pane {
                 function doApplyInput(newText) {
                     backend.ssid = newText;
                     return true
+                }
+                textField.onAccepted: {
+                    autoMoveFocusToNext()
                 }
             }
             Button {
@@ -182,16 +206,16 @@ Pane {
                 onCurrentIndexChanged: {
                     backend.mode = backend.modeModelBackend[currentIndex];
                     if(backend.mode === "HOTSPOT"){
-                        if(ssid.text === ""){
-                            ssid.text = backend.getHostName();
-                            ssid.doApplyInput(ssid.text)
-                        }
-                        if(name.text === ""){
-                            name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
-                            name.doApplyInput(name.text)
-                        }
-                        autoConCheckbox.checked=false;
+                        name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                        ssid.text = backend.getHostName();
                     }
+                    else if(backend.mode === "CLIENT") {
+                        name.text = backend.getNextHotspotName(Z.tr("Wifi"));
+                        ssid.text = ""
+                    }
+                    backend.conName = name.text
+                    backend.ssid = ssid.text
+                    name.textField.focus = true
                 }
             }
         }
