@@ -187,7 +187,7 @@ Pane {
                             ssid.doApplyInput(ssid.text)
                         }
                         if(name.text === ""){
-                            name.text = backend.getNextHotspotName(Z.tr("Hotspot "));
+                            name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
                             name.doApplyInput(name.text)
                         }
                         autoConCheckbox.checked=false;
