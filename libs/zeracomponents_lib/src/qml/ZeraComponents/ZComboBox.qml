@@ -8,6 +8,9 @@ import QtQuick.Controls.Material 2.0
 Rectangle {
     id: root
 
+    property alias headerComponent: headerLoader.sourceComponent
+    readonly property alias headerItem: headerLoader.item
+
     property bool expanded: false
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
@@ -155,7 +158,8 @@ Rectangle {
         Rectangle {
             id: popupElement
             width: root.contentRowWidth * Math.ceil(root.count/root.getMaxRows()) + comboView.anchors.margins*2
-            height: root.contentRowHeight * root.getMaxRows() + comboView.anchors.margins*2
+            height: root.contentRowHeight * root.getMaxRows() + comboView.anchors.margins*2 +
+                    (headerLoader.sourceComponent ? headerLoader.height + headerLoader.anchors.margins : 0)
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -163,9 +167,20 @@ Rectangle {
                 opacity: 1
                 radius: 8
             }
+            Loader {
+                id: headerLoader
+                anchors.left: parent.left
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.margins: 2
+                active: true
+            }
             GridView {
                 id: comboView
-                anchors.fill: parent
+                anchors.top: headerLoader.sourceComponent ? headerLoader.bottom : parent.top
+                anchors.bottom: parent.bottom
+                anchors.left: parent.left
+                anchors.right: parent.right
                 anchors.margins: 2
 
                 boundsBehavior: ListView.StopAtBounds
