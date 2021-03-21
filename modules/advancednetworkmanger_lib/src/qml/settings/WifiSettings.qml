@@ -59,22 +59,24 @@ Pane {
             // do not change the order mode sets some values to defaults.
             // incase this is a existing connection we do not want those defaults
             // but the actual set value.
-            name.text = backend.conName;
-            ssid.text = backend.ssid;
+            if(path === "") {
+                // Hotspot most wanted here because Wifi client is setup by SmartConnection
+                // in most cases
+                backend.mode = "HOTSPOT"
+                name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                ssid.text = backend.getHostName();
+                backend.ssid = ssid.text
+                backend.conName = name.text
+                name.textField.forceActiveFocus()
+            }
+            else {
+                name.text = backend.conName;
+                ssid.text = backend.ssid;
+            }
             mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode);
             pw.text = backend.password;
             device.text = backend.device;
             autoConCheckbox.checked = backend.autoconnect;
-            if(path === "") {
-                if(backend.mode === "CLIENT") {
-                    name.text = backend.getNextHotspotName(Z.tr("Wifi"));
-                }
-                else if(backend.mode === "HOTSPOT") {
-                    name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
-                }
-                backend.conName = name.text
-                name.textField.forceActiveFocus()
-            }
         }
     }
     ObjectModel {
