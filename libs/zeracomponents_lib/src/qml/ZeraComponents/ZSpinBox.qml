@@ -39,7 +39,7 @@ Item {
     // signal handler
     onTextChanged: {
         if(!inApply) {
-            sBox.value = sBox.valueFromText(text, ZLocale.getLocale())
+            sBox.value = sBox.valueFromText(text, ZLocale.locale)
             discardInput()
         }
         inApply = false
@@ -65,7 +65,7 @@ Item {
         sBox.editable = !readOnly
     }
     onLocaleNameChanged: {
-        sBox.locale = ZLocale.getLocale()
+        sBox.locale = ZLocale.locale
         discardInput()
     }
 
@@ -190,7 +190,7 @@ Item {
         onValueModified: {
             if(!inApply) {
                 // TODO Text spins
-                tField.text = textFromValue(value, ZLocale.getLocale())
+                tField.text = textFromValue(value, ZLocale.locale)
                 if(!sBox.focus)
                     applyInput()
             }

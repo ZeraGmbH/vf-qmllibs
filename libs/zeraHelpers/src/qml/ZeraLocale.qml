@@ -9,21 +9,8 @@ Item {
     property string localeName: "en_GB"
 
     // convenient getters
-    function getLocale() {
-        if(!_locale_) {
-            _locale_ = Qt.locale(localeName)
-        }
-        return _locale_
-    }
-    function getDecimalPoint() {
-        return getLocale().decimalPoint
-    }
-
-    // internal helpers
-    property var _locale_
-    onLocaleNameChanged: {
-        _locale_ = Qt.locale(localeName)
-    }
+    readonly property var locale: Qt.locale(localeName)
+    readonly property string decimalPoint: locale.decimalPoint
 
     // Locale -> C string conversions
     function strToCLocale(str, isNumeric, isDouble) {
@@ -44,7 +31,7 @@ Item {
           str = String(parseInt(str, 10))
         }
         else {
-          str = String(parseFloat(str)).replace(getDecimalPoint() === "," ? "." : ",", getDecimalPoint())
+          str = String(parseFloat(str)).replace(decimalPoint === "," ? "." : ",", decimalPoint)
         }
       }
       return str

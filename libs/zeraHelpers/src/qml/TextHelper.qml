@@ -30,7 +30,7 @@ Item {
     var valid = true
     if(isDouble) {
       // Sometimes wrong decimal separator is accepted by DoubleValidator so check for it
-      if(ZLocale.getDecimalPoint() === "," ? text.includes(".") : text.includes(",")) {
+      if(ZLocale.decimalPoint === "," ? text.includes(".") : text.includes(",")) {
         valid = false
       }
     }
