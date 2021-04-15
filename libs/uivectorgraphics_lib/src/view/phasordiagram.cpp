@@ -1,5 +1,6 @@
 #include "phasordiagram.h"
 #include <QGradient>
+#include <QPainterPath>
 
 
 //used for atan2 and math constants like M_PI
