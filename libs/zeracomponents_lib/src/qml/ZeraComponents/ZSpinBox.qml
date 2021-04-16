@@ -178,12 +178,12 @@ Item {
         /* Avoid QML magic: when the cursor is at start/end position,
         left/right keys are used to change tab. We don't want that */
         Keys.onLeftPressed: {
-            if(cursorPosition > 0 || selectedText !== "") {
+            if(tField.cursorPosition > 0 || tField.selectedText !== "") {
                 event.accepted = false;
             }
         }
         Keys.onRightPressed: {
-            if(cursorPosition < displayText.length || selectedText !== "") {
+            if(tField.cursorPosition < displayText.length || tField.selectedText !== "") {
                 event.accepted = false;
             }
         }
