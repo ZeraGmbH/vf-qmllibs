@@ -5,22 +5,7 @@ InfoInterface::InfoInterface()
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionAdded, this, &InfoInterface::addActiveConnection);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionRemoved, this, &InfoInterface::removeActiveConnection);
     for(NetworkManager::ActiveConnection::Ptr acon : NetworkManager::activeConnections()){
-        const int index = m_activeCons.size();
-        emit beginInsertRows(QModelIndex(), index, index);
-        InfoStruct itm;
-        if(acon->ipV6Config().addresses().size()>0){
-            itm.ipv4 = acon->ipV4Config().addresses().at(0).ip().toString();
-            itm.subnetmask = acon->ipV4Config().addresses().at(0).netmask().toString();
-        }
-        if(acon->ipV6Config().addresses().size()>0){
-            itm.ipv6= acon->ipV6Config().addresses().at(0).ip().toString();
-        }
-        if(acon->devices().size() > 0){
-            itm.device =  NetworkManager::findNetworkInterface(acon->devices().at(0))->interfaceName();
-        }
-        itm.path=acon->path();
-        m_activeCons.append(itm);
-        emit endInsertRows();
+        addActiveConnection(acon->path());
     }
 }
 
@@ -132,7 +117,6 @@ void InfoInterface::ipv4Change()
                 m_activeCons[i].subnetmask = "N/A";
             }
             emit this->dataChanged(this->index(i),this->index(i));
-            break;
         }
     }
 }
@@ -148,7 +132,6 @@ void InfoInterface::ipv6Change()
                     m_activeCons[i].ipv6 = "N/A";
                 }
                 emit this->dataChanged(this->index(i),this->index(i));
-                break;
             }
         }
 }
