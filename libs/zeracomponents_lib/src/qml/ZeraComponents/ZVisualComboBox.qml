@@ -15,7 +15,6 @@ Rectangle {
 
     //supports only arrays, but the property is kept to remain compatible with the ZComboBox, maybe it is possible to join both into one type that can handle both use cases?
     readonly property bool arrayMode: true
-    property bool expanded: false
     property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
     property int targetIndex;
@@ -68,24 +67,20 @@ Rectangle {
     onCountChanged: {
         updateCurrentText()
     }
-    onExpandedChanged: {
-        expanded ? selectionDialog.open() : selectionDialog.close()
-    }
     onImageModelChanged: {
         fakeModel.clear();
         if(model && imageModel) {
-            root.expanded=false
+            selectionDialog.close()
         }
     }
     onModelChanged: {
         if(model && imageModel) {
             updateFakeModel();
-            root.expanded=false
+            selectionDialog.close()
         }
     }
     onTargetIndexChanged: {
         updateCurrentText()
-        root.expanded = false
     }
 
     color: Qt.darker(Material.frameColor) //buttonPressColor
@@ -115,7 +110,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(root.enabled && root.count > 0) {
-                root.expanded=true
+                selectionDialog.open()
             }
         }
     }
@@ -127,9 +122,6 @@ Rectangle {
         property int widthOffset: - contentRowWidth * (displayColums - 1)
         background: Item {} //remove background rectangle
         closePolicy: Popup.CloseOnPressOutside
-        onVisibleChanged: {
-            root.expanded = visible
-        }
         y:  -15 + heightOffset
         x: -15 + widthOffset
 
@@ -185,7 +177,6 @@ Rectangle {
                                     refreshSelectedText = root.selectedText===root.currentText;
                                     root.selectedText = root.currentText;
                                 }
-                                root.expanded = false
                                 if(refreshSelectedText) {
                                     /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
                                     root.selectedTextChanged();
