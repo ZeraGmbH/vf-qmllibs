@@ -139,7 +139,7 @@ Rectangle {
             width: contentRowWidth * displayColums + comboView.anchors.margins*2
             // note: additional 0.1 avoids GridView startin next column in some cases
             height: contentRowHeight * displayRows + comboView.anchors.margins*2 + 0.1 +
-                    (headerLoader.sourceComponent ? headerLoader.height + headerLoader.anchors.margins : 0)
+                    headerLoader.height + headerLoader.anchors.margins
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -157,7 +157,7 @@ Rectangle {
             }
             GridView {
                 id: comboView
-                anchors.top: headerLoader.sourceComponent ? headerLoader.bottom : parent.top
+                anchors.top: headerLoader.bottom
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
