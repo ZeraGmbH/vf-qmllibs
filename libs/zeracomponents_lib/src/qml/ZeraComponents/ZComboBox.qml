@@ -152,7 +152,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.margins: 2
+                anchors.margins: height > 0 ? 2 : 0
                 active: true
             }
             GridView {
