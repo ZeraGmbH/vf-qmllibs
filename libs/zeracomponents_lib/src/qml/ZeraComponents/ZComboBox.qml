@@ -173,6 +173,20 @@ Rectangle {
 
                 //need to convert the array to a model
                 model: (root.arrayMode===true) ? fakeModel : root.model;
+
+                NumberAnimation on opacity {
+                    id: fadeOutAnimation
+                    running: false
+                    from: 1.0
+                    to: 0.4
+                    duration: 1250
+                    onFinished: {
+                        // hacky rewind to initial state
+                        start(); stop()
+                        selectionDialog.close()
+                    }
+                }
+
                 delegate: Rectangle {
 
                     color: (root.targetIndex === index) ? Material.accent : Qt.darker(Material.frameColor) //buttonPressColor
@@ -186,25 +200,35 @@ Rectangle {
                         anchors.fill: parent
 
                         onClicked: {
-                            if(root.targetIndex !== index) {
-                                var refreshSelectedText = false;
+                            if(!fadeOutAnimation.running) {
+                                if(root.targetIndex !== index) {
+                                    var refreshSelectedText = false;
 
-                                if(root.automaticIndexChange) {
-                                    refreshSelectedText = root.selectedText===model.text
-                                    root.selectedText = model.text
+                                    if(root.automaticIndexChange) {
+                                        refreshSelectedText = root.selectedText===model.text
+                                        root.selectedText = model.text
+                                    }
+                                    else {
+                                        root.targetIndex = index;
+                                        root.currentText = model.text;
+                                        refreshSelectedText = root.selectedText===root.currentText;
+                                        root.selectedText = root.currentText;
+                                    }
+                                    if(refreshSelectedText) {
+                                        /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
+                                        root.selectedTextChanged();
+                                    }
+                                    if(headerLoader.height > 0) {
+                                        fadeOutAnimation.start()
+                                    }
+                                    else {
+                                        selectionDialog.close()
+                                    }
                                 }
-                                else {
-                                    root.targetIndex = index;
-                                    root.currentText = model.text;
-                                    refreshSelectedText = root.selectedText===root.currentText;
-                                    root.selectedText = root.currentText;
-                                }
-                                if(refreshSelectedText) {
-                                    /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
-                                    root.selectedTextChanged();
+                                else { // no change of selection
+                                    selectionDialog.close()
                                 }
                             }
-                            selectionDialog.close()
                         }
                     }
 
