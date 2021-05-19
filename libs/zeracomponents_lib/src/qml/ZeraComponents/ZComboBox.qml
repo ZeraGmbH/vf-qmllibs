@@ -11,7 +11,6 @@ Rectangle {
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
 
-    property bool expanded: false
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
     property int targetIndex;
@@ -69,14 +68,6 @@ Rectangle {
         return text;
     }
 
-    onActiveFocusChanged: {
-        if(!activeFocus) {
-            expanded = false
-        }
-    }
-    onExpandedChanged: {
-        expanded ? selectionDialog.open() : selectionDialog.close()
-    }
     onCountChanged: {
         updateCurrentText()
     }
@@ -85,13 +76,12 @@ Rectangle {
     }
     onTargetIndexChanged: {
         updateCurrentText()
-        root.expanded = false
     }
     onModelChanged: {
         if(model) {
             updateFakeModel();
         }
-        root.expanded=false
+        selectionDialog.close()
     }
 
     // List view does not support JS arrays
@@ -128,8 +118,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(root.enabled && root.count > 0) {
-                root.focus = true // here focus is intended
-                root.expanded=true
+                selectionDialog.open()
             }
         }
     }
@@ -141,10 +130,6 @@ Rectangle {
         property int widthOffset: - 0.5 * contentRowWidth * (displayColums - 1)
 
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
-
-        onVisibleChanged: {
-            root.expanded = visible
-        }
 
         y:  -15 + heightOffset
         x: -15 + widthOffset
@@ -214,14 +199,12 @@ Rectangle {
                                     refreshSelectedText = root.selectedText===root.currentText;
                                     root.selectedText = root.currentText;
                                 }
-                                root.expanded = false
                                 if(refreshSelectedText) {
                                     /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
                                     root.selectedTextChanged();
                                 }
                             }
                             selectionDialog.close()
-                            root.focus = false // here focus is intended
                         }
                     }
 
