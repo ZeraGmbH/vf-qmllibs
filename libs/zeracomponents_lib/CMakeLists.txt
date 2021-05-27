@@ -21,7 +21,7 @@ include(GNUInstallDirs)
 
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Quick)
-
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
 
 MACRO(HEADER_DIRECTORIES dir return_list)
     FILE(GLOB_RECURSE new_list ${dir}/*.h)
@@ -48,7 +48,11 @@ file(GLOB_RECURSE APP_SOURCES
 HEADER_DIRECTORIES("src" header_dir_list)
 include_directories(${header_dir_list})
 
-qt5_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/zeracomponents.qrc)
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    qt5_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/zeracomponents.qrc)
+else()
+    qtquick_compiler_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/zeracomponents.qrc)
+endif()
 
 add_library(
     zeracomponents
