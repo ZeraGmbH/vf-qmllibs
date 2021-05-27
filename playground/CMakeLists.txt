@@ -1,12 +1,11 @@
 project(PlayApp VERSION 1.0 LANGUAGES CXX)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG")
 endif()
 
 # Tell CMake to call moc automaticly
 set(CMAKE_AUTOMOC ON)
-
 
 include(FeatureSummary)
 include(GNUInstallDirs)
@@ -26,23 +25,6 @@ add_executable(
     ${APP_RESOURCES}    # App resources file
 )
 
-target_compile_features(
-   vf-qmllibs-examples
-    PRIVATE
-        cxx_auto_type
-        cxx_generic_lambdas
-)
-
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-    target_compile_options(
-        vf-qmllibs-examples
-        PRIVATE
-            -Wall
-            -Wextra
-            -Wpedantic
-    )
-endif()
-
 target_link_libraries(
     vf-qmllibs-examples
     PRIVATE
@@ -53,8 +35,6 @@ target_link_libraries(
         Qt5::Xml
         Qt5::Widgets
         ZeraTranslation::ZeraTranslation
-        #vfnetworkmanager
-        #zeracomplib
         anmlib
         zeracomponents
         notificationmanager
