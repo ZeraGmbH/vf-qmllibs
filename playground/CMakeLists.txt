@@ -11,11 +11,14 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 find_package(Qt5 REQUIRED COMPONENTS Quick Core Qml Widgets DBus Xml)
-
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
 find_package(ZeraTranslation REQUIRED)
 
-# Telling CMake location of our app .qrc file
-qt5_add_resources(APP_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/qml/app.qrc)
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    qt5_add_resources(APP_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/qml/app.qrc)
+else()
+    qtquick_compiler_add_resources(APP_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/qml/app.qrc)
+endif()
 
 # We're using ${PROJECT_NAME} for target name but it's not necessary
 add_executable(

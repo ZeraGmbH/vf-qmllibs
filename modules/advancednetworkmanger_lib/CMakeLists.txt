@@ -16,6 +16,7 @@ include(FeatureSummary)
 include(GNUInstallDirs)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Core DBus Xml Gui Qml Quick)
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
 find_package(SortFilterProxyModelCmake REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
@@ -43,7 +44,11 @@ file(GLOB_RECURSE APP_SOURCES
 HEADER_DIRECTORIES("src" header_dir_list)
 include_directories(${header_dir_list})
 
-qt5_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/anmlib.qrc)
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    qt5_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/anmlib.qrc)
+else()
+    qtquick_compiler_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/anmlib.qrc)
+endif()
 
 add_library(
     anmlib
