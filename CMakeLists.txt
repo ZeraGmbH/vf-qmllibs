@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.0)
 project(vf-qmllibs VERSION 1.1.0 LANGUAGES CXX C)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG")
 endif()
 

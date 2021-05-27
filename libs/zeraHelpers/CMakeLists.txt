@@ -1,24 +1,19 @@
 project(qmlhelpers VERSION 1.0 LANGUAGES CXX C)
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     message(STATUS "Debug type: " ${CMAKE_BUILD_TYPE})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -O0 -g")
 endif()
 # Tell CMake to call moc automaticly
 set(CMAKE_AUTOMOC ON)
 
-
-
 set(qmlhelpers_VERSION_MAJOR "0")
 set(qmlhelpers_VERSION_MINOR "0")
 set(qmlhelpers_VERSION_PATCH "1")
-
 set(PROJECT_VERSION "${qmlhelpers_VERSION_MAJOR}.${qmlhelpers_VERSION_MINOR}.${qmlhelpers_VERSION_PATCH}")
-
 
 include(FeatureSummary)
 include(GNUInstallDirs)
-
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Quick)
 
@@ -35,8 +30,6 @@ LIST(REMOVE_DUPLICATES dir_list)
 SET(${return_list} ${dir_list})
 ENDMACRO()
 
-
-
 file(GLOB_RECURSE APP_HEADERS
     src/*.h
     )
@@ -44,8 +37,6 @@ file(GLOB_RECURSE APP_HEADERS
 file(GLOB_RECURSE APP_SOURCES
     src/*.cpp
     )
-
-set(OTHER_FILES qmldir plugins.qmltypes)
 
 HEADER_DIRECTORIES("src" header_dir_list)
 include_directories(${header_dir_list})
@@ -58,11 +49,9 @@ add_library(
 
     ${APP_HEADERS}
     ${APP_SOURCES}
-  #  ${OTHER_FILES}
 
     ${PLUGIN_RESOURCES}     # Plugin resources file
     )
-
 
 target_compile_features(
     qmlhelpers
@@ -76,7 +65,6 @@ target_link_libraries(
     PUBLIC
     Qt5::Quick
     )
-
 
 target_include_directories(qmlhelpers
     PUBLIC
@@ -101,14 +89,11 @@ install(FILES
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qmlhelpers
     )
 
-
 # install library
 install(TARGETS qmlhelpers
     EXPORT qmlhelpersExport
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
-
-
 
 # configure *ConfigVersion.cmake
 include(CMakePackageConfigHelpers)
@@ -118,10 +103,8 @@ write_basic_package_version_file(
     COMPATIBILITY SameMinorVersion
     )
 
-
 # configure *Config.cmake
 configure_file(qmlhelpersConfig.cmake.in qmlhelpersConfig.cmake @ONLY)
-
 
 # install *Config(Version).cmake
 install(FILES "${CMAKE_CURRENT_BINARY_DIR}/qmlhelpersConfig.cmake"
@@ -141,6 +124,5 @@ install(
     FILES ${APP_HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qmlhelpers
     )
-
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)

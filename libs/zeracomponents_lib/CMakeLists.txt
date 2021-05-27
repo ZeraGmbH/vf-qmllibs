@@ -1,6 +1,6 @@
 project(zeracomponents VERSION 1.0 LANGUAGES CXX C) 
 
-if(${CMAKE_BUILD_TYPE} STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     message(STATUS "Debug type: " ${CMAKE_BUILD_TYPE})
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -O0 -g")
 endif()
@@ -44,7 +44,6 @@ file(GLOB_RECURSE APP_SOURCES
     src/*.cpp
     )
 
-set(OTHER_FILES qmldir plugins.qmltypes)
 
 HEADER_DIRECTORIES("src" header_dir_list)
 include_directories(${header_dir_list})
@@ -57,7 +56,6 @@ add_library(
 
     ${APP_HEADERS}
     ${APP_SOURCES}
-  #  ${OTHER_FILES}
 
     ${PLUGIN_RESOURCES}     # Plugin resources file
     )
