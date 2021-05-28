@@ -110,6 +110,7 @@ Rectangle {
         anchors.fill: parent
         onClicked: {
             if(root.enabled && root.count > 0) {
+                root.focus = true // here focus is intended
                 selectionDialog.open()
             }
         }
@@ -121,7 +122,11 @@ Rectangle {
         property int heightOffset: (root.centerVertical ? -popupElement.height/2 : 0) + root.centerVerticalOffset
         property int widthOffset: - contentRowWidth * (displayColums - 1)
         background: Item {} //remove background rectangle
-        closePolicy: Popup.CloseOnPressOutside
+        closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
+        onClosed: {
+            root.focus = false
+        }
+
         y:  -15 + heightOffset
         x: -15 + widthOffset
 
