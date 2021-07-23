@@ -80,11 +80,11 @@ Item{
                 enabled: rootItm.available_
                 id: actswitch
                 onClicked: {
-                    if(position === 1) {
+                    if(position > 0.5) {
                         position=0.5
                         activate(rootItm.nmPath_,rootItm.devices_[devices.model[devices.currentIndex]]);
                     } else {
-                        position=0.5
+                        position=0
                         deactivate(rootItm.nmPath_);
                     }
                 }
