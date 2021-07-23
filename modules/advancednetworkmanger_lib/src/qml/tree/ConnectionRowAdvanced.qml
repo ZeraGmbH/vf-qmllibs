@@ -27,6 +27,8 @@ Item{
         }else{
             actswitch.position=0
         }
+        actswitch.visible = true
+        actbusyind.visible = false
     }
 
     signal edit(string p_path)
@@ -71,14 +73,16 @@ Item{
             model: rootItm.deviceNames_
         }
         // switch to activate/deactivae connection
-        Row {
+        Item {
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             Switch {
                 anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
                 enabled: rootItm.available_
                 id: actswitch
+                visible: true
                 onClicked: {
                     if(position > 0.5) {
                         position=0.5
@@ -87,8 +91,20 @@ Item{
                         position=0
                         deactivate(rootItm.nmPath_);
                     }
+                    actswitch.visible = false
+                    actbusyind.visible = true
                 }
             }
+            BusyIndicator {
+                id: actbusyind
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.horizontalCenter: parent.horizontalCenter
+                enabled: rootItm.available_
+                visible: false
+                height: parent.height
+                width: parent.height
+                running: visible
+           }
         }
         // Signal strenght indicator
         Row {
