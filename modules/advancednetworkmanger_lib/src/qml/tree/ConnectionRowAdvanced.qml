@@ -31,6 +31,18 @@ Item{
         actbusyind.visible = false
     }
 
+    function cancelConnect(){
+        actswitch.visible = true
+        actbusyind.visible = false
+         actswitch.checked = connected_;
+        if(connected_){
+            actswitch.position=1
+        }else{
+            actswitch.position=0
+        }
+    }
+
+
     signal edit(string p_path)
     signal remove(string p_path)
     signal activate(string p_path, string device)

@@ -154,8 +154,9 @@ Pane {
         property string device: ""
         property string path: ""
         property bool newCon: true
+        property Item rowObject: null
         onLoaded: {
-            item.init(ssid,device,path,newCon)
+            item.init(ssid,device,path,newCon,rowObject)
         }
     }
     // Section heading component (Ethernet/Wifi/Hotspot...) see ListView
@@ -292,14 +293,12 @@ Pane {
             onActivate: {
                 var Device = device;
                 if(!stored_ && Device !== "") {
+                    smartConnectLoader.rowObject=this;
                     smartConnectLoader.ssid = name_;
                     smartConnectLoader.device = Device;
                     smartConnectLoader.path = p_path;
                     smartConnectLoader.newCon=true;
                     smartConnectLoader.active=true;
-                    //Workaround: setting true then false to make sure it is false and onChanged is called
-                    connected_=true;
-                    connected_=false;
                 } else if(Device !== "") {
                     backend.connect(p_path, Device);
                 }
