@@ -13,10 +13,12 @@ Dialog {
     property string device: ""
     property string path: ""
     property bool newCon: true
+    property ConnectionRowAdvanced rowObject
     closePolicy: Popup.NoAutoClose
 
-    function init(ssid, device,path,newCon) {
+    function init(ssid, device,path,newCon,rowObject) {
         rootItm.newCon=newCon;
+        rootItm.rowObject=rowObject;
         if(newCon){
             backend.create();
             rootItm.device = device;
@@ -119,8 +121,11 @@ Dialog {
     onAccepted: {
         backend.saveAndActivate(rootItm.device,rootItm.path);
     }
-    onDiscarded: {
+
+    onRejected: {
         backend.discard();
+        rowObject.cancelConnect();
     }
+
     standardButtons: Dialog.Ok | Dialog.Cancel
 }
