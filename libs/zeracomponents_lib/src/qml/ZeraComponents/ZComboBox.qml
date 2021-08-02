@@ -10,7 +10,7 @@ Rectangle {
 
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
-
+    property alias popup :selectionDialog
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
     property int targetIndex;
@@ -38,6 +38,8 @@ Rectangle {
     opacity: enabled ? 1.0 : 0.7
     radius: 4
     activeFocusOnTab: true
+
+
 
     function updateFakeModel() {
         if(modelInitialized === true) {
