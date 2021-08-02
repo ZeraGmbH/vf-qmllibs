@@ -34,6 +34,7 @@ Rectangle {
     property bool imageMipmap: true;
     readonly property bool modelInitialized: arrayMode === true && model.length>0 && imageModel.length>0;
     onModelInitializedChanged: updateFakeModel();
+    property alias popup :selectionDialog
 
     function updateFakeModel() {
         if(modelInitialized === true) {
