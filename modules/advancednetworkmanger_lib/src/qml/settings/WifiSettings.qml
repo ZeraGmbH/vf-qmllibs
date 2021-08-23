@@ -67,7 +67,6 @@ Pane {
                 ssid.text = backend.getHostName();
                 backend.ssid = ssid.text
                 backend.conName = name.text
-                name.textField.forceActiveFocus()
             }
             else {
                 name.text = backend.conName;
@@ -210,14 +209,15 @@ Pane {
                     if(backend.mode === "HOTSPOT"){
                         name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
                         ssid.text = backend.getHostName();
+                        pw.textField.forceActiveFocus()
                     }
                     else if(backend.mode === "CLIENT") {
                         name.text = backend.getNextHotspotName(Z.tr("Wifi"));
                         ssid.text = ""
+                        ssid.textField.forceActiveFocus()
                     }
                     backend.conName = name.text
                     backend.ssid = ssid.text
-                    name.textField.focus = true
                 }
             }
         }
