@@ -34,6 +34,7 @@ Rectangle {
     onModelInitializedChanged: updateFakeModel();
 
     color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
+    property var textColor: Material.foreground
     //border.color: Material.dropShadowColor
     opacity: enabled ? 1.0 : 0.7
     radius: 4
@@ -105,6 +106,7 @@ Rectangle {
                 return retVal;
             }
             font.pixelSize: root.fontSize
+            color: textColor
         }
     }
     Label {
@@ -114,6 +116,7 @@ Rectangle {
         text: "▼"
         textFormat: Text.PlainText
         font.pixelSize: root.fontSize/2
+        color: textColor
     }
 
     MouseArea {
