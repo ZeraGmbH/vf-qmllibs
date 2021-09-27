@@ -116,7 +116,6 @@ Rectangle {
         text: "▼"
         textFormat: Text.PlainText
         font.pixelSize: root.fontSize/2
-        color: textColor
     }
 
     MouseArea {
