@@ -341,7 +341,6 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     m_maxCurrent = realItem->maxCurrent();
     m_currentVisible = realItem->currentVisible();
     m_vectorView = realItem->vectorView();
-    m_vectorMode = realItem->vectorMode();
     m_gridVisible = realItem->gridVisible();
     m_gridColor = realItem->gridColor();
     m_circleVisible = realItem->circleVisible();

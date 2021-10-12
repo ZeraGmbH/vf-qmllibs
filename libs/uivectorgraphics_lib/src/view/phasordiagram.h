@@ -39,12 +39,6 @@ public:
     };
     Q_ENUM(VectorView)
 
-    enum class VectorMode : int {
-        DIN410 = 0,
-        IEC387 = 1
-    };
-    Q_ENUM(VectorMode)
-
     QNANO_PROPERTY(float, m_fromX, fromX, setFromX)
     QNANO_PROPERTY(float, m_fromY, fromY, setFromY)
     QNANO_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
@@ -54,7 +48,6 @@ public:
     QNANO_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
     QNANO_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
-    QNANO_PROPERTY(VectorMode, m_vectorMode, vectorMode, setVectorMode)
     QNANO_PROPERTY(bool, m_currentVisible, currentVisible, setCurrentVisible)
     QNANO_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
     QNANO_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
