@@ -145,9 +145,9 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
             QString label = labels[idx];
             if(vector.length() > m_minCurrent) {
                 float screenLenVectorI = vectorIScreen.length();
-                float angleIRotate = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
+                float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
                 if(m_SetUCollisions.contains(idx)) {
-                    angleIRotate = -angleIRotate;
+                    labelRotateAngleI = -labelRotateAngleI;
                 }
                 TVectorData currVectorData(vector,
                                            colors[idx],
@@ -155,7 +155,7 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
                                            1.0,
                                            label,
                                            labelVectorLen(screenLenVectorI),
-                                           angleIRotate);
+                                           labelRotateAngleI);
                 // In case we have identical vectors for current and voltage:
                 // display voltage topmost
                 float lenUPreferFactor = 1.0;
