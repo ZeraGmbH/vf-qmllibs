@@ -50,9 +50,9 @@ void PhasorDiagram::drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColo
     const float angle = atan2(tmpToY - m_fromY , tmpToX - m_fromX);
     if((pixelScale(t_maxValue) * t_vector.length()) != 0){
         QVector<QPoint> points = {
-            QPoint(tmpToX, tmpToY),
-            QPoint(tmpToX - arrowHeadSize * cos(angle - M_PI / 8),tmpToY - arrowHeadSize * sin(angle - M_PI / 8)),
-            QPoint(tmpToX - arrowHeadSize * cos(angle + M_PI / 8), tmpToY - arrowHeadSize * sin(angle + M_PI / 8)),
+            QPoint(roundf(tmpToX), roundf(tmpToY)),
+            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle - M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle - M_PI / 8))),
+            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle + M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle + M_PI / 8))),
         };
 
         QPolygon poly(points);
@@ -76,7 +76,7 @@ void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QCol
     const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
     const float tmpX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
     const float tmpY = m_fromY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
-    t_painter->drawLine(m_fromX, m_fromY, tmpX, tmpY);
+    t_painter->drawLine(roundf(m_fromX), roundf(m_fromY), roundf(tmpX), roundf(tmpY));
 }
 
 void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
