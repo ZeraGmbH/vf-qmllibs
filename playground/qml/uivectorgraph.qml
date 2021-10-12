@@ -245,7 +245,6 @@ ApplicationWindow {
           gridScale: Math.min(height,width)/maxVoltage/2
 
           vectorView: PhasorDiagram.VIEW_THREE_PHASE
-          vectorMode: PhasorDiagram.DIN410
           currentVisible: true
         }
 
