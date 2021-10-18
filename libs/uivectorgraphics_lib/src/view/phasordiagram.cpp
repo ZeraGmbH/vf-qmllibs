@@ -398,7 +398,7 @@ PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 void PhasorDiagram::paint(QPainter *t_painter)
 {
     synchronize((QQuickItem*)this);
-    m_defaultFont.setPixelSize(height() / 25);
+    m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
     drawGridAndCircle(t_painter);
     m_SetUCollisions.clear();
 
