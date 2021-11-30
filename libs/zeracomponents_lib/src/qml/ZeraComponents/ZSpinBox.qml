@@ -1,10 +1,11 @@
-import QtQuick 2.12
+import QtQuick 2.14
 import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.12
+import QtQuick.Layouts 1.14
 import QmlHelpers 1.0
 import ZeraLocale 1.0
 
 Item {
+    id: root
     // TODO: introduce description/unit as in ZLineEdit?
     Layout.alignment: Qt.AlignVCenter
     Layout.minimumWidth: sBox.width
@@ -14,6 +15,7 @@ Item {
     property alias stepSize: sBox.stepSize
     property alias spinBox: sBox
     property bool readOnly: false
+    property real pointSize: height ? height * 0.3 : 10
 
     property var validator
     property string text: "" // locale C
@@ -124,6 +126,7 @@ Item {
         bottomPadding: 8
         editable: true
         inputMethodHints: Qt.ImhFormattedNumbersOnly
+        font.pointSize: root.pointSize
 
         // overrides
         textFromValue: function(value, locale) {
