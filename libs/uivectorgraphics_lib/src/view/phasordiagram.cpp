@@ -162,7 +162,12 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
                 if(drawVoltages) {
                     for(int uidx = 0; uidx<COUNT_PHASES; ++uidx) {
                         if(vectorIScreen.distanceToPoint(m_vectorUScreen[uidx]) < 0.02) {
-                            lenUPreferFactor = 1.02;
+                            if(!m_forceI1Top || (uidx == 0 && idx == 0) || idx != 0) {
+                                lenUPreferFactor = 1.02;
+                            }
+                            else {
+                                lenUPreferFactor = 0.98;
+                            }
                             break;
                         }
                     }
