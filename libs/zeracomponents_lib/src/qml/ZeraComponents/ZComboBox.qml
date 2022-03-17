@@ -84,7 +84,6 @@ Rectangle {
         if(model) {
             updateFakeModel();
         }
-        selectionDialog.close()
     }
 
     // List view does not support JS arrays
