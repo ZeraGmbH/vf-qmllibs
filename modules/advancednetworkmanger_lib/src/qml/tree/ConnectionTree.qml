@@ -67,7 +67,7 @@ Pane {
         id: infotab
         ConnectionInfo {
             anchors.top: parent.top
-            anchors.bottom: showall.top
+            anchors.bottom: addbutton.top
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.margins: 0
@@ -131,7 +131,7 @@ Pane {
     Loader{
         id: infoLoader
         anchors.top: parent.top
-        anchors.bottom: showall.top
+        anchors.bottom: addbutton.top
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: 0
@@ -200,7 +200,7 @@ Pane {
     ListView {
         id: list
         anchors.top: parent.top
-        anchors.bottom: showall.top
+        anchors.bottom: addbutton.top
         anchors.left: parent.left
         anchors.right: parent.right
         clip: true
@@ -208,53 +208,6 @@ Pane {
 
         model: SortFilterProxyModel{
             sourceModel: backend.dataList
-            filters:[
-                RegExpFilter{
-                    enabled: showall.checked
-                    roleName: "nmPath"
-                    pattern: "[A-Za-z0-9,-_.\s]+"
-                    caseSensitivity: Qt.CaseInsensitive
-                } ,
-                RegExpFilter{
-                    enabled: true
-                    inverted: false
-                    roleName: "name"
-                    pattern: ""
-                    caseSensitivity: Qt.CaseInsensitive
-                } ,
-                ValueFilter{
-                    enabled: !showall.checked
-                    roleName: "available"
-                    value: 1
-                } ,
-                AnyOf{
-                    RegExpFilter {
-                        enabled: vpnshow.checked // checkbox not visible yet - TODO?
-                        roleName: "groupe"
-                        pattern: "VPN"
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                    RegExpFilter {
-                        enabled: apshow.checked
-                        roleName: "groupe"
-                        pattern: "HOTSPOT"
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                    RegExpFilter {
-                        enabled: wifishow.checked
-                        roleName: "groupe"
-                        pattern: "WIFI"
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                    RegExpFilter {
-                        enabled: ethshow.checked
-                        roleName: "groupe"
-                        pattern: "ETHERNET"
-                        caseSensitivity: Qt.CaseInsensitive
-                    }
-                    // Bluetoooth - TODO?
-                }
-            ]
             sorters: StringSorter { roleName: "groupe" }
         }
         delegate: ConnectionRowAdvanced {
@@ -328,72 +281,27 @@ Pane {
     }
     Button {
         id: addbutton
-        text: "+"
+        text: Z.tr("+")
         onClicked: menu.open()
-        anchors.top: showall.top
         anchors.left: parent.left
-        anchors.bottom: showall.bottom
+        anchors.bottom: parent.bottom
         Menu {
             id: menu
-            title: "+"
             MenuItem {
-                text: "+ " + Z.tr("ETHERNET")
+                text: Z.tr("Add Ethernet..")
                 onClicked: {
                     infoLoader.active = false;
                     ethLoader.active = true;
                 }
             }
             MenuItem {
-                text: "+ "+ Z.tr("WIFI")
+                text: Z.tr("Add Wifi (hotspot)..")
                 onClicked: {
                     infoLoader.active = false;
                     wifiLoader.active = true;
                 }
             }
         }
-    }
-    CheckBox {
-        id: showall
-        anchors.bottom: parent.bottom
-        anchors.left: addbutton.right
-        text: Z.tr("Show all")
-    }
-    CheckBox{
-        anchors.right: wifishow.left
-        anchors.bottom: parent.bottom
-        id: ethshow
-        checked: true
-        text: Z.tr("ETHERNET")
-    }
-    CheckBox {
-        anchors.right: apshow.left
-        anchors.bottom: parent.bottom
-        id: wifishow
-        checked: true
-        text: Z.tr("WIFI")
-    }
-    CheckBox {
-        anchors.right: infoButton.left
-        anchors.bottom: parent.bottom
-        id: apshow
-        checked: true
-        text: Z.tr("HOTSPOT")
-    }
-    CheckBox {
-        anchors.right: blueshow.left
-        anchors.bottom: parent.bottom
-        id: vpnshow
-        checked: false
-        visible: false
-        text: Z.tr("VPN")
-    }
-    CheckBox {
-        anchors.right: infoButton.left
-        anchors.bottom: parent.bottom
-        id: blueshow
-        checked: false
-        visible: false
-        text: Z.tr("BLUETOOTH")
     }
     ToolButton {
         id: infoButton
