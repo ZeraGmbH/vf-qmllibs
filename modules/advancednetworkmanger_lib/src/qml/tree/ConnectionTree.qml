@@ -66,11 +66,6 @@ Pane {
     Component{
         id: infotab
         ConnectionInfo {
-            anchors.top: parent.top
-            anchors.bottom: addbutton.top
-            anchors.left: parent.left
-            anchors.right: parent.right
-            anchors.margins: 0
             visible: true
             z: 10
         }
