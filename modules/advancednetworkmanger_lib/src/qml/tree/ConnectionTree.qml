@@ -71,7 +71,7 @@ Pane {
         }
     }
     // Password input component - smartConnectLoader is consumer
-    Component{
+    Component {
         id: pwDialog
         SmartConnect{
             width: parent.width
@@ -276,21 +276,21 @@ Pane {
     }
     Button {
         id: addbutton
-        text: Z.tr("+")
+        text: "+"
         onClicked: menu.open()
         anchors.left: parent.left
         anchors.bottom: parent.bottom
         Menu {
             id: menu
             MenuItem {
-                text: Z.tr("Add Ethernet..")
+                text: Z.tr("Add Ethernet...")
                 onClicked: {
                     infoLoader.active = false;
                     ethLoader.active = true;
                 }
             }
             MenuItem {
-                text: Z.tr("Add Wifi (hotspot)..")
+                text: Z.tr("Add Wifi (hotspot)...")
                 onClicked: {
                     infoLoader.active = false;
                     wifiLoader.active = true;
