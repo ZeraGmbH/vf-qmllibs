@@ -282,6 +282,7 @@ Pane {
         anchors.bottom: parent.bottom
         Menu {
             id: menu
+            width: rootItm.width / 2.5
             MenuItem {
                 text: Z.tr("Add Ethernet...")
                 onClicked: {
