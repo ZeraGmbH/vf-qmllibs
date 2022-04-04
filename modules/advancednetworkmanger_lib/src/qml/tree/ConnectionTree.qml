@@ -280,6 +280,7 @@ Pane {
                 text: Z.tr("Add Ethernet...")
                 onClicked: {
                     infoLoader.active = false;
+                    ethLoader.path = ""
                     ethLoader.active = true;
                 }
             }
