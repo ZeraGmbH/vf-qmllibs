@@ -23,7 +23,6 @@ Pane {
             smartConnectLoader.active=false;
             smartConnectLoader.newCon=false;
             smartConnectLoader.active=true;
-
         }
     }
     // Ethernet settings component - ethLoader is consumer
@@ -92,6 +91,12 @@ Pane {
         z: 10
         sourceComponent: ethtab
         property string path: ""
+
+        function load(path) {
+            infoLoader.active = false;
+            ethLoader.path = path
+            ethLoader.active = true
+        }
         onLoaded: {
             item.path = ethLoader.path
             item.init();
@@ -216,8 +221,7 @@ Pane {
             // Action handlers
             onEdit: {
                 if(groupe_ == "ETHERNET") {
-                    ethLoader.path = p_path;
-                    ethLoader.active = true;
+                    ethLoader.load(p_path)
                 } else if(groupe_ === "WIFI"){
                     wifiLoader.path = p_path;
                     wifiLoader.hotspot = false
@@ -279,9 +283,7 @@ Pane {
             MenuItem {
                 text: Z.tr("Add Ethernet...")
                 onClicked: {
-                    infoLoader.active = false;
-                    ethLoader.path = ""
-                    ethLoader.active = true;
+                    ethLoader.load("")
                 }
             }
             MenuItem {
@@ -321,6 +323,3 @@ Pane {
         }
     }
 }
-
-
-
