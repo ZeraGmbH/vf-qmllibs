@@ -20,7 +20,7 @@ Pane {
     padding: 0
     topPadding: 5
     readonly property int labelWidth : width / 4
-    readonly property int rowHeight : height / 12.5
+    readonly property int rowHeight : height / 13
     property real pointSize: rowHeight / 2.8
 
     signal notification(string title, string msg);
