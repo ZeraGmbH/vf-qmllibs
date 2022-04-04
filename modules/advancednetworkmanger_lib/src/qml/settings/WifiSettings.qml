@@ -41,11 +41,6 @@ Pane {
     }
     WirelessConnectionSettingsInterface {
         id: backend
-        // Add models here once for all where all backend magic happens. Wanted
-        // to use ListModel but that complained "cannot use script for property
-        // value" due to Z.tr() - and handling of arrays is much simpler anyway...
-        readonly property var modeModelBackend:      ["CLIENT", "HOTSPOT"]
-        readonly property var modeModelDisplay: Z.tr(["Client", "Hotspot"])
         onLoadComplete: {
             // do not change the order mode sets some values to defaults.
             // incase this is a existing connection we do not want those defaults
@@ -67,7 +62,6 @@ Pane {
                 name.text = backend.conName;
                 ssid.text = backend.ssid;
             }
-            mode.currentIndex = backend.modeModelBackend.indexOf(backend.mode);
             pw.text = backend.password;
             device.text = backend.device;
             autoConCheckbox.checked = backend.autoconnect;
