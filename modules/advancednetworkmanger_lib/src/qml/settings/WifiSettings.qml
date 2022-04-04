@@ -41,6 +41,7 @@ Pane {
         }
 
     }
+
     NetworkmanagerAbstraction {
         id: generalbackend
     }
@@ -56,10 +57,12 @@ Pane {
                     name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
                     ssid.text = backend.getHostName();
                     backend.ssid = ssid.text
+                    pw.textField.forceActiveFocus()
                 }
                 else {
                     backend.mode = "CLIENT"
                     name.text = backend.getNextHotspotName(Z.tr("Wifi"));
+                    ssid.textField.forceActiveFocus()
                 }
                 backend.conName = name.text
             }
