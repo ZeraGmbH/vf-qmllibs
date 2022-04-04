@@ -79,7 +79,7 @@ Pane {
             font.pixelSize: 18
             font.bold: true
             horizontalAlignment: Label.AlignHCenter
-            text: Z.tr("Wifi Connection Settings")
+            text: hotspot ? Z.tr("Hotspot Settings") : Z.tr("Wifi Settings")
         }
         ZLineEdit {
             id: name
