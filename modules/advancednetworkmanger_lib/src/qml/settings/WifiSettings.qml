@@ -54,13 +54,13 @@ Pane {
                 if(hotspot) {
                     backend.mode = "HOTSPOT"
                     name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                    ssid.text = backend.getHostName();
+                    backend.ssid = ssid.text
                 }
                 else {
                     backend.mode = "CLIENT"
                     name.text = backend.getNextHotspotName(Z.tr("Wifi"));
                 }
-                ssid.text = backend.getHostName();
-                backend.ssid = ssid.text
                 backend.conName = name.text
             }
             else {
