@@ -15,9 +15,13 @@ import ZeraTranslation 1.0
 
 Pane {
     id: rootItm
+    property string path : ""
+
     padding: 0
     topPadding: 5
-    property string path : ""
+    readonly property int labelWidth : width / 4
+    readonly property int rowHeight : height / 12.5
+    property real pointSize: rowHeight / 2.8
 
     signal notification(string title, string msg);
 
@@ -66,15 +70,12 @@ Pane {
     }
     VisualItemModel {
         id: clientModel
-        readonly property int labelWidth : rootItm.width/4
-        readonly property int rowHeight : rootItm.height/12
-        property real pointSize: clientModel.rowHeight / 2.8 // reduce ZLineEdit default slightly
         Label {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
-            height: clientModel.rowHeight
-            font.pointSize: clientModel.pointSize
+            height: rowHeight
+            font.pointSize: pointSize * 1.25
             font.bold: true
             horizontalAlignment: Label.AlignHCenter
             text: Z.tr("Ethernet Connection Settings")
@@ -86,10 +87,10 @@ Pane {
             anchors.left: parent.left
             anchors.leftMargin: 20
             anchors.right: parent.right
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            height: rowHeight
+            pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
-            description.width: clientModel.labelWidth
+            description.width: labelWidth
             validator: RegExpValidator{ regExp: /.{3,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
@@ -100,12 +101,13 @@ Pane {
         // IPv4 area
         Label {
             id: ipv4header
+            text: Z.tr("IPv4")
             anchors.left: parent.left
             anchors.right: parent.right
-            height: clientModel.rowHeight
-            font.pointSize: clientModel.pointSize
+            height: rowHeight
+            font.pointSize: pointSize
             font.bold: true
-            text: Z.tr("IPv4")
+            verticalAlignment: Label.AlignBottom
         }
         RowLayout {
             id: ipv4ModeL
@@ -116,14 +118,14 @@ Pane {
             Label {
                 id: ipv4ModeLabel
                 text: Z.tr("Mode:")
-                Layout.preferredWidth: clientModel.labelWidth - ZCC.standardTextHorizMargin
-                font.pointSize: clientModel.pointSize
+                Layout.preferredWidth: labelWidth - ZCC.standardTextHorizMargin
+                font.pointSize: pointSize
             }
             ComboBox {
                 id: ipv4Mode
-                height: clientModel.rowHeight
+                height: rowHeight
                 Layout.fillWidth: true
-                font.pointSize: clientModel.pointSize
+                font.pointSize: pointSize
                 model: backend.modeModelDisplay
                 onCurrentIndexChanged: {
                     backend.ipv4Mode = backend.modeModelBackend[currentIndex]
@@ -136,9 +138,9 @@ Pane {
             anchors.leftMargin: 20
             anchors.right: parent.right
             description.text: Z.tr("IP:")
-            description.width: clientModel.labelWidth
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            description.width: labelWidth
+            height: rowHeight
+            pointSize: rootItm.pointSize
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
             // overrides
@@ -159,9 +161,9 @@ Pane {
             anchors.leftMargin: 20
             anchors.right: parent.right
             description.text: Z.tr("Subnetmask:")
-            description.width: clientModel.labelWidth
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            description.width: labelWidth
+            height: rowHeight
+            pointSize: rootItm.pointSize
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
             // overrides
@@ -181,12 +183,13 @@ Pane {
         // IPv6 area
         Label {
             id: ipv6header
+            text: Z.tr("IPv6")
             anchors.left: parent.left
             anchors.right: parent.right
-            height: clientModel.rowHeight
-            font.pointSize: clientModel.pointSize
+            height: rowHeight
+            font.pointSize: pointSize
             font.bold: true
-            text: Z.tr("IPv6")
+            verticalAlignment: Label.AlignBottom
         }
         RowLayout {
             id: ipv6ModeL
@@ -197,14 +200,14 @@ Pane {
             Label {
                 id: ipv6ModeLabel
                 text: Z.tr("Mode:")
-                Layout.preferredWidth: clientModel.labelWidth - ZCC.standardTextHorizMargin
-                font.pointSize: clientModel.pointSize
+                Layout.preferredWidth: labelWidth - ZCC.standardTextHorizMargin
+                font.pointSize: pointSize
             }
             ComboBox {
                 id: ipv6Mode
-                height: clientModel.rowHeight
+                height: rowHeight
                 Layout.fillWidth: true
-                font.pointSize: clientModel.pointSize
+                font.pointSize: pointSize
                 model: backend.modeModelDisplay
                 onCurrentIndexChanged: {
                     backend.ipv6Mode = backend.modeModelBackend[currentIndex]
@@ -217,9 +220,9 @@ Pane {
             anchors.leftMargin: 20
             anchors.right: parent.right
             description.text: Z.tr("IP:")
-            description.width: clientModel.labelWidth
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            description.width: labelWidth
+            height: rowHeight
+            pointSize: rootItm.pointSize
             validator: RegExpValidator { regExp: /([a-f0-9:]+:+)+[a-f0-9]+/}
             enabled: backend.ipFieldsEnabled(ipv6Mode.currentIndex)
             // overrides
@@ -234,9 +237,9 @@ Pane {
             anchors.leftMargin: 20
             anchors.right: parent.right
             description.text: Z.tr("Subnetmask:")
-            description.width: clientModel.labelWidth
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            description.width: labelWidth
+            height: rowHeight
+            pointSize: rootItm.pointSize
             // TODO: This looks like a copy & paste from IPv4
             validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv6Mode.currentIndex)
@@ -252,7 +255,7 @@ Pane {
     ListView {
         id: list
         anchors.top: parent.top
-        anchors.bottom: okButton.top
+        anchors.bottom: okCancelButtonRow.top
         anchors.left: parent.left
         anchors.right: parent.right
         model: clientModel
@@ -260,50 +263,55 @@ Pane {
     }
     //--------------------------
     // OK / Cancel buttons
-    ZButton{
-        id: okButton
+    RowLayout {
+        id: okCancelButtonRow
         anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        height: clientModel.rowHeight
-        width: cancelButton.width
-        text: Z.tr("OK")
-        onClicked: {
-            var good = true;
-            var errorField;
-
-            if(!ipv6.acceptableInput && ipv6.enabled) {
-                good = false;
-                errorField = Z.tr("IPV6 IP")
-            } else if(!sub6.acceptableInput && sub6.enabled) {
-                good = false;
-                errorField = Z.tr("IPV6 Subnetmask")
-            } else if(!ipv4.acceptableInput &&ipv4.enabled) {
-                good = false;
-                errorField = Z.tr("IPV4 IP")
-            } else if(!sub4.acceptableInput && sub4.enabled) {
-                good = false;
-                errorField = Z.tr("IPV4 Subnetmask")
-            } else if(!name.acceptableInput){
-                good = false;
-                errorField = Z.tr("Connection name")
-            }
-            if(good) {
-                backend.save();
-                rootItm.visible = false
-            } else {
-                notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
-            }
-        }
-    }
-    ZButton{
-        id: cancelButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: clientModel.rowHeight
-        text: Z.tr("Cancel")
-        onClicked: {
-            backend.discard();
-            rootItm.visible = false
+        Item {
+            Layout.fillWidth: true
+        }
+        Button {
+            id: okButton
+            text: Z.tr("OK")
+            font.pointSize: pointSize
+            Layout.preferredWidth: cancelButton.width
+            onClicked: {
+                var good = true;
+                var errorField;
+
+                if(!ipv6.acceptableInput && ipv6.enabled) {
+                    good = false;
+                    errorField = Z.tr("IPV6 IP")
+                } else if(!sub6.acceptableInput && sub6.enabled) {
+                    good = false;
+                    errorField = Z.tr("IPV6 Subnetmask")
+                } else if(!ipv4.acceptableInput &&ipv4.enabled) {
+                    good = false;
+                    errorField = Z.tr("IPV4 IP")
+                } else if(!sub4.acceptableInput && sub4.enabled) {
+                    good = false;
+                    errorField = Z.tr("IPV4 Subnetmask")
+                } else if(!name.acceptableInput){
+                    good = false;
+                    errorField = Z.tr("Connection name")
+                }
+                if(good) {
+                    backend.save();
+                    rootItm.visible = false
+                } else {
+                    notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
+                }
+            }
+        }
+        Button {
+            id: cancelButton
+            text: Z.tr("Cancel")
+            font.pointSize: pointSize
+            onClicked: {
+                backend.discard();
+                rootItm.visible = false
+            }
         }
     }
 }
