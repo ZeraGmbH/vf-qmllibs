@@ -46,16 +46,6 @@ Pane {
         // value" due to Z.tr() - and handling of arrays is much simpler anyway...
         readonly property var modeModelBackend:      ["CLIENT", "HOTSPOT"]
         readonly property var modeModelDisplay: Z.tr(["Client", "Hotspot"])
-        // plausibitity helper(s)
-        function ssidEditableOnly(modeIndex) {
-            // For hotspot we should not select from list (we would open a
-            // hotpot with same ssid as available in our network)
-            var ret = false
-            if(modeIndex >= 0) {
-                ret = modeModelBackend[modeIndex] === "HOTSPOT"
-            }
-            return ret
-        }
         onLoadComplete: {
             // do not change the order mode sets some values to defaults.
             // incase this is a existing connection we do not want those defaults
@@ -145,10 +135,7 @@ Pane {
                 width: clientModel.rowHeight
                 height: clientModel.rowHeight
                 text: FA.fa_search_plus
-                visible: !backend.ssidEditableOnly(mode.currentIndex)
-                /*background: Rectangle{
-                    color: "transparent"
-                }*/
+                visible: !hotspot
                 onClicked: {
                     aApDialog.visible = true;
                 }
@@ -181,9 +168,6 @@ Pane {
                 width: clientModel.rowHeight
                 height: clientModel.rowHeight
                 text: FA.fa_eye_slash
-                /*background: Rectangle{
-                    color: "transparent"
-                }*/
                 onPressed: {
                     pw.textField.echoMode = TextInput.Normal
                     pwvisible.text= FA.fa_eye
