@@ -113,6 +113,13 @@ Pane {
         sourceComponent: wifitab
         property string path: ""
         property bool hotspot: true
+
+        function load(path, hotspot) {
+            infoLoader.active = false;
+            wifiLoader.path = path
+            wifiLoader.hotspot = hotspot
+            wifiLoader.active = true
+        }
         onLoaded: {
             item.path = wifiLoader.path
             item.hotspot = wifiLoader.hotspot
@@ -222,14 +229,12 @@ Pane {
             onEdit: {
                 if(groupe_ == "ETHERNET") {
                     ethLoader.load(p_path)
-                } else if(groupe_ === "WIFI"){
-                    wifiLoader.path = p_path;
-                    wifiLoader.hotspot = false
-                    wifiLoader.active = true;
-                } else if(groupe_ === "HOTSPOT"){
-                    wifiLoader.path = p_path;
-                    wifiLoader.hotspot = true
-                    wifiLoader.active = true;
+                }
+                else if(groupe_ === "WIFI") {
+                    wifiLoader.load(p_path, false)
+                }
+                else if(groupe_ === "HOTSPOT"){
+                    wifiLoader.load(p_path, true)
                 }
             }
             onRemove: {
@@ -289,19 +294,13 @@ Pane {
             MenuItem {
                 text: Z.tr("Add Hotspot...")
                 onClicked: {
-                    infoLoader.active = false;
-                    wifiLoader.path = ""
-                    wifiLoader.hotspot = true
-                    wifiLoader.active = true;
+                    wifiLoader.load("", true)
                 }
             }
             MenuItem {
                 text: Z.tr("Add Wifi...")
                 onClicked: {
-                    infoLoader.active = false;
-                    wifiLoader.path = ""
-                    wifiLoader.hotspot = false
-                    wifiLoader.active = true;
+                    wifiLoader.load("", false)
                 }
             }
         }
