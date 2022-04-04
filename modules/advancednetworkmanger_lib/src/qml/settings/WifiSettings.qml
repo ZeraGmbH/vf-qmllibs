@@ -16,6 +16,7 @@ Pane {
     padding: 0
     topPadding: 5
     property string path : ""
+    property bool hotspot: true
 
     signal notification(string title, string msg);
 
@@ -60,10 +61,14 @@ Pane {
             // incase this is a existing connection we do not want those defaults
             // but the actual set value.
             if(path === "") {
-                // Hotspot most wanted here because Wifi client is setup by SmartConnection
-                // in most cases
-                backend.mode = "HOTSPOT"
-                name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                if(hotspot) {
+                    backend.mode = "HOTSPOT"
+                    name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
+                }
+                else {
+                    backend.mode = "CLIENT"
+                    name.text = backend.getNextHotspotName(Z.tr("Wifi"));
+                }
                 ssid.text = backend.getHostName();
                 backend.ssid = ssid.text
                 backend.conName = name.text
@@ -189,39 +194,6 @@ Pane {
                 }
             }
         }
-        RowLayout {
-            id: conMode
-            anchors.left: parent.left
-            width: parent.width// - clientModel.rowHeight - ZCC.standardTextHorizMargin
-            Label {
-                id: modeLabel
-                font.pointSize: clientModel.pointSize
-                text: Z.tr("Mode:")
-                Layout.preferredWidth: clientModel.labelWidth - ZCC.standardTextHorizMargin
-            }
-            ComboBox{
-                id: mode
-                Layout.fillWidth: true
-                font.pointSize: clientModel.pointSize
-                model: backend.modeModelDisplay
-                onCurrentIndexChanged: {
-                    backend.mode = backend.modeModelBackend[currentIndex];
-                    if(backend.mode === "HOTSPOT"){
-                        name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
-                        ssid.text = backend.getHostName();
-                        pw.textField.forceActiveFocus()
-                    }
-                    else if(backend.mode === "CLIENT") {
-                        name.text = backend.getNextHotspotName(Z.tr("Wifi"));
-                        ssid.text = ""
-                        ssid.textField.forceActiveFocus()
-                    }
-                    backend.conName = name.text
-                    backend.ssid = ssid.text
-                }
-            }
-        }
-
         RowLayout{
             width: parent.width
             height: parent.rowHeight
