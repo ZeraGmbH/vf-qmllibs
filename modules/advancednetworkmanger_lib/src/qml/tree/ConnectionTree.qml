@@ -96,11 +96,6 @@ Pane {
             item.path = ethLoader.path
             item.init();
         }
-        onActiveChanged: {
-            if(!active) {
-                path = "";
-            }
-        }
     }
     // Wifi settings tab loader
     Loader{
@@ -112,14 +107,11 @@ Pane {
         z: 10
         sourceComponent: wifitab
         property string path: ""
+        property bool hotspot: true
         onLoaded: {
             item.path = wifiLoader.path
+            item.hotspot = wifiLoader.hotspot
             item.init();
-        }
-        onActiveChanged: {
-            if(!active){
-                path = "";
-            }
         }
     }
     // Info tab loader
@@ -228,10 +220,11 @@ Pane {
                     ethLoader.active = true;
                 } else if(groupe_ === "WIFI"){
                     wifiLoader.path = p_path;
+                    wifiLoader.hotspot = false
                     wifiLoader.active = true;
-
                 } else if(groupe_ === "HOTSPOT"){
                     wifiLoader.path = p_path;
+                    wifiLoader.hotspot = true
                     wifiLoader.active = true;
                 }
             }
@@ -291,9 +284,20 @@ Pane {
                 }
             }
             MenuItem {
-                text: Z.tr("Add Wifi (hotspot)...")
+                text: Z.tr("Add Hotspot...")
                 onClicked: {
                     infoLoader.active = false;
+                    wifiLoader.path = ""
+                    wifiLoader.hotspot = true
+                    wifiLoader.active = true;
+                }
+            }
+            MenuItem {
+                text: Z.tr("Add Wifi...")
+                onClicked: {
+                    infoLoader.active = false;
+                    wifiLoader.path = ""
+                    wifiLoader.hotspot = false
                     wifiLoader.active = true;
                 }
             }
