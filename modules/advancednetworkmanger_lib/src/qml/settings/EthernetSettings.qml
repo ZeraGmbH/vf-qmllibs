@@ -272,6 +272,15 @@ Pane {
             Layout.fillWidth: true
         }
         Button {
+            id: cancelButton
+            text: Z.tr("Cancel")
+            font.pointSize: pointSize
+            onClicked: {
+                backend.discard();
+                rootItm.visible = false
+            }
+        }
+        Button {
             id: okButton
             text: Z.tr("OK")
             font.pointSize: pointSize
@@ -302,15 +311,6 @@ Pane {
                 } else {
                     notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
                 }
-            }
-        }
-        Button {
-            id: cancelButton
-            text: Z.tr("Cancel")
-            font.pointSize: pointSize
-            onClicked: {
-                backend.discard();
-                rootItm.visible = false
             }
         }
     }
