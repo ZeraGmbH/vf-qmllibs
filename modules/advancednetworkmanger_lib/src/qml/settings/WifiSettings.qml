@@ -13,10 +13,15 @@ import ZeraTranslation 1.0
 
 Pane {
     id: rootItm
-    padding: 0
-    topPadding: 5
     property string path : ""
     property bool hotspot: true
+
+    anchors.fill: parent
+    padding: 0
+    topPadding: 10
+    readonly property int rowHeight : height ? height / 10 : 10
+    property real pointSize: rowHeight / 2.8
+    property int labelWidth : rootItm.width / 3
 
     signal notification(string title, string msg);
 
@@ -69,14 +74,11 @@ Pane {
     }
     ObjectModel {
         id: clientModel
-        property int labelWidth : rootItm.width/4
-        readonly property int rowHeight : rootItm.height/12
-        property real pointSize: clientModel.rowHeight / 2.8 // reduce ZLineEdit default slightly
         Label {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pixelSize: 18
+            font.pointSize: pointSize * 1.25
             font.bold: true
             horizontalAlignment: Label.AlignHCenter
             text: hotspot ? Z.tr("Hotspot Settings") : Z.tr("Wifi Settings")
@@ -84,11 +86,11 @@ Pane {
         ZLineEdit {
             id: name
             anchors.left: parent.left
-            width: parent.width - clientModel.rowHeight
-            height: clientModel.rowHeight
-            pointSize: clientModel.pointSize
+            width: parent.width - rowHeight
+            height: rowHeight
+            pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
-            description.width: clientModel.labelWidth
+            description.width: labelWidth
             validator: RegExpValidator{ regExp: /.{3,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
@@ -101,17 +103,17 @@ Pane {
         Item {
             anchors.left: parent.left
             anchors.right: parent.right
-            height: clientModel.rowHeight
+            height: rowHeight
             // Just for the record: this remains enabled for hotpot AND CLIENT
             // -> we might want to create a client for a hidden SSID
             ZLineEdit {
                 id: ssid
                 anchors.left: parent.left
                 anchors.right: ssidButton.left
-                height: clientModel.rowHeight
-                pointSize: clientModel.pointSize
+                height: rowHeight
+                pointSize: rootItm.pointSize
                 description.text: Z.tr("SSID:")
-                description.width: clientModel.labelWidth
+                description.width: labelWidth
                 validator: RegExpValidator{ regExp: /.{1,}/}
                 function doApplyInput(newText) {
                     backend.ssid = newText;
@@ -125,9 +127,9 @@ Pane {
                 id: ssidButton
                 anchors.right: parent.right
                 font.family: FA.old
-                font.pointSize: clientModel.pointSize
-                width: clientModel.rowHeight
-                height: clientModel.rowHeight
+                font.pointSize: pointSize
+                width: rowHeight
+                height: rowHeight
                 text: FA.fa_search_plus
                 visible: !hotspot
                 onClicked: {
@@ -138,16 +140,16 @@ Pane {
         Item {
             anchors.left: parent.left
             anchors.right: parent.right
-            height: clientModel.rowHeight
+            height: rowHeight
             ZLineEdit {
                 id: pw
                 textField.echoMode: TextInput.Password
                 anchors.left: parent.left
                 anchors.right: pwvisible.left
-                height: clientModel.rowHeight
-                pointSize: clientModel.pointSize
+                height: rowHeight
+                pointSize: rootItm.pointSize
                 description.text: Z.tr("Password:")
-                description.width: clientModel.labelWidth
+                description.width: labelWidth
                 validator: RegExpValidator{ regExp: /.{8,}/}
                 function doApplyInput(newText) {
                     backend.password = newText;
@@ -158,9 +160,9 @@ Pane {
                 id: pwvisible
                 anchors.right: parent.right
                 font.family: FA.old
-                font.pointSize: clientModel.pointSize
-                width: clientModel.rowHeight
-                height: clientModel.rowHeight
+                font.pointSize: pointSize
+                width: rowHeight
+                height: rowHeight
                 text: FA.fa_eye_slash
                 onPressed: {
                     pw.textField.echoMode = TextInput.Normal
@@ -177,9 +179,9 @@ Pane {
             height: parent.rowHeight
             Label {
                 id: autoconLabel
-                font.pointSize: clientModel.pointSize
+                font.pointSize: pointSize
                 text: Z.tr("Autoconnect:")
-                Layout.preferredWidth: clientModel.labelWidth - ZCC.standardTextHorizMargin
+                Layout.preferredWidth: labelWidth - ZCC.standardTextHorizMargin
             }
             CheckBox{
                 id: autoConCheckbox
@@ -191,56 +193,60 @@ Pane {
             }
         }
     }
-    ListView{
+    ListView {
         id: list
         anchors.top: parent.top
-        anchors.bottom: okButton.top
+        anchors.bottom: okCancelButtonRow.top
         anchors.left: parent.left
         anchors.right: parent.right
         model: clientModel
     }
     //--------------------------
     // OK / Cancel buttons
-    ZButton {
-        id: okButton
+    RowLayout {
+        id: okCancelButtonRow
         anchors.left: parent.left
-        anchors.bottom: parent.bottom
-        height: clientModel.rowHeight
-        width: cancelButton.width
-        text: Z.tr("OK")
-        onClicked: {
-            var good=true;
-            var errorField="";
-            if(!name.acceptableInput) {
-                good = false;
-                errorField = Z.tr("Connection name")
-            } else if(!ssid.acceptableInput) {
-                good = false;
-                errorField = Z.tr("SSID")
-            } else if(!pw.acceptableInput) {
-                good = false;
-                errorField = Z.tr("Password")
-            }
-            if(good) {
-                backend.save();
-                rootItm.visible = false
-            } else {
-                notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
-            }
-        }
-    }
-    ZButton{
-        id: cancelButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom
-        height: clientModel.rowHeight
-        text: Z.tr("Cancel")
-        onClicked: {
-            backend.discard();
-            rootItm.visible = false
+        Item {
+            Layout.fillWidth: true
+        }
+        Button{
+            id: cancelButton
+            text: Z.tr("Cancel")
+            font.pointSize: pointSize
+            onClicked: {
+                backend.discard();
+                rootItm.visible = false
+            }
+        }
+        Button {
+            id: okButton
+            text: Z.tr("OK")
+            font.pointSize: pointSize
+            Layout.preferredWidth: cancelButton.width
+            onClicked: {
+                var good = true;
+                var errorField = "";
+                if(!name.acceptableInput) {
+                    good = false;
+                    errorField = Z.tr("Connection name")
+                } else if(!ssid.acceptableInput) {
+                    good = false;
+                    errorField = Z.tr("SSID")
+                } else if(!pw.acceptableInput) {
+                    good = false;
+                    errorField = Z.tr("Password")
+                }
+                if(good) {
+                    backend.save();
+                    rootItm.visible = false
+                } else {
+                    notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
+                }
+            }
         }
     }
-
     //--------------------------
     // Dialogs
     AvailableApDialog {
