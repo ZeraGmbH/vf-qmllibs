@@ -18,7 +18,7 @@ set(PROJECT_VERSION "${uivlib_VERSION_MAJOR}.${uivlib_VERSION_MINOR}.${uivlib_VE
 include(FeatureSummary)
 include(GNUInstallDirs)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
 
 MACRO(HEADER_DIRECTORIES dir return_list)
