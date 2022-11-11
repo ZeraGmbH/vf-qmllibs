@@ -16,7 +16,7 @@ set(PROJECT_VERSION "${zerafa_VERSION_MAJOR}.${zerafa_VERSION_MINOR}.${zerafa_VE
 include(FeatureSummary)
 include(GNUInstallDirs)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Gui Qml Quick)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
 
 MACRO(HEADER_DIRECTORIES dir return_list)

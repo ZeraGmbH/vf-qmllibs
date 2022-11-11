@@ -15,7 +15,7 @@ set(PROJECT_VERSION "${anmlib_VERSION_MAJOR}.${anmlib_VERSION_MINOR}.${anmlib_VE
 include(FeatureSummary)
 include(GNUInstallDirs)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core DBus Xml Gui Qml Quick)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core DBus Xml Qml Quick)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
 find_package(SortFilterProxyModelCmake REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)

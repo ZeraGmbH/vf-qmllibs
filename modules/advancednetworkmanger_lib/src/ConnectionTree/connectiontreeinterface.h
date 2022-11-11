@@ -30,7 +30,6 @@
 
 #include <globalDefines.h>
 #include <connectionmodel.h>
-#include <QStandardItemModel>
 #include <QList>
 
 #include "abstractnetwork.h"
