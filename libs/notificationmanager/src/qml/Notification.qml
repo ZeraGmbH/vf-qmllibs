@@ -21,21 +21,26 @@ Popup {
         id: con
         Column{
             id: col
-        Label{
-            padding: 2
-            width: popup.width
-            id: tit
-            font.pixelSize: txt.font.pixelSize+4
-            wrapMode: Text.Wrap
-            font.bold: true
-
-        }
-        Label {
-            padding: 2
-            width: popup.width
-            id: txt
-            wrapMode: Text.Wrap
-        }
+            Label {
+                id: tit
+                padding: 1
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                width: popup.width
+                font.pixelSize: txt.font.pixelSize+4
+                wrapMode: Text.Wrap
+                font.bold: true
+                color: "white"
+            }
+            Label {
+                id: txt
+                padding: 2
+                verticalAlignment: Text.AlignVCenter
+                horizontalAlignment: Text.AlignHCenter
+                width: popup.width
+                wrapMode: Text.Wrap
+                color: "white"
+            }
         }
     }
 }
