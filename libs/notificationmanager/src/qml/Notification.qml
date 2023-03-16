@@ -19,14 +19,6 @@ Popup {
 
     contentItem: Item {
         id: con
-        anchors.fill: parent
-        implicitHeight: tit.implicitHeight+txt.implicitHeight+5
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                popup.close()
-            }
-        }
         Column{
             id: col
         Label{
