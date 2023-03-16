@@ -41,6 +41,11 @@ Popup {
                 wrapMode: Text.Wrap
                 color: "white"
             }
+            Button {
+                text : "Ok"
+                onClicked: popup.close()
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
         }
     }
 }
