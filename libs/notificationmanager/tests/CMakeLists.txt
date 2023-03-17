@@ -1,4 +1,4 @@
 SETUP_QTESTS(
-    test_notificationmessage
+    test_notificationmsg
 )
 

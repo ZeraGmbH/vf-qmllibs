@@ -1,4 +1,4 @@
-#include "test_notificationmessage.h"
+#include "test_notificationmsg.h"
 #include "notificationmsg.h"
 #include "notificationmsgexpiring.h"
 #include <timerfactoryqtfortest.h>
@@ -6,14 +6,14 @@
 #include <QSignalSpy>
 #include <QTest>
 
-QTEST_MAIN(test_notificationmessage)
+QTEST_MAIN(test_notificationmsg)
 
-void test_notificationmessage::init()
+void test_notificationmsg::init()
 {
     TimerFactoryQtForTest::enableTest();
 }
 
-void test_notificationmessage::readMsg()
+void test_notificationmsg::readMsg()
 {
     NotificationMsg msg1("foo");
     NotificationMsg msg2("bar");
@@ -21,7 +21,7 @@ void test_notificationmessage::readMsg()
     QCOMPARE(msg2.getMsg(), "bar");
 }
 
-void test_notificationmessage::fadeOutCount()
+void test_notificationmsg::fadeOutCount()
 {
     NotificationMsgExpiring msg("foo", 100);
     QSignalSpy spy(&msg, &NotificationMsg::sigFadeOut);
@@ -29,7 +29,7 @@ void test_notificationmessage::fadeOutCount()
     QCOMPARE(spy.count(), 1);
 }
 
-void test_notificationmessage::fadeOutTime()
+void test_notificationmsg::fadeOutTime()
 {
     NotificationMsgExpiring msg("foo", 100);
     QSignalSpy spy(&msg, &NotificationMsg::sigFadeOut);

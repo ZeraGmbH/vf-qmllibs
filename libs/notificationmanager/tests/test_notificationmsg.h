@@ -3,7 +3,7 @@
 
 #include <QObject>
 
-class test_notificationmessage : public QObject
+class test_notificationmsg : public QObject
 {
     Q_OBJECT
 private slots:
