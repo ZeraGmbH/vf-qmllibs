@@ -3,21 +3,16 @@ import QtQuick 2.0
 import QtQuick.Window 2.2
 import QtQuick.Controls 2.0
 
-//import PQML.Controls 1.0 as PC
-
 QtObject {
     id: base
     property int x: 0
     property var window
-
-    property var notifications: []
+    property var listOfNotifications: []
     property var queue: []
     property int  maxOnScreen: 3
-
-
     property int ySpacing: 5
     property int notificationWidth: 150
-    property int  ontime: 1000
+    property int  ontime: 5000
 
     function timerObj() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", appWindow);
@@ -26,28 +21,27 @@ QtObject {
     function notify(title, Message){
         // Add message to queue
         base.queue.unshift({head: title, msg: Message});
-        if(maxOnScreen>notifications.length){
+        if(maxOnScreen>listOfNotifications.length){
             tryNotify();
         }
     }
 
     function sortOnScreen(index){
         if(index>=0){
-        if(notifications.length>index){
+            if(listOfNotifications.length>index){
 
-            notifications[index].y = window.height-notifications[index].implicitHeight
-            notifications[index].z = notifications.length
-            notifications[index].x = window.width-notificationWidth
-        }
-
-        for (var i = index+1;i<notifications.length;i++){
-            notifications[i].y = notifications[i-1].y - ySpacing
-                        if (notifications[i].y === 0){
-                            notifications[i].y = window.height-notifications[i].height
-                        }
-            notifications[i].z = notifications.length-i
-            notifications[i].x=window.width-notificationWidth
-        }
+                listOfNotifications[index].y = window.height-listOfNotifications[index].implicitHeight
+                listOfNotifications[index].z = listOfNotifications.length
+                listOfNotifications[index].x = window.width-notificationWidth
+            }
+            for (var i = index+1;i<listOfNotifications.length;i++){
+                listOfNotifications[i].y = listOfNotifications[i-1].y - ySpacing
+                if (listOfNotifications[i].y === 0){
+                    listOfNotifications[i].y = window.height-listOfNotifications[i].height
+                }
+                listOfNotifications[i].z = listOfNotifications.length-i
+                listOfNotifications[i].x=window.width-notificationWidth
+            }
         }
     }
 
@@ -61,38 +55,33 @@ QtObject {
         notifi.title =  title;
         notifi.width = notificationWidth;
         notifi.y=window.height;
-
-
-
-        notifications.push(notifi);
+        listOfNotifications.push(notifi);
         if(popupTimer.running === false){
             popupTimer.running = true
         };
         notifi.open();
         sortOnScreen(0);
         notifi.closed.connect( function closingPopup(){
-            var index = notifications.indexOf(notifi);
+            var index = listOfNotifications.indexOf(notifi);
             if (index > -1){
-                notifications.splice(index, 1);
+                listOfNotifications.splice(index, 1);
             }
             notifi.destroy();
-            if(notifications.length > 0){
+            if(listOfNotifications.length > 0){
                 sortOnScreen(index);
                 popupTimer.running = true;
             }
             if(base.queue.length>0)tryNotify();
         })
     }
-
     property var popupTimer: Timer{
         interval: ontime// milliseconds
         running: false
         repeat: false
         onTriggered: {
-            if(notifications.length > 0){
-                notifications[0].close()
+            if(listOfNotifications.length > 0){
+                listOfNotifications[0].close()
             }
         }
     }
-
 }
