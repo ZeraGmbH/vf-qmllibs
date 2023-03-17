@@ -18,6 +18,7 @@ set(CMAKE_AUTOMOC ON)
 
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick Test)
 find_package(Qt5QuickCompiler CONFIG REQUIRED)
+find_package(ZenuxCore REQUIRED)
 
 enable_testing()
 # Inspired by
@@ -34,6 +35,7 @@ function(SETUP_QTESTS)
             PUBLIC
             Qt5::Test
             notificationmanager
+            Zera::zera-timers-testlib
         )
     endforeach()
 endfunction()
