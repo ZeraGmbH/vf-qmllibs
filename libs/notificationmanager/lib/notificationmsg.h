@@ -9,14 +9,14 @@ class NotificationMsg : public QObject
     Q_OBJECT
 public:
     NotificationMsg(QString msg);
-    QString getMsg();
-    int getId();
+    QString getMsg() const;
+    int getId() const;
 signals:
     void sigFadeOut(int id);
 protected:
-    int m_id;
+    const int m_id;
 private:
-    QString m_msg;
+    const QString m_msg;
 };
 
 typedef std::shared_ptr<NotificationMsg> NotificationMsgPtr;

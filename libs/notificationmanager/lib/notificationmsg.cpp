@@ -8,12 +8,12 @@ NotificationMsg::NotificationMsg(QString msg) :
 {
 }
 
-QString NotificationMsg::getMsg()
+QString NotificationMsg::getMsg() const
 {
     return m_msg;
 }
 
-int NotificationMsg::getId()
+int NotificationMsg::getId() const
 {
     return m_id;
 }
