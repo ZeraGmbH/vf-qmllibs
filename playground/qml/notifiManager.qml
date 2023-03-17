@@ -4,9 +4,7 @@ import QtQuick.Controls 2.2
 import Qt.labs.platform 1.0
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
-import "qrc:/"
-
-import "qrc:/lib/qml"
+import "qrc:/qml"
 
 ApplicationWindow {
     id: mainWindow
