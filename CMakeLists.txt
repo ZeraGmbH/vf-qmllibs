@@ -40,28 +40,16 @@ function(SETUP_QTESTS)
     endforeach()
 endfunction()
 
-#Some of the libs are based on the ZeraVeinFramework.
-#If you do not wish to use these set buildVein to OFF.
-#This way this collection is useable without vein
+# Some of the libs are based on the ZeraVeinFramework.
+# If you do not wish to use these set buildVein to OFF.
+# This way this collection is useable without vein
 option(buildVein "Building libs depending on vein" ON)
 
+if(buildVein)
+    add_subdirectory(veinlibs)
+endif()
 add_subdirectory(libs)
+add_subdirectory(modules)
 add_subdirectory(playground)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
-
-
-
-
-
-
-## These are complete gui modules useabel in and outside of vein applications 
-include(${PROJECT_SOURCE_DIR}/modules/modules.cmake)
-
-if(buildVein)
-    message(STATUS "Building with VEIN depends")
-## These are qml libst with direct connection to vein
-    include(${PROJECT_SOURCE_DIR}/veinlibs/veinlibs.cmake)
-endif()
-
-

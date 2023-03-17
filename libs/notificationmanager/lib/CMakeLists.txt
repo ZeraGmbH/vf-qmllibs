@@ -1,27 +1,23 @@
-file(GLOB_RECURSE APP_HEADERS
+file(GLOB_RECURSE HEADERS
     *.h
     )
 
-file(GLOB_RECURSE APP_SOURCES
+file(GLOB_RECURSE SOURCES
     *.cpp
     )
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    qt5_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/notificationmanager.qrc)
-else()
-    qtquick_compiler_add_resources(PLUGIN_RESOURCES ${CMAKE_CURRENT_LIST_DIR}/notificationmanager.qrc)
-endif()
-
-add_library(
-    notificationmanager
-    SHARED
-    ${APP_HEADERS}
-    ${APP_SOURCES}
-    ${PLUGIN_RESOURCES}
+file(GLOB_RECURSE RESOURCES
+    *.cpp
     )
 
-target_link_libraries(
-    notificationmanager
+add_library(notificationmanager
+    SHARED
+    ${HEADERS}
+    ${SOURCES}
+    ${RESOURCES}
+    )
+
+target_link_libraries(notificationmanager
     PUBLIC
     Qt5::Core
     Qt5::Quick
@@ -75,6 +71,6 @@ install(EXPORT notificationmanagerExport
     )
 
 install(
-    FILES ${APP_HEADERS}
+    FILES ${HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/notificationmanager
     )
