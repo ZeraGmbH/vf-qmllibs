@@ -12,7 +12,6 @@ private slots:
     void onFaded();
 private:
     TimerTemplateQtPtr m_fadeOutTimer;
-
 };
 
 #endif // NOTIFICATIONMSGEXPIRING_H

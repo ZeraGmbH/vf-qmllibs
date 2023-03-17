@@ -3,8 +3,8 @@
 static int currentId = 0;
 
 NotificationMsg::NotificationMsg(QString msg) :
-    m_msg(msg),
-    m_id(currentId++)
+    m_id(currentId++),
+    m_msg(msg)
 {
 }
 
