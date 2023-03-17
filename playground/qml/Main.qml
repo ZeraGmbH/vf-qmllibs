@@ -5,9 +5,6 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
 
 
-//Do not import custom stuff here
-
-// Load our plugin from filesystem
 import "qrc:/"
 
 ApplicationWindow {
@@ -20,98 +17,42 @@ ApplicationWindow {
 
     // Add your Playground here
 
-    /* Create an ApplicationWindow Item
-    *  then add a loader and checkbox. Load your start window
-    *  if the checkbox is chekced.Unload it when unchecked. Loading the Files with the checkbox will prevent
-    *  the playground to crash because of other projects.
-    */
-
-
-
     Loader {
         id: netLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
-    } //Networksettings Loader
+    }
 
 
     Loader {
         id: compLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
-    } //Networksettings Loader
+    }
 
     Loader {
         id: anmLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
-    } //anmsettings Loader
+    }
 
     Loader {
         id: notifiLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
-    } //anmsettings Loader
+    }
 
     Loader {
         id: uivLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
-    } //anmsettings Loader
+    }
 
     //Next Loader here
 
     GridLayout{
         anchors.fill: parent
         columns: 2
-
-        //Networkcomponents checkbox
-        CheckBox{
-            id: showNetComp
-            checked: false;
-            Layout.fillWidth: true;
-            text: "Load netComp"
-            Component.onCompleted: {
-                if(checked){
-                    netLoader.active=true;
-                    netLoader.source = "Networksettings.qml";
-                }else{
-                    netLoader.active=false;
-                }
-            }
-            onCheckStateChanged: {
-                if(checked){
-                    netLoader.active=true;
-                    netLoader.source = "Networksettings.qml";
-                }else{
-                    netLoader.active=false;
-                }
-            }
-        }
-
-
-        CheckBox{
-            id: showzeracomps
-            checked: false;
-            Layout.fillWidth: true;
-            text: "Load zeraComp"
-            Component.onCompleted: {
-                if(checked){
-                    compLoader.active=true;
-                    compLoader.source = "zeracomps.qml";
-                }else{
-                    compLoader.active=false;
-                }
-            }
-            onCheckStateChanged: {
-                if(checked){
-                    compLoader.active=true;
-                    compLoader.source = "zeracomps.qml";
-                }else{
-                    compLoader.active=false;
-                }
-            }
-        }
 
         CheckBox{
             id: showanmsettings
@@ -121,7 +62,7 @@ ApplicationWindow {
             Component.onCompleted: {
                 if(checked){
                     anmLoader.active=true;
-                    anmLoader.source = "anmsettings.qml";
+                    anmLoader.source = "Anmsettings.qml";
                 }else{
                     anmLoader.active=false;
                 }
@@ -129,7 +70,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked){
                     anmLoader.active=true;
-                    anmLoader.source = "anmsettings.qml";
+                    anmLoader.source = "Anmsettings.qml";
                 }else{
                     anmLoader.active=false;
                 }
@@ -167,7 +108,7 @@ ApplicationWindow {
             Component.onCompleted: {
                 if(checked){
                     uivLoader.active=true;
-                    uivLoader.source = "uivectorgraph.qml";
+                    uivLoader.source = "Uivectorgraph.qml";
                 }else{
                     uivLoader.active=false;
                 }
@@ -175,7 +116,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked){
                     uivLoader.active=true;
-                    uivLoader.source = "uivectorgraph.qml";
+                    uivLoader.source = "Uivectorgraph.qml";
                 }else{
                     uivLoader.active=false;
                 }
