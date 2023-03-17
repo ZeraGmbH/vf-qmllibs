@@ -5,6 +5,11 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG")
 endif()
 
+include(FeatureSummary)
+include(GNUInstallDirs)
+
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core DBus Xml Qml Quick)
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
 
 #Some of the libs are based on the ZeraVeinFramework.
 #If you do not wish to use these set buildVein to OFF.
@@ -29,4 +34,6 @@ endif()
 add_subdirectory(playground)
 
 set(OTHER_FILES README.md)
+
+feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
