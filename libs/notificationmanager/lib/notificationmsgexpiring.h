@@ -8,6 +8,8 @@ class NotificationMsgExpiring : public NotificationMsg
 {
 public:
     explicit NotificationMsgExpiring(QString msg, int fadeOutTimeMs);
+private slots:
+    void onFaded();
 private:
     TimerTemplateQtPtr m_fadeOutTimer;
 

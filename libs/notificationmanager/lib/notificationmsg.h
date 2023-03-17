@@ -2,6 +2,7 @@
 #define NOTIFICATIONMSG_H
 
 #include <QObject>
+#include <memory>
 
 class NotificationMsg : public QObject
 {
@@ -9,10 +10,15 @@ class NotificationMsg : public QObject
 public:
     NotificationMsg(QString msg);
     QString getMsg();
+    int getId();
 signals:
-    void sigFadeOut();
+    void sigFadeOut(int id);
+protected:
+    int m_id;
 private:
     QString m_msg;
 };
+
+typedef std::shared_ptr<NotificationMsg> NotificationMsgPtr;
 
 #endif // NOTIFICATIONMSG_H

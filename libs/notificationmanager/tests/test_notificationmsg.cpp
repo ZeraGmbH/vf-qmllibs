@@ -38,3 +38,13 @@ void test_notificationmsg::fadeOutTime()
     TimeMachineForTest::getInstance()->processTimers(1);
     QCOMPARE(spy.count(), 1);
 }
+
+void test_notificationmsg::uniqueId()
+{
+    NotificationMsg msg1("foo");
+    NotificationMsg msg2("bar");
+    NotificationMsg msg3("baz");
+    QVERIFY(msg1.getId() != msg2.getId());
+    QVERIFY(msg2.getId() != msg3.getId());
+    QVERIFY(msg1.getId() != msg3.getId());
+}
