@@ -11,6 +11,7 @@ private slots:
     void readMsg();
     void fadeOutCount();
     void fadeOutTime();
+    void uniqueId();
 };
 
 #endif // TEST_NOTIFICATIONMESSAGE_H

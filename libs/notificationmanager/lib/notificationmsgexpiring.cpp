@@ -6,6 +6,11 @@ NotificationMsgExpiring::NotificationMsgExpiring(QString msg, int fadeOutTimeMs)
     m_fadeOutTimer(TimerFactoryQt::createSingleShot(fadeOutTimeMs))
 {
     connect(m_fadeOutTimer.get(), &TimerTemplateQt::sigExpired,
-            this, &NotificationMsg::sigFadeOut);
+            this, &NotificationMsgExpiring::onFaded);
     m_fadeOutTimer->start();
+}
+
+void NotificationMsgExpiring::onFaded()
+{
+    emit sigFadeOut(m_id);
 }
