@@ -1,10 +1,2 @@
-project(notificationmanager VERSION 1.0 LANGUAGES CXX C)
-
-set(CMAKE_AUTOMOC ON)
-
-set(PROJECT_VERSION_MAJOR "0")
-set(PROJECT_VERSION_MINOR "0")
-set(PROJECT_VERSION_PATCH "1")
-set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
-
 add_subdirectory(lib)
+add_subdirectory(tests)

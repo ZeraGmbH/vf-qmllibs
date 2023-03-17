@@ -1,10 +1,3 @@
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    message(STATUS "Debug type: " ${CMAKE_BUILD_TYPE})
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -O0 -g")
-endif()
-
-set(CMAKE_AUTOMOC ON)
-
 file(GLOB_RECURSE APP_HEADERS
     *.h
     )
@@ -38,14 +31,12 @@ target_include_directories(notificationmanager
     PUBLIC
     $<INSTALL_INTERFACE:include/notificationmanager>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
-    PRIVATE
-    ${CMAKE_CURRENT_SOURCE_DIR}
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     )
 
 set_target_properties(notificationmanager PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(notificationmanager PROPERTIES SOVERSION ${notificationmanager_VERSION_MAJOR})
+set_target_properties(notificationmanager PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
-include(GenerateExportHeader)
 generate_export_header(notificationmanager)
 
 install(FILES
@@ -58,7 +49,6 @@ install(TARGETS notificationmanager
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
 
-include(CMakePackageConfigHelpers)
 write_basic_package_version_file(
     notificationmanagerConfigVersion.cmake
     VERSION ${PACKAGE_VERSION}
@@ -72,12 +62,10 @@ install(FILES "${CMAKE_CURRENT_BINARY_DIR}/notificationmanagerConfig.cmake"
     DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/notificationmanager
     )
 
-
 install(TARGETS notificationmanager
     EXPORT notificationmanager
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     )
-
 
 install(EXPORT notificationmanagerExport
     FILE notificationmanagerTargets.cmake
