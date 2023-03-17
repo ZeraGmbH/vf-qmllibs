@@ -1,11 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Networksettings.qml</file>
-        <file>../qtquickcontrols2.conf</file>
-        <file>zeracomps.qml</file>
-        <file>anmsettings.qml</file>
-        <file>notifiManager.qml</file>
-        <file>uivectorgraph.qml</file>
+        <file>Anmsettings.qml</file>
+        <file>Main.qml</file>
+        <file>NotifiManager.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>Uivectorgraph.qml</file>
     </qresource>
 </RCC>
