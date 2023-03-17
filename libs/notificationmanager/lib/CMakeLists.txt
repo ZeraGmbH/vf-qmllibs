@@ -25,6 +25,7 @@ target_link_libraries(
     PUBLIC
     Qt5::Core
     Qt5::Quick
+    Zera::zera-timers
     )
 
 target_include_directories(notificationmanager
