@@ -10,6 +10,7 @@
 #include <zeratranslationplugin.h>
 #include <zeracomponents.h>
 #include <zerafa.h>
+#include <helpersplugin.h>
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
 
@@ -27,6 +28,7 @@ void AdvancedNetworkmanager::registerTypes(const char* uri)
     ZeraTranslationPlugin::registerQml();
     ZeraComponents::registerQml();
     ZeraFa::registerQml();
+    HelpersPlugin::registerQml();
     // Own
     qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
     qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");

@@ -1,15 +1,7 @@
-file(GLOB_RECURSE HEADERS
-    src/*.h
-    )
-
-file(GLOB_RECURSE SOURCES
-    src/*.cpp
-    )
-
 add_library(qmlhelpers
     SHARED
-    ${HEADERS}
-    ${SOURCES}
+    helpersplugin.h
+    helpersplugin.cpp
     qmlhelpers.qrc
     )
 
