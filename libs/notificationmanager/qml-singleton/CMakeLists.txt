@@ -1,7 +1,7 @@
 add_library(notificationmanager
     SHARED
-    globalusernotificationsingleton.h
-    globalusernotificationsingleton.cpp
+    notificationmanager.h
+    notificationmanager.cpp
     notificationmanager.qrc
     )
 

@@ -1,9 +1,14 @@
 #include "zerafa.h"
 #include <QtQml>
 
+bool ZeraFa::m_wasRegistered = false;
+
 void ZeraFa::registerQml()
 {
-    registerTypes("ZeraFa");
+    if(!m_wasRegistered) {
+        registerTypes("ZeraFa");
+        m_wasRegistered = true;
+    }
 }
 
 void ZeraFa ::registerTypes(const char* uri) {

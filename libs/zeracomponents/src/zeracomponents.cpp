@@ -6,7 +6,10 @@ bool ZeraComponents::m_wasRegistered = false;
 
 void ZeraComponents::registerQml()
 {
-    registerTypes("ZeraComponents");
+    if(!m_wasRegistered) {
+        registerTypes("ZeraComponents");
+        m_wasRegistered = true;
+    }
 }
 
 void ZeraComponents::registerTypes(const char* uri) {

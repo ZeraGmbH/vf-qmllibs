@@ -1,16 +1,15 @@
 #include "helpersplugin.h"
-#include <QCoreApplication>
-#include <QtQml/QtQml>
+#include <QtQml>
 
+bool HelpersPlugin::m_wasRegistered = false;
 
-
-void HelpersPlugin::init()
+void HelpersPlugin::registerQml()
 {
-    HelpersPlugin* obj= new HelpersPlugin();
-    obj->registerTypes("QmlHelpers");
+    if(!m_wasRegistered) {
+        registerTypes("QmlHelpers");
+        m_wasRegistered = true;
+    }
 }
-
-
 
 void HelpersPlugin::registerTypes(const char* uri) {
     // Register config interface
@@ -18,9 +17,3 @@ void HelpersPlugin::registerTypes(const char* uri) {
     // Register helper functions
     qmlRegisterSingletonType(QUrl("qrc:/src/qml/TextHelper.qml"), uri, 1, 0, "TextHelper");
 }
-
-
-static void init(){
-    HelpersPlugin::init();
-}
-Q_COREAPP_STARTUP_FUNCTION(init)
