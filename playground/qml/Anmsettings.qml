@@ -3,10 +3,7 @@ import QtQuick.Controls 2.2
 import Qt.labs.platform 1.0
 import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts 1.12
-
-import "qrc:/"
-import "qrc:/src/qml/"
-import "qrc:/src/qml/tree"
+import anmsettings 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -34,6 +31,14 @@ ApplicationWindow {
         anchors.left: parent.left
         anchors.right: parent.right
         anchors.margins: 0
+        NetworkManager{
+            Layout.fillWidth: true
+            Layout.fillHeight: true
+            //Layout.margins: 0
+            onNotification: {
+               // notificationManager.notify(title,msg);
+            }
+        }
     }
 
     Item {

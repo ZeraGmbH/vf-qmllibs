@@ -6,7 +6,7 @@
 #include "infointerface.h"
 #include "networkmanagerabstraction.h"
 #include "nmcppnotification.h"
-#include <QtQml/QtQml>
+#include <QtQml>
 #include <zeratranslationplugin.h>
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
@@ -25,6 +25,8 @@ void AdvancedNetworkmanager::registerTypes(const char* uri)
         qmlRegisterType<InfoInterface>(uri, 1, 0, "InfoInterface");
         qmlRegisterType<NetworkmanagerAbstraction>(uri, 1, 0, "NetworkmanagerAbstraction");
         qmlRegisterType<NmCppNotification>(uri,1, 0, "NmCppNotification");
+        Q_INIT_RESOURCE(anmlib);
+        qmlRegisterType(QUrl("qrc:/src/qml/NetworkManager.qml"),uri,1,0,"NetworkManager");
 
         m_wasRegistered = true;
     }

@@ -10,6 +10,8 @@ set(PROJECT_VERSION_PATCH "0")
 set(PROJECT_VERSION "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
 project(vf-qmllibs VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
+option(buildVein "Building libs depending on vein" ON)
+
 find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler Test)
 find_package(ZenuxCore REQUIRED)
 find_package(ZeraTranslation REQUIRED)
@@ -36,7 +38,7 @@ function(SETUP_QTESTS)
         target_link_libraries(${_testname}
             PUBLIC
             Qt5::Test
-            notificationmanager
+            notificationmanager-static
             Zera::zera-timers-testlib
         )
     endforeach()
@@ -46,10 +48,25 @@ if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG")
 endif()
 
-# Some of the libs are based on the ZeraVeinFramework.
-# If you do not wish to use these set buildVein to OFF.
-# This way this collection is useable without vein
-option(buildVein "Building libs depending on vein" ON)
+write_basic_package_version_file(
+    VfQmlLibsConfigVersion.cmake
+    VERSION ${PROJECT_VERSION}
+    COMPATIBILITY SameMajorVersion
+    )
+
+configure_file(VfQmlLibsConfig.cmake.in VfQmlLibsConfig.cmake @ONLY)
+
+install(FILES
+    "${CMAKE_CURRENT_BINARY_DIR}/VfQmlLibsConfig.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/VfQmlLibsConfigVersion.cmake"
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/VfQmlLibs
+    )
+
+install(EXPORT VfQmlLibsExport
+    FILE VfQmlLibsTargets.cmake
+    NAMESPACE Zera::
+    DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/VfQmlLibs
+    )
 
 if(buildVein)
     add_subdirectory(veinlibs)

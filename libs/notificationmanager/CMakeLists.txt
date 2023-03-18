@@ -1,2 +1,3 @@
-add_subdirectory(lib)
-add_subdirectory(tests)
+add_subdirectory(cpp-buisiness)
+add_subdirectory(qml-singleton)
+
