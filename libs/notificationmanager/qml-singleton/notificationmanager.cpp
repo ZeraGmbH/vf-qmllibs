@@ -1,9 +1,9 @@
-#include "globalusernotificationsingleton.h"
+#include "notificationmanager.h"
 #include <QtQml>
 
-bool GlobalUserNotificationSingleton::m_wasRegistered = false;
+bool NotificationManager::m_wasRegistered = false;
 
-void GlobalUserNotificationSingleton::registerQml()
+void NotificationManager::registerQml()
 {
     if(!m_wasRegistered) {
         m_wasRegistered = true;
@@ -11,7 +11,7 @@ void GlobalUserNotificationSingleton::registerQml()
     }
 }
 
-void GlobalUserNotificationSingleton::registerTypes(const char *uri)
+void NotificationManager::registerTypes(const char *uri)
 {
     Q_INIT_RESOURCE(notificationmanager);
     qmlRegisterType(QUrl("qrc:/qml/NotificationManager.qml"), uri, 1,0, "NotificationManager");

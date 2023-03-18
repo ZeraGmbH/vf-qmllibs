@@ -1,11 +1,8 @@
 #ifndef ADVANCEDNETWORKMANAGER_H
 #define ADVANCEDNETWORKMANAGER_H
 
-#include <QObject>
-
-class AdvancedNetworkmanager : public QObject
+class AdvancedNetworkmanager
 {
-    Q_OBJECT
 public:
     static void registerQml();
 private:

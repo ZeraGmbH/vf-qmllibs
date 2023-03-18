@@ -16,7 +16,6 @@ add_library(qwtcharts
 target_link_libraries(
     qwtcharts
     PUBLIC
-    Qt5::Core
     Qt5::Quick
     Qt5::Qml
     ${QWT_LIBRARIES}

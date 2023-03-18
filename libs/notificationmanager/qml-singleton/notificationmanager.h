@@ -1,7 +1,7 @@
-#ifndef ZERACOMPONENTS_H
-#define ZERACOMPONENTS_H
+#ifndef NOTIFICATIONMANAGER_H
+#define NOTIFICATIONMANAGER_H
 
-class ZeraComponents
+class NotificationManager
 {
 public:
     static void registerQml();
@@ -10,4 +10,4 @@ private:
     static bool m_wasRegistered;
 };
 
-#endif // ZERACOMPONENTS_H
+#endif // NOTIFICATIONMANAGER_H
