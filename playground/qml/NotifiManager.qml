@@ -14,36 +14,36 @@ ApplicationWindow {
     property int count: 0
 
     NotificationManager {
-            id: notificationManager
-            window: notWindow
-            ySpacing: 20
-            notificationWidth: 300
-            maxOnScreen: 20
-        }
+        id: notificationManager
+        window: notWindow
+        ySpacing: 20
+        notificationWidth: 300
+        maxOnScreen: 20
+    }
     Item {
-            id: notWindow
-            anchors.top: parent.top
-            width: parent.width
-            height: parent.height
+        id: notWindow
+        anchors.top: parent.top
+        width: parent.width
+        height: parent.height
 
-            Button {
-                id: dyn
-                text: "Dynamic"
-                onClicked: {
-                    notificationManager.notify("Btn1","Hello das ist ein test blub blub blub" + count);
-                    count = count + 1 ;
-                }
-            }
-            Button {
-                id: dyn2
-                text: "Dynamic"
-                anchors.left: dyn.right
-                onClicked: {
-                    notificationManager.notify("Btn2","Hello das ist ein test blub blub blub \n \n \n Hallo again" + count);
-                    count = count + 1 ;
-                }
+        Button {
+            id: dyn
+            text: "Dynamic"
+            onClicked: {
+                notificationManager.notify("Btn1","Hello das ist ein test blub blub blub" + count);
+                count = count + 1 ;
             }
         }
+        Button {
+            id: dyn2
+            text: "Dynamic"
+            anchors.left: dyn.right
+            onClicked: {
+                notificationManager.notify("Btn2","Hello das ist ein test blub blub blub \n \n \n Hallo again" + count);
+                count = count + 1 ;
+            }
+        }
+    }
 }
 
 
