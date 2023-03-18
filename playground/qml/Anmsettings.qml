@@ -36,16 +36,16 @@ ApplicationWindow {
             Layout.fillHeight: true
             //Layout.margins: 0
             onNotification: {
-               // notificationManager.notify(title,msg);
+                // notificationManager.notify(title,msg);
             }
         }
     }
 
     Item {
-            id: notWindow
-            anchors.top: parent.top
-            width: parent.width
-            height: parent.height-45
-        }
+        id: notWindow
+        anchors.top: parent.top
+        width: parent.width
+        height: parent.height-45
+    }
 
 }

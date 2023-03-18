@@ -74,7 +74,6 @@ if(buildVein)
     add_subdirectory(veinlibs)
 endif()
 add_subdirectory(libs)
-add_subdirectory(modules)
 add_subdirectory(playground)
 
 feature_summary(WHAT ALL FATAL_ON_MISSING_REQUIRED_PACKAGES)
