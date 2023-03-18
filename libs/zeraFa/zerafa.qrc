@@ -1,11 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/ZeraFa514.qml</file>
+        <file>qml/ZeraFa514.qml</file>
+        <file>qml/ZeraFaOld.qml</file>
+        <file>qml/FaIcons514.qml</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-brands-400.ttf</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-regular-400.ttf</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-solid-900.ttf</file>
-        <file>src/qml/ZeraFaOld.qml</file>
-        <file>src/qml/FaIcons514.qml</file>
         <file>3rdParty/Font-Awesome_Old/fontawesome-webfont.ttf</file>
     </qresource>
 </RCC>

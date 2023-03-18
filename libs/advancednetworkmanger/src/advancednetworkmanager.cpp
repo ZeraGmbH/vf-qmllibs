@@ -9,6 +9,7 @@
 #include <QtQml>
 #include <zeratranslationplugin.h>
 #include <zeracomponents.h>
+#include <zerafa.h>
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
 
@@ -18,6 +19,7 @@ void AdvancedNetworkmanager::registerTypes(const char* uri)
         // Dependencies
         ZeraTranslationPlugin::registerQml();
         ZeraComponents::registerQml();
+        ZeraFa::registerQml();
         // Own
         qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
         qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");

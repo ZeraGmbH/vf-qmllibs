@@ -1,15 +1,7 @@
-file(GLOB_RECURSE HEADERS
-    src/*.h
-    )
-
-file(GLOB_RECURSE SOURCES
-    src/*.cpp
-    )
-
 add_library(zerafa
     SHARED
-    ${HEADERS}
-    ${SOURCES}
+    zerafa.h
+    zerafa.cpp
     zerafa.qrc
     )
 
