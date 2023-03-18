@@ -1,14 +1,16 @@
 #include "zeracomponents.h"
 #include <QCoreApplication>
-#include <QtQml/QtQml>
+#include <QtQml>
 
-void ZeraComponents::init()
+bool ZeraComponents::m_wasRegistered = false;
+
+void ZeraComponents::registerQml()
 {
-    ZeraComponents* obj= new ZeraComponents();
-    obj->registerTypes("ZeraComponents");
+    registerTypes("ZeraComponents");
 }
 
 void ZeraComponents::registerTypes(const char* uri) {
+    Q_INIT_RESOURCE(zeracomponents);
     // Register config interface
     qmlRegisterSingletonType(QUrl("qrc:/src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml"), "ZeraComponentsConfig", 1, 0, "ZCC");
     // Register controls
@@ -20,8 +22,3 @@ void ZeraComponents::registerTypes(const char* uri) {
     qmlRegisterType(QUrl("qrc:/src/qml/ZeraComponents/ZUnitComboBox.qml"),uri,1,0,"ZUnitComboBox");
     qmlRegisterType(QUrl("qrc:/src/qml/ZeraComponents/ZVisualComboBox.qml"),uri,1,0,"ZVisualComboBox");
 }
-
-static void init(){
-    ZeraComponents::init();
-}
-Q_COREAPP_STARTUP_FUNCTION(init)

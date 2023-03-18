@@ -8,6 +8,7 @@
 #include "nmcppnotification.h"
 #include <QtQml>
 #include <zeratranslationplugin.h>
+#include <zeracomponents.h>
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
 
@@ -16,6 +17,7 @@ void AdvancedNetworkmanager::registerTypes(const char* uri)
     if(!m_wasRegistered) {
         // Dependencies
         ZeraTranslationPlugin::registerQml();
+        ZeraComponents::registerQml();
         // Own
         qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
         qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");
