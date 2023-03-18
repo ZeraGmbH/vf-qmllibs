@@ -7,5 +7,5 @@ find_dependency(SortFilterProxyModelCmake REQUIRED)
 find_dependency(KF5NetworkManagerQt REQUIRED)
 find_dependency(KF5ModemManagerQt REQUIRED)
 
-include("${CMAKE_CURRENT_LIST_DIR}/VfQmlLibsConfig.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/VfQmlLibsTargets.cmake")
 

@@ -16,7 +16,6 @@ add_library(uivlib
 target_link_libraries(
     uivlib
     PUBLIC
-    Qt5::Core
     Qt5::Quick
     Qt5::Qml
     )
@@ -24,7 +23,7 @@ target_link_libraries(
 target_include_directories(uivlib
     PUBLIC
     $<INSTALL_INTERFACE:include/uivlib>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>/src
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     )
 
 set_target_properties(uivlib PROPERTIES VERSION ${PROJECT_VERSION})
@@ -37,7 +36,7 @@ install(TARGETS uivlib
     )
 
 install(
-    FILES ${APP_HEADERS}
+    FILES ${HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/uivlib
     )
 

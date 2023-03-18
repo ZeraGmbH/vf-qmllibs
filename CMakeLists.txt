@@ -12,12 +12,14 @@ project(vf-qmllibs VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(buildVein "Building libs depending on vein" ON)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler Test)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xml Test)
 find_package(ZenuxCore REQUIRED)
 find_package(ZeraTranslation REQUIRED)
 find_package(SortFilterProxyModelCmake REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(QWT REQUIRED Qt5Qwt6)
 
 include(FeatureSummary)
 include(GNUInstallDirs)
