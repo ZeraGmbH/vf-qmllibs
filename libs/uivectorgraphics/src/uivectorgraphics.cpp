@@ -1,21 +1,18 @@
 #include "uivectorgraphics.h"
-#include <QCoreApplication>
-#include <QtQml/QtQml>
+#include "view/phasordiagram.h"
+#include <QtQml>
 
-void UiVectorgraphics::init()
+bool UiVectorgraphics::m_wasRegistered = false;
+
+void UiVectorgraphics::registerQml()
 {
-    UiVectorgraphics* obj= new UiVectorgraphics();
-    obj->registerTypes("uivectorgraphics");
+    if(!m_wasRegistered) {
+        registerTypes("uivectorgraphics");
+        m_wasRegistered = true;
+    }
 }
-
-
 
 void UiVectorgraphics::registerTypes(const char* uri) {
+    Q_INIT_RESOURCE(uivlib);
     qmlRegisterType<PhasorDiagram>(uri, 1, 0, "PhasorDiagram");
 }
-
-
-static void init(){
-    UiVectorgraphics::init();
-}
-Q_COREAPP_STARTUP_FUNCTION(init)
