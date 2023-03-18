@@ -12,6 +12,7 @@ void HelpersPlugin::registerQml()
 }
 
 void HelpersPlugin::registerTypes(const char* uri) {
+    Q_INIT_RESOURCE(qmlhelpers);
     // Register config interface
     qmlRegisterSingletonType(QUrl("qrc:/qml/ZeraLocale.qml"), "ZeraLocale", 1, 0, "ZLocale");
     // Register helper functions
