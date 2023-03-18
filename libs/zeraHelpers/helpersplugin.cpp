@@ -13,7 +13,7 @@ void HelpersPlugin::registerQml()
 
 void HelpersPlugin::registerTypes(const char* uri) {
     // Register config interface
-    qmlRegisterSingletonType(QUrl("qrc:/src/qml/ZeraLocale.qml"), "ZeraLocale", 1, 0, "ZLocale");
+    qmlRegisterSingletonType(QUrl("qrc:/qml/ZeraLocale.qml"), "ZeraLocale", 1, 0, "ZLocale");
     // Register helper functions
-    qmlRegisterSingletonType(QUrl("qrc:/src/qml/TextHelper.qml"), uri, 1, 0, "TextHelper");
+    qmlRegisterSingletonType(QUrl("qrc:/qml/TextHelper.qml"), uri, 1, 0, "TextHelper");
 }

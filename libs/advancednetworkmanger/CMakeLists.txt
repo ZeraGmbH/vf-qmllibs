@@ -25,6 +25,7 @@ target_link_libraries(
     ZeraQml::SortFilterProxyModelCmake
     zerafa
     zeracomponents
+    qmlhelpers
     )
 
 target_include_directories(anmlib
