@@ -1,16 +1,18 @@
 #include "advancednetworkmanager.h"
+#include "globalusernotificationsingleton.h"
 #include "QQmlApplicationEngine"
 #include <QGuiApplication>
-#include <QtQml/QQmlEngine>
+#include <QQmlEngine>
 
 int main(int argc, char *argv[]) {
 
     QGuiApplication app(argc, argv);
 
-    AdvancedNetworkmanager::registerQml();
-
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/Main.qml")));
+
+    AdvancedNetworkmanager::registerQml();
+    GlobalUserNotificationSingleton::registerQml();
 
     return app.exec();
 }

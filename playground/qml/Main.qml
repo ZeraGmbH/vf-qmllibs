@@ -85,7 +85,7 @@ ApplicationWindow {
             Component.onCompleted: {
                 if(checked){
                     notifiLoader.active=true;
-                    notifiLoader.source = "notifiManager.qml";
+                    notifiLoader.source = "NotifiManager.qml";
                 }else{
                     notifiLoader.active=false;
                 }
@@ -93,7 +93,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked){
                     notifiLoader.active=true;
-                    notifiLoader.source = "notifiManager.qml";
+                    notifiLoader.source = "NotifiManager.qml";
                 }else{
                     notifiLoader.active=false;
                 }
