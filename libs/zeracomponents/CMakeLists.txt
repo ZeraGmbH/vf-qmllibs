@@ -13,6 +13,8 @@ add_library(zeracomponents
     zeracomponents.qrc
     )
 
+SET_QML_PATH(zeracomponents src/qml)
+
 target_link_libraries(
     zeracomponents
     PUBLIC
