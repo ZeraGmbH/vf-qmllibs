@@ -1,12 +1,13 @@
 #ifndef ZERACOMPONENTS_H
 #define ZERACOMPONENTS_H
 
+#include <QQmlApplicationEngine>
+
 class ZeraComponents
 {
 public:
-    static void registerQml();
+    static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerTypes(const char* uri);
     static bool m_wasRegistered;
 };
 

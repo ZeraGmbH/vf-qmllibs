@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
+        <file>src/qml/ZeraComponents/qmldir</file>
         <file>src/qml/ZeraComponents/ZButton.qml</file>
         <file>src/qml/ZeraComponents/ZComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZDoubleValidator.qml</file>
@@ -7,6 +8,7 @@
         <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
         <file>src/qml/ZeraComponents/ZUnitComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
+        <file>src/qml/ZeraComponentsConfig/qmldir</file>
         <file>src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
     </qresource>
 </RCC>

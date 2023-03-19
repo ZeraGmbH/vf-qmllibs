@@ -1,0 +1,2 @@
+module ZeraComponentsConfig
+singleton ZCC 1.0 ZeraComponentsConfig.qml
