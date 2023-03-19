@@ -3,18 +3,12 @@
 
 bool HelpersPlugin::m_wasRegistered = false;
 
-void HelpersPlugin::registerQml()
+void HelpersPlugin::registerQml(QQmlApplicationEngine &engine)
 {
     if(!m_wasRegistered) {
-        registerTypes("QmlHelpers");
+        QString debugQmlPath = QStringLiteral(QML_SRC_PATH);
+        qInfo("HelpersPlugin QML path: %s", qPrintable(debugQmlPath));
+        engine.addImportPath(debugQmlPath);
         m_wasRegistered = true;
     }
-}
-
-void HelpersPlugin::registerTypes(const char* uri) {
-    Q_INIT_RESOURCE(qmlhelpers);
-    // Register config interface
-    qmlRegisterSingletonType(QUrl("qrc:/qml/ZeraLocale.qml"), "ZeraLocale", 1, 0, "ZLocale");
-    // Register helper functions
-    qmlRegisterSingletonType(QUrl("qrc:/qml/TextHelper.qml"), uri, 1, 0, "TextHelper");
 }

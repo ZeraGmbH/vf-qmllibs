@@ -1,0 +1,2 @@
+module ZeraLocale
+singleton ZLocale 1.0 ZeraLocale.qml

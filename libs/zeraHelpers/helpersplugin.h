@@ -1,12 +1,13 @@
 #ifndef HELPERSPLUGIN_H
 #define HELPERSPLUGIN_H
 
+#include <QQmlApplicationEngine>
+
 class HelpersPlugin
 {
 public:
-    static void registerQml();
+    static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerTypes(const char* uri);
     static bool m_wasRegistered;
 };
 
