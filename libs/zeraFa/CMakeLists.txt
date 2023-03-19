@@ -1,12 +1,21 @@
+file(GLOB_RECURSE HEADERS
+    *.h
+    )
+
+file(GLOB_RECURSE SOURCES
+    *.cpp
+    )
+
 add_library(zerafa
     SHARED
-    zerafa.h
-    zerafa.cpp
+    ${HEADERS}
+    ${SOURCES}
     zerafa.qrc
     )
 
-target_link_libraries(
-    zerafa
+SET_QML_PATH(zerafa qml)
+
+target_link_libraries(zerafa
     PUBLIC
     Qt5::Quick
     Qt5::Qml

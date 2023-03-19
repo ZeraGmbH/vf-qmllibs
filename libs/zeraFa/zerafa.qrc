@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/ZeraFa514.qml</file>
-        <file>qml/ZeraFaOld.qml</file>
-        <file>qml/FaIcons514.qml</file>
+        <file>qml/ZeraFa/qmldir</file>
+        <file>qml/ZeraFa/FaIcons514.qml</file>
+        <file>qml/ZeraFa/ZeraFa514.qml</file>
+        <file>qml/ZeraFa/ZeraFaOld.qml</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-brands-400.ttf</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-regular-400.ttf</file>
         <file>3rdParty/Font-Awesome/webfonts/fa-solid-900.ttf</file>
