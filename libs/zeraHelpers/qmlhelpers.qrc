@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
-        <file>qml/TextHelper.qml</file>
-        <file>qml/ZeraLocale.qml</file>
+        <file>qml/QmlHelpers/qmldir</file>
+        <file>qml/QmlHelpers/TextHelper.qml</file>
+        <file>qml/ZeraLocale/qmldir</file>
+        <file>qml/ZeraLocale/ZeraLocale.qml</file>
     </qresource>
 </RCC>

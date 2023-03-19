@@ -1,0 +1,2 @@
+module QmlHelpers
+singleton TextHelper 1.0 TextHelper.qml

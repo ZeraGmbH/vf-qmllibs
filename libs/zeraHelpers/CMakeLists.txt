@@ -1,12 +1,21 @@
+file(GLOB_RECURSE HEADERS
+    *.h
+    )
+
+file(GLOB_RECURSE SOURCES
+    *.cpp
+    )
+
 add_library(qmlhelpers
     SHARED
-    helpersplugin.h
-    helpersplugin.cpp
+    ${HEADERS}
+    ${SOURCES}
     qmlhelpers.qrc
     )
 
-target_link_libraries(
-    qmlhelpers
+SET_QML_PATH(qmlhelpers qml)
+
+target_link_libraries(qmlhelpers
     PUBLIC
     Qt5::Quick
     )
