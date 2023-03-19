@@ -1,12 +1,13 @@
 #ifndef ZERAFA_H
 #define ZERAFA_H
 
+#include <QQmlApplicationEngine>
+
 class ZeraFa
 {
 public:
-    static void registerQml();
+    static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerTypes(const char* uri);
     static bool m_wasRegistered;
 };
 

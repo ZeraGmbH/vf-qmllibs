@@ -1,0 +1,3 @@
+module ZeraFa
+singleton FA 1.0 ZeraFaOld.qml
+singleton FA 1.1 ZeraFa514.qml
