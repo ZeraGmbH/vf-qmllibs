@@ -10,7 +10,6 @@ add_library(uivlib
     SHARED
     ${HEADERS}
     ${SOURCES}
-    uivlib.qrc
     )
 
 target_link_libraries(
