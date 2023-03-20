@@ -13,6 +13,5 @@ void UiVectorgraphics::registerQml()
 }
 
 void UiVectorgraphics::registerTypes(const char* uri) {
-    Q_INIT_RESOURCE(uivlib);
     qmlRegisterType<PhasorDiagram>(uri, 1, 0, "PhasorDiagram");
 }
