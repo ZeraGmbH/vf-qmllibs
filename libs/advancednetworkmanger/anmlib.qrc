@@ -1,15 +1,16 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/tree/ConnectionTree.qml</file>
-        <file>src/qml/tree/ConnectionRowAdvanced.qml</file>
-        <file>src/qml/tree/SignalIcon.qml</file>
-        <file>src/qml/settings/WifiSettings.qml</file>
-        <file>src/qml/tree/SmartConnect.qml</file>
+        <file>src/qml/anmsettings/qmldir</file>
+        <file>src/qml/anmsettings/NetworkManager.qml</file>
         <file>src/qml/settings/AvailableApDialog.qml</file>
-        <file>src/qml/settings/EthernetSettings.qml</file>
-        <file>src/qml/tree/ConnectionInfo.qml</file>
-        <file>src/qml/tree/DeviceDialog.qml</file>
-        <file>src/qml/NetworkManager.qml</file>
         <file>src/qml/settings/AvailableDevDialog.qml</file>
+        <file>src/qml/settings/EthernetSettings.qml</file>
+        <file>src/qml/settings/WifiSettings.qml</file>
+        <file>src/qml/tree/ConnectionInfo.qml</file>
+        <file>src/qml/tree/ConnectionRowAdvanced.qml</file>
+        <file>src/qml/tree/ConnectionTree.qml</file>
+        <file>src/qml/tree/DeviceDialog.qml</file>
+        <file>src/qml/tree/SignalIcon.qml</file>
+        <file>src/qml/tree/SmartConnect.qml</file>
     </qresource>
 </RCC>

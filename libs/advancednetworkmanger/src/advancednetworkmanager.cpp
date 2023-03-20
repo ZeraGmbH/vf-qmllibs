@@ -14,23 +14,25 @@
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
 
-void AdvancedNetworkmanager::registerQml()
+void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
 {
     if(!m_wasRegistered) {
-        registerTypes("anmsettings");
+        ZeraTranslationPlugin::registerQml();
+        ZeraComponents::registerQml(engine);
+        ZeraFa::registerQml(engine);
+        HelpersPlugin::registerQml(engine);
+
+        registerCppTypes("anmsettings");
+
+        QString debugQmlPath = QStringLiteral(QML_SRC_PATH);
+        qInfo("AdvancedNetworkmanager QML path: %s", qPrintable(debugQmlPath));
+        engine.addImportPath(debugQmlPath);
         m_wasRegistered = true;
     }
 }
 
-void AdvancedNetworkmanager::registerTypes(const char* uri)
+void AdvancedNetworkmanager::registerCppTypes(const char* uri)
 {
-    // Dependencies
-    ZeraTranslationPlugin::registerQml();
-    ZeraComponents::registerQml();
-    ZeraFa::registerQml();
-    HelpersPlugin::registerQml();
-    // Own
-    Q_INIT_RESOURCE(anmlib);
     qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
     qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");
     qmlRegisterType<ConnectionTreeInterface>(uri, 1, 0, "ConnectionTreeInterface");
@@ -39,5 +41,4 @@ void AdvancedNetworkmanager::registerTypes(const char* uri)
     qmlRegisterType<InfoInterface>(uri, 1, 0, "InfoInterface");
     qmlRegisterType<NetworkmanagerAbstraction>(uri, 1, 0, "NetworkmanagerAbstraction");
     qmlRegisterType<NmCppNotification>(uri,1, 0, "NmCppNotification");
-    qmlRegisterType(QUrl("qrc:/src/qml/NetworkManager.qml"),uri,1,0,"NetworkManager");
 }

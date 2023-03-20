@@ -1,12 +1,14 @@
 #ifndef ADVANCEDNETWORKMANAGER_H
 #define ADVANCEDNETWORKMANAGER_H
 
+#include <QQmlApplicationEngine>
+
 class AdvancedNetworkmanager
 {
 public:
-    static void registerQml();
+    static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerTypes(const char* uri);
+    static void registerCppTypes(const char* uri);
     static bool m_wasRegistered;
 };
 
