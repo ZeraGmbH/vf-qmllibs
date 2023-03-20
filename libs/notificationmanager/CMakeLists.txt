@@ -1,3 +1,3 @@
-add_subdirectory(cpp-buisiness)
+add_subdirectory(cpp-business)
 add_subdirectory(qml-singleton)
 
