@@ -1,9 +1,19 @@
+file(GLOB_RECURSE HEADERS
+    *.h
+    )
+
+file(GLOB_RECURSE SOURCES
+    *.cpp
+    )
+
 add_library(notificationmanager
     SHARED
-    notificationmanager.h
-    notificationmanager.cpp
+    ${HEADERS}
+    ${SOURCES}
     notificationmanager.qrc
     )
+
+SET_QML_PATH(notificationmanager qml)
 
 target_link_libraries(notificationmanager
     PUBLIC

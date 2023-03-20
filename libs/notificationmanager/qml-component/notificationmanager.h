@@ -8,7 +8,6 @@ class NotificationManager
 public:
     static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerTypes(const char* uri);
     static bool m_wasRegistered;
 };
 
