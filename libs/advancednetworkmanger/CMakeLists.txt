@@ -13,8 +13,9 @@ add_library(anmlib
     anmlib.qrc
     )
 
-target_link_libraries(
-    anmlib
+SET_QML_PATH(anmlib src/qml)
+
+target_link_libraries(anmlib
     PUBLIC
     Qt5::Quick
     Qt5::Qml
