@@ -12,8 +12,8 @@ int main(int argc, char *argv[]) {
     QQmlApplicationEngine engine;
     engine.load(QUrl(QLatin1String("qrc:/Main.qml")));
 
-    AdvancedNetworkmanager::registerQml();
-    NotificationManager::registerQml();
+    AdvancedNetworkmanager::registerQml(engine);
+    NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
 
     return app.exec();
