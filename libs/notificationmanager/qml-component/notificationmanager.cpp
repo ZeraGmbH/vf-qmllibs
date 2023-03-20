@@ -3,7 +3,7 @@
 
 bool NotificationManager::m_wasRegistered = false;
 
-void NotificationManager::registerQml()
+void NotificationManager::registerQml(QQmlApplicationEngine &engine)
 {
     if(!m_wasRegistered) {
         m_wasRegistered = true;
@@ -13,6 +13,5 @@ void NotificationManager::registerQml()
 
 void NotificationManager::registerTypes(const char *uri)
 {
-    Q_INIT_RESOURCE(notificationmanager);
     qmlRegisterType(QUrl("qrc:/qml/NotificationManager.qml"), uri, 1,0, "NotificationManager");
 }
