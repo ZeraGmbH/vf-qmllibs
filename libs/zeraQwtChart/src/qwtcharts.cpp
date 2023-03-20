@@ -17,7 +17,6 @@ void QwtCharts::registerQml()
 
 void QwtCharts::registerTypes(const char* uri)
 {
-    Q_INIT_RESOURCE(qwtcharts);
     qmlRegisterType<FftBarChart>(uri, 1, 0, "FftBarChart");
     qmlRegisterType<HpwBarChart>(uri, 1, 0, "HpwBarChart");
     qmlRegisterType<BarChart>(uri, 1, 0, "BarChart");

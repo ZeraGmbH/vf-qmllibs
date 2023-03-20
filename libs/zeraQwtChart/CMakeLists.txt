@@ -10,7 +10,6 @@ add_library(qwtcharts
     SHARED
     ${HEADERS}
     ${SOURCES}
-    qwtcharts.qrc
     )
 
 target_link_libraries(
@@ -42,4 +41,3 @@ install(
     FILES ${HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/qwtcharts
     )
-
