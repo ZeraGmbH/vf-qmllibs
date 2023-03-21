@@ -25,7 +25,6 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
         registerCppTypes("anmsettings");
 
         QString debugQmlPath = QStringLiteral(QML_SRC_PATH);
-        qInfo("AdvancedNetworkmanager QML path: %s", qPrintable(debugQmlPath));
         engine.addImportPath(debugQmlPath);
         m_wasRegistered = true;
     }
