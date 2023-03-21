@@ -6,11 +6,17 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
     )
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(RESOURCES anmlib.qrc)
+else()
+    qtquick_compiler_add_resources(RESOURCES anmlib.qrc)
+endif()
+
 add_library(anmlib
     SHARED
     ${HEADERS}
     ${SOURCES}
-    anmlib.qrc
+    ${RESOURCES}
     )
 
 SET_QML_PATH(anmlib src/qml)

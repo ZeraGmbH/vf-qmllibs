@@ -6,11 +6,17 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
     )
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(RESOURCES zeracomponents.qrc)
+else()
+    qtquick_compiler_add_resources(RESOURCES zeracomponents.qrc)
+endif()
+
 add_library(zeracomponents
     SHARED
     ${HEADERS}
     ${SOURCES}
-    zeracomponents.qrc
+    ${RESOURCES}
     )
 
 SET_QML_PATH(zeracomponents src/qml)

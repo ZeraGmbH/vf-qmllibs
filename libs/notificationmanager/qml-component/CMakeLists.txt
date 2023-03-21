@@ -6,11 +6,17 @@ file(GLOB_RECURSE SOURCES
     *.cpp
     )
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(RESOURCES notificationmanager.qrc)
+else()
+    qtquick_compiler_add_resources(RESOURCES notificationmanager.qrc)
+endif()
+
 add_library(notificationmanager
     SHARED
     ${HEADERS}
     ${SOURCES}
-    notificationmanager.qrc
+    ${RESOURCES}
     )
 
 SET_QML_PATH(notificationmanager qml)

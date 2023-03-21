@@ -6,11 +6,17 @@ file(GLOB_RECURSE SOURCES
     *.cpp
     )
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(RESOURCES zerafa.qrc)
+else()
+    qtquick_compiler_add_resources(RESOURCES zerafa.qrc)
+endif()
+
 add_library(zerafa
     SHARED
     ${HEADERS}
     ${SOURCES}
-    zerafa.qrc
+    ${RESOURCES}
     )
 
 SET_QML_PATH(zerafa qml)
