@@ -7,7 +7,7 @@ import QtQuick.Layouts 1.12
 import ZeraFa 1.0
 import anmsettings 1.0
 import ZeraTranslation 1.0
-import "qrc:/src/qml/settings"
+import "../settings"
 
 Pane {
     id: rootItm
