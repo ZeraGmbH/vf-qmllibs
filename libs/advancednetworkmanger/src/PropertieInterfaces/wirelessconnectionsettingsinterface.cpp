@@ -2,12 +2,11 @@
 
 WirelessConnectionSettingsInterface::WirelessConnectionSettingsInterface(QObject* parent) : AbstractConnectionSettingsInterface(parent)
 {
-
 }
 
 void WirelessConnectionSettingsInterface::saveAndActivate(const QString &p_devUni,const QString &p_apPath)
 {
-    if(m_settings != NULL){
+    if(m_settings != nullptr) {
         NMVariantMapMap map = m_settings->toMap();
         NetworkManager::Connection::Ptr con = NetworkManager::findConnection(p_apPath);
         if(con==NULL){
@@ -85,14 +84,14 @@ QString WirelessConnectionSettingsInterface::getNextHotspotName(QString p_name)
 
 QString WirelessConnectionSettingsInterface::getSsid()
 {
-    if(m_settings == NULL) return "";
-    return m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->ssid();
+    if(m_settings != nullptr)
+        return m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->ssid();
     return "";
 }
 
 void WirelessConnectionSettingsInterface::setSsid(QString p_ssid)
 {
-    if(m_settings != NULL){
+    if(m_settings != nullptr) {
         m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->setSsid(QByteArray(p_ssid.toUtf8()));
         emit devicesChanged();
         emit ssidChanged();
@@ -111,7 +110,7 @@ QString WirelessConnectionSettingsInterface::getPassword()
 
 void WirelessConnectionSettingsInterface::setPassword(QString p_password)
 {
-    if(m_settings != NULL){
+    if(m_settings != nullptr) {
         m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->setPsk(p_password);
         QVariantMap map = m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->secretsToMap();
         map["psk"]=p_password;
@@ -123,7 +122,8 @@ void WirelessConnectionSettingsInterface::setPassword(QString p_password)
 
 QString WirelessConnectionSettingsInterface::getMode()
 {
-    if(m_settings == NULL) return "CLIENT";
+    if(m_settings == nullptr)
+        return "CLIENT";
     NetworkManager::WirelessSetting::NetworkMode mode = m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->mode();
     switch(mode){
     case NetworkManager::WirelessSetting::NetworkMode::Infrastructure:
@@ -142,7 +142,7 @@ QString WirelessConnectionSettingsInterface::getMode()
 
 void WirelessConnectionSettingsInterface::setMode(QString p_mode)
 {
-    if(m_settings != NULL){
+    if(m_settings != nullptr) {
         if(p_mode == "CLIENT"){
             m_settings->setting(NetworkManager::Setting::SettingType::Wireless).staticCast<NetworkManager::WirelessSetting>()->setMode(NetworkManager::WirelessSetting::NetworkMode::Infrastructure);
             m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>()->setMethod(NetworkManager::Ipv4Setting::ConfigMethod::Automatic);
@@ -155,16 +155,15 @@ void WirelessConnectionSettingsInterface::setMode(QString p_mode)
 
 bool WirelessConnectionSettingsInterface::getAutoconnect()
 {
-    bool retVal=false;
-    if(m_settings != NULL){
+    bool retVal = false;
+    if(m_settings != nullptr)
         retVal=m_settings->autoconnect();
-    }
     return retVal;
 }
 
 void WirelessConnectionSettingsInterface::setAutoconnect(bool p_autoconnect)
 {
-    if(m_settings != NULL){
+    if(m_settings != nullptr) {
         m_settings->setAutoconnect(p_autoconnect);
         emit autoconnectChanged();
     }
