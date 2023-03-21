@@ -34,25 +34,27 @@ QStringList WiredConnectionSettingsInterface::getDevices()
 QString WiredConnectionSettingsInterface::getIpv4Mode()
 {
     QString ret = "";
-    NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set != NULL) {
-        switch(set->method()) {
-        case NetworkManager::Ipv4Setting::ConfigMethod::Manual:
-            ret= "MANUAL";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::Automatic:
-            ret= "AUTOMATIC";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::LinkLocal:
-            ret= "";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::Shared:
-            ret= "";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::Disabled:
-            ret= "DISABLED";
-            break;
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+        if(set != NULL) {
+            switch(set->method()) {
+            case NetworkManager::Ipv4Setting::ConfigMethod::Manual:
+                ret= "MANUAL";
+                break;
+            case NetworkManager::Ipv4Setting::ConfigMethod::Automatic:
+                ret= "AUTOMATIC";
+                break;
+            case NetworkManager::Ipv4Setting::ConfigMethod::LinkLocal:
+                ret= "";
+                break;
+            case NetworkManager::Ipv4Setting::ConfigMethod::Shared:
+                ret= "";
+                break;
+            case NetworkManager::Ipv4Setting::ConfigMethod::Disabled:
+                ret= "DISABLED";
+                break;
 
+            }
         }
     }
     return ret;
@@ -73,44 +75,48 @@ void WiredConnectionSettingsInterface::setIpv4Mode(QString p_ipv4Mode)
 
 QString WiredConnectionSettingsInterface::getIpv4()
 {
-    NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set->addresses().size() > 0) {
-        return set->addresses().at(0).ip().toString();
-    } else {
-        return "";
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+        if(set->addresses().size() > 0) {
+            return set->addresses().at(0).ip().toString();
+        }
     }
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv4(QString p_ipv4)
 {
-    NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    NMVariantMapList addressData=set->addressData();
-    if(addressData.size()==0) {
-        addressData.append(QVariantMap());
-    }
-    QList< NetworkManager::IpAddress > addresses=set->addresses();
-    if(addresses.size()==0) {
-        addresses.append(NetworkManager::IpAddress());
-    }
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+        NMVariantMapList addressData=set->addressData();
+        if(addressData.size()==0) {
+            addressData.append(QVariantMap());
+        }
+        QList< NetworkManager::IpAddress > addresses=set->addresses();
+        if(addresses.size()==0) {
+            addresses.append(NetworkManager::IpAddress());
+        }
 
-    addressData[0]["address"]=p_ipv4;
-    addresses[0].setIp(QHostAddress(p_ipv4));
-    set->setAddressData(addressData);
-    set->setAddresses(addresses);
-    emit ipv4Changed();
+        addressData[0]["address"]=p_ipv4;
+        addresses[0].setIp(QHostAddress(p_ipv4));
+        set->setAddressData(addressData);
+        set->setAddresses(addresses);
+        emit ipv4Changed();
+    }
 }
 
 QString WiredConnectionSettingsInterface::getIpv4Sub()
 {
-    NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    if(set->addresses().size() > 0) {
-        QNetworkAddressEntry formatAdapter;
-        formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
-        formatAdapter.setPrefixLength(set->addressData()[0]["prefix"].toInt());
-        return formatAdapter.netmask().toString();
-    } else {
-        return "";
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+        if(set->addresses().size() > 0) {
+            QNetworkAddressEntry formatAdapter;
+            formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
+            formatAdapter.setPrefixLength(set->addressData()[0]["prefix"].toInt());
+            return formatAdapter.netmask().toString();
+        }
     }
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv4Sub(QString p_ipv4Sub)
@@ -140,18 +146,20 @@ void WiredConnectionSettingsInterface::setIpv4Sub(QString p_ipv4Sub)
 QString WiredConnectionSettingsInterface::getIpv6Mode()
 {
     QString ret = "";
-    NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();
-    if(set != NULL) {
-        switch(set->method()) {
-        case NetworkManager::Ipv6Setting::ConfigMethod::Manual:
-            ret= "MANUAL";
-            break;
-        case NetworkManager::Ipv6Setting::ConfigMethod::Automatic:
-            ret= "AUTOMATIC";
-            break;
-        case NetworkManager::Ipv6Setting::ConfigMethod::LinkLocal:
-            ret= "";
-            break;
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();
+        if(set != NULL) {
+            switch(set->method()) {
+            case NetworkManager::Ipv6Setting::ConfigMethod::Manual:
+                ret= "MANUAL";
+                break;
+            case NetworkManager::Ipv6Setting::ConfigMethod::Automatic:
+                ret= "AUTOMATIC";
+                break;
+            case NetworkManager::Ipv6Setting::ConfigMethod::LinkLocal:
+                ret= "";
+                break;
+            }
         }
     }
     return ret;
@@ -172,40 +180,44 @@ void WiredConnectionSettingsInterface::setIpv6Mode(QString p_ipv6Mode)
 
 QString WiredConnectionSettingsInterface::getIpv6()
 {
-    NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
-    if(set->addresses().size() > 0) {
-        return set->addresses().at(0).ip().toString();
-    } else {
-        return "";
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
+        if(set->addresses().size() > 0) {
+            return set->addresses().at(0).ip().toString();
+        }
     }
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv6(QString p_ipv6)
 {
-    NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv6Setting>();
-    NMVariantMapList addressData=set->addressData();
-    if(addressData.size()==0) {
-        addressData.append(QVariantMap());
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv6Setting>();
+        NMVariantMapList addressData=set->addressData();
+        if(addressData.size()==0) {
+            addressData.append(QVariantMap());
+        }
+        QList< NetworkManager::IpAddress > addresses=set->addresses();
+        if(addresses.size()==0) {
+            addresses.append(NetworkManager::IpAddress());
+        }
+        addressData[0]["address"]=p_ipv6;
+        addresses[0].setIp(QHostAddress(p_ipv6));
+        set->setAddressData(addressData);
+        set->setAddresses(addresses);
+        emit ipv6Changed();
     }
-    QList< NetworkManager::IpAddress > addresses=set->addresses();
-    if(addresses.size()==0) {
-        addresses.append(NetworkManager::IpAddress());
-    }
-    addressData[0]["address"]=p_ipv6;
-    addresses[0].setIp(QHostAddress(p_ipv6));
-    set->setAddressData(addressData);
-    set->setAddresses(addresses);
-    emit ipv6Changed();
 }
 
 QString WiredConnectionSettingsInterface::getIpv6Sub()
 {
-    NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
-    if(set->addresses().size() > 0) {
-        return set->addresses().at(0).netmask().toString();
-    } else {
-        return "";
+    if(m_settings != nullptr) {
+        NetworkManager::Ipv6Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>();;
+        if(set->addresses().size() > 0) {
+            return set->addresses().at(0).netmask().toString();
+        }
     }
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv6Sub(QString p_ipv6Sub)
