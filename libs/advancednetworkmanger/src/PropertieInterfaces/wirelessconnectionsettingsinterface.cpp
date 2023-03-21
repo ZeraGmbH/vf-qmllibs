@@ -39,7 +39,7 @@ QStringList WirelessConnectionSettingsInterface::getDevices()
 {   
     NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
     QStringList list;
-    for(NetworkManager::Device::Ptr dev : devList){
+    for(const NetworkManager::Device::Ptr &dev : devList){
         if(dev->type() == NetworkManager::Device::Type::Wifi){
             if(NULL != dev.staticCast<NetworkManager::WirelessDevice>()->findNetwork(getSsid())){
                 list.append(dev->interfaceName());
@@ -53,7 +53,7 @@ QString WirelessConnectionSettingsInterface::getDevicePath(const QString &p_inte
 {
     QString path="";
     NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
-    for(NetworkManager::Device::Ptr dev : devList){
+    for(const NetworkManager::Device::Ptr &dev : devList){
         if(dev->interfaceName() == p_interfaceName){
             path=dev->uni();
             m_smartConnectPath=dev.staticCast<NetworkManager::WirelessDevice>()->findNetwork(getSsid())->referenceAccessPoint()->uni();
@@ -68,7 +68,7 @@ QString WirelessConnectionSettingsInterface::getNextHotspotName(QString p_name)
     QString retVal;
     // Get available connections
     QStringList names;
-    for(NetworkManager::Connection::Ptr con : NetworkManager::listConnections()){
+    for(const NetworkManager::Connection::Ptr &con : NetworkManager::listConnections()){
         names.append(con->name());
     }
     for(int i=1; i<=100; ++i) {
