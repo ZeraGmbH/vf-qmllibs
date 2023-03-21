@@ -22,7 +22,7 @@ QStringList WiredConnectionSettingsInterface::getDevices()
 {
     NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
     QStringList list;
-    for(NetworkManager::Device::Ptr dev : devList) {
+    for(const NetworkManager::Device::Ptr &dev : devList) {
         if(dev->type() == NetworkManager::Device::Type::Ethernet){
             list.append(dev->interfaceName());
         }
