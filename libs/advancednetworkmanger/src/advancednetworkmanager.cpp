@@ -6,7 +6,6 @@
 #include "infointerface.h"
 #include "networkmanagerabstraction.h"
 #include "nmcppnotification.h"
-#include <QtQml>
 #include <zeratranslationplugin.h>
 #include <zeracomponents.h>
 #include <zerafa.h>
