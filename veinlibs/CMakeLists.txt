@@ -6,12 +6,20 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
     )
 
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    set(RESOURCES zeraveincomponents.qrc)
+else()
+    qtquick_compiler_add_resources(RESOURCES zeraveincomponents.qrc)
+endif()
+
 add_library(zeraveincomponents
     SHARED
     ${HEADERS}
     ${SOURCES}
-    zeraveincomponents.qrc
+    ${RESOURCES}
     )
+
+SET_QML_PATH(zeraveincomponents src/qml)
 
 target_link_libraries(
     zeraveincomponents

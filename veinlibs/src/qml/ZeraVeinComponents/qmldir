@@ -1,0 +1,5 @@
+module ZeraVeinComponents
+VFComboBox 1.0 VFComboBox.qml
+VFLineEdit 1.0 VFLineEdit.qml
+VFSpinBox 1.0 VFSpinBox.qml
+VFSwitch 1.0 VFSwitch.qml

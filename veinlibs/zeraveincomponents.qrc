@@ -1,8 +1,9 @@
 <RCC>
     <qresource prefix="/">
-        <file>src/qml/VFComboBox.qml</file>
-        <file>src/qml/VFLineEdit.qml</file>
-        <file>src/qml/VFSpinBox.qml</file>
-        <file>src/qml/VFSwitch.qml</file>
+        <file>src/qml/ZeraVeinComponents/qmldir</file>
+        <file>src/qml/ZeraVeinComponents/VFComboBox.qml</file>
+        <file>src/qml/ZeraVeinComponents/VFLineEdit.qml</file>
+        <file>src/qml/ZeraVeinComponents/VFSpinBox.qml</file>
+        <file>src/qml/ZeraVeinComponents/VFSwitch.qml</file>
     </qresource>
 </RCC>
