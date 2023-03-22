@@ -1,5 +1,4 @@
 #include "zeracomponents.h"
-#include <QtQml>
 
 bool ZeraComponents::m_wasRegistered = false;
 

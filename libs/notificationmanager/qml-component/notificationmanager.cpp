@@ -1,5 +1,4 @@
 #include "notificationmanager.h"
-#include <QtQml>
 
 bool NotificationManager::m_wasRegistered = false;
 
