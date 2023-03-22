@@ -1,29 +1,14 @@
 #ifndef ZERAVEINCOMPONENTS_H
 #define ZERAVEINCOMPONENTS_H
 
+#include <QQmlApplicationEngine>
 
-#include <QtQml/QQmlExtensionPlugin>
-
-class ZeraVeinComponents : public QQmlExtensionPlugin {
-    Q_OBJECT
-    Q_PLUGIN_METADATA(IID "zeracomponents/1.0")
-
+class ZeraVeinComponents
+{
 public:
-    /**
-     * @brief init library
-     *
-     * This function will init the library and
-     * register the c++ classes.
-     * It is automaticly called by QT if the library is linked.
-     *
-     */
-    static void init();
-    /**
-     * @brief registerTypes Overrided function that should register all
-     * C++ classes exported by this plugin.
-     * @param uri           Plugin uri.
-     */
-    void registerTypes(const char* uri) override;
+    static void registerQml(QQmlApplicationEngine &engine);
+private:
+    static bool m_wasRegistered;
 };
 
 #endif // ZERAVEINCOMPONENTS_H
