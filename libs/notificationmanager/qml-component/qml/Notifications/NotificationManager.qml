@@ -69,4 +69,11 @@ QtObject {
             if(base.queue.length>0)tryNotify();
         })
     }
+
+    function close(){
+        while(listOfNotifications.length > 0) {
+            var window = listOfNotifications.pop();
+            window.destroy();
+        }
+    }
 }
