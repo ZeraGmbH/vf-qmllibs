@@ -12,7 +12,6 @@ QtObject {
     property int  maxOnScreen: 3
     property int ySpacing: 5
     property int notificationWidth: 150
-    property int  ontime: 5000
 
     function timerObj() {
         return Qt.createQmlObject("import QtQuick 2.0; Timer {}", appWindow);
@@ -56,9 +55,6 @@ QtObject {
         notifi.width = notificationWidth;
         notifi.y=window.height;
         listOfNotifications.push(notifi);
-        if(popupTimer.running === false){
-            popupTimer.running = true
-        };
         notifi.open();
         sortOnScreen(0);
         notifi.closed.connect( function closingPopup(){
@@ -69,19 +65,8 @@ QtObject {
             notifi.destroy();
             if(listOfNotifications.length > 0){
                 sortOnScreen(index);
-                popupTimer.running = true;
             }
             if(base.queue.length>0)tryNotify();
         })
-    }
-    property var popupTimer: Timer{
-        interval: ontime// milliseconds
-        running: false
-        repeat: false
-        onTriggered: {
-            if(listOfNotifications.length > 0){
-                listOfNotifications[0].close()
-            }
-        }
     }
 }
