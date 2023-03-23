@@ -1,4 +1,4 @@
-# vf-qmllibs  <sub> _part of ZVP_ </sub>
+# vf-qmllibs
 
 provides qml component libs and qml application libs for guis used inside the ZVP 
 environment.
