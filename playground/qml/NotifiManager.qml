@@ -43,6 +43,14 @@ ApplicationWindow {
                 count = count + 1 ;
             }
         }
+        Button {
+            id: dyn3
+            text: "Close"
+            anchors.left: dyn2.right
+            onClicked: {
+                notificationManager.close()
+            }
+        }
     }
 }
 
