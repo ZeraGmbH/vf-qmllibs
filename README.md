@@ -2,10 +2,6 @@
 
 provides qml component libs and qml application libs for guis
 
-
-## Libs
-- [networksettings](networksettings_module/NETWORKMANAGER.md)
-
 ## Setup Project
 Following folders must be set:
 
