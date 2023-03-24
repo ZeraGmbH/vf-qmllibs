@@ -1,0 +1,30 @@
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+
+// An auto-resising CheckBox
+
+CheckBox {
+    id: root
+
+    property real controlHeight: height * 0.4 // feel free to overbind
+
+    font.pointSize: controlHeight > 0.0 ? controlHeight : 10.5
+    function recalcControls() {
+        if(controlHeight > 0.0) {
+            // we create a binding loop somehow
+            // fix it by breaking binding and recalc
+            implicitHeight = height
+            // box
+            indicator.height = controlHeight
+            indicator.width = controlHeight
+            // checkmark
+            indicator.children[0].height = controlHeight
+            indicator.children[0].width = controlHeight
+            // mouse hover circle
+            indicator.children[2].height = controlHeight*1.75
+        }
+    }
+
+    onHeightChanged: recalcControls()
+    Component.onCompleted: recalcControls()
+}

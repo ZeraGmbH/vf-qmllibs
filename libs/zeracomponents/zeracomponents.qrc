@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>src/qml/ZeraComponents/qmldir</file>
         <file>src/qml/ZeraComponents/ZButton.qml</file>
+        <file>src/qml/ZeraComponents/ZCheckBox.qml</file>
         <file>src/qml/ZeraComponents/ZComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZDoubleValidator.qml</file>
         <file>src/qml/ZeraComponents/ZLineEdit.qml</file>

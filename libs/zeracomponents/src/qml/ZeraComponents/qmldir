@@ -1,5 +1,6 @@
 module ZeraComponents
 ZButton 1.0 ZButton.qml
+ZCheckBox 1.0 ZCheckBox.qml
 ZComboBox 1.0 ZComboBox.qml
 ZDoubleValidator 1.0 ZDoubleValidator.qml
 ZLineEdit 1.0 ZLineEdit.qml
