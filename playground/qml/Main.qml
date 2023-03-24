@@ -45,6 +45,12 @@ ApplicationWindow {
         anchors.top: mainWindow.top
     }
 
+    Loader {
+        id: zcomboLoader
+        anchors.left: mainWindow.right
+        anchors.top: mainWindow.top
+    }
+
     //Next Loader here
 
     GridLayout{
@@ -116,6 +122,21 @@ ApplicationWindow {
                     uivLoader.source = "Uivectorgraph.qml";
                 }else{
                     uivLoader.active=false;
+                }
+            }
+        }
+
+        CheckBox{
+            id: zCheckBox
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load ZCheckBox"
+            onCheckStateChanged: {
+                if(checked){
+                    zcomboLoader.active=true;
+                    zcomboLoader.source = "CheckBoxTest.qml";
+                }else{
+                    zcomboLoader.active=false;
                 }
             }
         }
