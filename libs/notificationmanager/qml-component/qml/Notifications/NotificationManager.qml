@@ -57,17 +57,6 @@ QtObject {
         listOfNotifications.push(notifi);
         notifi.open();
         sortOnScreen(0);
-        notifi.closed.connect( function closingPopup(){
-            var index = listOfNotifications.indexOf(notifi);
-            if (index > -1){
-                listOfNotifications.splice(index, 1);
-            }
-            notifi.destroy();
-            if(listOfNotifications.length > 0){
-                sortOnScreen(index);
-            }
-            if(base.queue.length>0)tryNotify();
-        })
     }
 
     function close(){
