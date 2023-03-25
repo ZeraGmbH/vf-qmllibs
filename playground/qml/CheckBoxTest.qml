@@ -11,7 +11,7 @@ ApplicationWindow {
     title: "ZCheckBox test"
     width: 800
     height: 400
-    readonly property real lineHeight: height / 4
+    readonly property real lineHeight: height / 5
     Column {
         anchors.fill: parent
         Rectangle {
@@ -19,7 +19,7 @@ ApplicationWindow {
             width: parent.width
             height: lineHeight
             Label {
-                text: "Change vertical size to see why ZCheckBox is cool"
+                text: "Change vertical size or maximize to see why ZCheckBox is cool"
                 color: "lawngreen"
                 font.pointSize: 20
                 anchors.horizontalCenter: parent.horizontalCenter
@@ -33,11 +33,16 @@ ApplicationWindow {
             RowLayout {
                 anchors.fill: parent
                 CheckBox {
-                    text: "CheckBox height " + String(parent.height)
+                    text: "CheckBox unchecked"
                 }
                 CheckBox {
                     checked: true
-                    text: "CheckBox height " + String(parent.height)
+                    text: "ZCheckBox checked"
+                }
+                CheckBox {
+                    tristate: true
+                    checkState: Qt.PartiallyChecked
+                    text: "ZCheckBox half-checked"
                 }
             }
         }
@@ -46,7 +51,7 @@ ApplicationWindow {
             width: parent.width
             height: lineHeight
             ZCheckBox {
-                text: "ZCheckBox height " + String(parent.height)
+                text: "ZCheckBox unchecked"
                 anchors.fill: parent
             }
         }
@@ -56,7 +61,18 @@ ApplicationWindow {
             height: lineHeight
             ZCheckBox {
                 checked: true
-                text: "ZCheckBox height " + String(parent.height)
+                text: "ZCheckBox checked"
+                anchors.fill: parent
+            }
+        }
+        Rectangle {
+            color: Qt.darker("dimgrey", 3)
+            width: parent.width
+            height: lineHeight
+            ZCheckBox {
+                tristate: true
+                checkState: Qt.PartiallyChecked
+                text: "ZCheckBox half-checked"
                 anchors.fill: parent
             }
         }
