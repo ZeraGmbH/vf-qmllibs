@@ -26,7 +26,6 @@ Rectangle {
     property real contentRowWidth: width;
     property real contentRowHeight: height;
     property int contentMaxRows: 0
-    property real fontSize: 18;
     property bool centerVertical: false
     property real centerVerticalOffset: 0;
     //used when the displayed text should only change from external value changes
@@ -102,9 +101,9 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.verticalCenter: parent.verticalCenter
+        font.pointSize: contentRowHeight > 0 ? contentRowHeight * 0.2 : 10
         text: "▼"
         textFormat: Text.PlainText
-        font.pixelSize: root.fontSize/2
     }
 
     MouseArea {

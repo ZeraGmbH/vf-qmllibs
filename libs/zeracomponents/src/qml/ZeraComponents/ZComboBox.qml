@@ -18,8 +18,8 @@ Rectangle {
     property string selectedText;
     property real contentRowWidth: width;
     property real contentRowHeight: height;
+    property real pointSize: contentRowHeight > 0 ? contentRowHeight * 0.3 : 10
     property int contentMaxRows: 0
-    property real fontSize: 18;
     property bool centerVertical: false
     property real centerVerticalOffset: 0;
     //used when the displayed text should only change from external value changes
@@ -39,7 +39,6 @@ Rectangle {
     opacity: enabled ? 1.0 : 0.7
     radius: 4
     activeFocusOnTab: true
-
 
 
     function updateFakeModel() {
@@ -104,7 +103,7 @@ Rectangle {
                 }
                 return retVal;
             }
-            font.pixelSize: root.fontSize
+            font.pointSize: pointSize
             color: textColor
         }
     }
@@ -114,7 +113,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text: "▼"
         textFormat: Text.PlainText
-        font.pixelSize: root.fontSize/2
+        font.pointSize: contentRowHeight > 0 ? contentRowHeight * 0.2 : 10
     }
 
     MouseArea {
@@ -247,8 +246,7 @@ Rectangle {
                             }
                             return retVal;
                         }
-
-                        font.pixelSize: root.fontSize
+                        font.pointSize: pointSize
                     }
                 }
             }
