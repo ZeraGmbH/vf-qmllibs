@@ -6,7 +6,7 @@ import QtQuick.Controls 2.14
 CheckBox {
     id: root
 
-    property real controlHeight: height * 0.3 // feel free to overbind
+    property real controlHeight: height * 0.4 // feel free to overbind
 
     font.pointSize: controlHeight > 0.0 ? controlHeight : 10.5
     function recalcControls() {
