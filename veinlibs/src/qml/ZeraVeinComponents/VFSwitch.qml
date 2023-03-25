@@ -1,9 +1,9 @@
 import QtQuick 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Controls 2.0
+import ZeraComponents 1.0
 
-
-CheckBox {
+ZCheckBox {
   id: root
   property QtObject entity
   property string controlPropertyName
