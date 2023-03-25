@@ -18,7 +18,7 @@ Pane {
     anchors.fill: parent
     padding: 0
     topPadding: 10
-    readonly property int rowHeight : height ? height / 10 : 10
+    readonly property int rowHeight : height > 0.0 ? height / 10 : 10
     property real pointSize: rowHeight / 2.8
     property int labelWidth : rootItm.width / 3
 
