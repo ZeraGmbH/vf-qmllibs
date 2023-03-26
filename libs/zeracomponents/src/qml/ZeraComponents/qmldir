@@ -4,6 +4,7 @@ ZCheckBox 1.0 ZCheckBox.qml
 ZComboBox 1.0 ZComboBox.qml
 ZDoubleValidator 1.0 ZDoubleValidator.qml
 ZLineEdit 1.0 ZLineEdit.qml
+ZRadioButton 1.0 ZRadioButton.qml
 ZSpinBox 1.0 ZSpinBox.qml
 ZUnitComboBox 1.0 ZUnitComboBox.qml
 ZVisualComboBox 1.0 ZVisualComboBox.qml
