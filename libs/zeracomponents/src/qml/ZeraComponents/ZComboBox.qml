@@ -128,6 +128,7 @@ Rectangle {
 
     Popup {
         id: selectionDialog
+        background: Item {} //remove background rectangle - is draws at unexpected upper left corner
         property int heightOffset: (root.centerVertical ? -popupElement.height/2 : 0) + root.centerVerticalOffset
         property int widthOffset: - 0.5 * contentRowWidth * (displayColums - 1)
 
