@@ -12,132 +12,81 @@ ApplicationWindow {
     width: 400
     height: 600
 
-    // Add your Playground here
-
     Loader {
-        id: netLoader
+        id: commonLoader
         anchors.left: mainWindow.right
         anchors.top: mainWindow.top
     }
 
-
-    Loader {
-        id: compLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    }
-
-    Loader {
-        id: anmLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    }
-
-    Loader {
-        id: notifiLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    }
-
-    Loader {
-        id: uivLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    }
-
-    Loader {
-        id: zcomboLoader
-        anchors.left: mainWindow.right
-        anchors.top: mainWindow.top
-    }
-
-    //Next Loader here
-
-    GridLayout{
+    GridLayout {
         anchors.fill: parent
         columns: 2
-
-        CheckBox{
+        CheckBox {
             id: showanmsettings
             checked: false;
             Layout.fillWidth: true;
             text: "Load anmsettings"
-            Component.onCompleted: {
-                if(checked){
-                    anmLoader.active=true;
-                    anmLoader.source = "Anmsettings.qml";
-                }else{
-                    anmLoader.active=false;
-                }
-            }
             onCheckStateChanged: {
                 if(checked){
-                    anmLoader.active=true;
-                    anmLoader.source = "Anmsettings.qml";
+                    commonLoader.active=true;
+                    commonLoader.source = "Anmsettings.qml";
                 }else{
-                    anmLoader.active=false;
+                    commonLoader.active=false;
                 }
             }
         }
-
-        CheckBox{
+        CheckBox {
             id: shownotifmanager
             checked: false;
             Layout.fillWidth: true;
             text: "Load notifiManager"
-            Component.onCompleted: {
-                if(checked){
-                    notifiLoader.active=true;
-                    notifiLoader.source = "NotifiManager.qml";
-                }else{
-                    notifiLoader.active=false;
-                }
-            }
             onCheckStateChanged: {
                 if(checked){
-                    notifiLoader.active=true;
-                    notifiLoader.source = "NotifiManager.qml";
+                    commonLoader.active=true;
+                    commonLoader.source = "NotifiManager.qml";
                 }else{
-                    notifiLoader.active=false;
+                    commonLoader.active=false;
                 }
             }
         }
-
-        CheckBox{
+        CheckBox {
             id: shownuiv
             checked: false;
             Layout.fillWidth: true;
             text: "Load uivector"
-            Component.onCompleted: {
-                if(checked){
-                    uivLoader.active=true;
-                    uivLoader.source = "Uivectorgraph.qml";
-                }else{
-                    uivLoader.active=false;
-                }
-            }
             onCheckStateChanged: {
                 if(checked){
-                    uivLoader.active=true;
-                    uivLoader.source = "Uivectorgraph.qml";
+                    commonLoader.active=true;
+                    commonLoader.source = "Uivectorgraph.qml";
                 }else{
-                    uivLoader.active=false;
+                    commonLoader.active=false;
                 }
             }
         }
-
-        CheckBox{
-            id: zCheckBox
+        CheckBox {
             checked: false;
             Layout.fillWidth: true;
             text: "Load ZCheckBox"
             onCheckStateChanged: {
                 if(checked){
-                    zcomboLoader.active=true;
-                    zcomboLoader.source = "CheckBoxTest.qml";
-                }else{
-                    zcomboLoader.active=false;
+                    commonLoader.active=true;
+                    commonLoader.source = "CheckBoxTest.qml";
                 }
+                else
+                    commonLoader.active=false;
+            }
+        }
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load ZRadioButton"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "RadioButtonTest.qml";
+                }
+                else
+                    commonLoader.active=false;
             }
         }
 

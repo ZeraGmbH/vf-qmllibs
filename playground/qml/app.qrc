@@ -6,5 +6,6 @@
         <file>qtquickcontrols2.conf</file>
         <file>Uivectorgraph.qml</file>
         <file>CheckBoxTest.qml</file>
+        <file>RadioButtonTest.qml</file>
     </qresource>
 </RCC>
