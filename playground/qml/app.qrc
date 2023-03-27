@@ -7,5 +7,6 @@
         <file>Uivectorgraph.qml</file>
         <file>CheckBoxTest.qml</file>
         <file>RadioButtonTest.qml</file>
+        <file>ZvKeyboard.qml</file>
     </qresource>
 </RCC>
