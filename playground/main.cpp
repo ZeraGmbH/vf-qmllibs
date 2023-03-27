@@ -2,6 +2,7 @@
 #include "notificationmanager.h"
 #include "uivectorgraphics.h"
 #include "zeracomponents.h"
+#include "zvkeyboard.h"
 #include "QQmlApplicationEngine"
 #include <QGuiApplication>
 #include <QQmlEngine>
@@ -17,6 +18,7 @@ int main(int argc, char *argv[]) {
     NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
     ZeraComponents::registerQml(engine);
+    ZVKeyboard::registerQml(engine);
 
     return app.exec();
 }
