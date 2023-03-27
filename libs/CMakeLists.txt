@@ -5,4 +5,5 @@ add_subdirectory(zeracomponents)
 add_subdirectory(zeraFa)
 add_subdirectory(zeraHelpers)
 add_subdirectory(zeraQwtChart)
+add_subdirectory(zvkeyboard)
 

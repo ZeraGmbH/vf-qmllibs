@@ -19,6 +19,8 @@ find_package(SortFilterProxyModelCmake REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_package(Qt5QuickCompiler CONFIG REQUIRED)
+
 pkg_check_modules(QWT REQUIRED Qt5Qwt6)
 
 include(FeatureSummary)
