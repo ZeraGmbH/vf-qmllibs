@@ -1,5 +1,5 @@
 file(GLOB HEADERS
-    include/*.h
+    *.h
 )
 
 file(GLOB_RECURSE SOURCES
@@ -7,38 +7,37 @@ file(GLOB_RECURSE SOURCES
 )
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    qt5_add_resources(RESOURCES ${CMAKE_CURRENT_LIST_DIR}/zvkeyboard.qrc)
+    set(RESOURCES zvkeyboard.qrc)
 else()
-    qtquick_compiler_add_resources(RESOURCES ${CMAKE_CURRENT_LIST_DIR}/zvkeyboard.qrc)
+    qtquick_compiler_add_resources(RESOURCES zvkeyboard.qrc)
 endif()
 
-add_library(ZVKeyboard
+add_library(ZVKeyboardLayout
     SHARED
     ${SOURCES}
     ${HEADERS}
     ${RESOURCES}
 )
 
-SET_QML_PATH(ZVKeyboard qml)
+SET_QML_PATH(ZVKeyboardLayout zvkeyboard/layouts)
 
-target_link_libraries(ZVKeyboard
+target_link_libraries(ZVKeyboardLayout
     PUBLIC
     Qt5::Core
     Qt5::Qml
 )
 
-target_include_directories(ZVKeyboard
+target_include_directories(ZVKeyboardLayout
     PUBLIC
         $<INSTALL_INTERFACE:include/zvkeyboard>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 )
 
-set_target_properties(ZVKeyboard PROPERTIES VERSION ${PROJECT_VERSION})
-set_target_properties(ZVKeyboard PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
+set_target_properties(ZVKeyboardLayout PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(ZVKeyboardLayout PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
-export(TARGETS ZVKeyboard NAMESPACE Zera:: FILE VfQmlLibsTargets.cmake)
-install(TARGETS ZVKeyboard
+export(TARGETS ZVKeyboardLayout NAMESPACE Zera:: FILE VfQmlLibsTargets.cmake)
+install(TARGETS ZVKeyboardLayout
     EXPORT VfQmlLibsExport
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
 )

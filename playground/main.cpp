@@ -2,7 +2,7 @@
 #include "notificationmanager.h"
 #include "uivectorgraphics.h"
 #include "zeracomponents.h"
-#include "zvkeyboard.h"
+#include "zvkeyboardlayout.h"
 #include "QQmlApplicationEngine"
 #include <QGuiApplication>
 #include <QQmlEngine>
@@ -18,7 +18,9 @@ int main(int argc, char *argv[]) {
     NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
     ZeraComponents::registerQml(engine);
-    ZVKeyboard::registerQml(engine);
+
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    ZVKeyboardLayout::setKeyboardLayoutEnvironment();
 
     return app.exec();
 }
