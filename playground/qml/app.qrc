@@ -1,12 +1,13 @@
 <RCC>
     <qresource prefix="/">
         <file>Anmsettings.qml</file>
+        <file>CheckBoxTest.qml</file>
+        <file>DelayTest.qml</file>
         <file>Main.qml</file>
         <file>NotifiManager.qml</file>
         <file>qtquickcontrols2.conf</file>
-        <file>Uivectorgraph.qml</file>
-        <file>CheckBoxTest.qml</file>
         <file>RadioButtonTest.qml</file>
+        <file>Uivectorgraph.qml</file>
         <file>ZvKeyboard.qml</file>
     </qresource>
 </RCC>
