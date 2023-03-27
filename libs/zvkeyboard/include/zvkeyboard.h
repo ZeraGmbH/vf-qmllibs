@@ -12,6 +12,9 @@ public:
      * @brief setKeyboardLayoutEnvironment: Call this function in main() to enable customized keyboard layout
      */
     static void setKeyboardLayoutEnvironment();
+    static void registerQml(QQmlApplicationEngine &engine);
+private:
+    static bool m_wasRegistered;
 };
 
 #endif // ZV_KEYBOARD_H
