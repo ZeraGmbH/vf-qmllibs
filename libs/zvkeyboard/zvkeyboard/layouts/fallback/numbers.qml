@@ -33,7 +33,7 @@ import QtQuick.VirtualKeyboard 2.1
 import QtQuick.VirtualKeyboard.Plugins 2.3
 import QtQuick.VirtualKeyboard.Styles 2.2
 import QtQuick.VirtualKeyboard.Settings 2.2
-import "qrc:/zvkeyboard" as ZVKEYB
+import "../../" as ZVKEYB
 
 KeyboardLayout {
     inputMethod: PlainInputMethod {}
