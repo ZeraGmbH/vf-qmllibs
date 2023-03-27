@@ -89,6 +89,19 @@ ApplicationWindow {
                     commonLoader.active=false;
             }
         }
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load ZvKeyboard"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "ZvKeyboard.qml";
+                }
+                else
+                    commonLoader.active=false;
+            }
+        }
 
         // Next CheckBox here
 
