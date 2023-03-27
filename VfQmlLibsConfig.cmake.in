@@ -1,6 +1,6 @@
 include(CMakeFindDependencyMacro)
 
-find_dependency(Qt5 REQUIRED COMPONENTS Quick Core)
+find_dependency(Qt5 REQUIRED COMPONENTS Core Qml Quick VirtualKeyboard DBus Xml)
 find_dependency(ZenuxCore REQUIRED)
 find_dependency(ZeraTranslation REQUIRED)
 find_dependency(SortFilterProxyModelCmake REQUIRED)
