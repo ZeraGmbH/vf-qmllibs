@@ -7,9 +7,9 @@ add_executable(
 target_link_libraries(
     vf-qmllibs-examples
     PRIVATE
-        Qt5::Core
         Qt5::Quick
         Qt5::Qml
+        Qt5::VirtualKeyboard
         anmlib
         zeracomponents
         notificationmanager
