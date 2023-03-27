@@ -30,7 +30,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.0
 import QtQuick.VirtualKeyboard 2.1
-import "qrc:/zvkeyboard" as ZVKEYB
+import "../../" as ZVKEYB
 
 KeyboardLayoutLoader {
     property bool secondPage
