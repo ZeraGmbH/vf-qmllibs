@@ -17,6 +17,7 @@ int main(int argc, char *argv[])
     locale.setNumberOptions(QLocale::OmitGroupSeparator | QLocale::RejectGroupSeparator);
     QLocale::setDefault(locale);
 
+    QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
