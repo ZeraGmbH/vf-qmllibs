@@ -7,7 +7,15 @@
 #include <QGuiApplication>
 #include <QQmlEngine>
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
+    // vkeyboard environmen must be set before application object is created
+    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
+    ZVKeyboardLayout::setKeyboardLayoutEnvironment();
+
+    QLocale locale = QLocale("C");
+    locale.setNumberOptions(QLocale::OmitGroupSeparator | QLocale::RejectGroupSeparator);
+    QLocale::setDefault(locale);
 
     QGuiApplication app(argc, argv);
 
@@ -18,9 +26,6 @@ int main(int argc, char *argv[]) {
     NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
     ZeraComponents::registerQml(engine);
-
-    qputenv("QT_IM_MODULE", QByteArray("qtvirtualkeyboard"));
-    ZVKeyboardLayout::setKeyboardLayoutEnvironment();
 
     return app.exec();
 }
