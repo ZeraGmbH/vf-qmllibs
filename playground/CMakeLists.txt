@@ -9,7 +9,6 @@ target_link_libraries(
     PRIVATE
         Qt5::Quick
         Qt5::Qml
-        Qt5::VirtualKeyboard
         anmlib
         zeracomponents
         notificationmanager
