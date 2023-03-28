@@ -1,6 +1,5 @@
 import QtQuick 2.14
 import QtQuick.Window 2.14
-import QtQuick.VirtualKeyboard 2.4
 import QtQuick.Controls 2.14
 import QtQuick.Layouts 1.14
 import QtQuick.Dialogs 1.3
