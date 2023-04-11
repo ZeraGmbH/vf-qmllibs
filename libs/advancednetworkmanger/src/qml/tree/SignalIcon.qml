@@ -6,7 +6,7 @@ Item{
     property int signals : 0
     Row{
         anchors.fill: parent
-        spacing: 2
+        spacing: parent.width/10
         Rectangle{
             width: parent.width/3-2
             height: parent.height/3
