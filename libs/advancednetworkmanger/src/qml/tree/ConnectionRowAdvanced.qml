@@ -127,15 +127,15 @@ Item{
                 id:signalIcon
                 anchors.verticalCenter: parent.verticalCenter
                 signals: rootItm.signals_
-                width: 20
-                height: 20
+                width: rootItm.width/33
+                height: width
                 visible: type_ === 1 && available_
             }
             Rectangle{
                 id: rectangle
                 anchors.verticalCenter: parent.verticalCenter
-                width: 20
-                height: 20
+                width: rootItm.width/33
+                height: width
                 color: "transparent"
                 visible: type_ !== 1 || !available_
             }
