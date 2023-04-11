@@ -311,7 +311,7 @@ Pane {
         anchors.bottom: parent.bottom
         font.family: FA.old
         text: FA.fa_info_circle
-        font.pixelSize: 22
+        font.pixelSize: parent.height/20
         highlighted: infoLoader.active
         Material.accent: Material.Amber
         background: Rectangle{
