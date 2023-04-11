@@ -90,10 +90,10 @@ Item{
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             Switch {
+                id: actswitch
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 enabled: rootItm.available_
-                id: actswitch
                 visible: true
                 onClicked: {
                     if(position > 0.5) {
@@ -124,6 +124,7 @@ Item{
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             SignalIcon {
+                id:signalIcon
                 anchors.verticalCenter: parent.verticalCenter
                 signals: rootItm.signals_
                 width: 20
@@ -131,6 +132,7 @@ Item{
                 visible: type_ === 1 && available_
             }
             Rectangle{
+                id: rectangle
                 anchors.verticalCenter: parent.verticalCenter
                 width: 20
                 height: 20
@@ -144,6 +146,7 @@ Item{
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             Button {
+                id: editButton
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin
                 enabled: rootItm.stored_
@@ -164,6 +167,7 @@ Item{
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
             Button {
+                id: trashButton
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin
                 enabled: rootItm.stored_
