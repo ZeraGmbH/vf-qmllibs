@@ -150,7 +150,7 @@ Item{
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin
                 enabled: rootItm.stored_
-                font.pixelSize: 22
+                font.pixelSize: rootItm.width/35
                 font.family: FA.old
                 text: FA.fa_edit
                 background: Rectangle {
@@ -171,7 +171,7 @@ Item{
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin
                 enabled: rootItm.stored_
-                font.pixelSize: 22
+                font.pixelSize: rootItm.width/35
                 font.family: FA.old
                 text: FA.fa_trash
                 background: Rectangle{
