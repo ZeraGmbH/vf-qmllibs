@@ -203,7 +203,7 @@ Pane {
         anchors.left: parent.left
         anchors.right: parent.right
         clip: true
-        spacing: 10
+        spacing: parent.height /50
 
         model: SortFilterProxyModel{
             sourceModel: backend.dataList
@@ -223,8 +223,7 @@ Pane {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: parent.width/30
-            height: 30
-
+            height: list.height / 15
             // Action handlers
             onEdit: {
                 if(groupe_ == "ETHERNET") {
