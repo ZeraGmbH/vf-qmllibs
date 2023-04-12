@@ -278,9 +278,12 @@ Pane {
     Button {
         id: addbutton
         text: "+"
+        font.pixelSize: parent.height/30
         onClicked: menu.open()
         anchors.left: parent.left
         anchors.bottom: parent.bottom
+        width: implicitContentWidth*5
+        height: implicitContentHeight*2.5
         Menu {
             id: menu
             width: rootItm.width / 2.5
