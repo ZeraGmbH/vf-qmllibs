@@ -177,16 +177,17 @@ Pane {
             }
         }
         RowLayout{
-            width: parent.width
-            height: parent.rowHeight
+            width: rootItm.width
+            height: rootItm.rowHeight
             Label {
                 id: autoconLabel
                 font.pointSize: pointSize
                 text: Z.tr("Autoconnect:")
                 Layout.preferredWidth: labelWidth - ZCC.standardTextHorizMargin
             }
-            CheckBox{
+            ZCheckBox{
                 id: autoConCheckbox
+                Layout.fillHeight: true
                 display: AbstractButton.IconOnly
                 Layout.alignment: Qt.AlignRight
                 onCheckedChanged: {
