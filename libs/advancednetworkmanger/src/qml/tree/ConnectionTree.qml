@@ -165,7 +165,7 @@ Pane {
         Item {
             id: rect
             width: list.width
-            height: 15
+            height: rootItm.height/15
             anchors.margins: 0
             RowLayout{
                 anchors.fill: parent
@@ -189,7 +189,7 @@ Pane {
                     //   Since there were some preparations for VPN/BLUETOOOTH done let our translation be prepped
                     text: Z.tr(section)
                     font.bold: true
-                    font.pixelSize: 14
+                    font.pixelSize: parent.width/45
                     Layout.fillWidth: true
                 }
             }

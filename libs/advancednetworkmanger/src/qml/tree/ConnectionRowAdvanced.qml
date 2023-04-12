@@ -65,9 +65,10 @@ Item{
             Layout.fillWidth: true
             Layout.fillHeight: true
             Label{
-                anchors.verticalCenter: parent.verticalCenter
                 id: conname
+                anchors.verticalCenter: parent.verticalCenter
                 text: rootItm.name_
+                font.pixelSize: parent.width / 25
             }
         }
         // select-device-combo (visible only if more than one device is available)
