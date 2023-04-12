@@ -279,12 +279,15 @@ Pane {
                 backend.discard();
                 rootItm.visible = false
             }
+            width: implicitContentWidth
+            height: implicitContentHeight
         }
         Button {
             id: okButton
             text: Z.tr("OK")
             font.pointSize: pointSize
             Layout.preferredWidth: cancelButton.width
+            height: implicitContentHeight
             onClicked: {
                 var good = true;
                 var errorField;
