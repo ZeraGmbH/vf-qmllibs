@@ -282,8 +282,8 @@ Pane {
         onClicked: menu.open()
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        width: implicitContentWidth*5
-        height: implicitContentHeight*2.5
+        width: font.pixelSize + 40
+        height: font.pixelSize + 32
         Menu {
             id: menu
             width: rootItm.width / 2.5
