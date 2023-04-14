@@ -12,7 +12,7 @@ id: rootItm
     Label{
         id: header
         text: Z.tr("Connection Information")
-        font.pixelSize: 18
+        font.pixelSize: rootItm.width/40
         anchors.top: parent.top
         anchors.horizontalCenter: parent.horizontalCenter
     }
@@ -26,6 +26,7 @@ id: rootItm
         spacing: 15
         clip: true
         model: InfoInterface { }
+        property int fontSize: rootItm.width/50
 
         delegate: Grid {
             columns: 2
@@ -34,6 +35,7 @@ id: rootItm
                 font.bold: true
                 font.underline: true
                 anchors.bottomMargin: 3
+                font.pixelSize: list.fontSize
             }
             Item {
                 id: spacer
@@ -43,23 +45,29 @@ id: rootItm
 
             Label {
                 text: "IPv4: "
+                font.pixelSize: list.fontSize
             }
             Label {
                 text: ipv4
+                font.pixelSize: list.fontSize
             }
 
             Label {
                 text: Z.tr("Netmask:") + " "
+                font.pixelSize: list.fontSize
             }
             Label {
                 text: subnetmask
+                font.pixelSize: list.fontSize
             }
 
             Label {
                 text: "IPv6: "
+                font.pixelSize: list.fontSize
             }
             Label {
                 text: ipv6
+                font.pixelSize: list.fontSize
             }
         }
     }
