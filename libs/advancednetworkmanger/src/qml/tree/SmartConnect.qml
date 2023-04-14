@@ -10,6 +10,13 @@ import ZeraFa 1.0
 Dialog {
     id: rootItm
     title: Z.tr("Wifi password: ")+backend.ssid
+    Binding {
+        target: header
+        property: 'font.pixelSize'
+        value: rootItm.width/55
+    }
+
+    font.pixelSize: width/50
     property string device: ""
     property string path: ""
     property bool newCon: true
@@ -80,7 +87,7 @@ Dialog {
                 id: pwvisible
                 font.family: FA.old
                 text: FA.fa_eye_slash
-                font.pixelSize: 22
+                font.pixelSize: rootItm.width/31
 //                background: Rectangle {
 //                    color: "transparent"
 //                }
