@@ -12,5 +12,6 @@
         <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
         <file>src/qml/ZeraComponentsConfig/qmldir</file>
         <file>src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
+        <file>src/qml/ZeraComponents/ZSwitch.qml</file>
     </qresource>
 </RCC>
