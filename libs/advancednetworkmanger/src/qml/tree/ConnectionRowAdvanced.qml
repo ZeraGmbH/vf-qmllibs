@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.12
 import anmsettings 1.0
 import ZeraFa 1.0
 import ZeraComponentsConfig 1.0
+import ZeraComponents 1.0
 
 Item{
     id: rootItm
@@ -18,7 +19,6 @@ Item{
 
     property bool connected_
     property string nmPath_
-
 
     onConnected_Changed: {
         actswitch.checked = connected_;
@@ -90,12 +90,11 @@ Item{
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            Switch {
+            ZSwitch {
                 id: actswitch
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+                height: rootItm.height
+                width: rootItm.width
                 enabled: rootItm.available_
-                visible: true
                 onClicked: {
                     if(position > 0.5) {
                         position=0.5
