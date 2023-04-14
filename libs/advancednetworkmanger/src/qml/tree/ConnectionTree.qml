@@ -289,18 +289,21 @@ Pane {
             width: rootItm.width / 2.5
             MenuItem {
                 text: Z.tr("Add Ethernet...")
+                font.pixelSize: menu.width/18
                 onClicked: {
                     ethLoader.load("")
                 }
             }
             MenuItem {
                 text: Z.tr("Add Hotspot...")
+                font.pixelSize: menu.width/18
                 onClicked: {
                     wifiLoader.load("", true)
                 }
             }
             MenuItem {
                 text: Z.tr("Add Wifi...")
+                font.pixelSize: menu.width/18
                 onClicked: {
                     wifiLoader.load("", false)
                 }
