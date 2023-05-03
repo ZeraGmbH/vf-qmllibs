@@ -38,7 +38,7 @@ KeyboardLayout {
         Key {
             key: Qt.Key_A
             text: "a"
-            alternativeKeys: "àâ"
+            alternativeKeys: "àâä"
         }
         Key {
             key: Qt.Key_Z
@@ -47,7 +47,7 @@ KeyboardLayout {
         Key {
             key: Qt.Key_E
             text: "e"
-            alternativeKeys: "éèê"
+            alternativeKeys: "éèêë"
         }
         Key {
             key: Qt.Key_R
@@ -64,7 +64,7 @@ KeyboardLayout {
         Key {
             key: Qt.Key_U
             text: "u"
-            alternativeKeys: "ùû"
+            alternativeKeys: "ùûü"
         }
         Key {
             key: Qt.Key_I
@@ -74,6 +74,7 @@ KeyboardLayout {
         Key {
             key: Qt.Key_O
             text: "o"
+            alternativeKeys: "ôö"
         }
         Key {
             key: Qt.Key_P
