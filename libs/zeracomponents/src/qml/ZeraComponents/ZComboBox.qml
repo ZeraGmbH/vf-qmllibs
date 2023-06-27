@@ -22,6 +22,7 @@ Rectangle {
     property int contentMaxRows: 0
     property bool centerVertical: false
     property real centerVerticalOffset: 0;
+    property bool fadeOutOnClose: false
     //used when the displayed text should only change from external value changes
     property bool automaticIndexChange: false
     //support for QML ListModel and JS array
@@ -224,7 +225,7 @@ Rectangle {
                                         /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
                                         root.selectedTextChanged();
                                     }
-                                    if(headerLoader.height > 0) {
+                                    if(fadeOutOnClose) {
                                         fadeOutAnimation.start()
                                     }
                                     else {
