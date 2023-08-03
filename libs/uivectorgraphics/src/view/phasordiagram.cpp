@@ -264,10 +264,8 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
 
 void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
 {
-    t_painter->setPen(QPen(Qt::gray, 1));
-    // Vectors are drawn with pen width 2. To avoid overshooting vectors,
-    // circle radius has to be adjusted
-    constexpr int radiusAdd = 1;
+    constexpr double radiusWidth = 1.5;
+    t_painter->setPen(QPen(Qt::darkGray, radiusWidth));
 
     //grid
     if(m_gridVisible) {
@@ -281,10 +279,10 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
     //circle
     if(m_circleVisible) {
         t_painter->drawArc(
-                    m_fromX-(m_gridScale * m_circleValue)-radiusAdd,
-                    m_fromY-(m_gridScale * m_circleValue)-radiusAdd,
-                    2 * (m_gridScale * m_circleValue + radiusAdd),
-                    2 * (m_gridScale * m_circleValue + radiusAdd),
+                    m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
+                    m_fromY-(m_gridScale * m_circleValue)-radiusWidth,
+                    2 * (m_gridScale * m_circleValue + radiusWidth),
+                    2 * (m_gridScale * m_circleValue + radiusWidth),
                     0, 5760);
     }
 }
