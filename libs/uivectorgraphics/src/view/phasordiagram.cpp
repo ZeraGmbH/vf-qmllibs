@@ -396,6 +396,8 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
 PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 {
     setAntialiasing(true);
+    // enable to see pixesl painted
+    //setOpaquePainting(true);
     m_vector1Data.append(10);
     m_vector1Data.append(20);
 }
