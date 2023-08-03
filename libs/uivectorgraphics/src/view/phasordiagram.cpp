@@ -19,16 +19,16 @@ float PhasorDiagram::pixelScale(float t_base)
 
 void PhasorDiagram::drawLabel(QPainter *t_painter, const QString &t_label, float t_vectorPhi, QColor t_color, float t_scale, float t_labelPhiOffset)
 {
-    float xOffset = t_label.length()*5;
+    QFontMetrics fontMetrics(m_defaultFont);
+    int xOffset = fontMetrics.horizontalAdvance(t_label) / 2;
+
     const float tmpPhi = t_vectorPhi - m_phiOrigin;
     constexpr float maxPhi = 0.25;
     if(fabs(t_labelPhiOffset) > maxPhi) {
-        if(t_labelPhiOffset > 0) {
+        if(t_labelPhiOffset > 0)
             t_labelPhiOffset = maxPhi;
-        }
-        else {
+        else
             t_labelPhiOffset = -maxPhi;
-        }
     }
     float xPos = m_fromX - xOffset + t_scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + t_labelPhiOffset);
     float yPos = m_fromY + 5 + 0.9 * t_scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + t_labelPhiOffset);
