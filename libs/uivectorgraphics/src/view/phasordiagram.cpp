@@ -1,9 +1,6 @@
 #include "phasordiagram.h"
 #include <QGradient>
 #include <QPainterPath>
-
-
-//used for atan2 and math constants like M_PI
 #include <math.h>
 
 static constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
@@ -394,8 +391,7 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
 PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 {
     setAntialiasing(true);
-    // enable to see pixesl painted
-    //setOpaquePainting(true);
+    setOpaquePainting(true);
     m_vector1Data.append(10);
     m_vector1Data.append(20);
 }
