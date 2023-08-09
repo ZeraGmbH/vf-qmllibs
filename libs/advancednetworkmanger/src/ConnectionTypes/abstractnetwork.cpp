@@ -120,6 +120,24 @@ bool AbstractNetwork::isConnectionActive(QString p_path)
 
 }
 
+QString AbstractNetwork::getIpv4(QString p_path)
+{
+    QString ipv4 = QString();
+    NetworkManager::ActiveConnection::List aConList = NetworkManager::activeConnections();
+    for(NetworkManager::ActiveConnection::Ptr aCon : aConList){
+        if(aCon->connection()->path() == p_path){
+            m_aConList[aCon->path()].path=p_path;
+            if(aCon->ipV4Config().addresses().size()>0){
+                ipv4 = aCon->ipV4Config().addresses().at(0).ip().toString();
+            }else{
+                ipv4 = "N/A";
+            }
+            break;
+        }
+    }
+    return ipv4;
+}
+
 void AbstractNetwork::addConnection(const QString &p_path)
 {
     NetworkManager::Connection::Ptr connection = NetworkManager::findConnection(p_path);

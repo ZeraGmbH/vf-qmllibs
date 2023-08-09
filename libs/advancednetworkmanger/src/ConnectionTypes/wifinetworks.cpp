@@ -154,6 +154,7 @@ connectionItem WifiNetworks::CreateConItem(const NetworkManager::Connection::Ptr
     con.Connected=isConnectionActive(p_con->path());
     con.Stored = true;
     con.SignalStrength=0;
+    con.Ipv4 = getIpv4(p_con->path());
     return con;
 }
 
