@@ -19,6 +19,7 @@ QHash<int, QByteArray> ConnectionModel::roleNames() const
     roles[StoredRole] = "stored";
     roles[DeviceMap] = "devices";
     roles[DeviceNames] = "deviceNames";
+    roles[Ipv4] = "ipv4";
     return roles;
 }
 
@@ -64,6 +65,8 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     case DeviceNames:
         return QStringList(itm.Devices.keys());
         break;
+    case Ipv4:
+        return itm.Ipv4;
     default:
         return QVariant();
     }
@@ -101,6 +104,9 @@ bool ConnectionModel::setData(const QModelIndex &index, const QVariant &value, i
             break;
         case DeviceMap:
           //  itm.Devices= value.toMap();
+            break;
+        case Ipv4:
+            itm.Ipv4= value.toString();
             break;
         }
         emit dataChanged(index, index, QVector<int>() << role);
