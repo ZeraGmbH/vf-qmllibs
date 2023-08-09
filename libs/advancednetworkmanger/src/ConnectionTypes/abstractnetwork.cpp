@@ -22,6 +22,7 @@ void AbstractNetwork::connectionActivated(const QString &p_path)
         m_aConList[p_path]=acons;
         if(itm.NmPath == path){
             itm.Available=true;
+            itm.Ipv4=getIpv4(p_path);
             m_list->setItemByPath(path,itm);
         }
     }
@@ -39,6 +40,7 @@ void AbstractNetwork::connectionDeactivate(const QString &p_path)
             m_aConList.remove(p_path);
             connectionItem itm = m_list->itemByPath(path);
             itm.Connected=false;
+            itm.Ipv4="";
             m_list->setItemByPath(path,itm);
         }
 
