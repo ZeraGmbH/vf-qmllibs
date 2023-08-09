@@ -29,7 +29,8 @@ public:
         ConnectedRole,
         StoredRole,
         DeviceMap,
-        DeviceNames
+        DeviceNames,
+        Ipv4
     };
 
     QHash<int, QByteArray> roleNames() const override;

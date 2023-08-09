@@ -30,6 +30,7 @@ public:
     ConType Type;
     bool Connected;
     QMap<QString,QVariant> Devices;
+    QString Ipv4;
     friend class ConnectionList;
 };
 

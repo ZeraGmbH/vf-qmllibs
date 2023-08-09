@@ -220,6 +220,7 @@ Pane {
             devices_: devices
             deviceNames_: deviceNames
             stored_: stored
+            ipv4_: ipv4
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.leftMargin: parent.width/30

@@ -19,6 +19,7 @@ Item{
 
     property bool connected_
     property string nmPath_
+    property string ipv4_
 
     onConnected_Changed: {
         actswitch.checked = connected_;
