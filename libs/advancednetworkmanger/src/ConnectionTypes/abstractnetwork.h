@@ -58,6 +58,7 @@ protected:
     virtual void findStoredConnections();
     virtual connectionItem CreateConItem(NetworkManager::Connection::Ptr p_con);
     virtual bool isConnectionActive(QString p_path);
+    virtual QString getIpv4(QString p_path);
 protected:
     ConnectionList* m_list;
     QMap<QString,ConStruct> m_conList;

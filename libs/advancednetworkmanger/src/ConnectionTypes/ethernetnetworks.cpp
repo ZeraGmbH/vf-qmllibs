@@ -52,6 +52,7 @@ connectionItem EthernetNetworks::CreateConItem(NetworkManager::Connection::Ptr p
     con.Type = ConType::Cable;
     con.Connected = isConnectionActive(p_con->path());
     con.SignalStrength = 100;
+    con.Ipv4 = getIpv4(p_con->path());
     return con;
 }
 
