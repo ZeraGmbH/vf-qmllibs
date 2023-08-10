@@ -127,6 +127,8 @@ QString AbstractNetwork::getIpv4(QString p_path)
     NetworkManager::ActiveConnection::List aConList = NetworkManager::activeConnections();
     for(NetworkManager::ActiveConnection::Ptr aCon : aConList){
         if(aCon->connection()->path() == p_path){
+            // The connection data can change. They are also available later than the object.
+            connect(aCon.data(),&NetworkManager::ActiveConnection::ipV4ConfigChanged,this, &AbstractNetwork::ipv4Change);
             m_aConList[aCon->path()].path=p_path;
             if(aCon->ipV4Config().addresses().size()>0){
                 ipv4 = aCon->ipV4Config().addresses().at(0).ip().toString();
@@ -259,6 +261,24 @@ void AbstractNetwork::stateChangeReason(QString path, NetworkManager::ActiveConn
         }
         NmCppNotification::sendNotifiaction("NM",QString("Connection ") + con->name() + QString(" deactivated"));
         break;
+    }
+}
+
+void AbstractNetwork::ipv4Change()
+{
+    NetworkManager::ActiveConnection::List aConList = NetworkManager::activeConnections();
+    for(NetworkManager::ActiveConnection::Ptr aCon : aConList){
+        QString path = aCon->connection()->path();
+        if(m_aConList.contains(aCon->path())) {
+            connectionItem itm = m_list->itemByPath(path);
+            if(aCon->ipV4Config().addresses().size()>0) {
+                itm.Ipv4 = aCon->ipV4Config().addresses().at(0).ip().toString();
+            }
+            else {
+                itm.Ipv4 = "N/A";
+            }
+            m_list->setItemByPath(path,itm);
+        }
     }
 }
 
