@@ -77,6 +77,7 @@ public slots:
     virtual void removeDevice(QString p_device);
     virtual void update(QString path);
     void stateChangeReason(QString path, NetworkManager::ActiveConnection::State state,NetworkManager::ActiveConnection::Reason reason);
+    void ipv4Change();
 };
 
 #endif // ABSTRACTNETWORK_H
