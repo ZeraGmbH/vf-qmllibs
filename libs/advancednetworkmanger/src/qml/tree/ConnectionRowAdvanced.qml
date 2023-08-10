@@ -68,7 +68,13 @@ Item{
             Label{
                 id: conname
                 anchors.verticalCenter: parent.verticalCenter
-                text: rootItm.name_
+                text:
+                {
+                    if(rootItm.connected_ === true)
+                        rootItm.name_ + " (" + ipv4_ +")"
+                    else
+                        rootItm.name_
+                }
                 font.pixelSize: parent.width / 25
             }
         }
