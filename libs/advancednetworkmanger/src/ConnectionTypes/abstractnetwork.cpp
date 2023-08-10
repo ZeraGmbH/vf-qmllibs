@@ -22,7 +22,6 @@ void AbstractNetwork::connectionActivated(const QString &p_path)
         m_aConList[p_path]=acons;
         if(itm.NmPath == path){
             itm.Available=true;
-            itm.Ipv4=getIpv4(p_path);
             m_list->setItemByPath(path,itm);
         }
     }
@@ -248,6 +247,7 @@ void AbstractNetwork::stateChangeReason(QString path, NetworkManager::ActiveConn
     case NetworkManager::ActiveConnection::State::Activated :
         if(itm.NmPath == path){
             itm.Connected=true;
+            itm.Ipv4=getIpv4(path);
             m_list->setItemByPath(path,itm);
         }
         NmCppNotification::sendNotifiaction("NM",QString("Connection ") + con->name() + QString(" etablished"));
