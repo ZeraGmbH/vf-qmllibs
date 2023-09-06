@@ -40,8 +40,8 @@ Pane {
         // Add models here once for all where all backend magic happens. Wanted
         // to use ListModel but that complained "cannot use script for property
         // value" due to Z.tr() - and handling of arrays is much simpler anyway...
-        readonly property var modeModelBackend:      ["MANUAL", "AUTOMATIC"]
-        readonly property var modeModelDisplay: Z.tr(["Manual", "Automatic (DHCP)"])
+        readonly property var modeModelBackend: ["MANUAL", "AUTOMATIC"]
+        readonly property var modeModelDisplay: [Z.tr("Manual"), Z.tr("Automatic (DHCP)")]
         // plausibitity helper(s)
         function ipFieldsEnabled(modeIndex) {
             var ret = false
