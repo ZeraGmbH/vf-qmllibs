@@ -9,11 +9,6 @@ ZComboBox {
     property string controlPropertyName
     property bool entityIsIndex: false
 
-    // override
-    function translateText(text){
-        return Z.tr(text)
-    }
-
     function setInitialIndex() {
         if(entity && model) {
             if(entityIsIndex !== true)
