@@ -59,12 +59,8 @@ Pane {
             ipv6Mode.currentIndex = backend.modeModelBackend.indexOf(backend.ipv6Mode)
             ipv6.text = backend.ipv6;
             sub6.text = backend.ipv6Sub;
-            var index = devices.find(backend.device,Qt.MatchExactly);
-            if(index >= 0 ) {
-                devices.currentIndex = index;
-            } else {
-                devices.currentIndex = 0;
-            }
+            var index = backend.device !== "" ? devices.find(backend.device, Qt.MatchExactly) : 0
+            devices.currentIndex = index;
             backend.device = devices.model[devices.currentIndex]
         }
     }
