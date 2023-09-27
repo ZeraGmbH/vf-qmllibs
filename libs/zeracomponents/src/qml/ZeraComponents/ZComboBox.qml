@@ -23,6 +23,8 @@ Rectangle {
     property bool centerVertical: false
     property real centerVerticalOffset: 0;
     property bool fadeOutOnClose: false
+    property bool flashOnContentChange: false
+
     //used when the displayed text should only change from external value changes
     property bool automaticIndexChange: false
     //support for QML ListModel and JS array
@@ -83,6 +85,8 @@ Rectangle {
     onModelChanged: {
         if(model) {
             updateFakeModel();
+            if(flashOnContentChange)
+                comboRipple.startFlash()
         }
     }
 
@@ -253,5 +257,9 @@ Rectangle {
                 }
             }
         }
+    }
+    ZFlashingRipple {
+        anchor: root
+        id: comboRipple
     }
 }
