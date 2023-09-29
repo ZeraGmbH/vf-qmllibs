@@ -50,6 +50,18 @@ ApplicationWindow {
             }
         }
         CheckBox {
+            Layout.fillWidth: true;
+            text: "Load VU"
+            onCheckStateChanged: {
+                if(checked) {
+                    commonLoader.active=true;
+                    commonLoader.source = "SimpleAndCheapVuTest.qml";
+                }
+                else
+                    commonLoader.active=false;
+            }
+        }
+        CheckBox {
             id: shownuiv
             checked: false;
             Layout.fillWidth: true;
