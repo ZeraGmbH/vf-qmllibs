@@ -62,15 +62,29 @@ ApplicationWindow {
                 text: Number(perVuRect.actualVal).toLocaleString(locale)
             }
             SimpleAndCheapVu {
-                id: vu
+                id: vuVertical
                 anchors.top: labelActualValue.bottom
-                anchors.bottom: parent.bottom
+                anchors.bottom: vuHorizontal.top
+                anchors.bottomMargin: parent.height * 0.05
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width * 0.1
 
                 nominal: mainWindow.nominal
                 overshootFactor: perVuRect.overshootVal
                 actual: perVuRect.actualVal
+            }
+            SimpleAndCheapVu {
+                id: vuHorizontal
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: parent.height * 0.05
+                height: parent.height * 0.05
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width * 0.9
+
+                nominal: mainWindow.nominal
+                overshootFactor: perVuRect.overshootVal
+                actual: perVuRect.actualVal
+                horizontal: true
             }
         }
     }
