@@ -9,12 +9,14 @@ Rectangle {
     property real actual
     property bool horizontal: false
 
+    readonly property real overshootInvers: 1 / overshootFactor
+    readonly property real overshootLen: 1 - overshootInvers
 
-    Rectangle { // top yellow -> red
-        x: horizontal ? parent.width * (1/vu.overshootFactor) : 0
-        width: parent.width * (horizontal ? (1-1/vu.overshootFactor) : 1)
+    Rectangle { // top/right yellow -> red
+        x: horizontal ? parent.width * overshootInvers : 0
+        width: parent.width * (horizontal ? overshootLen : 1)
         y: 0
-        height: parent.height * (horizontal ? 1 : (1-1/vu.overshootFactor))
+        height: parent.height * (horizontal ? 1 : overshootLen)
         gradient: Gradient {
             orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
             GradientStop { position: horizontal ? 1 : 0; color: "red" }
@@ -25,17 +27,17 @@ Rectangle {
     Rectangle {
         color: "green"
         anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        width: parent.width * (horizontal ? 1/vu.overshootFactor : 1)
-        height: parent.height * (horizontal ? 1 : 1/vu.overshootFactor)
+        x: 0
+        width: parent.width * (horizontal ? overshootInvers : 1)
+        height: parent.height * (horizontal ? 1 : overshootInvers)
     }
     Rectangle {
         id: topRect
         color: "grey"
-        x: horizontal ? parent.width * (1-relativeLenght) : 0
+        x: horizontal ? parent.width * (1-relativeLength) : 0
         y: 0
-        readonly property real relativeLenght: (1 - vu.actual / (vu.overshootFactor * vu.nominal))
-        width: horizontal ? parent.width * relativeLenght : parent.width
-        height: parent.height * (horizontal ? 1 : relativeLenght)
+        readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
+        width: horizontal ? parent.width * relativeLength : parent.width
+        height: parent.height * (horizontal ? 1 : relativeLength)
     }
 }
