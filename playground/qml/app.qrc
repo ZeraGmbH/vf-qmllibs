@@ -7,6 +7,7 @@
         <file>NotifiManager.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>RadioButtonTest.qml</file>
+        <file>SimpleAndCheapVuTest.qml</file>
         <file>Uivectorgraph.qml</file>
         <file>ZvKeyboard.qml</file>
     </qresource>

@@ -1,4 +1,5 @@
 module ZeraComponents
+SimpleAndCheapVu 1.0 SimpleAndCheapVu.qml
 ZButton 1.0 ZButton.qml
 ZCheckBox 1.0 ZCheckBox.qml
 ZComboBox 1.0 ZComboBox.qml
