@@ -8,6 +8,7 @@ Rectangle {
     property real overshootFactor
     property real actual
     property bool horizontal: false
+    property color vuBackColor: "dimgray"
 
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
@@ -33,7 +34,7 @@ Rectangle {
     }
     Rectangle {
         id: topRect
-        color: "grey"
+        color: vuBackColor
         x: horizontal ? parent.width * (1-relativeLength) : 0
         y: 0
         readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
