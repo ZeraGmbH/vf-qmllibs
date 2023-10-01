@@ -12,6 +12,8 @@ Rectangle {
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
+    property color vuOvershootIndicatorColor: "lawngreen"
+
 
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
@@ -43,5 +45,22 @@ Rectangle {
         readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
         width: horizontal ? parent.width * relativeLength : parent.width
         height: parent.height * (horizontal ? 1 : relativeLength)
+    }
+    Rectangle {
+        color: vuOvershootIndicatorColor
+        visible: overshootFactor > 1.0
+
+        property real relNominalIndicatorLen: 0.8
+        property real relNominalIndicatorWidth: 0.2
+
+        property real indicatorWith: (horizontal ? parent.height : parent.width) * relNominalIndicatorWidth
+        property real indicatorLen: (horizontal ? parent.height : parent.width) * relNominalIndicatorLen
+        property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
+        radius: indicatorWith/2
+
+        x: horizontal ? parent.width * overshootInvers-indicatorWith/2 : indicatorStart
+        width: horizontal ? indicatorWith : indicatorLen
+        y: horizontal ? indicatorStart : parent.height * overshootLen
+        height: horizontal ? indicatorLen : indicatorWith
     }
 }
