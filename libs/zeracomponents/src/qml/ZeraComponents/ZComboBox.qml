@@ -43,6 +43,12 @@ Rectangle {
     radius: 4
     activeFocusOnTab: true
 
+    function openDropList() {
+        if(enabled && count > 0) {
+            focus = true // here focus is intended
+            selectionDialog.open()
+        }
+    }
 
     function updateFakeModel() {
         if(modelInitialized === true) {
@@ -123,12 +129,7 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-            if(root.enabled && root.count > 0) {
-                root.focus = true // here focus is intended
-                selectionDialog.open()
-            }
-        }
+        onClicked: openDropList()
     }
 
     Popup {
