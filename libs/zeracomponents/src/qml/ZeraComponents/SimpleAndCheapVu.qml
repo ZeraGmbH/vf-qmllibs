@@ -9,6 +9,9 @@ Rectangle {
     property real actual
     property bool horizontal: false
     property color vuBackColor: "dimgray"
+    property color vuNominalColor: "lawngreen"
+    property color vuOvershootColor1: "yellow"
+    property color vuOvershootColor2: "red"
 
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
@@ -20,13 +23,13 @@ Rectangle {
         height: parent.height * (horizontal ? 1 : overshootLen)
         gradient: Gradient {
             orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
-            GradientStop { position: horizontal ? 1 : 0; color: "red" }
-            GradientStop { position: 0.5; color: "orange" }
-            GradientStop { position: horizontal ? 0 : 1; color: "green" }
+            GradientStop { position: horizontal ? 1 : 0; color: vuOvershootColor2 }
+            GradientStop { position: 0.5; color: vuOvershootColor1 }
+            GradientStop { position: horizontal ? 0 : 1; color: vuNominalColor }
         }
     }
     Rectangle {
-        color: "green"
+        color: vuNominalColor
         anchors.bottom: parent.bottom
         x: 0
         width: parent.width * (horizontal ? overshootInvers : 1)
