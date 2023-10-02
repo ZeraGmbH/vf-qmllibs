@@ -1,6 +1,6 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Controls.Material 2.14
 
 /**
   * @b A combo box implementation that can use JS arrays as model and is able to layout the content in a grid, displaying all items at once (if possible)
