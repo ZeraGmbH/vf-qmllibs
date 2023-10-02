@@ -44,13 +44,17 @@ Rectangle {
     radius: 4
     activeFocusOnTab: true
 
+    property real posXInApplication
     function openDropList() {
+        var l = mapToItem(selectionDialog.parent, width/2, height/2)
+        posXInApplication = l.x
+        posYInApplication = l.y
         if(enabled && count > 0) {
             focus = true // here focus is intended
             selectionDialog.open()
         }
     }
-
+    property real posYInApplication
     function updateFakeModel() {
         if(modelInitialized === true) {
             fakeModel.clear();
@@ -59,7 +63,6 @@ Rectangle {
         }
         modelLength = model.length;
     }
-
 
     function updateCurrentText() {
         if(root.arrayMode) {
@@ -124,16 +127,29 @@ Rectangle {
     Popup {
         id: selectionDialog
         background: Item {} //remove background rectangle - is draws at unexpected upper left corner
-        property int heightOffset: (root.centerVertical ? -popupElement.height/2 : 0) + root.centerVerticalOffset
-        property int widthOffset: - 0.5 * contentRowWidth * (displayColums - 1)
 
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
-        onClosed: {
-            root.focus = false
-        }
+        onClosed: root.focus = false
 
-        y:  -15 + heightOffset
-        x: -15 + widthOffset
+        parent: ApplicationWindow.overlay
+        x: {
+            let magicXOffset = 12
+            let posX = posXInApplication - popupElement.width/2 - magicXOffset
+            if(posX < 0)
+                posX = 0
+            else if(posX + popupElement.width > parent.width)
+                posX = parent.width - popupElement.width - magicXOffset
+            return posX
+        }
+        y: {
+            let magicYOffset = 14
+            let posY = posYInApplication - popupElement.height/2 - magicYOffset
+            if(posY < 0)
+                posY = 0
+            else if(posY + popupElement.height > parent.height)
+                posY = parent.height - popupElement.height - magicYOffset
+            return posY
+        }
 
         Rectangle {
             id: popupElement
