@@ -38,7 +38,6 @@ Rectangle {
 
     color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
     property var textColor: Material.foreground
-    //border.color: Material.dropShadowColor
     opacity: enabled ? 1.0 : 0.7
     radius: 4
     activeFocusOnTab: true
@@ -53,9 +52,8 @@ Rectangle {
     function updateFakeModel() {
         if(modelInitialized === true) {
             fakeModel.clear();
-            for(var i=0; i<model.length; i++) {
+            for(var i=0; i<model.length; i++)
                 fakeModel.append({"text":model[i]})
-            }
         }
         modelLength = model.length;
     }
@@ -63,15 +61,11 @@ Rectangle {
 
     function updateCurrentText() {
         if(root.arrayMode) {
-            if(root.count> targetIndex && targetIndex >= 0) {
-                root.currentText = fakeModel.get(targetIndex).text;
-            }
+            if(root.count> targetIndex && targetIndex >= 0)
+                root.currentText = fakeModel.get(targetIndex).text
         }
-        else {
-            if(root.count>0 && targetIndex >= 0) {
-                root.currentText = root.model.get(targetIndex).text;
-            }
-        }
+        else if(root.count>0 && targetIndex >= 0)
+            root.currentText = root.model.get(targetIndex).text
     }
 
     // overrideable - we do not want to depend on ZeraTranslation here
@@ -79,15 +73,9 @@ Rectangle {
         return text;
     }
 
-    onCountChanged: {
-        updateCurrentText()
-    }
-    onCurrentIndexChanged: {
-        targetIndex = currentIndex;
-    }
-    onTargetIndexChanged: {
-        updateCurrentText()
-    }
+    onCountChanged: updateCurrentText()
+    onCurrentIndexChanged: targetIndex = currentIndex
+    onTargetIndexChanged: updateCurrentText()
     onModelChanged: {
         if(model) {
             updateFakeModel();
@@ -109,9 +97,8 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             text: {
                 var retVal = "";
-                if(root.currentText !== undefined) {
+                if(root.currentText !== undefined)
                     retVal = translateText(root.currentText)
-                }
                 return retVal;
             }
             font.pointSize: pointSize
@@ -200,7 +187,6 @@ Rectangle {
                 }
 
                 delegate: Rectangle {
-
                     color: (root.targetIndex === index) ? Material.accent : Qt.darker(Material.frameColor) //buttonPressColor
                     border.color: Material.dropShadowColor
 
@@ -210,48 +196,40 @@ Rectangle {
 
                     MouseArea {
                         anchors.fill: parent
-
                         onClicked: {
                             if(!fadeOutAnimation.running) {
                                 if(root.targetIndex !== index) {
-                                    var refreshSelectedText = false;
-
+                                    let refreshSelectedText = false
                                     if(root.automaticIndexChange) {
-                                        refreshSelectedText = root.selectedText===model.text
+                                        refreshSelectedText = root.selectedText === model.text
                                         root.selectedText = model.text
                                     }
                                     else {
-                                        root.targetIndex = index;
-                                        root.currentText = model.text;
-                                        refreshSelectedText = root.selectedText===root.currentText;
-                                        root.selectedText = root.currentText;
+                                        root.targetIndex = index
+                                        root.currentText = model.text
+                                        refreshSelectedText = root.selectedText === root.currentText
+                                        root.selectedText = root.currentText
                                     }
-                                    if(refreshSelectedText) {
+                                    if(refreshSelectedText)
                                         /// @DIRTYHACK: this is NOT redundant, it's an undocumented function to notify of the value change that is otherwise ignored by QML
-                                        root.selectedTextChanged();
-                                    }
-                                    if(fadeOutOnClose) {
+                                        root.selectedTextChanged()
+                                    if(fadeOutOnClose)
                                         fadeOutAnimation.start()
-                                    }
-                                    else {
+                                    else
                                         selectionDialog.close()
-                                    }
                                 }
-                                else { // no change of selection
+                                else // no change of selection
                                     selectionDialog.close()
-                                }
                             }
                         }
                     }
-
                     Label {
                         anchors.centerIn: parent
                         text: {
-                            var retVal = "";
-                            if(model.text !== undefined) {
+                            var retVal = ""
+                            if(model.text !== undefined)
                                 retVal = translateText(model.text)
-                            }
-                            return retVal;
+                            return retVal
                         }
                         font.pointSize: pointSize
                     }
