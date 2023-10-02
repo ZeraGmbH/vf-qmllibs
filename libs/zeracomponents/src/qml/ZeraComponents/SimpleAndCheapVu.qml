@@ -51,9 +51,9 @@ Rectangle {
         visible: overshootFactor > 1.0
 
         property real relNominalIndicatorLen: 0.8
-        property real relNominalIndicatorWidth: 0.2
+        property real relNominalIndicatorWidth: 0.02
 
-        property real indicatorWith: (horizontal ? parent.height : parent.width) * relNominalIndicatorWidth
+        property real indicatorWith: (horizontal ? parent.width : parent.height) * relNominalIndicatorWidth
         property real indicatorLen: (horizontal ? parent.height : parent.width) * relNominalIndicatorLen
         property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
         radius: indicatorWith/2
