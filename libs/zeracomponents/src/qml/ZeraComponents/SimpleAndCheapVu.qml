@@ -60,7 +60,7 @@ Rectangle {
 
         x: horizontal ? parent.width * overshootInvers-indicatorWith/2 : indicatorStart
         width: horizontal ? indicatorWith : indicatorLen
-        y: horizontal ? indicatorStart : parent.height * overshootLen
+        y: horizontal ? indicatorStart : parent.height * overshootLen-indicatorWith/2
         height: horizontal ? indicatorLen : indicatorWith
     }
 }
