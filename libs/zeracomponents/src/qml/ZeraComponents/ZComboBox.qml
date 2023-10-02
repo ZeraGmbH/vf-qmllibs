@@ -8,6 +8,10 @@ import QtQuick.Controls.Material 2.14
 Rectangle {
     id: root
 
+    // removed soon
+    property bool centerVertical: false
+    property real centerVerticalOffset: 0;
+
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
     property alias popup :selectionDialog
@@ -20,8 +24,6 @@ Rectangle {
     property real contentRowHeight: height;
     property real pointSize: contentRowHeight > 0 ? contentRowHeight * 0.3 : 10
     property int contentMaxRows: 0
-    property bool centerVertical: false
-    property real centerVerticalOffset: 0;
     property bool fadeOutOnClose: false
     property bool flashOnContentChange: false
 
