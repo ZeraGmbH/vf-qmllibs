@@ -12,7 +12,7 @@ Rectangle {
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
-    property color vuOvershootIndicatorColor: "lawngreen"
+    property color vuOvershootIndicatorColor: vuNominalColor
 
 
     readonly property real overshootInvers: 1 / overshootFactor
