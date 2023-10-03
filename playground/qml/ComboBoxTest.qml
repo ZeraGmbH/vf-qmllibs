@@ -56,8 +56,14 @@ ApplicationWindow {
                                 return ret
                             }
                             color: Material.backgroundColor
-                            border.color: Material.dividerColor
-                            border.width: 1
+                            /*border.color: Material.dividerColor
+                            border.width: 1*/
+
+                            ZComboBox {
+                                anchors.fill: parent
+                                arrayMode: true
+                                model: ["First", "Second", "Third"]
+                            }
                         }
                     }
                 }
