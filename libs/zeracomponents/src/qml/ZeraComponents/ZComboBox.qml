@@ -133,26 +133,28 @@ Rectangle {
         onClosed: root.focus = false
 
         parent: ApplicationWindow.overlay
+        leftPadding: 0
+        rightPadding: 0
+        topPadding: 0
+        bottomPadding: 0
         property real posXInApplication
         property real posYInApplication
         width: root.width * displayColumns
         x: {
-            let magicXOffset = 12
-            let posX = posXInApplication - width/2 - magicXOffset
+            let posX = posXInApplication - width/2
             if(posX < 0)
                 posX = 0
             else if(posX + width > parent.width)
-                posX = parent.width - width - magicXOffset
+                posX = parent.width - width
             return posX
         }
         height: root.height * displayRows + headerLoader.height
         y: {
-            let magicYOffset = 12
-            let posY = posYInApplication - height/2 - magicYOffset
+            let posY = posYInApplication - height/2
             if(posY < 0)
                 posY = 0
             else if(posY + height > parent.height)
-                posY = parent.height - height - magicYOffset
+                posY = parent.height - height
             return posY
         }
 
