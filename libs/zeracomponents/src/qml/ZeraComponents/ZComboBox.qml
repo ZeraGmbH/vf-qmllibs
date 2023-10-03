@@ -44,17 +44,6 @@ Rectangle {
     radius: 4
     activeFocusOnTab: true
 
-    property real posXInApplication
-    function openDropList() {
-        var l = mapToItem(selectionDialog.parent, width/2, height/2)
-        posXInApplication = l.x
-        posYInApplication = l.y
-        if(enabled && count > 0) {
-            focus = true // here focus is intended
-            selectionDialog.open()
-        }
-    }
-    property real posYInApplication
     function updateFakeModel() {
         if(modelInitialized === true) {
             fakeModel.clear();
@@ -124,6 +113,15 @@ Rectangle {
         onClicked: openDropList()
     }
 
+    function openDropList() {
+        var l = mapToItem(selectionDialog.parent, width/2, height/2)
+        selectionDialog.posXInApplication = l.x
+        selectionDialog.posYInApplication = l.y
+        if(enabled && count > 0) {
+            focus = true // here focus is intended
+            selectionDialog.open()
+        }
+    }
     Popup {
         id: selectionDialog
         background: Item {} //remove background rectangle - is draws at unexpected upper left corner
@@ -132,6 +130,8 @@ Rectangle {
         onClosed: root.focus = false
 
         parent: ApplicationWindow.overlay
+        property real posXInApplication
+        property real posYInApplication
         x: {
             let magicXOffset = 12
             let posX = posXInApplication - popupElement.width/2 - magicXOffset
