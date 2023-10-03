@@ -21,7 +21,6 @@ Rectangle {
     property string currentText;
     property string selectedText;
     property var model: [];
-    property var modelLength;
     property var imageModel: [];
     property real contentRowWidth: width;
     property real contentRowHeight: height;
@@ -42,7 +41,6 @@ Rectangle {
                 fakeModel.append({"text":model[i], "source":imageModel[i]})
             }
         }
-        modelLength = model.length;
     }
 
     readonly property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows

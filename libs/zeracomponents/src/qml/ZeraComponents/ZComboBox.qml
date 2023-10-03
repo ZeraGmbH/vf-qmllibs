@@ -32,7 +32,6 @@ Rectangle {
     //support for QML ListModel and JS array
     property bool arrayMode: false
     property var model: [];
-    property var modelLength;
     readonly property bool modelInitialized: arrayMode === true && model.length>0;
     property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
     property int displayColumns: Math.ceil(count/displayRows)
@@ -50,7 +49,6 @@ Rectangle {
             for(var i=0; i<model.length; i++)
                 fakeModel.append({"text":model[i]})
         }
-        modelLength = model.length;
     }
 
     function updateCurrentText() {
