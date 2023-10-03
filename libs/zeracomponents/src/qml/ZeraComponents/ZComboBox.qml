@@ -16,7 +16,7 @@ Rectangle {
 
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
-    property alias popup :selectionDialog
+    property alias popup: comboPopup
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
     property int targetIndex;
@@ -26,6 +26,14 @@ Rectangle {
     property int contentMaxRows: 0
     property bool fadeOutOnClose: false
     property bool flashOnContentChange: false
+
+    function openDropList() {
+        if(enabled && count > 0) {
+            getPositionInParent()
+            focus = true // here focus is intended
+            comboPopup.open()
+        }
+    }
 
     //used when the displayed text should only change from external value changes
     property bool automaticIndexChange: false
@@ -111,18 +119,14 @@ Rectangle {
         onClicked: openDropList()
     }
 
-    function openDropList() {
-        var l = mapToItem(selectionDialog.parent, width/2, height/2)
-        selectionDialog.posXInApplication = l.x
-        selectionDialog.posYInApplication = l.y
-        if(enabled && count > 0) {
-            focus = true // here focus is intended
-            selectionDialog.open()
-        }
+    function getPositionInParent() {
+        var l = mapToItem(comboPopup.parent, width/2, height/2)
+        comboPopup.posXInApplication = l.x
+        comboPopup.posYInApplication = l.y
     }
     readonly property real popupMargin: 2
     Popup {
-        id: selectionDialog
+        id: comboPopup
         background: Item {} //remove background rectangle - is draws at unexpected upper left corner
 
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
@@ -154,8 +158,8 @@ Rectangle {
 
         Rectangle {
             id: popupElement
-            width: selectionDialog.width
-            height: selectionDialog.height
+            width: comboPopup.width
+            height: comboPopup.height
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -198,7 +202,7 @@ Rectangle {
                     onFinished: {
                         // hacky rewind to initial state
                         start(); stop()
-                        selectionDialog.close()
+                        comboPopup.close()
                     }
                 }
 
@@ -232,10 +236,10 @@ Rectangle {
                                     if(fadeOutOnClose)
                                         fadeOutAnimation.start()
                                     else
-                                        selectionDialog.close()
+                                        comboPopup.close()
                                 }
                                 else // no change of selection
-                                    selectionDialog.close()
+                                    comboPopup.close()
                             }
                         }
                     }
