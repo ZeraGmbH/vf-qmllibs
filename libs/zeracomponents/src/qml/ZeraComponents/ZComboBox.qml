@@ -11,6 +11,8 @@ Rectangle {
     // removed soon
     property bool centerVertical: false
     property real centerVerticalOffset: 0;
+    property real contentRowWidth: width;
+    property real contentRowHeight: height;
 
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
@@ -20,9 +22,7 @@ Rectangle {
     property int targetIndex;
     property string currentText;
     property string selectedText;
-    property real contentRowWidth: width;
-    property real contentRowHeight: height;
-    property real pointSize: contentRowHeight > 0 ? contentRowHeight * 0.3 : 10
+    property real pointSize: height > 0 ? height * 0.3 : 10
     property int contentMaxRows: 0
     property bool fadeOutOnClose: false
     property bool flashOnContentChange: false
@@ -35,7 +35,7 @@ Rectangle {
     property var modelLength;
     readonly property bool modelInitialized: arrayMode === true && model.length>0;
     property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
-    property int displayColums: Math.ceil(count/displayRows)
+    property int displayColumns: Math.ceil(count/displayRows)
     onModelInitializedChanged: updateFakeModel();
 
     color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
@@ -105,7 +105,7 @@ Rectangle {
         anchors.verticalCenter: parent.verticalCenter
         text: "▼"
         textFormat: Text.PlainText
-        font.pointSize: contentRowHeight > 0 ? contentRowHeight * 0.2 : 10
+        font.pointSize: root.height > 0 ? root.height * 0.2 : 10
     }
 
     MouseArea {
@@ -122,6 +122,7 @@ Rectangle {
             selectionDialog.open()
         }
     }
+    readonly property real popupMargin: 2
     Popup {
         id: selectionDialog
         background: Item {} //remove background rectangle - is draws at unexpected upper left corner
@@ -132,31 +133,31 @@ Rectangle {
         parent: ApplicationWindow.overlay
         property real posXInApplication
         property real posYInApplication
+        width: root.width * displayColumns
         x: {
             let magicXOffset = 12
-            let posX = posXInApplication - popupElement.width/2 - magicXOffset
+            let posX = posXInApplication - width/2 - magicXOffset
             if(posX < 0)
                 posX = 0
-            else if(posX + popupElement.width > parent.width)
-                posX = parent.width - popupElement.width - magicXOffset
+            else if(posX + width > parent.width)
+                posX = parent.width - width - magicXOffset
             return posX
         }
+        height: root.height * displayRows + headerLoader.height
         y: {
             let magicYOffset = 14
-            let posY = posYInApplication - popupElement.height/2 - magicYOffset
+            let posY = posYInApplication - height/2 - magicYOffset
             if(posY < 0)
                 posY = 0
-            else if(posY + popupElement.height > parent.height)
-                posY = parent.height - popupElement.height - magicYOffset
+            else if(posY + height > parent.height)
+                posY = parent.height - height - magicYOffset
             return posY
         }
 
         Rectangle {
             id: popupElement
-            width: contentRowWidth * displayColums + comboView.anchors.margins*2
-            // note: additional 0.1 avoids GridView startin next column in some cases
-            height: contentRowHeight * displayRows + comboView.anchors.margins*2 + 0.1 +
-                    headerLoader.height + headerLoader.anchors.margins
+            width: selectionDialog.width
+            height: selectionDialog.height
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -169,7 +170,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.right: parent.right
                 anchors.top: parent.top
-                anchors.margins: height > 0 ? 2 : 0
+                anchors.margins: height > 0 ? popupMargin : 0
                 active: true
             }
             GridView {
@@ -178,13 +179,12 @@ Rectangle {
                 anchors.bottom: parent.bottom
                 anchors.left: parent.left
                 anchors.right: parent.right
-                anchors.margins: 2
+                anchors.margins: popupMargin
 
                 boundsBehavior: ListView.StopAtBounds
 
-                //adding some space here is the same as "spacing: x" is in other components
-                cellHeight: root.contentRowHeight
-                cellWidth: root.contentRowWidth
+                cellHeight: height / displayRows
+                cellWidth: width / displayColumns
 
                 flow: GridView.FlowTopToBottom
 
@@ -208,8 +208,8 @@ Rectangle {
                     color: (root.targetIndex === index) ? Material.accent : Qt.darker(Material.frameColor) //buttonPressColor
                     border.color: Material.dropShadowColor
 
-                    height: root.contentRowHeight
-                    width: root.contentRowWidth
+                    height: comboView.cellHeight
+                    width: comboView.cellWidth
                     radius: 4
 
                     MouseArea {
