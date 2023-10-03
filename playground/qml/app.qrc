@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>Anmsettings.qml</file>
         <file>CheckBoxTest.qml</file>
+        <file>ComboBoxTest.qml</file>
         <file>DelayTest.qml</file>
         <file>Main.qml</file>
         <file>NotifiManager.qml</file>
