@@ -13,8 +13,9 @@ ApplicationWindow {
     height: 800
 
     readonly property int xyCount: 3
-    readonly property real relWidth: 0.5
-    readonly property real relHeight: 0.2
+    readonly property real relWidth: 1
+    readonly property real relHeight: 1 / testContent.length
+    readonly property var testContent: ["First", "Second", "Third", "Fourth", "Fifth"]
     Column {
         anchors.fill: parent
         Repeater {
@@ -62,7 +63,7 @@ ApplicationWindow {
                             ZComboBox {
                                 anchors.fill: parent
                                 arrayMode: true
-                                model: ["First", "Second", "Third"]
+                                model: testContent
                             }
                         }
                     }
