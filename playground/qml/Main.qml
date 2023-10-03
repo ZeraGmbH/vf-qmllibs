@@ -78,6 +78,19 @@ ApplicationWindow {
         CheckBox {
             checked: false;
             Layout.fillWidth: true;
+            text: "Load ZComboBox"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "ComboBoxTest.qml";
+                }
+                else
+                    commonLoader.active=false;
+            }
+        }
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
             text: "Load ZCheckBox"
             onCheckStateChanged: {
                 if(checked){
