@@ -147,7 +147,7 @@ Rectangle {
         }
         height: root.height * displayRows + headerLoader.height
         y: {
-            let magicYOffset = 14
+            let magicYOffset = 12
             let posY = posYInApplication - height/2 - magicYOffset
             if(posY < 0)
                 posY = 0
