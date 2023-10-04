@@ -12,12 +12,41 @@ ApplicationWindow {
     width: 800
     height: 800
 
+    readonly property real lineHeight: height * 0.05
+    Rectangle {
+        id: controls
+        anchors.top: parent.top
+        height: lineHeight
+        anchors.left: parent.left
+        anchors.right: parent.right
+        color: Material.backgroundColor
+        border.color: Material.dividerColor
+        border.width: 1
+        RowLayout {
+            id: controlRow1
+            CheckBox {
+                id: optApplicationBorder
+                text: "Application border"
+            }
+            /*CheckBox {
+                text: "Header"
+            }
+            CheckBox {
+                text: "Multi column"
+            }*/
+        }
+    }
+
     readonly property int xyCount: 3
     readonly property real relWidth: 1
     readonly property real relHeight: 1 / testContent.length
     readonly property var testContent: ["First", "Second", "Third", "Fourth", "Fifth"]
     Column {
-        anchors.fill: parent
+        id: comboCollectionDisplay
+        anchors.top: controls.bottom
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
         Repeater {
             id: rows
             model: xyCount
@@ -62,6 +91,7 @@ ApplicationWindow {
 
                             ZComboBox {
                                 anchors.fill: parent
+                                popupBorderItem: optApplicationBorder.checked ? ApplicationWindow.overlay : comboCollectionDisplay
                                 arrayMode: true
                                 model: testContent
                             }

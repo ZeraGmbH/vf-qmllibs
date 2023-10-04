@@ -14,6 +14,7 @@ Rectangle {
     property real contentRowWidth: width;
     property real contentRowHeight: height;
 
+    property var popupBorderItem: ApplicationWindow.overlay
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
     property alias popup: comboPopup
@@ -132,7 +133,7 @@ Rectangle {
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
         onClosed: root.focus = false
 
-        parent: ApplicationWindow.overlay
+        parent: popupBorderItem
         leftPadding: 0
         rightPadding: 0
         topPadding: 0
