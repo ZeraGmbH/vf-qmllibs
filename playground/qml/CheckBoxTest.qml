@@ -37,12 +37,12 @@ ApplicationWindow {
                 }
                 CheckBox {
                     checked: true
-                    text: "ZCheckBox checked"
+                    text: "CheckBox checked"
                 }
                 CheckBox {
                     tristate: true
                     checkState: Qt.PartiallyChecked
-                    text: "ZCheckBox half-checked"
+                    text: "CheckBox half-checked"
                 }
             }
         }
