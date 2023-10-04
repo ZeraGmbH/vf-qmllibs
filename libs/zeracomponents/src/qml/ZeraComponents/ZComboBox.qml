@@ -13,11 +13,11 @@ Rectangle {
     property real centerVerticalOffset: 0;
     property real contentRowWidth: width;
     property real contentRowHeight: height;
+    property alias popup: comboPopup
 
     property var popupBorderItem: ApplicationWindow.overlay
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
-    property alias popup: comboPopup
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
     property int currentIndex;
     property int targetIndex;
