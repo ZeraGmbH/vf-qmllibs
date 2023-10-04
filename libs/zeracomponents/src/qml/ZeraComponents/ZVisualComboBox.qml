@@ -22,17 +22,12 @@ Rectangle {
     property string selectedText;
     property var model: [];
     property var imageModel: [];
-    property real contentRowWidth: width;
-    property real contentRowHeight: height;
     property int contentMaxRows: 0
-    property bool centerVertical: false
-    property real centerVerticalOffset: 0;
     //used when the displayed text should only change from external value changes
     property bool automaticIndexChange: false
     property bool imageMipmap: true;
     readonly property bool modelInitialized: arrayMode === true && model.length>0 && imageModel.length>0;
     onModelInitializedChanged: updateFakeModel();
-    property alias popup :selectionDialog
 
     function updateFakeModel() {
         if(modelInitialized === true) {
@@ -99,7 +94,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.verticalCenter: parent.verticalCenter
-        font.pointSize: contentRowHeight > 0 ? contentRowHeight * 0.2 : 10
+        font.pointSize: root.height > 0 ? root.height * 0.2 : 10
         text: "▼"
         textFormat: Text.PlainText
     }
@@ -117,8 +112,8 @@ Rectangle {
     Popup {
         id: selectionDialog
 
-        property int heightOffset: (root.centerVertical ? -popupElement.height/2 : 0) + root.centerVerticalOffset
-        property int widthOffset: - contentRowWidth * (displayColums - 1)
+        property int heightOffset: -popupElement.height/2
+        property int widthOffset: - root.width * (displayColums - 1)
         background: Item {} //remove background rectangle
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
         onClosed: {
@@ -130,8 +125,8 @@ Rectangle {
 
         Rectangle {
             id: popupElement
-            width: root.contentRowWidth * displayColums + comboView.anchors.margins*2
-            height: root.contentRowHeight * displayRows + comboView.anchors.margins*2
+            width: root.width * displayColums + comboView.anchors.margins*2
+            height: root.height * displayRows + comboView.anchors.margins*2
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -147,8 +142,8 @@ Rectangle {
                 boundsBehavior: ListView.StopAtBounds
 
                 //adding some space here is the same as "spacing: x" is in other components
-                cellHeight: root.contentRowHeight
-                cellWidth: root.contentRowWidth
+                cellHeight: root.height
+                cellWidth: root.width
 
                 flow: GridView.FlowTopToBottom
 
@@ -159,8 +154,8 @@ Rectangle {
                     color: (root.targetIndex === index) ? Material.accent : Qt.darker(Material.frameColor) //buttonPressColor
                     border.color: Material.dropShadowColor
 
-                    height: root.contentRowHeight
-                    width: root.contentRowWidth
+                    height: root.height
+                    width: root.width
                     radius: 4
 
                     MouseArea {
