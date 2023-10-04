@@ -8,13 +8,6 @@ import QtQuick.Controls.Material 2.14
 Rectangle {
     id: root
 
-    // removed soon
-    property bool centerVertical: false
-    property real centerVerticalOffset: 0;
-    property real contentRowWidth: width;
-    property real contentRowHeight: height;
-    property alias popup: comboPopup
-
     property var popupBorderItem: ApplicationWindow.overlay
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
