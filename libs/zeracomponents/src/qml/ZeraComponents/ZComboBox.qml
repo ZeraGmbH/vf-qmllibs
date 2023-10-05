@@ -11,7 +11,8 @@ Rectangle {
     property var popupBorderItem: ApplicationWindow.overlay
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
-    readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
+    readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0
+    readonly property alias popupOpened: comboPopup.opened
     property int currentIndex;
     property int targetIndex;
     property string currentText;
