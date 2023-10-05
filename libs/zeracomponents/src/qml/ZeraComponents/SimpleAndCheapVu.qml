@@ -12,8 +12,8 @@ Item {
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
-    property real vuEndRadius: horizontal ? height/2 : width/2
     property color vuOvershootIndicatorColor: vuNominalColor
+    property real vuEndRadius: horizontal ? height/2 : width/2
     property real overshoot1Start: 0.1
 
     readonly property real overshootInvers: 1 / overshootFactor
