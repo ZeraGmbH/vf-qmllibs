@@ -13,7 +13,7 @@ Rectangle {
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
     property color vuOvershootIndicatorColor: vuNominalColor
-
+    readonly property real overshoot1Start: 0.125
 
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
@@ -26,7 +26,7 @@ Rectangle {
         gradient: Gradient {
             orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
             GradientStop { position: horizontal ? 1 : 0; color: vuOvershootColor2 }
-            GradientStop { position: 0.5; color: vuOvershootColor1 }
+            GradientStop { position: horizontal ? overshoot1Start : 1-overshoot1Start; color: vuOvershootColor1 }
             GradientStop { position: horizontal ? 0 : 1; color: vuNominalColor }
         }
     }
