@@ -12,14 +12,28 @@ ApplicationWindow {
     width: 800
     height: 400
 
+    RowLayout {
+        id: controlRow1
+        anchors.top: parent.top
+        height: 50
+        anchors.horizontalCenter: parent.horizontalCenter
+        CheckBox {
+            id: softOption
+            text: "Soft"
+        }
+        /*CheckBox {
+            text: "Header"
+        }
+        CheckBox {
+            text: "Multi column"
+        }*/
+    }
     Label {
         id: labelSliderRawVal
-        anchors.top: parent.top
+        anchors.top: controlRow1.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         text: Number(slider.value).toLocaleString(locale)
     }
-
-    readonly property real nominal: 100
 
     Slider {
         id: slider
@@ -30,6 +44,8 @@ ApplicationWindow {
         orientation: Qt.Horizontal
     }
 
+
+    readonly property real nominal: 100
     readonly property var overshootFactors: [1, 1.25, 1.5, 2, 3, 5, 10, 100]
 
     ListView {
@@ -63,6 +79,7 @@ ApplicationWindow {
             }
             SimpleAndCheapVu {
                 id: vuVertical
+                softOvershoot: softOption.checked
                 anchors.top: labelActualValue.bottom
                 anchors.bottom: vuHorizontal.top
                 anchors.bottomMargin: parent.height * 0.05
@@ -75,6 +92,7 @@ ApplicationWindow {
             }
             SimpleAndCheapVu {
                 id: vuHorizontal
+                softOvershoot: softOption.checked
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: parent.height * 0.05
                 height: parent.height * 0.05

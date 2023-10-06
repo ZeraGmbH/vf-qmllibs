@@ -12,12 +12,13 @@ Item {
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
-    property color vuOvershootIndicatorColor: vuNominalColor
+    property color vuOvershootIndicatorColor: softOvershoot ? vuNominalColor : vuOvershootColor1
     property real vuEndRadius: horizontal ? height/2 : width/2
-    property real overshoot1Start: 0.1
+    property bool softOvershoot: false
 
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
+    readonly property real overshoot1Start: softOvershoot ? 0.2 : 0
     Rectangle {
         id: vu
         visible: false
@@ -31,7 +32,8 @@ Item {
                 orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
                 GradientStop { position: horizontal ? 1 : 0; color: vuOvershootColor2 }
                 GradientStop { position: horizontal ? overshoot1Start : 1-overshoot1Start; color: vuOvershootColor1 }
-                GradientStop { position: horizontal ? 0 : 1; color: vuNominalColor }
+                // we hack green part out on non-soft by setting position to -1
+                GradientStop { position: softOvershoot ? (horizontal ? 0 : 1) : -1; color: vuNominalColor }
             }
         }
         Rectangle {
