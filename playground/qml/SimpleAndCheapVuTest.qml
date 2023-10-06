@@ -10,7 +10,7 @@ ApplicationWindow {
     visible: true
     title: "Simple and cheap VU (that's the target :)"
     width: 800
-    height: 400
+    height: 300
 
     RowLayout {
         id: controlRow1

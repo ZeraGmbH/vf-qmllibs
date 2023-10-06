@@ -56,7 +56,7 @@ Item {
             color: vuOvershootIndicatorColor
             visible: overshootFactor > 1.0
 
-            property real relNominalIndicatorLen: 0.8
+            property real relNominalIndicatorLen: 0.95
             property real relNominalIndicatorWidth: 0.02
 
             property real indicatorWith: (horizontal ? parent.width : parent.height) * relNominalIndicatorWidth
