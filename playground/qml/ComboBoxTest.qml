@@ -28,19 +28,24 @@ ApplicationWindow {
                 id: optApplicationBorder
                 text: "Application border"
             }
-            /*CheckBox {
-                text: "Header"
+
+            Label {
+                text: "contentMaxRows:"
             }
-            CheckBox {
-                text: "Multi column"
-            }*/
+            SpinBox {
+                id: optContentMaxRows
+                from: 0
+                to: testContent.length
+                value: to
+            }
+
         }
     }
 
     readonly property int xyCount: 3
     readonly property real relWidth: 1
     readonly property real relHeight: 1 / testContent.length
-    readonly property var testContent: ["First", "Second", "Third", "Fourth", "Fifth"]
+    readonly property var testContent: ["First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eighth", "NineTh"]
     Column {
         id: comboCollectionDisplay
         anchors.top: controls.bottom
@@ -92,6 +97,7 @@ ApplicationWindow {
                             ZComboBox {
                                 anchors.fill: parent
                                 popupBorderItem: optApplicationBorder.checked ? ApplicationWindow.overlay : comboCollectionDisplay
+                                contentMaxRows: optContentMaxRows.value
                                 arrayMode: true
                                 model: testContent
                             }

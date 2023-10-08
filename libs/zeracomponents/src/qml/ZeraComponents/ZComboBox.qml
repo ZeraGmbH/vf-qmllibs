@@ -18,7 +18,8 @@ Rectangle {
     property string currentText;
     property string selectedText;
     property real pointSize: height > 0 ? height * 0.3 : 10
-    property int contentMaxRows: 0
+
+    property int contentMaxRows: 0 // this makes colums
     property bool fadeOutOnClose: false
     property bool flashOnContentChange: false
 
