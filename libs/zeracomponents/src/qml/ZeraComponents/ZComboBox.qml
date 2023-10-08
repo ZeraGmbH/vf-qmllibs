@@ -9,6 +9,7 @@ Rectangle {
     id: root
 
     property var popupBorderItem: ApplicationWindow.overlay
+    property bool popupKeepHorizontalSize: false
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item
     readonly property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0
@@ -135,7 +136,7 @@ Rectangle {
         bottomPadding: 0
         property real posXInApplication
         property real posYInApplication
-        width: root.width * displayColumns
+        width: root.width * (popupKeepHorizontalSize ? 1 : displayColumns)
         x: {
             let posX = posXInApplication - width/2
             if(posX < 0)

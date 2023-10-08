@@ -38,7 +38,10 @@ ApplicationWindow {
                 to: testContent.length
                 value: to
             }
-
+            CheckBox {
+                text: "popupKeepHorizontalSize"
+                id: optPopupKeepHorizontalSize
+            }
         }
     }
 
@@ -98,6 +101,7 @@ ApplicationWindow {
                                 anchors.fill: parent
                                 popupBorderItem: optApplicationBorder.checked ? ApplicationWindow.overlay : comboCollectionDisplay
                                 contentMaxRows: optContentMaxRows.value
+                                popupKeepHorizontalSize: optPopupKeepHorizontalSize.checked
                                 arrayMode: true
                                 model: testContent
                             }
