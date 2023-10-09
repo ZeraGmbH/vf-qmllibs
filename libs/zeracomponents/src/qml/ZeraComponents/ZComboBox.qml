@@ -44,7 +44,8 @@ Rectangle {
 
     color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
     property var textColor: Material.foreground
-    opacity: enabled ? 1.0 : 0.7
+    readonly property real opacityDefault: enabled ? 1.0 : 0.7
+    opacity: opacityDefault
     radius: 4
     activeFocusOnTab: true
 
