@@ -21,12 +21,10 @@ ApplicationWindow {
             id: softOption
             text: "Soft"
         }
-        /*CheckBox {
-            text: "Header"
-        }
         CheckBox {
-            text: "Multi column"
-        }*/
+            id: mirrorOption
+            text: "Mirror"
+        }
     }
     Label {
         id: labelSliderRawVal
@@ -80,6 +78,7 @@ ApplicationWindow {
             SimpleAndCheapVu {
                 id: vuVertical
                 softOvershoot: softOption.checked
+                mirror: mirrorOption.checked
                 anchors.top: labelActualValue.bottom
                 anchors.bottom: vuHorizontal.top
                 anchors.bottomMargin: parent.height * 0.05
@@ -93,6 +92,7 @@ ApplicationWindow {
             SimpleAndCheapVu {
                 id: vuHorizontal
                 softOvershoot: softOption.checked
+                mirror: mirrorOption.checked
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: parent.height * 0.05
                 height: parent.height * 0.05

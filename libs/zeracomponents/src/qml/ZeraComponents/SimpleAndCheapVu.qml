@@ -8,6 +8,7 @@ Item {
     property real overshootFactor
     property real actual
     property bool horizontal: false
+    property bool mirror: false
     property color vuBackColor: "dimgray"
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
