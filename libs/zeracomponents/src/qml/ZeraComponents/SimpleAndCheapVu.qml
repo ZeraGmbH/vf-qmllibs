@@ -48,7 +48,7 @@ Item {
             id: hidingColorsRect
             color: vuBackColor
             x: horizontal && !mirror ? parent.width * (1-relativeLength) : 0
-            y: 0
+            y: !mirror || horizontal? 0 : parent.height * (1-relativeLength)
             readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
 
             width: horizontal ? parent.width * relativeLength : parent.width
