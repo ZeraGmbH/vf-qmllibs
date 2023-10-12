@@ -128,6 +128,12 @@ Pane {
                 }
             }
         }
+
+        // Explanation: At the time of writing QML shows odd behavior on focus
+        // sequence:
+        // enter ipv4: ipv4 activeFocus=true
+        // enter sub4: sub4 activeFocus=true and THEN!! ipv4 activeFocus=true
+        property int hackFieldFocusCount: 0
         ZLineEdit {
             id: ipv4
             anchors.left: parent.left
@@ -148,7 +154,15 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                VirtualKeyboardSettings.locale = actFocus ? "en_GB" : ZLocale.localeName
+                if(actFocus) {
+                    clientModel.hackFieldFocusCount++ // see coment at definition
+                    VirtualKeyboardSettings.locale = "en_GB"
+                }
+                else {
+                    clientModel.hackFieldFocusCount--
+                    if(clientModel.hackFieldFocusCount === 0)
+                        VirtualKeyboardSettings.locale = ZLocale.localeName
+                }
             }
         }
         ZLineEdit {
@@ -171,7 +185,15 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                VirtualKeyboardSettings.locale = actFocus ? "en_GB" : ZLocale.localeName
+                if(actFocus) {
+                    clientModel.hackFieldFocusCount++ // see coment at definition
+                    VirtualKeyboardSettings.locale = "en_GB"
+                }
+                else {
+                    clientModel.hackFieldFocusCount--
+                    if(clientModel.hackFieldFocusCount === 0)
+                        VirtualKeyboardSettings.locale = ZLocale.localeName
+                }
             }
         }
 
