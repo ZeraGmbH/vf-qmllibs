@@ -134,6 +134,18 @@ Pane {
         // enter ipv4: ipv4 activeFocus=true
         // enter sub4: sub4 activeFocus=true and THEN!! ipv4 activeFocus=true
         property int hackFieldFocusCount: 0
+        function hackVKeyboardSettings(actFocus) {
+            if(actFocus) {
+                hackFieldFocusCount++ // see coment at definition
+                VirtualKeyboardSettings.locale = "en_GB"
+            }
+            else {
+                hackFieldFocusCount--
+                if(hackFieldFocusCount === 0)
+                    VirtualKeyboardSettings.locale = ZLocale.localeName
+            }
+        }
+
         ZLineEdit {
             id: ipv4
             anchors.left: parent.left
@@ -154,15 +166,7 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                if(actFocus) {
-                    clientModel.hackFieldFocusCount++ // see coment at definition
-                    VirtualKeyboardSettings.locale = "en_GB"
-                }
-                else {
-                    clientModel.hackFieldFocusCount--
-                    if(clientModel.hackFieldFocusCount === 0)
-                        VirtualKeyboardSettings.locale = ZLocale.localeName
-                }
+                clientModel.hackVKeyboardSettings(actFocus)
             }
         }
         ZLineEdit {
@@ -185,15 +189,7 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                if(actFocus) {
-                    clientModel.hackFieldFocusCount++ // see coment at definition
-                    VirtualKeyboardSettings.locale = "en_GB"
-                }
-                else {
-                    clientModel.hackFieldFocusCount--
-                    if(clientModel.hackFieldFocusCount === 0)
-                        VirtualKeyboardSettings.locale = ZLocale.localeName
-                }
+                clientModel.hackVKeyboardSettings(actFocus)
             }
         }
 
