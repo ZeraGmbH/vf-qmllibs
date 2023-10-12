@@ -44,7 +44,7 @@ Item {
             height: parent.height * (horizontal ? 1 : overshootInvers)
         }
         Rectangle {
-            id: topRect
+            id: hidingColorsRect
             color: vuBackColor
             x: horizontal ? parent.width * (1-relativeLength) : 0
             y: 0
