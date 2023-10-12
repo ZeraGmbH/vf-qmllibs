@@ -65,9 +65,11 @@ Item {
             property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
             radius: indicatorWith/2
 
-            x: horizontal ? parent.width * overshootInvers-indicatorWith/2 : indicatorStart
+            readonly property real xFactor: !mirror ? overshootInvers : 1-overshootInvers
+            x: horizontal ? parent.width*xFactor - indicatorWith/2 : indicatorStart
             width: horizontal ? indicatorWith : indicatorLen
-            y: horizontal ? indicatorStart : parent.height * overshootLen-indicatorWith/2
+            readonly property real yFactor: !mirror ? overshootLen : 1-overshootLen
+            y:  horizontal ? indicatorStart : parent.height * yFactor - indicatorWith/2
             height: horizontal ? indicatorLen : indicatorWith
         }
     }
