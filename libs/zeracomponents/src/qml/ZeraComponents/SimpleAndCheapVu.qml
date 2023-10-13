@@ -39,8 +39,8 @@ Item {
         }
         Rectangle {
             color: vuNominalColor
-            anchors.bottom: parent.bottom
-            x: 0
+            x: !mirror || !horizontal ? 0 : parent.width * overshootLen
+            y: !mirror || horizontal ? parent.height-height : 0
             width: parent.width * (horizontal ? overshootInvers : 1)
             height: parent.height * (horizontal ? 1 : overshootInvers)
         }
