@@ -1,5 +1,6 @@
 module ZeraComponents
 SacVuBase 1.0 SacVuBase.qml
+SacVuDefaults 1.0 SacVuDefaults.qml
 SimpleAndCheapVu 1.0 SimpleAndCheapVu.qml
 ZButton 1.0 ZButton.qml
 ZCheckBox 1.0 ZCheckBox.qml
