@@ -25,9 +25,9 @@ Item {
         visible: false
         anchors.fill: parent
         Rectangle { // top/right yellow -> red
-            x: horizontal ? parent.width * overshootInvers : 0
+            x: !mirror && horizontal ? parent.width * overshootInvers : 0
             width: parent.width * (horizontal ? overshootLen : 1)
-            y: 0
+            y: !mirror || horizontal ? 0 : parent.height - height
             height: parent.height * (horizontal ? 1 : overshootLen)
             gradient: Gradient {
                 orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
@@ -48,7 +48,7 @@ Item {
             id: hidingColorsRect
             color: vuBackColor
             x: horizontal && !mirror ? parent.width * (1-relativeLength) : 0
-            y: !mirror || horizontal? 0 : parent.height * (1-relativeLength)
+            y: !mirror || horizontal ? 0 : parent.height * (1-relativeLength)
             readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
 
             width: horizontal ? parent.width * relativeLength : parent.width
