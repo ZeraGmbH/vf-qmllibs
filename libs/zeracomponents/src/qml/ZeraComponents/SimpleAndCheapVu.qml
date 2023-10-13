@@ -9,6 +9,8 @@ Item {
     property real actual
     property bool horizontal: false
     property bool mirror: false
+    property real relNominalIndicatorLen: 0.95
+    property real relNominalIndicatorWidth: 0.02
     property color vuBackColor: "dimgray"
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
@@ -20,6 +22,11 @@ Item {
     readonly property real overshootInvers: 1 / overshootFactor
     readonly property real overshootLen: 1 - overshootInvers
     readonly property real overshoot1Start: softOvershoot ? 0.2 : 0
+    function xor(a, b) {
+        if(a !== b)
+            return true
+        return false
+    }
     Rectangle {
         id: vu
         visible: false
@@ -31,10 +38,10 @@ Item {
             height: parent.height * (horizontal ? 1 : overshootLen)
             gradient: Gradient {
                 orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
-                GradientStop { position: horizontal ? (!mirror ? 1 : 0) : (!mirror ? 0 : 1); color: vuOvershootColor2 }
-                GradientStop { position: horizontal ? (!mirror ? overshoot1Start : 1-overshoot1Start) : (!mirror ? 1-overshoot1Start : overshoot1Start); color: vuOvershootColor1 }
+                GradientStop { position: xor(horizontal, mirror) ? 1 : 0; color: vuOvershootColor2 }
+                GradientStop { position: xor(horizontal, mirror) ? overshoot1Start : 1-overshoot1Start; color: vuOvershootColor1 }
                 // we hack green part out on non-soft by setting position to -1
-                GradientStop { position: softOvershoot ? (horizontal ? (!mirror ? 0 : 1) : (!mirror ? 1 : 0)) : -1; color: vuNominalColor }
+                GradientStop { position: softOvershoot ? xor(horizontal, mirror) ? 0 : 1 : -1; color: vuNominalColor }
             }
         }
         Rectangle {
@@ -57,9 +64,6 @@ Item {
         Rectangle {
             color: vuOvershootIndicatorColor
             visible: overshootFactor > 1.0
-
-            property real relNominalIndicatorLen: 0.95
-            property real relNominalIndicatorWidth: 0.02
 
             property real indicatorWith: (horizontal ? parent.width : parent.height) * relNominalIndicatorWidth
             property real indicatorLen: (horizontal ? parent.height : parent.width) * relNominalIndicatorLen
