@@ -3,12 +3,14 @@ import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.14
 
 Item {
+    id: root
     // external interface
     property real nominal
     property real overshootFactor
     property real actual
     property bool horizontal: false
     property bool mirror: false
+    property bool softOvershoot: false
     property real relNominalIndicatorLen: 0.95
     property real relNominalIndicatorWidth: 0.02
     property color vuBackColor: "dimgray"
@@ -17,66 +19,25 @@ Item {
     property color vuOvershootColor2: "red"
     property color vuOvershootIndicatorColor: softOvershoot ? vuNominalColor : vuOvershootColor1
     property real vuEndRadius: horizontal ? height/2 : width/2
-    property bool softOvershoot: false
 
-    readonly property real overshootInvers: 1 / overshootFactor
-    readonly property real overshootLen: 1 - overshootInvers
-    readonly property real overshoot1Start: softOvershoot ? 0.2 : 0
-    function xor(a, b) {
-        if(a !== b)
-            return true
-        return false
-    }
-    Rectangle {
+    SacVuBase {
         id: vu
         visible: false
         anchors.fill: parent
-        Rectangle { // top/right yellow -> red
-            x: !mirror && horizontal ? parent.width * overshootInvers : 0
-            width: parent.width * (horizontal ? overshootLen : 1)
-            y: !mirror || horizontal ? 0 : parent.height - height
-            height: parent.height * (horizontal ? 1 : overshootLen)
-            gradient: Gradient {
-                orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
-                GradientStop { position: xor(horizontal, mirror) ? 1 : 0; color: vuOvershootColor2 }
-                GradientStop { position: xor(horizontal, mirror) ? overshoot1Start : 1-overshoot1Start; color: vuOvershootColor1 }
-                // we hack green part out on non-soft by setting position to -1
-                GradientStop { position: softOvershoot ? xor(horizontal, mirror) ? 0 : 1 : -1; color: vuNominalColor }
-            }
-        }
-        Rectangle {
-            color: vuNominalColor
-            x: !mirror || !horizontal ? 0 : parent.width * overshootLen
-            y: !mirror || horizontal ? parent.height-height : 0
-            width: parent.width * (horizontal ? overshootInvers : 1)
-            height: parent.height * (horizontal ? 1 : overshootInvers)
-        }
-        Rectangle {
-            id: hidingColorsRect
-            color: vuBackColor
-            x: horizontal && !mirror ? parent.width * (1-relativeLength) : 0
-            y: !mirror || horizontal ? 0 : parent.height * (1-relativeLength)
-            readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
 
-            width: horizontal ? parent.width * relativeLength : parent.width
-            height: parent.height * (horizontal ? 1 : relativeLength)
-        }
-        Rectangle {
-            color: vuOvershootIndicatorColor
-            visible: overshootFactor > 1.0
-
-            property real indicatorWith: (horizontal ? parent.width : parent.height) * relNominalIndicatorWidth
-            property real indicatorLen: (horizontal ? parent.height : parent.width) * relNominalIndicatorLen
-            property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
-            radius: indicatorWith/2
-
-            readonly property real xFactor: !mirror ? overshootInvers : 1-overshootInvers
-            x: horizontal ? parent.width*xFactor - indicatorWith/2 : indicatorStart
-            width: horizontal ? indicatorWith : indicatorLen
-            readonly property real yFactor: !mirror ? overshootLen : 1-overshootLen
-            y:  horizontal ? indicatorStart : parent.height * yFactor - indicatorWith/2
-            height: horizontal ? indicatorLen : indicatorWith
-        }
+        nominal: root.nominal
+        overshootFactor: root.overshootFactor
+        actual: root.actual
+        horizontal: root.horizontal
+        mirror: root.mirror
+        relNominalIndicatorLen: root.relNominalIndicatorLen
+        relNominalIndicatorWidth: root.relNominalIndicatorWidth
+        vuBackColor: root.vuBackColor
+        vuNominalColor: root.vuNominalColor
+        vuOvershootColor1: root.vuOvershootColor1
+        vuOvershootColor2: root.vuOvershootColor2
+        vuOvershootIndicatorColor: root.vuOvershootIndicatorColor
+        softOvershoot: root.softOvershoot
     }
     Rectangle {
         id: radiusMask
@@ -84,12 +45,10 @@ Item {
         radius: vuEndRadius
         visible: false
     }
-
     OpacityMask {
         anchors.fill: parent
         source: vu
         maskSource: radiusMask
     }
-
 }
 

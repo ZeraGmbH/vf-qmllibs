@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>src/qml/ZeraComponents/qmldir</file>
+        <file>src/qml/ZeraComponents/SacVuBase.qml</file>
         <file>src/qml/ZeraComponents/SimpleAndCheapVu.qml</file>
         <file>src/qml/ZeraComponents/ZButton.qml</file>
         <file>src/qml/ZeraComponents/ZCheckBox.qml</file>
