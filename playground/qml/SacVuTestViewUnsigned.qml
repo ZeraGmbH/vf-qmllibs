@@ -30,7 +30,7 @@ Item {
     Slider {
         id: slider
         from: -0.1
-        to: 1
+        to: 1.1
         anchors.top: labelSliderRawVal.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.1
