@@ -55,7 +55,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked) {
                     commonLoader.active=true;
-                    commonLoader.source = "SimpleAndCheapVuTest.qml";
+                    commonLoader.source = "SacVuTest.qml";
                 }
                 else
                     commonLoader.active=false;

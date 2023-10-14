@@ -8,7 +8,7 @@ import ZeraComponents 1.0
 ApplicationWindow {
     id: mainWindow
     visible: true
-    title: "Simple and cheap (Sac) VU (that's the target :)"
+    title: "Simple and cheap (Sac) VU"
     width: 600
     height: 300
 
