@@ -11,9 +11,8 @@ ApplicationWindow {
     TabBar {
         id: tabBar
         width: parent.width
-        TabButton {
-            text: qsTr("Unsigned")
-        }
+        TabButton { text: "Unsigned" }
+        TabButton { text: "Signed" }
     }
     SwipeView {
         anchors.top: tabBar.bottom
@@ -22,5 +21,6 @@ ApplicationWindow {
         width: parent.width
         currentIndex: tabBar.currentIndex
         SacVuTestViewUnsigned {}
+        SacVuTestViewSigned {}
     }
 }
