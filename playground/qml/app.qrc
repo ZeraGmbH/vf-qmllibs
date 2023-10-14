@@ -9,6 +9,7 @@
         <file>qtquickcontrols2.conf</file>
         <file>RadioButtonTest.qml</file>
         <file>SacVuTest.qml</file>
+        <file>SacVuTestViewUnsigned.qml</file>
         <file>Uivectorgraph.qml</file>
         <file>ZvKeyboard.qml</file>
     </qresource>
