@@ -29,6 +29,8 @@ Item {
 
     Slider {
         id: slider
+        from: -0.1
+        to: 1
         anchors.top: labelSliderRawVal.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.1
@@ -54,13 +56,13 @@ Item {
             border.color: Material.dividerColor
             border.width: 3
             readonly property real overshootVal: unsignedView.overshootFactors[index]
+            readonly property real actualVal: slider.value * unsignedView.nominal * overshootVal
             Label {
                 id: labelOvershootFactor
                 anchors.top: parent.top
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: Number(perVuRect.overshootVal).toLocaleString(locale)
             }
-            readonly property real actualVal: slider.value * unsignedView.nominal * overshootVal
             Label {
                 id: labelActualValue
                 anchors.top: labelOvershootFactor.bottom
