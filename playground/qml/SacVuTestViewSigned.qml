@@ -69,7 +69,7 @@ Item {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: Number(perVuRect.actualVal).toLocaleString(locale)
             }
-            SimpleAndCheapVu {
+            SacVuUnsigned {
                 id: vuVertical
                 softOvershoot: softOption.checked
                 mirror: mirrorOption.checked
@@ -83,7 +83,7 @@ Item {
                 overshootFactor: perVuRect.overshootVal
                 actual: perVuRect.actualVal
             }
-            SimpleAndCheapVu {
+            SacVuUnsigned {
                 id: vuHorizontal
                 softOvershoot: softOption.checked
                 mirror: mirrorOption.checked
