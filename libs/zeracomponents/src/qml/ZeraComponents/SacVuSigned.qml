@@ -21,8 +21,8 @@ SacVuDefaults {
             actual: root.actual * (root.mirror ? 1 : -1)
             horizontal: root.horizontal
             mirror: true
-            relNominalIndicatorLen: root.relNominalIndicatorLen
-            relNominalIndicatorWidth: root.relNominalIndicatorWidth
+            relIndicatorLen: root.relIndicatorLen
+            relIndicatorWidth: root.relIndicatorWidth
             vuBackColor: root.vuBackColor
             vuNominalColor: root.vuNominalColor
             vuOvershootColor1: root.vuOvershootColor1
@@ -42,8 +42,8 @@ SacVuDefaults {
             actual: root.actual * (root.mirror ? -1 : 1)
             horizontal: root.horizontal
             mirror: false
-            relNominalIndicatorLen: root.relNominalIndicatorLen
-            relNominalIndicatorWidth: root.relNominalIndicatorWidth
+            relIndicatorLen: root.relIndicatorLen
+            relIndicatorWidth: root.relIndicatorWidth
             vuBackColor: root.vuBackColor
             vuNominalColor: root.vuNominalColor
             vuOvershootColor1: root.vuOvershootColor1

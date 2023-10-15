@@ -15,8 +15,8 @@ SacVuDefaults {
         actual: root.actual
         horizontal: root.horizontal
         mirror: root.mirror
-        relNominalIndicatorLen: root.relNominalIndicatorLen
-        relNominalIndicatorWidth: root.relNominalIndicatorWidth
+        relIndicatorLen: root.relIndicatorLen
+        relIndicatorWidth: root.relIndicatorWidth
         vuBackColor: root.vuBackColor
         vuNominalColor: root.vuNominalColor
         vuOvershootColor1: root.vuOvershootColor1
