@@ -3,7 +3,6 @@ import QtQuick.Controls 2.14
 
 SacVuDefaults {
     readonly property real overshootInvers: 1 / overshootFactor
-    readonly property real overshootLen: 1 - overshootInvers
     readonly property real overshoot1Start: softOvershoot ? 0.2 : 0
     readonly property real actualLimitedToValid: {
         if(actual < 0)
@@ -24,9 +23,9 @@ SacVuDefaults {
         anchors.fill: parent
         Rectangle { // top/right yellow -> red
             x: !mirror && horizontal ? parent.width * overshootInvers : 0
-            width: parent.width * (horizontal ? overshootLen : 1)
+            width: parent.width * (horizontal ? 1-overshootInvers : 1)
             y: !mirror || horizontal ? 0 : parent.height - height
-            height: parent.height * (horizontal ? 1 : overshootLen)
+            height: parent.height * (horizontal ? 1 : 1-overshootInvers)
             gradient: Gradient {
                 orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
                 GradientStop { position: xor(horizontal, mirror) ? 1 : 0; color: vuOvershootColor2 }
@@ -37,7 +36,7 @@ SacVuDefaults {
         }
         Rectangle {
             color: vuNominalColor
-            x: !mirror || !horizontal ? 0 : parent.width * overshootLen
+            x: !mirror || !horizontal ? 0 : parent.width * (1-overshootInvers)
             y: !mirror || horizontal ? parent.height-height : 0
             width: parent.width * (horizontal ? overshootInvers : 1)
             height: parent.height * (horizontal ? 1 : overshootInvers)

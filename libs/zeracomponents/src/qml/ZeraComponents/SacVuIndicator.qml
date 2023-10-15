@@ -8,9 +8,10 @@ Rectangle {
     radius: indicatorWith/2
 
     readonly property real xFactor: !mirror ? overshootInvers : 1-overshootInvers
+    readonly property real yFactor: !mirror ? 1-overshootInvers : overshootInvers
+
     x: horizontal ? parent.width*xFactor - indicatorWith/2 : indicatorStart
     width: horizontal ? indicatorWith : indicatorLen
-    readonly property real yFactor: !mirror ? overshootLen : 1-overshootLen
     y:  horizontal ? indicatorStart : parent.height * yFactor - indicatorWith/2
     height: horizontal ? indicatorLen : indicatorWith
 }
