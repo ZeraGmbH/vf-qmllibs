@@ -3,6 +3,7 @@
         <file>src/qml/ZeraComponents/qmldir</file>
         <file>src/qml/ZeraComponents/SacVuBase.qml</file>
         <file>src/qml/ZeraComponents/SacVuDefaults.qml</file>
+        <file>src/qml/ZeraComponents/SacVuIndicator.qml</file>
         <file>src/qml/ZeraComponents/SacVuSigned.qml</file>
         <file>src/qml/ZeraComponents/SacVuUnsigned.qml</file>
         <file>src/qml/ZeraComponents/ZButton.qml</file>
