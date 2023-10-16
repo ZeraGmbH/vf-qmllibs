@@ -5,6 +5,7 @@ import QtGraphicalEffects 1.14
 SacVuDefaults {
     id: root
     property real vuEndRadius: horizontal ? height/2 : width/2
+    property color vuEarthColor: "saddlebrown"
     Item {
         id: vu
         visible: false
