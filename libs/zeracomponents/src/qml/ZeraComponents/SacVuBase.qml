@@ -5,14 +5,6 @@ import QtGraphicalEffects 1.14
 SacVuDefaults {
     id: root
     readonly property real relOvershootPos: 1 / overshootFactor
-    readonly property real actualLimitedToValid: {
-        if(actual < 0)
-            return 0
-        let max = nominal * overshootFactor
-        if(actual > max)
-            return max
-        return actual
-    }
     function xor(a, b) {
         if(a !== b)
             return true
@@ -50,7 +42,7 @@ SacVuDefaults {
             color: vuBackColor
             x: horizontal && !mirror ? parent.width * (1-relativeLength) : 0
             y: !mirror || horizontal ? 0 : parent.height * (1-relativeLength)
-            readonly property real relativeLength: (1 - actualLimitedToValid / (overshootFactor * nominal))
+            readonly property real relativeLength: (1 - actual / (overshootFactor * nominal))
 
             width: horizontal ? parent.width * relativeLength : parent.width
             height: parent.height * (horizontal ? 1 : relativeLength)
