@@ -4,7 +4,6 @@ import QtGraphicalEffects 1.14
 
 SacVuDefaults {
     id: root
-    property real vuStartRadius: 0
     readonly property real relOvershootPos: 1 / overshootFactor
     readonly property real actualLimitedToValid: {
         if(actual < 0)
@@ -68,11 +67,41 @@ SacVuDefaults {
             relIndicatorWidth: root.relIndicatorWidth
         }
     }
-    Rectangle {
+    /*Rectangle {
+        id: fullBackForTest
+        anchors.fill: parent
+        color: "blue"
+    }*/
+
+    readonly property real vuStartDiameter: vuStartRadius*2
+    readonly property real vuEndDiameter: vuEndRadius*2
+    Item {
         id: radiusMask
         anchors.fill: parent
-        radius: vuEndRadius
         visible: false
+        Rectangle {
+            id: startRadius
+            radius: vuStartRadius
+            x: horizontal ? (!mirror ? 0 : parent.width-vuStartDiameter) : 0
+            width: !horizontal ? parent.width : vuStartDiameter
+            y: !horizontal ? (mirror ? 0 : parent.height-vuStartDiameter) : 0
+            height: horizontal ? parent.height : vuStartDiameter
+        }
+        Rectangle {
+            id: middleRectNoRadius
+            x: horizontal ? (!mirror ? vuStartRadius : vuEndRadius) : 0
+            width: horizontal ? parent.width - (vuStartRadius + vuEndRadius) : parent.width
+            y: !horizontal ? (mirror ? vuStartRadius : vuEndRadius) : 0
+            height: !horizontal ? parent.height - (vuStartRadius + vuEndRadius) : parent.height
+        }
+        Rectangle {
+            id: endRadius
+            radius: vuEndRadius
+            x: horizontal ? (mirror ? 0 : parent.width-vuEndDiameter) : 0
+            width: !horizontal ? parent.width : vuEndDiameter
+            y: !horizontal ? (!mirror ? 0 : parent.height-vuEndDiameter) : 0
+            height: horizontal ? parent.height : vuEndDiameter
+        }
     }
     OpacityMask {
         anchors.fill: parent
