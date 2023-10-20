@@ -3,10 +3,9 @@ import QtQuick.Controls 2.14
 
 SacVuDefaults {
     id: root
-    property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 10)
+    property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 5)
     property real vuZeroIndicatorShowRelRange: 0.3
-    readonly property real relAbsActual: Math.abs(actual) / nominal
-    property real vuZeroIndicatorOpacity: relAbsActual > vuZeroIndicatorShowRelRange ? 0 : 1-relAbsActual/vuZeroIndicatorShowRelRange
+    property real vuZeroIndicatorOpacity: 1
     Item {
         id: vu
         anchors.fill: parent
