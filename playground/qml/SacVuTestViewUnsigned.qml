@@ -31,6 +31,8 @@ Item {
         id: slider
         from: -0.1
         to: 1.1
+        stepSize: 0.01
+        wheelEnabled: true
         anchors.top: labelSliderRawVal.bottom
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.1
