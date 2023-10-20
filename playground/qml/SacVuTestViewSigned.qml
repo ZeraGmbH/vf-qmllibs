@@ -19,6 +19,19 @@ Item {
             id: mirrorOption
             text: "Mirror"
         }
+        Label {
+            text: "Undershoot:"
+        }
+        SpinBox {
+            id: optCundershootFactor
+            readonly property real factor: items[value]
+            readonly property var items: [0, 0.1, 0.25, 0.5]
+
+            to: items.length - 1
+            textFromValue: function(value, locale) {
+                return Number(items[value]).toLocaleString(locale, 'f', 2)
+            }
+        }
     }
     Label {
         id: labelSliderRawVal
@@ -83,6 +96,7 @@ Item {
 
                 nominal: unsignedView.nominal
                 overshootFactor: perVuRect.overshootVal
+                undershootFactor: optCundershootFactor.factor
                 actual: perVuRect.actualVal
             }
             SacVuSigned {
@@ -97,6 +111,7 @@ Item {
 
                 nominal: unsignedView.nominal
                 overshootFactor: perVuRect.overshootVal
+                undershootFactor: optCundershootFactor.factor
                 actual: perVuRect.actualVal
                 horizontal: true
             }
