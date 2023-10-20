@@ -2,6 +2,8 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 
 Rectangle {
+    property real relPosInVu
+
     readonly property real indicatorWith: (horizontal ? parent.width : parent.height) * relIndicatorWidth
     readonly property real indicatorLen: (horizontal ? parent.height : parent.width) * relIndicatorLen
     readonly property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
@@ -12,7 +14,7 @@ Rectangle {
             return true
         return false
     }
-    readonly property real positionInVu: xor(horizontal, mirror) ? overshootInvers : 1-overshootInvers
+    readonly property real positionInVu: xor(horizontal, mirror) ? relPosInVu : 1-relPosInVu
     x: horizontal ? parent.width*positionInVu - indicatorWith/2 : indicatorStart
     width: horizontal ? indicatorWith : indicatorLen
     y:  horizontal ? indicatorStart : parent.height*positionInVu - indicatorWith/2

@@ -52,8 +52,10 @@ SacVuDefaults {
             height: parent.height * (horizontal ? 1 : relativeLength)
         }
         SacVuIndicator {
+            id: overshootStartIndicator
             color: vuOvershootIndicatorColor
             visible: overshootFactor > 1.0
+            relPosInVu: overshootInvers
         }
     }
 }
