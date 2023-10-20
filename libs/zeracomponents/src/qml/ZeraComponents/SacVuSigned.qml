@@ -4,8 +4,6 @@ import QtQuick.Controls 2.14
 SacVuDefaults {
     id: root
     property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 5)
-    property real vuZeroIndicatorShowRelRange: 0.3
-    property real vuZeroIndicatorOpacity: 1
     Item {
         id: vu
         anchors.fill: parent
@@ -54,7 +52,6 @@ SacVuDefaults {
         SacVuIndicator {
             id: zeroIndicator
             color: vuZeroIndicatorColor
-            opacity: vuZeroIndicatorOpacity
 
             horizontal: root.horizontal
             mirror: root.mirror
