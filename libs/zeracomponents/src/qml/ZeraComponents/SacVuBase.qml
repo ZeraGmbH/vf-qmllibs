@@ -2,7 +2,7 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 
 SacVuDefaults {
-    readonly property real overshootInvers: 1 / overshootFactor
+    readonly property real relOvershootPos: 1 / overshootFactor
     readonly property real actualLimitedToValid: {
         if(actual < 0)
             return 0
@@ -21,11 +21,12 @@ SacVuDefaults {
         visible: true
         anchors.fill: parent
         readonly property real overshootColor1StartPos: softOvershoot ? 0.2 : 0
-        Rectangle { // top/right yellow -> red
-            x: !mirror && horizontal ? parent.width * overshootInvers : 0
-            width: parent.width * (horizontal ? 1-overshootInvers : 1)
+        Rectangle { // (soft: nominal color (green) ->) vuOvershootColor1 (yellow) -> vuOvershootColor2 (red)
+            id: vuOvershootRect
+            x: !mirror && horizontal ? parent.width * relOvershootPos : 0
+            width: parent.width * (horizontal ? 1-relOvershootPos : 1)
             y: !mirror || horizontal ? 0 : parent.height - height
-            height: parent.height * (horizontal ? 1 : 1-overshootInvers)
+            height: parent.height * (horizontal ? 1 : 1-relOvershootPos)
             gradient: Gradient {
                 orientation: horizontal ? Gradient.Horizontal : Gradient.Vertical
                 GradientStop { position: xor(horizontal, mirror) ? 1 : 0; color: vuOvershootColor2 }
@@ -35,11 +36,12 @@ SacVuDefaults {
             }
         }
         Rectangle {
+            id: vuNominalRect
             color: vuNominalColor
-            x: !mirror || !horizontal ? 0 : parent.width * (1-overshootInvers)
+            x: !mirror || !horizontal ? 0 : parent.width * (1-relOvershootPos)
             y: !mirror || horizontal ? parent.height-height : 0
-            width: parent.width * (horizontal ? overshootInvers : 1)
-            height: parent.height * (horizontal ? 1 : overshootInvers)
+            width: parent.width * (horizontal ? relOvershootPos : 1)
+            height: parent.height * (horizontal ? 1 : relOvershootPos)
         }
         Rectangle {
             id: hidingColorsRect
@@ -55,7 +57,7 @@ SacVuDefaults {
             id: overshootStartIndicator
             color: vuOvershootIndicatorColor
             visible: overshootFactor > 1.0
-            relPosInVu: overshootInvers
+            relPosInVu: relOvershootPos
         }
     }
 }
