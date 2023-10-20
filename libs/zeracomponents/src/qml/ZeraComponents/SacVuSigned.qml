@@ -5,7 +5,10 @@ import QtGraphicalEffects 1.14
 SacVuDefaults {
     id: root
     property real vuEndRadius: horizontal ? height/2 : width/2
-    property color vuEarthColor: "saddlebrown"
+    property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 10)
+    property real vuZeroIndicatorShowRelRange: 0.3
+    readonly property real relAbsActual: Math.abs(actual) / nominal
+    property real vuZeroIndicatorOpacity: relAbsActual > vuZeroIndicatorShowRelRange ? 0 : 1-relAbsActual/vuZeroIndicatorShowRelRange
     Item {
         id: vu
         visible: false
@@ -52,6 +55,17 @@ SacVuDefaults {
             vuOvershootIndicatorColor: root.vuOvershootIndicatorColor
             softOvershoot: root.softOvershoot
         }
+        SacVuIndicator {
+            id: zeroIndicator
+            color: vuZeroIndicatorColor
+            opacity: vuZeroIndicatorOpacity
+
+            horizontal: root.horizontal
+            mirror: root.mirror
+            relPosInVu: 0.5
+            relIndicatorLen: root.relIndicatorLen
+            relIndicatorWidth: root.relIndicatorWidth * 0.5
+        }
     }
     Rectangle {
         id: radiusMask
@@ -65,4 +79,3 @@ SacVuDefaults {
         maskSource: radiusMask
     }
 }
-
