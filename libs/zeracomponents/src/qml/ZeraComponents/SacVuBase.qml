@@ -2,6 +2,7 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 
 SacVuDefaults {
+    id: root
     readonly property real relOvershootPos: 1 / overshootFactor
     readonly property real actualLimitedToValid: {
         if(actual < 0)
@@ -57,7 +58,12 @@ SacVuDefaults {
             id: overshootStartIndicator
             color: vuOvershootIndicatorColor
             visible: overshootFactor > 1.0
-            relPosInVu: relOvershootPos
+
+            horizontal: root.horizontal
+            mirror: root.mirror
+            relPosInVu: root.relOvershootPos
+            relIndicatorLen: root.relIndicatorLen
+            relIndicatorWidth: root.relIndicatorWidth
         }
     }
 }

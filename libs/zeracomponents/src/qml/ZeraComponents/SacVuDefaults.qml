@@ -7,8 +7,10 @@ Item {
     property bool horizontal: false
     property bool mirror: false
     property bool softOvershoot: false
+
     property real relIndicatorLen: 0.95
     property real relIndicatorWidth: 0.02
+
     property color vuBackColor: "dimgray"
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"

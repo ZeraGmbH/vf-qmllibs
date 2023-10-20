@@ -2,11 +2,12 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 
 Rectangle {
+    property bool horizontal
+    property bool mirror
     property real relPosInVu
+    property real relIndicatorWidth
+    property real relIndicatorLen
 
-    // Lazy: we assume variables:
-    // horizontal, mirror, relIndicatorWidth, relIndicatorLen
-    // available
     readonly property real indicatorWith: (horizontal ? parent.width : parent.height) * relIndicatorWidth
     readonly property real indicatorLen: (horizontal ? parent.height : parent.width) * relIndicatorLen
     readonly property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
