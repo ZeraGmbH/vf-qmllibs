@@ -4,6 +4,9 @@ import QtQuick.Controls 2.14
 Rectangle {
     property real relPosInVu
 
+    // Lazy: we assume variables:
+    // horizontal, mirror, relIndicatorWidth, relIndicatorLen
+    // available
     readonly property real indicatorWith: (horizontal ? parent.width : parent.height) * relIndicatorWidth
     readonly property real indicatorLen: (horizontal ? parent.height : parent.width) * relIndicatorLen
     readonly property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
