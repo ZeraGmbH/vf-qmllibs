@@ -1,8 +1,10 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import QtGraphicalEffects 1.14
 
 SacVuDefaults {
     id: root
+    property real vuStartRadius: 0
     readonly property real relOvershootPos: 1 / overshootFactor
     readonly property real actualLimitedToValid: {
         if(actual < 0)
@@ -19,7 +21,7 @@ SacVuDefaults {
     }
     Rectangle {
         id: vu
-        visible: true
+        visible: false
         anchors.fill: parent
         readonly property real overshootColor1StartPos: softOvershoot ? 0.2 : 0
         Rectangle { // (soft: nominal color (green) ->) vuOvershootColor1 (yellow) -> vuOvershootColor2 (red)
@@ -65,5 +67,16 @@ SacVuDefaults {
             relIndicatorLen: root.relIndicatorLen
             relIndicatorWidth: root.relIndicatorWidth
         }
+    }
+    Rectangle {
+        id: radiusMask
+        anchors.fill: parent
+        radius: vuEndRadius
+        visible: false
+    }
+    OpacityMask {
+        anchors.fill: parent
+        source: vu
+        maskSource: radiusMask
     }
 }

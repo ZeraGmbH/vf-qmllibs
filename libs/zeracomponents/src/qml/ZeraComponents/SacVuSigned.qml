@@ -1,17 +1,14 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
-import QtGraphicalEffects 1.14
 
 SacVuDefaults {
     id: root
-    property real vuEndRadius: horizontal ? height/2 : width/2
     property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 10)
     property real vuZeroIndicatorShowRelRange: 0.3
     readonly property real relAbsActual: Math.abs(actual) / nominal
     property real vuZeroIndicatorOpacity: relAbsActual > vuZeroIndicatorShowRelRange ? 0 : 1-relAbsActual/vuZeroIndicatorShowRelRange
     Item {
         id: vu
-        visible: false
         anchors.fill: parent
         SacVuBase {
             id: leftLowerVu
@@ -66,16 +63,5 @@ SacVuDefaults {
             relIndicatorLen: root.relIndicatorLen
             relIndicatorWidth: root.relIndicatorWidth * 0.5
         }
-    }
-    Rectangle {
-        id: radiusMask
-        anchors.fill: parent
-        radius: vuEndRadius
-        visible: false
-    }
-    OpacityMask {
-        anchors.fill: parent
-        source: vu
-        maskSource: radiusMask
     }
 }

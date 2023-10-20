@@ -10,6 +10,8 @@ Item {
 
     property real relIndicatorLen: 0.95
     property real relIndicatorWidth: 0.02
+    property real vuStartRadius: 0
+    property real vuEndRadius: horizontal ? height/2 : width/2
 
     property color vuBackColor: "dimgray"
     property color vuNominalColor: "lawngreen"
