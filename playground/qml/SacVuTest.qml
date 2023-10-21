@@ -5,7 +5,7 @@ ApplicationWindow {
     id: mainWindow
     visible: true
     title: "Simple and cheap (Sac) VU"
-    width: 600
+    width: 750
     height: 300
 
     TabBar {

@@ -23,13 +23,26 @@ Item {
             text: "Undershoot:"
         }
         SpinBox {
-            id: optCundershootFactor
+            id: optUndershootFactor
             readonly property real factor: items[value]
             readonly property var items: [0, 0.1, 0.25, 0.5]
-
+            value: 1
             to: items.length - 1
             textFromValue: function(value, locale) {
                 return Number(items[value]).toLocaleString(locale, 'f', 2)
+            }
+        }
+        Label {
+            text: "Animation[ms]:"
+        }
+        SpinBox {
+            id: optUndershootAnimation
+            readonly property real aniamtionMs: items[value]
+            readonly property var items: [0, 250, 2500]
+            value: 1
+            to: items.length - 1
+            textFromValue: function(value, locale) {
+                return String(items[value])
             }
         }
     }
@@ -96,7 +109,8 @@ Item {
 
                 nominal: unsignedView.nominal
                 overshootFactor: perVuRect.overshootVal
-                undershootFactor: optCundershootFactor.factor
+                undershootFactor: optUndershootFactor.factor
+                undershootAnimationDurationMs: optUndershootAnimation.aniamtionMs
                 actual: perVuRect.actualVal
             }
             SacVuSigned {
@@ -111,7 +125,8 @@ Item {
 
                 nominal: unsignedView.nominal
                 overshootFactor: perVuRect.overshootVal
-                undershootFactor: optCundershootFactor.factor
+                undershootFactor: optUndershootFactor.factor
+                undershootAnimationDurationMs: optUndershootAnimation.aniamtionMs
                 actual: perVuRect.actualVal
                 horizontal: true
             }
