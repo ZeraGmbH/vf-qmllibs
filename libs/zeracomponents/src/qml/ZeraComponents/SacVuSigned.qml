@@ -20,7 +20,13 @@ SacVuDefaults {
         readonly property bool belowUndershoot: relActual < -undershootFactor
         onAboveUndershootChanged: setFocusPos()
         onBelowUndershootChanged: setFocusPos()
-        property bool positiveIndicatorWithHysteresis: actual >= 0
+        property bool positiveIndicatorWithHysteresis
+        Component.onCompleted: {
+            // Binding would causs zero / non hysteresis flip until first change
+            // (break binding) of positiveIndicatorWithHysteresis by setFocusPos()
+            // So initialize non declarative:
+            positiveIndicatorWithHysteresis = relActual >= 0
+        }
         function setFocusPos() {
             if(aboveUndershoot && !belowUndershoot)
                 positiveIndicatorWithHysteresis = true

@@ -24,9 +24,9 @@ Item {
         }
         SpinBox {
             id: optUndershootFactor
+            value: 1
             readonly property real factor: items[value]
             readonly property var items: [0, 0.1, 0.25, 0.5]
-            value: 1
             to: items.length - 1
             textFromValue: function(value, locale) {
                 return Number(items[value]).toLocaleString(locale, 'f', 2)
@@ -37,9 +37,9 @@ Item {
         }
         SpinBox {
             id: optUndershootAnimation
+            value: 1
             readonly property real aniamtionMs: items[value]
             readonly property var items: [0, 250, 2500]
-            value: 1
             to: items.length - 1
             textFromValue: function(value, locale) {
                 return String(items[value])
