@@ -52,10 +52,12 @@ SacVuDefaults {
         NumberAnimation {
             id: undershootFlipAnimation
             function startUndershootFlip(current, target) {
-                stop()
-                from = current
-                to = target
-                start()
+                if(vu.undershootActive && duration > 0) {
+                    stop()
+                    from = current
+                    to = target
+                    start()
+                }
             }
             duration: undershootAnimationDurationMs
             from: horizontal ? vu.xTargetPos : vu.yTargetPos
