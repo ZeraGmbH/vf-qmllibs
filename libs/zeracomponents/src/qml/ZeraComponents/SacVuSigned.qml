@@ -4,7 +4,7 @@ import QtQuick.Controls 2.14
 SacVuDefaults {
     id: root
     property real undershootFactor: 0.001
-    property int undershootAnimationDurationMs: 250
+    property int undershootAnimationDurationMs: 0
     property color vuZeroIndicatorColor: "transparent"//Qt.lighter(vuBackColor, 5) // to hide set "transparent"
 
     Flickable {

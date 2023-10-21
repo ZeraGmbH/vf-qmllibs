@@ -37,7 +37,7 @@ Item {
         }
         SpinBox {
             id: optUndershootAnimation
-            value: 1
+            value: 0
             readonly property real aniamtionMs: items[value]
             readonly property var items: [0, 250, 2500]
             to: items.length - 1
