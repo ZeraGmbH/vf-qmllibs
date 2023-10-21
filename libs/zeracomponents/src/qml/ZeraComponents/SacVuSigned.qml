@@ -29,14 +29,10 @@ SacVuDefaults {
         onBelowUndershootChanged: setFocusPos()
         property bool positiveIndicatorWithHysteresis: actual >= 0
         function setFocusPos() {
-            if(aboveUndershoot && !belowUndershoot) {
+            if(aboveUndershoot && !belowUndershoot)
                 positiveIndicatorWithHysteresis = true
-                console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
-            }
-            if(!aboveUndershoot && belowUndershoot) {
+            if(!aboveUndershoot && belowUndershoot)
                 positiveIndicatorWithHysteresis = false
-                console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
-            }
         }
 
         readonly property int subVuCount: 2
