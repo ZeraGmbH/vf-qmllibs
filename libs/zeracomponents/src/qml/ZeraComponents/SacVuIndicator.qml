@@ -13,11 +13,7 @@ Rectangle {
     readonly property real indicatorStart: ((horizontal ? parent.height : parent.width)-indicatorLen)/2
     radius: indicatorWith/2
 
-    function xor(a, b) {
-        if(a !== b)
-            return true
-        return false
-    }
+    function xor(a, b) { return a !== b }
     readonly property real positionInVu: xor(horizontal, mirror) ? relPosInVu : 1-relPosInVu
     x: horizontal ? parent.width*positionInVu - indicatorWith/2 : indicatorStart
     width: horizontal ? indicatorWith : indicatorLen

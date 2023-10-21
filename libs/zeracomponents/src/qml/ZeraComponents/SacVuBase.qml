@@ -5,11 +5,7 @@ import QtGraphicalEffects 1.14
 SacVuDefaults {
     id: root
     readonly property real relOvershootPos: 1 / overshootFactor
-    function xor(a, b) {
-        if(a !== b)
-            return true
-        return false
-    }
+    function xor(a, b) { return a !== b }
     Rectangle {
         id: vu
         visible: false

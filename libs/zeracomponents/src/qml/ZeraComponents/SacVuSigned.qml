@@ -40,12 +40,12 @@ SacVuDefaults {
         readonly property real totalVuLen: subVuCount*overshootFactor
         readonly property real underShootDisplayVuLen: overshootFactor+undershootFactor
         readonly property real undershootMagnifier: undershootActive ? totalVuLen / underShootDisplayVuLen : 1
-        readonly property real widthMagnifier: !horizontal ? 1 : undershootMagnifier
-        readonly property real heightMagnifier: horizontal ? 1 : undershootMagnifier
-        contentWidth: width * widthMagnifier
-        contentHeight: height * heightMagnifier
-        readonly property real xTargetPos: undershootActive && horizontal && leftLowerVu.xor(positiveIndicatorWithHysteresis, mirror) ? contentWidth-width : 0
-        readonly property real yTargetPos: undershootActive && !horizontal && leftLowerVu.xor(positiveIndicatorWithHysteresis, !mirror) ? contentHeight-height : 0
+        contentWidth: width * (horizontal ? undershootMagnifier : 1)
+        contentHeight: height * (!horizontal ? undershootMagnifier : 1)
+        function xor(a, b) { return a !== b }
+        readonly property real xTargetPos: undershootActive && horizontal && xor(positiveIndicatorWithHysteresis, mirror) ? contentWidth-width : 0
+        readonly property real yTargetPos: undershootActive && !horizontal && xor(positiveIndicatorWithHysteresis, !mirror) ? contentHeight-height : 0
+
         contentX: xTargetPos
         contentY: yTargetPos
         SacVuBase {
