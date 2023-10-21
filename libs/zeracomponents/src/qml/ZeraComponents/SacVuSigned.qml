@@ -13,7 +13,8 @@ SacVuDefaults {
         interactive: false
 
         readonly property bool undershootActive: undershootFactor > 0 && undershootFactor < 1
-        readonly property real relActual: actual / nominal
+        readonly property int maxDigitsRel: 3
+        readonly property real relActual: Number.parseFloat(actual/nominal).toFixed(maxDigitsRel)
         readonly property bool aboveUndershoot: {
             if(!undershootActive)
                 return actual >= 0
