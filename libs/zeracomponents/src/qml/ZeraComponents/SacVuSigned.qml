@@ -6,39 +6,40 @@ SacVuDefaults {
     property real undershootFactor: 0.1
     property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 5)
 
-    readonly property int subVuCount: 2
-    readonly property bool undershootActive: undershootFactor > 0 && undershootFactor < 1
-    readonly property real undershootMagnifier: undershootActive ? subVuCount / (1+undershootFactor) : 1
-    readonly property real relActual: actual / nominal
-    readonly property bool aboveUndershoot: {
-        if(!undershootActive)
-            return actual >= 0
-        return relActual > undershootFactor
-    }
-    readonly property bool belowUndershoot: {
-        if(!undershootActive)
-            return actual < 0
-        return relActual < -undershootFactor
-    }
-    property bool positiveIndicatorWithHysteresis: actual >= 0
-    onAboveUndershootChanged: setFocusPos()
-    onBelowUndershootChanged: setFocusPos()
-    function setFocusPos() {
-        if(aboveUndershoot && !belowUndershoot) {
-            positiveIndicatorWithHysteresis = true
-            console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
-        }
-        if(!aboveUndershoot && belowUndershoot) {
-            positiveIndicatorWithHysteresis = false
-            console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
-        }
-    }
-
     Flickable {
         id: vu
         anchors.fill: parent
         clip: true
         interactive: false
+
+        readonly property bool undershootActive: undershootFactor > 0 && undershootFactor < 1
+        readonly property real relActual: actual / nominal
+        readonly property bool aboveUndershoot: {
+            if(!undershootActive)
+                return actual >= 0
+            return relActual > undershootFactor
+        }
+        onAboveUndershootChanged: setFocusPos()
+        readonly property bool belowUndershoot: {
+            if(!undershootActive)
+                return actual < 0
+            return relActual < -undershootFactor
+        }
+        onBelowUndershootChanged: setFocusPos()
+        property bool positiveIndicatorWithHysteresis: actual >= 0
+        function setFocusPos() {
+            if(aboveUndershoot && !belowUndershoot) {
+                positiveIndicatorWithHysteresis = true
+                console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
+            }
+            if(!aboveUndershoot && belowUndershoot) {
+                positiveIndicatorWithHysteresis = false
+                console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
+            }
+        }
+
+        readonly property int subVuCount: 2
+        readonly property real undershootMagnifier: undershootActive ? subVuCount / (1+undershootFactor) : 1
         readonly property real widthMagnifier: !horizontal ? 1 : undershootMagnifier
         readonly property real heightMagnifier: horizontal ? 1 : undershootMagnifier
         contentWidth: width * widthMagnifier
@@ -48,9 +49,9 @@ SacVuDefaults {
         SacVuBase {
             id: leftLowerVu
             x: 0
-            width: parent.width / (horizontal ? subVuCount : 1)
+            width: parent.width / (horizontal ? vu.subVuCount : 1)
             y: horizontal ? 0 : height
-            height: parent.height / (horizontal ? 1 : subVuCount)
+            height: parent.height / (horizontal ? 1 : vu.subVuCount)
 
             nominal: root.nominal
             overshootFactor: root.overshootFactor
@@ -58,7 +59,7 @@ SacVuDefaults {
             horizontal: root.horizontal
             mirror: true
             relIndicatorLen: root.relIndicatorLen
-            relIndicatorWidth: root.relIndicatorWidth / undershootMagnifier
+            relIndicatorWidth: root.relIndicatorWidth / vu.undershootMagnifier
             vuBackColor: root.vuBackColor
             vuNominalColor: root.vuNominalColor
             vuOvershootColor1: root.vuOvershootColor1
@@ -68,10 +69,10 @@ SacVuDefaults {
         }
         SacVuBase {
             id: rightUpperVu
-            x: horizontal ? parent.width / subVuCount : 0
-            width: parent.width / (horizontal ? subVuCount : 1)
+            x: horizontal ? parent.width / vu.subVuCount : 0
+            width: parent.width / (horizontal ? vu.subVuCount : 1)
             y: 0
-            height: parent.height / (horizontal ? 1 : subVuCount)
+            height: parent.height / (horizontal ? 1 : vu.subVuCount)
 
             nominal: root.nominal
             overshootFactor: root.overshootFactor
@@ -79,7 +80,7 @@ SacVuDefaults {
             horizontal: root.horizontal
             mirror: false
             relIndicatorLen: root.relIndicatorLen
-            relIndicatorWidth: root.relIndicatorWidth / undershootMagnifier
+            relIndicatorWidth: root.relIndicatorWidth / vu.undershootMagnifier
             vuBackColor: root.vuBackColor
             vuNominalColor: root.vuNominalColor
             vuOvershootColor1: root.vuOvershootColor1
@@ -95,7 +96,7 @@ SacVuDefaults {
             mirror: root.mirror
             relPosInVu: 0.5
             relIndicatorLen: root.relIndicatorLen
-            relIndicatorWidth: root.relIndicatorWidth * 0.5 / undershootMagnifier
+            relIndicatorWidth: root.relIndicatorWidth * 0.5 / vu.undershootMagnifier
         }
     }
 }
