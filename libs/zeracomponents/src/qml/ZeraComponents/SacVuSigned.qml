@@ -5,7 +5,8 @@ SacVuDefaults {
     id: root
     property real undershootFactor: 0.001
     property int undershootAnimationDurationMs: 0
-    property color vuZeroIndicatorColor: "transparent"//Qt.lighter(vuBackColor, 5) // to hide set "transparent"
+    property bool showZeroIndicator: undershootFactor > 0.01
+    property color vuZeroIndicatorColor: Qt.lighter(vuBackColor, 5)
 
     Flickable {
         id: vu
@@ -111,6 +112,7 @@ SacVuDefaults {
         SacVuIndicator {
             id: zeroIndicator
             color: vuZeroIndicatorColor
+            opacity: showZeroIndicator ? 1 : 0
 
             horizontal: root.horizontal
             mirror: root.mirror
