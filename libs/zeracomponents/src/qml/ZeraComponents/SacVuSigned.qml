@@ -10,7 +10,30 @@ SacVuDefaults {
     readonly property bool undershootActive: undershootFactor > 0 && undershootFactor < 1
     readonly property real undershootMagnifier: undershootActive ? subVuCount / (1+undershootFactor) : 1
     readonly property real relActual: actual / nominal
-    readonly property bool focusPositive: !undershootActive ? relActual>=0 : relActual>=0
+    readonly property bool aboveUndershoot: {
+        if(!undershootActive)
+            return actual >= 0
+        return relActual > undershootFactor
+    }
+    readonly property bool belowUndershoot: {
+        if(!undershootActive)
+            return actual < 0
+        return relActual < -undershootFactor
+    }
+    property bool positiveIndicatorWithHysteresis: actual >= 0
+    onAboveUndershootChanged: setFocusPos()
+    onBelowUndershootChanged: setFocusPos()
+    function setFocusPos() {
+        if(aboveUndershoot && !belowUndershoot) {
+            positiveIndicatorWithHysteresis = true
+            console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
+        }
+        if(!aboveUndershoot && belowUndershoot) {
+            positiveIndicatorWithHysteresis = false
+            console.info("positiveIndicatorWithHysteresis:", positiveIndicatorWithHysteresis)
+        }
+    }
+
     Flickable {
         id: vu
         anchors.fill: parent
