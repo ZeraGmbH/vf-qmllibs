@@ -47,8 +47,10 @@ SacVuDefaults {
         readonly property real heightMagnifier: horizontal ? 1 : undershootMagnifier
         contentWidth: width * widthMagnifier
         contentHeight: height * heightMagnifier
-        contentX: !undershootActive ? 0 : 0
-        contentY: !undershootActive ? 0 : 0
+        readonly property real xTargetPos: undershootActive && horizontal && leftLowerVu.xor(positiveIndicatorWithHysteresis, mirror) ? contentWidth-width : 0
+        readonly property real yTargetPos: undershootActive && !horizontal && leftLowerVu.xor(positiveIndicatorWithHysteresis, !mirror) ? contentHeight-height : 0
+        contentX: xTargetPos
+        contentY: yTargetPos
         SacVuBase {
             id: leftLowerVu
             x: 0
