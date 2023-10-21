@@ -39,7 +39,9 @@ SacVuDefaults {
         }
 
         readonly property int subVuCount: 2
-        readonly property real undershootMagnifier: undershootActive ? subVuCount / (1+undershootFactor) : 1
+        readonly property real totalVuLen: subVuCount*overshootFactor
+        readonly property real underShootDisplayVuLen: overshootFactor+undershootFactor
+        readonly property real undershootMagnifier: undershootActive ? totalVuLen / underShootDisplayVuLen : 1
         readonly property real widthMagnifier: !horizontal ? 1 : undershootMagnifier
         readonly property real heightMagnifier: horizontal ? 1 : undershootMagnifier
         contentWidth: width * widthMagnifier
