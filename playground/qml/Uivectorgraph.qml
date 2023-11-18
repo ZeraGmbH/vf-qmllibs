@@ -220,7 +220,6 @@ ApplicationWindow {
             gridScale: Math.min(height,width)/maxVoltage/2
 
             vectorView: PhasorDiagram.VIEW_THREE_PHASE
-            currentVisible: true
         }
 
     }

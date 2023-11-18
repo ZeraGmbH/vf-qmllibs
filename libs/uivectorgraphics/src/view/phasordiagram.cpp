@@ -339,7 +339,6 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     m_maxVoltage = realItem->maxVoltage();
     m_minCurrent = realItem->minCurrent();
     m_maxCurrent = realItem->maxCurrent();
-    m_currentVisible = realItem->currentVisible();
     m_vectorView = realItem->vectorView();
     m_gridVisible = realItem->gridVisible();
     m_gridColor = realItem->gridColor();
@@ -409,18 +408,18 @@ void PhasorDiagram::paint(QPainter *t_painter)
     case PhasorDiagram::VectorView::VIEW_STAR:
         m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
         m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
-        drawVectors(t_painter, true, m_currentVisible);
+        drawVectors(t_painter, true, true);
         break;
     case PhasorDiagram::VectorView::VIEW_TRIANGLE:
         m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
         m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
         drawTriangle(t_painter);
-        drawVectors(t_painter, false, m_currentVisible);
+        drawVectors(t_painter, false, true);
         break;
     case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
         m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
         m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
-        drawVectors(t_painter, true, m_currentVisible, sqrt(3.0f)/*concatenated voltage */);
+        drawVectors(t_painter, true, true, sqrt(3.0f)/*concatenated voltage */);
         break;
     }
 }
