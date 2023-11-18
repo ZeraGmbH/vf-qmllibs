@@ -48,7 +48,6 @@ public:
     QNANO_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
     QNANO_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
-    QNANO_PROPERTY(bool, m_currentVisible, currentVisible, setCurrentVisible)
     QNANO_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
     QNANO_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
     QNANO_PROPERTY(bool, m_gridVisible, gridVisible, setGridVisible)
