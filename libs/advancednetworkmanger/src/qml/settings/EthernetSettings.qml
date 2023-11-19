@@ -87,7 +87,7 @@ Pane {
             pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
             description.width: labelWidth
-            validator: RegExpValidator{ regExp: /.{3,}/ }
+            validator: RegExpValidator{ regExp: /.{1,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
                 return true
