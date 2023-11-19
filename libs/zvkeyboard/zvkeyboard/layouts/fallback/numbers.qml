@@ -38,12 +38,10 @@ import "../../" as ZVKEYB
 KeyboardLayout {
     inputMethod: PlainInputMethod {}
     inputMode: InputEngine.InputMode.Numeric
-
     KeyboardColumn {
-        Layout.fillWidth: false
+        Layout.fillWidth: true
         Layout.fillHeight: true
         Layout.alignment: Qt.AlignHCenter
-        Layout.preferredWidth: height*5/4
         // Row1
         KeyboardRow {
             Key {
