@@ -95,12 +95,12 @@ KeyboardLayout {
                 key: Qt.Key_3
                 text: "3"
             }
+            BackspaceKey {
+            }
             ZVKEYB.DarkKey {
                 showPreview: false
                 key: Qt.Key_End
                 text: "End"
-            }
-            BackspaceKey {
             }
         }
         // Row4
