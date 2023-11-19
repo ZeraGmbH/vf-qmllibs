@@ -178,37 +178,33 @@ KeyboardLayout {
         }
     }
     KeyboardRow {
-        keyWeight: 154
+        keyWeight: 180
         ZVKEYB.DarkKey {
             key: Qt.Key_Escape
             displayText: "Esc"
-            weight: 154
             showPreview: false
         }
         SymbolModeKey {
         }
         SpaceKey {
-            weight: 1100
+            weight: 1000
         }
         ZVKEYB.DarkKey {
             displayText: "\u2190"
             key: Qt.Key_Left
             showPreview: false
             repeat: true
-            weight: 110
         }
         ZVKEYB.DarkKey {
             text: "\u2192"
             key: Qt.Key_Right
             showPreview: false
             repeat: true
-            weight: 110
         }
         ZVKEYB.DarkKey {
             showPreview: false
             key: Qt.Key_End
             text: "End"
-            weight: 110
         }
     }
 }
