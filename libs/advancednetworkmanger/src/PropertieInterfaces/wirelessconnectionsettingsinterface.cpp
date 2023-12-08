@@ -111,11 +111,14 @@ QString WirelessConnectionSettingsInterface::getPassword()
 void WirelessConnectionSettingsInterface::setPassword(QString p_password)
 {
     if(m_settings != nullptr) {
-        m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->setPsk(p_password);
-        QVariantMap map = m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->secretsToMap();
-        map["psk"]=p_password;
-        m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->secretsFromMap(map);
-        map = m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->secretsToMap();
+        NetworkManager::WirelessSecuritySetting::Ptr settingSecurity =
+            m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>();
+
+        settingSecurity->setPsk(p_password);
+        QVariantMap map = settingSecurity->secretsToMap();
+        map["psk"] = p_password;
+        settingSecurity->secretsFromMap(map);
+        map = settingSecurity->secretsToMap();
         emit passwordChanged();
     }
 }
