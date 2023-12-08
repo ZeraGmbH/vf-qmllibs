@@ -8,7 +8,7 @@ class AdvancedNetworkmanager
 public:
     static void registerQml(QQmlApplicationEngine &engine);
 private:
-    static void registerCppTypes(const char* uri);
+    static void registerCppTypes();
     static bool m_wasRegistered;
 };
 

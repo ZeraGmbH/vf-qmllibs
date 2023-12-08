@@ -24,7 +24,7 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
         ZeraFa::registerQml(engine);
         HelpersPlugin::registerQml(engine);
 
-        registerCppTypes("anmsettings");
+        registerCppTypes();
 
         QString debugQmlPath = QStringLiteral(QML_SRC_PATH);
         engine.addImportPath(debugQmlPath);
@@ -32,8 +32,9 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
     }
 }
 
-void AdvancedNetworkmanager::registerCppTypes(const char* uri)
+void AdvancedNetworkmanager::registerCppTypes()
 {
+    #define uri "anmsettings"
     qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
     qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");
     qmlRegisterType<ConnectionTreeInterface>(uri, 1, 0, "ConnectionTreeInterface");
@@ -41,5 +42,5 @@ void AdvancedNetworkmanager::registerCppTypes(const char* uri)
     qmlRegisterType<WirelessConnectionSettingsInterface>(uri, 1, 0, "WirelessConnectionSettingsInterface");
     qmlRegisterType<InfoInterface>(uri, 1, 0, "InfoInterface");
     qmlRegisterType<NetworkmanagerAbstraction>(uri, 1, 0, "NetworkmanagerAbstraction");
-    qmlRegisterType<NmCppNotification>(uri,1, 0, "NmCppNotification");
+    qmlRegisterType<NmCppNotification>(uri ,1, 0, "NmCppNotification");
 }
