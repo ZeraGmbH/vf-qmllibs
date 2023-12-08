@@ -10,13 +10,14 @@ bool QwtCharts::m_wasRegistered = false;
 void QwtCharts::registerQml()
 {
     if(!m_wasRegistered) {
-        registerTypes("QwtChart");
+        registerTypes();
         m_wasRegistered = true;
     }
 }
 
-void QwtCharts::registerTypes(const char* uri)
+void QwtCharts::registerTypes()
 {
+    #define uri "QwtChart"
     qmlRegisterType<FftBarChart>(uri, 1, 0, "FftBarChart");
     qmlRegisterType<HpwBarChart>(uri, 1, 0, "HpwBarChart");
     qmlRegisterType<BarChart>(uri, 1, 0, "BarChart");
