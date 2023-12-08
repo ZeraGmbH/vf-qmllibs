@@ -1,10 +1,10 @@
-
-import QtQuick 2.12
+import QtQuick 2.14
 import QtQuick.Controls 2.5
 import QtQuick.Layouts 1.12
 import QtQuick.Controls.Material 2.12
 import ZeraTranslation 1.0
 import anmsettings 1.0
+import "../components"
 import ZeraFa 1.0
 
 Dialog {
@@ -58,7 +58,7 @@ Dialog {
             }
             TextField {
                 id: pw
-                echoMode: TextInput.Password
+                echoMode: pwvisible.active ? TextInput.Normal : TextInput.Password
                 Layout.fillWidth: true
                 validator: RegExpValidator{ regExp: /.{8,}/}
                 horizontalAlignment: Text.AlignRight
@@ -83,22 +83,8 @@ Dialog {
                     backend.password=text;
                 }
             }
-            Button {
+            PasswordPreviewButton {
                 id: pwvisible
-                font.family: FA.old
-                text: FA.fa_eye_slash
-                font.pixelSize: rootItm.width/31
-//                background: Rectangle {
-//                    color: "transparent"
-//                }
-                onPressed: {
-                    pw.echoMode = TextInput.Normal
-                    pwvisible.text = FA.fa_eye
-                }
-                onReleased: {
-                    pw.echoMode = TextInput.Password
-                    pwvisible.text = FA.fa_eye_slash
-                }
             }
         }
         RowLayout {
