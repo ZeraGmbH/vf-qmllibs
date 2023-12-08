@@ -14,6 +14,7 @@ class WirelessConnectionSettingsInterface : public AbstractConnectionSettingsInt
     Q_PROPERTY(QString mode READ getMode WRITE setMode NOTIFY modeChanged)
     Q_PROPERTY(bool autoconnect READ getAutoconnect WRITE setAutoconnect NOTIFY devicesChanged)
     Q_PROPERTY(QStringList devices READ getDevices NOTIFY devicesChanged)
+    Q_PROPERTY(QString ipv4 READ getIpv4 WRITE setIpv4 NOTIFY ipv4Changed)
 
 public:
     WirelessConnectionSettingsInterface(QObject *parent = nullptr);
@@ -37,6 +38,9 @@ public:
 
     bool getAutoconnect();
     void setAutoconnect(bool p_autoconnect);
+
+    QString getIpv4();
+    void setIpv4(QString p_ipv4);
 protected:
     QString m_smartConnectPath;
 signals:
@@ -45,7 +49,7 @@ signals:
     void modeChanged();
     void devicesChanged();
     void autoconnectChanged();
-
+    void ipv4Changed();
 };
 
 #endif // WIRELESSCONNECTIONSETTINGSINTERFACE_H
