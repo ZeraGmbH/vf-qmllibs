@@ -1,8 +1,8 @@
 #include "wiredconnectionsettingsinterface.h"
-
-WiredConnectionSettingsInterface::WiredConnectionSettingsInterface(QObject* parent) : AbstractConnectionSettingsInterface(parent)
-{
-}
+#include <QUuid>
+#include <NetworkManagerQt/Manager>
+#include <NetworkManagerQt/Ipv4Setting>
+#include <NetworkManagerQt/Ipv6Setting>
 
 void WiredConnectionSettingsInterface::create()
 {
