@@ -10,6 +10,7 @@ import ZeraLocale 1.0
 import ZeraComponents 1.0
 import ZeraComponentsConfig 1.0
 import ZeraTranslation 1.0
+import "../components"
 
 Pane {
     id: rootItm
@@ -64,6 +65,10 @@ Pane {
     }
     VisualItemModel {
         id: clientModel
+        HackVKeyboardFocus {
+            id: hackVkFocusHelper
+        }
+
         Label {
             id: header
             anchors.left: parent.left
@@ -127,23 +132,6 @@ Pane {
             }
         }
 
-        // Explanation: At the time of writing QML shows odd behavior on focus
-        // sequence:
-        // enter ipv4: ipv4 activeFocus=true
-        // enter sub4: sub4 activeFocus=true and THEN!! ipv4 activeFocus=true
-        property int hackFieldFocusCount: 0
-        function hackVKeyboardSettings(actFocus) {
-            if(actFocus) {
-                hackFieldFocusCount++ // see coment at definition
-                VirtualKeyboardSettings.locale = "en_GB"
-            }
-            else {
-                hackFieldFocusCount--
-                if(hackFieldFocusCount === 0)
-                    VirtualKeyboardSettings.locale = ZLocale.localeName
-            }
-        }
-
         ZLineEdit {
             id: ipv4
             anchors.left: parent.left
@@ -164,7 +152,7 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                clientModel.hackVKeyboardSettings(actFocus)
+                hackVkFocusHelper.hackVKeyboardSettings(actFocus)
             }
         }
         ZLineEdit {
@@ -187,7 +175,7 @@ Pane {
                 baseActiveFocusChange(actFocus)
                 // hack: force virtual keyboard numeric with decimal point
                 textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                clientModel.hackVKeyboardSettings(actFocus)
+                hackVkFocusHelper.hackVKeyboardSettings(actFocus)
             }
         }
 

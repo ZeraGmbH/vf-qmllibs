@@ -2,6 +2,7 @@
     <qresource prefix="/">
         <file>src/qml/anmsettings/qmldir</file>
         <file>src/qml/anmsettings/NetworkManager.qml</file>
+        <file>src/qml/components/HackVKeyboardFocus.qml</file>
         <file>src/qml/settings/AvailableApDialog.qml</file>
         <file>src/qml/settings/AvailableDevDialog.qml</file>
         <file>src/qml/settings/EthernetSettings.qml</file>

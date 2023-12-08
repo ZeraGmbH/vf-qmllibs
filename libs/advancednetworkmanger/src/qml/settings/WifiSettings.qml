@@ -9,6 +9,7 @@ import ZeraFa 1.0
 import ZeraComponents 1.0
 import ZeraComponentsConfig 1.0
 import ZeraTranslation 1.0
+import "../components"
 
 Pane {
     id: rootItm
@@ -69,6 +70,7 @@ Pane {
                 name.text = backend.conName;
                 ssid.text = backend.ssid;
             }
+            ipv4.text = backend.ipv4
             pw.text = backend.password;
             device.text = backend.device;
             autoConCheckbox.checked = backend.autoconnect;
@@ -76,15 +78,23 @@ Pane {
     }
     ObjectModel {
         id: clientModel
-        Label {
+        HackVKeyboardFocus {
+            id: hackVkFocusHelper
+        }
+
+        Loader {
             id: header
             anchors.left: parent.left
             anchors.right: parent.right
-            font.pointSize: pointSize * 1.25
-            font.bold: true
-            horizontalAlignment: Label.AlignHCenter
-            text: hotspot ? Z.tr("Hotspot Settings") : Z.tr("Wifi Settings")
+            active: path !== ""
+            sourceComponent: Label {
+                font.pointSize: pointSize * 1.25
+                font.bold: true
+                horizontalAlignment: Label.AlignHCenter
+                text: hotspot ? Z.tr("Hotspot Settings") : Z.tr("Wifi Settings")
+            }
         }
+
         ZLineEdit {
             id: name
             anchors.left: parent.left
@@ -174,6 +184,28 @@ Pane {
                     pw.textField.echoMode = TextInput.Password
                     pwvisible.text= FA.fa_eye_slash
                 }
+            }
+        }
+        ZLineEdit {
+            id: ipv4
+            anchors.left: parent.left
+            width: rootItm.width - rowHeight
+            description.text: Z.tr("IP:")
+            description.width: labelWidth
+            height: rowHeight
+            pointSize: rootItm.pointSize
+            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            visible: hotspot
+            // overrides
+            function doApplyInput(newText) {
+                backend.ipv4 = newText;
+                return true
+            }
+            function activeFocusChange(actFocus) {
+                baseActiveFocusChange(actFocus)
+                // hack: force virtual keyboard numeric with decimal point
+                textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
+                hackVkFocusHelper.hackVKeyboardSettings(actFocus)
             }
         }
         RowLayout{
