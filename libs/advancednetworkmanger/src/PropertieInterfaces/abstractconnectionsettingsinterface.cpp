@@ -8,16 +8,13 @@ AbstractConnectionSettingsInterface::AbstractConnectionSettingsInterface(QObject
 void AbstractConnectionSettingsInterface::load(QString p_path)
 {
     m_connection = NetworkManager::findConnection(p_path);
-    if(m_connection != NULL){
+    if(m_connection != NULL) {
         m_settings = m_connection->settings();
         m_connectionMap = m_connection->settings()->toMap();
-        QString iname = m_settings->interfaceName();
-        //m_settings->setAutoconnect(false);
         emit loadComplete();
-    }else{
-        create();
     }
-
+    else
+        create();
 }
 
 void AbstractConnectionSettingsInterface::create()
@@ -28,20 +25,19 @@ void AbstractConnectionSettingsInterface::create()
 void AbstractConnectionSettingsInterface::save()
 {
     NMVariantMapMap map = m_settings->toMap();
-    if(map.contains("connection")){
-
-        if(map["connection"].contains("interface-name")){
+    if(map.contains("connection")) {
+        if(map["connection"].contains("interface-name"))
             map["connection"].remove("interface-name");
-        }
 
-        if(map.contains("802-11-wireless")){
-            if(map["802-11-wireless"].contains("mac-address")){
+        if(map.contains("802-11-wireless")) {
+            if(map["802-11-wireless"].contains("mac-address"))
                 map["802-11-wireless"].remove("mac-address");
-            }
         }
     }
 
-    if(m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>()->method() == NetworkManager::Ipv4Setting::ConfigMethod::Automatic){
+    NetworkManager::Ipv4Setting::Ptr ipV4Settings = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
+    NetworkManager::Ipv4Setting::ConfigMethod configMethod = ipV4Settings->method();
+    if(configMethod == NetworkManager::Ipv4Setting::ConfigMethod::Automatic){
         if(map.contains("ipv4")){
             if(map["ipv4"].contains("addresses")){
                 map["ipv4"].remove("addresses");
@@ -63,11 +59,9 @@ void AbstractConnectionSettingsInterface::save()
         }
     }
 
-
-    if(m_connection != NULL){
-
+    if(m_connection != NULL)
         m_connection->update(map);
-    }else{
+    else {
         NetworkManager::addConnection(map);
         m_settings.clear();
     }
@@ -84,12 +78,10 @@ void AbstractConnectionSettingsInterface::saveAndActivate(const QString &p_devUn
 
 void AbstractConnectionSettingsInterface::discard()
 {
-    if(m_connection != NULL){
+    if(m_connection != NULL)
         m_connection->updateUnsaved(m_connectionMap);
-    }else{
-        NMVariantMapMap map = m_settings->toMap();
+    else
         m_settings.clear();
-    }
 }
 
 QStringList AbstractConnectionSettingsInterface::getDevices()

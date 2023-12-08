@@ -123,9 +123,6 @@ void WiredConnectionSettingsInterface::setIpv4Sub(QString p_ipv4Sub)
 {
     if(m_settings!=nullptr) {
         NetworkManager::Ipv4Setting::Ptr set = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-        QNetworkAddressEntry formatAdapter;
-        formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
-        formatAdapter.setNetmask(QHostAddress(p_ipv4Sub));
         NMVariantMapList addressData=set->addressData();
         if(addressData.size()==0){
             addressData.append(QVariantMap());
@@ -135,7 +132,11 @@ void WiredConnectionSettingsInterface::setIpv4Sub(QString p_ipv4Sub)
             addresses.append(NetworkManager::IpAddress());
         }
 
+        QNetworkAddressEntry formatAdapter;
+        formatAdapter.setIp(QHostAddress(set->addressData()[0]["address"].toString()));
+        formatAdapter.setNetmask(QHostAddress(p_ipv4Sub));
         addressData[0]["prefix"]=formatAdapter.prefixLength();
+
         addresses[0].setNetmask(QHostAddress(p_ipv4Sub));
         set->setAddressData(addressData);
         set->setAddresses(addresses);
