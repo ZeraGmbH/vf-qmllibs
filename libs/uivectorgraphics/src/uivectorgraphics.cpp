@@ -7,11 +7,12 @@ bool UiVectorgraphics::m_wasRegistered = false;
 void UiVectorgraphics::registerQml()
 {
     if(!m_wasRegistered) {
-        registerTypes("uivectorgraphics");
+        registerTypes();
         m_wasRegistered = true;
     }
 }
 
-void UiVectorgraphics::registerTypes(const char* uri) {
-    qmlRegisterType<PhasorDiagram>(uri, 1, 0, "PhasorDiagram");
+void UiVectorgraphics::registerTypes()
+{
+    qmlRegisterType<PhasorDiagram>("uivectorgraphics", 1, 0, "PhasorDiagram");
 }

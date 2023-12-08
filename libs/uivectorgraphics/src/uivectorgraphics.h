@@ -6,7 +6,7 @@ class UiVectorgraphics
 public:
     static void registerQml();
 private:
-    static void registerTypes(const char* uri);
+    static void registerTypes();
     static bool m_wasRegistered;
 };
 
