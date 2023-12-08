@@ -155,7 +155,7 @@ Pane {
             height: rowHeight
             ZLineEdit {
                 id: pw
-                textField.echoMode: TextInput.Password
+                textField.echoMode: pwvisible.active ? TextInput.Normal : TextInput.Password
                 anchors.left: parent.left
                 anchors.right: pwvisible.left
                 height: rowHeight
@@ -168,22 +168,11 @@ Pane {
                     return true
                 }
             }
-            Button {
+            PasswordPreviewButton {
                 id: pwvisible
                 anchors.right: parent.right
-                font.family: FA.old
-                font.pointSize: pointSize
                 width: rowHeight
-                height: rowHeight
-                text: FA.fa_eye_slash
-                onPressed: {
-                    pw.textField.echoMode = TextInput.Normal
-                    pwvisible.text= FA.fa_eye
-                }
-                onReleased: {
-                    pw.textField.echoMode = TextInput.Password
-                    pwvisible.text= FA.fa_eye_slash
-                }
+                font.pointSize: rootItm.pointSize * 1.25
             }
         }
         ZLineEdit {
