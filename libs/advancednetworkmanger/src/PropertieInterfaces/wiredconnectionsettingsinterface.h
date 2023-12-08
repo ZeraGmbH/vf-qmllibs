@@ -1,14 +1,12 @@
 #ifndef WIREDCONNECTIONSETTINGSINTERFACE_H
 #define WIREDCONNECTIONSETTINGSINTERFACE_H
 
-#include <QObject>
 #include "abstractconnectionsettingsinterface.h"
 
 class WiredConnectionSettingsInterface : public AbstractConnectionSettingsInterface
 {
-
     Q_OBJECT
-
+public:
     Q_PROPERTY(QString ipv4Mode READ getIpv4Mode WRITE setIpv4Mode NOTIFY ipv4ModeChanged)
     Q_PROPERTY(QString ipv4 READ getIpv4 WRITE setIpv4 NOTIFY ipv4Changed)
     Q_PROPERTY(QString ipv4Sub READ getIpv4Sub WRITE setIpv4Sub NOTIFY ipv4SubChanged)
@@ -16,12 +14,7 @@ class WiredConnectionSettingsInterface : public AbstractConnectionSettingsInterf
     Q_PROPERTY(QString ipv6 READ getIpv6 WRITE setIpv6 NOTIFY ipv6Changed)
     Q_PROPERTY(QString ipv6Sub READ getIpv6Sub WRITE setIpv6Sub NOTIFY ipv6SubChanged)
 
-
-public:
-    WiredConnectionSettingsInterface(QObject *parent = nullptr);
-
-    Q_INVOKABLE void create() override;
-
+    void create() override;
     QStringList getDevices() override;
 
     QString getIpv4Mode();

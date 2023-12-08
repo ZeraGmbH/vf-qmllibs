@@ -1,8 +1,11 @@
 #include "wirelessconnectionsettingsinterface.h"
-
-WirelessConnectionSettingsInterface::WirelessConnectionSettingsInterface(QObject* parent) : AbstractConnectionSettingsInterface(parent)
-{
-}
+#include <QUuid>
+#include "NetworkManagerQt/WirelessDevice"
+#include <NetworkManagerQt/Settings>
+#include "NetworkManagerQt/WirelessSetting"
+#include <NetworkManagerQt/WirelessSecuritySetting>
+#include <NetworkManagerQt/Ipv4Setting>
+#include <NetworkManagerQt/Ipv6Setting>
 
 void WirelessConnectionSettingsInterface::saveAndActivate(const QString &p_devUni,const QString &p_apPath)
 {

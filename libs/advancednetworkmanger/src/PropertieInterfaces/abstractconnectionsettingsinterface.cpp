@@ -1,9 +1,9 @@
 #include "abstractconnectionsettingsinterface.h"
-
-AbstractConnectionSettingsInterface::AbstractConnectionSettingsInterface(QObject* parent) : QObject(parent)
-{
-    m_connection = NULL;
-}
+#include <NetworkManagerQt/Settings>
+#include <NetworkManagerQt/WirelessDevice>
+#include <NetworkManagerQt/WirelessSetting>
+#include <NetworkManagerQt/Ipv4Setting>
+#include <NetworkManagerQt/Ipv6Setting>
 
 void AbstractConnectionSettingsInterface::load(QString p_path)
 {
