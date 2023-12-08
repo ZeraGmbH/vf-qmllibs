@@ -9,6 +9,7 @@
 #include <zeratranslationplugin.h>
 #include <zeracomponents.h>
 #include <zerafa.h>
+#include <fontawesome-qml.h>
 #include <helpersplugin.h>
 
 bool AdvancedNetworkmanager::m_wasRegistered = false;
@@ -18,6 +19,8 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
     if(!m_wasRegistered) {
         ZeraTranslationPlugin::registerQml();
         ZeraComponents::registerQml(engine);
+        FontAwesomeQml::registerFonts(true, true, false);
+        FontAwesomeQml::registerFAQml(&engine);
         ZeraFa::registerQml(engine);
         HelpersPlugin::registerQml(engine);
 

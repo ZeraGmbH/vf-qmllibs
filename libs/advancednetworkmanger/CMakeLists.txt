@@ -30,6 +30,7 @@ target_link_libraries(anmlib
     KF5::ModemManagerQt
     ZeraTranslation::ZeraTranslation
     SortFilterProxyModel::SortFilterProxyModel
+    FontAweSomeQml::FontAweSomeQml
     zerafa
     zeracomponents
     qmlhelpers
