@@ -17,7 +17,7 @@ class ConnectionTreeInterface : public QObject
 public:
     ConnectionTreeInterface(QObject* paretn = nullptr);
     void init();
-    Q_PROPERTY(QAbstractListModel* dataList READ getDataListQml NOTIFY dataListChanged)
+    Q_PROPERTY(QAbstractListModel* dataList READ getDataListQml NOTIFY dummyNotify)
     Q_INVOKABLE void removeConnection(QString path);
     Q_INVOKABLE QList<QString> getDevices(int p_type);
     Q_INVOKABLE QString getDevice(QString p_connection);
@@ -26,7 +26,7 @@ public:
 
     QAbstractListModel* getDataListQml() const;
 signals:
-    void dataListChanged();
+    void dummyNotify();
     void authFailed(const QString &name,const QString &path,const QString &device);
 
 private:
