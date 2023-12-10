@@ -20,7 +20,7 @@ public:
     Q_INVOKABLE virtual QString getDevicePath(const QString &p_interfaceName);
     Q_INVOKABLE QString getHostName();
 
-    virtual QStringList getDevices();
+    virtual QStringList getDevices() = 0;
     virtual QString getDevice();
     void setDevice(QString &device);
     QString getConName();
