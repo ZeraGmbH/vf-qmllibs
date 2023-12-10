@@ -16,7 +16,6 @@ class ConnectionTreeInterface : public QObject
     Q_OBJECT
 public:
     ConnectionTreeInterface(QObject* paretn = nullptr);
-    void init();
     Q_PROPERTY(QAbstractListModel* dataList READ getDataListQml NOTIFY dummyNotify)
     Q_INVOKABLE void removeConnection(QString path);
     Q_INVOKABLE QList<QString> getDevices(int p_type);
@@ -30,6 +29,7 @@ signals:
     void authFailed(const QString &name,const QString &path,const QString &device);
 
 private:
+    void init();
     QList<AbstractNetwork*> m_networkTypeList;
     DeviceManager* m_devManager;
     ConnectionModel* m_model;
