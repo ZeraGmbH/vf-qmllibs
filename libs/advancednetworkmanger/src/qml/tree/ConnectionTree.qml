@@ -179,7 +179,6 @@ Pane {
                     // * The possible contents are in capital letters (to avoid double translation efforts matching texts
                     //   are kept in all captal letters)
                     // * Supported values are at the time of writing: ETHERNET/HOTSPOT/WIFI
-                    //   Since there were some preparations for VPN/BLUETOOOTH done let our translation be prepped
                     text: Z.tr(section)
                     font.bold: true
                     font.pixelSize: parent.width/45
