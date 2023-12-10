@@ -60,7 +60,7 @@ bool WifiNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionRemoved,this,&WifiNetworks::connectionDeactivate);
 
     m_timer = new QTimer(this);
-    connect(m_timer, &QTimer::timeout, this,&WifiNetworks::updateSignal);
+    connect(m_timer, &QTimer::timeout, this, &WifiNetworks::onGetSignalStrength);
     m_timer->start(500);
 
     return true;
@@ -298,46 +298,35 @@ void WifiNetworks::addDevice(NetworkManager::Device::Type p_type, QString p_devi
     }
 }
 
-void WifiNetworks::updateSignal()
+void WifiNetworks::onGetSignalStrength()
 {
-
-    NetworkManager::WirelessDevice::Ptr dev;
-    NetworkManager::AccessPoint::Ptr apDev;
-
-    NetworkManager::AccessPoint::Ptr apInList;
-    NetworkManager::Connection::Ptr conInList;
-    QString ssid;
-    QString path;
-
-    for(QString uni : m_devManager->getDevices(NetworkManager::Device::Type::Wifi)){
-        dev = m_devManager->getDevice(uni).dynamicCast<NetworkManager::WirelessDevice>();
+    for(QString uni : m_devManager->getDevices(NetworkManager::Device::Type::Wifi)) {
+        NetworkManager::WirelessDevice::Ptr dev = m_devManager->getDevice(uni).dynamicCast<NetworkManager::WirelessDevice>();
         QStringList paths = dev->accessPoints();
-
-
-        for(ConStruct connection: m_conList.values()){
-            if(connection.metaData.toInt() == (int)ConClassType::AP ){
-                apInList = connection.con.value<NetworkManager::AccessPoint::Ptr>();
+        for(ConStruct connection : m_conList.values()) {
+            QString ssid;
+            QString path;
+            if(connection.metaData.toInt() == (int)ConClassType::AP ) {
+                NetworkManager::AccessPoint::Ptr apInList = connection.con.value<NetworkManager::AccessPoint::Ptr>();
                 ssid = apInList->ssid();
                 path = apInList->uni();
-
-            }else {
-                conInList = connection.con.value<NetworkManager::Connection::Ptr>();
+            }
+            else {
+                NetworkManager::Connection::Ptr conInList = connection.con.value<NetworkManager::Connection::Ptr>();
                 ssid = conInList->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid();
                 path = conInList->path();
             }
-
-            for(QString apPath : paths){
-                apDev = dev->findAccessPoint(apPath);
+            for(QString apPath : paths) {
+                NetworkManager::AccessPoint::Ptr apDev = dev->findAccessPoint(apPath);
                 if(ssid == apDev->ssid()){
-                    connectionItem con2;
-                    con2 = m_list->itemByPath(path);
-                    con2.SignalStrength=apDev->signalStrength();
-                    m_list->setItemByPath(path,con2);
+                    connectionItem conItem;
+                    conItem = m_list->itemByPath(path);
+                    conItem.SignalStrength = apDev->signalStrength();
+                    m_list->setItemByPath(path, conItem);
                 }
             }
         }
     }
-
 }
 
 void WifiNetworks::stateChanged(NetworkManager::Device::Ptr dev, NetworkManager::Device::State newstate, NetworkManager::Device::State oldstate, NetworkManager::Device::StateChangeReason reason)
