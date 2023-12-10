@@ -79,11 +79,6 @@ void AbstractConnectionSettingsInterface::discard()
         m_settings.clear();
 }
 
-QStringList AbstractConnectionSettingsInterface::getDevices()
-{
-    return QStringList();
-}
-
 QString AbstractConnectionSettingsInterface::getDevicePath(const QString &p_interfaceName)
 {
     return QString();
