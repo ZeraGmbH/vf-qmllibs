@@ -121,11 +121,6 @@ Qt::ItemFlags ConnectionModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable;
 }
 
-ConnectionList *ConnectionModel::getList() const
-{
-    return m_list;
-}
-
 void ConnectionModel::setList(ConnectionList *list)
 {
     m_list = list;
