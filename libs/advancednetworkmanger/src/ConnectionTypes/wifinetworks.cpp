@@ -76,8 +76,6 @@ void WifiNetworks::findAPs(QString &p_uni)
 
     NetworkManager::AccessPoint::Ptr apInList;
     NetworkManager::Connection::Ptr conInList;
-    QString ssid= "";
-    QString path = "";
     bool newData=true;
 
     dev = m_devManager->getDevice(p_uni).dynamicCast<NetworkManager::WirelessDevice>();
@@ -166,7 +164,6 @@ void WifiNetworks::addAccessPoint(const QString &p_devUni, const QString &p_apPa
 
     NetworkManager::AccessPoint::Ptr apInList;
     NetworkManager::Connection::Ptr conInList;
-    QString ssid = "";
     QString path = "";
     NetworkManager::WirelessDevice::Ptr device = m_devManager->getDevice(p_devUni).dynamicCast<NetworkManager::WirelessDevice>();
     bool newData=true;
@@ -382,6 +379,3 @@ void WifiNetworks::stateChanged(NetworkManager::Device::Ptr dev, NetworkManager:
         }
     }
 }
-
-
-
