@@ -4,18 +4,13 @@
 
 DeviceManager::DeviceManager()
 {
-
 }
 
 void DeviceManager::init()
 {
     m_devList = NetworkManager::networkInterfaces();
-    for(NetworkManager::Device::Ptr dev : m_devList){
-        //dev->setAutoconnect(false);
-    }
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceAdded,this,&DeviceManager::deviceAdded);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceRemoved,this,&DeviceManager::deviceRemoved);
-
 }
 
 QList<QString> DeviceManager::getDevices(NetworkManager::Device::Type p_type)
@@ -67,7 +62,3 @@ void DeviceManager::deviceRemoved(const QString &p_uni)
     NmCppNotification::sendNotifiaction("NM", "A network device was removed");
     emit removeDevice(p_uni);
 }
-
-
-
-
