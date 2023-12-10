@@ -55,10 +55,3 @@ connectionItem EthernetNetworks::CreateConItem(NetworkManager::Connection::Ptr p
     con.Ipv4 = getIpv4(p_con->path());
     return con;
 }
-
-
-
-
-
-
-
