@@ -14,7 +14,7 @@ void ConnectionTreeInterface::init()
 {
     m_devManager=new DeviceManager();
     m_model = new ConnectionModel();
-    ConnectionList* list =new ConnectionList();
+    ConnectionList* list = new ConnectionList();
     m_model->setList(list);
     m_networkTypeList.append(new EthernetNetworks());
     WifiNetworks *wtmpPtr=new WifiNetworks();
