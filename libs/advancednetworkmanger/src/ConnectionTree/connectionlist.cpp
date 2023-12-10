@@ -36,25 +36,6 @@ bool ConnectionList::removeItem(int index)
     return ret;
 }
 
-bool ConnectionList::removeByKey(int p_key)
-{
-    bool ret = true;
-    try {
-        int index=-1;
-        index=findKeyPos(p_key);
-        if(index < 0){
-            throw false;
-        }
-
-         emit preItemRemoved(index);
-         m_list.removeAt(index);
-         emit postItemRemoved(index);
-    } catch (bool &e) {
-        ret = e;
-    }
-    return ret;
-}
-
 bool ConnectionList::removeByPath(const QString &p_path)
 {
     bool ret = true;
@@ -88,21 +69,6 @@ QList<QString> ConnectionList::paths() const
     return keys;
 }
 
-connectionItem ConnectionList::itemByKey(int p_key)
-{
-    try {
-        int index=-1;
-        index=findKeyPos(p_key);
-        if(index < 0){
-            throw false;
-        }
-       return  m_list[index];
-        emit dataChanged(index);
-    } catch (bool &e) {
-        return connectionItem();
-    }
-}
-
 connectionItem ConnectionList::itemByPath(QString p_path)
 {
     int i = findPathPos(p_path);
@@ -130,23 +96,6 @@ bool ConnectionList::setItemAt(int index, const connectionItem &p_item)
     return ret;
 }
 
-bool ConnectionList::setItemByKey(int p_key,const connectionItem &p_item)
-{
-    bool ret = true;
-    try {
-        int index=-1;
-        index=findKeyPos(p_key);
-        if(index < 0){
-            throw false;
-        }
-        m_list[index]=p_item;
-        emit dataChanged(index);
-    } catch (bool &e) {
-        ret = e;
-    }
-    return ret;
-}
-
 bool ConnectionList::setItemByPath(QString p_path, const connectionItem &p_item)
 {
     bool ret = true;
@@ -162,18 +111,6 @@ bool ConnectionList::setItemByPath(QString p_path, const connectionItem &p_item)
         ret = e;
     }
     return ret;
-}
-
-int ConnectionList::findKeyPos(int p_key)
-{
-    int index=-1;
-    for(int i = 0; i < m_list.size(); ++i){
-        if(m_list.at(i).uid==p_key){
-            index=i;
-            break;
-        }
-    }
-    return index;
 }
 
 int ConnectionList::findPathPos(const QString &Path)
