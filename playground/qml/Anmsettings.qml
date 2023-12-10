@@ -34,10 +34,6 @@ ApplicationWindow {
         NetworkManager{
             Layout.fillWidth: true
             Layout.fillHeight: true
-            //Layout.margins: 0
-            onNotification: {
-                // notificationManager.notify(title,msg);
-            }
         }
     }
 

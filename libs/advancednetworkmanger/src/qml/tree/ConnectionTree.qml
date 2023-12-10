@@ -13,7 +13,6 @@ Pane {
     id: rootItm
     padding: 0
 
-    signal notification(string title,string msg);
     ConnectionTreeInterface{
         id: backend;
         onAuthFailed: {
@@ -38,9 +37,6 @@ Pane {
                     ethLoader.active = false;
                 }
             }
-            onNotification: {
-                rootItm.notification(title,msg);
-            }
         }
     }
     // Wifi settings component - wifiLoader is consumer
@@ -55,9 +51,6 @@ Pane {
                 if(!visible) {
                     wifiLoader.active = false;
                 }
-            }
-            onNotification: {
-                rootItm.notification(title,msg);
             }
         }
     }
@@ -255,9 +248,6 @@ Pane {
             }
             onDeactivate: {
                 backend.disconnect(p_path)
-            }
-            onNotification: {
-                rootItm.notification(title, msg);
             }
         }
         // ListView section bindings

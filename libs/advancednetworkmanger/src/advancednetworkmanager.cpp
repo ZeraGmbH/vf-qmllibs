@@ -5,7 +5,6 @@
 #include "wirelessconnectionsettingsinterface.h"
 #include "infointerface.h"
 #include "networkmanagerabstraction.h"
-#include "nmcppnotification.h"
 #include <zeratranslationplugin.h>
 #include <zeracomponents.h>
 #include <zerafa.h>
@@ -42,5 +41,4 @@ void AdvancedNetworkmanager::registerCppTypes()
     qmlRegisterType<WirelessConnectionSettingsInterface>(uri, 1, 0, "WirelessConnectionSettingsInterface");
     qmlRegisterType<InfoInterface>(uri, 1, 0, "InfoInterface");
     qmlRegisterType<NetworkmanagerAbstraction>(uri, 1, 0, "NetworkmanagerAbstraction");
-    qmlRegisterType<NmCppNotification>(uri ,1, 0, "NmCppNotification");
 }

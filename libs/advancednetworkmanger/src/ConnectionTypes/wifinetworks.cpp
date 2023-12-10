@@ -1,5 +1,4 @@
 #include "wifinetworks.h"
-#include "nmcppnotification.h"
 #include <NetworkManagerQt/WirelessDevice>
 #include <NetworkManagerQt/WirelessSetting>
 
@@ -374,8 +373,6 @@ void WifiNetworks::stateChanged(NetworkManager::Device::Ptr dev, NetworkManager:
             path=dev->activeConnection()->connection()->path();
             ssid=dev->activeConnection()->connection()->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid();
             emit authFailed(ssid,path,device);
-        }else{
-            NmCppNotification::sendNotifiaction(ssid,"Wrong password");
         }
     }
 }
