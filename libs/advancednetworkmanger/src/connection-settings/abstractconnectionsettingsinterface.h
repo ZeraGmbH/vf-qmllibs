@@ -22,7 +22,7 @@ public:
 
     virtual QStringList getDevices();
     virtual QString getDevice();
-    virtual void setDevice(QString &device);
+    void setDevice(QString &device);
     QString getConName();
     void setConName(QString p_conName);
 signals:
