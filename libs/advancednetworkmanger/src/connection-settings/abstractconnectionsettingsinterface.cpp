@@ -17,11 +17,6 @@ void AbstractConnectionSettingsInterface::load(QString p_path)
         create();
 }
 
-void AbstractConnectionSettingsInterface::create()
-{
-    m_settings= NetworkManager::ConnectionSettings::Ptr::create(NetworkManager::ConnectionSettings::ConnectionType::Unknown);
-}
-
 void AbstractConnectionSettingsInterface::save()
 {
     NMVariantMapMap map = m_settings->toMap();
