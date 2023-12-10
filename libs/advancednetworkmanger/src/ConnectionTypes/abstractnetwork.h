@@ -2,28 +2,18 @@
 #define ABSTRACTNETWORK_H
 
 #include "connectionlist.h"
-#include "connectionmodel.h"
 #include "devicemanager.h"
-
-#include <QObject>
-#include <QMap>
-#include <QList>
-
-
 #include <NetworkManagerQt/ActiveConnection>
 #include <NetworkManagerQt/Connection>
 #include <NetworkManagerQt/ConnectionSettings>
 #include <NetworkManagerQt/AccessPoint>
 #include <NetworkManagerQt/Manager>
 #include <NetworkManagerQt/Settings>
-
-
 #include <NetworkManagerQt/Setting>
 #include <NetworkManagerQt/Ipv4Setting>
 #include <NetworkManagerQt/Ipv6Setting>
-
-
-
+#include <QMap>
+#include <QList>
 
 class ConStruct{
 public:
