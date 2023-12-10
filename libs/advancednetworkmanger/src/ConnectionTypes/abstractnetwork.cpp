@@ -209,14 +209,14 @@ void AbstractNetwork::stateChangeReason(QString path, NetworkManager::ActiveConn
     switch(state) {
     case NetworkManager::ActiveConnection::State::Activated :
         if(itm.NmPath == path){
-            itm.Connected=true;
-            itm.Ipv4=getIpv4(path);
+            itm.Connected = true;
+            itm.Ipv4 = getIpv4(path);
             m_list->setItemByPath(path,itm);
         }
         break;
     case NetworkManager::ActiveConnection::State::Deactivated:
         if(itm.NmPath == path){
-            itm.Connected=false;
+            itm.Connected = false;
             m_list->setItemByPath(path,itm);
         }
         break;
