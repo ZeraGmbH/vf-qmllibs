@@ -38,25 +38,26 @@ bool WifiNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
         device.qtCons.append(connect(device.dev.get(),&NetworkManager::WirelessDevice::stateChanged,this,[dev,this](NetworkManager::Device::State newstate, NetworkManager::Device::State oldstate, NetworkManager::Device::StateChangeReason reason){stateChanged(dev,newstate,oldstate,reason);
         }));
 
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointAppeared,this,[uni,this](const QString &p_apPath){addAccessPoint(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointAppeared,this,[uni,this](const QString &p_apPath){
+            addAccessPoint(uni,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointDisappeared,this,[uni,this](const QString &p_apPath){removeAccessPoint(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointDisappeared,this,[uni,this](const QString &p_apPath){
+            removeAccessPoint(uni,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionAppeared,this,[uni,this](const QString &p_apPath){addAvailabelConnection(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionAppeared,this,[uni,this](const QString &p_apPath){
+            addAvailabelConnection(uni,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionDisappeared,this,[uni,this](const QString &p_apPath){removeAvailabelConnection(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionDisappeared,this,[uni,this](const QString &p_apPath){
+            removeAvailabelConnection(uni,p_apPath);
         }));
         findAPs(uni);
     }
 
-
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionAdded, this, &WifiNetworks::addConnection);
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionRemoved, this, &WifiNetworks::removeConnection);
 
-
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionAdded,this,&WifiNetworks::connectionActivated);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionRemoved,this,&WifiNetworks::connectionDeactivate);
-
 
     m_timer = new QTimer(this);
     connect(m_timer, &QTimer::timeout, this,&WifiNetworks::updateSignal);
@@ -262,8 +263,8 @@ void WifiNetworks::addConnection(const QString &connection)
             conSsid=set.staticCast<NetworkManager::WirelessSetting>()->ssid();
             connectionItem conItm= CreateConItem(conPtr);
             for(QString ssid : m_apList){
-                if(ssid==conSsid){
-                    conItm.Available=true;
+                if(ssid == conSsid){
+                    conItm.Available = true;
                 }
             }
             addConnectionToList(conPtr,conItm);
@@ -300,14 +301,18 @@ void WifiNetworks::addDevice(NetworkManager::Device::Type p_type, QString p_devi
         DevStruct device;
         device.dev=dev;
         m_devList[p_device]=device;
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointAppeared,this,[p_device,this](const QString &p_apPath){addAccessPoint(p_device,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointAppeared,this,[p_device,this](const QString &p_apPath){
+            addAccessPoint(p_device,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointDisappeared,this,[p_device,this](const QString &p_apPath){removeAccessPoint(p_device,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::accessPointDisappeared,this,[p_device,this](const QString &p_apPath){
+            removeAccessPoint(p_device,p_apPath);
         }));
         findAvailableConnections(p_device);
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionAppeared,this,[p_device,this](const QString &p_apPath){addAvailabelConnection(p_device,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionAppeared,this,[p_device,this](const QString &p_apPath){
+            addAvailabelConnection(p_device,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){removeAvailabelConnection(p_device,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WirelessDevice>().data(),&NetworkManager::WirelessDevice::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
+            removeAvailabelConnection(p_device,p_apPath);
         }));
         findAPs(p_device);
     }
