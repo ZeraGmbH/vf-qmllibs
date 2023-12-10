@@ -66,9 +66,6 @@ bool WifiNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
     return true;
 }
 
-
-
-
 void WifiNetworks::findAPs(QString &p_uni)
 {
     NetworkManager::WirelessDevice::Ptr dev;
@@ -135,7 +132,6 @@ void WifiNetworks::findAPs(QString &p_uni)
 
 }
 
-
 connectionItem WifiNetworks::CreateConItem(const NetworkManager::Connection::Ptr p_con)
 {
     NetworkManager::Setting::Ptr set = p_con->settings()->setting(m_setType);
@@ -156,68 +152,55 @@ connectionItem WifiNetworks::CreateConItem(const NetworkManager::Connection::Ptr
     return con;
 }
 
-
-
 void WifiNetworks::addAccessPoint(const QString &p_devUni, const QString &p_apPath)
 {
-    NetworkManager::AccessPoint::Ptr ap;
-
-    NetworkManager::AccessPoint::Ptr apInList;
-    NetworkManager::Connection::Ptr conInList;
     QString path = "";
     NetworkManager::WirelessDevice::Ptr device = m_devManager->getDevice(p_devUni).dynamicCast<NetworkManager::WirelessDevice>();
-    bool newData=true;
-        ap = device->findAccessPoint(p_apPath);
-        if(ap != nullptr){
-            ConStruct conBuf;
-            conBuf.metaData.setValue(ConClassType::AP);
-            conBuf.con.setValue(ap);
-            if(m_conList.contains(p_apPath)){
+    NetworkManager::AccessPoint::Ptr ap = device->findAccessPoint(p_apPath);
+    if(ap != nullptr) {
+        ConStruct conBuf;
+        conBuf.metaData.setValue(ConClassType::AP);
+        conBuf.con.setValue(ap);
+        bool newData = true;
+        if(m_conList.contains(p_apPath))
+            newData = false;
+        m_apList[p_apPath]=ap->ssid();
+
+        for(ConStruct connection: m_conList.values()) {
+            if(connection.metaData.toInt() == (int)ConClassType::AP){
+                if(connection.con.value<NetworkManager::AccessPoint::Ptr>()->ssid()== ap->ssid())
+                    newData = false;
+            }
+            else if(connection.con.value<NetworkManager::Connection::Ptr>()->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid() == ap->ssid())
                 newData = false;
-            }
-
-            m_apList[p_apPath]=ap->ssid();
-
-            for(ConStruct connection: m_conList.values()){
-                if(connection.metaData.toInt() == (int)ConClassType::AP){
-                    if(connection.con.value<NetworkManager::AccessPoint::Ptr>()->ssid()== ap->ssid()){
-                        newData=false;
-                    }
-                }else{
-                    if(connection.con.value<NetworkManager::Connection::Ptr>()->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid() == ap->ssid()){
-                        newData=false;
-                    }
-                }
-            }
-
-            connectionItem con;
-            if(ap->ssid() != ""){
-                con.Name=ap->ssid();
-                con.Groupe="WIFI";
-                con.NmPath=p_apPath;
-                con.Available=true;
-                con.Type=ConType::Wifi;
-                con.Connected=false;
-                con.Stored = false;
-                con.SignalStrength=ap->signalStrength();
-                con.Devices[device->interfaceName()]=device->uni();
-                    if(newData){
-                        m_conList[p_apPath]=conBuf;
-                        m_list->addItem(con);
-                    }else{
-                        connectionItem con2=m_list->itemByPath(p_apPath);
-                        con2 = m_list->itemByPath(path);
-                        con2.SignalStrength=ap->signalStrength();
-                        con2.Available=true;
-                        for(QString key: con.Devices.keys()){
-                            con2.Devices[key]=con.Devices[key];
-                        }
-                        m_list->setItemByPath(path,con2);
-                    }
-
-            }
         }
 
+        if(ap->ssid() != "") {
+            connectionItem con;
+            con.Name=ap->ssid();
+            con.Groupe="WIFI";
+            con.NmPath=p_apPath;
+            con.Available=true;
+            con.Type=ConType::Wifi;
+            con.Connected=false;
+            con.Stored = false;
+            con.SignalStrength=ap->signalStrength();
+            con.Devices[device->interfaceName()]=device->uni();
+            if(newData) {
+                m_conList[p_apPath]=conBuf;
+                m_list->addItem(con);
+            }
+            else {
+                connectionItem con2=m_list->itemByPath(p_apPath);
+                con2 = m_list->itemByPath(path);
+                con2.SignalStrength=ap->signalStrength();
+                con2.Available=true;
+                for(QString key: con.Devices.keys())
+                    con2.Devices[key]=con.Devices[key];
+                m_list->setItemByPath(path,con2);
+            }
+        }
+    }
 }
 
 void WifiNetworks::removeAccessPoint(const QString &p_devUni, const QString &p_uni)
@@ -238,19 +221,17 @@ void WifiNetworks::removeAccessPoint(const QString &p_devUni, const QString &p_u
     }
 
     if(managed){
-    m_list->removeByPath(p_uni);
-    for(ConStruct connection: m_conList.values()){
-        if(connection.metaData.toInt() != (int)ConClassType::AP){
-            if(connection.con.value<NetworkManager::Connection::Ptr>()->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid() == ssid){
-                connectionItem con2;
-                con2 = m_list->itemByPath(connection.con.value<NetworkManager::Connection::Ptr>()->path());
-                m_list->setItemByPath(connection.con.value<NetworkManager::Connection::Ptr>()->path(),con2);
+        m_list->removeByPath(p_uni);
+        for(ConStruct connection: m_conList.values()){
+            if(connection.metaData.toInt() != (int)ConClassType::AP){
+                if(connection.con.value<NetworkManager::Connection::Ptr>()->settings()->setting(m_setType).dynamicCast<NetworkManager::WirelessSetting>()->ssid() == ssid){
+                    connectionItem con2;
+                    con2 = m_list->itemByPath(connection.con.value<NetworkManager::Connection::Ptr>()->path());
+                    m_list->setItemByPath(connection.con.value<NetworkManager::Connection::Ptr>()->path(),con2);
+                }
             }
         }
     }
-    }
-
-
 }
 
 void WifiNetworks::addConnection(const QString &connection)
@@ -292,7 +273,6 @@ void WifiNetworks::removeConnection(const QString &connection)
         findAPs(uni);
     }
 }
-
 
 void WifiNetworks::addDevice(NetworkManager::Device::Type p_type, QString p_device){
 
