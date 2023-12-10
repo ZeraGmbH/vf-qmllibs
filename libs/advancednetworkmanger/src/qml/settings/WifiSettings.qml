@@ -23,8 +23,6 @@ Pane {
     property real pointSize: rowHeight / 2.8
     property int labelWidth : rootItm.width / 3
 
-    signal notification(string title, string msg);
-
     function init() {
         if(path === "") {
             backend.create();
@@ -268,8 +266,6 @@ Pane {
                 if(good) {
                     backend.save();
                     rootItm.visible = false
-                } else {
-                    notification(Z.tr("Network settings"), Z.tr("invalid settings in field: ") + errorField)
                 }
             }
         }

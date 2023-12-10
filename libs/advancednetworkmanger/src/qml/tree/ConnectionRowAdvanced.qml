@@ -48,7 +48,6 @@ Item{
     signal remove(string p_path)
     signal activate(string p_path, string device)
     signal deactivate(string p_path)
-    signal notification(string title,string msg);
 
     MouseArea{
         id: itemMouseArea
