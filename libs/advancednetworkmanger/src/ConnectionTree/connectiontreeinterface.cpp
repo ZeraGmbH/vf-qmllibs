@@ -1,5 +1,4 @@
 #include "connectiontreeinterface.h"
-#include "vpnnetworks.h"
 #include "wifinetworks.h"
 #include "ethernetnetworks.h"
 #include "devicemanager.h"
