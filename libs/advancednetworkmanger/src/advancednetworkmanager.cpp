@@ -1,5 +1,4 @@
 #include "advancednetworkmanager.h"
-#include "abstractconnectionsettingsinterface.h"
 #include "connectiontreeinterface.h"
 #include "wiredconnectionsettingsinterface.h"
 #include "wirelessconnectionsettingsinterface.h"
@@ -34,7 +33,6 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
 void AdvancedNetworkmanager::registerCppTypes()
 {
     #define uri "anmsettings"
-    qmlRegisterType<AbstractConnectionSettingsInterface>(uri, 1, 0, "AbstractConnectionSettingsInterface");
     qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");
     qmlRegisterType<ConnectionTreeInterface>(uri, 1, 0, "ConnectionTreeInterface");
     qmlRegisterType<WiredConnectionSettingsInterface>(uri, 1, 0, "WiredConnectionSettingsInterface");
