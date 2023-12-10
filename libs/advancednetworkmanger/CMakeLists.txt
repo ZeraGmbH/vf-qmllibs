@@ -42,7 +42,7 @@ target_include_directories(anmlib
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/connection-settings>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/ConnectionTree>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/ConnectionTypes>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/networks>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/cppNotificationHandler>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/devices>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src/info>
