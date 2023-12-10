@@ -19,10 +19,11 @@ bool EthernetNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager
         device.dev=m_devManager->getDevice(uni).dynamicCast<NetworkManager::WiredDevice>();
         m_devList[uni]=device;
 
-
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WiredDevice>().data(),&NetworkManager::WiredDevice::availableConnectionAppeared,this,[uni,this](const QString &p_apPath){addAvailabelConnection(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WiredDevice>().data(),&NetworkManager::WiredDevice::availableConnectionAppeared,this,[uni,this](const QString &p_apPath){
+            addAvailabelConnection(uni,p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WiredDevice>().data(),&NetworkManager::WiredDevice::availableConnectionDisappeared,this,[uni,this](const QString &p_apPath){removeAvailabelConnection(uni,p_apPath);
+        device.qtCons.append(connect(device.dev.dynamicCast<NetworkManager::WiredDevice>().data(),&NetworkManager::WiredDevice::availableConnectionDisappeared,this,[uni,this](const QString &p_apPath){
+            removeAvailabelConnection(uni,p_apPath);
         }));
 
         findAvailableConnections(uni);
@@ -36,7 +37,6 @@ bool EthernetNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager
 
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionAdded,this,&EthernetNetworks::connectionActivated);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::activeConnectionRemoved,this,&EthernetNetworks::connectionDeactivate);
-
 
     return true;
 }
