@@ -265,15 +265,17 @@ Pane {
             }
         }
     }
+    readonly property real buttonPointSize: height>0 ? height * 0.055 : 10
+    readonly property real buttonVerticalPadding: buttonPointSize * 0.33
     Button {
         id: addbutton
         text: "+"
-        font.pixelSize: parent.height/30
+        font.pointSize: buttonPointSize
         onClicked: menu.open()
         anchors.left: parent.left
         anchors.bottom: parent.bottom
-        width: font.pixelSize + 40
-        height: font.pixelSize + 32
+        verticalPadding: buttonVerticalPadding
+        width: implicitHeight * 1.25
         Menu {
             id: menu
             width: rootItm.width / 2.5
@@ -300,17 +302,22 @@ Pane {
             }
         }
     }
-    ToolButton {
+    Button {
         id: infoButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom
         font.family: FA.old
-        text: FA.fa_info_circle
-        font.pixelSize: parent.height/20
-        highlighted: infoLoader.active
-        Material.accent: Material.Amber
-        background: Rectangle{
-            color: "transparent"
+        font.pointSize: buttonPointSize
+        verticalPadding: buttonVerticalPadding
+        width: implicitHeight * 1.25
+        text: {
+            let ret = FA.fa_info_circle
+            if(infoLoader.active) {
+                let colorPrefix = "<font color='" + Qt.lighter(Material.color(Material.Amber)) + "'>"
+                let colorPostfix = "</font>"
+                ret = colorPrefix + ret + colorPostfix
+            }
+            return ret
         }
         onClicked: {
             infoLoader.active = !infoLoader.active
