@@ -18,6 +18,7 @@ Item {
     readonly property bool acceptableInput: hasValidInput()
     property real pointSize: height > 0.0 ? height / 2.5 : 10
     property bool changeOnFocusLost: true
+    property bool selectAllOnFocus: isNumeric
 
     // some extra labels (would like to get rid of them...)
     property alias description: descriptionText
@@ -60,18 +61,14 @@ Item {
     function baseActiveFocusChange(actFocus) {
         if(changeOnFocusLost && !actFocus) {
             if(hasAlteredValue()) {
-                if(hasValidInput()) {
+                if(hasValidInput())
                     applyInput()
-                }
-                else {
+                else
                     discardInput()
-                }
             }
         }
-        // Hmm - maybe we should add an option for this...
-        /*else {
-            selectAll()
-        }*/
+        else if(selectAllOnFocus && actFocus)
+            tField.selectAll()
     }
 
     // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
