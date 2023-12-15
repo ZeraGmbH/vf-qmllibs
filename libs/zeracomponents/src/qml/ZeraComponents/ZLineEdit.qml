@@ -42,13 +42,7 @@ Item {
 
     // signal handler
     onTextChanged: discardInput()
-    onValidatorChanged: {
-        tField.validator = validator
-        if(isNumeric)
-            tField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-        else
-            tField.inputMethodHints = Qt.ImhNoAutoUppercase
-    }
+    onValidatorChanged: tField.validator = validator
     onLocaleNameChanged: discardInput()
 
     // base implementations
@@ -67,6 +61,7 @@ Item {
 
     // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
     readonly property bool isNumeric: validator !== undefined && 'bottom' in validator && 'top' in validator
+    onIsNumericChanged: tField.inputMethodHints = isNumeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoAutoUppercase
     readonly property bool isDouble: isNumeric && 'decimals' in validator
     readonly property string localeName: ZLocale.localeName
     function applyInput() {
