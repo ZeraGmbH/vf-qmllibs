@@ -61,7 +61,6 @@ Item {
 
     // bit of a hack to check for IntValidator / DoubleValidator to detect a numeric field
     readonly property bool isNumeric: validator !== undefined && 'bottom' in validator && 'top' in validator
-    onIsNumericChanged: tField.inputMethodHints = isNumeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoAutoUppercase
     readonly property bool isDouble: isNumeric && 'decimals' in validator
     readonly property string localeName: ZLocale.localeName
     function applyInput() {
@@ -102,7 +101,7 @@ Item {
 
         mouseSelectionMode: TextInput.SelectWords
         selectByMouse: true
-        inputMethodHints: Qt.ImhNoAutoUppercase
+        inputMethodHints: isNumeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoAutoUppercase
         onAccepted: {
             if(hasValidInput()) {
                 applyInput()
