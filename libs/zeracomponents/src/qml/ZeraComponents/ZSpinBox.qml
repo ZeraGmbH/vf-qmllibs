@@ -21,6 +21,7 @@ Item {
     property string text: "" // locale C
     readonly property bool acceptableInput: hasValidInput()
     property bool changeOnFocusLost: true
+    property bool selectAllOnFocus: isNumeric
 
     // overridables
     function doApplyInput(newText) {return true} //  (return true: apply immediate)
@@ -46,26 +47,7 @@ Item {
         }
         inApply = false
     }
-    onValidatorChanged: {
-        sBox.validator = validator
-        if(isNumeric) {
-            if(isDouble) {
-                sBox.from = validator.bottom*Math.pow(10, validator.decimals)
-                sBox.to = validator.top*Math.pow(10, validator.decimals)
-            }
-            else {
-                sBox.from = validator.bottom
-                sBox.to = validator.top
-            }
-            sBox.inputMethodHints = Qt.ImhFormattedNumbersOnly
-        }
-        else {
-            sBox.inputMethodHints = Qt.ImhNoAutoUppercase
-        }
-    }
-    onReadOnlyChanged: {
-        sBox.editable = !readOnly
-    }
+    onValidatorChanged: sBox.validator = validator
     onLocaleNameChanged: {
         sBox.locale = ZLocale.locale
         discardInput()
@@ -75,18 +57,14 @@ Item {
     function baseActiveFocusChange(actFocus) {
         if(changeOnFocusLost && !inFocusKill && !actFocus) {
             if(hasAlteredValue()) {
-                if(hasValidInput()) {
+                if(hasValidInput())
                     applyInput()
-                }
-                else {
+                else
                     discardInput()
-                }
             }
         }
-        // Hmm - maybe we should add an option for this...
-        /*else {
-            selectAll()
-        }*/
+        else if(selectAllOnFocus && actFocus)
+            tField.selectAll()
     }
 
     property var tField: sBox.contentItem
@@ -98,10 +76,8 @@ Item {
     property bool inFocusKill: false
     readonly property string localeName: ZLocale.localeName
     function applyInput() {
-        if(hasValidInput())
-        {
-            if(hasAlteredValue())
-            {
+        if(hasValidInput()) {
+            if(hasAlteredValue()) {
                 inApply = true
                 var newText = ZLocale.strToCLocale(tField.text, isNumeric, isDouble)
                 if(doApplyInput(newText)) {
@@ -110,13 +86,11 @@ Item {
                 }
             }
             // we changed text but did not change value
-            else {
+            else
                 discardInput()
-            }
         }
-        else {
+        else
             discardInput()
-        }
     }
 
     // controls
@@ -124,9 +98,11 @@ Item {
         id: sBox
         height: parent.height
         bottomPadding: 8
-        editable: true
-        inputMethodHints: Qt.ImhFormattedNumbersOnly
+        editable: !readOnly
+        inputMethodHints: isNumeric ? Qt.ImhFormattedNumbersOnly : Qt.ImhNoAutoUppercase
         font.pointSize: root.pointSize
+        from: isNumeric ? (isDouble ? validator.bottom*Math.pow(10, validator.decimals) : validator.bottom) : from
+        to: isNumeric ? (isDouble ? validator.top*Math.pow(10, validator.decimals) : validator.top) : to
 
         // overrides
         textFromValue: function(value, locale) {
@@ -135,14 +111,12 @@ Item {
                     var val = value / Math.pow(10, validator.decimals)
                     return ZLocale.strToLocal(val.toString(), isNumeric, isDouble)
                 }
-                else {
+                else
                     return ZLocale.strToLocal(value.toString(), isNumeric, isDouble)
-                }
             }
-            else {
+            else
                 // TODO
                 return ""
-            }
         }
         valueFromText: function(text, locale) {
             if (isNumeric) {
@@ -150,22 +124,18 @@ Item {
                     var str = ZLocale.strToLocal(text, isNumeric, isDouble)
                     return Number.fromLocaleString(locale, str)*Math.pow(10, validator.decimals)
                 }
-                else {
+                else
                     return parseInt(text, 10)
-                }
             }
-            else {
+            else
                 // TODO
                 return 0
-            }
-
         }
 
         // Events
         Keys.onReturnPressed: {
             // Hmm try to get same behaviour as ZLineEdit
-            if(hasValidInput())
-            {
+            if(hasValidInput()) {
                 applyInput()
                 inFocusKill = true
                 focus = false
@@ -181,14 +151,12 @@ Item {
         /* Avoid QML magic: when the cursor is at start/end position,
         left/right keys are used to change tab. We don't want that */
         Keys.onLeftPressed: {
-            if(tField.cursorPosition > 0 || tField.selectedText !== "") {
+            if(tField.cursorPosition > 0 || tField.selectedText !== "")
                 event.accepted = false;
-            }
         }
         Keys.onRightPressed: {
-            if(tField.cursorPosition < displayText.length || tField.selectedText !== "") {
+            if(tField.cursorPosition < displayText.length || tField.selectedText !== "")
                 event.accepted = false;
-            }
         }
         onValueModified: {
             if(!inApply) {
@@ -198,9 +166,7 @@ Item {
                     applyInput()
             }
         }
-        onActiveFocusChanged: {
-            activeFocusChange(activeFocus)
-        }
+        onActiveFocusChanged: activeFocusChange(activeFocus)
 
         // Background rects
         Rectangle {
@@ -217,6 +183,5 @@ Item {
             opacity: 0.2
             visible: hasValidInput() && !readOnly && hasAlteredValue()
         }
-
     }
 }
