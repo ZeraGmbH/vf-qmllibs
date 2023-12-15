@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.12
+import QtQuick 2.14
+import QtQuick.Controls 2.14
 import SortFilterProxyModel 0.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
@@ -278,27 +278,19 @@ Pane {
         width: implicitHeight * 1.25
         Menu {
             id: menu
-            width: rootItm.width / 2.5
             MenuItem {
                 text: Z.tr("Add Ethernet...")
-                font.pixelSize: menu.width/18
-                onClicked: {
-                    ethLoader.load("")
-                }
+                onClicked: ethLoader.load("")
             }
+            MenuSeparator { }
             MenuItem {
                 text: Z.tr("Add Hotspot...")
-                font.pixelSize: menu.width/18
-                onClicked: {
-                    wifiLoader.load("", true)
-                }
+                onClicked: wifiLoader.load("", true)
             }
+            MenuSeparator { }
             MenuItem {
                 text: Z.tr("Add Wifi...")
-                font.pixelSize: menu.width/18
-                onClicked: {
-                    wifiLoader.load("", false)
-                }
+                onClicked: wifiLoader.load("", false)
             }
         }
     }
