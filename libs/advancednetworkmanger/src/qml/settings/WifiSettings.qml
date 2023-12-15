@@ -24,25 +24,18 @@ Pane {
     property int labelWidth : rootItm.width / 3
 
     function init() {
-        if(path === "") {
+        if(path === "")
             backend.create();
-        } else {
+        else
             backend.load(path);
-        }
     }
     function autoMoveFocusToNext() {
-        if(!ssid.text.focus && ssid.text === "") {
+        if(!ssid.text.focus && ssid.text === "")
             ssid.textField.focus = true
-        }
-        else if(!pw.text.focus && pw.text === "") {
+        else if(!pw.text.focus && pw.text === "")
             pw.textField.focus = true
-        }
-
     }
 
-    NetworkmanagerAbstraction {
-        id: generalbackend
-    }
     WirelessConnectionSettingsInterface {
         id: backend
         onLoadComplete: {
