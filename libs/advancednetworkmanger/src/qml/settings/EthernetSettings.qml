@@ -58,7 +58,7 @@ Pane {
             sub6.text = backend.ipv6Sub;
             var index = backend.device !== "" ? devices.find(backend.device, Qt.MatchExactly) : 0
             devices.currentIndex = index;
-            backend.device = devices.model[devices.currentIndex]
+            backend.device = devices[index]
         }
     }
     VisualItemModel {
