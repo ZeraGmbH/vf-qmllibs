@@ -23,14 +23,10 @@ Pane {
     property real pointSize: rowHeight / 2.8
 
     function init() {
-        if(path === "") {
+        if(path === "")
             backend.create();
-        } else {
+        else
             backend.load(path);
-        }
-    }
-    NetworkmanagerAbstraction {
-        id: generalbackend
     }
     WiredConnectionSettingsInterface {
         id: backend
