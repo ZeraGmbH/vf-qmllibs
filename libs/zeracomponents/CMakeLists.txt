@@ -6,9 +6,7 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
     )
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(RESOURCES zeracomponents.qrc)
-else()
+if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
     qtquick_compiler_add_resources(RESOURCES zeracomponents.qrc)
 endif()
 
