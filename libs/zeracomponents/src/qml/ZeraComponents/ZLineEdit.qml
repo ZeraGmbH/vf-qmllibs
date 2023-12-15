@@ -76,23 +76,18 @@ Item {
     readonly property bool isDouble: isNumeric && 'decimals' in validator
     readonly property string localeName: ZLocale.localeName
     function applyInput() {
-        if(hasValidInput())
-        {
-            if(hasAlteredValue())
-            {
+        if(hasValidInput()) {
+            if(hasAlteredValue()) {
                 var newText = ZLocale.strToCLocale(tField.text, isNumeric, isDouble)
-                if(doApplyInput(newText)) {
+                if(doApplyInput(newText))
                     text = newText
-                }
             }
             // we changed text but did not change value
-            else {
+            else
                 discardInput()
-            }
         }
-        else {
+        else
             discardInput()
-        }
     }
 
     // controls
