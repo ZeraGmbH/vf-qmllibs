@@ -41,21 +41,15 @@ Item {
     }
 
     // signal handler
-    onTextChanged: {
-        discardInput()
-    }
+    onTextChanged: discardInput()
     onValidatorChanged: {
         tField.validator = validator
-        if(isNumeric) {
+        if(isNumeric)
             tField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-        }
-        else {
+        else
             tField.inputMethodHints = Qt.ImhNoAutoUppercase
-        }
     }
-    onLocaleNameChanged: {
-        discardInput()
-    }
+    onLocaleNameChanged: discardInput()
 
     // base implementations
     function baseActiveFocusChange(actFocus) {
@@ -127,18 +121,14 @@ Item {
         /* Avoid QML magic: when the cursor is at start/end position,
            left/right keys are used to change tab. We don't want that */
         Keys.onLeftPressed: {
-            if(cursorPosition > 0 || selectedText !== "") {
+            if(cursorPosition > 0 || selectedText !== "")
                 event.accepted = false;
-            }
         }
         Keys.onRightPressed: {
-            if(cursorPosition < text.length || selectedText !== "") {
+            if(cursorPosition < text.length || selectedText !== "")
                 event.accepted = false;
-            }
         }
-        onActiveFocusChanged: {
-            activeFocusChange(activeFocus)
-        }
+        onActiveFocusChanged: activeFocusChange(activeFocus)
 
         Rectangle {
             color: "red"
