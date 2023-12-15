@@ -5,7 +5,6 @@
         <file>src/qml/components/HackVKeyboardFocus.qml</file>
         <file>src/qml/components/PasswordPreviewButton.qml</file>
         <file>src/qml/settings/AvailableApDialog.qml</file>
-        <file>src/qml/settings/AvailableDevDialog.qml</file>
         <file>src/qml/settings/EthernetSettings.qml</file>
         <file>src/qml/settings/WifiSettings.qml</file>
         <file>src/qml/tree/ConnectionInfo.qml</file>
