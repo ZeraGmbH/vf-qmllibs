@@ -285,24 +285,16 @@ Pane {
             Layout.preferredWidth: cancelButton.width
             onClicked: {
                 var good = true;
-                var errorField;
-
-                if(!ipv6.acceptableInput && ipv6.enabled) {
+                if(!ipv6.acceptableInput && ipv6.enabled)
                     good = false;
-                    errorField = Z.tr("IPV6 IP")
-                } else if(!sub6.acceptableInput && sub6.enabled) {
+                else if(!sub6.acceptableInput && sub6.enabled)
                     good = false;
-                    errorField = Z.tr("IPV6 Subnetmask")
-                } else if(!ipv4.acceptableInput &&ipv4.enabled) {
+                else if(!ipv4.acceptableInput &&ipv4.enabled)
                     good = false;
-                    errorField = Z.tr("IPV4 IP")
-                } else if(!sub4.acceptableInput && sub4.enabled) {
+                else if(!sub4.acceptableInput && sub4.enabled)
                     good = false;
-                    errorField = Z.tr("IPV4 Subnetmask")
-                } else if(!name.acceptableInput){
+                else if(!name.acceptableInput)
                     good = false;
-                    errorField = Z.tr("Connection name")
-                }
                 if(good) {
                     backend.save();
                     rootItm.visible = false

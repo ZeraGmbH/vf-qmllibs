@@ -252,17 +252,12 @@ Pane {
             height: implicitContentHeight
             onClicked: {
                 var good = true;
-                var errorField = "";
-                if(!name.acceptableInput) {
+                if(!name.acceptableInput)
                     good = false;
-                    errorField = Z.tr("Connection name")
-                } else if(!ssid.acceptableInput) {
+                else if(!ssid.acceptableInput)
                     good = false;
-                    errorField = Z.tr("SSID")
-                } else if(!pw.acceptableInput) {
+                else if(!pw.acceptableInput)
                     good = false;
-                    errorField = Z.tr("Password")
-                }
                 if(good) {
                     backend.save();
                     rootItm.visible = false
