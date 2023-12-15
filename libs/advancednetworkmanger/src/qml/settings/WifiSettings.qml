@@ -278,16 +278,4 @@ Pane {
             backend.ssid = retSsid;
         }
     }
-    AvailableDevDialog {
-        id: aDevDialog
-        width: parent.width*0.9
-        devices: backend.devices;
-        parent: Overlay.overlay
-        x: 0
-        y: 0
-        onOkPressed: {
-            device.text = retDevice;
-            backend.device = retDevice;
-        }
-    }
 }
