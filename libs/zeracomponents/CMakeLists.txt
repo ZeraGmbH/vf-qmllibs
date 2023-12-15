@@ -6,7 +6,9 @@ file(GLOB_RECURSE SOURCES
     src/*.cpp
     )
 
-if(NOT "${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
+    add_subdirectory("src/qml")
+else()
     qtquick_compiler_add_resources(RESOURCES zeracomponents.qrc)
 endif()
 
