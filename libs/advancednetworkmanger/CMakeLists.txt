@@ -7,7 +7,7 @@ file(GLOB_RECURSE SOURCES
     )
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(RESOURCES anmlib.qrc)
+    add_subdirectory("src/qml")
 else()
     qtquick_compiler_add_resources(RESOURCES anmlib.qrc)
 endif()
