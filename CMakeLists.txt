@@ -58,10 +58,6 @@ macro(SET_QML_PATH TARGET QML_BASE)
     endif()
 endmacro()
 
-if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG")
-endif()
-
 write_basic_package_version_file(
     VfQmlLibsConfigVersion.cmake
     VERSION ${PROJECT_VERSION}
