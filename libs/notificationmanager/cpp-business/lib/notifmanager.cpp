@@ -1,4 +1,6 @@
 #include "notifmanager.h"
+#include "notificationmsgexpiring.h"
+#include "notificationmsg.h"
 #include "notificationmsgcontainer.h"
 #include <QtQml>
 
@@ -15,4 +17,6 @@ void NotifManager::registerQml()
 void NotifManager::registerType()
 {
     qmlRegisterType<NotificationMsgContainer>("NotificationMsgContainer", 1, 0, "NotificationMsgContainer");
+    qmlRegisterType<NotificationMsg>("NotificationMsg", 1, 0, "NotificationMsg");
+    qmlRegisterType<NotificationMsgExpiring>("NotificationMsgExpiring", 1, 0, "NotificationMsgExpiring");
 }

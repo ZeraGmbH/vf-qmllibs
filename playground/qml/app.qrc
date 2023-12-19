@@ -5,7 +5,8 @@
         <file>ComboBoxTest.qml</file>
         <file>DelayTest.qml</file>
         <file>Main.qml</file>
-        <file>NotifiManager.qml</file>
+        <file>NotificationManager.qml</file>
+        <file>NotifManager.qml</file>
         <file>qtquickcontrols2.conf</file>
         <file>RadioButtonTest.qml</file>
         <file>SacVuTest.qml</file>

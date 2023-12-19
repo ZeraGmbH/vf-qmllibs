@@ -11,8 +11,10 @@ class NotificationMsgContainer : public QObject
     Q_OBJECT
 public:
     explicit NotificationMsgContainer();
-    void addMsg(NotificationMsgPtr msg);
-    void clear();
+
+    Q_INVOKABLE void addMsg(NotificationMsgPtr msg);
+    Q_INVOKABLE void clear();
+
     QVector<NotificationMsgPtr> getMsgs();
 signals:
     void sigMsgFaded();

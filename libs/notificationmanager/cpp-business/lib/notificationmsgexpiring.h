@@ -7,7 +7,12 @@
 class NotificationMsgExpiring : public NotificationMsg
 {
 public:
+
+    Q_PROPERTY(int timer WRITE setTimer NOTIFY onFaded)
+
+    NotificationMsgExpiring();
     explicit NotificationMsgExpiring(QString msg, int fadeOutTimeMs);
+    void setTimer(int fadeOutTimeMs);
 private slots:
     void onFaded();
 private:

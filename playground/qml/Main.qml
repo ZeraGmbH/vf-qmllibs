@@ -43,7 +43,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked){
                     commonLoader.active=true;
-                    commonLoader.source = "NotifiManager.qml";
+                    commonLoader.source = "NotificationManager.qml";
                 }else{
                     commonLoader.active=false;
                 }
@@ -128,6 +128,19 @@ ApplicationWindow {
             }
         }
 
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load new notifManager"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "NotifManager.qml";
+                }
+                else
+                    commonLoader.active=false;
+            }
+        }
         // Next CheckBox here
 
     }
