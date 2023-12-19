@@ -15,6 +15,7 @@ target_link_libraries(
         uivlib
         zerafa
         ZVKeyboardLayout
+        notificationmanager-static
 )
 
 install(TARGETS vf-qmllibs-examples

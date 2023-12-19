@@ -1,5 +1,6 @@
 #include "advancednetworkmanager.h"
 #include "notificationmanager.h"
+#include "notifmanager.h"
 #include "uivectorgraphics.h"
 #include "zeracomponents.h"
 #include "zvkeyboardlayout.h"
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
     NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
     ZeraComponents::registerQml(engine);
+    NotifManager::registerQml();
 
     return app.exec();
 }
