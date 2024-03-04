@@ -19,6 +19,7 @@ Item {
     property real pointSize: height > 0.0 ? height / 2.5 : 10
     property bool changeOnFocusLost: true
     property bool selectAllOnFocus: isNumeric
+    property int textAlignment: Text.AlignRight
 
     // some extra labels (would like to get rid of them...)
     property alias description: descriptionText
@@ -94,7 +95,7 @@ Item {
         anchors.left: descriptionText.right
         anchors.right: unitLabel.left
         anchors.rightMargin: ZCC.standardTextHorizMargin
-        horizontalAlignment: Text.AlignRight
+        horizontalAlignment: root.textAlignment
         bottomPadding: ZCC.standardTextBottomMargin
         font.pointSize: root.pointSize
         width: root.width - (descriptionText.width + unitLabel.width)
