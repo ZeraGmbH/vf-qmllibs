@@ -10,6 +10,9 @@
         <file>zvkeyboard/layouts/en_US/numbers.fallback</file>
         <file>zvkeyboard/layouts/en_US/main.fallback</file>
         <file>zvkeyboard/layouts/en_US/symbols.fallback</file>
+        <file>zvkeyboard/layouts/es_ES/numbers.fallback</file>
+        <file>zvkeyboard/layouts/es_ES/main.qml</file>
+        <file>zvkeyboard/layouts/es_ES/symbols.qml</file>
         <file>zvkeyboard/layouts/fallback/numbers.qml</file>
         <file>zvkeyboard/layouts/fallback/main.qml</file>
         <file>zvkeyboard/layouts/fallback/symbols.qml</file>
