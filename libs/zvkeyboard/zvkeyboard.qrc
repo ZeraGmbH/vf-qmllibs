@@ -19,5 +19,8 @@
         <file>zvkeyboard/layouts/fr_FR/symbols.fallback</file>
         <file>zvkeyboard/layouts/fr_FR/numbers.fallback</file>
         <file>zvkeyboard/layouts/fr_FR/main.qml</file>
+        <file>zvkeyboard/layouts/pt_PT/numbers.fallback</file>
+        <file>zvkeyboard/layouts/pt_PT/main.qml</file>
+        <file>zvkeyboard/layouts/pt_PT/symbols.fallback</file>
     </qresource>
 </RCC>
