@@ -15,3 +15,5 @@ ZSpinBox 1.0 ZSpinBox.qml
 ZUnitComboBox 1.0 ZUnitComboBox.qml
 ZVisualComboBox 1.0 ZVisualComboBox.qml
 ZSwitch 1.0 ZSwitch.qml
+ZvKeyboardFlickable 1.0 ZvKeyboardFlickable.qml
+ZvKeyboardInputPanel 1.0 ZvKeyboardInputPanel.qml

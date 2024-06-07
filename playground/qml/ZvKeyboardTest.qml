@@ -18,18 +18,13 @@ ApplicationWindow {
     Material.theme: Material.Dark
     Material.accent: Material.color(Material.Green)
 
-    Flickable {
-        id: flickable
-        anchors.fill: parent
-        contentWidth: parent.width;
-        contentHeight: parent.height+inputPanel.realHeight
-        boundsBehavior: Flickable.StopAtBounds
-        interactive: false
-        NumberAnimation on contentY
-        {
-            duration: 300
-            id: flickableAnimation
-        }
+    ZvKeyboardInputPanel {
+        id: inputPanel
+        flickable: zvkFlickable
+    }
+
+    ZvKeyboardFlickable {
+        id: zvkFlickable
         // Select language
         ComboBox {
             id: langCombo
@@ -179,54 +174,5 @@ ApplicationWindow {
                 }
             }
         }
-    }
-    InputPanel {
-         id: inputPanel
-         anchors.left: parent.left
-         anchors.right: parent.right
-         anchors.bottom: parent.bottom
-         property bool textEntered: Qt.inputMethod.visible
-         // Hmm - why is this necessary?
-         property real realHeight: height/1.65
-         opacity: 0
-         NumberAnimation on opacity
-         {
-             id: keyboardAnimation
-             onStarted: {
-                 if(to === 1) {
-                     inputPanel.visible = true
-                 }
-             }
-             onFinished: {
-                 if(to === 0) {
-                     inputPanel.visible = false
-                 }
-             }
-         }
-         onTextEnteredChanged: {
-             var rectInput = Qt.inputMethod.anchorRectangle
-             if (inputPanel.textEntered)
-             {
-                if(rectInput.bottom > inputPanel.y)
-                {
-                    flickableAnimation.to = rectInput.bottom - inputPanel.y + 10
-                    flickableAnimation.start()
-                }
-                keyboardAnimation.to = 1
-                keyboardAnimation.duration = 500
-                keyboardAnimation.start()
-             }
-             else
-             {
-                 if(flickable.contentY !== 0)
-                 {
-                     flickableAnimation.to = 0
-                     flickableAnimation.start()
-                 }
-                 keyboardAnimation.to = 0
-                 keyboardAnimation.duration = 0
-                 keyboardAnimation.start()
-             }
-         }
     }
 }
