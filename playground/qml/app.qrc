@@ -12,6 +12,6 @@
         <file>SacVuTestViewSigned.qml</file>
         <file>SacVuTestViewUnsigned.qml</file>
         <file>Uivectorgraph.qml</file>
-        <file>ZvKeyboard.qml</file>
+        <file>ZvKeyboardTest.qml</file>
     </qresource>
 </RCC>
