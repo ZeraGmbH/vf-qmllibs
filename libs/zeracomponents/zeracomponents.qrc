@@ -16,8 +16,10 @@
         <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
         <file>src/qml/ZeraComponents/ZUnitComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
+        <file>src/qml/ZeraComponents/ZSwitch.qml</file>
+        <file>src/qml/ZeraComponents/ZvKeyboardInputPanel.qml</file>
+        <file>src/qml/ZeraComponents/ZvKeyboardFlickable.qml</file>
         <file>src/qml/ZeraComponentsConfig/qmldir</file>
         <file>src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
-        <file>src/qml/ZeraComponents/ZSwitch.qml</file>
     </qresource>
 </RCC>
