@@ -121,7 +121,7 @@ ApplicationWindow {
             onCheckStateChanged: {
                 if(checked){
                     commonLoader.active=true;
-                    commonLoader.source = "ZvKeyboard.qml";
+                    commonLoader.source = "ZvKeyboardTest.qml";
                 }
                 else
                     commonLoader.active=false;
