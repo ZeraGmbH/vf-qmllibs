@@ -24,7 +24,7 @@ void WirelessConnectionSettingsInterface::saveAndActivate(const QString &p_devUn
 
 void WirelessConnectionSettingsInterface::create()
 {
-    m_settings= NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType::Wireless));
+    m_settings = NetworkManager::ConnectionSettings::Ptr(new NetworkManager::ConnectionSettings(NetworkManager::ConnectionSettings::ConnectionType::Wireless));
     m_settings->setUuid(QUuid::createUuid().toString().remove('{').remove('}'));
     m_settings->setting(NetworkManager::Setting::SettingType::WirelessSecurity).staticCast<NetworkManager::WirelessSecuritySetting>()->setKeyMgmt(NetworkManager::WirelessSecuritySetting::KeyMgmt::WpaPsk);
     for(auto ptr : m_settings->settings()){
@@ -40,7 +40,7 @@ void WirelessConnectionSettingsInterface::create()
 
 QStringList WirelessConnectionSettingsInterface::getDevices()
 {   
-    NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
+    const NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
     QStringList list;
     for(const NetworkManager::Device::Ptr &dev : devList){
         if(dev->type() == NetworkManager::Device::Type::Wifi){
@@ -55,7 +55,7 @@ QStringList WirelessConnectionSettingsInterface::getDevices()
 QString WirelessConnectionSettingsInterface::getDevicePath(const QString &p_interfaceName)
 {
     QString path="";
-    NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
+    const NetworkManager::Device::List devList = NetworkManager::networkInterfaces();
     for(const NetworkManager::Device::Ptr &dev : devList){
         if(dev->interfaceName() == p_interfaceName){
             path=dev->uni();
