@@ -33,25 +33,21 @@ public:
     friend class ConnectionList;
 };
 
-
 class ConnectionList : public QObject
 {
     Q_OBJECT
 public:
     ConnectionList();
     int addItem(connectionItem Item);
-    bool removeItem(int p_index);
     bool removeByPath(const QString &p_path);
 
     QList<connectionItem> items() const;
-    QList<QString> paths() const;
     connectionItem itemByPath(QString p_path);
-    bool setItemAt(int index, const connectionItem &p_item);
     bool setItemByPath(QString p_key,const connectionItem &p_item);
 private:
     int findPathPos(const QString &Path);
 
-    QList<connectionItem> m_list;
+    QList<connectionItem> m_connectionItemList;
     uint m_uidCounter;
 
 signals:
