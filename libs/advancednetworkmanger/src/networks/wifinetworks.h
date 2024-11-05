@@ -17,7 +17,7 @@ public:
     bool init(ConnectionList  &p_list, DeviceManager &p_devManager) override;
 private:
     void findAPs(QString &p_uni);
-    connectionItem CreateConItem(NetworkManager::Connection::Ptr) override;
+    ConnectionItem CreateConItem(NetworkManager::Connection::Ptr) override;
 
 private:
     QMap<QString,QString> m_apList;

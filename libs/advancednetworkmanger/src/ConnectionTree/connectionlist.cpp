@@ -1,12 +1,11 @@
 #include "connectionlist.h"
-#include <QException>
 
 ConnectionList::ConnectionList():
     m_uidCounter(1)
 {
 }
 
-int ConnectionList::addItem(connectionItem Item)
+int ConnectionList::addItem(ConnectionItem Item)
 {
     if(Item.Name != "") {
         emit preItemAppended();
@@ -32,20 +31,20 @@ bool ConnectionList::removeByPath(const QString &p_path)
     return true;
 }
 
-QList<connectionItem> ConnectionList::items() const
+QList<ConnectionItem> ConnectionList::items() const
 {
     return m_connectionItemList;
 }
 
-connectionItem ConnectionList::itemByPath(QString p_path)
+ConnectionItem ConnectionList::itemByPath(QString p_path)
 {
     int i = findPathPos(p_path);
     if(i==-1)
-        return connectionItem();
+        return ConnectionItem();
     return m_connectionItemList.at(i);
 }
 
-bool ConnectionList::setItemByPath(QString p_path, const connectionItem &p_item)
+bool ConnectionList::setItemByPath(QString p_path, const ConnectionItem &p_item)
 {
     int index = findPathPos(p_path);
     if(index < 0)

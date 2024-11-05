@@ -10,12 +10,7 @@ class ConnectionList;
 
 enum class ConType{Cable, Wifi};
 
-/**
- * @brief The connectionItem class
- *
- * stores all data available in qml
- */
-class connectionItem
+class ConnectionItem
 {
 private:
     int uid;
@@ -38,16 +33,16 @@ class ConnectionList : public QObject
     Q_OBJECT
 public:
     ConnectionList();
-    int addItem(connectionItem Item);
+    int addItem(ConnectionItem Item);
     bool removeByPath(const QString &p_path);
 
-    QList<connectionItem> items() const;
-    connectionItem itemByPath(QString p_path);
-    bool setItemByPath(QString p_key,const connectionItem &p_item);
+    QList<ConnectionItem> items() const;
+    ConnectionItem itemByPath(QString p_path);
+    bool setItemByPath(QString p_key,const ConnectionItem &p_item);
 private:
     int findPathPos(const QString &Path);
 
-    QList<connectionItem> m_connectionItemList;
+    QList<ConnectionItem> m_connectionItemList;
     uint m_uidCounter;
 
 signals:

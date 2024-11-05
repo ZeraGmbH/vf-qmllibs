@@ -172,8 +172,8 @@ Pane {
                     // Notes on translation:
                     // * Strings are bound to groupe role (see ListView section bindings below).
                     // * groupe role is mapped to C++ ConnectionModel role GroupeRole (see ConnectionModel::roleNames).
-                    // * GroupeRole role is mapped to connectionItem::Groupe member
-                    // * connectionItem::Groupe are finally set in ::CreateConItem overrides.
+                    // * GroupeRole role is mapped to ConnectionItem::Groupe member
+                    // * ConnectionItem::Groupe are finally set in ::CreateConItem overrides.
                     //
                     // Long talk short result:
                     // * The possible contents are in capital letters (to avoid double translation efforts matching texts

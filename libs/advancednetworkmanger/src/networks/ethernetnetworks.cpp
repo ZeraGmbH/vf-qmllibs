@@ -41,9 +41,9 @@ bool EthernetNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager
     return true;
 }
 
-connectionItem EthernetNetworks::CreateConItem(NetworkManager::Connection::Ptr p_con)
+ConnectionItem EthernetNetworks::CreateConItem(NetworkManager::Connection::Ptr p_con)
 {
-    connectionItem con;
+    ConnectionItem con;
     con.Name = p_con->name();
     con.Groupe = "ETHERNET";
     con.NmPath = p_con->path();

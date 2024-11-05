@@ -9,7 +9,7 @@ public:
     EthernetNetworks();
     bool init(ConnectionList  &p_list, DeviceManager &p_devManager) override;
 private:
-    connectionItem CreateConItem(NetworkManager::Connection::Ptr p_con) override;
+    ConnectionItem CreateConItem(NetworkManager::Connection::Ptr p_con) override;
 public slots:
 
 };

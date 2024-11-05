@@ -51,10 +51,10 @@ public slots:
     void connectionDeactivate(const QString &p_path);
 
 protected:
-    virtual connectionItem CreateConItem(NetworkManager::Connection::Ptr p_con) = 0;
+    virtual ConnectionItem CreateConItem(NetworkManager::Connection::Ptr p_con) = 0;
     void addAvailabelConnection(const QString &p_devPath, const QString &p_connection);
     void removeAvailabelConnection(const QString &p_devPath, const QString &p_connection);
-    void addConnectionToList(NetworkManager::Connection::Ptr p_con, connectionItem conItem);
+    void addConnectionToList(NetworkManager::Connection::Ptr p_con, ConnectionItem conItem);
     void findAvailableConnections(QString &p_uni);
     void findStoredConnections();
     bool isConnectionActive(QString p_path);

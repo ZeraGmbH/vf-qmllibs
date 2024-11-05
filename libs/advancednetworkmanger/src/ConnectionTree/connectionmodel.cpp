@@ -34,7 +34,7 @@ int ConnectionModel::rowCount(const QModelIndex &parent) const
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
 
-    connectionItem itm=m_list->items().at(index.row());
+    ConnectionItem itm=m_list->items().at(index.row());
     switch(role){
     case GroupeRole:
         return itm.Groupe;
@@ -76,7 +76,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
 bool ConnectionModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    connectionItem itm=m_list->items().at(index.row());
+    ConnectionItem itm=m_list->items().at(index.row());
         switch(role){
         case GroupeRole:
             itm.Groupe = value.toString();
