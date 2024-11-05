@@ -4,20 +4,19 @@
 #include <QObject>
 #include <QString>
 #include <QMap>
-#include <QSet>
 #include <QVariant>
-
-#include "globalDefines.h"
 
 class ConnectionList;
 
+enum class ConType{Cable, Wifi};
 
 /**
  * @brief The connectionItem class
  *
  * stores all data available in qml
  */
-class connectionItem{
+class connectionItem
+{
 private:
     int uid;
 public:
@@ -34,9 +33,6 @@ public:
     friend class ConnectionList;
 };
 
-/**
- * @brief The ConnectionList class
- */
 
 class ConnectionList : public QObject
 {
@@ -66,7 +62,6 @@ signals:
     void postItemAppended();
 
     void dataChanged(int p_row);
-
 };
 
 #endif // CONNECTIONLIST_H
