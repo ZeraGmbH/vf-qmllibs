@@ -23,8 +23,3 @@ QStringList NetworkmanagerAbstraction::getAvailableSsids()
     }
     return uniqueList.values();
 }
-
-void NetworkmanagerAbstraction::realoadConnections()
-{
-    NetworkManager::reloadConnections();
-}
