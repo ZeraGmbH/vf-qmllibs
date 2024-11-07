@@ -176,7 +176,7 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
         }
     }
     // draw sorted long -> short
-    for(auto vData : sortedVectors) {
+    for(const TVectorData &vData : sortedVectors) {
         drawArrowHead(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
         drawVectorLine(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
         drawLabel(t_painter, vData.label, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
