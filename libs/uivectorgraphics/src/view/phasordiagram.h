@@ -78,8 +78,6 @@ public:
     QNANO_PROPERTY(QString, m_vector5Label, vector5Label, setVector5Label)
     QNANO_PROPERTY(QString, m_vector6Label, vector6Label, setVector6Label)
 
-    //QList<double> m_vector1Data;
-
 private:
     static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;

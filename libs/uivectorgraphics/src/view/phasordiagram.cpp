@@ -331,35 +331,6 @@ void PhasorDiagram::synchronize(QQuickItem *t_item)
     PhasorDiagram *realItem  = static_cast<PhasorDiagram *>(t_item);
     Q_ASSERT(realItem != nullptr);
 
-    m_fromX = realItem->fromX();
-    m_fromY = realItem->fromY();
-    m_phiOrigin = realItem->phiOrigin();
-    m_gridScale = realItem->gridScale();
-    m_minVoltage = realItem->minVoltage();
-    m_maxVoltage = realItem->maxVoltage();
-    m_minCurrent = realItem->minCurrent();
-    m_maxCurrent = realItem->maxCurrent();
-    m_vectorView = realItem->vectorView();
-    m_gridVisible = realItem->gridVisible();
-    m_gridColor = realItem->gridColor();
-    m_circleVisible = realItem->circleVisible();
-    m_circleColor = realItem->circleColor();
-    m_circleValue = realItem->circleValue();
-
-    m_vector1Color = realItem->vector1Color();
-    m_vector2Color = realItem->vector2Color();
-    m_vector3Color = realItem->vector3Color();
-    m_vector4Color = realItem->vector4Color();
-    m_vector5Color = realItem->vector5Color();
-    m_vector6Color = realItem->vector6Color();
-
-    m_vector1Label = realItem->vector1Label();
-    m_vector2Label = realItem->vector2Label();
-    m_vector3Label = realItem->vector3Label();
-    m_vector4Label = realItem->vector4Label();
-    m_vector5Label = realItem->vector5Label();
-    m_vector6Label = realItem->vector6Label();
-
     QList<double> tmpData = realItem->vector1Data();
     if(tmpData.length() > 1) {
         m_vector1 = QVector2D(tmpData.at(0), tmpData.at(1));
@@ -391,8 +362,6 @@ PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 {
     setAntialiasing(true);
     setOpaquePainting(true);
-    m_vector1Data.append(10);
-    m_vector1Data.append(20);
 }
 
 
