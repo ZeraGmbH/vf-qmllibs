@@ -27,8 +27,8 @@ void PhasorDiagram::drawLabel(QPainter *t_painter, const QString &t_label, float
         else
             t_labelPhiOffset = -maxPhi;
     }
-    float xPos = m_centerX - xOffset + t_scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + t_labelPhiOffset);
-    float yPos = m_centerY + 5 + 0.9 * t_scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + t_labelPhiOffset);
+    float xPos = m_fromX - xOffset + t_scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + t_labelPhiOffset);
+    float yPos = m_fromY + 5 + 0.9 * t_scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + t_labelPhiOffset);
 
     t_painter->setPen(QPen(t_color, 2));
     t_painter->setFont(m_defaultFont);
@@ -41,10 +41,10 @@ void PhasorDiagram::drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColo
     float arrowHeadSize = height() / 35;
 
     const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
-    const float tmpToX = m_centerX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
-    const float tmpToY = m_centerY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
+    const float tmpToX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
+    const float tmpToY = m_fromY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
 
-    const float angle = atan2(tmpToY - m_centerY , tmpToX - m_centerX);
+    const float angle = atan2(tmpToY - m_fromY , tmpToX - m_fromX);
     if((pixelScale(t_maxValue) * t_vector.length()) != 0){
         QVector<QPoint> points = {
             QPoint(roundf(tmpToX), roundf(tmpToY)),
@@ -71,9 +71,9 @@ void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QCol
 {
     t_painter->setPen(QPen(t_color, 2));
     const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
-    const float tmpX = m_centerX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
-    const float tmpY = m_centerY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
-    t_painter->drawLine(roundf(m_centerX), roundf(m_centerY), roundf(tmpX), roundf(tmpY));
+    const float tmpX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
+    const float tmpY = m_fromY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
+    t_painter->drawLine(roundf(m_fromX), roundf(m_fromY), roundf(tmpX), roundf(tmpY));
 }
 
 void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
@@ -193,18 +193,18 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     //Scale vectors and convert to x/y
     //v1
     const float v1Phi = atan2(m_vector1.y(), m_vector1.x()) - m_phiOrigin;
-    const float v1X = m_centerX + m_gridScale * m_vector1.length() * cos(v1Phi);
-    const float v1Y = m_centerY + m_gridScale * m_vector1.length() * sin(v1Phi);
+    const float v1X = m_fromX + m_gridScale * m_vector1.length() * cos(v1Phi);
+    const float v1Y = m_fromY + m_gridScale * m_vector1.length() * sin(v1Phi);
 
     //v2
     const float v2Phi = atan2(m_vector2.y(), m_vector2.x()) - m_phiOrigin;
-    const float v2X = m_centerX + m_gridScale * m_vector2.length() * cos(v2Phi);
-    const float v2Y = m_centerY + m_gridScale * m_vector2.length() * sin(v2Phi);
+    const float v2X = m_fromX + m_gridScale * m_vector2.length() * cos(v2Phi);
+    const float v2Y = m_fromY + m_gridScale * m_vector2.length() * sin(v2Phi);
 
     //v3
     const float v3Phi = atan2(m_vector3.y(), m_vector3.x()) - m_phiOrigin;
-    const float v3X = m_centerX + m_gridScale * m_vector3.length() * cos(v3Phi);
-    const float v3Y = m_centerY + m_gridScale * m_vector3.length() * sin(v3Phi);
+    const float v3X = m_fromX + m_gridScale * m_vector3.length() * cos(v3Phi);
+    const float v3Y = m_fromY + m_gridScale * m_vector3.length() * sin(v3Phi);
 
     //Gradients
     //v1->v2
@@ -267,17 +267,17 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
     //grid
     if(m_gridVisible) {
         //x axis
-        t_painter->drawLine(m_centerX - m_maxVoltage * m_gridScale, m_centerY, m_centerX + m_maxVoltage * m_gridScale, m_centerY);
+        t_painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
 
         //y axis
-        t_painter->drawLine(m_centerX, m_centerY - m_maxVoltage * m_gridScale, m_centerX, m_centerY + m_maxVoltage * m_gridScale);
+        t_painter->drawLine(m_fromX, m_fromY - m_maxVoltage * m_gridScale, m_fromX, m_fromY + m_maxVoltage * m_gridScale);
     }
 
     //circle
     if(m_circleVisible) {
         t_painter->drawArc(
-                    m_centerX-(m_gridScale * m_circleValue)-radiusWidth,
-                    m_centerY-(m_gridScale * m_circleValue)-radiusWidth,
+                    m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
+                    m_fromY-(m_gridScale * m_circleValue)-radiusWidth,
                     2 * (m_gridScale * m_circleValue + radiusWidth),
                     2 * (m_gridScale * m_circleValue + radiusWidth),
                     0, 5760);
@@ -287,7 +287,7 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
 void PhasorDiagram::drawCenterPoint(QPainter *t_painter)
 {
     t_painter->setPen(QPen(Qt::gray, 2));
-    t_painter->drawPoint(m_centerX, m_centerY);
+    t_painter->drawPoint(m_fromX, m_fromY);
 }
 
 float PhasorDiagram::labelVectorLen(float screenLen)
@@ -367,8 +367,6 @@ PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
 
 void PhasorDiagram::paint(QPainter *t_painter)
 {
-    m_centerX = t_painter->window().width() / 2;
-    m_centerY = t_painter->window().height() / 2;
     synchronize((QQuickItem*)this);
     m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
     drawGridAndCircle(t_painter);

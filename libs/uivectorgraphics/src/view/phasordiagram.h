@@ -39,6 +39,8 @@ public:
     };
     Q_ENUM(VectorView)
 
+    QNANO_PROPERTY(float, m_fromX, fromX, setFromX)
+    QNANO_PROPERTY(float, m_fromY, fromY, setFromY)
     QNANO_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
     QNANO_PROPERTY(float, m_gridScale, gridScale, setGridScale)
     QNANO_PROPERTY(float, m_maxVoltage, maxVoltage, setMaxVoltage)
@@ -89,9 +91,6 @@ private:
     QFont m_defaultFont;
     float m_currLabelRotateAngleU;
     float m_currLabelRotateAngleI;
-
-    float m_centerX;
-    float m_centerY;
     // Reimplement
     void paint(QPainter *t_painter) override;
 
