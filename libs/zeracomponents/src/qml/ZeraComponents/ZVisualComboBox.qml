@@ -82,10 +82,13 @@ Rectangle {
     radius: 4
 
     Image {
-        anchors.fill: parent
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        anchors.top: parent.top
         anchors.topMargin: 2
+        anchors.bottom: parent.bottom
         anchors.bottomMargin: 2
-        anchors.rightMargin: parent.width/5
         source:  modelInitialized === true ? fakeModel.get(targetIndex).source : undefined
         fillMode: Image.PreserveAspectFit
         mipmap: true
