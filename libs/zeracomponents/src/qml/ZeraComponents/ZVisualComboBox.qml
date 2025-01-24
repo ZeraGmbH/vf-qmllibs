@@ -82,7 +82,6 @@ Rectangle {
     radius: 4
 
     Image {
-        anchors.verticalCenter: parent.verticalCenter
         anchors.left: parent.left
         anchors.leftMargin: 8
         anchors.top: parent.top
