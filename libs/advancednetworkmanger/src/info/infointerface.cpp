@@ -47,6 +47,11 @@ QVariant InfoInterface::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+int InfoInterface::getEntryCount()
+{
+    return rowCount();
+}
+
 void InfoInterface::addActiveConnection(const QString &path)
 {
     NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(path);
