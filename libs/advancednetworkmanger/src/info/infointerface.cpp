@@ -81,6 +81,7 @@ void InfoInterface::addActiveConnection(const QString &path)
         itm.path=path;
         m_activeCons.append(itm);
         endInsertRows();
+        emit sigEntryCountChanged();
     }
 }
 
@@ -92,6 +93,7 @@ void InfoInterface::removeActiveConnection(const QString &path)
             beginRemoveRows(QModelIndex(), idx, idx);
             m_activeCons.removeAt(idx);
             endRemoveRows();
+            emit sigEntryCountChanged();
             break;
         }
         idx++;
