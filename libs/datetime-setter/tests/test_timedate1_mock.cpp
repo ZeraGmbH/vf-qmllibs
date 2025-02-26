@@ -8,8 +8,8 @@ QTEST_MAIN(test_timedate1_mock)
 void test_timedate1_mock::availableTimezones()
 {
     Timedate1Connection connection;
-    connection.connectDbus();
+    connection.start();
+    QTest::qWait(1000);
 
-    //QTest::qWait(3000);
 }
 
