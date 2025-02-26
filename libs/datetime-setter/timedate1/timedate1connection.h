@@ -7,14 +7,22 @@ class Timedate1Connection : public QObject
 {
     Q_OBJECT
 public:
-    Timedate1Connection();
-    void connectDbus();
+    void start();
+
+    const QStringList &getAvailTimezones() const;
+    bool getNtpAvailable() const ;
+    bool getNtpSynced() const;
 signals:
-    void sigConnected(bool connected);
+    void sigAvailTimezonesChanged();
+    void sigCanNtpChanged();
+    void sigIsNtpSyncedChanged();
 
 private:
+    void updateProperties();
     std::unique_ptr<org::freedesktop::timedate1> m_timedateInterface;
-    QStringList m_timezones;
+    QStringList m_timezonesAvailable;
+    bool m_ntpAvailable = false;
+    bool m_ntpSynced = false;
 };
 
 #endif // TIMEDATE1CONNECTION_H
