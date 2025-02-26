@@ -1,0 +1,4 @@
+timedate1.xml was created by:
+gdbus introspect --xml --system --dest org.freedesktop.timedate1 --object-path /org/freedesktop/timedate1
+
+and removing all non org.freedesktop.timedate1 interfaces

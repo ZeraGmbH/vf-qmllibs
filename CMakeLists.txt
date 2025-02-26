@@ -20,6 +20,7 @@ find_package(SortFilterProxyModel REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
 find_package(PkgConfig REQUIRED)
+find_program (QDBUSXML2CPP NAMES qdbusxml2cpp-qt5 qdbusxml2cpp REQUIRED)
 
 pkg_check_modules(QWT REQUIRED Qt5Qwt6)
 
@@ -29,24 +30,6 @@ include(CMakePackageConfigHelpers)
 include(GenerateExportHeader)
 
 enable_testing()
-# Inspired by
-# https://github.com/KDAB/kdabtv/blob/master/Qt-Widgets-and-more/UnitTests/Tests/CMakeLists.txt
-function(SETUP_QTESTS)
-    foreach(_testname ${ARGN})
-        add_test(NAME ${_testname}
-                 COMMAND ${_testname})
-        add_executable(${_testname}
-            ${_testname}.h
-            ${_testname}.cpp
-            )
-        target_link_libraries(${_testname}
-            PUBLIC
-            Qt5::Test
-            notificationmanager-static
-            Zera::zera-timers-testlib
-        )
-    endforeach()
-endfunction()
 
 macro(SET_QML_PATH TARGET QML_BASE)
     set(QML_PATH ${CMAKE_CURRENT_SOURCE_DIR}/${QML_BASE})
