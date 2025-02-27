@@ -12,11 +12,14 @@ public:
     void start();
 
     const QStringList &getAvailTimezones() const;
-    bool getNtpAvailable() const ;
+    QString getTimeszone() const;
+
+    bool getNtpAvailable() const;
     bool getNtpSynced() const;
     bool getNtpActive() const;
 signals:
     void sigAvailTimezonesChanged();
+    void sigTimezoneChanged();
     void sigNtpAvailableChanged();
     void sigNtpSyncedChanged();
     void sigNtpActiveChanged();
@@ -27,12 +30,14 @@ private slots:
                              const QStringList &invalidatedProperties);
 private:
     void initProperties();
+    void updateTimezone(const QString &timezone);
     void updateNtpAvailable(bool available);
     void updateNtpSynced(bool synced);
     void updateNtpActive(bool active);
 
     std::unique_ptr<org::freedesktop::timedate1> m_timedateInterface;
     QStringList m_timezonesAvailable;
+    QString m_timezone;
     bool m_ntpAvailable = false;
     bool m_ntpSynced = false;
     bool m_ntpActive = false;
