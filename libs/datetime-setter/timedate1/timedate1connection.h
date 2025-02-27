@@ -13,11 +13,14 @@ public:
 
     const QStringList &getAvailTimezones() const;
     QString getTimeszone() const;
+    void setTimezone(const QString &timezone);
 
     bool getNtpAvailable() const;
     bool getNtpSynced() const;
     bool getNtpActive() const;
+    void setNtpActive(bool active);
 signals:
+    void sigStarted();
     void sigAvailTimezonesChanged();
     void sigTimezoneChanged();
     void sigNtpAvailableChanged();

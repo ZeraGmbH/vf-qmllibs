@@ -3,6 +3,7 @@
 static const char* dbusTimdate1Name = org::freedesktop::timedate1::staticInterfaceName();
 static const char* dbusTimedate1Path = "/org/freedesktop/timedate1";
 static QDBusConnection dbusSystemBus = QDBusConnection::systemBus();
+static constexpr bool polkitInteractive = true;
 
 void Timedate1Connection::start()
 {
@@ -28,6 +29,7 @@ void Timedate1Connection::start()
             m_timezonesAvailable = reply.value();
             emit sigAvailTimezonesChanged();
             initProperties();
+            emit sigStarted();
         });
     }
 }
@@ -42,6 +44,11 @@ QString Timedate1Connection::getTimeszone() const
     return m_timezone;
 }
 
+void Timedate1Connection::setTimezone(const QString &timezone)
+{
+    m_timedateInterface->SetTimezone(timezone, polkitInteractive);
+}
+
 bool Timedate1Connection::getNtpAvailable() const
 {
     return m_ntpAvailable;
@@ -50,6 +57,16 @@ bool Timedate1Connection::getNtpAvailable() const
 bool Timedate1Connection::getNtpSynced() const
 {
     return m_ntpSynced;
+}
+
+bool Timedate1Connection::getNtpActive() const
+{
+    return m_ntpActive;
+}
+
+void Timedate1Connection::setNtpActive(bool active)
+{
+    m_timedateInterface->SetNTP(active, polkitInteractive);
 }
 
 void Timedate1Connection::onPropertiesChanged(const QString &interface,
