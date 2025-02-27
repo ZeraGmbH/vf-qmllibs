@@ -37,6 +37,11 @@ const QStringList &Timedate1Connection::getAvailTimezones() const
     return m_timezonesAvailable;
 }
 
+QString Timedate1Connection::getTimeszone() const
+{
+    return m_timezone;
+}
+
 bool Timedate1Connection::getNtpAvailable() const
 {
     return m_ntpAvailable;
@@ -53,6 +58,10 @@ void Timedate1Connection::onPropertiesChanged(const QString &interface,
 {
     Q_UNUSED(invalidatedProperties)
     if (interface == dbusTimdate1Name) {
+        auto iterTimezone = changedProperties.constFind("Timezone");
+        if(iterTimezone != changedProperties.constEnd())
+            updateTimezone(iterTimezone.value().toString());
+
         auto iterNtpAvailable = changedProperties.constFind("CanNTP");
         if(iterNtpAvailable != changedProperties.constEnd())
             updateNtpAvailable(iterNtpAvailable.value().toBool());
@@ -69,9 +78,18 @@ void Timedate1Connection::onPropertiesChanged(const QString &interface,
 
 void Timedate1Connection::initProperties()
 {
+    updateTimezone(m_timedateInterface->timezone());
     updateNtpAvailable(m_timedateInterface->canNTP());
     updateNtpSynced(m_timedateInterface->nTPSynchronized());
     updateNtpActive(m_timedateInterface->nTP());
+}
+
+void Timedate1Connection::updateTimezone(const QString &timezone)
+{
+    if(m_timezone != timezone) {
+        m_timezone = timezone;
+        emit sigTimezoneChanged();
+    }
 }
 
 void Timedate1Connection::updateNtpAvailable(bool available)
