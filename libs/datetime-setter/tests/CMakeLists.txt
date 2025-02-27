@@ -13,10 +13,12 @@ function(SETUP_QTESTS_TIMEDATE1)
             Qt5::Test
             timedate1-interface
             Zera::zera-timers-testlib
+            Zera::testlib-common
         )
     endforeach()
 endfunction()
 
 SETUP_QTESTS_TIMEDATE1(
     test_timedate1_mock
+    test_timedate1_connection
 )
