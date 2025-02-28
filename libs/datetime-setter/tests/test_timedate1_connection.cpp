@@ -7,7 +7,7 @@ QTEST_MAIN(test_timedate1_connection)
 
 constexpr int waitTimeToEnterPolkitPassword = 20000;
 constexpr int waitTimeNoPolkit = 1000;
-constexpr int waitTimeForSync = 20000;
+constexpr int waitTimeForSync = 10000;
 
 void test_timedate1_connection::initTestCase()
 {
