@@ -1,40 +1,27 @@
 #ifndef TIMEDATE1CONNECTION_H
 #define TIMEDATE1CONNECTION_H
 
+#include "abstracttimedate1connection.h"
 #include "timedate1interface.h"
 #include <timerperiodicqt.h>
-#include <QStringList>
-#include <QVariantMap>
-#include <QDateTime>
 
-class Timedate1Connection : public QObject
+class Timedate1Connection : public AbstractTimedate1Connection
 {
     Q_OBJECT
 public:
     Timedate1Connection();
-    void start();
+    void start() override;
 
-    const QStringList &getAvailTimezones() const;
-    QString getTimeszone() const;
-    void setTimezone(const QString &timezone);
+    const QStringList &getAvailTimezones() const override;
+    QString getTimeszone() const override;
+    void setTimezone(const QString &timezone) override;
 
-    bool getNtpAvailable() const;
-    bool getNtpSynced() const;
-    bool getNtpActive() const;
-    void setNtpActive(bool active);
+    bool getNtpAvailable() const override;
+    bool getNtpSynced() const override;
+    bool getNtpActive() const override;
+    void setNtpActive(bool active) override;
 
-    void setDateTime(const QDateTime dateTime);
-signals:
-    void sigStarted();
-
-    void sigAvailTimezonesChanged();
-    void sigTimezoneChanged();
-
-    void sigNtpAvailableChanged();
-    void sigNtpSyncedChanged();
-    void sigNtpActiveChanged();
-
-    void sigDateTimeChanged(bool ok);
+    void setDateTime(const QDateTime dateTime) override;
 
 private:
     void updateProperties();
