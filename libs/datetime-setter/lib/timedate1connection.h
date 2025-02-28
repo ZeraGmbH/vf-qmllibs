@@ -11,6 +11,7 @@ class Timedate1Connection : public AbstractTimedate1Connection
 public:
     Timedate1Connection();
     void start() override;
+    int getNtpSyncMsMax() const override;
 
     const QStringList &getAvailTimezones() const override;
     QString getTimeszone() const override;

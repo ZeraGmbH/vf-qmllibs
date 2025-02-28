@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/">
+        <file>available_timezones</file>
+    </qresource>
+</RCC>
