@@ -5,6 +5,17 @@ static const char* dbusTimedate1Path = "/org/freedesktop/timedate1";
 static QDBusConnection dbusSystemBus = QDBusConnection::systemBus();
 static constexpr bool polkitInteractive = true;
 
+Timedate1Connection::Timedate1Connection() :
+    m_syncCheckTimer(200)
+{
+    // NTP synced
+    // * is not directly caused by a setter
+    // * does not seem supported in DBUS "PropertiesChanged". So add extra handling
+    connect(&m_syncCheckTimer, &TimerPeriodicQt::sigExpired, this, [=](){
+        updateNtpSynced(m_timedateInterface->nTPSynchronized());
+    });
+}
+
 void Timedate1Connection::start()
 {
     if (!m_timedateInterface) {
@@ -13,23 +24,15 @@ void Timedate1Connection::start()
             dbusTimedate1Path,
             dbusSystemBus);
 
-        dbusSystemBus.connect(
-            dbusTimdate1Name,
-            dbusTimedate1Path,
-            "org.freedesktop.DBus.Properties",
-            "PropertiesChanged",
-            this,
-            SLOT(onPropertiesChanged(QString, QVariantMap, QStringList)) // Qt5 connection not supported
-            );
-
         QDBusPendingReply<QStringList> reply = m_timedateInterface->ListTimezones();
         auto watcher = new QDBusPendingCallWatcher(reply, this);
         QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
             watcher->deleteLater();
             m_timezonesAvailable = reply.value();
             emit sigAvailTimezonesChanged();
-            initProperties();
+            updateProperties();
             emit sigStarted();
+            m_syncCheckTimer.start();
         });
     }
 }
@@ -46,7 +49,12 @@ QString Timedate1Connection::getTimeszone() const
 
 void Timedate1Connection::setTimezone(const QString &timezone)
 {
-    m_timedateInterface->SetTimezone(timezone, polkitInteractive);
+    QDBusPendingReply<> reply = m_timedateInterface->SetTimezone(timezone, polkitInteractive);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
+        updateProperties();
+        watcher->deleteLater();
+    });
 }
 
 bool Timedate1Connection::getNtpAvailable() const
@@ -66,34 +74,28 @@ bool Timedate1Connection::getNtpActive() const
 
 void Timedate1Connection::setNtpActive(bool active)
 {
-    m_timedateInterface->SetNTP(active, polkitInteractive);
+    QDBusPendingReply<> reply = m_timedateInterface->SetNTP(active, polkitInteractive);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
+        updateProperties();
+        watcher->deleteLater();
+    });
 }
 
-void Timedate1Connection::onPropertiesChanged(const QString &interface,
-                                              const QVariantMap &changedProperties,
-                                              const QStringList &invalidatedProperties)
+void Timedate1Connection::setDateTime(const QDateTime dateTime)
 {
-    Q_UNUSED(invalidatedProperties)
-    if (interface == dbusTimdate1Name) {
-        auto iterTimezone = changedProperties.constFind("Timezone");
-        if(iterTimezone != changedProperties.constEnd())
-            updateTimezone(iterTimezone.value().toString());
-
-        auto iterNtpAvailable = changedProperties.constFind("CanNTP");
-        if(iterNtpAvailable != changedProperties.constEnd())
-            updateNtpAvailable(iterNtpAvailable.value().toBool());
-
-        auto iterNtpSynced = changedProperties.constFind("NTPSynchronized");
-        if(iterNtpSynced != changedProperties.constEnd())
-            updateNtpSynced(iterNtpSynced.value().toBool());
-
-        auto iterNtpActive = changedProperties.constFind("NTP");
-        if(iterNtpActive != changedProperties.constEnd())
-            updateNtpActive(iterNtpActive.value().toBool());
-    }
+    qlonglong usecUtc = dateTime.toMSecsSinceEpoch() * 1000;
+    QDBusPendingReply<> reply = m_timedateInterface->SetTime(usecUtc, false, polkitInteractive);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
+        bool error = reply.isError();
+        emit sigDateTimeChanged(!error);
+        updateProperties();
+        watcher->deleteLater();
+    });
 }
 
-void Timedate1Connection::initProperties()
+void Timedate1Connection::updateProperties()
 {
     updateTimezone(m_timedateInterface->timezone());
     updateNtpAvailable(m_timedateInterface->canNTP());
@@ -103,7 +105,7 @@ void Timedate1Connection::initProperties()
 
 void Timedate1Connection::updateTimezone(const QString &timezone)
 {
-    if(m_timezone != timezone) {
+    if (m_timezone != timezone) {
         m_timezone = timezone;
         emit sigTimezoneChanged();
     }
@@ -127,7 +129,7 @@ void Timedate1Connection::updateNtpSynced(bool synced)
 
 void Timedate1Connection::updateNtpActive(bool active)
 {
-    if(m_ntpActive != active) {
+    if (m_ntpActive != active) {
         m_ntpActive = active;
         emit sigNtpActiveChanged();
     }
