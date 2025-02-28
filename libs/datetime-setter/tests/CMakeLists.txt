@@ -19,6 +19,5 @@ function(SETUP_QTESTS_TIMEDATE1)
 endfunction()
 
 SETUP_QTESTS_TIMEDATE1(
-    test_timedate1_mock
     test_timedate1_connection
 )
