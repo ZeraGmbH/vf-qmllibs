@@ -12,10 +12,16 @@ private slots:
     void cleanup();
 
     void availableTimezones();
-    void enableDisableNtp();
-    void changeTimezone();
+    void disableNtp();
+    void disableEnableNtp();
+    void changeTimezoneValid();
+    void changeTimezoneInvalid();
+    void changeTimeNtpOn();
+    void changeTimeNtpOff();
 private:
+    void waitNtpSync();
     std::unique_ptr<Timedate1Connection> m_connection;
+    QString m_hostTimezone;
 };
 
 #endif // TEST_TIMEDATE1_CONNECTION_H

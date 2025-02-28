@@ -2,13 +2,16 @@
 #define TIMEDATE1CONNECTION_H
 
 #include "timedate1interface.h"
+#include <timerperiodicqt.h>
 #include <QStringList>
 #include <QVariantMap>
+#include <QDateTime>
 
 class Timedate1Connection : public QObject
 {
     Q_OBJECT
 public:
+    Timedate1Connection();
     void start();
 
     const QStringList &getAvailTimezones() const;
@@ -19,20 +22,22 @@ public:
     bool getNtpSynced() const;
     bool getNtpActive() const;
     void setNtpActive(bool active);
+
+    void setDateTime(const QDateTime dateTime);
 signals:
     void sigStarted();
+
     void sigAvailTimezonesChanged();
     void sigTimezoneChanged();
+
     void sigNtpAvailableChanged();
     void sigNtpSyncedChanged();
     void sigNtpActiveChanged();
 
-private slots:
-    void onPropertiesChanged(const QString &interface,
-                             const QVariantMap &changedProperties,
-                             const QStringList &invalidatedProperties);
+    void sigDateTimeChanged(bool ok);
+
 private:
-    void initProperties();
+    void updateProperties();
     void updateTimezone(const QString &timezone);
     void updateNtpAvailable(bool available);
     void updateNtpSynced(bool synced);
@@ -44,6 +49,7 @@ private:
     bool m_ntpAvailable = false;
     bool m_ntpSynced = false;
     bool m_ntpActive = false;
+    TimerPeriodicQt m_syncCheckTimer;
 };
 
 #endif // TIMEDATE1CONNECTION_H
