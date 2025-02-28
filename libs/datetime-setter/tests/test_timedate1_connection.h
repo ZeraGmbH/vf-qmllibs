@@ -1,13 +1,14 @@
 #ifndef TEST_TIMEDATE1_CONNECTION_H
 #define TEST_TIMEDATE1_CONNECTION_H
 
-#include "timedate1connection.h"
+#include "abstracttimedate1connection.h"
+#include <memory>
 
 class test_timedate1_connection : public QObject
 {
     Q_OBJECT
 private slots:
-    void initTestCase();
+    void initTestCase_data();
     void init();
     void cleanup();
 
@@ -20,7 +21,7 @@ private slots:
     void changeTimeNtpOff();
 private:
     void waitNtpSync();
-    std::unique_ptr<Timedate1Connection> m_connection;
+    std::unique_ptr<AbstractTimedate1Connection> m_connection;
     QString m_hostTimezone;
 };
 

@@ -10,6 +10,7 @@ class AbstractTimedate1Connection : public QObject
     Q_OBJECT
 public:
     virtual void start() = 0;
+    virtual int getNtpSyncMsMax() const = 0;
 
     virtual const QStringList &getAvailTimezones() const = 0;
     virtual QString getTimeszone() const = 0;

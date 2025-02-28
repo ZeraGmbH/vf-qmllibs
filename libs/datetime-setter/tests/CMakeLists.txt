@@ -12,6 +12,7 @@ function(SETUP_QTESTS_TIMEDATE1)
             PUBLIC
             Qt5::Test
             timedate1-interface
+            timedate1-interface-testlib
             Zera::zera-timers-testlib
             Zera::testlib-common
         )

@@ -1,4 +1,6 @@
 #include "test_timedate1_connection.h"
+#include "timedate1connection.h"
+#include "testtimedate1connection.h"
 #include <qtestcase.h>
 #include <signalspywaiter.h>
 #include <QTest>
@@ -7,18 +9,25 @@ QTEST_MAIN(test_timedate1_connection)
 
 constexpr int waitTimeToEnterPolkitPassword = 20000;
 constexpr int waitTimeNoPolkit = 1000;
-constexpr int waitTimeForSync = 10000;
 
-void test_timedate1_connection::initTestCase()
+void test_timedate1_connection::initTestCase_data()
 {
-    // Comment out for manual tests of Timedate1Connection
-    // Be aware that this tests touches NTP/timezoe defaults!!!
-    QSKIP("Skip: Won't work:\n* On OE there is no running timedate1\n* On dev-host: Polkit asks for granting access priviledges");
+    QTest::addColumn<QString>("testType");
+    // uncomment out for manual tests of Timedate1Connection
+    // Be aware that production tests touch NTP/timezone settings and polkit asks for password!
+    //QTest::newRow("Production") << QString("Production");
+    QTest::newRow("Test") << QString("Test");
 }
 
 void test_timedate1_connection::init()
 {
-    m_connection = std::make_unique<Timedate1Connection>();
+    QFETCH_GLOBAL(QString, testType);
+    qInfo("Test type: %s", qPrintable(testType));
+    if(testType == "Production")
+        m_connection = std::make_unique<Timedate1Connection>();
+    else
+        m_connection = std::make_unique<TestTimedate1Connection>();
+
     QSignalSpy spyStart(m_connection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
     m_connection->start();
     SignalSpyWaiter::waitForSignals(&spyStart, 1, waitTimeNoPolkit);
@@ -204,6 +213,6 @@ void test_timedate1_connection::waitNtpSync()
     timer.start();
     qInfo("Wait NTP sync");
     QSignalSpy spySynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
-    SignalSpyWaiter::waitForSignals(&spySynced, 1, waitTimeForSync);
+    SignalSpyWaiter::waitForSignals(&spySynced, 1, m_connection->getNtpSyncMsMax());
     qInfo("Wait NTP sync complete after %llims", timer.elapsed());
 }
