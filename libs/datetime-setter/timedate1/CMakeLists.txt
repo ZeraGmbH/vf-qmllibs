@@ -1,5 +1,5 @@
 add_custom_target( # for visibility in qt creator
-    timedate1-adaptor-xml
+    timedate1-dbus-xml
     SOURCES timedate1.xml timedate1.readme
 )
 
