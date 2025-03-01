@@ -4,7 +4,6 @@ static const char* dbusTimdate1Name = org::freedesktop::timedate1::staticInterfa
 static const char* dbusTimedate1Path = "/org/freedesktop/timedate1";
 static QDBusConnection dbusSystemBus = QDBusConnection::systemBus();
 static constexpr bool polkitInteractive = true;
-static constexpr int maxNtpSyncTimeoutMs = 10000;
 
 Timedate1Connection::Timedate1Connection() :
     m_syncCheckTimer(200)
@@ -36,11 +35,6 @@ void Timedate1Connection::start()
             m_syncCheckTimer.start();
         });
     }
-}
-
-int Timedate1Connection::getNtpSyncMsMax() const
-{
-    return maxNtpSyncTimeoutMs;
 }
 
 const QStringList &Timedate1Connection::getAvailTimezones() const

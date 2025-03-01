@@ -20,9 +20,13 @@ private slots:
     void changeTimeNtpOn();
     void changeTimeNtpOff();
 private:
+    void setupConnection();
     void waitNtpSync();
     std::unique_ptr<AbstractTimedate1Connection> m_connection;
     QString m_hostTimezone;
+    int m_ntpSyncMaxWaitMs = 0;
+    int m_waitTimeToEnterPolkitPassword = 0;
+    int m_waitTimeNoPolkit = 0;
 };
 
 #endif // TEST_TIMEDATE1_CONNECTION_H

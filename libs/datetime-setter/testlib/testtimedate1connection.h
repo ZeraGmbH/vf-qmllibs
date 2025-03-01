@@ -8,9 +8,8 @@ class TestTimedate1Connection : public AbstractTimedate1Connection
 {
     Q_OBJECT
 public:
-    TestTimedate1Connection();
+    TestTimedate1Connection(int maxNtpSyncTimeoutMs);
     void start() override;
-    int getNtpSyncMsMax() const override;
 
     const QStringList &getAvailTimezones() const override;
     QString getTimeszone() const override;
