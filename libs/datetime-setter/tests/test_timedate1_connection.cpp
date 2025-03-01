@@ -7,9 +7,6 @@
 
 QTEST_MAIN(test_timedate1_connection)
 
-constexpr int waitTimeToEnterPolkitPassword = 20000;
-constexpr int waitTimeNoPolkit = 1000;
-
 void test_timedate1_connection::initTestCase_data()
 {
     QTest::addColumn<QString>("testType");
@@ -23,16 +20,11 @@ void test_timedate1_connection::initTestCase_data()
 
 void test_timedate1_connection::init()
 {
-    QFETCH_GLOBAL(QString, testType);
-    qInfo("Test type: %s", qPrintable(testType));
-    if(testType == "Production")
-        m_connection = std::make_unique<Timedate1Connection>();
-    else
-        m_connection = std::make_unique<TestTimedate1Connection>();
+    setupConnection();
 
     QSignalSpy spyStart(m_connection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
     m_connection->start();
-    SignalSpyWaiter::waitForSignals(&spyStart, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyStart, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyStart.count(), 1);
 
     m_hostTimezone = m_connection->getTimeszone();
@@ -49,13 +41,13 @@ void test_timedate1_connection::cleanup()
         qInfo("Cleanup: Activate NTP");
         QSignalSpy spyNtpActive(m_connection.get(), &Timedate1Connection::sigNtpActiveChanged);
         m_connection->setNtpActive(true);
-        SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeNoPolkit);
+        SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeNoPolkit);
     }
     if (m_connection->getTimeszone() != m_hostTimezone) {
         qInfo("Cleanup: Restore timezone %s", qPrintable(m_hostTimezone));
         QSignalSpy spyTimezone(m_connection.get(), &Timedate1Connection::sigTimezoneChanged);
         m_connection->setTimezone(m_hostTimezone);
-        SignalSpyWaiter::waitForSignals(&spyTimezone, 1, waitTimeNoPolkit);
+        SignalSpyWaiter::waitForSignals(&spyTimezone, 1, m_waitTimeNoPolkit);
     }
     if(!m_connection->getNtpSynced())
         waitNtpSync();
@@ -79,16 +71,16 @@ void test_timedate1_connection::disableNtp()
     QSignalSpy spyNtpSynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
 
     m_connection->setNtpActive(false);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyNtpActive.count(), 1);
     QCOMPARE(m_connection->getNtpActive(), false);
 
     // test side effects on other properties
-    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
     // Interesting: NTP off does not change NTP sync
     // We cross checked that with 'timedatectl set-ntp off' and 'timedatectl show'
-    SignalSpyWaiter::waitForSignals(&spyNtpSynced, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpSynced, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpSynced.count(), 0);
 }
 
@@ -99,12 +91,12 @@ void test_timedate1_connection::disableEnableNtp()
     QSignalSpy spyNtpSynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
 
     m_connection->setNtpActive(false);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyNtpActive.count(), 1);
     QCOMPARE(m_connection->getNtpActive(), false);
 
     m_connection->setNtpActive(true);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 2, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 2, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyNtpActive.count(), 2);
     QCOMPARE(m_connection->getNtpActive(), true);
 
@@ -118,7 +110,7 @@ void test_timedate1_connection::disableEnableNtp()
     QCOMPARE(m_connection->getNtpSynced(), true);
 
     // test side effects on other properties
-    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
 
 }
@@ -132,14 +124,14 @@ void test_timedate1_connection::changeTimezoneValid()
 
     const QString timezoneValid = "Etc/GMT+0";
     m_connection->setTimezone(timezoneValid);
-    SignalSpyWaiter::waitForSignals(&spyTimezone, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyTimezone, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyTimezone.count(), 1);
     QCOMPARE(m_connection->getTimeszone(), timezoneValid);
 
     // test side effects on other properties
-    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpActive.count(), 0);
 
     waitNtpSync();
@@ -156,14 +148,14 @@ void test_timedate1_connection::changeTimezoneInvalid()
 
     const QString timezoneInvalid = "Foo/Bar";
     m_connection->setTimezone(timezoneInvalid);
-    SignalSpyWaiter::waitForSignals(&spyTimezone, 1, waitTimeNoPolkit); // we are not asked for password
+    SignalSpyWaiter::waitForSignals(&spyTimezone, 1, m_waitTimeNoPolkit); // we are not asked for password
     QCOMPARE(spyTimezone.count(), 0);
     QCOMPARE(m_connection->getTimeszone(), m_hostTimezone);
 
     // test side effects on other properties
-    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpActive.count(), 0);
 
     waitNtpSync();
@@ -176,7 +168,7 @@ void test_timedate1_connection::changeTimeNtpOn()
 
     QDateTime testDateTime = QDateTime::fromString("2000-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss");
     m_connection->setDateTime(testDateTime);
-    SignalSpyWaiter::waitForSignals(&spyDateTime, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyDateTime, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyDateTime.count(), 1);
     QCOMPARE(spyDateTime[0][0], false); // Set dateTime with NTP on is rejected
 }
@@ -189,24 +181,42 @@ void test_timedate1_connection::changeTimeNtpOff()
     QSignalSpy spyNtpSynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
 
     m_connection->setNtpActive(false);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyNtpActive.count(), 1);
     spyNtpActive.clear();
 
     QDateTime testDateTime = QDateTime::fromString("2000-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss");
     m_connection->setDateTime(testDateTime);
-    SignalSpyWaiter::waitForSignals(&spyDateTime, 1, waitTimeToEnterPolkitPassword);
+    SignalSpyWaiter::waitForSignals(&spyDateTime, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyDateTime.count(), 1);
     QCOMPARE(spyDateTime[0][0], true);
 
     // test side effects on other properties
-    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
-    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpActive.count(), 0);
-    SignalSpyWaiter::waitForSignals(&spyNtpSynced, 1, waitTimeNoPolkit);
+    SignalSpyWaiter::waitForSignals(&spyNtpSynced, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpSynced.count(), 1);
     QCOMPARE(m_connection->getNtpSynced(), false);
+}
+
+void test_timedate1_connection::setupConnection()
+{
+    QFETCH_GLOBAL(QString, testType);
+    qInfo("Test type: %s", qPrintable(testType));
+    if(testType == "Production") {
+        m_ntpSyncMaxWaitMs = 10000;
+        m_waitTimeToEnterPolkitPassword = 20000;
+        m_waitTimeNoPolkit = 1000;
+        m_connection = std::make_unique<Timedate1Connection>();
+    }
+    else {
+        m_ntpSyncMaxWaitMs = 10;
+        m_waitTimeToEnterPolkitPassword = 10;
+        m_waitTimeNoPolkit = 10;
+        m_connection = std::make_unique<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
+    }
 }
 
 void test_timedate1_connection::waitNtpSync()
@@ -215,6 +225,6 @@ void test_timedate1_connection::waitNtpSync()
     timer.start();
     qInfo("Wait NTP sync");
     QSignalSpy spySynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
-    SignalSpyWaiter::waitForSignals(&spySynced, 1, m_connection->getNtpSyncMsMax());
+    SignalSpyWaiter::waitForSignals(&spySynced, 1, m_ntpSyncMaxWaitMs);
     qInfo("Wait NTP sync complete after %llims", timer.elapsed());
 }

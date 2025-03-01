@@ -1,9 +1,7 @@
 #include "testtimedate1connection.h"
 #include <QFile>
 
-static constexpr int maxNtpSyncTimeoutMs = 100;
-
-TestTimedate1Connection::TestTimedate1Connection() :
+TestTimedate1Connection::TestTimedate1Connection(int maxNtpSyncTimeoutMs) :
     m_ntpSyncOnDelay(maxNtpSyncTimeoutMs/2)
 {
     connect(&m_ntpSyncOnDelay, &TimerSingleShotQt::sigExpired,
@@ -23,11 +21,6 @@ void TestTimedate1Connection::start()
         QMetaObject::invokeMethod(this, "sigAvailTimezonesChanged", Qt::QueuedConnection);
         QMetaObject::invokeMethod(this, "sigStarted", Qt::QueuedConnection);
     }
-}
-
-int TestTimedate1Connection::getNtpSyncMsMax() const
-{
-    return maxNtpSyncTimeoutMs;
 }
 
 const QStringList &TestTimedate1Connection::getAvailTimezones() const
