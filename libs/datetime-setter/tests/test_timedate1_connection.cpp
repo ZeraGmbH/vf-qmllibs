@@ -13,9 +13,11 @@ constexpr int waitTimeNoPolkit = 1000;
 void test_timedate1_connection::initTestCase_data()
 {
     QTest::addColumn<QString>("testType");
+
     // uncomment out for manual tests of Timedate1Connection
     // Be aware that production tests touch NTP/timezone settings and polkit asks for password!
     //QTest::newRow("Production") << QString("Production");
+
     QTest::newRow("Test") << QString("Test");
 }
 
