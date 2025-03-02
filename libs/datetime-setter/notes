@@ -5,12 +5,6 @@ https://stackoverflow.com/questions/50173637/set-system-clock-with-qt-on-linux
 Available timezones origin:
 tzdata / /usr/share/zoneinfo/zone.tab
 
-Timezones translations:
-https://gitlab.gnome.org/GNOME/gnome-control-center/-/tree/main/panels/system/datetime/po-timezones?ref_type=heads
-lconvert -locations none --target-language de_DE \
-    /home/superandy/data/tmp/oe-zenux/tmp-glibc/work/cortexa9t2hf-neon-mortsgna-linux-gnueabi/xfce4-datetime-setter/3.32.2-r0/git/panels/datetime/po-timezones/de.po \
-    -o /home/superandy/data/tmp/de_DE.ts
-
 DBus
 gdbus introspect --xml --system --dest org.freedesktop.timedate1 --object-path /org/freedesktop/timedate1
 dbus-monitor --system "type='signal', member='PropertiesChanged', path='/org/freedesktop/timedate1'"

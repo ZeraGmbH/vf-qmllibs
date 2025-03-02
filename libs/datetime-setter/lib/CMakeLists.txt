@@ -39,3 +39,5 @@ install(
     FILES ${HEADERS}
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/timedate1-interface
     )
+
+add_subdirectory(timezone-translations)

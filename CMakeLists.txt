@@ -12,7 +12,7 @@ project(vf-qmllibs VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(buildVein "Building libs depending on vein" ON)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xml Test)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xml LinguistTools Test)
 find_package(FontAweSomeQml REQUIRED)
 find_package(ZenuxCore REQUIRED)
 find_package(ZeraTranslation REQUIRED)
@@ -21,6 +21,7 @@ find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
 find_package(PkgConfig REQUIRED)
 find_program (QDBUSXML2CPP NAMES qdbusxml2cpp-qt5 qdbusxml2cpp REQUIRED)
+find_program(LRELEASE NAMES lrelease-qt5 lrelease REQUIRED)
 
 pkg_check_modules(QWT REQUIRED Qt5Qwt6)
 
