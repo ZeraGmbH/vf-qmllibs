@@ -7,8 +7,9 @@ TimezoneTranslations::TimezoneTranslations(const QString &translationFilePath) :
 
 void TimezoneTranslations::setLanguage(const QString &language)
 {
-    if(m_translator && m_translator->language() == language)
+    if(m_currentLanguage == language)
         return;
+    m_currentLanguage = language;
     m_translator = std::make_unique<QTranslator>();
     const QString translationFileName = QString("timezones_%1.ts").arg(language);
     m_translator->load(translationFileName, m_translationFilePath);
