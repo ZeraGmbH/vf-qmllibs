@@ -9,8 +9,12 @@ class test_timezone_translations : public QObject
 private slots:
     void translateNoLanguageSet();
     void translateGerman();
-    void translateUsOrInvalid(); // US has no translation
+    void translateUs(); // US has no translation
+    void translateC(); // C has no translation
+    void translateInvalid();
     void switchGermanTwice();
+    void switchUSTwice();
+    void switchCTwice();
     void translateGermanSwitchFrench();
 };
 

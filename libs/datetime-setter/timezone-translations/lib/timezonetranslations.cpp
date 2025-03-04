@@ -1,29 +1,52 @@
 #include "timezonetranslations.h"
+#include <QFile>
 
 TimezoneTranslations::TimezoneTranslations(const QString &translationFilePath)
 {
-    if(translationFilePath.isEmpty())
+    if (translationFilePath.isEmpty())
         m_translationFilePath = QString(TIMEZONE_TRANSLATE_INSTALL_PATH);
     else
         m_translationFilePath = translationFilePath;
 }
 
-void TimezoneTranslations::setLanguage(const QString &language)
+bool TimezoneTranslations::setLanguage(const QString &language)
 {
-    if(m_currentLanguage == language)
-        return;
-    m_currentLanguage = language;
+    if (m_currentLanguage == language)
+        return false;
+
     m_translator = std::make_unique<QTranslator>();
-    const QString translationFileName = QString("timezones_%1.ts").arg(language);
+    m_currentLanguage = language;
+
+    if (isDefaultAndHasNoTranslationFile(language))
+        return true;
+    if (!isSupportedLanguage(language)) {
+        qWarning("Timezone translation not found for language '%s'", qPrintable(language));
+        return true;
+    }
+
+    const QString translationFileName = QString("timezones_%1.qm").arg(language);
     m_translator->load(translationFileName, m_translationFilePath);
+    return true;
 }
 
 QString TimezoneTranslations::translate(const QString &timezone) const
 {
-    if(!m_translator)
+    if (!m_translator)
         return timezone;
     QString tr = m_translator->translate("", timezone.toLocal8Bit());
-    if(tr.isEmpty())
+    if (tr.isEmpty())
         return timezone;
     return tr;
+}
+
+bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &language) const
+{
+    return language == "C" || language == "en_US";
+}
+
+bool TimezoneTranslations::isSupportedLanguage(const QString &language) const
+{
+    const QString translationFileName = QString("timezones_%1.qm").arg(language);
+    QFile file(QString("%1/%2").arg(m_translationFilePath, translationFileName));
+    return file.exists();
 }
