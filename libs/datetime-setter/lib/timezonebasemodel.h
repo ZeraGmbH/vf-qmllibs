@@ -3,6 +3,7 @@
 
 #include "abstracttimedate1connection.h"
 #include "timedate1connection.h"
+#include "timezonetranslations.h"
 #include <QAbstractListModel>
 #include <QList>
 #include <memory>
@@ -18,16 +19,16 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     enum Roles {
         TimezoneRole = Qt::UserRole,
+        TimezoneRoleTranslated
     };
+    void setLanguage(const QString &language);
 
 private slots:
-    bool fillModel();
+    void fillModel();
 private:
-    struct ModelEntry {
-        QString m_timezone;
-    };
-    QList<ModelEntry> m_modelEntries;
+    QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
+    TimezoneTranslations m_translation;
 };
 
 #endif // TIMEZONEBASEMODEL_H
