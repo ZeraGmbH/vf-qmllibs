@@ -18,6 +18,7 @@ target_link_libraries(timedate1-interface
     PUBLIC
     Zera::zera-timers
     Qt5::DBus
+    timezone-translations
 )
 
 target_include_directories(timedate1-interface

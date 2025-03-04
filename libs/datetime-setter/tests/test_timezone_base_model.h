@@ -10,6 +10,8 @@ private slots:
     void earlyConnectionStart();
     void lateConnectionStart();
     void checkTimezones();
+    void checkTimezonesDisplayNoTranslationSet();
+    void checkTimezonesDisplayTranslationSet();
 };
 
 #endif // TEST_TIMEZONE_BASE_MODEL_H

@@ -3,53 +3,54 @@
 TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
     m_timedateConnection(timedateConnection)
 {
-    if(!fillModel()) {
-        connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
-                this, &TimezoneBaseModel::fillModel);
-    }
+    fillModel();
+    connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
+            this, &TimezoneBaseModel::fillModel);
 }
 
 QHash<int, QByteArray> TimezoneBaseModel::roleNames() const
 {
     static QHash<int, QByteArray> roles {
-        { TimezoneRole, "timezone" }
+        { TimezoneRole, "timezone" },
+        { TimezoneRoleTranslated, "timezonetranslated" }
     };
     return roles;
 }
 
 int TimezoneBaseModel::rowCount(const QModelIndex &parent) const
 {
-    return parent.isValid() ? 0 : m_modelEntries.count();
+    return parent.isValid() ? 0 : m_timezones.count();
 }
 
 QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
-    if(row < 0 || row >= m_modelEntries.count())
+    if (row < 0 || row >= m_timezones.count())
         return QVariant();
 
-    const ModelEntry &entry = m_modelEntries.at(row);
+    const QString &timezone = m_timezones.at(row);
 
     switch(role) {
     case TimezoneRole:
-        return entry.m_timezone;
+        return timezone;
+    case TimezoneRoleTranslated:
+        return m_translation.translate(timezone);
     }
     return QVariant();
 }
 
-bool TimezoneBaseModel::fillModel()
+void TimezoneBaseModel::setLanguage(const QString &language)
+{
+    if (m_translation.setLanguage(language))
+        fillModel();
+}
+
+void TimezoneBaseModel::fillModel()
 {
     const QStringList availTimezones = m_timedateConnection->getAvailTimezones();
-    if(availTimezones.isEmpty())
-        return false;
+    if (availTimezones.isEmpty())
+        return;
     beginResetModel();
-    m_modelEntries.clear();
-    for(const QString &timezone : availTimezones) {
-        ModelEntry entry;
-        entry.m_timezone = timezone;
-
-        m_modelEntries.append(entry);
-    }
+    m_timezones = availTimezones;
     endResetModel();
-    return true;
 }
