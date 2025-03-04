@@ -1,6 +1,8 @@
 file(GLOB HEADERS *.h)
 file(GLOB SOURCES *.cpp)
 
+add_definitions(-DTIMEZONE_TRANSLATE_INSTALL_PATH="${CMAKE_TIMEZONE_TRANSLATE_INSTALL_PATH}")
+
 add_library(timezone-translations SHARED
     ${HEADERS}
     ${SOURCES}
