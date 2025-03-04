@@ -27,10 +27,14 @@ void test_timezone_base_model::lateConnectionStart()
     QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
     TimezoneBaseModel model(conn);
+    QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
+    QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
+    QCOMPARE(spyModelAboutToBeReset.count(), 1);
+    QCOMPARE(spyModelReset.count(), 1);
 
     QCOMPARE(model.rowCount(), timezoneCount);
 }
