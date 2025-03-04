@@ -1,8 +1,11 @@
 #include "timezonetranslations.h"
 
-TimezoneTranslations::TimezoneTranslations(const QString &translationFilePath) :
-    m_translationFilePath(translationFilePath)
+TimezoneTranslations::TimezoneTranslations(const QString &translationFilePath)
 {
+    if(translationFilePath.isEmpty())
+        m_translationFilePath = QString(TIMEZONE_TRANSLATE_INSTALL_PATH);
+    else
+        m_translationFilePath = translationFilePath;
 }
 
 void TimezoneTranslations::setLanguage(const QString &language)
@@ -15,7 +18,7 @@ void TimezoneTranslations::setLanguage(const QString &language)
     m_translator->load(translationFileName, m_translationFilePath);
 }
 
-QString TimezoneTranslations::translate(const QString &timezone)
+QString TimezoneTranslations::translate(const QString &timezone) const
 {
     if(!m_translator)
         return timezone;
