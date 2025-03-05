@@ -1,2432 +1,2263 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="es_ES">
-    <extra-po-header-po_revision_date>2010-08-25 09:11-0300</extra-po-header-po_revision_date>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,Language,X-Generator,Plural-Forms,X-Poedit-Language,X-Poedit-Country</extra-po-headers>
-    <extra-po-header-x_generator>KBabel 1.11.4</extra-po-header-x_generator>
-    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-language_team>Fedora Spanish &lt;trans-es@lists.fedoraproject.org&gt;</extra-po-header-language_team>
-    <extra-po-header-project_id_version>timezones.tip.es</extra-po-header-project_id_version>
+<TS version="2.1" language="fr_FR">
+    <extra-po-header-language>fr</extra-po-header-language>
+    <extra-po-header-language_team>French &lt;fedora-trans-fr@fedoraproject.org&gt;</extra-po-header-language_team>
+    <extra-po-header-last_translator>Thomas Canniot &lt;mrtom@fedoraproject.org&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2010-09-05 17:53+0200</extra-po-header-po_revision_date>
     <extra-po-header-pot_creation_date>2010-08-16 14:02+0200</extra-po-header-pot_creation_date>
-    <extra-po-header-language></extra-po-header-language>
-    <extra-po-header-x_poedit_language>Spanish</extra-po-header-x_poedit_language>
-    <extra-po-header_comment># translation of timezones.tip.es.po to Spanish
-# translation of es.po to
-# Copyright (C) 2004, 2006, 2008 Free Software Foundation, Inc.
+    <extra-po-header-project_id_version>timezones.tip</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Lokalize 1.1</extra-po-header-x_generator>
+    <extra-po-header_comment># translation of timezones.tip.po to french
+# translation of fr.po to
+# Copyright (C) 2001 Red Hat, Inc.
 #
-# Tullio Dovera &lt;tdovera@redhat.it&gt;, 2000.
-# Yelitza Louze &lt;ylouze@redhat.com&gt;, 2004.
-# Manuel Ospina &lt;mospina@redhat.com&gt;, 2006.
-# Domingo Becker &lt;domingobecker@gmail.com&gt;, 2008.
-# Héctor Daniel Cabrera &lt;logan@fedoraproject.org&gt;, 2010.
-#</extra-po-header_comment>
-    <extra-po-header-last_translator>Claudio Rodrigo Pereyra Diaz &lt;claudiorodrigo@pereyradiaz.com.ar&gt;</extra-po-header-last_translator>
-    <extra-po-header-x_poedit_country>ARGENTINA</extra-po-header-x_poedit_country>
+# Bettina De Monti &lt;bdemonti@redhat.it&gt;, 2001, 2006.
+# Thomas Canniot &lt;thomas.canniot@laposte.net&gt;, 2006.
+# Alain PORTAL &lt;aportal@univ-montp2.fr&gt;, 2007.
+# Gauthier Ancelin &lt;gauthier.ancelin@laposte.net&gt;, 2008.
+# Thomas Canniot &lt;mrtom@fedoraproject.org&gt;, 2009, 2010.</extra-po-header_comment>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,MIME-Version,Content-Type,Content-Transfer-Encoding,Language,X-Generator,Plural-Forms</extra-po-headers>
 <context>
     <name></name>
     <message>
         <source>Africa/Abidjan</source>
-        <translation>África/Abidjan</translation>
+        <translation>Afrique/Abidjan</translation>
     </message>
     <message>
         <source>Africa/Accra</source>
-        <translation>África/Accra</translation>
+        <translation>Afrique/Accra</translation>
     </message>
     <message>
         <source>Africa/Addis_Ababa</source>
-        <translation>África/Addis_Abeba</translation>
+        <translation>Afrique/Addis_Abeba</translation>
     </message>
     <message>
         <source>Africa/Algiers</source>
-        <translation>África/Argelia</translation>
+        <translation>Afrique/Alger</translation>
     </message>
     <message>
         <source>Africa/Asmara</source>
-        <translation>África/Asmera</translation>
+        <translation>Afrique/Asmara</translation>
     </message>
     <message>
         <source>Africa/Asmera</source>
-        <translation>África/Asmera</translation>
+        <translation>Afrique/Asmera</translation>
     </message>
     <message>
         <source>Africa/Bamako</source>
-        <translation>África/Bamako</translation>
+        <translation>Afrique/Bamako</translation>
     </message>
     <message>
         <source>Africa/Bangui</source>
-        <translation>África/Bangui</translation>
+        <translation>Afrique/Bangui</translation>
     </message>
     <message>
         <source>Africa/Banjul</source>
-        <translation>África/Banjul</translation>
+        <translation>Afrique/Banjul</translation>
     </message>
     <message>
         <source>Africa/Bissau</source>
-        <translation>África/Bissau</translation>
+        <translation>Afrique/Bissau</translation>
     </message>
     <message>
         <source>Africa/Blantyre</source>
-        <translation>África/Blantyre</translation>
+        <translation>Afrique/Blantyre</translation>
     </message>
     <message>
         <source>Africa/Brazzaville</source>
-        <translation>África/Brazzaville</translation>
+        <translation>Afrique/Brazzaville</translation>
     </message>
     <message>
         <source>Africa/Bujumbura</source>
-        <translation>África/Bujumbura</translation>
+        <translation>Afrique/Bujumbura</translation>
     </message>
     <message>
         <source>Africa/Cairo</source>
-        <translation>África/El_Cairo</translation>
+        <translation>Afrique/Le Caire</translation>
     </message>
     <message>
         <source>Africa/Casablanca</source>
-        <translation>África/Casablanca</translation>
+        <translation>Afrique/Casablanca</translation>
     </message>
     <message>
         <source>Africa/Ceuta</source>
-        <translation>África/Ceuta</translation>
+        <translation>Afrique/Ceuta</translation>
     </message>
     <message>
         <source>Ceuta &amp; Melilla</source>
-        <extracomment>comment for time zone Africa/Ceuta
-</extracomment>
+        <extracomment>comment for time zone Africa/Ceuta</extracomment>
         <translation>Ceuta &amp; Melilla</translation>
     </message>
     <message>
         <source>Africa/Conakry</source>
-        <translation>África/Conakry</translation>
+        <translation>Afrique/Conakry</translation>
     </message>
     <message>
         <source>Africa/Dakar</source>
-        <translation>África/Dakar</translation>
+        <translation>Afrique/Dakar</translation>
     </message>
     <message>
         <source>Africa/Dar_es_Salaam</source>
-        <translation>África/Dar_es_Salaam</translation>
+        <translation>Afrique/Dar_Es_Salaam</translation>
     </message>
     <message>
         <source>Africa/Djibouti</source>
-        <translation>África/Djibouti</translation>
+        <translation>Afrique/Djibouti</translation>
     </message>
     <message>
         <source>Africa/Douala</source>
-        <translation>África/Douala</translation>
+        <translation>Afrique/Douala</translation>
     </message>
     <message>
         <source>Africa/El_Aaiun</source>
-        <translation>África/El_Aaiun</translation>
+        <translation>Afrique/El_Aaiun</translation>
     </message>
     <message>
         <source>Africa/Freetown</source>
-        <translation>África/Freetown</translation>
+        <translation>Afrique/Freetown</translation>
     </message>
     <message>
         <source>Africa/Gaborone</source>
-        <translation>África/Gaborone</translation>
+        <translation>Afrique/Gaborone</translation>
     </message>
     <message>
         <source>Africa/Harare</source>
-        <translation>África/Harare</translation>
+        <translation>Afrique/Harare</translation>
     </message>
     <message>
         <source>Africa/Johannesburg</source>
-        <translation>África/Johannesburgo</translation>
+        <translation>Afrique/Johannesburg</translation>
     </message>
     <message>
         <source>Africa/Kampala</source>
-        <translation>África/Kampala</translation>
+        <translation>Afrique/Kampala</translation>
     </message>
     <message>
         <source>Africa/Khartoum</source>
-        <translation>África/Khartoum</translation>
+        <translation>Afrique/Khartoum</translation>
     </message>
     <message>
         <source>Africa/Kigali</source>
-        <translation>África/Kigali</translation>
+        <translation>Afrique/Kigali</translation>
     </message>
     <message>
         <source>Africa/Kinshasa</source>
-        <translation>África/Kinshasa</translation>
+        <translation>Afrique/Kinshasa</translation>
     </message>
     <message>
         <source>west Dem. Rep. of Congo</source>
-        <extracomment>comment for time zone Africa/Kinshasa
-</extracomment>
-        <translation>Rep. Dem. del Congo oeste</translation>
+        <extracomment>comment for time zone Africa/Kinshasa</extracomment>
+        <translation>Ouest de la République démocratique du Congo</translation>
     </message>
     <message>
         <source>Africa/Lagos</source>
-        <translation>África/Lagos</translation>
+        <translation>Afrique/Lagos</translation>
     </message>
     <message>
         <source>Africa/Libreville</source>
-        <translation>África/Libreville</translation>
+        <translation>Afrique/Libreville</translation>
     </message>
     <message>
         <source>Africa/Lome</source>
-        <translation>África/Lome</translation>
+        <translation>Afrique/Lomé</translation>
     </message>
     <message>
         <source>Africa/Luanda</source>
-        <translation>África/Luanda</translation>
+        <translation>Afrique/Luanda</translation>
     </message>
     <message>
         <source>Africa/Lubumbashi</source>
-        <translation>África/Lubumbashi</translation>
+        <translation>Afrique/Lubumbashi</translation>
     </message>
     <message>
         <source>east Dem. Rep. of Congo</source>
-        <extracomment>comment for time zone Africa/Lubumbashi
-</extracomment>
-        <translation>Rep. Dem. del Congo este</translation>
+        <extracomment>comment for time zone Africa/Lubumbashi</extracomment>
+        <translation>Est de la République démocratique du Congo</translation>
     </message>
     <message>
         <source>Africa/Lusaka</source>
-        <translation>África/Lusaka</translation>
+        <translation>Afrique/Lusaka</translation>
     </message>
     <message>
         <source>Africa/Malabo</source>
-        <translation>África/Malabo</translation>
+        <translation>Afrique/Malabo</translation>
     </message>
     <message>
         <source>Africa/Maputo</source>
-        <translation>África/Maputo</translation>
+        <translation>Afrique/Maputo</translation>
     </message>
     <message>
         <source>Africa/Maseru</source>
-        <translation>África/Maseru</translation>
+        <translation>Afrique/Maseru</translation>
     </message>
     <message>
         <source>Africa/Mbabane</source>
-        <translation>África/Mbabane</translation>
+        <translation>Afrique/Mbabane</translation>
     </message>
     <message>
         <source>Africa/Mogadishu</source>
-        <translation>África/Mogadisco</translation>
+        <translation>Afrique/Mogadiscio</translation>
     </message>
     <message>
         <source>Africa/Monrovia</source>
-        <translation>África/Monrovia</translation>
+        <translation>Afrique/Monrovia</translation>
     </message>
     <message>
         <source>Africa/Nairobi</source>
-        <translation>África/Nairobi</translation>
+        <translation>Afrique/Nairobi</translation>
     </message>
     <message>
         <source>Africa/Ndjamena</source>
-        <translation>África/Ndjamena</translation>
+        <translation>Afrique/NDjamena</translation>
     </message>
     <message>
         <source>Africa/Niamey</source>
-        <translation>África/Niamey</translation>
+        <translation>Afrique/Niamey</translation>
     </message>
     <message>
         <source>Africa/Nouakchott</source>
-        <translation>África/Nouakchott</translation>
+        <translation>Afrique/Nouakchott</translation>
     </message>
     <message>
         <source>Africa/Ouagadougou</source>
-        <translation>África/Ouagadougou</translation>
+        <translation>Afrique/Ouagadougou</translation>
     </message>
     <message>
         <source>Africa/Porto-Novo</source>
-        <translation>África/Porto-Novo</translation>
+        <translation>Afrique/Porto-Novo</translation>
     </message>
     <message>
         <source>Africa/Sao_Tome</source>
-        <translation>África/Santo_Tomé</translation>
+        <translation>Afrique/Sao_Tomé</translation>
     </message>
     <message>
         <source>Africa/Timbuktu</source>
-        <translation>África/Timbuktu</translation>
+        <translation>Afrique/Tombouctou</translation>
     </message>
     <message>
         <source>Africa/Tripoli</source>
-        <translation>África/Trípoli</translation>
+        <translation>Afrique/Tripoli</translation>
     </message>
     <message>
         <source>Africa/Tunis</source>
-        <translation>África/Túnez</translation>
+        <translation>Afrique/Tunis</translation>
     </message>
     <message>
         <source>Africa/Windhoek</source>
-        <translation>África/Windhoek</translation>
+        <translation>Afrique/Windhoek</translation>
     </message>
     <message>
         <source>America/Adak</source>
-        <translation>América/Adak</translation>
+        <translation>Amérique/Adak</translation>
     </message>
     <message>
         <source>Aleutian Islands</source>
-        <extracomment>comment for time zone America/Adak
-</extracomment>
-        <translation>Islas Aleutianas</translation>
+        <extracomment>comment for time zone America/Adak</extracomment>
+        <translation>Îles Aléoutiennes</translation>
     </message>
     <message>
         <source>America/Anchorage</source>
-        <translation>América/Anchorage</translation>
+        <translation>Amérique/Anchorage</translation>
     </message>
     <message>
         <source>Alaska Time</source>
-        <extracomment>comment for time zone America/Anchorage
-</extracomment>
-        <translation>Hora de Alaska</translation>
+        <extracomment>comment for time zone America/Anchorage</extracomment>
+        <translation>Heure de l&apos;Alaska</translation>
     </message>
     <message>
         <source>America/Anguilla</source>
-        <translation>América/Anguilla</translation>
+        <translation>Amérique/Anguilla</translation>
     </message>
     <message>
         <source>America/Antigua</source>
-        <translation>América/Antigua</translation>
+        <translation>Amérique/Antigua</translation>
     </message>
     <message>
         <source>America/Araguaina</source>
-        <translation>América/Araguaina</translation>
+        <translation>Amérique/Araguaina</translation>
     </message>
     <message>
         <source>Tocantins</source>
-        <extracomment>comment for time zone America/Araguaina
-</extracomment>
+        <extracomment>comment for time zone America/Araguaina</extracomment>
         <translation>Tocantins</translation>
     </message>
     <message>
         <source>America/Argentina/Buenos_Aires</source>
-        <translation>América/Argentina/Buenos_Aires</translation>
+        <translation>Amérique/Argentine/Buenos_Aires</translation>
     </message>
     <message>
         <source>Buenos Aires (BA, CF)</source>
-        <extracomment>comment for time zone America/Argentina/Buenos_Aires
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Buenos_Aires</extracomment>
         <translation>Buenos Aires (BA, CF)</translation>
     </message>
     <message>
         <source>America/Argentina/Catamarca</source>
-        <translation>América/Argentina/Catamarca</translation>
+        <translation>Amérique/Argentine/Catamarca</translation>
     </message>
     <message>
         <source>Catamarca (CT), Chubut (CH)</source>
-        <extracomment>comment for time zone America/Argentina/Catamarca
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Catamarca</extracomment>
         <translation>Catamarca (CT), Chubut (CH)</translation>
     </message>
     <message>
         <source>America/Argentina/ComodRivadavia</source>
-        <translation>América/Argentina/ComodRivadavia</translation>
+        <translation>Amérique/Argentine/ComodRivadavia</translation>
     </message>
     <message>
         <source>America/Argentina/Cordoba</source>
-        <translation>América/Argentina/Cordoba</translation>
+        <translation>Amérique/Argentine/Cordoba</translation>
     </message>
     <message>
         <source>most locations (CB, CC, CN, ER, FM, MN, SE, SF)</source>
-        <extracomment>comment for time zone America/Argentina/Cordoba
-</extracomment>
-        <translation>mayoría de las localidades (CB, CC, CN, ER, FM, MN, SE, SF)</translation>
+        <extracomment>comment for time zone America/Argentina/Cordoba</extracomment>
+        <translation>lieux divers (CB, CC, CN, ER, FM, MN, SE, SF)</translation>
     </message>
     <message>
         <source>America/Argentina/Jujuy</source>
-        <translation>América/Argentina/Jujuy</translation>
+        <translation>Amérique/Argentine/Jujuy</translation>
     </message>
     <message>
         <source>Jujuy (JY)</source>
-        <extracomment>comment for time zone America/Argentina/Jujuy
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Jujuy</extracomment>
         <translation>Jujuy (JY)</translation>
     </message>
     <message>
         <source>America/Argentina/La_Rioja</source>
-        <translation>América/Argentina/La_Rioja</translation>
+        <translation>Amérique/Argentine/La_Rioja</translation>
     </message>
     <message>
         <source>La Rioja (LR)</source>
-        <extracomment>comment for time zone America/Argentina/La_Rioja
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/La_Rioja</extracomment>
         <translation>La Rioja (LR)</translation>
     </message>
     <message>
         <source>America/Argentina/Mendoza</source>
-        <translation>América/Argentina/Mendoza</translation>
+        <translation>Amérique/Argentine/Mendoza</translation>
     </message>
     <message>
         <source>Mendoza (MZ)</source>
-        <extracomment>comment for time zone America/Argentina/Mendoza
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Mendoza</extracomment>
         <translation>Mendoza (MZ)</translation>
     </message>
     <message>
         <source>America/Argentina/Rio_Gallegos</source>
-        <translation>América/Argentina/Rio_Gallegos</translation>
+        <translation>Amérique/Argentine/Rio_Gallegos</translation>
     </message>
     <message>
         <source>Santa Cruz (SC)</source>
-        <extracomment>comment for time zone America/Argentina/Rio_Gallegos
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Rio_Gallegos</extracomment>
         <translation>Santa Cruz (SC)</translation>
     </message>
     <message>
         <source>America/Argentina/Salta</source>
-        <translation>America/Argentina/Salta</translation>
+        <translation>Amérique/Argentine/Salta</translation>
     </message>
     <message>
         <source>(SA, LP, NQ, RN)</source>
-        <extracomment>comment for time zone America/Argentina/Salta
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Salta</extracomment>
         <translation>(SA, LP, NQ, RN)</translation>
     </message>
     <message>
         <source>America/Argentina/San_Juan</source>
-        <translation>América/Argentina/San_Juan</translation>
+        <translation>Amérique/Argentine/San_Juan</translation>
     </message>
     <message>
         <source>San Juan (SJ)</source>
-        <extracomment>comment for time zone America/Argentina/San_Juan
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/San_Juan</extracomment>
         <translation>San Juan (SJ)</translation>
     </message>
     <message>
         <source>America/Argentina/San_Luis</source>
-        <translation>America/Argentina/San_Luis</translation>
+        <translation>Amérique/Argentine/San_Luis</translation>
     </message>
     <message>
         <source>San Luis (SL)</source>
-        <extracomment>comment for time zone America/Argentina/San_Luis
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/San_Luis</extracomment>
         <translation>San Luis (SL)</translation>
     </message>
     <message>
         <source>America/Argentina/Tucuman</source>
-        <translation>América/Argentina/Tucuman</translation>
+        <translation>Amérique/Argentine/Tucuman</translation>
     </message>
     <message>
         <source>Tucuman (TM)</source>
-        <extracomment>comment for time zone America/Argentina/Tucuman
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Tucuman</extracomment>
         <translation>Tucuman (TM)</translation>
     </message>
     <message>
         <source>America/Argentina/Ushuaia</source>
-        <translation>América/Argentina/Ushuaia</translation>
+        <translation>Amérique/Argentine/Ushuaia</translation>
     </message>
     <message>
         <source>Tierra del Fuego (TF)</source>
-        <extracomment>comment for time zone America/Argentina/Ushuaia
-</extracomment>
-        <translation>Tierra del Fuego (TF)</translation>
+        <extracomment>comment for time zone America/Argentina/Ushuaia</extracomment>
+        <translation>Terre de Feu (TF)</translation>
     </message>
     <message>
         <source>America/Aruba</source>
-        <translation>América/Aruba</translation>
+        <translation>Amérique/Aruba</translation>
     </message>
     <message>
         <source>America/Asuncion</source>
-        <translation>América/Asunción</translation>
+        <translation>Amérique/Asuncion</translation>
     </message>
     <message>
         <source>America/Atikokan</source>
-        <translation>América/Atikokan</translation>
+        <translation>Amérique/Atikokan</translation>
     </message>
     <message>
         <source>Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut</source>
-        <extracomment>comment for time zone America/Atikokan
-</extracomment>
-        <translation>Hora estándar del este - Atikokan, Ontario e Southampton I, Nunavut</translation>
+        <extracomment>comment for time zone America/Atikokan</extracomment>
+        <translation>Heure de l&apos;Est - Atikokan, Ontario et Southampton I, Nunavut</translation>
     </message>
     <message>
         <source>America/Atka</source>
-        <translation>América/Atka</translation>
+        <translation>Amérique/Atka</translation>
     </message>
     <message>
         <source>America/Bahia</source>
-        <translation>América/Bahia</translation>
+        <translation>Amérique/Bahia</translation>
     </message>
     <message>
         <source>Bahia</source>
-        <extracomment>comment for time zone America/Bahia
-</extracomment>
+        <extracomment>comment for time zone America/Bahia</extracomment>
         <translation>Bahia</translation>
     </message>
     <message>
         <source>America/Bahia_Banderas</source>
-        <translation>América/Bahia_Banderas</translation>
+        <translation>Amérique/Bahia_Banderas</translation>
     </message>
     <message>
         <source>Mexican Central Time - Bahia de Banderas</source>
-        <extracomment>comment for time zone America/Bahia_Banderas
-</extracomment>
-        <translation>Tiempo Central Mexicano - Bahía de Banderas</translation>
+        <extracomment>comment for time zone America/Bahia_Banderas</extracomment>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>America/Barbados</source>
-        <translation>América/Barbados</translation>
+        <translation>Amérique/Barbade</translation>
     </message>
     <message>
         <source>America/Belem</source>
-        <translation>América/Belem</translation>
+        <translation>Amérique/Belém</translation>
     </message>
     <message>
         <source>Amapa, E Para</source>
-        <extracomment>comment for time zone America/Belem
-</extracomment>
-        <translation>Amapa, Para E</translation>
+        <extracomment>comment for time zone America/Belem</extracomment>
+        <translation>Amapa, Est du Paraguay</translation>
     </message>
     <message>
         <source>America/Belize</source>
-        <translation>América/Belice</translation>
+        <translation>Amérique/Belize</translation>
     </message>
     <message>
         <source>America/Blanc-Sablon</source>
-        <translation>América/Blanc-Sablon</translation>
+        <translation>Amérique/Blanc-Sablon</translation>
     </message>
     <message>
         <source>Atlantic Standard Time - Quebec - Lower North Shore</source>
-        <extracomment>comment for time zone America/Blanc-Sablon
-</extracomment>
-        <translation>Hora estándar del atlántico - Quebec - Lower North Shore</translation>
+        <extracomment>comment for time zone America/Blanc-Sablon</extracomment>
+        <translation>Heure de l&apos;Atlantique - Québec - Côte Nord</translation>
     </message>
     <message>
         <source>America/Boa_Vista</source>
-        <translation>América/Boa Vista</translation>
+        <translation>Amerique/Boa_Vista</translation>
     </message>
     <message>
         <source>Roraima</source>
-        <extracomment>comment for time zone America/Boa_Vista
-</extracomment>
+        <extracomment>comment for time zone America/Boa_Vista</extracomment>
         <translation>Roraima</translation>
     </message>
     <message>
         <source>America/Bogota</source>
-        <translation>América/Bogotá</translation>
+        <translation>Amérique/Bogota</translation>
     </message>
     <message>
         <source>America/Boise</source>
-        <translation>América/Boise</translation>
+        <translation>Amérique/Boise</translation>
     </message>
     <message>
         <source>Mountain Time - south Idaho &amp; east Oregon</source>
-        <extracomment>comment for time zone America/Boise
-</extracomment>
-        <translation>Hora de la Montaña - Idaho sur &amp; Oregon este</translation>
+        <extracomment>comment for time zone America/Boise</extracomment>
+        <translation>Heure des Montagnes - Idaho du Sud &amp; Orégon de l&apos;Est</translation>
     </message>
     <message>
         <source>America/Buenos_Aires</source>
-        <translation>América/Buenos_Aires</translation>
+        <translation>Amérique/Buenos_Aires</translation>
     </message>
     <message>
         <source>America/Cambridge_Bay</source>
-        <translation>América/Cambridge_Bay</translation>
+        <translation>Amerique/Cambridge_Bay</translation>
     </message>
     <message>
         <source>Mountain Time - west Nunavut</source>
-        <extracomment>comment for time zone America/Cambridge_Bay
-</extracomment>
-        <translation>Hora de la Montaña - Nunavut oeste</translation>
+        <extracomment>comment for time zone America/Cambridge_Bay</extracomment>
+        <translation>Heure des Montagnes - Nunavut de l&apos;Ouest</translation>
     </message>
     <message>
         <source>America/Campo_Grande</source>
-        <translation>América/Campo_Grande</translation>
+        <translation>Amérique/Campo_Grande</translation>
     </message>
     <message>
         <source>Mato Grosso do Sul</source>
-        <extracomment>comment for time zone America/Campo_Grande
-</extracomment>
-        <translation>Mato Grosso do Sul</translation>
+        <extracomment>comment for time zone America/Campo_Grande</extracomment>
+        <translation>Mato Grosso du Sud</translation>
     </message>
     <message>
         <source>America/Cancun</source>
-        <translation>América/Cancún</translation>
+        <translation>Amérique/Cancun</translation>
     </message>
     <message>
         <source>Central Time - Quintana Roo</source>
-        <extracomment>comment for time zone America/Cancun
-</extracomment>
-        <translation>Hora Central - Quintana Roo</translation>
+        <extracomment>comment for time zone America/Cancun</extracomment>
+        <translation>Heure du Centre - Quintana Roo</translation>
     </message>
     <message>
         <source>America/Caracas</source>
-        <translation>América/Caracas</translation>
+        <translation>Amérique/Caracas</translation>
     </message>
     <message>
         <source>America/Catamarca</source>
-        <translation>América/Catamarca</translation>
+        <translation>Amérique/Catamarca</translation>
     </message>
     <message>
         <source>America/Cayenne</source>
-        <translation>América/Cayenne</translation>
+        <translation>Amérique/Cayenne</translation>
     </message>
     <message>
         <source>America/Cayman</source>
-        <translation>América/Caimán</translation>
+        <translation>Amérique/Cayman</translation>
     </message>
     <message>
         <source>America/Chicago</source>
-        <translation>América/Chicago</translation>
+        <translation>Amérique/Chicago</translation>
     </message>
     <message>
         <source>Central Time</source>
-        <extracomment>comment for time zone America/Chicago
-</extracomment>
-        <translation>Hora Central</translation>
+        <extracomment>comment for time zone America/Chicago</extracomment>
+        <translation>Heure du Centre</translation>
     </message>
     <message>
         <source>America/Chihuahua</source>
-        <translation>América/Chihuahua</translation>
+        <translation>Amérique/Chihuahua</translation>
     </message>
     <message>
         <source>Mexican Mountain Time - Chihuahua away from US border</source>
-        <extracomment>comment for time zone America/Chihuahua
-</extracomment>
-        <translation>Hora mexicana de montaña - Chihuahua, lejos de la frontera norteamericana</translation>
+        <extracomment>comment for time zone America/Chihuahua</extracomment>
+        <translation>Heure des Montagnes Méxicaines - État de Chihuahua loin de la frontière</translation>
     </message>
     <message>
         <source>America/Coral_Harbour</source>
-        <translation>América/Coral_Harbour</translation>
+        <translation>Amérique/Coral_Harbour</translation>
     </message>
     <message>
         <source>America/Cordoba</source>
-        <translation>América/Córdoba</translation>
+        <translation>Amérique/Cordoba</translation>
     </message>
     <message>
         <source>America/Costa_Rica</source>
-        <translation>América/Costa_Rica</translation>
+        <translation>Amérique/Costa_Rica</translation>
     </message>
     <message>
         <source>America/Cuiaba</source>
-        <translation>América/Cuiaba</translation>
+        <translation>Amérique/Cuiaba</translation>
     </message>
     <message>
         <source>Mato Grosso</source>
-        <extracomment>comment for time zone America/Cuiaba
-</extracomment>
+        <extracomment>comment for time zone America/Cuiaba</extracomment>
         <translation>Mato Grosso</translation>
     </message>
     <message>
         <source>America/Curacao</source>
-        <translation>América/Curacao</translation>
+        <translation>Amérique/Curaçao</translation>
     </message>
     <message>
         <source>America/Danmarkshavn</source>
-        <translation>América//Danmarkshavn</translation>
+        <translation>Amérique/Danmarkshavn</translation>
     </message>
     <message>
         <source>east coast, north of Scoresbysund</source>
-        <extracomment>comment for time zone America/Danmarkshavn
-</extracomment>
-        <translation>costa este, norte de Socresbysund</translation>
+        <extracomment>comment for time zone America/Danmarkshavn</extracomment>
+        <translation>Ittoqqortoormiit du Nord, côte Est</translation>
     </message>
     <message>
         <source>America/Dawson</source>
-        <translation>América/Dawson</translation>
+        <translation>Amérique/Dawson</translation>
     </message>
     <message>
         <source>Pacific Time - north Yukon</source>
-        <extracomment>comment for time zone America/Dawson
-</extracomment>
-        <translation>Hora del Pacífico - Yukon norte</translation>
+        <extracomment>comment for time zone America/Dawson</extracomment>
+        <translation>Heure du Pacifique - Yukon du Nord</translation>
     </message>
     <message>
         <source>America/Dawson_Creek</source>
-        <translation>América/Dawson_Creek</translation>
+        <translation>Amérique/Dawson_Creek</translation>
     </message>
     <message>
         <source>Mountain Standard Time - Dawson Creek &amp; Fort Saint John, British Columbia</source>
-        <extracomment>comment for time zone America/Dawson_Creek
-</extracomment>
-        <translation>Hora estándar de Montaña - Dawson Creek &amp; Fort Saint John, British Columbia</translation>
+        <extracomment>comment for time zone America/Dawson_Creek</extracomment>
+        <translation>Heure des Montagnes - Dawson Creek &amp; Fort Saint John, Colombie-Britannique</translation>
     </message>
     <message>
         <source>America/Denver</source>
-        <translation>América/Denver</translation>
+        <translation>Amérique/Denver</translation>
     </message>
     <message>
         <source>Mountain Time</source>
-        <extracomment>comment for time zone America/Denver
-</extracomment>
-        <translation>Hora de Montaña</translation>
+        <extracomment>comment for time zone America/Denver</extracomment>
+        <translation>Heure des Montagnes</translation>
     </message>
     <message>
         <source>America/Detroit</source>
-        <translation>América/Detroit</translation>
+        <translation>Amérique/Detroit</translation>
     </message>
     <message>
         <source>Eastern Time - Michigan - most locations</source>
-        <extracomment>comment for time zone America/Detroit
-</extracomment>
-        <translation>Hora del Este - Michigan - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Detroit</extracomment>
+        <translation>Heure de l&apos;Est - Michigan - lieux divers</translation>
     </message>
     <message>
         <source>America/Dominica</source>
-        <translation>América/Dominica</translation>
+        <translation>Amérique/Dominique</translation>
     </message>
     <message>
         <source>America/Edmonton</source>
-        <translation>América/Edmonton</translation>
+        <translation>Amérique/Edmonton</translation>
     </message>
     <message>
         <source>Mountain Time - Alberta, east British Columbia &amp; west Saskatchewan</source>
-        <extracomment>comment for time zone America/Edmonton
-</extracomment>
-        <translation>Hora de Montaña - Alberta, east British Columbia &amp; west Saskatchewan</translation>
+        <extracomment>comment for time zone America/Edmonton</extracomment>
+        <translation>Heure des Montagnes - Alberta, Colombie-Britannique de l&apos;Est &amp; Saskatchewan de l&apos;Ouest</translation>
     </message>
     <message>
         <source>America/Eirunepe</source>
-        <translation>América/Eirunepe</translation>
+        <translation>Amérique/Eirunepe</translation>
     </message>
     <message>
         <source>W Amazonas</source>
-        <extracomment>comment for time zone America/Eirunepe
-</extracomment>
-        <translation>Amazonas O</translation>
+        <extracomment>comment for time zone America/Eirunepe</extracomment>
+        <translation>Ouest de l&apos;Amazonas</translation>
     </message>
     <message>
         <source>America/El_Salvador</source>
-        <translation>América/El_Salvador</translation>
+        <translation>Amérique/El_Salvador</translation>
     </message>
     <message>
         <source>America/Ensenada</source>
-        <translation>América/Ensenada</translation>
+        <translation>Amérique/Ensenada</translation>
     </message>
     <message>
         <source>America/Fortaleza</source>
-        <translation>América/Fortaleza</translation>
+        <translation>Amérique/Fortaleza</translation>
     </message>
     <message>
         <source>NE Brazil (MA, PI, CE, RN, PB)</source>
-        <extracomment>comment for time zone America/Fortaleza
-</extracomment>
-        <translation>NE de Brasil (MA, PI, CE, RN, PB)</translation>
+        <extracomment>comment for time zone America/Fortaleza</extracomment>
+        <translation>Nord-Est du Brésil (MA, PI, CE, RN, PB)</translation>
     </message>
     <message>
         <source>America/Fort_Wayne</source>
-        <translation>América/Fort_Wayne</translation>
+        <translation>Amérique/Fort_Wayne</translation>
     </message>
     <message>
         <source>America/Glace_Bay</source>
-        <translation>América/Glace_Bay</translation>
+        <translation>Amérique/Glace_Bay</translation>
     </message>
     <message>
         <source>Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971</source>
-        <extracomment>comment for time zone America/Glace_Bay
-</extracomment>
-        <translation>Hora del Atlántico - Nueva Escocia - lugares que no observan el DST 1966-1971</translation>
+        <extracomment>comment for time zone America/Glace_Bay</extracomment>
+        <translation>Heure de l&apos;Atlantique - Nouvelle-Écosse - lieux n&apos;ayant pas respecté DST de 1966 à 1971</translation>
     </message>
     <message>
         <source>America/Godthab</source>
-        <translation>América/Godthab</translation>
+        <translation>Amérique/Godthab</translation>
     </message>
     <message>
         <source>most locations</source>
-        <extracomment>comment for time zone America/Godthab
-comment for time zone America/Santiago
-comment for time zone Asia/Almaty
-comment for time zone Asia/Ulaanbaatar
-comment for time zone Europe/Kiev
-comment for time zone Pacific/Auckland
-comment for time zone Pacific/Majuro
-</extracomment>
-        <translation>la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Godthabcomment for time zone America/Santiagocomment for time zone Asia/Almatycomment for time zone Asia/Ulaanbaatarcomment for time zone Europe/Kievcomment for time zone Pacific/Aucklandcomment for time zone Pacific/Majuro</extracomment>
+        <translation>lieux divers</translation>
     </message>
     <message>
         <source>America/Goose_Bay</source>
-        <translation>América/Goose_Bay</translation>
+        <translation>Amérique/Goose_Bay</translation>
     </message>
     <message>
         <source>Atlantic Time - Labrador - most locations</source>
-        <extracomment>comment for time zone America/Goose_Bay
-</extracomment>
-        <translation>Hora del Atlántico - Labrador - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Goose_Bay</extracomment>
+        <translation>Heure de l&apos;Atlantique - Labrador - lieux divers</translation>
     </message>
     <message>
         <source>America/Grand_Turk</source>
-        <translation>América/Grand_Turk</translation>
+        <translation>Amérique/Grand_Turk</translation>
     </message>
     <message>
         <source>America/Grenada</source>
-        <translation>América/Granada</translation>
+        <translation>Amérique/Grenade</translation>
     </message>
     <message>
         <source>America/Guadeloupe</source>
-        <translation>América/Guadalupe</translation>
+        <translation>Amérique/Guadeloupe</translation>
     </message>
     <message>
         <source>America/Guatemala</source>
-        <translation>América/Guatemala</translation>
+        <translation>Amérique/Guatemala</translation>
     </message>
     <message>
         <source>America/Guayaquil</source>
-        <translation>América/Guayaquil</translation>
+        <translation>Amérique/Guayaquil</translation>
     </message>
     <message>
         <source>mainland</source>
-        <extracomment>comment for time zone America/Guayaquil
-comment for time zone Europe/Lisbon
-comment for time zone Europe/Madrid
-</extracomment>
-        <translation>área principal</translation>
+        <extracomment>comment for time zone America/Guayaquilcomment for time zone Europe/Lisboncomment for time zone Europe/Madrid</extracomment>
+        <translation>principale région</translation>
     </message>
     <message>
         <source>America/Guyana</source>
-        <translation>América/Guyana</translation>
+        <translation>Amérique/Guyane</translation>
     </message>
     <message>
         <source>America/Halifax</source>
-        <translation>América/Halifax</translation>
+        <translation>Amérique/Halifax</translation>
     </message>
     <message>
         <source>Atlantic Time - Nova Scotia (most places), PEI</source>
-        <extracomment>comment for time zone America/Halifax
-</extracomment>
-        <translation>Hora del Atlántico - Nueva Escocia (la mayoría de las localidades), PEI</translation>
+        <extracomment>comment for time zone America/Halifax</extracomment>
+        <translation>Heure de l&apos;Atlantique - Nouvelle-Écosse (lieux divers), Île-du-Prince-Édouard</translation>
     </message>
     <message>
         <source>America/Havana</source>
-        <translation>América/Habana</translation>
+        <translation>Amérique/La Havane</translation>
     </message>
     <message>
         <source>America/Hermosillo</source>
-        <translation>América/Hermosillo</translation>
+        <translation>Amerique/Hermosillo</translation>
     </message>
     <message>
         <source>Mountain Standard Time - Sonora</source>
-        <extracomment>comment for time zone America/Hermosillo
-</extracomment>
-        <translation>Hora estándar de la Montaña - Sonora</translation>
+        <extracomment>comment for time zone America/Hermosillo</extracomment>
+        <translation>Heure des Montagnes - Sonora</translation>
     </message>
     <message>
         <source>America/Indiana/Indianapolis</source>
-        <translation>América/Indiana/Indianápolis</translation>
+        <translation>Amérique/Indiana/Indianapolis</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - most locations</source>
-        <extracomment>comment for time zone America/Indiana/Indianapolis
-</extracomment>
-        <translation>Hora del Este - Indiana - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Indiana/Indianapolis</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - lieux divers</translation>
     </message>
     <message>
         <source>America/Indiana/Knox</source>
-        <translation>América/Indiana/Knox</translation>
+        <translation>Amérique/Indiana/Knox</translation>
     </message>
     <message>
         <source>Central Time - Indiana - Starke County</source>
-        <extracomment>comment for time zone America/Indiana/Knox
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Starke</translation>
+        <extracomment>comment for time zone America/Indiana/Knox</extracomment>
+        <translation>Heure du Centre - Indiana - Comté de Starke</translation>
     </message>
     <message>
         <source>America/Indiana/Marengo</source>
-        <translation>América/Indiana/Marengo</translation>
+        <translation>Amérique/Indiana/Marengo</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - Crawford County</source>
-        <extracomment>comment for time zone America/Indiana/Marengo
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Crawford</translation>
+        <extracomment>comment for time zone America/Indiana/Marengo</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - Comté de Crawford</translation>
     </message>
     <message>
         <source>America/Indiana/Petersburg</source>
-        <translation>América/Indiana/Petersburg</translation>
+        <translation>Amérique/Indiana/Petersburg</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - Pike County</source>
-        <extracomment>comment for time zone America/Indiana/Petersburg
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Pike</translation>
+        <extracomment>comment for time zone America/Indiana/Petersburg</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - Comté de Pike</translation>
     </message>
     <message>
         <source>America/Indianapolis</source>
-        <translation>América/Indianápolis</translation>
+        <translation>Amérique/Indianapolis</translation>
     </message>
     <message>
         <source>America/Indiana/Tell_City</source>
-        <translation>América/Indiana/Tell_City</translation>
+        <translation>Amérique/Indiana/Tell_City</translation>
     </message>
     <message>
         <source>Central Time - Indiana - Perry County</source>
-        <extracomment>comment for time zone America/Indiana/Tell_City
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Perry</translation>
+        <extracomment>comment for time zone America/Indiana/Tell_City</extracomment>
+        <translation>Heure du Centre - Indiana - Comté de Perry</translation>
     </message>
     <message>
         <source>America/Indiana/Vevay</source>
-        <translation>América/Indiana/Vevay</translation>
+        <translation>Amérique/Indiana/Vevay</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - Switzerland County</source>
-        <extracomment>comment for time zone America/Indiana/Vevay
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Suiza</translation>
+        <extracomment>comment for time zone America/Indiana/Vevay</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - Comté de Switzerland</translation>
     </message>
     <message>
         <source>America/Indiana/Vincennes</source>
-        <translation>América/Indiana/Vencennes</translation>
+        <translation>Amérique/Indiana/Vincennes</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - Daviess, Dubois, Knox &amp; Martin Counties</source>
-        <extracomment>comment for time zone America/Indiana/Vincennes
-</extracomment>
-        <translation>Hora del Este - Indiana -  Condados Daviess, Dubois, Knox &amp; Martin</translation>
+        <extracomment>comment for time zone America/Indiana/Vincennes</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - Comtés de Daviess, Dubois, Knox &amp; Martin</translation>
     </message>
     <message>
         <source>America/Indiana/Winamac</source>
-        <translation>América/Indiana/Winamac</translation>
+        <translation>Amérique/Indiana/Winamac</translation>
     </message>
     <message>
         <source>Eastern Time - Indiana - Pulaski County</source>
-        <extracomment>comment for time zone America/Indiana/Winamac
-</extracomment>
-        <translation>Hora del Este - Indiana - Condado Pulaski</translation>
+        <extracomment>comment for time zone America/Indiana/Winamac</extracomment>
+        <translation>Heure de l&apos;Est - Indiana - Comté de Pulaski</translation>
     </message>
     <message>
         <source>America/Inuvik</source>
-        <translation>América/Inuvik</translation>
+        <translation>Amérique/Inuvik</translation>
     </message>
     <message>
         <source>Mountain Time - west Northwest Territories</source>
-        <extracomment>comment for time zone America/Inuvik
-</extracomment>
-        <translation>Hora de la Montaña - Territorios Noroestes del oeste</translation>
+        <extracomment>comment for time zone America/Inuvik</extracomment>
+        <translation>Heure des Montagnes - Ouest des Territoires du Nord-Ouest</translation>
     </message>
     <message>
         <source>America/Iqaluit</source>
-        <translation>América/Iqaluit</translation>
+        <translation>Amérique/Iqaluit</translation>
     </message>
     <message>
         <source>Eastern Time - east Nunavut - most locations</source>
-        <extracomment>comment for time zone America/Iqaluit
-</extracomment>
-        <translation>Hora del Este - Nunavut del este - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Iqaluit</extracomment>
+        <translation>Heure de l&apos;Est - Nunavut de l&apos;Est - lieux divers</translation>
     </message>
     <message>
         <source>America/Jamaica</source>
-        <translation>América/Jamaica</translation>
+        <translation>Amérique/Jamaïque</translation>
     </message>
     <message>
         <source>America/Jujuy</source>
-        <translation>América/Jujuy</translation>
+        <translation>Amérique/Jujuy</translation>
     </message>
     <message>
         <source>America/Juneau</source>
-        <translation>América/Juneau</translation>
+        <translation>Amérique/Juneau</translation>
     </message>
     <message>
         <source>Alaska Time - Alaska panhandle</source>
-        <extracomment>comment for time zone America/Juneau
-</extracomment>
-        <translation>Hora de Alaska - Península de Alaska</translation>
+        <extracomment>comment for time zone America/Juneau</extracomment>
+        <translation>Heure de l&apos;Alaska - Queue de poêle de l&apos;Alaska</translation>
     </message>
     <message>
         <source>America/Kentucky/Louisville</source>
-        <translation>América//Kentucky/Louisville</translation>
+        <translation>Amérique/Kentucky/Louisville</translation>
     </message>
     <message>
         <source>Eastern Time - Kentucky - Louisville area</source>
-        <extracomment>comment for time zone America/Kentucky/Louisville
-</extracomment>
-        <translation>Hora del Este - Area Kentucky - Louisville</translation>
+        <extracomment>comment for time zone America/Kentucky/Louisville</extracomment>
+        <translation>Heure de l&apos;Est - Kentucky - Zone de Louisville</translation>
     </message>
     <message>
         <source>America/Kentucky/Monticello</source>
-        <translation>América/Kentucky/Monticello</translation>
+        <translation>Amérique/Kentucky/Monticello</translation>
     </message>
     <message>
         <source>Eastern Time - Kentucky - Wayne County</source>
-        <extracomment>comment for time zone America/Kentucky/Monticello
-</extracomment>
-        <translation>Hora del este - Kentucky - Condado de Wayne</translation>
+        <extracomment>comment for time zone America/Kentucky/Monticello</extracomment>
+        <translation>Heure de l&apos;Est - Kentucky - Comté de Wayne</translation>
     </message>
     <message>
         <source>America/Knox_IN</source>
-        <translation>América/Knox_IN</translation>
+        <translation>Amérique/Knox_IN</translation>
     </message>
     <message>
         <source>America/La_Paz</source>
-        <translation>América/La_Paz</translation>
+        <translation>Amérique/La_Paz</translation>
     </message>
     <message>
         <source>America/Lima</source>
-        <translation>América/Lima</translation>
+        <translation>Amérique/Lima</translation>
     </message>
     <message>
         <source>America/Los_Angeles</source>
-        <translation>América/Los_Angeles</translation>
+        <translation>Amérique/Los_Angeles</translation>
     </message>
     <message>
         <source>Pacific Time</source>
-        <extracomment>comment for time zone America/Los_Angeles
-</extracomment>
-        <translation>Hora del Pacífico</translation>
+        <extracomment>comment for time zone America/Los_Angeles</extracomment>
+        <translation>Heure du Pacifique</translation>
     </message>
     <message>
         <source>America/Louisville</source>
-        <translation>América/Louisville</translation>
+        <translation>Amérique/Louisville</translation>
     </message>
     <message>
         <source>America/Maceio</source>
-        <translation>América/Maceio</translation>
+        <translation>Amérique/Maceio</translation>
     </message>
     <message>
         <source>Alagoas, Sergipe</source>
-        <extracomment>comment for time zone America/Maceio
-</extracomment>
+        <extracomment>comment for time zone America/Maceio</extracomment>
         <translation>Alagoas, Sergipe</translation>
     </message>
     <message>
         <source>America/Managua</source>
-        <translation>América/Managua</translation>
+        <translation>Amérique/Managua</translation>
     </message>
     <message>
         <source>America/Manaus</source>
-        <translation>América/Manaus</translation>
+        <translation>Amérique/Manaus</translation>
     </message>
     <message>
         <source>E Amazonas</source>
-        <extracomment>comment for time zone America/Manaus
-</extracomment>
-        <translation>Amazonas E</translation>
+        <extracomment>comment for time zone America/Manaus</extracomment>
+        <translation>Est de l&apos;Amazone</translation>
     </message>
     <message>
         <source>America/Marigot</source>
-        <translation>América/Marigot</translation>
+        <translation>Amérique/Marigot</translation>
     </message>
     <message>
         <source>America/Martinique</source>
-        <translation>América/Martinica</translation>
+        <translation>Amérique/Martinique</translation>
     </message>
     <message>
         <source>America/Matamoros</source>
-        <translation>América/Matamoros</translation>
+        <translation>Amérique/Matamoros</translation>
     </message>
     <message>
         <source>US Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas near US border</source>
-        <extracomment>comment for time zone America/Matamoros
-</extracomment>
-        <translation>Hora norteamericana central - Coahuila, Durango, Nuevo Leon, Tamaulipas, cerca de la frontera con los Estados Unidos</translation>
+        <extracomment>comment for time zone America/Matamoros</extracomment>
+        <translation>Heure du Centre des États-Unis - Coahuila, État du Durango, Nouveau León, Tamaulipas</translation>
     </message>
     <message>
         <source>America/Mazatlan</source>
-        <translation>América/Mazatlan</translation>
+        <translation>Amérique/Mazatlan</translation>
     </message>
     <message>
         <source>Mountain Time - S Baja, Nayarit, Sinaloa</source>
-        <extracomment>comment for time zone America/Mazatlan
-</extracomment>
-        <translation>Hora de la Montaña - S Baja, Nayarit, Sinaloa</translation>
+        <extracomment>comment for time zone America/Mazatlan</extracomment>
+        <translation>Heure des Montagnes - S Baja, Nayarit, Sinaloa</translation>
     </message>
     <message>
         <source>America/Mendoza</source>
-        <translation>América/Mendoza</translation>
+        <translation>Amérique/Mendoza</translation>
     </message>
     <message>
         <source>America/Menominee</source>
-        <translation>América/Menominee</translation>
+        <translation>Amérique/Menominee</translation>
     </message>
     <message>
         <source>Central Time - Michigan - Dickinson, Gogebic, Iron &amp; Menominee Counties</source>
-        <extracomment>comment for time zone America/Menominee
-</extracomment>
-        <translation>Hora Central - Michigan - Condados de Dickinson, Gogebic, Iron &amp; Menominee</translation>
+        <extracomment>comment for time zone America/Menominee</extracomment>
+        <translation>Heure du Centre - Michigan - Comtés de Dickinson, Gogebic, Iron &amp; Menominee</translation>
     </message>
     <message>
         <source>America/Merida</source>
-        <translation>América/Mendoza</translation>
+        <translation>Amérique/Merida</translation>
     </message>
     <message>
         <source>Central Time - Campeche, Yucatan</source>
-        <extracomment>comment for time zone America/Merida
-</extracomment>
-        <translation>Hora Central - Campeche, Yucatán</translation>
+        <extracomment>comment for time zone America/Merida</extracomment>
+        <translation>Heure du Centre - État du Campeche, Yucatan</translation>
     </message>
     <message>
         <source>America/Mexico_City</source>
-        <translation>América/Ciudad_de_México</translation>
+        <translation>Amérique/Mexico</translation>
     </message>
     <message>
         <source>Central Time - most locations</source>
-        <extracomment>comment for time zone America/Mexico_City
-</extracomment>
-        <translation>Hora Central - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Mexico_City</extracomment>
+        <translation>Heure du Centre - lieux divers</translation>
     </message>
     <message>
         <source>America/Miquelon</source>
-        <translation>América/Miquelon</translation>
+        <translation>Amérique/Miquelon</translation>
     </message>
     <message>
         <source>America/Moncton</source>
-        <translation>América/Moncton</translation>
+        <translation>Amérique/Moncton</translation>
     </message>
     <message>
         <source>Atlantic Time - New Brunswick</source>
-        <extracomment>comment for time zone America/Moncton
-</extracomment>
-        <translation>Hora del Atlántico - Nueva Brunswick</translation>
+        <extracomment>comment for time zone America/Moncton</extracomment>
+        <translation>Heure de l&apos;Atlantique - Nouveau-Brunswick</translation>
     </message>
     <message>
         <source>America/Monterrey</source>
-        <translation>América/Monterrey</translation>
+        <translation>Amérique/Monterrey</translation>
     </message>
     <message>
         <source>Mexican Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas away from US border</source>
-        <extracomment>comment for time zone America/Monterrey
-</extracomment>
-        <translation>Hora mexicana central - Coahuila, Durango, Nuevo Leon, Tamaulipas, lejos de la frontera norteamericana</translation>
+        <extracomment>comment for time zone America/Monterrey</extracomment>
+        <translation>Heure du Centre, Méxique - Coahuila, État du Durango, Nouveau León, Tamaulipas</translation>
     </message>
     <message>
         <source>America/Montevideo</source>
-        <translation>América/Montevideo</translation>
+        <translation>Amérique/Montevideo</translation>
     </message>
     <message>
         <source>America/Montreal</source>
-        <translation>América/Montreal</translation>
+        <translation>Amérique/Montréal</translation>
     </message>
     <message>
         <source>Eastern Time - Quebec - most locations</source>
-        <extracomment>comment for time zone America/Montreal
-</extracomment>
-        <translation>Hora del Este - Quebec - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Montreal</extracomment>
+        <translation>Heure de l&apos;Est - Québec - lieux divers</translation>
     </message>
     <message>
         <source>America/Montserrat</source>
-        <translation>América/Montserrat</translation>
+        <translation>Amérique/Montserrat</translation>
     </message>
     <message>
         <source>America/Nassau</source>
-        <translation>América/Nassau</translation>
+        <translation>Amérique/Nassau</translation>
     </message>
     <message>
         <source>America/New_York</source>
-        <translation>América/Nueva_York</translation>
+        <translation>Amérique/New_York</translation>
     </message>
     <message>
         <source>Eastern Time</source>
-        <extracomment>comment for time zone America/New_York
-</extracomment>
-        <translation>Hora del Este</translation>
+        <extracomment>comment for time zone America/New_York</extracomment>
+        <translation>Heure de l&apos;Est</translation>
     </message>
     <message>
         <source>America/Nipigon</source>
-        <translation>América/Nipigon</translation>
+        <translation>Amérique/Nipigon</translation>
     </message>
     <message>
         <source>Eastern Time - Ontario &amp; Quebec - places that did not observe DST 1967-1973</source>
-        <extracomment>comment for time zone America/Nipigon
-</extracomment>
-        <translation>Hora del Este - Ontario &amp; Quebec - lugares no adheridos al DST 1967-1973</translation>
+        <extracomment>comment for time zone America/Nipigon</extracomment>
+        <translation>Heure de l&apos;Est - Ontario &amp; Québec - lieux n&apos;ayant pas respecté le DST 1967-1973</translation>
     </message>
     <message>
         <source>America/Nome</source>
-        <translation>América/Nome</translation>
+        <translation>Amérique/Nome</translation>
     </message>
     <message>
         <source>Alaska Time - west Alaska</source>
-        <extracomment>comment for time zone America/Nome
-</extracomment>
-        <translation>Hora de Alaska - Alaska oeste</translation>
+        <extracomment>comment for time zone America/Nome</extracomment>
+        <translation>Heure de l&apos;Alaska - Alaska de l&apos;Ouest</translation>
     </message>
     <message>
         <source>America/Noronha</source>
-        <translation>América/Noronha</translation>
+        <translation>Amérique/Noronha</translation>
     </message>
     <message>
         <source>Atlantic islands</source>
-        <extracomment>comment for time zone America/Noronha
-</extracomment>
-        <translation>Islas del Atlántico</translation>
+        <extracomment>comment for time zone America/Noronha</extracomment>
+        <translation>Îles de l&apos;Atlantique</translation>
     </message>
     <message>
         <source>America/North_Dakota/Center</source>
-        <translation>América/Dakota del Norte/Centro</translation>
+        <translation>Amérique/Dakota_du_Nord/Centre</translation>
     </message>
     <message>
         <source>Central Time - North Dakota - Oliver County</source>
-        <extracomment>comment for time zone America/North_Dakota/Center
-</extracomment>
-        <translation>Hora Central - North Dakota - Condado de Oliver</translation>
+        <extracomment>comment for time zone America/North_Dakota/Center</extracomment>
+        <translation>Heure du Centre - Dakota du Nord - Comté d&apos;Oliver</translation>
     </message>
     <message>
         <source>America/North_Dakota/New_Salem</source>
-        <translation>América/Dakota del Norte/Nueva Salem</translation>
+        <translation>Amérique/Dakota_du_Nord/New_Salem</translation>
     </message>
     <message>
         <source>Central Time - North Dakota - Morton County (except Mandan area)</source>
-        <extracomment>comment for time zone America/North_Dakota/New_Salem
-</extracomment>
-        <translation>Hora Central - North Dakota - Condado de Morton (excepto el área de Mandan)</translation>
+        <extracomment>comment for time zone America/North_Dakota/New_Salem</extracomment>
+        <translation>Heure du Centre - Dakota du Nord - Comté du Morton (sauf la région Mandan)</translation>
     </message>
     <message>
         <source>America/Ojinaga</source>
-        <translation>América/Ojinaga</translation>
+        <translation>Amérique/Ojinaga</translation>
     </message>
     <message>
         <source>US Mountain Time - Chihuahua near US border</source>
-        <extracomment>comment for time zone America/Ojinaga
-</extracomment>
-        <translation>Hora norteamericana de montaña - Chihuahua, cerca de la frontera con los Estados Unidos</translation>
+        <extracomment>comment for time zone America/Ojinaga</extracomment>
+        <translation>Heure des Montagnes des États-Unis - État de Chihuahua</translation>
     </message>
     <message>
         <source>America/Panama</source>
-        <translation>América/Panamá</translation>
+        <translation>Amérique/Panama</translation>
     </message>
     <message>
         <source>America/Pangnirtung</source>
-        <translation>América/Pangnirtung</translation>
+        <translation>Amérique/Pangnirtung</translation>
     </message>
     <message>
         <source>Eastern Time - Pangnirtung, Nunavut</source>
-        <extracomment>comment for time zone America/Pangnirtung
-</extracomment>
-        <translation>Hora del Este - Pangnirtung, Nunavut</translation>
+        <extracomment>comment for time zone America/Pangnirtung</extracomment>
+        <translation>Heure de l&apos;Est - Pangnirtung, Nunavut</translation>
     </message>
     <message>
         <source>America/Paramaribo</source>
-        <translation>América/Paramaribo</translation>
+        <translation>Amérique/Paramaribo</translation>
     </message>
     <message>
         <source>America/Phoenix</source>
-        <translation>América/Phoenix</translation>
+        <translation>Amérique/Phoenix</translation>
     </message>
     <message>
         <source>Mountain Standard Time - Arizona</source>
-        <extracomment>comment for time zone America/Phoenix
-</extracomment>
-        <translation>Hora Estándar de la Montaña - Arizona</translation>
+        <extracomment>comment for time zone America/Phoenix</extracomment>
+        <translation>Heure des Montagnes - Arizona</translation>
     </message>
     <message>
         <source>America/Port-au-Prince</source>
-        <translation>América/Puerto-Príncipe</translation>
+        <translation>Amérique/Port_au_Prince</translation>
     </message>
     <message>
         <source>America/Porto_Acre</source>
-        <translation>América/Puerto_Acre</translation>
+        <translation>Amérique/Porto_Acre</translation>
     </message>
     <message>
         <source>America/Port_of_Spain</source>
-        <translation>América/Puerto_de_España</translation>
+        <translation>Amérique/Port_of_Spain</translation>
     </message>
     <message>
         <source>America/Porto_Velho</source>
-        <translation>América/Puerto_Velho</translation>
+        <translation>Amérique/Porto_Velho</translation>
     </message>
     <message>
         <source>Rondonia</source>
-        <extracomment>comment for time zone America/Porto_Velho
-</extracomment>
+        <extracomment>comment for time zone America/Porto_Velho</extracomment>
         <translation>Rondonia</translation>
     </message>
     <message>
         <source>America/Puerto_Rico</source>
-        <translation>América/Puerto_Rico</translation>
+        <translation>Amérique/Puerto_Rico</translation>
     </message>
     <message>
         <source>America/Rainy_River</source>
-        <translation>América/Rainy_River</translation>
+        <translation>Amérique/Rainy_River</translation>
     </message>
     <message>
         <source>Central Time - Rainy River &amp; Fort Frances, Ontario</source>
-        <extracomment>comment for time zone America/Rainy_River
-</extracomment>
-        <translation>Hora Central - Rainy River &amp; Fort Frances, Ontario</translation>
+        <extracomment>comment for time zone America/Rainy_River</extracomment>
+        <translation>Heure du Centre - Rainy River &amp; Fort Frances, Ontario</translation>
     </message>
     <message>
         <source>America/Rankin_Inlet</source>
-        <translation>América/Rankin_Inlet</translation>
+        <translation>Amérique/Rankin_Inlet</translation>
     </message>
     <message>
         <source>Central Time - central Nunavut</source>
-        <extracomment>comment for time zone America/Rankin_Inlet
-</extracomment>
-        <translation>Hora Central - Nunavut central</translation>
+        <extracomment>comment for time zone America/Rankin_Inlet</extracomment>
+        <translation>Heure du Centre - Nunavut du Centre</translation>
     </message>
     <message>
         <source>America/Recife</source>
-        <translation>América/Recife</translation>
+        <translation>Amérique/Recife</translation>
     </message>
     <message>
         <source>Pernambuco</source>
-        <extracomment>comment for time zone America/Recife
-</extracomment>
+        <extracomment>comment for time zone America/Recife</extracomment>
         <translation>Pernambuco</translation>
     </message>
     <message>
         <source>America/Regina</source>
-        <translation>América/Regina</translation>
+        <translation>Amérique/Regina</translation>
     </message>
     <message>
         <source>Central Standard Time - Saskatchewan - most locations</source>
-        <extracomment>comment for time zone America/Regina
-</extracomment>
-        <translation>Hora Estándar Central - Saskatchewan - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Regina</extracomment>
+        <translation>Heure du Centre - Saskatchewan - lieux divers</translation>
     </message>
     <message>
         <source>America/Resolute</source>
-        <translation>América/Resolute</translation>
+        <translation>Amérique/Resolute</translation>
     </message>
     <message>
         <source>Eastern Standard Time - Resolute, Nunavut</source>
-        <extracomment>comment for time zone America/Resolute
-</extracomment>
-        <translation>Hora Estándar del Este - Resolute, Nunavut</translation>
+        <extracomment>comment for time zone America/Resolute</extracomment>
+        <translation>Heure de l&apos;Est - Resolute, Nunavut</translation>
     </message>
     <message>
         <source>America/Rio_Branco</source>
-        <translation>América/Río Blanco</translation>
+        <translation>Amérique/Rio_Branco</translation>
     </message>
     <message>
         <source>Acre</source>
-        <extracomment>comment for time zone America/Rio_Branco
-</extracomment>
+        <extracomment>comment for time zone America/Rio_Branco</extracomment>
         <translation>Acre</translation>
     </message>
     <message>
         <source>America/Rosario</source>
-        <translation>América/Rosario</translation>
+        <translation>Amérique/Rosario</translation>
     </message>
     <message>
         <source>America/Santa_Isabel</source>
-        <translation>America/Santa_Isabel</translation>
+        <translation>Amérique/Santa_Isabel</translation>
     </message>
     <message>
         <source>Mexican Pacific Time - Baja California away from US border</source>
-        <extracomment>comment for time zone America/Santa_Isabel
-</extracomment>
-        <translation>Hora mexicana del Pacífico - Baja California, lejos de la frontera norteamericana</translation>
+        <extracomment>comment for time zone America/Santa_Isabel</extracomment>
+        <translation>Heure du Méxique côte Pacifique - Baja California loin de la frontière</translation>
     </message>
     <message>
         <source>America/Santarem</source>
-        <translation>America/Santarem</translation>
+        <translation>Amérique/Santarém</translation>
     </message>
     <message>
         <source>W Para</source>
-        <extracomment>comment for time zone America/Santarem
-</extracomment>
-        <translation>Para O</translation>
+        <extracomment>comment for time zone America/Santarem</extracomment>
+        <translation>Ouest du Paraguay</translation>
     </message>
     <message>
         <source>America/Santiago</source>
-        <translation>América/Santiago</translation>
+        <translation>Amérique/Santiago</translation>
     </message>
     <message>
         <source>America/Santo_Domingo</source>
-        <translation>América/Santo_Domingo</translation>
+        <translation>Amérique/Saint_Domingue</translation>
     </message>
     <message>
         <source>America/Sao_Paulo</source>
-        <translation>América/Sao_Paulo</translation>
+        <translation>Amérique/Sao_Paulo</translation>
     </message>
     <message>
         <source>S &amp; SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</source>
-        <extracomment>comment for time zone America/Sao_Paulo
-</extracomment>
-        <translation>Brasil S &amp; SE (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</translation>
+        <extracomment>comment for time zone America/Sao_Paulo</extracomment>
+        <translation>Sud et du Sud-Est du Brésil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</translation>
     </message>
     <message>
         <source>America/Scoresbysund</source>
-        <translation>América/Scoresbysund</translation>
+        <translation>Amérique/Scoresbysund</translation>
     </message>
     <message>
         <source>Scoresbysund / Ittoqqortoormiit</source>
-        <extracomment>comment for time zone America/Scoresbysund
-</extracomment>
+        <extracomment>comment for time zone America/Scoresbysund</extracomment>
         <translation>Scoresbysund / Ittoqqortoormiit</translation>
     </message>
     <message>
         <source>America/Shiprock</source>
-        <translation>América/Shiprock</translation>
+        <translation>Amérique/Shiprock</translation>
     </message>
     <message>
         <source>Mountain Time - Navajo</source>
-        <extracomment>comment for time zone America/Shiprock
-</extracomment>
-        <translation>Hora de Montaña - Navajo</translation>
+        <extracomment>comment for time zone America/Shiprock</extracomment>
+        <translation>Heure des Montagnes - Navajo</translation>
     </message>
     <message>
         <source>America/St_Barthelemy</source>
-        <translation>América/San_Bartolomé</translation>
+        <translation>Amérique/Saint_Barthélemy</translation>
     </message>
     <message>
         <source>America/St_Johns</source>
-        <translation>América/St_Johns</translation>
+        <translation>Amérique/St_Johns</translation>
     </message>
     <message>
         <source>Newfoundland Time, including SE Labrador</source>
-        <extracomment>comment for time zone America/St_Johns
-</extracomment>
-        <translation>Hora de Newfoundland,incluyendo Labrador SE</translation>
+        <extracomment>comment for time zone America/St_Johns</extracomment>
+        <translation>Heure de Terre-Neuve, inclut le Labrador du Sud-Est</translation>
     </message>
     <message>
         <source>America/St_Kitts</source>
-        <translation>América/St_Kitts</translation>
+        <translation>Amérique/St_Kitts</translation>
     </message>
     <message>
         <source>America/St_Lucia</source>
-        <translation>América/St_Lucia</translation>
+        <translation>Amérique/Sainte_Lucie</translation>
     </message>
     <message>
         <source>America/St_Thomas</source>
-        <translation>América/St_Thomas</translation>
+        <translation>Amérique/St_Thomas</translation>
     </message>
     <message>
         <source>America/St_Vincent</source>
-        <translation>América/St_Vincent</translation>
+        <translation>Amérique/St_Vincent</translation>
     </message>
     <message>
         <source>America/Swift_Current</source>
-        <translation>América/Swift_Current</translation>
+        <translation>Amérique/Swift_Current</translation>
     </message>
     <message>
         <source>Central Standard Time - Saskatchewan - midwest</source>
-        <extracomment>comment for time zone America/Swift_Current
-</extracomment>
-        <translation>Hora Estándar Central - Saskatchewan - medio oeste</translation>
+        <extracomment>comment for time zone America/Swift_Current</extracomment>
+        <translation>Heure du Centre - Saskatchewan - Middle West</translation>
     </message>
     <message>
         <source>America/Tegucigalpa</source>
-        <translation>América/Tegucigalpa</translation>
+        <translation>Amérique/Tegucigalpa</translation>
     </message>
     <message>
         <source>America/Thule</source>
-        <translation>América/Thule</translation>
+        <translation>Amérique/Thule</translation>
     </message>
     <message>
         <source>Thule / Pituffik</source>
-        <extracomment>comment for time zone America/Thule
-</extracomment>
+        <extracomment>comment for time zone America/Thule</extracomment>
         <translation>Thule / Pituffik</translation>
     </message>
     <message>
         <source>America/Thunder_Bay</source>
-        <translation>América/Thunder_Bay</translation>
+        <translation>Amérique/Thunder_Bay</translation>
     </message>
     <message>
         <source>Eastern Time - Thunder Bay, Ontario</source>
-        <extracomment>comment for time zone America/Thunder_Bay
-</extracomment>
-        <translation>Hora del Este - Bahía Thunder, Ontario</translation>
+        <extracomment>comment for time zone America/Thunder_Bay</extracomment>
+        <translation>Heure de l&apos;Est - Thunder Bay, Ontario</translation>
     </message>
     <message>
         <source>America/Tijuana</source>
-        <translation>América/Tijuana</translation>
+        <translation>Amérique/Tijuana</translation>
     </message>
     <message>
         <source>US Pacific Time - Baja California near US border</source>
-        <extracomment>comment for time zone America/Tijuana
-</extracomment>
-        <translation>Hora norteamericana del Pacífico - Baja California, cerca de la frontera con los Estados Unidos</translation>
+        <extracomment>comment for time zone America/Tijuana</extracomment>
+        <translation>Heure des États-Unis / Côte Pacifique - Baja California proche de la frontière US</translation>
     </message>
     <message>
         <source>America/Toronto</source>
-        <translation>América/Toronto</translation>
+        <translation>Amérique/Toronto</translation>
     </message>
     <message>
         <source>Eastern Time - Ontario - most locations</source>
-        <extracomment>comment for time zone America/Toronto
-</extracomment>
-        <translation>Hora del Este - Ontario - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone America/Toronto</extracomment>
+        <translation>Heure de l&apos;Est - Ontario - lieux divers</translation>
     </message>
     <message>
         <source>America/Tortola</source>
-        <translation>América/Tortola</translation>
+        <translation>Amérique/Tortola</translation>
     </message>
     <message>
         <source>America/Vancouver</source>
-        <translation>América/Vancouver</translation>
+        <translation>Amérique/Vancouver</translation>
     </message>
     <message>
         <source>Pacific Time - west British Columbia</source>
-        <extracomment>comment for time zone America/Vancouver
-</extracomment>
-        <translation>Hora del Pacífico - Columbia Británica oeste</translation>
+        <extracomment>comment for time zone America/Vancouver</extracomment>
+        <translation>Heure du Pacifique - Colombie-Britannique de l&apos;Ouest</translation>
     </message>
     <message>
         <source>America/Virgin</source>
-        <translation>América/Virgin</translation>
+        <translation>Amérique/Virgin</translation>
     </message>
     <message>
         <source>America/Whitehorse</source>
-        <translation>América/Whitehorse</translation>
+        <translation>Amérique/Whitehorse</translation>
     </message>
     <message>
         <source>Pacific Time - south Yukon</source>
-        <extracomment>comment for time zone America/Whitehorse
-</extracomment>
-        <translation>Hora del Pacífico - Yukon sur</translation>
+        <extracomment>comment for time zone America/Whitehorse</extracomment>
+        <translation>Heure du Pacifique - Yukon du Sud</translation>
     </message>
     <message>
         <source>America/Winnipeg</source>
-        <translation>América/Winnipeg</translation>
+        <translation>Amérique/Winnipeg</translation>
     </message>
     <message>
         <source>Central Time - Manitoba &amp; west Ontario</source>
-        <extracomment>comment for time zone America/Winnipeg
-</extracomment>
-        <translation>Hora Central - Manitoba &amp; Ontario oeste</translation>
+        <extracomment>comment for time zone America/Winnipeg</extracomment>
+        <translation>Heure du Centre - Manitôbe &amp; Ontario de l&apos;Ouest</translation>
     </message>
     <message>
         <source>America/Yakutat</source>
-        <translation>América/Yakutat</translation>
+        <translation>Amérique/Yakutat</translation>
     </message>
     <message>
         <source>Alaska Time - Alaska panhandle neck</source>
-        <extracomment>comment for time zone America/Yakutat
-</extracomment>
-        <translation>Hora de Alaska - cuello panhandle de Alaska</translation>
+        <extracomment>comment for time zone America/Yakutat</extracomment>
+        <translation>Heure de l&apos;Alaska - Queue de poêle de l&apos;Alaska</translation>
     </message>
     <message>
         <source>America/Yellowknife</source>
-        <translation>América/Yellowknife</translation>
+        <translation>Amérique/Yellowknife</translation>
     </message>
     <message>
         <source>Mountain Time - central Northwest Territories</source>
-        <extracomment>comment for time zone America/Yellowknife
-</extracomment>
-        <translation>Hora de la Montaña - Territorios Noroeste centrales</translation>
+        <extracomment>comment for time zone America/Yellowknife</extracomment>
+        <translation>Heure des Montagnes - Centre des Territoires du Nord-Ouest</translation>
     </message>
     <message>
         <source>Antarctica/Casey</source>
-        <translation>Antártida/Casey</translation>
+        <translation>Antarctique/Casey</translation>
     </message>
     <message>
         <source>Casey Station, Bailey Peninsula</source>
-        <extracomment>comment for time zone Antarctica/Casey
-</extracomment>
-        <translation>Estación Casey, Península de Bailey</translation>
+        <extracomment>comment for time zone Antarctica/Casey</extracomment>
+        <translation>Base antarctique Casey, Péninsule de Bailey</translation>
     </message>
     <message>
         <source>Antarctica/Davis</source>
-        <translation>Antártida/Davis</translation>
+        <translation>Antarctique/Davis</translation>
     </message>
     <message>
         <source>Davis Station, Vestfold Hills</source>
-        <extracomment>comment for time zone Antarctica/Davis
-</extracomment>
-        <translation>Estación Davis, Vestfold Hills</translation>
+        <extracomment>comment for time zone Antarctica/Davis</extracomment>
+        <translation>Base antarctique Davis, Vestfold Hills</translation>
     </message>
     <message>
         <source>Antarctica/DumontDUrville</source>
-        <translation>Antártida/DumontDUrville</translation>
+        <translation>Antarctique/DumontDUrville</translation>
     </message>
     <message>
         <source>Dumont-d&apos;Urville Station, Terre Adelie</source>
-        <extracomment>comment for time zone Antarctica/DumontDUrville
-</extracomment>
-        <translation>Estación Dumont-d&apos;Urville, Terre Adelie</translation>
+        <extracomment>comment for time zone Antarctica/DumontDUrville</extracomment>
+        <translation>Base antarctique Dumont d&apos;Urville, Terre Adélie</translation>
     </message>
     <message>
         <source>Antarctica/Macquarie</source>
-        <translation>Antártida/Macquarie</translation>
+        <translation>Antarctique/Macquarie</translation>
     </message>
     <message>
         <source>Macquarie Island Station, Macquarie Island</source>
-        <extracomment>comment for time zone Antarctica/Macquarie
-</extracomment>
-        <translation>Estación de la Isla Macquarie, Isla Macquarie</translation>
+        <extracomment>comment for time zone Antarctica/Macquarie</extracomment>
+        <translation>Station de l&apos;île Macquarie, Île de Macquarie</translation>
     </message>
     <message>
         <source>Antarctica/Mawson</source>
-        <translation>Antártida/Mawson</translation>
+        <translation>Antarctique/Mawson</translation>
     </message>
     <message>
         <source>Mawson Station, Holme Bay</source>
-        <extracomment>comment for time zone Antarctica/Mawson
-</extracomment>
-        <translation>Estación Mawson, Bahía de Holme</translation>
+        <extracomment>comment for time zone Antarctica/Mawson</extracomment>
+        <translation>Base antarctique Mawson, Holme Bay</translation>
     </message>
     <message>
         <source>Antarctica/McMurdo</source>
-        <translation>Antártida/McMurdo</translation>
+        <translation>Antarctique/McMurdo</translation>
     </message>
     <message>
         <source>McMurdo Station, Ross Island</source>
-        <extracomment>comment for time zone Antarctica/McMurdo
-</extracomment>
-        <translation>Estación McMurdo, Isla Ross</translation>
+        <extracomment>comment for time zone Antarctica/McMurdo</extracomment>
+        <translation>Base antarctique McMurdo, Île de Ross</translation>
     </message>
     <message>
         <source>Antarctica/Palmer</source>
-        <translation>Antártida/Palmer</translation>
+        <translation>Antarctique/Palmer</translation>
     </message>
     <message>
         <source>Palmer Station, Anvers Island</source>
-        <extracomment>comment for time zone Antarctica/Palmer
-</extracomment>
-        <translation>Estación Palmer, Isla Anvers</translation>
+        <extracomment>comment for time zone Antarctica/Palmer</extracomment>
+        <translation>Station Palmer, Île Anvers</translation>
     </message>
     <message>
         <source>Antarctica/Rothera</source>
-        <translation>Antárctica/Rothera</translation>
+        <translation>Antarctique/Rothera</translation>
     </message>
     <message>
         <source>Rothera Station, Adelaide Island</source>
-        <extracomment>comment for time zone Antarctica/Rothera
-</extracomment>
-        <translation>Estación Rothera, Isla Adelaida</translation>
+        <extracomment>comment for time zone Antarctica/Rothera</extracomment>
+        <translation>Base antarctique Rothera, Île Adélaïde</translation>
     </message>
     <message>
         <source>Antarctica/South_Pole</source>
-        <translation>Antártida/Polo_sur</translation>
+        <translation>Antarctique/Pôle_Sud</translation>
     </message>
     <message>
         <source>Amundsen-Scott Station, South Pole</source>
-        <extracomment>comment for time zone Antarctica/South_Pole
-</extracomment>
-        <translation>Estación Amundsen-Scott, Polo Sur</translation>
+        <extracomment>comment for time zone Antarctica/South_Pole</extracomment>
+        <translation>Station d&apos;Amundsen-Scott, Pôle Sud</translation>
     </message>
     <message>
         <source>Antarctica/Syowa</source>
-        <translation>Antártida/Syowa</translation>
+        <translation>Antarctique/Syowa</translation>
     </message>
     <message>
         <source>Syowa Station, E Ongul I</source>
-        <extracomment>comment for time zone Antarctica/Syowa
-</extracomment>
-        <translation>Syowa Station, E Ongul I</translation>
+        <extracomment>comment for time zone Antarctica/Syowa</extracomment>
+        <translation>Station Syowa, E Ongul I</translation>
     </message>
     <message>
         <source>Antarctica/Vostok</source>
-        <translation>Antártida/Vostok</translation>
+        <translation>Antarctique/Vostok</translation>
     </message>
     <message>
         <source>Vostok Station, S Magnetic Pole</source>
-        <extracomment>comment for time zone Antarctica/Vostok
-</extracomment>
-        <translation>Estación Vostok, Polo Magnético Sur</translation>
+        <extracomment>comment for time zone Antarctica/Vostok</extracomment>
+        <translation>Base antarctique Vostok, Pôle Sud</translation>
     </message>
     <message>
         <source>Arctic/Longyearbyen</source>
-        <translation>Ártico/Longyearbyen</translation>
+        <translation>Arctique/Longyearbyen</translation>
     </message>
     <message>
         <source>Asia/Aden</source>
-        <translation>Asia/Aden</translation>
+        <translation>Asie/Aden</translation>
     </message>
     <message>
         <source>Asia/Almaty</source>
-        <translation>Asia/Almaty</translation>
+        <translation>Asie/Almaty</translation>
     </message>
     <message>
         <source>Asia/Amman</source>
-        <translation>Asia/Amman</translation>
+        <translation>Asie/Amman</translation>
     </message>
     <message>
         <source>Asia/Anadyr</source>
-        <translation>Asia/Anadyr</translation>
+        <translation>Asie/Anadyr</translation>
     </message>
     <message>
         <source>Moscow+08 - Bering Sea</source>
-        <extracomment>comment for time zone Asia/Anadyr
-</extracomment>
-        <translation>Moscú+08 - Mar de Bering</translation>
+        <extracomment>comment for time zone Asia/Anadyr</extracomment>
+        <translation>Moscou+08 - Mer de Béring</translation>
     </message>
     <message>
         <source>Asia/Aqtau</source>
-        <translation>Asia/Aqtau</translation>
+        <translation>Asie/Aqtau</translation>
     </message>
     <message>
         <source>Atyrau (Atirau, Gur&apos;yev), Mangghystau (Mankistau)</source>
-        <extracomment>comment for time zone Asia/Aqtau
-</extracomment>
-        <translation>Atyrau (Atirau, Gur&apos;yev), Mangghystau (Mankistau)</translation>
+        <extracomment>comment for time zone Asia/Aqtau</extracomment>
+        <translation>Atyraou, Manguistaou</translation>
     </message>
     <message>
         <source>Asia/Aqtobe</source>
-        <translation>Asia/Aqtobe</translation>
+        <translation>Asie/Aqtobe</translation>
     </message>
     <message>
         <source>Aqtobe (Aktobe)</source>
-        <extracomment>comment for time zone Asia/Aqtobe
-</extracomment>
-        <translation>Aqtobe (Aktobe)</translation>
+        <extracomment>comment for time zone Asia/Aqtobe</extracomment>
+        <translation>Aktioubé</translation>
     </message>
     <message>
         <source>Asia/Ashgabat</source>
-        <translation>Asia/Ashgabat</translation>
+        <translation>Asie/Ashgabat</translation>
     </message>
     <message>
         <source>Asia/Ashkhabad</source>
-        <translation>Asia/Ashkhabad</translation>
+        <translation>Asie/Ashkhabad</translation>
     </message>
     <message>
         <source>Asia/Baghdad</source>
-        <translation>Asia/Bagdad</translation>
+        <translation>Asie/Bagdad</translation>
     </message>
     <message>
         <source>Asia/Bahrain</source>
-        <translation>Asia/Bahrain</translation>
+        <translation>Asie/Bahraïn</translation>
     </message>
     <message>
         <source>Asia/Baku</source>
-        <translation>Asia/Baku</translation>
+        <translation>Asie/Bakou</translation>
     </message>
     <message>
         <source>Asia/Bangkok</source>
-        <translation>Asia/Bangkok</translation>
+        <translation>Asie/Bangkok</translation>
     </message>
     <message>
         <source>Asia/Beirut</source>
-        <translation>Asia/Beirut</translation>
+        <translation>Asie/Beyrouth</translation>
     </message>
     <message>
         <source>Asia/Bishkek</source>
-        <translation>Asia/Bishkek</translation>
+        <translation>Asie/Bishkek</translation>
     </message>
     <message>
         <source>Asia/Brunei</source>
-        <translation>Asia/Brunei</translation>
+        <translation>Asie/Brunei</translation>
     </message>
     <message>
         <source>Asia/Calcutta</source>
-        <translation>Asia/Calcuta</translation>
+        <translation>Asie/Calcutta</translation>
     </message>
     <message>
         <source>Asia/Choibalsan</source>
-        <translation>Asia/Choibalsán</translation>
+        <translation>Asie/Choibalsan</translation>
     </message>
     <message>
         <source>Dornod, Sukhbaatar</source>
-        <extracomment>comment for time zone Asia/Choibalsan
-</extracomment>
+        <extracomment>comment for time zone Asia/Choibalsan</extracomment>
         <translation>Dornod, Sukhbaatar</translation>
     </message>
     <message>
         <source>Asia/Chongqing</source>
-        <translation>Asia/Chongqing</translation>
+        <translation>Asie/Chongqing</translation>
     </message>
     <message>
         <source>central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.</source>
-        <extracomment>comment for time zone Asia/Chongqing
-</extracomment>
-        <translation>China central - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.</translation>
+        <extracomment>comment for time zone Asia/Chongqing</extracomment>
+        <translation>Centre de la Chine - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.</translation>
     </message>
     <message>
         <source>Asia/Chungking</source>
-        <translation>Asia/Chungking</translation>
+        <translation>Asie/Chung_ching</translation>
     </message>
     <message>
         <source>Asia/Colombo</source>
-        <translation>Asia/Colombo</translation>
+        <translation>Asie/Colombo</translation>
     </message>
     <message>
         <source>Asia/Dacca</source>
-        <translation>Asia/Dacca</translation>
+        <translation>Asie/Dacca</translation>
     </message>
     <message>
         <source>Asia/Damascus</source>
-        <translation>Asia/Damasco</translation>
+        <translation>Asie/Damas</translation>
     </message>
     <message>
         <source>Asia/Dhaka</source>
-        <translation>Asia/Dhaka</translation>
+        <translation>Asie/Dhaka</translation>
     </message>
     <message>
         <source>Asia/Dili</source>
-        <translation>Asia/Dili</translation>
+        <translation>Asie/Dili</translation>
     </message>
     <message>
         <source>Asia/Dubai</source>
-        <translation>Asia/Dubai</translation>
+        <translation>Asie/Dubai</translation>
     </message>
     <message>
         <source>Asia/Dushanbe</source>
-        <translation>Asia/Dushanbe</translation>
+        <translation>Asie/Dushanbe</translation>
     </message>
     <message>
         <source>Asia/Gaza</source>
-        <translation>Asia/Gaza</translation>
+        <translation>Asie/Gaza</translation>
     </message>
     <message>
         <source>Asia/Harbin</source>
-        <translation>Asia/Harbin</translation>
+        <translation>Asie/Harbin</translation>
     </message>
     <message>
         <source>Heilongjiang (except Mohe), Jilin</source>
-        <extracomment>comment for time zone Asia/Harbin
-</extracomment>
-        <translation>Heilongjiang (excepto Mohe), Jilin</translation>
+        <extracomment>comment for time zone Asia/Harbin</extracomment>
+        <translation>Heilongjiang (sauf Mohe), Jilin</translation>
     </message>
     <message>
         <source>Asia/Ho_Chi_Minh</source>
-        <translation>Asia/Ho_Chi_Minh</translation>
+        <translation>Asie/Ho_Chi_Minh</translation>
     </message>
     <message>
         <source>Asia/Hong_Kong</source>
-        <translation>Asia/Hong_Kong</translation>
+        <translation>Asie/Hong_Kong</translation>
     </message>
     <message>
         <source>Asia/Hovd</source>
-        <translation>Asia/Hovd</translation>
+        <translation>Asie/Hovd</translation>
     </message>
     <message>
         <source>Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan</source>
-        <extracomment>comment for time zone Asia/Hovd
-</extracomment>
+        <extracomment>comment for time zone Asia/Hovd</extracomment>
         <translation>Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan</translation>
     </message>
     <message>
         <source>Asia/Irkutsk</source>
-        <translation>Asia/Irkutsk</translation>
+        <translation>Asie/Irkutsk</translation>
     </message>
     <message>
         <source>Moscow+05 - Lake Baikal</source>
-        <extracomment>comment for time zone Asia/Irkutsk
-</extracomment>
-        <translation>Moscú+05 - Lago Baikal</translation>
+        <extracomment>comment for time zone Asia/Irkutsk</extracomment>
+        <translation>Moscou+05 - Lac Baïkal</translation>
     </message>
     <message>
         <source>Asia/Istanbul</source>
-        <translation>Asia/Estambul</translation>
+        <translation>Asie/Istanbul</translation>
     </message>
     <message>
         <source>Asia/Jakarta</source>
-        <translation>Asia/Yakarta</translation>
+        <translation>Asie/Jakarta</translation>
     </message>
     <message>
         <source>Java &amp; Sumatra</source>
-        <extracomment>comment for time zone Asia/Jakarta
-</extracomment>
+        <extracomment>comment for time zone Asia/Jakarta</extracomment>
         <translation>Java &amp; Sumatra</translation>
     </message>
     <message>
         <source>Asia/Jayapura</source>
-        <translation>Asia/Jayapura</translation>
+        <translation>Asie/Jayapura</translation>
     </message>
     <message>
         <source>Irian Jaya &amp; the Moluccas</source>
-        <extracomment>comment for time zone Asia/Jayapura
-</extracomment>
-        <translation>Irian Jaya &amp; las Moluccas</translation>
+        <extracomment>comment for time zone Asia/Jayapura</extracomment>
+        <translation>Nouvelle-Guinée occidentale &amp; les Moluques</translation>
     </message>
     <message>
         <source>Asia/Jerusalem</source>
-        <translation>Asia/Jerusalén</translation>
+        <translation>Asie/Jérusalem</translation>
     </message>
     <message>
         <source>Asia/Kabul</source>
-        <translation>Asia/Kabul</translation>
+        <translation>Asie/Kaboul</translation>
     </message>
     <message>
         <source>Asia/Kamchatka</source>
-        <translation>Asia/Kamchatka</translation>
+        <translation>Asie/Kamchatka</translation>
     </message>
     <message>
         <source>Moscow+08 - Kamchatka</source>
-        <extracomment>comment for time zone Asia/Kamchatka
-</extracomment>
-        <translation>Moscú+08 - Kamchatka</translation>
+        <extracomment>comment for time zone Asia/Kamchatka</extracomment>
+        <translation>Moscou+08 - Kamtchatka</translation>
     </message>
     <message>
         <source>Asia/Karachi</source>
-        <translation>Asia/Karachi</translation>
+        <translation>Asie/Karachi</translation>
     </message>
     <message>
         <source>Asia/Kashgar</source>
-        <translation>Asia/Kashgar</translation>
+        <translation>Asie/Kachgar</translation>
     </message>
     <message>
         <source>west Tibet &amp; Xinjiang</source>
-        <extracomment>comment for time zone Asia/Kashgar
-</extracomment>
-        <translation>Tibet oeste &amp; Xinjiang</translation>
+        <extracomment>comment for time zone Asia/Kashgar</extracomment>
+        <translation>Tibet Ouest &amp; Xinjiang</translation>
     </message>
     <message>
         <source>Asia/Kathmandu</source>
-        <translation>Asia/Kathmandu</translation>
+        <translation>Asie/Katmandou</translation>
     </message>
     <message>
         <source>Asia/Katmandu</source>
-        <translation>Asia/Katmandú</translation>
+        <translation>Asie/Katmandou</translation>
     </message>
     <message>
         <source>Asia/Kolkata</source>
-        <translation>Asia/Kolkata</translation>
+        <translation>Asie/Calcutta</translation>
     </message>
     <message>
         <source>Asia/Krasnoyarsk</source>
-        <translation>Asia/Krasnoyarsk</translation>
+        <translation>Asie/Krasnoyarsk</translation>
     </message>
     <message>
         <source>Moscow+04 - Yenisei River</source>
-        <extracomment>comment for time zone Asia/Krasnoyarsk
-</extracomment>
-        <translation>Moscú+04 - Yenisei River</translation>
+        <extracomment>comment for time zone Asia/Krasnoyarsk</extracomment>
+        <translation>Moscou+04 - Rivière Ienisseï</translation>
     </message>
     <message>
         <source>Asia/Kuala_Lumpur</source>
-        <translation>Asia/Kuala_Lumpur</translation>
+        <translation>Asie/Kuala_Lumpur</translation>
     </message>
     <message>
         <source>peninsular Malaysia</source>
-        <extracomment>comment for time zone Asia/Kuala_Lumpur
-</extracomment>
-        <translation>Malasia peninsular</translation>
+        <extracomment>comment for time zone Asia/Kuala_Lumpur</extracomment>
+        <translation>Malaisie péninsulaire</translation>
     </message>
     <message>
         <source>Asia/Kuching</source>
-        <translation>Asia/Kuching</translation>
+        <translation>Asie/Kuching</translation>
     </message>
     <message>
         <source>Sabah &amp; Sarawak</source>
-        <extracomment>comment for time zone Asia/Kuching
-</extracomment>
+        <extracomment>comment for time zone Asia/Kuching</extracomment>
         <translation>Sabah &amp; Sarawak</translation>
     </message>
     <message>
         <source>Asia/Kuwait</source>
-        <translation>Asia/Kuwait</translation>
+        <translation>Asie/Koweit</translation>
     </message>
     <message>
         <source>Asia/Macao</source>
-        <translation>Asia/Macao</translation>
+        <translation>Asie/Macao</translation>
     </message>
     <message>
         <source>Asia/Macau</source>
-        <translation>Asia/Macao</translation>
+        <translation>Asie/Macao</translation>
     </message>
     <message>
         <source>Asia/Magadan</source>
-        <translation>Asia/Magadan</translation>
+        <translation>Asie/Magadan</translation>
     </message>
     <message>
         <source>Moscow+08 - Magadan</source>
-        <extracomment>comment for time zone Asia/Magadan
-</extracomment>
-        <translation>Moscú+08 - Magadán</translation>
+        <extracomment>comment for time zone Asia/Magadan</extracomment>
+        <translation>Moscou+08 - Magadan</translation>
     </message>
     <message>
         <source>Asia/Makassar</source>
-        <translation>Asia/Makassar</translation>
+        <translation>Asie/Makassar</translation>
     </message>
     <message>
         <source>east &amp; south Borneo, Celebes, Bali, Nusa Tengarra, west Timor</source>
-        <extracomment>comment for time zone Asia/Makassar
-</extracomment>
-        <translation>este &amp; sur de Borneo, Celebes, Bali, Nusa Tengarra, Timor oeste</translation>
+        <extracomment>comment for time zone Asia/Makassar</extracomment>
+        <translation>Bornéo Est et Sud, Celebes, Bali, Nusa Tengarra, Timor Ouest</translation>
     </message>
     <message>
         <source>Asia/Manila</source>
-        <translation>Asia/Manila</translation>
+        <translation>Asie/Manille</translation>
     </message>
     <message>
         <source>Asia/Muscat</source>
-        <translation>Asia/Muscat</translation>
+        <translation>Asie/Muscat</translation>
     </message>
     <message>
         <source>Asia/Nicosia</source>
-        <translation>Asia/Nicosia</translation>
+        <translation>Asie/Nicosie</translation>
     </message>
     <message>
         <source>Asia/Novokuznetsk</source>
-        <translation>Asia/Novokuznetsk</translation>
+        <translation>Asie/Novokuznetsk</translation>
     </message>
     <message>
         <source>Moscow+03 - Novokuznetsk</source>
-        <extracomment>comment for time zone Asia/Novokuznetsk
-</extracomment>
-        <translation>Moscú+03 - Novokuznetsk</translation>
+        <extracomment>comment for time zone Asia/Novokuznetsk</extracomment>
+        <translation>Moscou+03 - Novokuznetsk</translation>
     </message>
     <message>
         <source>Asia/Novosibirsk</source>
-        <translation>Asia/Novosibirsk</translation>
+        <translation>Asie/Novosibirsk</translation>
     </message>
     <message>
         <source>Moscow+03 - Novosibirsk</source>
-        <extracomment>comment for time zone Asia/Novosibirsk
-</extracomment>
-        <translation>Moscú+03 - Novosibirsk</translation>
+        <extracomment>comment for time zone Asia/Novosibirsk</extracomment>
+        <translation>Moscou+03 - Novossibirsk</translation>
     </message>
     <message>
         <source>Asia/Omsk</source>
-        <translation>Asia/Omsk</translation>
+        <translation>Asie/Omsk</translation>
     </message>
     <message>
         <source>Moscow+03 - west Siberia</source>
-        <extracomment>comment for time zone Asia/Omsk
-</extracomment>
-        <translation>Moscú+03 - west Siberia</translation>
+        <extracomment>comment for time zone Asia/Omsk</extracomment>
+        <translation>Moscou+03 - Sibérie de l&apos;Ouest</translation>
     </message>
     <message>
         <source>Asia/Oral</source>
-        <translation>Asia/Oral</translation>
+        <translation>Asie/Oral</translation>
     </message>
     <message>
         <source>West Kazakhstan</source>
-        <extracomment>comment for time zone Asia/Oral
-</extracomment>
-        <translation>Kazajistán Oeste</translation>
+        <extracomment>comment for time zone Asia/Oral</extracomment>
+        <translation>Kazakhstan-Occidental</translation>
     </message>
     <message>
         <source>Asia/Phnom_Penh</source>
-        <translation>Asia/Phnom_Penh</translation>
+        <translation>Asie/Phnom_Penh</translation>
     </message>
     <message>
         <source>Asia/Pontianak</source>
-        <translation>Asia/Pontianak</translation>
+        <translation>Asie/Pontianak</translation>
     </message>
     <message>
         <source>west &amp; central Borneo</source>
-        <extracomment>comment for time zone Asia/Pontianak
-</extracomment>
-        <translation>Borneo oeste &amp; central</translation>
+        <extracomment>comment for time zone Asia/Pontianak</extracomment>
+        <translation>Bornéo Ouest et Centrale</translation>
     </message>
     <message>
         <source>Asia/Pyongyang</source>
-        <translation>Asia/Pyongyang</translation>
+        <translation>Asie/Pyongyang</translation>
     </message>
     <message>
         <source>Asia/Qatar</source>
-        <translation>Asia/Qatar</translation>
+        <translation>Asie/Qatar</translation>
     </message>
     <message>
         <source>Asia/Qyzylorda</source>
-        <translation>Asia/Qyzylorda</translation>
+        <translation>Asie/Qyzylorda</translation>
     </message>
     <message>
         <source>Qyzylorda (Kyzylorda, Kzyl-Orda)</source>
-        <extracomment>comment for time zone Asia/Qyzylorda
-</extracomment>
-        <translation>Qyzylorda (Kyzylorda, Kzyl-Orda)</translation>
+        <extracomment>comment for time zone Asia/Qyzylorda</extracomment>
+        <translation>Kyzylorda</translation>
     </message>
     <message>
         <source>Asia/Rangoon</source>
-        <translation>Asia/Rangún</translation>
+        <translation>Asie/Rangoon</translation>
     </message>
     <message>
         <source>Asia/Riyadh</source>
-        <translation>Asia/Riyadh</translation>
+        <translation>Asie/Riyadh</translation>
     </message>
     <message>
         <source>Asia/Riyadh87</source>
-        <translation>Asia/Riyadh87</translation>
+        <translation>Asie/Riyadh87</translation>
     </message>
     <message>
         <source>Asia/Riyadh88</source>
-        <translation>Asia/Riyadh88</translation>
+        <translation>Asie/Riyadh88</translation>
     </message>
     <message>
         <source>Asia/Riyadh89</source>
-        <translation>Asia/Riyadh89</translation>
+        <translation>Asie/Riyadh89</translation>
     </message>
     <message>
         <source>Asia/Saigon</source>
-        <translation>Asia/Saigón</translation>
+        <translation>Asie/Saigon</translation>
     </message>
     <message>
         <source>Asia/Sakhalin</source>
-        <translation>Asia/Sakhalin</translation>
+        <translation>Asie/Sakhaline</translation>
     </message>
     <message>
         <source>Moscow+07 - Sakhalin Island</source>
-        <extracomment>comment for time zone Asia/Sakhalin
-</extracomment>
-        <translation>Moscú+07 - Isla Sakhalin</translation>
+        <extracomment>comment for time zone Asia/Sakhalin</extracomment>
+        <translation>Moscou+07 - Île Sakhalin</translation>
     </message>
     <message>
         <source>Asia/Samarkand</source>
-        <translation>Asia/Samarkand</translation>
+        <translation>Asie/Samarkand</translation>
     </message>
     <message>
         <source>west Uzbekistan</source>
-        <extracomment>comment for time zone Asia/Samarkand
-</extracomment>
-        <translation>Uzbekistán oeste</translation>
+        <extracomment>comment for time zone Asia/Samarkand</extracomment>
+        <translation>Ouzbékistan de l&apos;Ouest</translation>
     </message>
     <message>
         <source>Asia/Seoul</source>
-        <translation>Asia/Seúl</translation>
+        <translation>Asie/Séoul</translation>
     </message>
     <message>
         <source>Asia/Shanghai</source>
-        <translation>Asia/Shanghai</translation>
+        <translation>Asie/Shanghai</translation>
     </message>
     <message>
         <source>east China - Beijing, Guangdong, Shanghai, etc.</source>
-        <extracomment>comment for time zone Asia/Shanghai
-</extracomment>
-        <translation>China del este - Beijing, Guangdong, Shanghai, etc.</translation>
+        <extracomment>comment for time zone Asia/Shanghai</extracomment>
+        <translation>Est de la Chine - Beijing, Guangdong, Shanghai, etc.</translation>
     </message>
     <message>
         <source>Asia/Singapore</source>
-        <translation>Asia/Singapur</translation>
+        <translation>Asie/Singapour</translation>
     </message>
     <message>
         <source>Asia/Taipei</source>
-        <translation>Asia/Taipei</translation>
+        <translation>Asie/Taipei</translation>
     </message>
     <message>
         <source>Asia/Tashkent</source>
-        <translation>Asia/Tashkent</translation>
+        <translation>Asie/Tachkent</translation>
     </message>
     <message>
         <source>east Uzbekistan</source>
-        <extracomment>comment for time zone Asia/Tashkent
-</extracomment>
-        <translation>Uzbekistán este</translation>
+        <extracomment>comment for time zone Asia/Tashkent</extracomment>
+        <translation>Ouzbékistan de l&apos;Est</translation>
     </message>
     <message>
         <source>Asia/Tbilisi</source>
-        <translation>Asia/Tbilisi</translation>
+        <translation>Asie/Tbilissi</translation>
     </message>
     <message>
         <source>Asia/Tehran</source>
-        <translation>Asia/Teheran</translation>
+        <translation>Asie/Téhéran</translation>
     </message>
     <message>
         <source>Asia/Tel_Aviv</source>
-        <translation>Asia/Tel_Aviv</translation>
+        <translation>Asie/Tel_Aviv</translation>
     </message>
     <message>
         <source>Asia/Thimbu</source>
-        <translation>Asia/Thimbu</translation>
+        <translation>Asie/Thimbu</translation>
     </message>
     <message>
         <source>Asia/Thimphu</source>
-        <translation>Asia/Thimphu</translation>
+        <translation>Asie/Thimphu</translation>
     </message>
     <message>
         <source>Asia/Tokyo</source>
-        <translation>Asia/Tokio</translation>
+        <translation>Asie/Tokyo</translation>
     </message>
     <message>
         <source>Asia/Ujung_Pandang</source>
-        <translation>Asia/Ujung_Pandang</translation>
+        <translation>Asie/Ujung_Pandang</translation>
     </message>
     <message>
         <source>Asia/Ulaanbaatar</source>
-        <translation>Asia/Ulan_Bator</translation>
+        <translation>Asie/Ulaanbaatar</translation>
     </message>
     <message>
         <source>Asia/Ulan_Bator</source>
-        <translation>Asia/Ulan_Bator</translation>
+        <translation>Asie/Ulan_Bator</translation>
     </message>
     <message>
         <source>Asia/Urumqi</source>
-        <translation>Asia/Urumqi</translation>
+        <translation>Asie/Urumqi</translation>
     </message>
     <message>
         <source>most of Tibet &amp; Xinjiang</source>
-        <extracomment>comment for time zone Asia/Urumqi
-</extracomment>
-        <translation>mayor parte del Tibet &amp; Xinjiang</translation>
+        <extracomment>comment for time zone Asia/Urumqi</extracomment>
+        <translation>La plupart du Tibet &amp; Xinjiang</translation>
     </message>
     <message>
         <source>Asia/Vientiane</source>
-        <translation>Asia/Vientiane</translation>
+        <translation>Asie/Vientiane</translation>
     </message>
     <message>
         <source>Asia/Vladivostok</source>
-        <translation>Asia/Vladivostok</translation>
+        <translation>Asie/Vladivostok</translation>
     </message>
     <message>
         <source>Moscow+07 - Amur River</source>
-        <extracomment>comment for time zone Asia/Vladivostok
-</extracomment>
-        <translation>Moscú+07 - Amur River</translation>
+        <extracomment>comment for time zone Asia/Vladivostok</extracomment>
+        <translation>Moscou+07 - Fleuve Amour</translation>
     </message>
     <message>
         <source>Asia/Yakutsk</source>
-        <translation>Asia/Yakutsk</translation>
+        <translation>Asie/Yakoutsk</translation>
     </message>
     <message>
         <source>Moscow+06 - Lena River</source>
-        <extracomment>comment for time zone Asia/Yakutsk
-</extracomment>
-        <translation>Moscú+06 - Lena River</translation>
+        <extracomment>comment for time zone Asia/Yakutsk</extracomment>
+        <translation>Moscou+06 - Fleuve Léna</translation>
     </message>
     <message>
         <source>Asia/Yekaterinburg</source>
-        <translation>Asia/Yekaterinburg</translation>
+        <translation>Asie/Ekaterinbourg</translation>
     </message>
     <message>
         <source>Moscow+02 - Urals</source>
-        <extracomment>comment for time zone Asia/Yekaterinburg
-</extracomment>
-        <translation>Moscú+02 - Urales</translation>
+        <extracomment>comment for time zone Asia/Yekaterinburg</extracomment>
+        <translation>Moscou+02 - Oural</translation>
     </message>
     <message>
         <source>Asia/Yerevan</source>
-        <translation>Asia/Yerevan</translation>
+        <translation>Asie/Erevan</translation>
     </message>
     <message>
         <source>Atlantic/Azores</source>
-        <translation>Atlántico/Azores</translation>
+        <translation>Atlantique/Açores</translation>
     </message>
     <message>
         <source>Azores</source>
-        <extracomment>comment for time zone Atlantic/Azores
-</extracomment>
-        <translation>Azores</translation>
+        <extracomment>comment for time zone Atlantic/Azores</extracomment>
+        <translation>Açores</translation>
     </message>
     <message>
         <source>Atlantic/Bermuda</source>
-        <translation>Atlántico/Bermudas</translation>
+        <translation>Atlantique/Bermudes</translation>
     </message>
     <message>
         <source>Atlantic/Canary</source>
-        <translation>Atlántico/Canarias</translation>
+        <translation>Atlantique/Canaries</translation>
     </message>
     <message>
         <source>Canary Islands</source>
-        <extracomment>comment for time zone Atlantic/Canary
-</extracomment>
-        <translation>Islas Canarias</translation>
+        <extracomment>comment for time zone Atlantic/Canary</extracomment>
+        <translation>Îles Canaries</translation>
     </message>
     <message>
         <source>Atlantic/Cape_Verde</source>
-        <translation>Atlántico/Cabo_Verde</translation>
+        <translation>Atlantique/Cap_Vert</translation>
     </message>
     <message>
         <source>Atlantic/Faeroe</source>
-        <translation>Atlántico/Feroe</translation>
+        <translation>Atlantique/Féroé</translation>
     </message>
     <message>
         <source>Atlantic/Faroe</source>
-        <translation>Atlántico/Feroe</translation>
+        <translation>Atlantique/Féroé</translation>
     </message>
     <message>
         <source>Atlantic/Jan_Mayen</source>
-        <translation>Atlántico/Jan_Mayen</translation>
+        <translation>Atlantique/Jan_Mayen</translation>
     </message>
     <message>
         <source>Atlantic/Madeira</source>
-        <translation>Atlántico/Madeira</translation>
+        <translation>Atlantique/Madère</translation>
     </message>
     <message>
         <source>Madeira Islands</source>
-        <extracomment>comment for time zone Atlantic/Madeira
-</extracomment>
-        <translation>Islas Madeira</translation>
+        <extracomment>comment for time zone Atlantic/Madeira</extracomment>
+        <translation>Îles Madère</translation>
     </message>
     <message>
         <source>Atlantic/Reykjavik</source>
-        <translation>Atlántico/Reykjavik</translation>
+        <translation>Atlantique/Reykjavik</translation>
     </message>
     <message>
         <source>Atlantic/South_Georgia</source>
-        <translation>Atlántico/Georgia_del_Sur</translation>
+        <translation>Atlantique/Géorgie_du_sud</translation>
     </message>
     <message>
         <source>Atlantic/Stanley</source>
-        <translation>Atlántico/Stanley</translation>
+        <translation>Atlantique/Stanley</translation>
     </message>
     <message>
         <source>Atlantic/St_Helena</source>
-        <translation>Atlántico/St_Helena</translation>
+        <translation>Atlantique/Sainte_Hélène</translation>
     </message>
     <message>
         <source>Australia/ACT</source>
-        <translation>Australia/ACT</translation>
+        <translation>Australie/ACT</translation>
     </message>
     <message>
         <source>Australia/Adelaide</source>
-        <translation>Australia/Adelaida</translation>
+        <translation>Australie/Adelaïde</translation>
     </message>
     <message>
         <source>South Australia</source>
-        <extracomment>comment for time zone Australia/Adelaide
-</extracomment>
-        <translation>Sur de Australia</translation>
+        <extracomment>comment for time zone Australia/Adelaide</extracomment>
+        <translation>Australie du Sud</translation>
     </message>
     <message>
         <source>Australia/Brisbane</source>
-        <translation>Australia/Brisbane</translation>
+        <translation>Australie/Brisbane</translation>
     </message>
     <message>
         <source>Queensland - most locations</source>
-        <extracomment>comment for time zone Australia/Brisbane
-</extracomment>
-        <translation>Queensland - mayoría de las localidades</translation>
+        <extracomment>comment for time zone Australia/Brisbane</extracomment>
+        <translation>Queensland - lieux divers</translation>
     </message>
     <message>
         <source>Australia/Broken_Hill</source>
-        <translation>Australia/Broken_Hill</translation>
+        <translation>Australie/Broken_Hill</translation>
     </message>
     <message>
         <source>New South Wales - Yancowinna</source>
-        <extracomment>comment for time zone Australia/Broken_Hill
-</extracomment>
-        <translation>Nueva Gales del Sur - Yancowinna</translation>
+        <extracomment>comment for time zone Australia/Broken_Hill</extracomment>
+        <translation>Nouvelle-Galles du Sud - Yancowinna</translation>
     </message>
     <message>
         <source>Australia/Canberra</source>
-        <translation>Australia/Camberra</translation>
+        <translation>Australie/Canberra</translation>
     </message>
     <message>
         <source>Australia/Currie</source>
-        <translation>Australia/Currie</translation>
+        <translation>Australie/Currie</translation>
     </message>
     <message>
         <source>Tasmania - King Island</source>
-        <extracomment>comment for time zone Australia/Currie
-</extracomment>
-        <translation>Tasmania - Isla del Rey</translation>
+        <extracomment>comment for time zone Australia/Currie</extracomment>
+        <translation>Tasmanie - Île King</translation>
     </message>
     <message>
         <source>Australia/Darwin</source>
-        <translation>Australia/Darwin</translation>
+        <translation>Australie/Darwin</translation>
     </message>
     <message>
         <source>Northern Territory</source>
-        <extracomment>comment for time zone Australia/Darwin
-</extracomment>
-        <translation>Territorio Norte</translation>
+        <extracomment>comment for time zone Australia/Darwin</extracomment>
+        <translation>Territoire du Nord</translation>
     </message>
     <message>
         <source>Australia/Eucla</source>
-        <translation>Australia/Eucla</translation>
+        <translation>Australie/Eucla</translation>
     </message>
     <message>
         <source>Western Australia - Eucla area</source>
-        <extracomment>comment for time zone Australia/Eucla
-</extracomment>
-        <translation>Australia Oeste - Area Eucla</translation>
+        <extracomment>comment for time zone Australia/Eucla</extracomment>
+        <translation>Australie de l&apos;Ouest - zone de l&apos;Eucla</translation>
     </message>
     <message>
         <source>Australia/Hobart</source>
-        <translation>Australia/Hobart</translation>
+        <translation>Australie/Hobart</translation>
     </message>
     <message>
         <source>Tasmania - most locations</source>
-        <extracomment>comment for time zone Australia/Hobart
-</extracomment>
-        <translation>Tasmania - mayoría de las localidades</translation>
+        <extracomment>comment for time zone Australia/Hobart</extracomment>
+        <translation>Tasmanie - lieux divers</translation>
     </message>
     <message>
         <source>Australia/LHI</source>
-        <translation>Australia/LHI</translation>
+        <translation>Australie/LHI</translation>
     </message>
     <message>
         <source>Australia/Lindeman</source>
-        <translation>Australia/Lindeman</translation>
+        <translation>Australie/Lindeman</translation>
     </message>
     <message>
         <source>Queensland - Holiday Islands</source>
-        <extracomment>comment for time zone Australia/Lindeman
-</extracomment>
-        <translation>Queensland - Islas Holiday</translation>
+        <extracomment>comment for time zone Australia/Lindeman</extracomment>
+        <translation>Queensland - Îles Holiday</translation>
     </message>
     <message>
         <source>Australia/Lord_Howe</source>
-        <translation>Australia/Lord_Howe</translation>
+        <translation>Australie/Lord_Howe</translation>
     </message>
     <message>
         <source>Lord Howe Island</source>
-        <extracomment>comment for time zone Australia/Lord_Howe
-</extracomment>
-        <translation>Isla Lord Howe</translation>
+        <extracomment>comment for time zone Australia/Lord_Howe</extracomment>
+        <translation>île Lord Howe</translation>
     </message>
     <message>
         <source>Australia/Melbourne</source>
-        <translation>Australia/Melbourne</translation>
+        <translation>Australie/Melbourne</translation>
     </message>
     <message>
         <source>Victoria</source>
-        <extracomment>comment for time zone Australia/Melbourne
-</extracomment>
+        <extracomment>comment for time zone Australia/Melbourne</extracomment>
         <translation>Victoria</translation>
     </message>
     <message>
         <source>Australia/North</source>
-        <translation>Australia/Norte</translation>
+        <translation>Australie/Nord</translation>
     </message>
     <message>
         <source>Australia/NSW</source>
-        <translation>Australia/NSW</translation>
+        <translation>Australie/NSW</translation>
     </message>
     <message>
         <source>Australia/Perth</source>
-        <translation>Australia/Perth</translation>
+        <translation>Australie/Perth</translation>
     </message>
     <message>
         <source>Western Australia - most locations</source>
-        <extracomment>comment for time zone Australia/Perth
-</extracomment>
-        <translation>Australia Oeste - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone Australia/Perth</extracomment>
+        <translation>Australie de l&apos;Ouest - lieux divers</translation>
     </message>
     <message>
         <source>Australia/Queensland</source>
-        <translation>Australia/Queensland</translation>
+        <translation>Australie/Queensland</translation>
     </message>
     <message>
         <source>Australia/South</source>
-        <translation>Australia/Sur</translation>
+        <translation>Australie/Sud</translation>
     </message>
     <message>
         <source>Australia/Sydney</source>
-        <translation>Australia/Sidney</translation>
+        <translation>Australie/Sydney</translation>
     </message>
     <message>
         <source>New South Wales - most locations</source>
-        <extracomment>comment for time zone Australia/Sydney
-</extracomment>
-        <translation>Nueva Gales del Sur - la mayoría de las localidades</translation>
+        <extracomment>comment for time zone Australia/Sydney</extracomment>
+        <translation>Nouvelle-Galles du Sud - lieux divers</translation>
     </message>
     <message>
         <source>Australia/Tasmania</source>
-        <translation>Australia/Tasmania</translation>
+        <translation>Australie/Tasmanie</translation>
     </message>
     <message>
         <source>Australia/Victoria</source>
-        <translation>Australia/Victoria</translation>
+        <translation>Australie/Victoria</translation>
     </message>
     <message>
         <source>Australia/West</source>
-        <translation>Australia/Oeste</translation>
+        <translation>Australie/Ouest</translation>
     </message>
     <message>
         <source>Australia/Yancowinna</source>
-        <translation>Australia/Yancowinna</translation>
+        <translation>Australie/Yancowinna</translation>
     </message>
     <message>
         <source>Brazil/Acre</source>
-        <translation>Brasil/Acre</translation>
+        <translation>Brésil/Acre</translation>
     </message>
     <message>
         <source>Brazil/DeNoronha</source>
-        <translation>Brasil/DeNoronha</translation>
+        <translation>Brésil/DeNoronha</translation>
     </message>
     <message>
         <source>Brazil/East</source>
-        <translation>Brasil/Este</translation>
+        <translation>Brésil/Est</translation>
     </message>
     <message>
         <source>Brazil/West</source>
-        <translation>Brasil/Oeste</translation>
+        <translation>Brésil/Ouest</translation>
     </message>
     <message>
         <source>Canada/Atlantic</source>
-        <translation>Canadá/Atlántico</translation>
+        <translation>Canada/Atlantique</translation>
     </message>
     <message>
         <source>Canada/Central</source>
-        <translation>Canadá/Central</translation>
+        <translation>Canada/Central</translation>
     </message>
     <message>
         <source>Canada/Eastern</source>
-        <translation>Canadá/Oriental</translation>
+        <translation>Canada/Est</translation>
     </message>
     <message>
         <source>Canada/East-Saskatchewan</source>
-        <translation>Canadá/East-Saskatchewan</translation>
+        <translation>Canada/Saskatchewan_de_LEst</translation>
     </message>
     <message>
         <source>Canada/Mountain</source>
-        <translation>Canadá/Mountain</translation>
+        <translation>Canada/Montagnes</translation>
     </message>
     <message>
         <source>Canada/Newfoundland</source>
-        <translation>Canadá/Newfoundland</translation>
+        <translation>Canada/Terre_Neuve</translation>
     </message>
     <message>
         <source>Canada/Pacific</source>
-        <translation>Canadá/Pacífico</translation>
+        <translation>Canada/Pacifique</translation>
     </message>
     <message>
         <source>Canada/Saskatchewan</source>
-        <translation>Canadá/Saskatchewan</translation>
+        <translation>Canada/Saskatchewan</translation>
     </message>
     <message>
         <source>Canada/Yukon</source>
-        <translation>Canadá/Saskatchewan</translation>
+        <translation>Canada/Yukon</translation>
     </message>
     <message>
         <source>CET</source>
@@ -2434,11 +2265,11 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Chile/Continental</source>
-        <translation>Chile/Continental</translation>
+        <translation>Chili/Continental</translation>
     </message>
     <message>
         <source>Chile/EasterIsland</source>
-        <translation>Chile/Isla_de_Pascua</translation>
+        <translation>Chili/Ile de Pâques</translation>
     </message>
     <message>
         <source>CST6CDT</source>
@@ -2454,11 +2285,11 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Egypt</source>
-        <translation>Egipto</translation>
+        <translation>Egypte</translation>
     </message>
     <message>
         <source>Eire</source>
-        <translation>Irlanda</translation>
+        <translation>Irlande</translation>
     </message>
     <message>
         <source>EST</source>
@@ -2598,7 +2429,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Etc/Universal</source>
-        <translation>Etc/Universal</translation>
+        <translation>Etc/Universel</translation>
     </message>
     <message>
         <source>Etc/UTC</source>
@@ -2606,293 +2437,286 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Etc/Zulu</source>
-        <translation>Etc/Zulú</translation>
+        <translation>Etc/Zulu</translation>
     </message>
     <message>
         <source>Europe/Amsterdam</source>
-        <translation>Europa/Amsterdam</translation>
+        <translation>Europe/Amsterdam</translation>
     </message>
     <message>
         <source>Europe/Andorra</source>
-        <translation>Europa/Andorra</translation>
+        <translation>Europe/Andorre</translation>
     </message>
     <message>
         <source>Europe/Athens</source>
-        <translation>Europa/Atenas</translation>
+        <translation>Europe/Athènes</translation>
     </message>
     <message>
         <source>Europe/Belfast</source>
-        <translation>Europa/Belfast</translation>
+        <translation>Europe/Belfast</translation>
     </message>
     <message>
         <source>Europe/Belgrade</source>
-        <translation>Europa/Belgrado</translation>
+        <translation>Europe/Belgrade</translation>
     </message>
     <message>
         <source>Europe/Berlin</source>
-        <translation>Europa/Berlín</translation>
+        <translation>Europe/Berlin</translation>
     </message>
     <message>
         <source>Europe/Bratislava</source>
-        <translation>Europa/Bratislava</translation>
+        <translation>Europe/Bratislava</translation>
     </message>
     <message>
         <source>Europe/Brussels</source>
-        <translation>Europa/Bruselas</translation>
+        <translation>Europe/Bruxelles</translation>
     </message>
     <message>
         <source>Europe/Bucharest</source>
-        <translation>Europa/Bucarest</translation>
+        <translation>Europe/Bucarest</translation>
     </message>
     <message>
         <source>Europe/Budapest</source>
-        <translation>Europa/Budapest</translation>
+        <translation>Europe/Budapest</translation>
     </message>
     <message>
         <source>Europe/Chisinau</source>
-        <translation>Europa/Chisinau</translation>
+        <translation>Europe/Chisinau</translation>
     </message>
     <message>
         <source>Europe/Copenhagen</source>
-        <translation>Europa/Copenague</translation>
+        <translation>Europe/Copenhague</translation>
     </message>
     <message>
         <source>Europe/Dublin</source>
-        <translation>Europa/Dublín</translation>
+        <translation>Europe/Dublin</translation>
     </message>
     <message>
         <source>Europe/Gibraltar</source>
-        <translation>Europa/Gibraltar</translation>
+        <translation>Europe/Gibraltar</translation>
     </message>
     <message>
         <source>Europe/Guernsey</source>
-        <translation>Europa/Guernsey</translation>
+        <translation>Europe/Guernsey</translation>
     </message>
     <message>
         <source>Europe/Helsinki</source>
-        <translation>Europa/Helsinki</translation>
+        <translation>Europe/Helsinki</translation>
     </message>
     <message>
         <source>Europe/Isle_of_Man</source>
-        <translation>Europa/Isla del Hombre</translation>
+        <translation>Europe/Isle_Of_Man</translation>
     </message>
     <message>
         <source>Europe/Istanbul</source>
-        <translation>Europa/Estambul</translation>
+        <translation>Europe/Istanbul</translation>
     </message>
     <message>
         <source>Europe/Jersey</source>
-        <translation>Europa/Jersey</translation>
+        <translation>Europe/Jersey</translation>
     </message>
     <message>
         <source>Europe/Kaliningrad</source>
-        <translation>Europa/Kaliningrado</translation>
+        <translation>Europe/Kaliningrad</translation>
     </message>
     <message>
         <source>Moscow-01 - Kaliningrad</source>
-        <extracomment>comment for time zone Europe/Kaliningrad
-</extracomment>
-        <translation>Moscú-01 - Kaliningrado</translation>
+        <extracomment>comment for time zone Europe/Kaliningrad</extracomment>
+        <translation>Moscou-01 - Kaliningrad</translation>
     </message>
     <message>
         <source>Europe/Kiev</source>
-        <translation>Europa/Kiev</translation>
+        <translation>Europe/Kiev</translation>
     </message>
     <message>
         <source>Europe/Lisbon</source>
-        <translation>Europa/Lisboa</translation>
+        <translation>Europe/Lisbonne</translation>
     </message>
     <message>
         <source>Europe/Ljubljana</source>
-        <translation>Europa/Ljubljana</translation>
+        <translation>Europe/Ljubljana</translation>
     </message>
     <message>
         <source>Europe/London</source>
-        <translation>Europa/Londres</translation>
+        <translation>Europe/Londres</translation>
     </message>
     <message>
         <source>Europe/Luxembourg</source>
-        <translation>Europa/Luxemburgo</translation>
+        <translation>Europe/Luxembourg</translation>
     </message>
     <message>
         <source>Europe/Madrid</source>
-        <translation>Europa/Madrid</translation>
+        <translation>Europe/Madrid</translation>
     </message>
     <message>
         <source>Europe/Malta</source>
-        <translation>Europa/Malta</translation>
+        <translation>Europe/Malte</translation>
     </message>
     <message>
         <source>Europe/Mariehamn</source>
-        <translation>Europa/Mariehamn</translation>
+        <translation>Europe/Mariehamn</translation>
     </message>
     <message>
         <source>Europe/Minsk</source>
-        <translation>Europa/Minsk</translation>
+        <translation>Europe/Minsk</translation>
     </message>
     <message>
         <source>Europe/Monaco</source>
-        <translation>Europa/Mónaco</translation>
+        <translation>Europe/Monaco</translation>
     </message>
     <message>
         <source>Europe/Moscow</source>
-        <translation>Europa/Moscú</translation>
+        <translation>Europe/Moscou</translation>
     </message>
     <message>
         <source>Moscow+00 - west Russia</source>
-        <extracomment>comment for time zone Europe/Moscow
-</extracomment>
-        <translation>Moscú+00 - oeste de Rusia</translation>
+        <extracomment>comment for time zone Europe/Moscow</extracomment>
+        <translation>Moscou+00 - Russie de l&apos;Ouest</translation>
     </message>
     <message>
         <source>Europe/Nicosia</source>
-        <translation>Europa/Nicosia</translation>
+        <translation>Europe/Nicosie</translation>
     </message>
     <message>
         <source>Europe/Oslo</source>
-        <translation>Europa/Oslo</translation>
+        <translation>Europe/Oslo</translation>
     </message>
     <message>
         <source>Europe/Paris</source>
-        <translation>Europa/París</translation>
+        <translation>Europe/Paris</translation>
     </message>
     <message>
         <source>Europe/Podgorica</source>
-        <translation>Europa/Podgorica</translation>
+        <translation>Europe/Podgorica</translation>
     </message>
     <message>
         <source>Europe/Prague</source>
-        <translation>Europa/Praga</translation>
+        <translation>Europe/Prague</translation>
     </message>
     <message>
         <source>Europe/Riga</source>
-        <translation>Europa/Riga</translation>
+        <translation>Europe/Riga</translation>
     </message>
     <message>
         <source>Europe/Rome</source>
-        <translation>Europa/Roma</translation>
+        <translation>Europe/Rome</translation>
     </message>
     <message>
         <source>Europe/Samara</source>
-        <translation>Europa/Samara</translation>
+        <translation>Europe/Samara</translation>
     </message>
     <message>
         <source>Moscow - Samara, Udmurtia</source>
-        <extracomment>comment for time zone Europe/Samara
-</extracomment>
-        <translation>Moscú - Samara, Udmurtia</translation>
+        <extracomment>comment for time zone Europe/Samara</extracomment>
+        <translation>Moscou - Samara, Udmurtia</translation>
     </message>
     <message>
         <source>Europe/San_Marino</source>
-        <translation>Europa/San_Marino</translation>
+        <translation>Europe/Saint_Marin</translation>
     </message>
     <message>
         <source>Europe/Sarajevo</source>
-        <translation>Europa/Sarajevo</translation>
+        <translation>Europe/Sarajevo</translation>
     </message>
     <message>
         <source>Europe/Simferopol</source>
-        <translation>Europa/Simferopol</translation>
+        <translation>Europe/Simferopol</translation>
     </message>
     <message>
         <source>central Crimea</source>
-        <extracomment>comment for time zone Europe/Simferopol
-</extracomment>
-        <translation>Crimea central</translation>
+        <extracomment>comment for time zone Europe/Simferopol</extracomment>
+        <translation>Crimée Centrale</translation>
     </message>
     <message>
         <source>Europe/Skopje</source>
-        <translation>Europa/Skopje</translation>
+        <translation>Europe/Skopje</translation>
     </message>
     <message>
         <source>Europe/Sofia</source>
-        <translation>Europa/Sofía</translation>
+        <translation>Europe/Sofia</translation>
     </message>
     <message>
         <source>Europe/Stockholm</source>
-        <translation>Europa/Estocolmo</translation>
+        <translation>Europe/Stockholm</translation>
     </message>
     <message>
         <source>Europe/Tallinn</source>
-        <translation>Europa/Tallinn</translation>
+        <translation>Europe/Tallinn</translation>
     </message>
     <message>
         <source>Europe/Tirane</source>
-        <translation>Europa/Tirana</translation>
+        <translation>Europe/Tirana</translation>
     </message>
     <message>
         <source>Europe/Tiraspol</source>
-        <translation>Europa/Tiraspol</translation>
+        <translation>Europe/Tiraspol</translation>
     </message>
     <message>
         <source>Europe/Uzhgorod</source>
-        <translation>Europa/Uzhgorod</translation>
+        <translation>Europe/Uzhgorod</translation>
     </message>
     <message>
         <source>Ruthenia</source>
-        <extracomment>comment for time zone Europe/Uzhgorod
-</extracomment>
-        <translation>Ruthenia</translation>
+        <extracomment>comment for time zone Europe/Uzhgorod</extracomment>
+        <translation>Ruthénie</translation>
     </message>
     <message>
         <source>Europe/Vaduz</source>
-        <translation>Europa/Vaduz</translation>
+        <translation>Europe/Vaduz</translation>
     </message>
     <message>
         <source>Europe/Vatican</source>
-        <translation>Europa/Vaticano</translation>
+        <translation>Europe/Vatican</translation>
     </message>
     <message>
         <source>Europe/Vienna</source>
-        <translation>Europa/Viena</translation>
+        <translation>Europe/Vienne</translation>
     </message>
     <message>
         <source>Europe/Vilnius</source>
-        <translation>Europa/Vilnius</translation>
+        <translation>Europe/Vilnius</translation>
     </message>
     <message>
         <source>Europe/Volgograd</source>
-        <translation>Europa/Volgogrado</translation>
+        <translation>Europe/Volgograd</translation>
     </message>
     <message>
         <source>Moscow+00 - Caspian Sea</source>
-        <extracomment>comment for time zone Europe/Volgograd
-</extracomment>
-        <translation>Moscú+00 - Mar Caspio</translation>
+        <extracomment>comment for time zone Europe/Volgograd</extracomment>
+        <translation>Moscou+00 - Mer Caspienne</translation>
     </message>
     <message>
         <source>Europe/Warsaw</source>
-        <translation>Europa/Warsaw</translation>
+        <translation>Europe/Varsovie</translation>
     </message>
     <message>
         <source>Europe/Zagreb</source>
-        <translation>Europa/Zagreb</translation>
+        <translation>Europe/Zagreb</translation>
     </message>
     <message>
         <source>Europe/Zaporozhye</source>
-        <translation>Europa/Zaporozheye</translation>
+        <translation>Europe/Zaporozhye</translation>
     </message>
     <message>
         <source>Zaporozh&apos;ye, E Lugansk / Zaporizhia, E Luhansk</source>
-        <extracomment>comment for time zone Europe/Zaporozhye
-</extracomment>
-        <translation>Zaporozh&apos;ye, E Lugansk / Zaporizhia, E Luhansk</translation>
+        <extracomment>comment for time zone Europe/Zaporozhye</extracomment>
+        <translation>Zaporijia, Louhansk de l&apos;Est</translation>
     </message>
     <message>
         <source>Europe/Zurich</source>
-        <translation>Europa/Zúrich</translation>
+        <translation>Europe/Zurich</translation>
     </message>
     <message>
         <source>Factory</source>
-        <translation>Factory</translation>
+        <translation>Usine</translation>
     </message>
     <message>
         <source>GB</source>
-        <translation>GB</translation>
+        <translation>Grande-Bretagne</translation>
     </message>
     <message>
         <source>GB-Eire</source>
-        <translation>GB-Eire</translation>
+        <translation>GB-Irlande</translation>
     </message>
     <message>
         <source>GMT</source>
@@ -2916,63 +2740,63 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Hongkong</source>
-        <translation>Hong-Kong</translation>
+        <translation>Hongkong</translation>
     </message>
     <message>
         <source>HST</source>
-        <translation>HST</translation>
+        <translation>Heure de Hawaii</translation>
     </message>
     <message>
         <source>Iceland</source>
-        <translation>Islandia</translation>
+        <translation>Islande</translation>
     </message>
     <message>
         <source>Indian/Antananarivo</source>
-        <translation>Indico/Antananarivo</translation>
+        <translation>Inde/Antananarivo</translation>
     </message>
     <message>
         <source>Indian/Chagos</source>
-        <translation>Indico/Chagos</translation>
+        <translation>Inde/Chagos</translation>
     </message>
     <message>
         <source>Indian/Christmas</source>
-        <translation>Indico/Christmas</translation>
+        <translation>Inde/Christmas</translation>
     </message>
     <message>
         <source>Indian/Cocos</source>
-        <translation>Indico/Cocos</translation>
+        <translation>Inde/Cocos</translation>
     </message>
     <message>
         <source>Indian/Comoro</source>
-        <translation>Indico/Comoro</translation>
+        <translation>Inde/Comores</translation>
     </message>
     <message>
         <source>Indian/Kerguelen</source>
-        <translation>Indico/Kerguelen</translation>
+        <translation>Inde/Kerguélen</translation>
     </message>
     <message>
         <source>Indian/Mahe</source>
-        <translation>Indico/Mahe</translation>
+        <translation>Inde/Mahé</translation>
     </message>
     <message>
         <source>Indian/Maldives</source>
-        <translation>Indico/Maldivas</translation>
+        <translation>Inde/Maldives</translation>
     </message>
     <message>
         <source>Indian/Mauritius</source>
-        <translation>Indico/Mauricio</translation>
+        <translation>Inde/Maurice</translation>
     </message>
     <message>
         <source>Indian/Mayotte</source>
-        <translation>Índico/Mayotte</translation>
+        <translation>Inde/Mayotte</translation>
     </message>
     <message>
         <source>Indian/Reunion</source>
-        <translation>Índico/Reunion</translation>
+        <translation>Inde/Réunion</translation>
     </message>
     <message>
         <source>Iran</source>
-        <translation>Irán</translation>
+        <translation>Iran</translation>
     </message>
     <message>
         <source>iso3166.tab</source>
@@ -2980,25 +2804,24 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Israel</source>
-        <translation>Israel</translation>
+        <translation>Israël</translation>
     </message>
     <message>
         <source>Jamaica</source>
-        <translation>Jamaica</translation>
+        <translation>Jamaïque</translation>
     </message>
     <message>
         <source>Japan</source>
-        <translation>Japón</translation>
+        <translation>Japon</translation>
     </message>
     <message>
         <source>Kwajalein</source>
-        <extracomment>comment for time zone Pacific/Kwajalein
-</extracomment>
+        <extracomment>comment for time zone Pacific/Kwajalein</extracomment>
         <translation>Kwajalein</translation>
     </message>
     <message>
         <source>Libya</source>
-        <translation>Libia</translation>
+        <translation>Libye</translation>
     </message>
     <message>
         <source>MET</source>
@@ -3006,31 +2829,31 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mexico/BajaNorte</source>
-        <translation>Mexico/BajaNorte</translation>
+        <translation>Mexique/BajaNorte</translation>
     </message>
     <message>
         <source>Mexico/BajaSur</source>
-        <translation>Mexico/BajaSur</translation>
+        <translation>Mexique/BajaSur</translation>
     </message>
     <message>
         <source>Mexico/General</source>
-        <translation>Mexico/General</translation>
+        <translation>Mexique/Général</translation>
     </message>
     <message>
         <source>Mideast/Riyadh87</source>
-        <translation>Oriente_Medio/Riyadh87</translation>
+        <translation>Moyen-Orient/Riyadh87</translation>
     </message>
     <message>
         <source>Mideast/Riyadh88</source>
-        <translation>Oriente_Medio/Riyadh88</translation>
+        <translation>Moyen-Orient/Riyadh88</translation>
     </message>
     <message>
         <source>Mideast/Riyadh89</source>
-        <translation>Oriente_Medio/Riyadh89</translation>
+        <translation>Moyen-Orient/Riyadh89</translation>
     </message>
     <message>
         <source>MST</source>
-        <translation>MST</translation>
+        <translation>HNR</translation>
     </message>
     <message>
         <source>MST7MDT</source>
@@ -3042,7 +2865,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>NZ</source>
-        <translation>NZ</translation>
+        <translation>Nouvelle-Zélande</translation>
     </message>
     <message>
         <source>NZ-CHAT</source>
@@ -3050,271 +2873,255 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pacific/Apia</source>
-        <translation>Pacífico/Apia</translation>
+        <translation>Pacifique/Apia</translation>
     </message>
     <message>
         <source>Pacific/Auckland</source>
-        <translation>Pacífico/Auckland</translation>
+        <translation>Pacifique/Auckland</translation>
     </message>
     <message>
         <source>Pacific/Chatham</source>
-        <translation>Pacífico/Chatham</translation>
+        <translation>Pacifique/Chatham</translation>
     </message>
     <message>
         <source>Chatham Islands</source>
-        <extracomment>comment for time zone Pacific/Chatham
-</extracomment>
-        <translation>Islas Chatham</translation>
+        <extracomment>comment for time zone Pacific/Chatham</extracomment>
+        <translation>Îles Chatham</translation>
     </message>
     <message>
         <source>Pacific/Chuuk</source>
-        <translation>Pacífico/Truk</translation>
+        <translation>Pacifique/Chuuk</translation>
     </message>
     <message>
         <source>Chuuk (Truk) and Yap</source>
-        <extracomment>comment for time zone Pacific/Chuuk
-</extracomment>
-        <translation>Truk (Chuuk) y Yap</translation>
+        <extracomment>comment for time zone Pacific/Chuuk</extracomment>
+        <translation>Chuuk (Truk) et Yap</translation>
     </message>
     <message>
         <source>Pacific/Easter</source>
-        <translation>Pacífico/Isla de Pascua</translation>
+        <translation>Pacifique/Île de Pâques</translation>
     </message>
     <message>
         <source>Easter Island &amp; Sala y Gomez</source>
-        <extracomment>comment for time zone Pacific/Easter
-</extracomment>
-        <translation>Isla Easter &amp; Sala y Gomez</translation>
+        <extracomment>comment for time zone Pacific/Easter</extracomment>
+        <translation>Île de Pâques &amp; Île Sala y Gómez</translation>
     </message>
     <message>
         <source>Pacific/Efate</source>
-        <translation>Pacífico/Efate</translation>
+        <translation>Pacifique/Efate</translation>
     </message>
     <message>
         <source>Pacific/Enderbury</source>
-        <translation>Pacífico/Enderbury</translation>
+        <translation>Pacifique/Enderbury</translation>
     </message>
     <message>
         <source>Phoenix Islands</source>
-        <extracomment>comment for time zone Pacific/Enderbury
-</extracomment>
-        <translation>Islas Phoenix</translation>
+        <extracomment>comment for time zone Pacific/Enderbury</extracomment>
+        <translation>Îles Phœnix</translation>
     </message>
     <message>
         <source>Pacific/Fakaofo</source>
-        <translation>Pacífico/Fakaofo</translation>
+        <translation>Pacifique/Fakaofo</translation>
     </message>
     <message>
         <source>Pacific/Fiji</source>
-        <translation>Pacífico/Fiji</translation>
+        <translation>Pacifique/Fidji</translation>
     </message>
     <message>
         <source>Pacific/Funafuti</source>
-        <translation>Pacífico/Funafuti</translation>
+        <translation>Pacifique/Funafuti</translation>
     </message>
     <message>
         <source>Pacific/Galapagos</source>
-        <translation>Pacífico/Galápagos</translation>
+        <translation>Pacifique/Galapagos</translation>
     </message>
     <message>
         <source>Galapagos Islands</source>
-        <extracomment>comment for time zone Pacific/Galapagos
-</extracomment>
-        <translation>Islas Galápagos</translation>
+        <extracomment>comment for time zone Pacific/Galapagos</extracomment>
+        <translation>Îles Galápagos</translation>
     </message>
     <message>
         <source>Pacific/Gambier</source>
-        <translation>Pacífico/Gambier</translation>
+        <translation>Pacifique/Gambier</translation>
     </message>
     <message>
         <source>Gambier Islands</source>
-        <extracomment>comment for time zone Pacific/Gambier
-</extracomment>
-        <translation>Islas Gambier</translation>
+        <extracomment>comment for time zone Pacific/Gambier</extracomment>
+        <translation>Îles Gambier</translation>
     </message>
     <message>
         <source>Pacific/Guadalcanal</source>
-        <translation>Pacífico/Guadalcanal</translation>
+        <translation>Pacifique/Guadalcanal</translation>
     </message>
     <message>
         <source>Pacific/Guam</source>
-        <translation>Pacífico/Guam</translation>
+        <translation>Pacifique/Guam</translation>
     </message>
     <message>
         <source>Pacific/Honolulu</source>
-        <translation>Pacífico/Honolulu</translation>
+        <translation>Pacifique/Honolulu</translation>
     </message>
     <message>
         <source>Hawaii</source>
-        <extracomment>comment for time zone Pacific/Honolulu
-</extracomment>
-        <translation>Hawaii</translation>
+        <extracomment>comment for time zone Pacific/Honolulu</extracomment>
+        <translation>USA/Hawaï</translation>
     </message>
     <message>
         <source>Pacific/Johnston</source>
-        <translation>Pacífico/Johnston</translation>
+        <translation>Pacifique/Johnston</translation>
     </message>
     <message>
         <source>Johnston Atoll</source>
-        <extracomment>comment for time zone Pacific/Johnston
-</extracomment>
-        <translation>Johnston Atoll</translation>
+        <extracomment>comment for time zone Pacific/Johnston</extracomment>
+        <translation>Atoll de Johnston</translation>
     </message>
     <message>
         <source>Pacific/Kiritimati</source>
-        <translation>Pacífico/Kiritimati</translation>
+        <translation>Pacifique/Kiritimati</translation>
     </message>
     <message>
         <source>Line Islands</source>
-        <extracomment>comment for time zone Pacific/Kiritimati
-</extracomment>
-        <translation>Islas Line</translation>
+        <extracomment>comment for time zone Pacific/Kiritimati</extracomment>
+        <translation>Îles de la Ligne</translation>
     </message>
     <message>
         <source>Pacific/Kosrae</source>
-        <translation>Pacífico/Kosrae</translation>
+        <translation>Pacifique/Kosraé</translation>
     </message>
     <message>
         <source>Kosrae</source>
-        <extracomment>comment for time zone Pacific/Kosrae
-</extracomment>
+        <extracomment>comment for time zone Pacific/Kosrae</extracomment>
         <translation>Kosrae</translation>
     </message>
     <message>
         <source>Pacific/Kwajalein</source>
-        <translation>Pacífico/Kwajalein</translation>
+        <translation>Pacifique/Kwajalein</translation>
     </message>
     <message>
         <source>Pacific/Majuro</source>
-        <translation>Pacífico/Majuro</translation>
+        <translation>Pacifique/Majuro</translation>
     </message>
     <message>
         <source>Pacific/Marquesas</source>
-        <translation>Pacífico/Marquesas</translation>
+        <translation>Pacifique/Marquesas</translation>
     </message>
     <message>
         <source>Marquesas Islands</source>
-        <extracomment>comment for time zone Pacific/Marquesas
-</extracomment>
-        <translation>Islas Marquesas</translation>
+        <extracomment>comment for time zone Pacific/Marquesas</extracomment>
+        <translation>Îles Marquises</translation>
     </message>
     <message>
         <source>Pacific/Midway</source>
-        <translation>Pacífico/Midway</translation>
+        <translation>Pacifique/Midway</translation>
     </message>
     <message>
         <source>Midway Islands</source>
-        <extracomment>comment for time zone Pacific/Midway
-</extracomment>
-        <translation>Islas Midway</translation>
+        <extracomment>comment for time zone Pacific/Midway</extracomment>
+        <translation>Atoll de Midway</translation>
     </message>
     <message>
         <source>Pacific/Nauru</source>
-        <translation>Pacífico/Nauru</translation>
+        <translation>Pacifique/Nauru</translation>
     </message>
     <message>
         <source>Pacific/Niue</source>
-        <translation>Pacífico/Niue</translation>
+        <translation>Pacifique/Niue</translation>
     </message>
     <message>
         <source>Pacific/Norfolk</source>
-        <translation>Pacífico/Norfolk</translation>
+        <translation>Pacifique/Norfolk</translation>
     </message>
     <message>
         <source>Pacific/Noumea</source>
-        <translation>Pacífico/Noumea</translation>
+        <translation>Pacifique/Nouméa</translation>
     </message>
     <message>
         <source>Pacific/Pago_Pago</source>
-        <translation>Pacífico/Pago_Pago</translation>
+        <translation>Pacifique/Pago_Pago</translation>
     </message>
     <message>
         <source>Pacific/Palau</source>
-        <translation>Pacífico/Palau</translation>
+        <translation>Pacifique/Palau</translation>
     </message>
     <message>
         <source>Pacific/Pitcairn</source>
-        <translation>Pacífico/Pitcairn</translation>
+        <translation>Pacifique/Pitcairn</translation>
     </message>
     <message>
         <source>Pacific/Pohnpei</source>
-        <translation>Pacífico/Ponape</translation>
+        <translation>Pacifique/Pohnpei</translation>
     </message>
     <message>
         <source>Pohnpei (Ponape)</source>
-        <extracomment>comment for time zone Pacific/Pohnpei
-</extracomment>
-        <translation>Ponape (Pohnpei)</translation>
+        <extracomment>comment for time zone Pacific/Pohnpei</extracomment>
+        <translation>Pohnpei (Ponape)</translation>
     </message>
     <message>
         <source>Pacific/Ponape</source>
-        <translation>Pacífico/Ponape</translation>
+        <translation>Pacifique/Ponape</translation>
     </message>
     <message>
         <source>Pacific/Port_Moresby</source>
-        <translation>Pacífico/Puerto_Moresby</translation>
+        <translation>Pacifique/Port_Moresby</translation>
     </message>
     <message>
         <source>Pacific/Rarotonga</source>
-        <translation>Pacífico/Rarotonga</translation>
+        <translation>Pacifique/Rarotonga</translation>
     </message>
     <message>
         <source>Pacific/Saipan</source>
-        <translation>Pacífico/Saipan</translation>
+        <translation>Pacifique/Saipan</translation>
     </message>
     <message>
         <source>Pacific/Samoa</source>
-        <translation>Pacífico/Samoa</translation>
+        <translation>Pacifique/Samoa</translation>
     </message>
     <message>
         <source>Pacific/Tahiti</source>
-        <translation>Pacífico/Tahití</translation>
+        <translation>Pacifique/Tahiti</translation>
     </message>
     <message>
         <source>Society Islands</source>
-        <extracomment>comment for time zone Pacific/Tahiti
-</extracomment>
-        <translation>Islas Sociedad</translation>
+        <extracomment>comment for time zone Pacific/Tahiti</extracomment>
+        <translation>Îles de la Société</translation>
     </message>
     <message>
         <source>Pacific/Tarawa</source>
-        <translation>Pacífico/Tarawa</translation>
+        <translation>Pacifique/Tarawa</translation>
     </message>
     <message>
         <source>Gilbert Islands</source>
-        <extracomment>comment for time zone Pacific/Tarawa
-</extracomment>
-        <translation>Islas Gilbert</translation>
+        <extracomment>comment for time zone Pacific/Tarawa</extracomment>
+        <translation>Îles Gilbert</translation>
     </message>
     <message>
         <source>Pacific/Tongatapu</source>
-        <translation>Pacífico/Tongatapu</translation>
+        <translation>Pacifique/Tongatapu</translation>
     </message>
     <message>
         <source>Pacific/Truk</source>
-        <translation>Pacífico/Truk</translation>
+        <translation>Pacifique/Truk</translation>
     </message>
     <message>
         <source>Pacific/Wake</source>
-        <translation>Pacífico/Wake</translation>
+        <translation>Pacifique/Wake</translation>
     </message>
     <message>
         <source>Wake Island</source>
-        <extracomment>comment for time zone Pacific/Wake
-</extracomment>
-        <translation>Isla Wake</translation>
+        <extracomment>comment for time zone Pacific/Wake</extracomment>
+        <translation>Wake</translation>
     </message>
     <message>
         <source>Pacific/Wallis</source>
-        <translation>Pacífico/Wallis</translation>
+        <translation>Pacifique/Wallis</translation>
     </message>
     <message>
         <source>Pacific/Yap</source>
-        <translation>Pacífico/Yap</translation>
+        <translation>Pacifique/Yap</translation>
     </message>
     <message>
         <source>Poland</source>
-        <translation>Polonia</translation>
+        <translation>Pologne</translation>
     </message>
     <message>
         <source>Portugal</source>
@@ -3342,11 +3149,11 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Singapore</source>
-        <translation>Singapur</translation>
+        <translation>Singapour</translation>
     </message>
     <message>
         <source>Turkey</source>
-        <translation>Turquía</translation>
+        <translation>Turquie</translation>
     </message>
     <message>
         <source>UCT</source>
@@ -3354,55 +3161,55 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Universal</source>
-        <translation>Universal</translation>
+        <translation>Universel</translation>
     </message>
     <message>
         <source>US/Alaska</source>
-        <translation>EEUU/Alaska</translation>
+        <translation>USA/Alaska</translation>
     </message>
     <message>
         <source>US/Aleutian</source>
-        <translation>EEUU/Aleutian</translation>
+        <translation>USA/Aléoutiennes</translation>
     </message>
     <message>
         <source>US/Arizona</source>
-        <translation>EEUU/Arizona</translation>
+        <translation>USA/Arizona</translation>
     </message>
     <message>
         <source>US/Central</source>
-        <translation>EEUU/Central</translation>
+        <translation>USA/Central</translation>
     </message>
     <message>
         <source>US/Eastern</source>
-        <translation>EEUU/Oriental</translation>
+        <translation>USA/Est</translation>
     </message>
     <message>
         <source>US/East-Indiana</source>
-        <translation>EEUU/Indiana-Este</translation>
+        <translation>USA/Indiana (Est)</translation>
     </message>
     <message>
         <source>US/Hawaii</source>
-        <translation>EEUU/Hawai</translation>
+        <translation>USA/Hawaii</translation>
     </message>
     <message>
         <source>US/Indiana-Starke</source>
-        <translation>EEUU/Indiana-Starke</translation>
+        <translation>USA/Indiana-Starke</translation>
     </message>
     <message>
         <source>US/Michigan</source>
-        <translation>EEUU/Michigan</translation>
+        <translation>USA/Michigan</translation>
     </message>
     <message>
         <source>US/Mountain</source>
-        <translation>EEUU/Mountain</translation>
+        <translation>USA/Montagnes</translation>
     </message>
     <message>
         <source>US/Pacific</source>
-        <translation>EEUU/Pacífico</translation>
+        <translation>USA/Pacifique</translation>
     </message>
     <message>
         <source>US/Samoa</source>
-        <translation>EEUU/Samoa</translation>
+        <translation>USA/Samoa</translation>
     </message>
     <message>
         <source>UTC</source>
@@ -3418,11 +3225,11 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Zulu</source>
-        <translation>Zulú</translation>
+        <translation>Zulu</translation>
     </message>
     <message>
         <source>US/Pacific-New</source>
-        <translation type="obsolete">EEUU/Nuevo Pacífico</translation>
+        <translation type="vanished">USA/Nouveau_Pacifique</translation>
     </message>
 </context>
 </TS>

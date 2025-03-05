@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="pt_PT">
-    <extra-po-header-po_revision_date>2010-08-30 15:33+0100</extra-po-header-po_revision_date>
-    <extra-po-header-x_pofile_spellextra>Volgograd New DakotadoNorte Blanc</extra-po-header-x_pofile_spellextra>
-    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Generator,X-POFile-SpellExtra,X-Poedit-Language,X-Poedit-Country</extra-po-headers>
-    <extra-po-header-x_generator>Virtaal 0.6.1</extra-po-header-x_generator>
-    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
-    <extra-po-header-language_team>trans-pt@lists.fedoraproject.org</extra-po-header-language_team>
-    <extra-po-header-project_id_version>timezones</extra-po-header-project_id_version>
-    <extra-po-header-pot_creation_date>2010-08-16 14:02+0200</extra-po-header-pot_creation_date>
+<TS version="2.1" language="pt_PT">
     <extra-po-header-language>pt</extra-po-header-language>
+    <extra-po-header-language_team>trans-pt@lists.fedoraproject.org</extra-po-header-language_team>
+    <extra-po-header-last_translator>Rui Gouveia &lt;rui.gouveia@gmail.com&gt;</extra-po-header-last_translator>
+    <extra-po-header-po_revision_date>2010-08-30 15:33+0100</extra-po-header-po_revision_date>
+    <extra-po-header-pot_creation_date>2010-08-16 14:02+0200</extra-po-header-pot_creation_date>
+    <extra-po-header-project_id_version>timezones</extra-po-header-project_id_version>
+    <extra-po-header-report_msgid_bugs_to></extra-po-header-report_msgid_bugs_to>
+    <extra-po-header-x_generator>Virtaal 0.6.1</extra-po-header-x_generator>
+    <extra-po-header-x_poedit_country>PORTUGAL</extra-po-header-x_poedit_country>
     <extra-po-header-x_poedit_language>Portuguese</extra-po-header-x_poedit_language>
+    <extra-po-header-x_pofile_spellextra>Volgograd New DakotadoNorte Blanc</extra-po-header-x_pofile_spellextra>
     <extra-po-header_comment># Portuguese localization of Red Hat Linux
 # Pedro Morais &lt;morais@kde.org&gt;
 # José Nuno Pires &lt;jncp@netcabo.pt&gt;
 # Rui Gouveia &lt;rui.gouveia@gmail.com&gt;, 2010.</extra-po-header_comment>
-    <extra-po-header-last_translator>Rui Gouveia &lt;rui.gouveia@gmail.com&gt;</extra-po-header-last_translator>
-    <extra-po-header-x_poedit_country>PORTUGAL</extra-po-header-x_poedit_country>
+    <extra-po-headers>Project-Id-Version,Report-Msgid-Bugs-To,POT-Creation-Date,PO-Revision-Date,Last-Translator,Language-Team,Language,MIME-Version,Content-Type,Content-Transfer-Encoding,Plural-Forms,X-Generator,X-POFile-SpellExtra,X-Poedit-Language,X-Poedit-Country</extra-po-headers>
 <context>
     <name></name>
     <message>
@@ -85,8 +85,7 @@
     </message>
     <message>
         <source>Ceuta &amp; Melilla</source>
-        <extracomment>comment for time zone Africa/Ceuta
-</extracomment>
+        <extracomment>comment for time zone Africa/Ceuta</extracomment>
         <translation>Ceuta &amp; Melilla</translation>
     </message>
     <message>
@@ -147,8 +146,7 @@
     </message>
     <message>
         <source>west Dem. Rep. of Congo</source>
-        <extracomment>comment for time zone Africa/Kinshasa
-</extracomment>
+        <extracomment>comment for time zone Africa/Kinshasa</extracomment>
         <translation>Rep. Dem. Ocid. do Congo</translation>
     </message>
     <message>
@@ -173,8 +171,7 @@
     </message>
     <message>
         <source>east Dem. Rep. of Congo</source>
-        <extracomment>comment for time zone Africa/Lubumbashi
-</extracomment>
+        <extracomment>comment for time zone Africa/Lubumbashi</extracomment>
         <translation>Rep. Dem. Oriental do Congo</translation>
     </message>
     <message>
@@ -255,8 +252,7 @@
     </message>
     <message>
         <source>Aleutian Islands</source>
-        <extracomment>comment for time zone America/Adak
-</extracomment>
+        <extracomment>comment for time zone America/Adak</extracomment>
         <translation>Ilhas Aleutianas</translation>
     </message>
     <message>
@@ -265,8 +261,7 @@
     </message>
     <message>
         <source>Alaska Time</source>
-        <extracomment>comment for time zone America/Anchorage
-</extracomment>
+        <extracomment>comment for time zone America/Anchorage</extracomment>
         <translation>Hora do Alasca</translation>
     </message>
     <message>
@@ -283,8 +278,7 @@
     </message>
     <message>
         <source>Tocantins</source>
-        <extracomment>comment for time zone America/Araguaina
-</extracomment>
+        <extracomment>comment for time zone America/Araguaina</extracomment>
         <translation>Tocantins</translation>
     </message>
     <message>
@@ -293,8 +287,7 @@
     </message>
     <message>
         <source>Buenos Aires (BA, CF)</source>
-        <extracomment>comment for time zone America/Argentina/Buenos_Aires
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Buenos_Aires</extracomment>
         <translation>Buenos Aires (BA, CF)</translation>
     </message>
     <message>
@@ -303,8 +296,7 @@
     </message>
     <message>
         <source>Catamarca (CT), Chubut (CH)</source>
-        <extracomment>comment for time zone America/Argentina/Catamarca
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Catamarca</extracomment>
         <translation>Catamarca (CT), Chubut (CH)</translation>
     </message>
     <message>
@@ -317,8 +309,7 @@
     </message>
     <message>
         <source>most locations (CB, CC, CN, ER, FM, MN, SE, SF)</source>
-        <extracomment>comment for time zone America/Argentina/Cordoba
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Cordoba</extracomment>
         <translation>maioria das localidades (CB, CC, CN, ER, FM, MN, SE, SF)</translation>
     </message>
     <message>
@@ -327,8 +318,7 @@
     </message>
     <message>
         <source>Jujuy (JY)</source>
-        <extracomment>comment for time zone America/Argentina/Jujuy
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Jujuy</extracomment>
         <translation>Jujuy (JY)</translation>
     </message>
     <message>
@@ -337,8 +327,7 @@
     </message>
     <message>
         <source>La Rioja (LR)</source>
-        <extracomment>comment for time zone America/Argentina/La_Rioja
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/La_Rioja</extracomment>
         <translation>La Rioja (LR)</translation>
     </message>
     <message>
@@ -347,8 +336,7 @@
     </message>
     <message>
         <source>Mendoza (MZ)</source>
-        <extracomment>comment for time zone America/Argentina/Mendoza
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Mendoza</extracomment>
         <translation>Mendoza (MZ)</translation>
     </message>
     <message>
@@ -357,8 +345,7 @@
     </message>
     <message>
         <source>Santa Cruz (SC)</source>
-        <extracomment>comment for time zone America/Argentina/Rio_Gallegos
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Rio_Gallegos</extracomment>
         <translation>Santa Cruz (SC)</translation>
     </message>
     <message>
@@ -367,8 +354,7 @@
     </message>
     <message>
         <source>(SA, LP, NQ, RN)</source>
-        <extracomment>comment for time zone America/Argentina/Salta
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Salta</extracomment>
         <translation>(SA, LP, NQ, RN)</translation>
     </message>
     <message>
@@ -377,8 +363,7 @@
     </message>
     <message>
         <source>San Juan (SJ)</source>
-        <extracomment>comment for time zone America/Argentina/San_Juan
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/San_Juan</extracomment>
         <translation>San Juan (SJ)</translation>
     </message>
     <message>
@@ -387,8 +372,7 @@
     </message>
     <message>
         <source>San Luis (SL)</source>
-        <extracomment>comment for time zone America/Argentina/San_Luis
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/San_Luis</extracomment>
         <translation>San Luis (SL)</translation>
     </message>
     <message>
@@ -397,8 +381,7 @@
     </message>
     <message>
         <source>Tucuman (TM)</source>
-        <extracomment>comment for time zone America/Argentina/Tucuman
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Tucuman</extracomment>
         <translation>Tucuman (TM)</translation>
     </message>
     <message>
@@ -407,8 +390,7 @@
     </message>
     <message>
         <source>Tierra del Fuego (TF)</source>
-        <extracomment>comment for time zone America/Argentina/Ushuaia
-</extracomment>
+        <extracomment>comment for time zone America/Argentina/Ushuaia</extracomment>
         <translation>Tierra del Fuego (TF)</translation>
     </message>
     <message>
@@ -425,8 +407,7 @@
     </message>
     <message>
         <source>Eastern Standard Time - Atikokan, Ontario and Southampton I, Nunavut</source>
-        <extracomment>comment for time zone America/Atikokan
-</extracomment>
+        <extracomment>comment for time zone America/Atikokan</extracomment>
         <translation>Hora-Padrão Oriental - Atikokan, Ontário e Southampton I, Nunavut</translation>
     </message>
     <message>
@@ -439,8 +420,7 @@
     </message>
     <message>
         <source>Bahia</source>
-        <extracomment>comment for time zone America/Bahia
-</extracomment>
+        <extracomment>comment for time zone America/Bahia</extracomment>
         <translation>Bahia</translation>
     </message>
     <message>
@@ -449,8 +429,7 @@
     </message>
     <message>
         <source>Mexican Central Time - Bahia de Banderas</source>
-        <extracomment>comment for time zone America/Bahia_Banderas
-</extracomment>
+        <extracomment>comment for time zone America/Bahia_Banderas</extracomment>
         <translation>Horário central Mexicano - Bahia de Banderas</translation>
     </message>
     <message>
@@ -463,8 +442,7 @@
     </message>
     <message>
         <source>Amapa, E Para</source>
-        <extracomment>comment for time zone America/Belem
-</extracomment>
+        <extracomment>comment for time zone America/Belem</extracomment>
         <translation>Amapa, E Para</translation>
     </message>
     <message>
@@ -477,8 +455,7 @@
     </message>
     <message>
         <source>Atlantic Standard Time - Quebec - Lower North Shore</source>
-        <extracomment>comment for time zone America/Blanc-Sablon
-</extracomment>
+        <extracomment>comment for time zone America/Blanc-Sablon</extracomment>
         <translation>Hora-Padrão do Atlântico - Quebeque - Baía Inferior do Norte</translation>
     </message>
     <message>
@@ -487,8 +464,7 @@
     </message>
     <message>
         <source>Roraima</source>
-        <extracomment>comment for time zone America/Boa_Vista
-</extracomment>
+        <extracomment>comment for time zone America/Boa_Vista</extracomment>
         <translation>Roraima</translation>
     </message>
     <message>
@@ -501,8 +477,7 @@
     </message>
     <message>
         <source>Mountain Time - south Idaho &amp; east Oregon</source>
-        <extracomment>comment for time zone America/Boise
-</extracomment>
+        <extracomment>comment for time zone America/Boise</extracomment>
         <translation>Hora de Montanha - Sul do Idaho &amp; Oregon oriental</translation>
     </message>
     <message>
@@ -515,8 +490,7 @@
     </message>
     <message>
         <source>Mountain Time - west Nunavut</source>
-        <extracomment>comment for time zone America/Cambridge_Bay
-</extracomment>
+        <extracomment>comment for time zone America/Cambridge_Bay</extracomment>
         <translation>Hora de Montanha - Nunavut ocidental</translation>
     </message>
     <message>
@@ -525,8 +499,7 @@
     </message>
     <message>
         <source>Mato Grosso do Sul</source>
-        <extracomment>comment for time zone America/Campo_Grande
-</extracomment>
+        <extracomment>comment for time zone America/Campo_Grande</extracomment>
         <translation>Mato Grosso do Sul</translation>
     </message>
     <message>
@@ -535,8 +508,7 @@
     </message>
     <message>
         <source>Central Time - Quintana Roo</source>
-        <extracomment>comment for time zone America/Cancun
-</extracomment>
+        <extracomment>comment for time zone America/Cancun</extracomment>
         <translation>Hora Central - Quintana Roo</translation>
     </message>
     <message>
@@ -561,8 +533,7 @@
     </message>
     <message>
         <source>Central Time</source>
-        <extracomment>comment for time zone America/Chicago
-</extracomment>
+        <extracomment>comment for time zone America/Chicago</extracomment>
         <translation>Hora Central</translation>
     </message>
     <message>
@@ -571,8 +542,7 @@
     </message>
     <message>
         <source>Mexican Mountain Time - Chihuahua away from US border</source>
-        <extracomment>comment for time zone America/Chihuahua
-</extracomment>
+        <extracomment>comment for time zone America/Chihuahua</extracomment>
         <translation>Hora das regiões montanhosas do México - Chihuahua afastado da fronteira dos E.U.</translation>
     </message>
     <message>
@@ -593,8 +563,7 @@
     </message>
     <message>
         <source>Mato Grosso</source>
-        <extracomment>comment for time zone America/Cuiaba
-</extracomment>
+        <extracomment>comment for time zone America/Cuiaba</extracomment>
         <translation>Mato Grosso</translation>
     </message>
     <message>
@@ -607,8 +576,7 @@
     </message>
     <message>
         <source>east coast, north of Scoresbysund</source>
-        <extracomment>comment for time zone America/Danmarkshavn
-</extracomment>
+        <extracomment>comment for time zone America/Danmarkshavn</extracomment>
         <translation>costa oriental, norte de Scoresbysund</translation>
     </message>
     <message>
@@ -617,8 +585,7 @@
     </message>
     <message>
         <source>Pacific Time - north Yukon</source>
-        <extracomment>comment for time zone America/Dawson
-</extracomment>
+        <extracomment>comment for time zone America/Dawson</extracomment>
         <translation>Hora do Pacífico - norte do Yukon</translation>
     </message>
     <message>
@@ -627,8 +594,7 @@
     </message>
     <message>
         <source>Mountain Standard Time - Dawson Creek &amp; Fort Saint John, British Columbia</source>
-        <extracomment>comment for time zone America/Dawson_Creek
-</extracomment>
+        <extracomment>comment for time zone America/Dawson_Creek</extracomment>
         <translation>Hora-Padrão de Montanha - Dawson Creek &amp; Fort Saint John, Columbia Britânica</translation>
     </message>
     <message>
@@ -637,8 +603,7 @@
     </message>
     <message>
         <source>Mountain Time</source>
-        <extracomment>comment for time zone America/Denver
-</extracomment>
+        <extracomment>comment for time zone America/Denver</extracomment>
         <translation>Hora de Montanha</translation>
     </message>
     <message>
@@ -647,8 +612,7 @@
     </message>
     <message>
         <source>Eastern Time - Michigan - most locations</source>
-        <extracomment>comment for time zone America/Detroit
-</extracomment>
+        <extracomment>comment for time zone America/Detroit</extracomment>
         <translation>Hora Oriental - Michigan - maioria das localidades</translation>
     </message>
     <message>
@@ -661,8 +625,7 @@
     </message>
     <message>
         <source>Mountain Time - Alberta, east British Columbia &amp; west Saskatchewan</source>
-        <extracomment>comment for time zone America/Edmonton
-</extracomment>
+        <extracomment>comment for time zone America/Edmonton</extracomment>
         <translation>Hora de Montanha - Alberta, Columbia Britânica oriental e oeste de Saskatchewan</translation>
     </message>
     <message>
@@ -671,8 +634,7 @@
     </message>
     <message>
         <source>W Amazonas</source>
-        <extracomment>comment for time zone America/Eirunepe
-</extracomment>
+        <extracomment>comment for time zone America/Eirunepe</extracomment>
         <translation>Amazonas O</translation>
     </message>
     <message>
@@ -689,8 +651,7 @@
     </message>
     <message>
         <source>NE Brazil (MA, PI, CE, RN, PB)</source>
-        <extracomment>comment for time zone America/Fortaleza
-</extracomment>
+        <extracomment>comment for time zone America/Fortaleza</extracomment>
         <translation>Brasil NE (MA, PI, CE, RN, PB)</translation>
     </message>
     <message>
@@ -703,8 +664,7 @@
     </message>
     <message>
         <source>Atlantic Time - Nova Scotia - places that did not observe DST 1966-1971</source>
-        <extracomment>comment for time zone America/Glace_Bay
-</extracomment>
+        <extracomment>comment for time zone America/Glace_Bay</extracomment>
         <translation>Hora do Atlântico - Nova Escócia - locais que não aplicam a DST 1966-1971</translation>
     </message>
     <message>
@@ -713,14 +673,7 @@
     </message>
     <message>
         <source>most locations</source>
-        <extracomment>comment for time zone America/Godthab
-comment for time zone America/Santiago
-comment for time zone Asia/Almaty
-comment for time zone Asia/Ulaanbaatar
-comment for time zone Europe/Kiev
-comment for time zone Pacific/Auckland
-comment for time zone Pacific/Majuro
-</extracomment>
+        <extracomment>comment for time zone America/Godthabcomment for time zone America/Santiagocomment for time zone Asia/Almatycomment for time zone Asia/Ulaanbaatarcomment for time zone Europe/Kievcomment for time zone Pacific/Aucklandcomment for time zone Pacific/Majuro</extracomment>
         <translation>maioria das localidades</translation>
     </message>
     <message>
@@ -729,8 +682,7 @@ comment for time zone Pacific/Majuro
     </message>
     <message>
         <source>Atlantic Time - Labrador - most locations</source>
-        <extracomment>comment for time zone America/Goose_Bay
-</extracomment>
+        <extracomment>comment for time zone America/Goose_Bay</extracomment>
         <translation>Hora do Atlântico - Labrador - maioria das localidades</translation>
     </message>
     <message>
@@ -755,10 +707,7 @@ comment for time zone Pacific/Majuro
     </message>
     <message>
         <source>mainland</source>
-        <extracomment>comment for time zone America/Guayaquil
-comment for time zone Europe/Lisbon
-comment for time zone Europe/Madrid
-</extracomment>
+        <extracomment>comment for time zone America/Guayaquilcomment for time zone Europe/Lisboncomment for time zone Europe/Madrid</extracomment>
         <translation>continente</translation>
     </message>
     <message>
@@ -771,8 +720,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Atlantic Time - Nova Scotia (most places), PEI</source>
-        <extracomment>comment for time zone America/Halifax
-</extracomment>
+        <extracomment>comment for time zone America/Halifax</extracomment>
         <translation>Hora do Atlântico - Nova Escócia (maioria das localidades), PEI</translation>
     </message>
     <message>
@@ -785,8 +733,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Standard Time - Sonora</source>
-        <extracomment>comment for time zone America/Hermosillo
-</extracomment>
+        <extracomment>comment for time zone America/Hermosillo</extracomment>
         <translation>Hora-Padrão da Montanha - Sonora</translation>
     </message>
     <message>
@@ -795,8 +742,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - most locations</source>
-        <extracomment>comment for time zone America/Indiana/Indianapolis
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Indianapolis</extracomment>
         <translation>Hora Oriental - Indiana - maioria das localidades</translation>
     </message>
     <message>
@@ -805,8 +751,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Indiana - Starke County</source>
-        <extracomment>comment for time zone America/Indiana/Knox
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Knox</extracomment>
         <translation>Hora Central - Indiana - Condado de Starke</translation>
     </message>
     <message>
@@ -815,8 +760,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - Crawford County</source>
-        <extracomment>comment for time zone America/Indiana/Marengo
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Marengo</extracomment>
         <translation>Hora Oriental - Indiana - Condado de Crawford</translation>
     </message>
     <message>
@@ -825,8 +769,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - Pike County</source>
-        <extracomment>comment for time zone America/Indiana/Petersburg
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Petersburg</extracomment>
         <translation>Hora Oriental - Indiana - Condado de Pike</translation>
     </message>
     <message>
@@ -839,8 +782,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Indiana - Perry County</source>
-        <extracomment>comment for time zone America/Indiana/Tell_City
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Tell_City</extracomment>
         <translation>Hora Central - Indiana - Condado de Perry</translation>
     </message>
     <message>
@@ -849,8 +791,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - Switzerland County</source>
-        <extracomment>comment for time zone America/Indiana/Vevay
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Vevay</extracomment>
         <translation>Hora Oriental - Indiana - Condado de Switzerland</translation>
     </message>
     <message>
@@ -859,8 +800,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - Daviess, Dubois, Knox &amp; Martin Counties</source>
-        <extracomment>comment for time zone America/Indiana/Vincennes
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Vincennes</extracomment>
         <translation>Hora Oriental - Indiana - Condados de Daviess, Dubois, Knox &amp; Martin</translation>
     </message>
     <message>
@@ -869,8 +809,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Indiana - Pulaski County</source>
-        <extracomment>comment for time zone America/Indiana/Winamac
-</extracomment>
+        <extracomment>comment for time zone America/Indiana/Winamac</extracomment>
         <translation>Hora Oriental - Indiana - Condado de Pulaski</translation>
     </message>
     <message>
@@ -879,8 +818,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Time - west Northwest Territories</source>
-        <extracomment>comment for time zone America/Inuvik
-</extracomment>
+        <extracomment>comment for time zone America/Inuvik</extracomment>
         <translation>Hora de Montanha - oeste dos Territórios de Noroeste</translation>
     </message>
     <message>
@@ -889,8 +827,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - east Nunavut - most locations</source>
-        <extracomment>comment for time zone America/Iqaluit
-</extracomment>
+        <extracomment>comment for time zone America/Iqaluit</extracomment>
         <translation>Hora Oriental - Nunavut oriental - maioria das localidades</translation>
     </message>
     <message>
@@ -907,8 +844,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Alaska Time - Alaska panhandle</source>
-        <extracomment>comment for time zone America/Juneau
-</extracomment>
+        <extracomment>comment for time zone America/Juneau</extracomment>
         <translation>Hora do Alasca - planalto do Alasca</translation>
     </message>
     <message>
@@ -917,8 +853,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Kentucky - Louisville area</source>
-        <extracomment>comment for time zone America/Kentucky/Louisville
-</extracomment>
+        <extracomment>comment for time zone America/Kentucky/Louisville</extracomment>
         <translation>Hora Oriental - Kentucky - área de Louisville</translation>
     </message>
     <message>
@@ -927,8 +862,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Kentucky - Wayne County</source>
-        <extracomment>comment for time zone America/Kentucky/Monticello
-</extracomment>
+        <extracomment>comment for time zone America/Kentucky/Monticello</extracomment>
         <translation>Hora Oriental - Kentucky - Condado de Wayne</translation>
     </message>
     <message>
@@ -949,8 +883,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pacific Time</source>
-        <extracomment>comment for time zone America/Los_Angeles
-</extracomment>
+        <extracomment>comment for time zone America/Los_Angeles</extracomment>
         <translation>Hora do Pacífico</translation>
     </message>
     <message>
@@ -963,8 +896,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Alagoas, Sergipe</source>
-        <extracomment>comment for time zone America/Maceio
-</extracomment>
+        <extracomment>comment for time zone America/Maceio</extracomment>
         <translation>Alagoas, Sergipe</translation>
     </message>
     <message>
@@ -977,8 +909,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>E Amazonas</source>
-        <extracomment>comment for time zone America/Manaus
-</extracomment>
+        <extracomment>comment for time zone America/Manaus</extracomment>
         <translation>Amazonas E</translation>
     </message>
     <message>
@@ -995,8 +926,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>US Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas near US border</source>
-        <extracomment>comment for time zone America/Matamoros
-</extracomment>
+        <extracomment>comment for time zone America/Matamoros</extracomment>
         <translation>Hora Central E.U. - Coahuila, Durango, Nuevo León, Tamaulipas, perto da fronteira dos E.U.</translation>
     </message>
     <message>
@@ -1005,8 +935,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Time - S Baja, Nayarit, Sinaloa</source>
-        <extracomment>comment for time zone America/Mazatlan
-</extracomment>
+        <extracomment>comment for time zone America/Mazatlan</extracomment>
         <translation>Hora de Montanha - S Baja, Nayarit, Sinaloa</translation>
     </message>
     <message>
@@ -1019,8 +948,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Michigan - Dickinson, Gogebic, Iron &amp; Menominee Counties</source>
-        <extracomment>comment for time zone America/Menominee
-</extracomment>
+        <extracomment>comment for time zone America/Menominee</extracomment>
         <translation>Hora Central - Michigan - Condados de Dickinson, Gogebic, Iron &amp; Menominee</translation>
     </message>
     <message>
@@ -1029,8 +957,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Campeche, Yucatan</source>
-        <extracomment>comment for time zone America/Merida
-</extracomment>
+        <extracomment>comment for time zone America/Merida</extracomment>
         <translation>Hora Central - Campeche, Yucatan</translation>
     </message>
     <message>
@@ -1039,8 +966,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - most locations</source>
-        <extracomment>comment for time zone America/Mexico_City
-</extracomment>
+        <extracomment>comment for time zone America/Mexico_City</extracomment>
         <translation>Hora Central - maioria das localidades</translation>
     </message>
     <message>
@@ -1053,8 +979,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Atlantic Time - New Brunswick</source>
-        <extracomment>comment for time zone America/Moncton
-</extracomment>
+        <extracomment>comment for time zone America/Moncton</extracomment>
         <translation>Hora do Atlântico - New Brunswick</translation>
     </message>
     <message>
@@ -1063,8 +988,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mexican Central Time - Coahuila, Durango, Nuevo Leon, Tamaulipas away from US border</source>
-        <extracomment>comment for time zone America/Monterrey
-</extracomment>
+        <extracomment>comment for time zone America/Monterrey</extracomment>
         <translation>Hora Central Mexicana - Coahuila, Durango, Nuevo Leon, Tamaulipas afastado da fronteira dos E.U.</translation>
     </message>
     <message>
@@ -1077,8 +1001,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Quebec - most locations</source>
-        <extracomment>comment for time zone America/Montreal
-</extracomment>
+        <extracomment>comment for time zone America/Montreal</extracomment>
         <translation>Hora Oriental - Quebeque - maioria das localidades</translation>
     </message>
     <message>
@@ -1095,8 +1018,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time</source>
-        <extracomment>comment for time zone America/New_York
-</extracomment>
+        <extracomment>comment for time zone America/New_York</extracomment>
         <translation>Hora Oriental</translation>
     </message>
     <message>
@@ -1105,8 +1027,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Ontario &amp; Quebec - places that did not observe DST 1967-1973</source>
-        <extracomment>comment for time zone America/Nipigon
-</extracomment>
+        <extracomment>comment for time zone America/Nipigon</extracomment>
         <translation>Hora Oriental - Ontário &amp; Quebeque - locais que não aplicam a DST 1967-1973</translation>
     </message>
     <message>
@@ -1115,8 +1036,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Alaska Time - west Alaska</source>
-        <extracomment>comment for time zone America/Nome
-</extracomment>
+        <extracomment>comment for time zone America/Nome</extracomment>
         <translation>Hora do Alasca - Alasca ocidental</translation>
     </message>
     <message>
@@ -1125,8 +1045,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Atlantic islands</source>
-        <extracomment>comment for time zone America/Noronha
-</extracomment>
+        <extracomment>comment for time zone America/Noronha</extracomment>
         <translation>Ilhas do Atlântico</translation>
     </message>
     <message>
@@ -1135,8 +1054,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - North Dakota - Oliver County</source>
-        <extracomment>comment for time zone America/North_Dakota/Center
-</extracomment>
+        <extracomment>comment for time zone America/North_Dakota/Center</extracomment>
         <translation>Hora Central - Dakota do Norte - Condado de Oliver</translation>
     </message>
     <message>
@@ -1145,8 +1063,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - North Dakota - Morton County (except Mandan area)</source>
-        <extracomment>comment for time zone America/North_Dakota/New_Salem
-</extracomment>
+        <extracomment>comment for time zone America/North_Dakota/New_Salem</extracomment>
         <translation>Hora Central - Dakota do Norte - Condado de Morton (excepto área de Mandan)</translation>
     </message>
     <message>
@@ -1155,8 +1072,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>US Mountain Time - Chihuahua near US border</source>
-        <extracomment>comment for time zone America/Ojinaga
-</extracomment>
+        <extracomment>comment for time zone America/Ojinaga</extracomment>
         <translation>Hora de Montanha dos E.U. - Chihuahua perto da fronteira com os E.U.</translation>
     </message>
     <message>
@@ -1169,8 +1085,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Pangnirtung, Nunavut</source>
-        <extracomment>comment for time zone America/Pangnirtung
-</extracomment>
+        <extracomment>comment for time zone America/Pangnirtung</extracomment>
         <translation>Hora Oriental - Pangnirtung, Nunavut</translation>
     </message>
     <message>
@@ -1183,8 +1098,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Standard Time - Arizona</source>
-        <extracomment>comment for time zone America/Phoenix
-</extracomment>
+        <extracomment>comment for time zone America/Phoenix</extracomment>
         <translation>Hora-Padrão de Montanha - Arizona</translation>
     </message>
     <message>
@@ -1205,8 +1119,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Rondonia</source>
-        <extracomment>comment for time zone America/Porto_Velho
-</extracomment>
+        <extracomment>comment for time zone America/Porto_Velho</extracomment>
         <translation>Rondonia</translation>
     </message>
     <message>
@@ -1219,8 +1132,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Rainy River &amp; Fort Frances, Ontario</source>
-        <extracomment>comment for time zone America/Rainy_River
-</extracomment>
+        <extracomment>comment for time zone America/Rainy_River</extracomment>
         <translation>Hora Central - Rainy River &amp; Fort Frances, Ontário</translation>
     </message>
     <message>
@@ -1229,8 +1141,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - central Nunavut</source>
-        <extracomment>comment for time zone America/Rankin_Inlet
-</extracomment>
+        <extracomment>comment for time zone America/Rankin_Inlet</extracomment>
         <translation>Hora Central - Nunavut central</translation>
     </message>
     <message>
@@ -1239,8 +1150,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pernambuco</source>
-        <extracomment>comment for time zone America/Recife
-</extracomment>
+        <extracomment>comment for time zone America/Recife</extracomment>
         <translation>Pernambuco</translation>
     </message>
     <message>
@@ -1249,8 +1159,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Standard Time - Saskatchewan - most locations</source>
-        <extracomment>comment for time zone America/Regina
-</extracomment>
+        <extracomment>comment for time zone America/Regina</extracomment>
         <translation>Hora-Padrão Central - Saskatchewan - maioria das localidades</translation>
     </message>
     <message>
@@ -1259,8 +1168,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Standard Time - Resolute, Nunavut</source>
-        <extracomment>comment for time zone America/Resolute
-</extracomment>
+        <extracomment>comment for time zone America/Resolute</extracomment>
         <translation>Hora Oriental - Nunavut oriental - maioria das localidades</translation>
     </message>
     <message>
@@ -1269,8 +1177,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Acre</source>
-        <extracomment>comment for time zone America/Rio_Branco
-</extracomment>
+        <extracomment>comment for time zone America/Rio_Branco</extracomment>
         <translation>Acre</translation>
     </message>
     <message>
@@ -1283,8 +1190,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mexican Pacific Time - Baja California away from US border</source>
-        <extracomment>comment for time zone America/Santa_Isabel
-</extracomment>
+        <extracomment>comment for time zone America/Santa_Isabel</extracomment>
         <translation>Hora do Pacífico Mexicana - Baixa Califórnia longe da fronteira com os E.U.</translation>
     </message>
     <message>
@@ -1293,8 +1199,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>W Para</source>
-        <extracomment>comment for time zone America/Santarem
-</extracomment>
+        <extracomment>comment for time zone America/Santarem</extracomment>
         <translation>Para O</translation>
     </message>
     <message>
@@ -1311,8 +1216,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>S &amp; SE Brazil (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</source>
-        <extracomment>comment for time zone America/Sao_Paulo
-</extracomment>
+        <extracomment>comment for time zone America/Sao_Paulo</extracomment>
         <translation>Brasil S &amp; SE (GO, DF, MG, ES, RJ, SP, PR, SC, RS)</translation>
     </message>
     <message>
@@ -1321,8 +1225,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Scoresbysund / Ittoqqortoormiit</source>
-        <extracomment>comment for time zone America/Scoresbysund
-</extracomment>
+        <extracomment>comment for time zone America/Scoresbysund</extracomment>
         <translation>Scoresbysund / Ittoqqortoormiit</translation>
     </message>
     <message>
@@ -1331,8 +1234,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Time - Navajo</source>
-        <extracomment>comment for time zone America/Shiprock
-</extracomment>
+        <extracomment>comment for time zone America/Shiprock</extracomment>
         <translation>Hora de Montanha - Navajo</translation>
     </message>
     <message>
@@ -1345,8 +1247,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Newfoundland Time, including SE Labrador</source>
-        <extracomment>comment for time zone America/St_Johns
-</extracomment>
+        <extracomment>comment for time zone America/St_Johns</extracomment>
         <translation>Hora de Newfoundland, incluindo Labrador SE</translation>
     </message>
     <message>
@@ -1371,8 +1272,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Standard Time - Saskatchewan - midwest</source>
-        <extracomment>comment for time zone America/Swift_Current
-</extracomment>
+        <extracomment>comment for time zone America/Swift_Current</extracomment>
         <translation>Hora-Padrão Central - Saskatchewan - centro-oeste</translation>
     </message>
     <message>
@@ -1385,8 +1285,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Thule / Pituffik</source>
-        <extracomment>comment for time zone America/Thule
-</extracomment>
+        <extracomment>comment for time zone America/Thule</extracomment>
         <translation>Thule / Pituffik</translation>
     </message>
     <message>
@@ -1395,8 +1294,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Thunder Bay, Ontario</source>
-        <extracomment>comment for time zone America/Thunder_Bay
-</extracomment>
+        <extracomment>comment for time zone America/Thunder_Bay</extracomment>
         <translation>Hora Oriental - Thunder Bay, Ontário</translation>
     </message>
     <message>
@@ -1405,8 +1303,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>US Pacific Time - Baja California near US border</source>
-        <extracomment>comment for time zone America/Tijuana
-</extracomment>
+        <extracomment>comment for time zone America/Tijuana</extracomment>
         <translation>Hora do Pacífico E.U. - Baixa Califórnia perto da fronteira com os E.U.</translation>
     </message>
     <message>
@@ -1415,8 +1312,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Eastern Time - Ontario - most locations</source>
-        <extracomment>comment for time zone America/Toronto
-</extracomment>
+        <extracomment>comment for time zone America/Toronto</extracomment>
         <translation>Hora Oriental - Ontário - maioria das localidades</translation>
     </message>
     <message>
@@ -1429,8 +1325,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pacific Time - west British Columbia</source>
-        <extracomment>comment for time zone America/Vancouver
-</extracomment>
+        <extracomment>comment for time zone America/Vancouver</extracomment>
         <translation>Hora do Pacífico - Columbia Britânica ocidental</translation>
     </message>
     <message>
@@ -1443,8 +1338,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pacific Time - south Yukon</source>
-        <extracomment>comment for time zone America/Whitehorse
-</extracomment>
+        <extracomment>comment for time zone America/Whitehorse</extracomment>
         <translation>Hora do Pacífico - sul do Yukon</translation>
     </message>
     <message>
@@ -1453,8 +1347,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Central Time - Manitoba &amp; west Ontario</source>
-        <extracomment>comment for time zone America/Winnipeg
-</extracomment>
+        <extracomment>comment for time zone America/Winnipeg</extracomment>
         <translation>Hora Central - Manitoba &amp; Ontário ocidental</translation>
     </message>
     <message>
@@ -1463,8 +1356,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Alaska Time - Alaska panhandle neck</source>
-        <extracomment>comment for time zone America/Yakutat
-</extracomment>
+        <extracomment>comment for time zone America/Yakutat</extracomment>
         <translation>Hora do Alasca - sopé do planalto do Alasca</translation>
     </message>
     <message>
@@ -1473,8 +1365,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mountain Time - central Northwest Territories</source>
-        <extracomment>comment for time zone America/Yellowknife
-</extracomment>
+        <extracomment>comment for time zone America/Yellowknife</extracomment>
         <translation>Hora de Montanha - Territórios do Noroeste centrais</translation>
     </message>
     <message>
@@ -1483,8 +1374,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Casey Station, Bailey Peninsula</source>
-        <extracomment>comment for time zone Antarctica/Casey
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Casey</extracomment>
         <translation>Estação Casey, Península de Bailey</translation>
     </message>
     <message>
@@ -1493,8 +1383,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Davis Station, Vestfold Hills</source>
-        <extracomment>comment for time zone Antarctica/Davis
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Davis</extracomment>
         <translation>Estação Davis, Vestfold Hills</translation>
     </message>
     <message>
@@ -1503,8 +1392,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Dumont-d&apos;Urville Station, Terre Adelie</source>
-        <extracomment>comment for time zone Antarctica/DumontDUrville
-</extracomment>
+        <extracomment>comment for time zone Antarctica/DumontDUrville</extracomment>
         <translation>Estação Dumont-d&apos;Urville, Terre Adelie</translation>
     </message>
     <message>
@@ -1513,8 +1401,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Macquarie Island Station, Macquarie Island</source>
-        <extracomment>comment for time zone Antarctica/Macquarie
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Macquarie</extracomment>
         <translation>Estação da Ilha Macquarie, Ilha Macquarie</translation>
     </message>
     <message>
@@ -1523,8 +1410,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Mawson Station, Holme Bay</source>
-        <extracomment>comment for time zone Antarctica/Mawson
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Mawson</extracomment>
         <translation>Estação Mawson, Baía de Holme</translation>
     </message>
     <message>
@@ -1533,8 +1419,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>McMurdo Station, Ross Island</source>
-        <extracomment>comment for time zone Antarctica/McMurdo
-</extracomment>
+        <extracomment>comment for time zone Antarctica/McMurdo</extracomment>
         <translation>Estação McMurdo, Ilha de Ross</translation>
     </message>
     <message>
@@ -1543,8 +1428,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Palmer Station, Anvers Island</source>
-        <extracomment>comment for time zone Antarctica/Palmer
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Palmer</extracomment>
         <translation>Estação Palmer, Ilha Anvers</translation>
     </message>
     <message>
@@ -1553,8 +1437,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Rothera Station, Adelaide Island</source>
-        <extracomment>comment for time zone Antarctica/Rothera
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Rothera</extracomment>
         <translation>Estação Rothera, Ilha de Adelaide</translation>
     </message>
     <message>
@@ -1563,8 +1446,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Amundsen-Scott Station, South Pole</source>
-        <extracomment>comment for time zone Antarctica/South_Pole
-</extracomment>
+        <extracomment>comment for time zone Antarctica/South_Pole</extracomment>
         <translation>Estação Amundsen-Scott, Pólo Sul</translation>
     </message>
     <message>
@@ -1573,8 +1455,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Syowa Station, E Ongul I</source>
-        <extracomment>comment for time zone Antarctica/Syowa
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Syowa</extracomment>
         <translation>Estação de Syowa, E Ongul I</translation>
     </message>
     <message>
@@ -1583,8 +1464,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Vostok Station, S Magnetic Pole</source>
-        <extracomment>comment for time zone Antarctica/Vostok
-</extracomment>
+        <extracomment>comment for time zone Antarctica/Vostok</extracomment>
         <translation>Estação Vostok, Pólo Sul Magnético</translation>
     </message>
     <message>
@@ -1609,8 +1489,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+08 - Bering Sea</source>
-        <extracomment>comment for time zone Asia/Anadyr
-</extracomment>
+        <extracomment>comment for time zone Asia/Anadyr</extracomment>
         <translation>Moscovo+08 - Mar Bering</translation>
     </message>
     <message>
@@ -1619,8 +1498,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Atyrau (Atirau, Gur&apos;yev), Mangghystau (Mankistau)</source>
-        <extracomment>comment for time zone Asia/Aqtau
-</extracomment>
+        <extracomment>comment for time zone Asia/Aqtau</extracomment>
         <translation>Atyrau (Atirau, Gur&apos;yev), Mangghystau (Mankistau)</translation>
     </message>
     <message>
@@ -1629,8 +1507,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Aqtobe (Aktobe)</source>
-        <extracomment>comment for time zone Asia/Aqtobe
-</extracomment>
+        <extracomment>comment for time zone Asia/Aqtobe</extracomment>
         <translation>Aqtobe (Aktobe)</translation>
     </message>
     <message>
@@ -1679,8 +1556,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Dornod, Sukhbaatar</source>
-        <extracomment>comment for time zone Asia/Choibalsan
-</extracomment>
+        <extracomment>comment for time zone Asia/Choibalsan</extracomment>
         <translation>Dornod, Sukhbaatar</translation>
     </message>
     <message>
@@ -1689,8 +1565,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>central China - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.</source>
-        <extracomment>comment for time zone Asia/Chongqing
-</extracomment>
+        <extracomment>comment for time zone Asia/Chongqing</extracomment>
         <translation>China central - Sichuan, Yunnan, Guangxi, Shaanxi, Guizhou, etc.</translation>
     </message>
     <message>
@@ -1735,8 +1610,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Heilongjiang (except Mohe), Jilin</source>
-        <extracomment>comment for time zone Asia/Harbin
-</extracomment>
+        <extracomment>comment for time zone Asia/Harbin</extracomment>
         <translation>Heilongjiang (excepto Mohe), Jilin</translation>
     </message>
     <message>
@@ -1753,8 +1627,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan</source>
-        <extracomment>comment for time zone Asia/Hovd
-</extracomment>
+        <extracomment>comment for time zone Asia/Hovd</extracomment>
         <translation>Bayan-Olgiy, Govi-Altai, Hovd, Uvs, Zavkhan</translation>
     </message>
     <message>
@@ -1763,8 +1636,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+05 - Lake Baikal</source>
-        <extracomment>comment for time zone Asia/Irkutsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Irkutsk</extracomment>
         <translation>Moscovo+05 - Lago Baical</translation>
     </message>
     <message>
@@ -1777,8 +1649,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Java &amp; Sumatra</source>
-        <extracomment>comment for time zone Asia/Jakarta
-</extracomment>
+        <extracomment>comment for time zone Asia/Jakarta</extracomment>
         <translation>Java &amp; Sumatra</translation>
     </message>
     <message>
@@ -1787,8 +1658,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Irian Jaya &amp; the Moluccas</source>
-        <extracomment>comment for time zone Asia/Jayapura
-</extracomment>
+        <extracomment>comment for time zone Asia/Jayapura</extracomment>
         <translation>Irian Jaya &amp; as Molucas</translation>
     </message>
     <message>
@@ -1805,8 +1675,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+08 - Kamchatka</source>
-        <extracomment>comment for time zone Asia/Kamchatka
-</extracomment>
+        <extracomment>comment for time zone Asia/Kamchatka</extracomment>
         <translation>Moscovo+08 - Kamchatka</translation>
     </message>
     <message>
@@ -1819,8 +1688,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>west Tibet &amp; Xinjiang</source>
-        <extracomment>comment for time zone Asia/Kashgar
-</extracomment>
+        <extracomment>comment for time zone Asia/Kashgar</extracomment>
         <translation>Tibete ocidental &amp; Xinjiang</translation>
     </message>
     <message>
@@ -1841,8 +1709,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+04 - Yenisei River</source>
-        <extracomment>comment for time zone Asia/Krasnoyarsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Krasnoyarsk</extracomment>
         <translation>Moscovo+04 - Rio Jenissei</translation>
     </message>
     <message>
@@ -1851,8 +1718,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>peninsular Malaysia</source>
-        <extracomment>comment for time zone Asia/Kuala_Lumpur
-</extracomment>
+        <extracomment>comment for time zone Asia/Kuala_Lumpur</extracomment>
         <translation>Malásia peninsular</translation>
     </message>
     <message>
@@ -1861,8 +1727,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Sabah &amp; Sarawak</source>
-        <extracomment>comment for time zone Asia/Kuching
-</extracomment>
+        <extracomment>comment for time zone Asia/Kuching</extracomment>
         <translation>Sabah &amp; Sarawak</translation>
     </message>
     <message>
@@ -1883,8 +1748,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+08 - Magadan</source>
-        <extracomment>comment for time zone Asia/Magadan
-</extracomment>
+        <extracomment>comment for time zone Asia/Magadan</extracomment>
         <translation>Moscovo+08 - Magadan</translation>
     </message>
     <message>
@@ -1893,8 +1757,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>east &amp; south Borneo, Celebes, Bali, Nusa Tengarra, west Timor</source>
-        <extracomment>comment for time zone Asia/Makassar
-</extracomment>
+        <extracomment>comment for time zone Asia/Makassar</extracomment>
         <translation>Borneo oriental e sul, Celebes, Bali, Nusa Tengarra, Timor ocidental</translation>
     </message>
     <message>
@@ -1915,8 +1778,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+03 - Novokuznetsk</source>
-        <extracomment>comment for time zone Asia/Novokuznetsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Novokuznetsk</extracomment>
         <translation>Moscovo+03 - Novokuznetsk</translation>
     </message>
     <message>
@@ -1925,8 +1787,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+03 - Novosibirsk</source>
-        <extracomment>comment for time zone Asia/Novosibirsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Novosibirsk</extracomment>
         <translation>Moscovo+03 - Novosibirsk</translation>
     </message>
     <message>
@@ -1935,8 +1796,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+03 - west Siberia</source>
-        <extracomment>comment for time zone Asia/Omsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Omsk</extracomment>
         <translation>Moscovo+03 - Sibéria ocidental</translation>
     </message>
     <message>
@@ -1945,8 +1805,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>West Kazakhstan</source>
-        <extracomment>comment for time zone Asia/Oral
-</extracomment>
+        <extracomment>comment for time zone Asia/Oral</extracomment>
         <translation>Cazaquistão ocidental</translation>
     </message>
     <message>
@@ -1959,8 +1818,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>west &amp; central Borneo</source>
-        <extracomment>comment for time zone Asia/Pontianak
-</extracomment>
+        <extracomment>comment for time zone Asia/Pontianak</extracomment>
         <translation>Borneo ocidental &amp; central</translation>
     </message>
     <message>
@@ -1977,8 +1835,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Qyzylorda (Kyzylorda, Kzyl-Orda)</source>
-        <extracomment>comment for time zone Asia/Qyzylorda
-</extracomment>
+        <extracomment>comment for time zone Asia/Qyzylorda</extracomment>
         <translation>Qyzylorda (Kyzylorda, Kzyl-Orda)</translation>
     </message>
     <message>
@@ -2011,8 +1868,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+07 - Sakhalin Island</source>
-        <extracomment>comment for time zone Asia/Sakhalin
-</extracomment>
+        <extracomment>comment for time zone Asia/Sakhalin</extracomment>
         <translation>Moscovo+07 - Ilha Sakhalin</translation>
     </message>
     <message>
@@ -2021,8 +1877,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>west Uzbekistan</source>
-        <extracomment>comment for time zone Asia/Samarkand
-</extracomment>
+        <extracomment>comment for time zone Asia/Samarkand</extracomment>
         <translation>Uzbequistão ocidental</translation>
     </message>
     <message>
@@ -2035,8 +1890,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>east China - Beijing, Guangdong, Shanghai, etc.</source>
-        <extracomment>comment for time zone Asia/Shanghai
-</extracomment>
+        <extracomment>comment for time zone Asia/Shanghai</extracomment>
         <translation>China oriental - Pequim, Guangdong, Xangai, etc.</translation>
     </message>
     <message>
@@ -2053,8 +1907,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>east Uzbekistan</source>
-        <extracomment>comment for time zone Asia/Tashkent
-</extracomment>
+        <extracomment>comment for time zone Asia/Tashkent</extracomment>
         <translation>Uzbequistão oriental</translation>
     </message>
     <message>
@@ -2099,8 +1952,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>most of Tibet &amp; Xinjiang</source>
-        <extracomment>comment for time zone Asia/Urumqi
-</extracomment>
+        <extracomment>comment for time zone Asia/Urumqi</extracomment>
         <translation>maioria do Tibete &amp; Xinjiang</translation>
     </message>
     <message>
@@ -2113,8 +1965,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+07 - Amur River</source>
-        <extracomment>comment for time zone Asia/Vladivostok
-</extracomment>
+        <extracomment>comment for time zone Asia/Vladivostok</extracomment>
         <translation>Moscovo+07 - Rio Amur</translation>
     </message>
     <message>
@@ -2123,8 +1974,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+06 - Lena River</source>
-        <extracomment>comment for time zone Asia/Yakutsk
-</extracomment>
+        <extracomment>comment for time zone Asia/Yakutsk</extracomment>
         <translation>Moscovo+06 - Rio Lena</translation>
     </message>
     <message>
@@ -2133,8 +1983,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+02 - Urals</source>
-        <extracomment>comment for time zone Asia/Yekaterinburg
-</extracomment>
+        <extracomment>comment for time zone Asia/Yekaterinburg</extracomment>
         <translation>Moscovo+02 - Urais</translation>
     </message>
     <message>
@@ -2147,8 +1996,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Azores</source>
-        <extracomment>comment for time zone Atlantic/Azores
-</extracomment>
+        <extracomment>comment for time zone Atlantic/Azores</extracomment>
         <translation>Açores</translation>
     </message>
     <message>
@@ -2161,8 +2009,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Canary Islands</source>
-        <extracomment>comment for time zone Atlantic/Canary
-</extracomment>
+        <extracomment>comment for time zone Atlantic/Canary</extracomment>
         <translation>Ilhas Canárias</translation>
     </message>
     <message>
@@ -2187,8 +2034,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Madeira Islands</source>
-        <extracomment>comment for time zone Atlantic/Madeira
-</extracomment>
+        <extracomment>comment for time zone Atlantic/Madeira</extracomment>
         <translation>Arquipélago da Madeira</translation>
     </message>
     <message>
@@ -2217,8 +2063,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>South Australia</source>
-        <extracomment>comment for time zone Australia/Adelaide
-</extracomment>
+        <extracomment>comment for time zone Australia/Adelaide</extracomment>
         <translation>Sul da Austrália</translation>
     </message>
     <message>
@@ -2227,8 +2072,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Queensland - most locations</source>
-        <extracomment>comment for time zone Australia/Brisbane
-</extracomment>
+        <extracomment>comment for time zone Australia/Brisbane</extracomment>
         <translation>Queensland - maioria das localidades</translation>
     </message>
     <message>
@@ -2237,8 +2081,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>New South Wales - Yancowinna</source>
-        <extracomment>comment for time zone Australia/Broken_Hill
-</extracomment>
+        <extracomment>comment for time zone Australia/Broken_Hill</extracomment>
         <translation>Nova Gales do Sul - Yancowinna</translation>
     </message>
     <message>
@@ -2251,8 +2094,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Tasmania - King Island</source>
-        <extracomment>comment for time zone Australia/Currie
-</extracomment>
+        <extracomment>comment for time zone Australia/Currie</extracomment>
         <translation>Tasmânia - King Island</translation>
     </message>
     <message>
@@ -2261,8 +2103,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Northern Territory</source>
-        <extracomment>comment for time zone Australia/Darwin
-</extracomment>
+        <extracomment>comment for time zone Australia/Darwin</extracomment>
         <translation>Território do Norte</translation>
     </message>
     <message>
@@ -2271,8 +2112,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Western Australia - Eucla area</source>
-        <extracomment>comment for time zone Australia/Eucla
-</extracomment>
+        <extracomment>comment for time zone Australia/Eucla</extracomment>
         <translation>Austrália Ocidental - área de Eucla</translation>
     </message>
     <message>
@@ -2281,8 +2121,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Tasmania - most locations</source>
-        <extracomment>comment for time zone Australia/Hobart
-</extracomment>
+        <extracomment>comment for time zone Australia/Hobart</extracomment>
         <translation>Tasmânia - maioria das localidades</translation>
     </message>
     <message>
@@ -2295,8 +2134,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Queensland - Holiday Islands</source>
-        <extracomment>comment for time zone Australia/Lindeman
-</extracomment>
+        <extracomment>comment for time zone Australia/Lindeman</extracomment>
         <translation>Queensland - Holiday Islands</translation>
     </message>
     <message>
@@ -2305,8 +2143,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Lord Howe Island</source>
-        <extracomment>comment for time zone Australia/Lord_Howe
-</extracomment>
+        <extracomment>comment for time zone Australia/Lord_Howe</extracomment>
         <translation>Ilha Lord Howe</translation>
     </message>
     <message>
@@ -2315,8 +2152,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Victoria</source>
-        <extracomment>comment for time zone Australia/Melbourne
-</extracomment>
+        <extracomment>comment for time zone Australia/Melbourne</extracomment>
         <translation>Vitória</translation>
     </message>
     <message>
@@ -2333,8 +2169,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Western Australia - most locations</source>
-        <extracomment>comment for time zone Australia/Perth
-</extracomment>
+        <extracomment>comment for time zone Australia/Perth</extracomment>
         <translation>Austrália ocidental - maioria das localidades</translation>
     </message>
     <message>
@@ -2351,8 +2186,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>New South Wales - most locations</source>
-        <extracomment>comment for time zone Australia/Sydney
-</extracomment>
+        <extracomment>comment for time zone Australia/Sydney</extracomment>
         <translation>Nova Gales do Sul - maioria das localidades</translation>
     </message>
     <message>
@@ -2685,8 +2519,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow-01 - Kaliningrad</source>
-        <extracomment>comment for time zone Europe/Kaliningrad
-</extracomment>
+        <extracomment>comment for time zone Europe/Kaliningrad</extracomment>
         <translation>Moscovo-01 - Kalininegrado</translation>
     </message>
     <message>
@@ -2735,8 +2568,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+00 - west Russia</source>
-        <extracomment>comment for time zone Europe/Moscow
-</extracomment>
+        <extracomment>comment for time zone Europe/Moscow</extracomment>
         <translation>Moscovo+00 - Rússia ocidental</translation>
     </message>
     <message>
@@ -2773,8 +2605,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow - Samara, Udmurtia</source>
-        <extracomment>comment for time zone Europe/Samara
-</extracomment>
+        <extracomment>comment for time zone Europe/Samara</extracomment>
         <translation>Moscovo - Samara, Udmurtia</translation>
     </message>
     <message>
@@ -2791,8 +2622,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>central Crimea</source>
-        <extracomment>comment for time zone Europe/Simferopol
-</extracomment>
+        <extracomment>comment for time zone Europe/Simferopol</extracomment>
         <translation>Crimeia central</translation>
     </message>
     <message>
@@ -2825,8 +2655,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Ruthenia</source>
-        <extracomment>comment for time zone Europe/Uzhgorod
-</extracomment>
+        <extracomment>comment for time zone Europe/Uzhgorod</extracomment>
         <translation>Ruténia</translation>
     </message>
     <message>
@@ -2851,8 +2680,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Moscow+00 - Caspian Sea</source>
-        <extracomment>comment for time zone Europe/Volgograd
-</extracomment>
+        <extracomment>comment for time zone Europe/Volgograd</extracomment>
         <translation>Moscovo+00 - Mar Cáspio</translation>
     </message>
     <message>
@@ -2869,8 +2697,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Zaporozh&apos;ye, E Lugansk / Zaporizhia, E Luhansk</source>
-        <extracomment>comment for time zone Europe/Zaporozhye
-</extracomment>
+        <extracomment>comment for time zone Europe/Zaporozhye</extracomment>
         <translation>Zaporozh&apos;ye, Lugansk / Zaporizhia E, Luhansk E</translation>
     </message>
     <message>
@@ -2987,8 +2814,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Kwajalein</source>
-        <extracomment>comment for time zone Pacific/Kwajalein
-</extracomment>
+        <extracomment>comment for time zone Pacific/Kwajalein</extracomment>
         <translation>Kwajalein</translation>
     </message>
     <message>
@@ -3057,8 +2883,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Chatham Islands</source>
-        <extracomment>comment for time zone Pacific/Chatham
-</extracomment>
+        <extracomment>comment for time zone Pacific/Chatham</extracomment>
         <translation>Ilhas Chatham</translation>
     </message>
     <message>
@@ -3067,8 +2892,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Chuuk (Truk) and Yap</source>
-        <extracomment>comment for time zone Pacific/Chuuk
-</extracomment>
+        <extracomment>comment for time zone Pacific/Chuuk</extracomment>
         <translation>Chuuk (Truk) e Yap</translation>
     </message>
     <message>
@@ -3077,8 +2901,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Easter Island &amp; Sala y Gomez</source>
-        <extracomment>comment for time zone Pacific/Easter
-</extracomment>
+        <extracomment>comment for time zone Pacific/Easter</extracomment>
         <translation>Ilha da Páscoa &amp; Sala y Gomez</translation>
     </message>
     <message>
@@ -3091,8 +2914,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Phoenix Islands</source>
-        <extracomment>comment for time zone Pacific/Enderbury
-</extracomment>
+        <extracomment>comment for time zone Pacific/Enderbury</extracomment>
         <translation>Ilhas Fénix</translation>
     </message>
     <message>
@@ -3113,8 +2935,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Galapagos Islands</source>
-        <extracomment>comment for time zone Pacific/Galapagos
-</extracomment>
+        <extracomment>comment for time zone Pacific/Galapagos</extracomment>
         <translation>Ilhas Galápagos</translation>
     </message>
     <message>
@@ -3123,8 +2944,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Gambier Islands</source>
-        <extracomment>comment for time zone Pacific/Gambier
-</extracomment>
+        <extracomment>comment for time zone Pacific/Gambier</extracomment>
         <translation>Ilhas Gambier</translation>
     </message>
     <message>
@@ -3141,8 +2961,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Hawaii</source>
-        <extracomment>comment for time zone Pacific/Honolulu
-</extracomment>
+        <extracomment>comment for time zone Pacific/Honolulu</extracomment>
         <translation>Havai</translation>
     </message>
     <message>
@@ -3151,8 +2970,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Johnston Atoll</source>
-        <extracomment>comment for time zone Pacific/Johnston
-</extracomment>
+        <extracomment>comment for time zone Pacific/Johnston</extracomment>
         <translation>Atol Johnston</translation>
     </message>
     <message>
@@ -3161,8 +2979,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Line Islands</source>
-        <extracomment>comment for time zone Pacific/Kiritimati
-</extracomment>
+        <extracomment>comment for time zone Pacific/Kiritimati</extracomment>
         <translation>Ilhas Line</translation>
     </message>
     <message>
@@ -3171,8 +2988,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Kosrae</source>
-        <extracomment>comment for time zone Pacific/Kosrae
-</extracomment>
+        <extracomment>comment for time zone Pacific/Kosrae</extracomment>
         <translation>Kosrae</translation>
     </message>
     <message>
@@ -3189,8 +3005,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Marquesas Islands</source>
-        <extracomment>comment for time zone Pacific/Marquesas
-</extracomment>
+        <extracomment>comment for time zone Pacific/Marquesas</extracomment>
         <translation>Ilhas Marquesas</translation>
     </message>
     <message>
@@ -3199,8 +3014,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Midway Islands</source>
-        <extracomment>comment for time zone Pacific/Midway
-</extracomment>
+        <extracomment>comment for time zone Pacific/Midway</extracomment>
         <translation>Atol de Midway</translation>
     </message>
     <message>
@@ -3237,8 +3051,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Pohnpei (Ponape)</source>
-        <extracomment>comment for time zone Pacific/Pohnpei
-</extracomment>
+        <extracomment>comment for time zone Pacific/Pohnpei</extracomment>
         <translation>Pohnpei (Ponape)</translation>
     </message>
     <message>
@@ -3267,8 +3080,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Society Islands</source>
-        <extracomment>comment for time zone Pacific/Tahiti
-</extracomment>
+        <extracomment>comment for time zone Pacific/Tahiti</extracomment>
         <translation>Ilhas Sociedade</translation>
     </message>
     <message>
@@ -3277,8 +3089,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Gilbert Islands</source>
-        <extracomment>comment for time zone Pacific/Tarawa
-</extracomment>
+        <extracomment>comment for time zone Pacific/Tarawa</extracomment>
         <translation>Ilhas Gilbert</translation>
     </message>
     <message>
@@ -3295,8 +3106,7 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>Wake Island</source>
-        <extracomment>comment for time zone Pacific/Wake
-</extracomment>
+        <extracomment>comment for time zone Pacific/Wake</extracomment>
         <translation>Ilha de Wake</translation>
     </message>
     <message>
@@ -3417,59 +3227,59 @@ comment for time zone Europe/Madrid
     </message>
     <message>
         <source>US/Pacific-New</source>
-        <translation type="obsolete">EUA/Pacific-New</translation>
+        <translation type="vanished">EUA/Pacific-New</translation>
     </message>
     <message>
         <source>SystemV/AST4</source>
-        <translation type="obsolete">SystemV/AST4</translation>
+        <translation type="vanished">SystemV/AST4</translation>
     </message>
     <message>
         <source>SystemV/AST4ADT</source>
-        <translation type="obsolete">SystemV/AST4ADT</translation>
+        <translation type="vanished">SystemV/AST4ADT</translation>
     </message>
     <message>
         <source>SystemV/CST6</source>
-        <translation type="obsolete">SystemV/CST6</translation>
+        <translation type="vanished">SystemV/CST6</translation>
     </message>
     <message>
         <source>SystemV/CST6CDT</source>
-        <translation type="obsolete">SystemV/CST6CDT</translation>
+        <translation type="vanished">SystemV/CST6CDT</translation>
     </message>
     <message>
         <source>SystemV/EST5</source>
-        <translation type="obsolete">SystemV/EST5</translation>
+        <translation type="vanished">SystemV/EST5</translation>
     </message>
     <message>
         <source>SystemV/EST5EDT</source>
-        <translation type="obsolete">SystemV/EST5EDT</translation>
+        <translation type="vanished">SystemV/EST5EDT</translation>
     </message>
     <message>
         <source>SystemV/HST10</source>
-        <translation type="obsolete">SystemV/HST10</translation>
+        <translation type="vanished">SystemV/HST10</translation>
     </message>
     <message>
         <source>SystemV/MST7</source>
-        <translation type="obsolete">SystemV/MST7</translation>
+        <translation type="vanished">SystemV/MST7</translation>
     </message>
     <message>
         <source>SystemV/MST7MDT</source>
-        <translation type="obsolete">SystemV/MST7MDT</translation>
+        <translation type="vanished">SystemV/MST7MDT</translation>
     </message>
     <message>
         <source>SystemV/PST8</source>
-        <translation type="obsolete">SystemV/PST8</translation>
+        <translation type="vanished">SystemV/PST8</translation>
     </message>
     <message>
         <source>SystemV/PST8PDT</source>
-        <translation type="obsolete">SystemV/PST8PDT</translation>
+        <translation type="vanished">SystemV/PST8PDT</translation>
     </message>
     <message>
         <source>SystemV/YST9</source>
-        <translation type="obsolete">SystemV/YST9</translation>
+        <translation type="vanished">SystemV/YST9</translation>
     </message>
     <message>
         <source>SystemV/YST9YDT</source>
-        <translation type="obsolete">SystemV/YST9YDT</translation>
+        <translation type="vanished">SystemV/YST9YDT</translation>
     </message>
 </context>
 </TS>

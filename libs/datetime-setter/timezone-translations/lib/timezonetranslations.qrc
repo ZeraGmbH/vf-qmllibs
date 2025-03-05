@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/">
+        <file>timezones_de_DE.qm</file>
+        <file>timezones_en_GB.qm</file>
+        <file>timezones_es_ES.qm</file>
+        <file>timezones_fr_FR.qm</file>
+        <file>timezones_pt_PT.qm</file>
+    </qresource>
+</RCC>

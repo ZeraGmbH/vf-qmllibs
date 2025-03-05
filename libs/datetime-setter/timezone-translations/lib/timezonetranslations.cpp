@@ -1,16 +1,9 @@
 #include "timezonetranslations.h"
 #include <QFile>
 
-TimezoneTranslations::TimezoneTranslations(const QString &translationFilePath)
-{
-    if (translationFilePath.isEmpty())
-        m_translationFilePath = QString(TIMEZONE_TRANSLATE_INSTALL_PATH);
-    else
-        m_translationFilePath = translationFilePath;
-}
-
 bool TimezoneTranslations::setLanguage(const QString &language)
 {
+    Q_INIT_RESOURCE(timezonetranslations);
     if (m_currentLanguage == language)
         return false;
 
@@ -25,7 +18,7 @@ bool TimezoneTranslations::setLanguage(const QString &language)
     }
 
     const QString translationFileName = QString("timezones_%1.qm").arg(language);
-    m_translator->load(translationFileName, m_translationFilePath);
+    m_translator->load(translationFileName, ":/");
     return true;
 }
 
@@ -46,7 +39,7 @@ bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &langu
 
 bool TimezoneTranslations::isSupportedLanguage(const QString &language) const
 {
-    const QString translationFileName = QString("timezones_%1.qm").arg(language);
-    QFile file(QString("%1/%2").arg(m_translationFilePath, translationFileName));
+    const QString translationFileName = QString(":/timezones_%1.qm").arg(language);
+    QFile file(translationFileName);
     return file.exists();
 }
