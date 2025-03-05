@@ -12,30 +12,29 @@ static constexpr int timezoneCount = 597;
 void test_timezone_base_model::init()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
+    m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
 }
 
 void test_timezone_base_model::earlyConnectionStart()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
 void test_timezone_base_model::lateConnectionStart()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
-    conn->start();
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
     QCOMPARE(spyModelAboutToBeReset.count(), 1);
@@ -46,12 +45,11 @@ void test_timezone_base_model::lateConnectionStart()
 
 void test_timezone_base_model::checkTimezones()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
@@ -63,12 +61,11 @@ void test_timezone_base_model::checkTimezones()
 
 void test_timezone_base_model::checkTimezonesDisplayNoTranslationSet()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Abidjan");
@@ -80,12 +77,11 @@ void test_timezone_base_model::checkTimezonesDisplayNoTranslationSet()
 
 void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
     m_translations->setLanguage("de_DE");
@@ -103,12 +99,11 @@ void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
 
 void test_timezone_base_model::checkRegion()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
@@ -127,12 +122,11 @@ void test_timezone_base_model::checkRegion()
 
 void test_timezone_base_model::checkRegionTranslated()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
@@ -151,12 +145,11 @@ void test_timezone_base_model::checkRegionTranslated()
 
 void test_timezone_base_model::checkCityOrCountry()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
@@ -183,12 +176,11 @@ void test_timezone_base_model::checkCityOrCountry()
 
 void test_timezone_base_model::checkCityOrCountryTranslated()
 {
-    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    conn->start();
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn, m_translations);
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;

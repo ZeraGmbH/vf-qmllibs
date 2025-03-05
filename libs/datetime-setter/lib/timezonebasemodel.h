@@ -4,7 +4,7 @@
 #include "abstracttimedate1connection.h"
 #include "timezonetranslations.h"
 #include <QAbstractListModel>
-#include <QList>
+#include <QStringList>
 #include <memory>
 
 class TimezoneBaseModel : public QAbstractListModel
