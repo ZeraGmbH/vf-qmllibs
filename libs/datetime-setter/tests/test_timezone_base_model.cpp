@@ -143,3 +143,67 @@ void test_timezone_base_model::checkRegionTranslated()
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Ägypten");
     QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "");
 }
+
+void test_timezone_base_model::checkCityOrCountry()
+{
+    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
+    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    conn->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneBaseModel model(conn);
+    model.setLanguage("de_DE");
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Abidjan");
+
+    index = model.index(127, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "America/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Indiana/Indianapolis");
+
+    index = model.index(389, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Egypt");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Egypt");
+
+    bool emptyCityFound = false;
+    for (int i=0; i<model.rowCount(); ++i) {
+        index = model.index(i, 0);
+        if (model.data(index, TimezoneBaseModel::CityOrCountryRole).toString().isEmpty())
+            emptyCityFound = true;
+    }
+    QCOMPARE(emptyCityFound, false);
+}
+
+void test_timezone_base_model::checkCityOrCountryTranslated()
+{
+    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
+    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    conn->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneBaseModel model(conn);
+    model.setLanguage("de_DE");
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Abidjan");
+
+    index = model.index(127, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Indiana/Indianapolis");
+
+    index = model.index(389, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Ägypten");
+    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Ägypten");
+
+    bool emptyCityFound = false;
+    for (int i=0; i<model.rowCount(); ++i) {
+        index = model.index(i, 0);
+        if (model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated).toString().isEmpty())
+            emptyCityFound = true;
+    }
+    QCOMPARE(emptyCityFound, false);
+}
