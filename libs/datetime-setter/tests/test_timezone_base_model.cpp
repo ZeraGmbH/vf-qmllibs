@@ -59,7 +59,7 @@ void test_timezone_base_model::checkTimezones()
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Addis_Ababa");
 }
 
-void test_timezone_base_model::checkTimezonesDisplayNoTranslationSet()
+void test_timezone_base_model::checkTimezonesTranslatedNoTranslationSet()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -75,7 +75,7 @@ void test_timezone_base_model::checkTimezonesDisplayNoTranslationSet()
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Addis_Ababa");
 }
 
-void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
+void test_timezone_base_model::checkTimezonesTranslatedTranslationSet()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
