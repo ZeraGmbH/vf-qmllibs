@@ -12,7 +12,9 @@ QHash<int, QByteArray> TimezoneBaseModel::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
-        { TimezoneRoleTranslated, "timezonetranslated" }
+        { TimezoneRoleTranslated, "timezonetranslated" },
+        { RegionRole, "region"},
+        { RegionRoleTranslated, "regiontranslated" }
     };
     return roles;
 }
@@ -35,6 +37,10 @@ QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
         return timezone;
     case TimezoneRoleTranslated:
         return m_translation.translate(timezone);
+    case RegionRole:
+        return extractRegion(timezone);
+    case RegionRoleTranslated:
+        return extractRegion(m_translation.translate(timezone));
     }
     return QVariant();
 }
@@ -53,4 +59,13 @@ void TimezoneBaseModel::fillModel()
     beginResetModel();
     m_timezones = availTimezones;
     endResetModel();
+}
+
+QString TimezoneBaseModel::extractRegion(const QString &timezone) const
+{
+    QString region;
+    int separatorPos = timezone.indexOf("/");
+    if (separatorPos > 0)
+        region = timezone.left(separatorPos);
+    return region;
 }
