@@ -9,6 +9,11 @@ QTEST_MAIN(test_timezone_base_model)
 static constexpr int waitTimeForStartOrSync = 10;
 static constexpr int timezoneCount = 597;
 
+void test_timezone_base_model::init()
+{
+    m_translations = std::make_shared<TimezoneTranslations>();
+}
+
 void test_timezone_base_model::earlyConnectionStart()
 {
     std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
@@ -17,7 +22,7 @@ void test_timezone_base_model::earlyConnectionStart()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
@@ -26,7 +31,7 @@ void test_timezone_base_model::lateConnectionStart()
     std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
     QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
@@ -46,7 +51,7 @@ void test_timezone_base_model::checkTimezones()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
@@ -63,7 +68,7 @@ void test_timezone_base_model::checkTimezonesDisplayNoTranslationSet()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Abidjan");
@@ -80,7 +85,7 @@ void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
     model.setLanguage("de_DE");
@@ -103,7 +108,7 @@ void test_timezone_base_model::checkRegion()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     model.setLanguage("de_DE");
 
     QModelIndex index;
@@ -127,7 +132,7 @@ void test_timezone_base_model::checkRegionTranslated()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     model.setLanguage("de_DE");
 
     QModelIndex index;
@@ -151,7 +156,7 @@ void test_timezone_base_model::checkCityOrCountry()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     model.setLanguage("de_DE");
 
     QModelIndex index;
@@ -183,7 +188,7 @@ void test_timezone_base_model::checkCityOrCountryTranslated()
     conn->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(conn);
+    TimezoneBaseModel model(conn, m_translations);
     model.setLanguage("de_DE");
 
     QModelIndex index;
