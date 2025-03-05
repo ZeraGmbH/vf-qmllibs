@@ -13,8 +13,8 @@ private slots:
     void earlyConnectionStart();
     void lateConnectionStart();
     void checkTimezones();
-    void checkTimezonesDisplayNoTranslationSet();
-    void checkTimezonesDisplayTranslationSet();
+    void checkTimezonesTranslatedNoTranslationSet();
+    void checkTimezonesTranslatedTranslationSet();
     void checkRegion();
     void checkRegionTranslated();
     void checkCityOrCountry();
