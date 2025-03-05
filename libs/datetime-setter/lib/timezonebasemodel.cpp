@@ -1,4 +1,5 @@
 #include "timezonebasemodel.h"
+#include "timezoneextractor.h"
 
 TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
     m_timedateConnection(timedateConnection)
@@ -40,13 +41,13 @@ QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
     case TimezoneRoleTranslated:
         return m_translation.translate(timezone);
     case RegionRole:
-        return extractRegion(timezone);
+        return TimezoneExtractor::extractRegion(timezone);
     case RegionRoleTranslated:
-        return extractRegion(m_translation.translate(timezone));
+        return TimezoneExtractor::extractRegion(m_translation.translate(timezone));
     case CityOrCountryRole:
-        return extractCityOrCountry(timezone);
+        return TimezoneExtractor::extractCityOrCountry(timezone);
     case CityOrCountryRoleTranslated:
-        return extractCityOrCountry(m_translation.translate(timezone));
+        return TimezoneExtractor::extractCityOrCountry(m_translation.translate(timezone));
     }
     return QVariant();
 }
@@ -65,22 +66,4 @@ void TimezoneBaseModel::fillModel()
     beginResetModel();
     m_timezones = availTimezones;
     endResetModel();
-}
-
-QString TimezoneBaseModel::extractRegion(const QString &timezone) const
-{
-    QString region;
-    int separatorPos = timezone.indexOf("/");
-    if (separatorPos > 0)
-        region = timezone.left(separatorPos);
-    return region;
-}
-
-QString TimezoneBaseModel::extractCityOrCountry(const QString &timezone) const
-{
-    QString city = timezone;
-    int separatorPos = timezone.indexOf("/");
-    if (separatorPos > 0 && separatorPos < timezone.size()-1)
-        city = timezone.mid(separatorPos+1);
-    return city;
 }
