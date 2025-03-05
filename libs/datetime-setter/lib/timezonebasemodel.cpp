@@ -1,8 +1,10 @@
 #include "timezonebasemodel.h"
 #include "timezoneextractor.h"
 
-TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
-    m_timedateConnection(timedateConnection)
+TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
+                                     std::shared_ptr<TimezoneTranslations> translations) :
+    m_timedateConnection(timedateConnection),
+    m_translations(translations)
 {
     fillModel();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
@@ -39,22 +41,22 @@ QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
     case TimezoneRole:
         return timezone;
     case TimezoneRoleTranslated:
-        return m_translation.translate(timezone);
+        return m_translations->translate(timezone);
     case RegionRole:
         return TimezoneExtractor::extractRegion(timezone);
     case RegionRoleTranslated:
-        return TimezoneExtractor::extractRegion(m_translation.translate(timezone));
+        return TimezoneExtractor::extractRegion(m_translations->translate(timezone));
     case CityOrCountryRole:
         return TimezoneExtractor::extractCityOrCountry(timezone);
     case CityOrCountryRoleTranslated:
-        return TimezoneExtractor::extractCityOrCountry(m_translation.translate(timezone));
+        return TimezoneExtractor::extractCityOrCountry(m_translations->translate(timezone));
     }
     return QVariant();
 }
 
 void TimezoneBaseModel::setLanguage(const QString &language)
 {
-    if (m_translation.setLanguage(language))
+    if (m_translations->setLanguage(language))
         fillModel();
 }
 

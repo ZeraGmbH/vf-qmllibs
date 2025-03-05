@@ -11,7 +11,8 @@ class TimezoneBaseModel : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection);
+    explicit TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
+                               std::shared_ptr<TimezoneTranslations> translations);
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -30,7 +31,7 @@ private slots:
 private:
     QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
-    TimezoneTranslations m_translation;
+    std::shared_ptr<TimezoneTranslations> m_translations;
 };
 
 #endif // TIMEZONEBASEMODEL_H
