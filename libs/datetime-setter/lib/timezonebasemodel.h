@@ -24,7 +24,6 @@ public:
         CityOrCountryRole,
         CityOrCountryRoleTranslated
     };
-    void setLanguage(const QString &language);
 
 private slots:
     void fillModel();
