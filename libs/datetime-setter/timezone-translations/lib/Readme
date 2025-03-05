@@ -6,6 +6,7 @@ To add a new translation:
 1. Get po-file from [1]
 2. Rename file to full locale e.g de.po -> de_DE.po
 3. Run script run-on-add-language.sh
+4. Add *.qm generated to timezonetranslations.qrc
 
 
 [1] https://gitlab.gnome.org/GNOME/gnome-control-center/-/tree/main/panels/system/datetime/po-timezones

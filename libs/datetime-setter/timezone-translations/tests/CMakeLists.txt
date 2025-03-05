@@ -1,5 +1,3 @@
-add_definitions(-DTIMEZONE_TRANSLATE_BUILD_PATH="${CMAKE_TIMEZONE_TRANSLATE_BUILD_PATH}")
-
 # Inspired by
 # https://github.com/KDAB/kdabtv/blob/master/Qt-Widgets-and-more/UnitTests/Tests/CMakeLists.txt
 function(SETUP_QTESTS_TIMEZONE_TRANSLATIONS)
