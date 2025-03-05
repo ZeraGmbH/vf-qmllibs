@@ -30,8 +30,6 @@ public:
 private slots:
     void fillModel();
 private:
-    QString extractRegion(const QString &timezone) const;
-    QString extractCityOrCountry(const QString &timezone) const;
 
     QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
