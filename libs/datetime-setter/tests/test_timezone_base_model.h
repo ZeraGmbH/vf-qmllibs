@@ -14,6 +14,8 @@ private slots:
     void checkTimezonesDisplayTranslationSet();
     void checkRegion();
     void checkRegionTranslated();
+    void checkCityOrCountry();
+    void checkCityOrCountryTranslated();
 };
 
 #endif // TEST_TIMEZONE_BASE_MODEL_H
