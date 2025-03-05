@@ -9,6 +9,8 @@ TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection
     fillModel();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
             this, &TimezoneBaseModel::fillModel);
+    connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
+            this, &TimezoneBaseModel::fillModel);
 }
 
 QHash<int, QByteArray> TimezoneBaseModel::roleNames() const
@@ -52,12 +54,6 @@ QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
         return TimezoneExtractor::extractCityOrCountry(m_translations->translate(timezone));
     }
     return QVariant();
-}
-
-void TimezoneBaseModel::setLanguage(const QString &language)
-{
-    if (m_translations->setLanguage(language))
-        fillModel();
 }
 
 void TimezoneBaseModel::fillModel()

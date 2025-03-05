@@ -1,25 +1,28 @@
 #include "timezonetranslations.h"
 #include <QFile>
 
-bool TimezoneTranslations::setLanguage(const QString &language)
+void TimezoneTranslations::setLanguage(const QString &language)
 {
     Q_INIT_RESOURCE(timezonetranslations);
     if (m_currentLanguage == language)
-        return false;
+        return;
 
     m_translator = std::make_unique<QTranslator>();
     m_currentLanguage = language;
 
-    if (isDefaultAndHasNoTranslationFile(language))
-        return true;
+    if (isDefaultAndHasNoTranslationFile(language)) {
+        emit sigLanguageChanged();
+        return;
+    }
     if (!isSupportedLanguage(language)) {
         qWarning("Timezone translation not found for language '%s'", qPrintable(language));
-        return true;
+        emit sigLanguageChanged();
+        return;
     }
 
     const QString translationFileName = QString("timezones_%1.qm").arg(language);
     m_translator->load(translationFileName, ":/");
-    return true;
+    emit sigLanguageChanged();
 }
 
 QString TimezoneTranslations::translate(const QString &timezone) const

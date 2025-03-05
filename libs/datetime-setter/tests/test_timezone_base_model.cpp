@@ -88,7 +88,7 @@ void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
     TimezoneBaseModel model(conn, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
-    model.setLanguage("de_DE");
+    m_translations->setLanguage("de_DE");
     QCOMPARE(spyModelAboutToBeReset.count(), 1);
     QCOMPARE(spyModelReset.count(), 1);
 
@@ -109,7 +109,7 @@ void test_timezone_base_model::checkRegion()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     TimezoneBaseModel model(conn, m_translations);
-    model.setLanguage("de_DE");
+    m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -133,7 +133,7 @@ void test_timezone_base_model::checkRegionTranslated()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     TimezoneBaseModel model(conn, m_translations);
-    model.setLanguage("de_DE");
+    m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -157,7 +157,7 @@ void test_timezone_base_model::checkCityOrCountry()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     TimezoneBaseModel model(conn, m_translations);
-    model.setLanguage("de_DE");
+    m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -189,7 +189,7 @@ void test_timezone_base_model::checkCityOrCountryTranslated()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     TimezoneBaseModel model(conn, m_translations);
-    model.setLanguage("de_DE");
+    m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);

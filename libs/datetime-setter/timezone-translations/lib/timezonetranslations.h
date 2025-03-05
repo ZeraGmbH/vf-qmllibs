@@ -5,11 +5,14 @@
 #include <QString>
 #include <memory>
 
-class TimezoneTranslations
+class TimezoneTranslations : public QObject
 {
+    Q_OBJECT
 public:
-    bool setLanguage(const QString &language);
+    void setLanguage(const QString &language);
     QString translate(const QString &timezone) const;
+signals:
+    void sigLanguageChanged();
 
 private:
     bool isDefaultAndHasNoTranslationFile(const QString &language) const;
