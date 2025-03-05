@@ -19,13 +19,16 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     enum Roles {
         TimezoneRole = Qt::UserRole,
-        TimezoneRoleTranslated
+        TimezoneRoleTranslated,
+        RegionRole,
+        RegionRoleTranslated
     };
     void setLanguage(const QString &language);
 
 private slots:
     void fillModel();
 private:
+    QString extractRegion(const QString &timezone) const;
     QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
     TimezoneTranslations m_translation;

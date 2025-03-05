@@ -95,3 +95,51 @@ void test_timezone_base_model::checkTimezonesDisplayTranslationSet()
     index = model.index(2, 0);
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
 }
+
+void test_timezone_base_model::checkRegion()
+{
+    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
+    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    conn->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneBaseModel model(conn);
+    model.setLanguage("de_DE");
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "Africa");
+
+    index = model.index(127, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "America/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "America");
+
+    index = model.index(389, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Egypt");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "");
+}
+
+void test_timezone_base_model::checkRegionTranslated()
+{
+    std::shared_ptr<AbstractTimedate1Connection> conn = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
+    QSignalSpy spyTimezonesAvail(conn.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    conn->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneBaseModel model(conn);
+    model.setLanguage("de_DE");
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "Afrika");
+
+    index = model.index(127, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "Amerika");
+
+    index = model.index(389, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Ägypten");
+    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "");
+}
