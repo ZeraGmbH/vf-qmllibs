@@ -1,6 +1,7 @@
 #include "test_timezone_model_base.h"
 #include "timezonemodelbase.h"
 #include "testtimedate1connection.h"
+#include "timezoneextractor.h"
 #include <signalspywaiter.h>
 #include <QTest>
 
@@ -135,7 +136,7 @@ void test_timezone_model_base::checkRegion()
 
     index = model.index(389, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Egypt");
-    QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), "");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), TimezoneExtractor::noRegionString());
 }
 
 void test_timezone_model_base::checkRegionTranslated()
@@ -158,7 +159,7 @@ void test_timezone_model_base::checkRegionTranslated()
 
     index = model.index(389, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Ägypten");
-    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), TimezoneExtractor::noRegionStringTranslated());
 }
 
 void test_timezone_model_base::checkCityOrCountry()
