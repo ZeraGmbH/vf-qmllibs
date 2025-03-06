@@ -10,8 +10,9 @@ class test_timezone_model_base : public QObject
     Q_OBJECT
 private slots:
     void init();
-    void earlyConnectionStart();
-    void lateConnectionStart();
+    void connectionStartEarly();
+    void connectionStartLate();
+
     void checkTimezones();
     void checkTimezonesTranslatedNoTranslationSet();
     void checkTimezonesTranslatedTranslationSetEarly();
