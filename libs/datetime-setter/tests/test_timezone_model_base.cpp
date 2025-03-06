@@ -16,7 +16,7 @@ void test_timezone_model_base::init()
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
 }
 
-void test_timezone_model_base::earlyConnectionStart()
+void test_timezone_model_base::connectionStartEarly()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -27,7 +27,7 @@ void test_timezone_model_base::earlyConnectionStart()
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
-void test_timezone_model_base::lateConnectionStart()
+void test_timezone_model_base::connectionStartLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
