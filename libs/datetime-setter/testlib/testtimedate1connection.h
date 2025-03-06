@@ -26,7 +26,8 @@ private slots:
     void onSyncDelay();
 private:
     QStringList m_timezonesAvailable;
-    QString m_timezone = "Europe/Berlin";
+    QString m_initialTimezone  = "Europe/Berlin";
+    QString m_timezone;
     bool m_ntpAvailable = true;
     bool m_ntpSynced = true;
     bool m_ntpActive = true;
