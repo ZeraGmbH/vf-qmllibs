@@ -14,7 +14,8 @@ private slots:
     void lateConnectionStart();
     void checkTimezones();
     void checkTimezonesTranslatedNoTranslationSet();
-    void checkTimezonesTranslatedTranslationSet();
+    void checkTimezonesTranslatedTranslationSetEarly();
+    void checkTimezonesTranslatedTranslationSetLate();
     void checkRegion();
     void checkRegionTranslated();
     void checkCityOrCountry();

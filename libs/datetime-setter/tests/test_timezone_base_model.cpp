@@ -75,7 +75,25 @@ void test_timezone_base_model::checkTimezonesTranslatedNoTranslationSet()
     QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Addis_Ababa");
 }
 
-void test_timezone_base_model::checkTimezonesTranslatedTranslationSet()
+void test_timezone_base_model::checkTimezonesTranslatedTranslationSetEarly()
+{
+    m_translations->setLanguage("de_DE");
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
+    index = model.index(1, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Accra");
+    index = model.index(2, 0);
+    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
+}
+
+void test_timezone_base_model::checkTimezonesTranslatedTranslationSetLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
