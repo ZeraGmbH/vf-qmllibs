@@ -1,14 +1,14 @@
-#include "timezoneregionmodel.h"
+#include "timezonemodelregion.h"
 
-TimezoneRegionModel::TimezoneRegionModel(std::shared_ptr<TimezoneBaseModel> sourceModel) :
+TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel) :
     m_sourceModel(sourceModel)
 {
     fillModel();
     connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,
-            this, &TimezoneRegionModel::fillModel);
+            this, &TimezoneModelRegion::fillModel);
 }
 
-QHash<int, QByteArray> TimezoneRegionModel::roleNames() const
+QHash<int, QByteArray> TimezoneModelRegion::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { RegionRole, "region"},
@@ -17,12 +17,12 @@ QHash<int, QByteArray> TimezoneRegionModel::roleNames() const
     return roles;
 }
 
-int TimezoneRegionModel::rowCount(const QModelIndex &parent) const
+int TimezoneModelRegion::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid() ? 0 : m_timezoneRegions.count();
 }
 
-QVariant TimezoneRegionModel::data(const QModelIndex &index, int role) const
+QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
     if (row < 0 || row >= m_timezoneRegions.count())
@@ -39,7 +39,7 @@ QVariant TimezoneRegionModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void TimezoneRegionModel::fillModel()
+void TimezoneModelRegion::fillModel()
 {
     int timezoneCount = m_sourceModel->rowCount();
     beginResetModel();
@@ -49,17 +49,17 @@ void TimezoneRegionModel::fillModel()
     endResetModel();
 }
 
-void TimezoneRegionModel::tryAddRegion(int regionNum)
+void TimezoneModelRegion::tryAddRegion(int regionNum)
 {
     QModelIndex index = m_sourceModel->index(regionNum, 0);
-    QString regionStr = m_sourceModel->data(index, TimezoneBaseModel::RegionRole).toString();
+    QString regionStr = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
     for (const Region &region : m_timezoneRegions)
         if(region.m_region == regionStr)
             return;
 
     Region regionAdd {
         regionStr,
-        m_sourceModel->data(index, TimezoneBaseModel::RegionRoleTranslated).toString()
+        m_sourceModel->data(index, TimezoneModelBase::RegionRoleTranslated).toString()
     };
     m_timezoneRegions.append(regionAdd);
 }

@@ -1,36 +1,36 @@
-#include "test_timezone_base_model.h"
-#include "timezonebasemodel.h"
+#include "test_timezone_model_base.h"
+#include "timezonemodelbase.h"
 #include "testtimedate1connection.h"
 #include <signalspywaiter.h>
 #include <QTest>
 
-QTEST_MAIN(test_timezone_base_model)
+QTEST_MAIN(test_timezone_model_base)
 
 static constexpr int waitTimeForStartOrSync = 10;
 static constexpr int timezoneCount = 597;
 
-void test_timezone_base_model::init()
+void test_timezone_model_base::init()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
 }
 
-void test_timezone_base_model::earlyConnectionStart()
+void test_timezone_model_base::earlyConnectionStart()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
-void test_timezone_base_model::lateConnectionStart()
+void test_timezone_model_base::lateConnectionStart()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
@@ -43,63 +43,63 @@ void test_timezone_base_model::lateConnectionStart()
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
-void test_timezone_base_model::checkTimezones()
+void test_timezone_model_base::checkTimezones()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Abidjan");
     index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Accra");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Addis_Ababa");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Addis_Ababa");
 }
 
-void test_timezone_base_model::checkTimezonesTranslatedNoTranslationSet()
+void test_timezone_model_base::checkTimezonesTranslatedNoTranslationSet()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Abidjan");
     index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Accra");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Africa/Addis_Ababa");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Addis_Ababa");
 }
 
-void test_timezone_base_model::checkTimezonesTranslatedTranslationSetEarly()
+void test_timezone_model_base::checkTimezonesTranslatedTranslationSetEarly()
 {
     m_translations->setLanguage("de_DE");
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
     index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Accra");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
 }
 
-void test_timezone_base_model::checkTimezonesTranslatedTranslationSetLate()
+void test_timezone_model_base::checkTimezonesTranslatedTranslationSetLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
     m_translations->setLanguage("de_DE");
@@ -108,116 +108,116 @@ void test_timezone_base_model::checkTimezonesTranslatedTranslationSetLate()
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
     index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Accra");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
 }
 
-void test_timezone_base_model::checkRegion()
+void test_timezone_model_base::checkRegion()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "Africa");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), "Africa");
 
     index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "America/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "America");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "America/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), "America");
 
     index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Egypt");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRole), "");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Egypt");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), "");
 }
 
-void test_timezone_base_model::checkRegionTranslated()
+void test_timezone_model_base::checkRegionTranslated()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "Afrika");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "Afrika");
 
     index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "Amerika");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "Amerika");
 
     index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Ägypten");
-    QCOMPARE(model.data(index, TimezoneBaseModel::RegionRoleTranslated), "");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Ägypten");
+    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "");
 }
 
-void test_timezone_base_model::checkCityOrCountry()
+void test_timezone_model_base::checkCityOrCountry()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Africa/Abidjan");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRole), "Abidjan");
 
     index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "America/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "America/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRole), "Indiana/Indianapolis");
 
     index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRole), "Egypt");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRole), "Egypt");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Egypt");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRole), "Egypt");
 
     bool emptyCityFound = false;
     for (int i=0; i<model.rowCount(); ++i) {
         index = model.index(i, 0);
-        if (model.data(index, TimezoneBaseModel::CityOrCountryRole).toString().isEmpty())
+        if (model.data(index, TimezoneModelBase::CityOrCountryRole).toString().isEmpty())
             emptyCityFound = true;
     }
     QCOMPARE(emptyCityFound, false);
 }
 
-void test_timezone_base_model::checkCityOrCountryTranslated()
+void test_timezone_model_base::checkCityOrCountryTranslated()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneBaseModel model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
     m_translations->setLanguage("de_DE");
 
     QModelIndex index;
     index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Afrika/Abidjan");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Abidjan");
 
     index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Indiana/Indianapolis");
 
     index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneBaseModel::TimezoneRoleTranslated), "Ägypten");
-    QCOMPARE(model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated), "Ägypten");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Ägypten");
+    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Ägypten");
 
     bool emptyCityFound = false;
     for (int i=0; i<model.rowCount(); ++i) {
         index = model.index(i, 0);
-        if (model.data(index, TimezoneBaseModel::CityOrCountryRoleTranslated).toString().isEmpty())
+        if (model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated).toString().isEmpty())
             emptyCityFound = true;
     }
     QCOMPARE(emptyCityFound, false);

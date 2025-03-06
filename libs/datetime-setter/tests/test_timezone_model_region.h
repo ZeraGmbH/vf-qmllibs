@@ -1,11 +1,11 @@
-#ifndef TEST_TIMEZONE_REGION_MODEL_H
-#define TEST_TIMEZONE_REGION_MODEL_H
+#ifndef TEST_TIMEZONE_MODEL_REGION_H
+#define TEST_TIMEZONE_MODEL_REGION_H
 
 #include "timezonetranslations.h"
 #include "abstracttimedate1connection.h"
 #include <memory>
 
-class test_timezone_region_model : public QObject
+class test_timezone_model_region : public QObject
 {
     Q_OBJECT
 private slots:
@@ -22,4 +22,4 @@ private:
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
 };
 
-#endif // TEST_TIMEZONE_REGION_MODEL_H
+#endif // TEST_TIMEZONE_MODEL_REGION_H

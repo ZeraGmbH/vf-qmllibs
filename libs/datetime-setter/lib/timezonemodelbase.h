@@ -1,5 +1,5 @@
-#ifndef TIMEZONEBASEMODEL_H
-#define TIMEZONEBASEMODEL_H
+#ifndef TIMEZONEMODELBASE_H
+#define TIMEZONEMODELBASE_H
 
 #include "abstracttimedate1connection.h"
 #include "timezonetranslations.h"
@@ -7,11 +7,11 @@
 #include <QStringList>
 #include <memory>
 
-class TimezoneBaseModel : public QAbstractListModel
+class TimezoneModelBase : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
+    explicit TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
                                std::shared_ptr<TimezoneTranslations> translations);
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -33,4 +33,4 @@ private:
     std::shared_ptr<TimezoneTranslations> m_translations;
 };
 
-#endif // TIMEZONEBASEMODEL_H
+#endif // TIMEZONEMODELBASE_H

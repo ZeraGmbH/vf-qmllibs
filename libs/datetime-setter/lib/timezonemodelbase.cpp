@@ -1,19 +1,19 @@
-#include "timezonebasemodel.h"
+#include "timezonemodelbase.h"
 #include "timezoneextractor.h"
 
-TimezoneBaseModel::TimezoneBaseModel(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
+TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
                                      std::shared_ptr<TimezoneTranslations> translations) :
     m_timedateConnection(timedateConnection),
     m_translations(translations)
 {
     fillModel();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
-            this, &TimezoneBaseModel::fillModel);
+            this, &TimezoneModelBase::fillModel);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
-            this, &TimezoneBaseModel::fillModel);
+            this, &TimezoneModelBase::fillModel);
 }
 
-QHash<int, QByteArray> TimezoneBaseModel::roleNames() const
+QHash<int, QByteArray> TimezoneModelBase::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
@@ -26,12 +26,12 @@ QHash<int, QByteArray> TimezoneBaseModel::roleNames() const
     return roles;
 }
 
-int TimezoneBaseModel::rowCount(const QModelIndex &parent) const
+int TimezoneModelBase::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid() ? 0 : m_timezones.count();
 }
 
-QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
+QVariant TimezoneModelBase::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
     if (row < 0 || row >= m_timezones.count())
@@ -56,7 +56,7 @@ QVariant TimezoneBaseModel::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void TimezoneBaseModel::fillModel()
+void TimezoneModelBase::fillModel()
 {
     const QStringList availTimezones = m_timedateConnection->getAvailTimezones();
     if (availTimezones.isEmpty())
