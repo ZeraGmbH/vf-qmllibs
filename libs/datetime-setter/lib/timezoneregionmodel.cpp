@@ -42,25 +42,24 @@ QVariant TimezoneRegionModel::data(const QModelIndex &index, int role) const
 void TimezoneRegionModel::fillModel()
 {
     int timezoneCount = m_sourceModel->rowCount();
-    QModelIndex index;
     beginResetModel();
     m_timezoneRegions.clear();
-    for (int i=0; i<timezoneCount; ++i) {
-        index = m_sourceModel->index(i, 0);
-        QString regionStr = m_sourceModel->data(index, TimezoneBaseModel::RegionRole).toString();
-        bool containsRegion = false;
-        for (const Region &region : m_timezoneRegions) {
-            if(region.m_region == regionStr) {
-                containsRegion = true;
-                break;
-            }
-        }
-        if(!containsRegion) {
-            Region regionAdd { regionStr,
-                               m_sourceModel->data(index, TimezoneBaseModel::RegionRoleTranslated).toString()
-            };
-            m_timezoneRegions.append(regionAdd);
-        }
-    }
+    for (int i=0; i<timezoneCount; ++i)
+        tryAddRegion(i);
     endResetModel();
+}
+
+void TimezoneRegionModel::tryAddRegion(int regionNum)
+{
+    QModelIndex index = m_sourceModel->index(regionNum, 0);
+    QString regionStr = m_sourceModel->data(index, TimezoneBaseModel::RegionRole).toString();
+    for (const Region &region : m_timezoneRegions)
+        if(region.m_region == regionStr)
+            return;
+
+    Region regionAdd {
+        regionStr,
+        m_sourceModel->data(index, TimezoneBaseModel::RegionRoleTranslated).toString()
+    };
+    m_timezoneRegions.append(regionAdd);
 }
