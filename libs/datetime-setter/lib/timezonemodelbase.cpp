@@ -44,10 +44,18 @@ QVariant TimezoneModelBase::data(const QModelIndex &index, int role) const
         return timezone;
     case TimezoneRoleTranslated:
         return m_translations->translate(timezone);
-    case RegionRole:
-        return TimezoneExtractor::extractRegion(timezone);
-    case RegionRoleTranslated:
-        return TimezoneExtractor::extractRegion(m_translations->translate(timezone));
+    case RegionRole: {
+        QString region = TimezoneExtractor::extractRegion(timezone);
+        if(region.isEmpty())
+            region = TimezoneExtractor::noRegionString();
+        return region;
+    }
+    case RegionRoleTranslated: {
+        QString region = TimezoneExtractor::extractRegion(m_translations->translate(timezone));
+        if(region.isEmpty())
+            region = TimezoneExtractor::noRegionStringTranslated();
+        return region;
+    }
     case CityOrCountryRole:
         return TimezoneExtractor::extractCityOrCountry(timezone);
     case CityOrCountryRoleTranslated:
