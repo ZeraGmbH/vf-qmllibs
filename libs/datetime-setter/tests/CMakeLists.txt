@@ -22,5 +22,6 @@ endfunction()
 SETUP_QTESTS_TIMEDATE1(
     test_timedate1_connection
     test_timezone_model_base
+    test_timezone_model_filtered
     test_timezone_model_region
 )
