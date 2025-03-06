@@ -1,13 +1,13 @@
-#ifndef TIMEZONEREGIONMODEL_H
-#define TIMEZONEREGIONMODEL_H
+#ifndef TIMEZONEMODELREGION_H
+#define TIMEZONEMODELREGION_H
 
-#include "timezonebasemodel.h"
+#include "timezonemodelbase.h"
 
-class TimezoneRegionModel : public QAbstractListModel
+class TimezoneModelRegion : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneRegionModel(std::shared_ptr<TimezoneBaseModel> sourceModel);
+    explicit TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel);
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -21,7 +21,7 @@ private slots:
 private:
     void tryAddRegion(int regionNum);
 
-    std::shared_ptr<TimezoneBaseModel> m_sourceModel;
+    std::shared_ptr<TimezoneModelBase> m_sourceModel;
     struct Region {
         QString m_region;
         QString m_regionTranslated;
@@ -29,4 +29,4 @@ private:
     QList<Region> m_timezoneRegions;
 };
 
-#endif // TIMEZONEREGIONMODEL_H
+#endif // TIMEZONEMODELREGION_H
