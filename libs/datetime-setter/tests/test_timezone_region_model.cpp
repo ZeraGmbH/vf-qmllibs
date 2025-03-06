@@ -91,7 +91,27 @@ void test_timezone_region_model::checkRegionsTranslatedNoTranslationSet()
     QCOMPARE(model.data(index, TimezoneRegionModel::RegionRoleTranslated), "Antarctica");
 }
 
-void test_timezone_region_model::checkRegionsTranslatedTranslationSet()
+void test_timezone_region_model::checkRegionsTranslatedTranslationSetEarly()
+{
+    m_translations->setLanguage("de_DE");
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    std::shared_ptr<TimezoneBaseModel> baseModel =
+        std::make_shared<TimezoneBaseModel>(m_timeDateConnection, m_translations);
+    TimezoneRegionModel model(baseModel);
+
+    QModelIndex index;
+    index = model.index(0, 0);
+    QCOMPARE(model.data(index, TimezoneRegionModel::RegionRoleTranslated), "Afrika");
+    index = model.index(1, 0);
+    QCOMPARE(model.data(index, TimezoneRegionModel::RegionRoleTranslated), "Amerika");
+    index = model.index(2, 0);
+    QCOMPARE(model.data(index, TimezoneRegionModel::RegionRoleTranslated), "Antarktis");
+}
+
+void test_timezone_region_model::checkRegionsTranslatedTranslationSetLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();

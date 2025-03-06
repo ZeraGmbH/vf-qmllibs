@@ -14,7 +14,8 @@ private slots:
     void lateConnectionStart();
     void checkRegions();
     void checkRegionsTranslatedNoTranslationSet();
-    void checkRegionsTranslatedTranslationSet();
+    void checkRegionsTranslatedTranslationSetEarly();
+    void checkRegionsTranslatedTranslationSetLate();
 
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
