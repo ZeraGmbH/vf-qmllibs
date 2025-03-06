@@ -20,6 +20,7 @@ void TestTimedate1Connection::start()
         }
         QMetaObject::invokeMethod(this, "sigAvailTimezonesChanged", Qt::QueuedConnection);
         QMetaObject::invokeMethod(this, "sigStarted", Qt::QueuedConnection);
+        m_timezone = m_initialTimezone;
     }
 }
 
