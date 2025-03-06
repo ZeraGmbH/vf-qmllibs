@@ -8,6 +8,7 @@ class TimezoneModelRegion : public QAbstractListModel
     Q_OBJECT
 public:
     explicit TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel);
+
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
