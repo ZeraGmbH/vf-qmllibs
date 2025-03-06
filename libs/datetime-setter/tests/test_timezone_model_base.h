@@ -20,6 +20,9 @@ private slots:
     void checkRegionTranslated();
     void checkCityOrCountry();
     void checkCityOrCountryTranslated();
+
+    void initialRegionAndCityEarly();
+    void initialRegionAndCityLate();
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;

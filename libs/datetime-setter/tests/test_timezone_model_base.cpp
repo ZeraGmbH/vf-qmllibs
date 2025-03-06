@@ -223,3 +223,34 @@ void test_timezone_model_base::checkCityOrCountryTranslated()
     }
     QCOMPARE(emptyCityFound, false);
 }
+
+void test_timezone_model_base::initialRegionAndCityEarly()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QCOMPARE(model.getSelectedRegion(), "Europe");
+    QCOMPARE(model.getSelectedCity(), "Berlin");
+}
+
+void test_timezone_model_base::initialRegionAndCityLate()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    QSignalSpy spyRegion(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCity(&model, &TimezoneModelBase::sigCityChanged);
+
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    QCOMPARE(model.getSelectedRegion(), "Europe");
+    QCOMPARE(model.getSelectedCity(), "Berlin");
+
+    QCOMPARE(spyRegion.count(), 1);
+    QCOMPARE(spyCity.count(), 1);
+}

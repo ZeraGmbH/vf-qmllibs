@@ -6,11 +6,37 @@ TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection
     m_timedateConnection(timedateConnection),
     m_translations(translations)
 {
-    fillModel();
+    fillModelSetDefaultsFromDateTime();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
-            this, &TimezoneModelBase::fillModel);
+            this, &TimezoneModelBase::fillModelSetDefaultsFromDateTime);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelBase::fillModel);
+}
+
+QString TimezoneModelBase::getSelectedRegion() const
+{
+    return m_selectedRegion;
+}
+
+void TimezoneModelBase::setSelectedRegion(const QString &region)
+{
+    if(m_selectedRegion != region) {
+        m_selectedRegion = region;
+        emit sigRegionChanged();
+    }
+}
+
+QString TimezoneModelBase::getSelectedCity() const
+{
+    return m_selectedCity;
+}
+
+void TimezoneModelBase::setSelectedCity(const QString &city)
+{
+    if(m_selectedCity != city) {
+        m_selectedCity = city;
+        emit sigCityChanged();
+    }
 }
 
 QHash<int, QByteArray> TimezoneModelBase::roleNames() const
@@ -44,24 +70,24 @@ QVariant TimezoneModelBase::data(const QModelIndex &index, int role) const
         return timezone;
     case TimezoneRoleTranslated:
         return m_translations->translate(timezone);
-    case RegionRole: {
-        QString region = TimezoneExtractor::extractRegion(timezone);
-        if(region.isEmpty())
-            region = TimezoneExtractor::noRegionString();
-        return region;
-    }
-    case RegionRoleTranslated: {
-        QString region = TimezoneExtractor::extractRegion(m_translations->translate(timezone));
-        if(region.isEmpty())
-            region = TimezoneExtractor::noRegionStringTranslated();
-        return region;
-    }
+    case RegionRole:
+        return regionFromTimezone(timezone, false);
+    case RegionRoleTranslated:
+        return regionFromTimezone(timezone, true);
     case CityOrCountryRole:
-        return TimezoneExtractor::extractCityOrCountry(timezone);
+        return cityFromTimezone(timezone);
     case CityOrCountryRoleTranslated:
-        return TimezoneExtractor::extractCityOrCountry(m_translations->translate(timezone));
+        return cityFromTimezone(m_translations->translate(timezone));
     }
     return QVariant();
+}
+
+void TimezoneModelBase::fillModelSetDefaultsFromDateTime()
+{
+    fillModel();
+    QString timezoneSet = m_timedateConnection->getTimeszone();
+    setSelectedRegion(regionFromTimezone(timezoneSet, false));
+    setSelectedCity(cityFromTimezone(timezoneSet));
 }
 
 void TimezoneModelBase::fillModel()
@@ -72,4 +98,20 @@ void TimezoneModelBase::fillModel()
     beginResetModel();
     m_timezones = availTimezones;
     endResetModel();
+}
+
+QString TimezoneModelBase::regionFromTimezone(const QString &timezone, bool translate) const
+{
+    QString region = translate ?
+        TimezoneExtractor::extractRegion(m_translations->translate(timezone)) :
+        TimezoneExtractor::extractRegion(timezone);
+
+    if(region.isEmpty())
+        region = translate ? TimezoneExtractor::noRegionStringTranslated(): TimezoneExtractor::noRegionString();
+    return region;
+}
+
+QString TimezoneModelBase::cityFromTimezone(const QString &timezone) const
+{
+    return TimezoneExtractor::extractCityOrCountry(timezone);
 }
