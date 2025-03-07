@@ -376,3 +376,97 @@ void test_timezone_model_base::changeCityValid()
     QCOMPARE(spyCityChanged.count(), 1);
     QCOMPARE(model.getSelectedCity(), "Rome");
 }
+
+void test_timezone_model_base::defaultCanApplyEarly()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    QCOMPARE(model.canApply(), false);
+}
+
+void test_timezone_model_base::defaultCanApplyLate()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    QCOMPARE(model.canApply(), false);
+}
+
+void test_timezone_model_base::validRegionChangesCanApply()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
+
+    // change to valid city -> apply ON
+    model.setSelectedCity("Rome");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+
+    // change to valid regiom -> apply OFF (no city selected)
+    model.setSelectedRegion("Asia");
+    QCOMPARE(spyCanApplyChanged.count(), 2);
+    QCOMPARE(model.canApply(), false);
+}
+
+void test_timezone_model_base::invalidRegionKeepsCanApply()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
+
+    // change to valid city -> apply ON
+    model.setSelectedCity("Rome");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+
+    // try change to invalid regiom -> apply remains ON
+    model.setSelectedRegion("foo");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+}
+
+void test_timezone_model_base::validCityChangesCanApply()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
+
+    model.setSelectedCity("Rome");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+}
+
+void test_timezone_model_base::invalidCityKeepsCanApply()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
+
+    model.setSelectedCity("foo");
+    QCOMPARE(spyCanApplyChanged.count(), 0);
+    QCOMPARE(model.canApply(), false);
+
+    model.setSelectedCity("Rome");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+
+    model.setSelectedCity("foo");
+    QCOMPARE(spyCanApplyChanged.count(), 1);
+    QCOMPARE(model.canApply(), true);
+}

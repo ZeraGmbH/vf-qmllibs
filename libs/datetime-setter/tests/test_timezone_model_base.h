@@ -34,6 +34,13 @@ private slots:
     void changeCityValidButNotInSelectedRegion();
     void changeCityValid();
 
+    void defaultCanApplyEarly();
+    void defaultCanApplyLate();
+    void validRegionChangesCanApply();
+    void invalidRegionKeepsCanApply();
+    void validCityChangesCanApply();
+    void invalidCityKeepsCanApply();
+
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
