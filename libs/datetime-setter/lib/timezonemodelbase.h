@@ -45,6 +45,7 @@ private slots:
 private:
     QString regionFromTimezone(const QString &timezone, bool translate) const;
     QString cityFromTimezone(const QString &timezone) const;
+    bool isValidRegion(const QString &region) const;
 
     QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;

@@ -20,9 +20,10 @@ QString TimezoneModelBase::getSelectedRegion() const
 
 void TimezoneModelBase::setSelectedRegion(const QString &region)
 {
-    if(m_selectedRegion != region) {
+    if (m_selectedRegion != region && isValidRegion(region)) {
         m_selectedRegion = region;
         emit sigRegionChanged();
+        setSelectedCity("");
     }
 }
 
@@ -33,7 +34,7 @@ QString TimezoneModelBase::getSelectedCity() const
 
 void TimezoneModelBase::setSelectedCity(const QString &city)
 {
-    if(m_selectedCity != city) {
+    if (m_selectedCity != city) {
         m_selectedCity = city;
         emit sigCityChanged();
     }
@@ -116,7 +117,7 @@ QString TimezoneModelBase::regionFromTimezone(const QString &timezone, bool tran
         TimezoneExtractor::extractRegion(m_translations->translate(timezone)) :
         TimezoneExtractor::extractRegion(timezone);
 
-    if(region.isEmpty())
+    if (region.isEmpty())
         region = translate ? TimezoneExtractor::noRegionStringTranslated(): TimezoneExtractor::noRegionString();
     return region;
 }
@@ -124,4 +125,12 @@ QString TimezoneModelBase::regionFromTimezone(const QString &timezone, bool tran
 QString TimezoneModelBase::cityFromTimezone(const QString &timezone) const
 {
     return TimezoneExtractor::extractCityOrCountry(timezone);
+}
+
+bool TimezoneModelBase::isValidRegion(const QString &region) const
+{
+    for (const QString &timezone : m_timezones)
+        if(region == TimezoneExtractor::extractRegion(timezone))
+            return true;
+    return false;
 }
