@@ -1,4 +1,11 @@
 #include "timezonemodelsfacade.h"
+#include "timedate1connection.h"
+
+TimezoneModelsFacade::TimezoneModelsFacade() :
+    TimezoneModelsFacade(std::make_shared<Timedate1Connection>(), std::make_shared<TimezoneTranslations>())
+{
+    m_timedateConnection->start();
+}
 
 TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
                                            std::shared_ptr<TimezoneTranslations> translations) :
