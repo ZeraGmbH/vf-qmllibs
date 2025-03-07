@@ -1,11 +1,11 @@
-#include "test_timezone_model_filtered.h"
+#include "test_timezone_model_city_filtered.h"
 #include "testtimedate1connection.h"
 #include "timezonemodelregion.h"
 #include <signalspywaiter.h>
 #include <timemachineobject.h>
 #include <QTest>
 
-QTEST_MAIN(test_timezone_model_filtered)
+QTEST_MAIN(test_timezone_model_city_filtered)
 
 static constexpr int waitTimeForStartOrSync = 10;
 static constexpr int timezoneCountEmptyFilter = 45;
@@ -13,7 +13,7 @@ static constexpr int timezoneCountAsia = 99;
 static constexpr int timezoneCountEurope = 64;
 static constexpr int timezoneCountPacific = 44;
 
-void test_timezone_model_filtered::init()
+void test_timezone_model_city_filtered::init()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
@@ -26,9 +26,9 @@ void test_timezone_model_filtered::init()
 }
 
 
-void test_timezone_model_filtered::initialNoRegion()
+void test_timezone_model_city_filtered::initialNoRegion()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
@@ -40,9 +40,9 @@ void test_timezone_model_filtered::initialNoRegion()
     QCOMPARE(cities.contains("GMT"), true);
 }
 
-void test_timezone_model_filtered::moveToEurope()
+void test_timezone_model_city_filtered::moveToEurope()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     model.setRegion("Europe");
 
@@ -56,9 +56,9 @@ void test_timezone_model_filtered::moveToEurope()
     QCOMPARE(cities[model.rowCount()-1], "Zurich");
 }
 
-void test_timezone_model_filtered::moveToAsia()
+void test_timezone_model_city_filtered::moveToAsia()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     model.setRegion("Asia");
 
@@ -72,9 +72,9 @@ void test_timezone_model_filtered::moveToAsia()
     QCOMPARE(cities[model.rowCount()-1], "Yerevan");
 }
 
-void test_timezone_model_filtered::moveToPacific()
+void test_timezone_model_city_filtered::moveToPacific()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     model.setRegion("Pacific");
 
@@ -88,9 +88,9 @@ void test_timezone_model_filtered::moveToPacific()
     QCOMPARE(cities[model.rowCount()-1], "Yap");
 }
 
-void test_timezone_model_filtered::moveToAsiaChangeLanguageDe()
+void test_timezone_model_city_filtered::moveToAsiaChangeLanguageDe()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     model.setRegion("Asia");
     m_translations->setLanguage("de_DE");
@@ -106,14 +106,14 @@ void test_timezone_model_filtered::moveToAsiaChangeLanguageDe()
     QCOMPARE(cities[model.rowCount()-1], "Ürümqi");
 }
 
-void test_timezone_model_filtered::asiaAndLanguageDeThenStart()
+void test_timezone_model_city_filtered::asiaAndLanguageDeThenStart()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
     m_baseModel = std::make_shared<TimezoneModelBase>(m_timeDateConnection,
                                                       m_translations);
 
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
     model.setRegion("Asia");
     m_translations->setLanguage("de_DE");
 
@@ -132,9 +132,9 @@ void test_timezone_model_filtered::asiaAndLanguageDeThenStart()
     QCOMPARE(cities[model.rowCount()-1], "Ürümqi");
 }
 
-void test_timezone_model_filtered::languageDeMoveToPacificChange()
+void test_timezone_model_city_filtered::languageDeMoveToPacificChange()
 {
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
 
     model.setRegion("Pacific");
     m_translations->setLanguage("de_DE");
@@ -152,10 +152,10 @@ void test_timezone_model_filtered::languageDeMoveToPacificChange()
 static constexpr int timezoneCount = 597;
 static constexpr int maxCityCount = 168;
 
-void test_timezone_model_filtered::checkMaxCities()
+void test_timezone_model_city_filtered::checkMaxCities()
 {
     TimezoneModelRegion regionModel(m_baseModel);
-    TimezoneModelFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel);
     int maxCities = 0;
     QString maxCityRegion;
     int totaltimezoneCount = 0;
@@ -175,19 +175,19 @@ void test_timezone_model_filtered::checkMaxCities()
     QCOMPARE(maxCityRegion, "America"); // of course!!!
 }
 
-QStringList test_timezone_model_filtered::fetchFilteredAndSortedCities(TimezoneModelFiltered &model)
+QStringList test_timezone_model_city_filtered::fetchFilteredAndSortedCities(TimezoneModelCityFiltered &model)
 {
     QStringList cities;
     QModelIndex index;
     for(int i=0; i<model.rowCount(); i++) {
         index = model.index(i, 0);
-        QString city = model.data(index, TimezoneModelFiltered::CityOrCountryRoleTranslated).toString();
+        QString city = model.data(index, TimezoneModelCityFiltered::CityOrCountryRoleTranslated).toString();
         cities.append(city);
     }
     return cities;
 }
 
-bool test_timezone_model_filtered::checkProperSort(const QStringList &cities)
+bool test_timezone_model_city_filtered::checkProperSort(const QStringList &cities)
 {
     QString lastCity;
     bool sortOk = true;

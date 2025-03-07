@@ -1,13 +1,13 @@
-#ifndef TIMEZONEMODELFILTERED_H
-#define TIMEZONEMODELFILTERED_H
+#ifndef TIMEZONEMODELCITYFILTERED_H
+#define TIMEZONEMODELCITYFILTERED_H
 
 #include "timezonemodelbase.h"
 
-class TimezoneModelFiltered : public QAbstractListModel
+class TimezoneModelCityFiltered : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelFiltered(std::shared_ptr<TimezoneModelBase> sourceModel);
+    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel);
     Q_INVOKABLE void setRegion(const QString &region);
 
     QHash<int, QByteArray> roleNames() const override;
@@ -31,4 +31,4 @@ private:
     QList<Timezone> m_timezoneFilteredSorted;
 };
 
-#endif // TIMEZONEMODELFILTERED_H
+#endif // TIMEZONEMODELCITYFILTERED_H

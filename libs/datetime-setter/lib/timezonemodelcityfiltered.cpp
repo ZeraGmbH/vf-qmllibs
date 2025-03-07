@@ -1,18 +1,18 @@
-#include "timezonemodelfiltered.h"
+#include "timezonemodelcityfiltered.h"
 #include "timezonemodelbase.h"
 #include "timezoneextractor.h"
 #include <QMap>
 
-TimezoneModelFiltered::TimezoneModelFiltered(std::shared_ptr<TimezoneModelBase> sourceModel) :
+TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel) :
     m_sourceModel(sourceModel),
     m_region(TimezoneExtractor::noRegionString())
 {
     fillModel();
     connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,
-            this, &TimezoneModelFiltered::fillModel);
+            this, &TimezoneModelCityFiltered::fillModel);
 }
 
-void TimezoneModelFiltered::setRegion(const QString &region)
+void TimezoneModelCityFiltered::setRegion(const QString &region)
 {
     if (m_region != region) {
         m_region = region;
@@ -20,7 +20,7 @@ void TimezoneModelFiltered::setRegion(const QString &region)
     }
 }
 
-QHash<int, QByteArray> TimezoneModelFiltered::roleNames() const
+QHash<int, QByteArray> TimezoneModelCityFiltered::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
@@ -29,12 +29,12 @@ QHash<int, QByteArray> TimezoneModelFiltered::roleNames() const
     return roles;
 }
 
-int TimezoneModelFiltered::rowCount(const QModelIndex &parent) const
+int TimezoneModelCityFiltered::rowCount(const QModelIndex &parent) const
 {
     return parent.isValid() ? 0 : m_timezoneFilteredSorted.count();
 }
 
-QVariant TimezoneModelFiltered::data(const QModelIndex &index, int role) const
+QVariant TimezoneModelCityFiltered::data(const QModelIndex &index, int role) const
 {
     const int row = index.row();
     if (row < 0 || row >= m_timezoneFilteredSorted.count())
@@ -51,7 +51,7 @@ QVariant TimezoneModelFiltered::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-void TimezoneModelFiltered::fillModel()
+void TimezoneModelCityFiltered::fillModel()
 {
     int timezoneCount = m_sourceModel->rowCount();
     QMap<QString /* cityTranslated */, QString /*timezone */> citySortedTimezones;
