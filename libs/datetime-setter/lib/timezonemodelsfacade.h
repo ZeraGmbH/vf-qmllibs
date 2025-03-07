@@ -13,6 +13,7 @@ class TimezoneModelsFacade : public QObject
 {
     Q_OBJECT
 public:
+    explicit TimezoneModelsFacade();
     explicit TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
                                   std::shared_ptr<TimezoneTranslations> translations);
 
