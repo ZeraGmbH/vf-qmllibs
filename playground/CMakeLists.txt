@@ -15,6 +15,7 @@ target_link_libraries(
         uivlib
         zerafa
         ZVKeyboardLayout
+        timedate-qml-wrapper
 )
 
 install(TARGETS vf-qmllibs-examples

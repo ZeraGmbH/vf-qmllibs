@@ -11,6 +11,7 @@
         <file>SacVuTest.qml</file>
         <file>SacVuTestViewSigned.qml</file>
         <file>SacVuTestViewUnsigned.qml</file>
+        <file>TimeDateSetter.qml</file>
         <file>Uivectorgraph.qml</file>
         <file>ZvKeyboardTest.qml</file>
     </qresource>
