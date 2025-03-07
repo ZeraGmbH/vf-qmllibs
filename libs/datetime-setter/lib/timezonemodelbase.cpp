@@ -34,7 +34,7 @@ QString TimezoneModelBase::getSelectedCity() const
 
 void TimezoneModelBase::setSelectedCity(const QString &city)
 {
-    if (m_selectedCity != city) {
+    if (m_selectedCity != city && isValidCity(city)) {
         m_selectedCity = city;
         emit sigCityChanged();
     }
@@ -133,4 +133,16 @@ bool TimezoneModelBase::isValidRegion(const QString &region) const
         if(region == TimezoneExtractor::extractRegion(timezone))
             return true;
     return false;
+}
+
+bool TimezoneModelBase::isValidCity(const QString &city) const
+{
+    if(city.isEmpty()) // unselect is valid for city (e.g region change)
+        return true;
+    for (const QString &timezone : m_timezones)
+        if(m_selectedRegion == TimezoneExtractor::extractRegion(timezone))
+            if(city == TimezoneExtractor::extractCityOrCountry(timezone))
+                return true;
+    return false;
+
 }

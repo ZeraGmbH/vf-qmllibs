@@ -258,6 +258,23 @@ void test_timezone_model_base::initialRegionAndCityLate()
     QCOMPARE(spyCity.count(), 1);
 }
 
+void test_timezone_model_base::sameRegionNoChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedRegion(defaultRegion);
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 0);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
+}
+
 void test_timezone_model_base::changeRegionValid()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -292,7 +309,7 @@ void test_timezone_model_base::changeRegionInvalid()
     QCOMPARE(model.getSelectedCity(), defaultCity);
 }
 
-void test_timezone_model_base::sameRegionNoChange()
+void test_timezone_model_base::sameCityNoChange()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -301,10 +318,61 @@ void test_timezone_model_base::sameRegionNoChange()
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
-    model.setSelectedRegion(defaultRegion);
+    model.setSelectedCity(defaultCity);
 
     QCOMPARE(spyRegionChanged.count(), 0);
     QCOMPARE(model.getSelectedRegion(), defaultRegion);
     QCOMPARE(spyCityChanged.count(), 0);
     QCOMPARE(model.getSelectedCity(), defaultCity);
+}
+
+void test_timezone_model_base::changeCityInValid()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedCity("foo");
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 0);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
+}
+
+void test_timezone_model_base::changeCityValidButNotInSelectedRegion()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedCity("Sydney");
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 0);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
+}
+
+void test_timezone_model_base::changeCityValid()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedCity("Rome");
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 1);
+    QCOMPARE(model.getSelectedCity(), "Rome");
 }
