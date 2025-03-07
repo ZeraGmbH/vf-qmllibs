@@ -30,14 +30,14 @@ public:
     QString getCitySelected() const;
     void setCitySelected(const QString &city);
 
-    Q_PROPERTY(bool canApply READ canApply NOTIFY canApplyChanged FINAL)
+    Q_PROPERTY(bool canApply READ canApply NOTIFY sigCanApplyChanged FINAL)
     bool canApply() const;
     Q_INVOKABLE void doApply();
 
 signals:
     void sigRegionSelectedChanged();
     void sigCitySelectedChanged();
-    void canApplyChanged();
+    void sigCanApplyChanged();
 
 private:
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;

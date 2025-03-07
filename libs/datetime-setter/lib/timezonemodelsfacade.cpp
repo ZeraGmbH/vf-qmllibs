@@ -12,6 +12,8 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
             this, &TimezoneModelsFacade::sigRegionSelectedChanged);
     connect(m_modelBase.get(), &TimezoneModelBase::sigCityChanged,
             this, &TimezoneModelsFacade::sigCitySelectedChanged);
+    connect(m_modelBase.get(), &TimezoneModelBase::sigCanApplyChanged,
+            this, &TimezoneModelsFacade::sigCanApplyChanged);
 }
 
 QAbstractListModel *TimezoneModelsFacade::getRegionModel() const
@@ -46,10 +48,10 @@ void TimezoneModelsFacade::setCitySelected(const QString &city)
 
 bool TimezoneModelsFacade::canApply() const
 {
-
+    return m_modelBase->canApply();
 }
 
 void TimezoneModelsFacade::doApply()
 {
-
+    m_modelBase->doApply();
 }
