@@ -40,6 +40,8 @@ signals:
     void sigCitySelectedChanged();
     void sigCanApplyChanged();
 
+private slots:
+    void onLanguageChanged();
 private:
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
     std::shared_ptr<TimezoneTranslations> m_translations;
