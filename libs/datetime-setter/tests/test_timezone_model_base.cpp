@@ -224,6 +224,9 @@ void test_timezone_model_base::checkCityOrCountryTranslated()
     QCOMPARE(emptyCityFound, false);
 }
 
+static const char* defaultRegion = "Europe";
+static const char* defaultCity = "Berlin";
+
 void test_timezone_model_base::initialRegionAndCityEarly()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -233,8 +236,8 @@ void test_timezone_model_base::initialRegionAndCityEarly()
 
     TimezoneModelBase model(m_timeDateConnection, m_translations);
 
-    QCOMPARE(model.getSelectedRegion(), "Europe");
-    QCOMPARE(model.getSelectedCity(), "Berlin");
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
 }
 
 void test_timezone_model_base::initialRegionAndCityLate()
@@ -248,9 +251,60 @@ void test_timezone_model_base::initialRegionAndCityLate()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    QCOMPARE(model.getSelectedRegion(), "Europe");
-    QCOMPARE(model.getSelectedCity(), "Berlin");
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
 
     QCOMPARE(spyRegion.count(), 1);
     QCOMPARE(spyCity.count(), 1);
+}
+
+void test_timezone_model_base::changeRegionValid()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedRegion("Asia");
+
+    QCOMPARE(spyRegionChanged.count(), 1);
+    QCOMPARE(model.getSelectedRegion(), "Asia");
+    QCOMPARE(spyCityChanged.count(), 1);
+    QCOMPARE(model.getSelectedCity(), ""); // Change region unselects city
+}
+
+void test_timezone_model_base::changeRegionInvalid()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedRegion("Foo");
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 0);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
+}
+
+void test_timezone_model_base::sameRegionNoChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneModelBase model(m_timeDateConnection, m_translations);
+
+    QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
+    QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
+    model.setSelectedRegion(defaultRegion);
+
+    QCOMPARE(spyRegionChanged.count(), 0);
+    QCOMPARE(model.getSelectedRegion(), defaultRegion);
+    QCOMPARE(spyCityChanged.count(), 0);
+    QCOMPARE(model.getSelectedCity(), defaultCity);
 }

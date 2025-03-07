@@ -24,6 +24,10 @@ private slots:
 
     void initialRegionAndCityEarly();
     void initialRegionAndCityLate();
+    void changeRegionValid();
+    void changeRegionInvalid();
+    void sameRegionNoChange();
+
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
