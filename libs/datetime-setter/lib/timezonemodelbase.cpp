@@ -11,6 +11,8 @@ TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection
             this, &TimezoneModelBase::fillModelSetDefaultsFromDateTime);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelBase::fillModel);
+    connect(this, &TimezoneModelBase::sigCityChanged,
+            this, &TimezoneModelBase::handleCityChange);
 }
 
 QString TimezoneModelBase::getSelectedRegion() const
@@ -42,7 +44,7 @@ void TimezoneModelBase::setSelectedCity(const QString &city)
 
 bool TimezoneModelBase::canApply() const
 {
-
+    return m_canApply;
 }
 
 void TimezoneModelBase::doApply()
@@ -111,6 +113,16 @@ void TimezoneModelBase::fillModel()
     endResetModel();
 }
 
+void TimezoneModelBase::handleCityChange()
+{
+    bool newCanApply = !m_selectedCity.isEmpty() &&
+                       m_selectedCity != cityFromTimezone(m_timedateConnection->getTimeszone());
+    if (m_canApply != newCanApply) {
+        m_canApply = newCanApply;
+        emit sigCanApplyChanged();
+    }
+}
+
 QString TimezoneModelBase::regionFromTimezone(const QString &timezone, bool translate) const
 {
     QString region = translate ?
@@ -144,5 +156,4 @@ bool TimezoneModelBase::isValidCity(const QString &city) const
             if(city == TimezoneExtractor::extractCityOrCountry(timezone))
                 return true;
     return false;
-
 }

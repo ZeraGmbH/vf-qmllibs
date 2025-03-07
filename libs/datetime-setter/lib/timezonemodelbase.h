@@ -42,6 +42,7 @@ signals:
 private slots:
     void fillModelSetDefaultsFromDateTime();
     void fillModel();
+    void handleCityChange();
 private:
     QString regionFromTimezone(const QString &timezone, bool translate) const;
     QString cityFromTimezone(const QString &timezone) const;
@@ -54,6 +55,7 @@ private:
 
     QString m_selectedRegion;
     QString m_selectedCity;
+    bool m_canApply = false;
 };
 
 #endif // TIMEZONEMODELBASE_H
