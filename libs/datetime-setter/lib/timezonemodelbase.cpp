@@ -39,6 +39,16 @@ void TimezoneModelBase::setSelectedCity(const QString &city)
     }
 }
 
+bool TimezoneModelBase::canApply() const
+{
+
+}
+
+void TimezoneModelBase::doApply()
+{
+
+}
+
 QHash<int, QByteArray> TimezoneModelBase::roleNames() const
 {
     static QHash<int, QByteArray> roles {

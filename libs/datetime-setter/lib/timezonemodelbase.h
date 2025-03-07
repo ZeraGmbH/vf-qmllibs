@@ -20,6 +20,9 @@ public:
     QString getSelectedCity() const;
     void setSelectedCity(const QString &city);
 
+    bool canApply() const;
+    void doApply();
+
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -34,6 +37,7 @@ public:
 signals:
     void sigRegionChanged();
     void sigCityChanged();
+    void sigCanApplyChanged();
 
 private slots:
     void fillModelSetDefaultsFromDateTime();
