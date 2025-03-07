@@ -127,6 +127,19 @@ ApplicationWindow {
                     commonLoader.active=false;
             }
         }
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load TimedateSetter"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "TimeDateSetter.qml";
+                }
+                else
+                    commonLoader.active=false;
+            }
+        }
 
         // Next CheckBox here
 
