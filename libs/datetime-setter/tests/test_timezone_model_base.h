@@ -24,9 +24,15 @@ private slots:
 
     void initialRegionAndCityEarly();
     void initialRegionAndCityLate();
+
+    void sameRegionNoChange();
     void changeRegionValid();
     void changeRegionInvalid();
-    void sameRegionNoChange();
+
+    void sameCityNoChange();
+    void changeCityInValid();
+    void changeCityValidButNotInSelectedRegion();
+    void changeCityValid();
 
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
