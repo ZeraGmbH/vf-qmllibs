@@ -44,23 +44,18 @@ void TimezoneModelRegion::fillModel()
     int timezoneCount = m_sourceModel->rowCount();
     beginResetModel();
     m_timezoneRegions.clear();
-    for (int i=0; i<timezoneCount; ++i)
-        tryAddRegion(i);
+    for (int i=0; i<timezoneCount; ++i) {
+        QModelIndex index = m_sourceModel->index(i, 0);
+        QString regionStr = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
+        if(isNewRegion(regionStr)) {
+            Region regionAdd {
+                regionStr,
+                m_sourceModel->data(index, TimezoneModelBase::RegionRoleTranslated).toString()
+            };
+            m_timezoneRegions.append(regionAdd);
+        }
+    }
     endResetModel();
-}
-
-void TimezoneModelRegion::tryAddRegion(int sourceModelRow)
-{
-    QModelIndex index = m_sourceModel->index(sourceModelRow, 0);
-    QString regionStr = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
-    if(!isNewRegion(regionStr))
-        return;
-
-    Region regionAdd {
-        regionStr,
-        m_sourceModel->data(index, TimezoneModelBase::RegionRoleTranslated).toString()
-    };
-    m_timezoneRegions.append(regionAdd);
 }
 
 bool TimezoneModelRegion::isNewRegion(const QString &region) const
