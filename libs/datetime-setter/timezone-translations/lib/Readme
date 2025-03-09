@@ -5,7 +5,7 @@ To add a new translation:
 
 1. Get po-file from [1]
 2. Rename file to full locale e.g de.po -> de_DE.po
-3. Run script run-on-add-language.sh
+3. Run script create-translations-from-po-files.py
 4. Add *.qm generated to timezonetranslations.qrc
 
 
