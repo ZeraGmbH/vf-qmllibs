@@ -3,12 +3,16 @@
 #include "timezoneextractor.h"
 #include <QMap>
 
-TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel) :
+TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel,
+                                                     std::shared_ptr<TimezoneTranslations> translations) :
     m_sourceModel(sourceModel),
+    m_translations(translations),
     m_region(TimezoneExtractor::noRegionString())
 {
     fillModel();
     connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,
+            this, &TimezoneModelCityFiltered::fillModel);
+    connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelCityFiltered::fillModel);
 }
 
@@ -60,7 +64,8 @@ void TimezoneModelCityFiltered::fillModel()
         const QString region = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
         if (region == m_region) {
             const QString timezone = m_sourceModel->data(index, TimezoneModelBase::TimezoneRole).toString();
-            const QString cityTr = m_sourceModel->data(index, TimezoneModelBase::CityOrCountryRoleTranslated).toString();
+            const QString city = m_sourceModel->data(index, TimezoneModelBase::CityOrCountryRole).toString();
+            const QString cityTr = m_translations->translate(city);
             citySortedTimezones[cityTr] = timezone;
         }
     }

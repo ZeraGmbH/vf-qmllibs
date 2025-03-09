@@ -12,9 +12,9 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
                                            std::shared_ptr<TimezoneTranslations> translations) :
     m_timedateConnection(timedateConnection),
     m_translations(translations),
-    m_modelBase(std::make_shared<TimezoneModelBase>(m_timedateConnection, m_translations)),
-    m_modelRegion(std::make_shared<TimezoneModelRegion>(m_modelBase)),
-    m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_modelBase))
+    m_modelBase(std::make_shared<TimezoneModelBase>(m_timedateConnection)),
+    m_modelRegion(std::make_shared<TimezoneModelRegion>(m_modelBase, m_translations)),
+    m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_modelBase, m_translations))
 {
     connect(m_modelBase.get(), &TimezoneModelBase::sigRegionChanged,
             this, &TimezoneModelsFacade::sigRegionSelectedChanged);
