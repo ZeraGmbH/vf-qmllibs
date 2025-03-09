@@ -73,7 +73,7 @@ void test_timezone_model_base::checkTimezonesTranslatedNoTranslationSet()
     index = model.index(1, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Addis_Ababa");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Addis Ababa");
 }
 
 void test_timezone_model_base::checkTimezonesTranslatedTranslationSetEarly()
@@ -91,7 +91,7 @@ void test_timezone_model_base::checkTimezonesTranslatedTranslationSetEarly()
     index = model.index(1, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis Abeba");
 }
 
 void test_timezone_model_base::checkTimezonesTranslatedTranslationSetLate()
@@ -113,7 +113,7 @@ void test_timezone_model_base::checkTimezonesTranslatedTranslationSetLate()
     index = model.index(1, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
     index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis_Abeba");
+    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis Abeba");
 }
 
 void test_timezone_model_base::checkRegion()
