@@ -113,8 +113,8 @@ def po_name_to_ts(po_file: str):
 def basename(filename: str):
     return os.path.basename(filename)
 
-def language(filename: str):
-    return basename(filename).replace(".po", "").replace(".ts", "")
+def language(po_file: str):
+    return basename(po_file).replace(".po", "")
 
 
 if __name__ == "__main__":
