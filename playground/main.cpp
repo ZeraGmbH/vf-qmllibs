@@ -3,6 +3,7 @@
 #include "uivectorgraphics.h"
 #include "zeracomponents.h"
 #include "zvkeyboardlayout.h"
+#include "timedateqmlwrapper.h"
 #include "QQmlApplicationEngine"
 #include <QGuiApplication>
 #include <QQmlEngine>
@@ -27,6 +28,7 @@ int main(int argc, char *argv[])
     NotificationManager::registerQml(engine);
     UiVectorgraphics::registerQml();
     ZeraComponents::registerQml(engine);
+    TimedateQmlWrapper::registerQml();
 
     return app.exec();
 }

@@ -10,7 +10,7 @@ class TimezoneTranslations : public QObject
     Q_OBJECT
 public:
     void setLanguage(const QString &language);
-    QString translate(const QString &timezone) const;
+    QString translate(const QString &regionOrCity) const;
 signals:
     void sigLanguageChanged();
 

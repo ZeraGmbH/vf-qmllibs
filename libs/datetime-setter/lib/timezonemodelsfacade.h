@@ -13,6 +13,7 @@ class TimezoneModelsFacade : public QObject
 {
     Q_OBJECT
 public:
+    explicit TimezoneModelsFacade();
     explicit TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
                                   std::shared_ptr<TimezoneTranslations> translations);
 
@@ -39,6 +40,8 @@ signals:
     void sigCitySelectedChanged();
     void sigCanApplyChanged();
 
+private slots:
+    void onLanguageChanged();
 private:
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
     std::shared_ptr<TimezoneTranslations> m_translations;

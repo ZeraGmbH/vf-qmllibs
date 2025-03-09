@@ -20,7 +20,7 @@ public:
 private slots:
     void fillModel();
 private:
-    void tryAddRegion(int regionNum);
+    bool isNewRegion(const QString &region) const;
 
     std::shared_ptr<TimezoneModelBase> m_sourceModel;
     struct Region {
