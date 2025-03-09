@@ -1,7 +1,6 @@
 #ifndef TEST_TIMEZONE_MODEL_BASE_H
 #define TEST_TIMEZONE_MODEL_BASE_H
 
-#include "timezonetranslations.h"
 #include "abstracttimedate1connection.h"
 #include <memory>
 
@@ -14,13 +13,8 @@ private slots:
     void connectionStartLate();
 
     void checkTimezones();
-    void checkTimezonesTranslatedNoTranslationSet();
-    void checkTimezonesTranslatedTranslationSetEarly();
-    void checkTimezonesTranslatedTranslationSetLate();
     void checkRegion();
-    void checkRegionTranslated();
     void checkCityOrCountry();
-    void checkCityOrCountryTranslated();
 
     void initialRegionAndCityEarly();
     void initialRegionAndCityLate();
@@ -42,7 +36,6 @@ private slots:
     void invalidCityKeepsCanApply();
 
 private:
-    std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
 };
 

@@ -12,7 +12,6 @@ static constexpr int timezoneCount = 597;
 
 void test_timezone_model_base::init()
 {
-    m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
 }
 
@@ -23,7 +22,7 @@ void test_timezone_model_base::connectionStartEarly()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     QCOMPARE(model.rowCount(), timezoneCount);
 }
 
@@ -31,7 +30,7 @@ void test_timezone_model_base::connectionStartLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
@@ -50,7 +49,7 @@ void test_timezone_model_base::checkTimezones()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Abidjan");
@@ -60,61 +59,6 @@ void test_timezone_model_base::checkTimezones()
     QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRole), "Africa/Addis_Ababa");
 }
 
-void test_timezone_model_base::checkTimezonesTranslatedNoTranslationSet()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    QModelIndex index;
-    index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Abidjan");
-    index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Accra");
-    index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Africa/Addis Ababa");
-}
-
-void test_timezone_model_base::checkTimezonesTranslatedTranslationSetEarly()
-{
-    m_translations->setLanguage("de_DE");
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-
-    QModelIndex index;
-    index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
-    index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
-    index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis Abeba");
-}
-
-void test_timezone_model_base::checkTimezonesTranslatedTranslationSetLate()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
-    QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
-    m_translations->setLanguage("de_DE");
-    QCOMPARE(spyModelAboutToBeReset.count(), 1);
-    QCOMPARE(spyModelReset.count(), 1);
-
-    QModelIndex index;
-    index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
-    index = model.index(1, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Accra");
-    index = model.index(2, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Addis Abeba");
-}
 
 void test_timezone_model_base::checkRegion()
 {
@@ -122,8 +66,7 @@ void test_timezone_model_base::checkRegion()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    m_translations->setLanguage("de_DE");
+    TimezoneModelBase model(m_timeDateConnection);
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -139,37 +82,13 @@ void test_timezone_model_base::checkRegion()
     QCOMPARE(model.data(index, TimezoneModelBase::RegionRole), TimezoneExtractor::noRegionString());
 }
 
-void test_timezone_model_base::checkRegionTranslated()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    m_translations->setLanguage("de_DE");
-
-    QModelIndex index;
-    index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
-    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "Afrika");
-
-    index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), "Amerika");
-
-    index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Ägypten");
-    QCOMPARE(model.data(index, TimezoneModelBase::RegionRoleTranslated), TimezoneExtractor::noRegionStringTranslated());
-}
-
 void test_timezone_model_base::checkCityOrCountry()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    m_translations->setLanguage("de_DE");
+    TimezoneModelBase model(m_timeDateConnection);
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -193,37 +112,6 @@ void test_timezone_model_base::checkCityOrCountry()
     QCOMPARE(emptyCityFound, false);
 }
 
-void test_timezone_model_base::checkCityOrCountryTranslated()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
-    m_translations->setLanguage("de_DE");
-
-    QModelIndex index;
-    index = model.index(0, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Afrika/Abidjan");
-    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Abidjan");
-
-    index = model.index(127, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Amerika/Indiana/Indianapolis");
-    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Indiana/Indianapolis");
-
-    index = model.index(389, 0);
-    QCOMPARE(model.data(index, TimezoneModelBase::TimezoneRoleTranslated), "Ägypten");
-    QCOMPARE(model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated), "Ägypten");
-
-    bool emptyCityFound = false;
-    for (int i=0; i<model.rowCount(); ++i) {
-        index = model.index(i, 0);
-        if (model.data(index, TimezoneModelBase::CityOrCountryRoleTranslated).toString().isEmpty())
-            emptyCityFound = true;
-    }
-    QCOMPARE(emptyCityFound, false);
-}
-
 static const char* defaultRegion = "Europe";
 static const char* defaultCity = "Berlin";
 
@@ -234,7 +122,7 @@ void test_timezone_model_base::initialRegionAndCityEarly()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QCOMPARE(model.getSelectedRegion(), defaultRegion);
     QCOMPARE(model.getSelectedCity(), defaultCity);
@@ -244,7 +132,7 @@ void test_timezone_model_base::initialRegionAndCityLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     QSignalSpy spyRegion(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCity(&model, &TimezoneModelBase::sigCityChanged);
 
@@ -263,7 +151,7 @@ void test_timezone_model_base::sameRegionNoChange()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -280,7 +168,7 @@ void test_timezone_model_base::changeRegionValid()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -297,7 +185,7 @@ void test_timezone_model_base::changeRegionInvalid()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -314,7 +202,7 @@ void test_timezone_model_base::sameCityNoChange()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -331,7 +219,7 @@ void test_timezone_model_base::changeCityInValid()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -348,7 +236,7 @@ void test_timezone_model_base::changeCityValidButNotInSelectedRegion()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -365,7 +253,7 @@ void test_timezone_model_base::changeCityValid()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyRegionChanged(&model, &TimezoneModelBase::sigRegionChanged);
     QSignalSpy spyCityChanged(&model, &TimezoneModelBase::sigCityChanged);
@@ -382,14 +270,14 @@ void test_timezone_model_base::defaultCanApplyEarly()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     QCOMPARE(model.canApply(), false);
 }
 
 void test_timezone_model_base::defaultCanApplyLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(model.canApply(), false);
@@ -400,7 +288,7 @@ void test_timezone_model_base::validRegionChangesCanApply()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
 
@@ -420,7 +308,7 @@ void test_timezone_model_base::invalidRegionKeepsCanApply()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
 
@@ -440,7 +328,7 @@ void test_timezone_model_base::validCityChangesCanApply()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
 
@@ -454,7 +342,7 @@ void test_timezone_model_base::invalidCityKeepsCanApply()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneModelBase model(m_timeDateConnection, m_translations);
+    TimezoneModelBase model(m_timeDateConnection);
 
     QSignalSpy spyCanApplyChanged(&model, &TimezoneModelBase::sigCanApplyChanged);
 

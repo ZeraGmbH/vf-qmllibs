@@ -2,12 +2,14 @@
 #define TIMEZONEMODELCITYFILTERED_H
 
 #include "timezonemodelbase.h"
+#include "timezonetranslations.h"
 
 class TimezoneModelCityFiltered : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel);
+    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel,
+                                       std::shared_ptr<TimezoneTranslations> translations);
     Q_INVOKABLE void setRegion(const QString &region);
 
     QHash<int, QByteArray> roleNames() const override;
@@ -23,6 +25,7 @@ private slots:
 
 private:
     std::shared_ptr<QAbstractListModel> m_sourceModel;
+    std::shared_ptr<TimezoneTranslations> m_translations;
     QString m_region;
     struct Timezone {
         QString m_timezone;

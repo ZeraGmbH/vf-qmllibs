@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import glob, os
+import glob, os, subprocess
 import polib
 
 def main():
@@ -10,6 +10,7 @@ def main():
         lang = language(po_file)
         ts_file = po_name_to_ts(po_file)
         create_ts_file(lang, ts_file, po_dict)
+        create_qm_file(ts_file)
 
 def find_po_files():
     po_files = []
@@ -93,13 +94,16 @@ def create_ts_footer(ts_xml_list: list[str]):
     ts_xml_list.append("</context>")
     ts_xml_list.append("</TS>")
 
-def escapeXml( str_xml: str ):
+def escapeXml(str_xml: str ):
     return str_xml \
         .replace("&", "&amp;") \
         .replace("<", "&lt;") \
         .replace(">", "&gt;") \
         .replace("\"", "&quot;") \
-        .replace("'", "&apos;") \
+        .replace("'", "&apos;")
+
+def create_qm_file(ts_file: str):
+    subprocess.run(['lrelease-qt5', ts_file])
 
 def po_name_to_ts(po_file: str):
     base = basename(po_file)
@@ -115,4 +119,3 @@ def language(filename: str):
 
 if __name__ == "__main__":
     main()
-

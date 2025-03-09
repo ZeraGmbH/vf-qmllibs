@@ -1,10 +1,14 @@
 #include "timezonemodelregion.h"
 
-TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel) :
-    m_sourceModel(sourceModel)
+TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel,
+                                         std::shared_ptr<TimezoneTranslations> translations) :
+    m_sourceModel(sourceModel),
+    m_translations(translations)
 {
     fillModel();
     connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,
+            this, &TimezoneModelRegion::fillModel);
+    connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelRegion::fillModel);
 }
 
@@ -34,7 +38,7 @@ QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
     case RegionRole:
         return region.m_region;
     case RegionRoleTranslated:
-        return region.m_regionTranslated;
+        return m_translations->translate(region.m_region);
     }
     return QVariant();
 }
@@ -49,8 +53,7 @@ void TimezoneModelRegion::fillModel()
         QString regionStr = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
         if(isNewRegion(regionStr)) {
             Region regionAdd {
-                regionStr,
-                m_sourceModel->data(index, TimezoneModelBase::RegionRoleTranslated).toString()
+                regionStr
             };
             m_timezoneRegions.append(regionAdd);
         }

@@ -17,8 +17,7 @@ void test_timezone_model_city_filtered::init()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    m_baseModel = std::make_shared<TimezoneModelBase>(m_timeDateConnection,
-                                                      m_translations);
+    m_baseModel = std::make_shared<TimezoneModelBase>(m_timeDateConnection);
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
@@ -28,7 +27,7 @@ void test_timezone_model_city_filtered::init()
 
 void test_timezone_model_city_filtered::initialNoRegion()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
@@ -42,7 +41,7 @@ void test_timezone_model_city_filtered::initialNoRegion()
 
 void test_timezone_model_city_filtered::moveToEurope()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     model.setRegion("Europe");
 
@@ -58,7 +57,7 @@ void test_timezone_model_city_filtered::moveToEurope()
 
 void test_timezone_model_city_filtered::moveToAsia()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     model.setRegion("Asia");
 
@@ -74,7 +73,7 @@ void test_timezone_model_city_filtered::moveToAsia()
 
 void test_timezone_model_city_filtered::moveToPacific()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     model.setRegion("Pacific");
 
@@ -90,7 +89,7 @@ void test_timezone_model_city_filtered::moveToPacific()
 
 void test_timezone_model_city_filtered::moveToAsiaChangeLanguageDe()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     model.setRegion("Asia");
     m_translations->setLanguage("de_DE");
@@ -110,10 +109,9 @@ void test_timezone_model_city_filtered::asiaAndLanguageDeThenStart()
 {
     m_translations = std::make_shared<TimezoneTranslations>();
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
-    m_baseModel = std::make_shared<TimezoneModelBase>(m_timeDateConnection,
-                                                      m_translations);
+    m_baseModel = std::make_shared<TimezoneModelBase>(m_timeDateConnection);
 
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
     model.setRegion("Asia");
     m_translations->setLanguage("de_DE");
 
@@ -134,7 +132,7 @@ void test_timezone_model_city_filtered::asiaAndLanguageDeThenStart()
 
 void test_timezone_model_city_filtered::languageDeMoveToPacificChange()
 {
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
 
     model.setRegion("Pacific");
     m_translations->setLanguage("de_DE");
@@ -154,8 +152,8 @@ static constexpr int maxCityCount = 168;
 
 void test_timezone_model_city_filtered::checkMaxCities()
 {
-    TimezoneModelRegion regionModel(m_baseModel);
-    TimezoneModelCityFiltered model(m_baseModel);
+    TimezoneModelRegion regionModel(m_baseModel, m_translations);
+    TimezoneModelCityFiltered model(m_baseModel, m_translations);
     int maxCities = 0;
     QString maxCityRegion;
     int totaltimezoneCount = 0;

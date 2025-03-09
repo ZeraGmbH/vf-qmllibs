@@ -17,7 +17,8 @@ void test_timezone_translations::translateGerman()
     QSignalSpy spy(&tzTrans, &TimezoneTranslations::sigLanguageChanged);
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 }
 
 void test_timezone_translations::translateUs()
@@ -27,11 +28,13 @@ void test_timezone_translations::translateUs()
 
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 
     tzTrans.setLanguage("en_US");
     QCOMPARE(spy.count(), 2);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 }
 
 void test_timezone_translations::translateC()
@@ -41,11 +44,13 @@ void test_timezone_translations::translateC()
 
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 
     tzTrans.setLanguage("C");
     QCOMPARE(spy.count(), 2);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 }
 
 void test_timezone_translations::translateInvalid()
@@ -55,26 +60,32 @@ void test_timezone_translations::translateInvalid()
 
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 
     tzTrans.setLanguage("foo"); // Invalid changes to en_US -> signal
     QCOMPARE(spy.count(), 2);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 3);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 
     tzTrans.setLanguage("foo");
     QCOMPARE(spy.count(), 4);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
     tzTrans.setLanguage("foo");
     QCOMPARE(spy.count(), 4);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 
     tzTrans.setLanguage("en_US");
     QCOMPARE(spy.count(), 5);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 }
 
 void test_timezone_translations::switchGermanTwice()
@@ -86,7 +97,8 @@ void test_timezone_translations::switchGermanTwice()
     QCOMPARE(spy.count(), 1);
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
 }
 
 void test_timezone_translations::switchUSTwice()
@@ -98,7 +110,8 @@ void test_timezone_translations::switchUSTwice()
     QCOMPARE(spy.count(), 1);
     tzTrans.setLanguage("en_US");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 }
 
 void test_timezone_translations::switchCTwice()
@@ -110,7 +123,8 @@ void test_timezone_translations::switchCTwice()
     QCOMPARE(spy.count(), 1);
     tzTrans.setLanguage("C");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europe/Zurich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zurich");
 }
 
 void test_timezone_translations::translateGermanSwitchFrench()
@@ -120,8 +134,10 @@ void test_timezone_translations::translateGermanSwitchFrench()
 
     tzTrans.setLanguage("de_DE");
     QCOMPARE(spy.count(), 1);
-    QCOMPARE(tzTrans.translate("Europe/Zurich"), "Europa/Zürich");
+    QCOMPARE(tzTrans.translate("Europe"), "Europa");
+    QCOMPARE(tzTrans.translate("Zurich"), "Zürich");
     tzTrans.setLanguage("fr_FR");
     QCOMPARE(spy.count(), 2);
-    QCOMPARE(tzTrans.translate("Europe/Malta"), "Europe/Malte");
+    QCOMPARE(tzTrans.translate("Europe"), "Europe");
+    QCOMPARE(tzTrans.translate("Malta"), "Malte");
 }

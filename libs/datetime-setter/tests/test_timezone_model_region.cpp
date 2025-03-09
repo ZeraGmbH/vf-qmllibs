@@ -23,8 +23,8 @@ void test_timezone_model_region::connectionStartEarly()
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
     QStringList regions;
     QModelIndex index;
     for(int i=0; i<model.rowCount(); i++) {
@@ -41,8 +41,8 @@ void test_timezone_model_region::connectionStartLate()
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
@@ -62,8 +62,8 @@ void test_timezone_model_region::checkRegions()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), "Africa");
@@ -80,8 +80,8 @@ void test_timezone_model_region::checkRegionsTranslatedNoTranslationSet()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), "Africa");
@@ -99,8 +99,8 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetEarly()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -118,8 +118,8 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetLate()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
     std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection, m_translations);
-    TimezoneModelRegion model(baseModel);
+        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
+    TimezoneModelRegion model(baseModel, m_translations);
 
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);

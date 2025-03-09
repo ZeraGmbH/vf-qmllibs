@@ -1,16 +1,12 @@
 #include "timezonemodelbase.h"
 #include "timezoneextractor.h"
 
-TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
-                                     std::shared_ptr<TimezoneTranslations> translations) :
-    m_timedateConnection(timedateConnection),
-    m_translations(translations)
+TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
+    m_timedateConnection(timedateConnection)
 {
     fillModelSetDefaultsFromDateTime();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
             this, &TimezoneModelBase::fillModelSetDefaultsFromDateTime);
-    connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
-            this, &TimezoneModelBase::fillModel);
     connect(this, &TimezoneModelBase::sigCityChanged,
             this, &TimezoneModelBase::handleCityChange);
 }
@@ -56,11 +52,8 @@ QHash<int, QByteArray> TimezoneModelBase::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
-        { TimezoneRoleTranslated, "timezonetranslated" },
         { RegionRole, "region"},
-        { RegionRoleTranslated, "regiontranslated" },
-        { CityOrCountryRole, "cityorcountry"},
-        { CityOrCountryRoleTranslated, "cityorcountrytranslated"}
+        { CityOrCountryRole, "cityorcountry"}
     };
     return roles;
 }
@@ -81,16 +74,10 @@ QVariant TimezoneModelBase::data(const QModelIndex &index, int role) const
     switch(role) {
     case TimezoneRole:
         return timezone;
-    case TimezoneRoleTranslated:
-        return m_translations->translate(timezone);
     case RegionRole:
-        return regionFromTimezone(timezone, false);
-    case RegionRoleTranslated:
-        return regionFromTimezone(timezone, true);
+        return regionFromTimezone(timezone);
     case CityOrCountryRole:
         return cityFromTimezone(timezone);
-    case CityOrCountryRoleTranslated:
-        return cityFromTimezone(m_translations->translate(timezone));
     }
     return QVariant();
 }
@@ -99,7 +86,7 @@ void TimezoneModelBase::fillModelSetDefaultsFromDateTime()
 {
     fillModel();
     QString timezoneSet = m_timedateConnection->getTimeszone();
-    setSelectedRegion(regionFromTimezone(timezoneSet, false));
+    setSelectedRegion(regionFromTimezone(timezoneSet));
     setSelectedCity(cityFromTimezone(timezoneSet));
 }
 
@@ -123,14 +110,11 @@ void TimezoneModelBase::handleCityChange()
     }
 }
 
-QString TimezoneModelBase::regionFromTimezone(const QString &timezone, bool translate) const
+QString TimezoneModelBase::regionFromTimezone(const QString &timezone) const
 {
-    QString region = translate ?
-        TimezoneExtractor::extractRegion(m_translations->translate(timezone)) :
-        TimezoneExtractor::extractRegion(timezone);
-
+    QString region = TimezoneExtractor::extractRegion(timezone);
     if (region.isEmpty())
-        region = translate ? TimezoneExtractor::noRegionStringTranslated(): TimezoneExtractor::noRegionString();
+        region = TimezoneExtractor::noRegionString();
     return region;
 }
 
