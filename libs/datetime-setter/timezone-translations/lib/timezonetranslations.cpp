@@ -25,14 +25,15 @@ void TimezoneTranslations::setLanguage(const QString &language)
     emit sigLanguageChanged();
 }
 
-QString TimezoneTranslations::translate(const QString &timezone) const
+QString TimezoneTranslations::translate(const QString &regionOrCity) const
 {
-    if (!m_translator)
-        return timezone;
-    QString tr = m_translator->translate("", timezone.toLocal8Bit());
-    if (tr.isEmpty())
-        return timezone;
-    return tr;
+    QString tr = regionOrCity;
+    if (m_translator) {
+        tr = m_translator->translate("", regionOrCity.toLocal8Bit());
+        if (tr.isEmpty())
+            tr = regionOrCity;
+    }
+    return tr.replace("_", " ");
 }
 
 bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &language) const
