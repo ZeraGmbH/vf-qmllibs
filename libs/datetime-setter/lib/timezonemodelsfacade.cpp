@@ -12,15 +12,15 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
                                            std::shared_ptr<TimezoneTranslations> translations) :
     m_timedateConnection(timedateConnection),
     m_translations(translations),
-    m_modelBase(std::make_shared<TimezoneModelBase>(m_timedateConnection)),
-    m_modelRegion(std::make_shared<TimezoneModelRegion>(m_modelBase, m_translations)),
-    m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_modelBase, m_translations))
+    m_timezoneController(std::make_shared<TimezoneStateController>(m_timedateConnection)),
+    m_modelRegion(std::make_shared<TimezoneModelRegion>(m_timezoneController, m_translations)),
+    m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_timezoneController, m_translations))
 {
-    connect(m_modelBase.get(), &TimezoneModelBase::sigRegionChanged,
+    connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
             this, &TimezoneModelsFacade::sigRegionSelectedChanged);
-    connect(m_modelBase.get(), &TimezoneModelBase::sigCityChanged,
+    connect(m_timezoneController.get(), &TimezoneStateController::sigCityChanged,
             this, &TimezoneModelsFacade::sigCitySelectedChanged);
-    connect(m_modelBase.get(), &TimezoneModelBase::sigCanApplyChanged,
+    connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
             this, &TimezoneModelsFacade::sigCanApplyChanged);
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
             this, &TimezoneModelsFacade::onLanguageChanged);
@@ -33,12 +33,12 @@ QAbstractListModel *TimezoneModelsFacade::getRegionModel() const
 
 QString TimezoneModelsFacade::getRegionSelected() const
 {
-    return m_modelBase->getSelectedRegion();
+    return m_timezoneController->getSelectedRegion();
 }
 
 void TimezoneModelsFacade::setRegionSelected(const QString &region)
 {
-    m_modelBase->setSelectedRegion(region);
+    m_timezoneController->setSelectedRegion(region);
 }
 
 QAbstractListModel *TimezoneModelsFacade::getCityModel() const
@@ -48,22 +48,22 @@ QAbstractListModel *TimezoneModelsFacade::getCityModel() const
 
 QString TimezoneModelsFacade::getCitySelected() const
 {
-    return m_modelBase->getSelectedCity();
+    return m_timezoneController->getSelectedCity();
 }
 
 void TimezoneModelsFacade::setCitySelected(const QString &city)
 {
-    m_modelBase->setSelectedCity(city);
+    m_timezoneController->setSelectedCity(city);
 }
 
 bool TimezoneModelsFacade::canApply() const
 {
-    return m_modelBase->canApply();
+    return m_timezoneController->canApply();
 }
 
 void TimezoneModelsFacade::doApply()
 {
-    m_modelBase->doApply();
+    m_timezoneController->doApply();
 }
 
 void TimezoneModelsFacade::onLanguageChanged()

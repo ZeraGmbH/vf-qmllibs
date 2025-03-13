@@ -1,14 +1,15 @@
 #ifndef TIMEZONEMODELCITYFILTERED_H
 #define TIMEZONEMODELCITYFILTERED_H
 
-#include "timezonemodelbase.h"
+#include "timezonestatecontroller.h"
 #include "timezonetranslations.h"
+#include <QAbstractListModel>
 
 class TimezoneModelCityFiltered : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel,
+    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneStateController> timezoneController,
                                        std::shared_ptr<TimezoneTranslations> translations);
     Q_INVOKABLE void setRegion(const QString &region);
 
@@ -24,7 +25,7 @@ private slots:
     void fillModel();
 
 private:
-    std::shared_ptr<QAbstractListModel> m_sourceModel;
+    std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
     QString m_region;
     struct Timezone {

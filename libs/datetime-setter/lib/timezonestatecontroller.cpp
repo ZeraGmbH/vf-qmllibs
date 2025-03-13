@@ -11,7 +11,7 @@ TimezoneStateController::TimezoneStateController(std::shared_ptr<AbstractTimedat
             this, &TimezoneStateController::handleCityChange);
 }
 
-const QStringList TimezoneStateController::getTimezones() const
+const QStringList &TimezoneStateController::getTimezones() const
 {
     return m_timezones;
 }

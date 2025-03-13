@@ -2,7 +2,7 @@
 #define TIMEZONEMODELSFACADE_H
 
 #include "abstracttimedate1connection.h"
-#include "timezonemodelbase.h"
+#include "timezonestatecontroller.h"
 #include "timezonemodelcityfiltered.h"
 #include "timezonemodelregion.h"
 #include "timezonetranslations.h"
@@ -45,7 +45,7 @@ private slots:
 private:
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
     std::shared_ptr<TimezoneTranslations> m_translations;
-    std::shared_ptr<TimezoneModelBase> m_modelBase;
+    std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneModelRegion> m_modelRegion;
     std::shared_ptr<TimezoneModelCityFiltered> m_modelCities;
 };
