@@ -25,4 +25,5 @@ SETUP_QTESTS_TIMEDATE1(
     test_timezone_model_base
     test_timezone_model_city_filtered
     test_timezone_model_region
+    test_timezone_state_controller
 )
