@@ -68,6 +68,10 @@ void test_timezone_model_region::checkRegions()
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), "America");
     index = model.index(2, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), "Antarctica");
+
+    int rowCount = model.rowCount();
+    index = model.index(rowCount-1, 0);
+    QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), TimezoneTranslations::noRegionString());
 }
 
 void test_timezone_model_region::checkRegionsTranslatedNoTranslationSet()
