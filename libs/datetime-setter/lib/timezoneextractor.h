@@ -6,8 +6,6 @@
 class TimezoneExtractor
 {
 public:
-    static QString noRegionString();
-    static QString noRegionStringTranslated();
     static QString extractRegion(const QString &timezone);
     static QString extractCityOrCountry(const QString &timezone);
 private:

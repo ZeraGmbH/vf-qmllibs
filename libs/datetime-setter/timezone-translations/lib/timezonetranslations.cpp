@@ -1,5 +1,14 @@
 #include "timezonetranslations.h"
+#include <zeratranslation.h>
 #include <QFile>
+
+static const char* noRegionLabel = "other";
+static const char* noRegionStr = "<other>";
+
+QString TimezoneTranslations::noRegionString()
+{
+    return noRegionStr;
+}
 
 void TimezoneTranslations::setLanguage(const QString &language)
 {
@@ -30,10 +39,19 @@ QString TimezoneTranslations::translate(const QString &regionOrCity) const
     QString tr = regionOrCity;
     if (m_translator) {
         tr = m_translator->translate("", regionOrCity.toLocal8Bit());
-        if (tr.isEmpty())
-            tr = regionOrCity;
+        if (tr.isEmpty()) {
+            if(regionOrCity == noRegionStr)
+                tr = noRegionStringTranslated();
+            else
+                tr = regionOrCity;
+        }
     }
     return tr.replace("_", " ");
+}
+
+QString TimezoneTranslations::noRegionStringTranslated()
+{
+    return QString("<%1>").arg(ZeraTranslation::getInstance()->trValue(noRegionLabel).toString());
 }
 
 bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &language) const

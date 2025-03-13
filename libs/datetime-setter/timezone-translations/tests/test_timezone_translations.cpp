@@ -1,5 +1,7 @@
 #include "test_timezone_translations.h"
 #include "timezonetranslations.h"
+#include <zeratranslation.h>
+#include <timemachineobject.h>
 #include <QSignalSpy>
 #include <QTest>
 
@@ -141,3 +143,16 @@ void test_timezone_translations::translateGermanSwitchFrench()
     QCOMPARE(tzTrans.translate("Europe"), "Europe");
     QCOMPARE(tzTrans.translate("Malta"), "Malte");
 }
+
+/*void test_timezone_translations::translateGermanNoRegionUncommentOnDevEnv()
+{
+    TimezoneTranslations tzTrans;
+
+    // Due to crap ZeraTranslation these are bound in TimezoneModelsFacade and here we
+    // need to call both...
+    tzTrans.setLanguage("de_DE");
+    ZeraTranslation::getInstance()->setLanguage("de_DE");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(tzTrans.translate(TimezoneTranslations::noRegionString()), "<Andere>");
+}*/

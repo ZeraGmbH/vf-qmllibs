@@ -9,6 +9,7 @@ add_library(timezone-translations SHARED
 
 target_link_libraries(timezone-translations
     PUBLIC
+    ZeraTranslation::ZeraTranslation
     Qt5::Core
 )
 

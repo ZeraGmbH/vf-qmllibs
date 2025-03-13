@@ -9,12 +9,14 @@ class TimezoneTranslations : public QObject
 {
     Q_OBJECT
 public:
+    static QString noRegionString();
     void setLanguage(const QString &language);
     QString translate(const QString &regionOrCity) const;
 signals:
     void sigLanguageChanged();
 
 private:
+    static QString noRegionStringTranslated();
     bool isDefaultAndHasNoTranslationFile(const QString &language) const;
     bool isSupportedLanguage(const QString &language) const;
 
