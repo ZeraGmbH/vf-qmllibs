@@ -29,8 +29,8 @@ void Timedate1Connection::start()
         QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
             watcher->deleteLater();
             m_timezonesAvailable = reply.value();
-            emit sigAvailTimezonesChanged();
             updateProperties();
+            emit sigAvailTimezonesChanged();
             emit sigStarted();
             m_syncCheckTimer.start();
         });
