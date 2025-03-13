@@ -9,6 +9,12 @@ class TestTimedate1Connection : public AbstractTimedate1Connection
     Q_OBJECT
 public:
     TestTimedate1Connection(int maxNtpSyncTimeoutMs);
+
+    void setInitialTimezone(const QString &initialTimezone);
+    static const QString getDefaultTimezone() { return "Europe/Berlin"; }
+    static const QString getDefaultRegion();
+    static const QString getDefaultCity();
+
     void start() override;
 
     const QStringList &getAvailTimezones() const override;
@@ -26,7 +32,7 @@ private slots:
     void onSyncDelay();
 private:
     QStringList m_timezonesAvailable;
-    QString m_initialTimezone  = "Europe/Berlin";
+    QString m_initialTimezone = getDefaultTimezone();
     QString m_timezone;
     bool m_ntpAvailable = true;
     bool m_ntpSynced = true;

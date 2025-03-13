@@ -1,4 +1,5 @@
 #include "testtimedate1connection.h"
+#include "timezoneextractor.h"
 #include <QFile>
 
 TestTimedate1Connection::TestTimedate1Connection(int maxNtpSyncTimeoutMs) :
@@ -6,6 +7,21 @@ TestTimedate1Connection::TestTimedate1Connection(int maxNtpSyncTimeoutMs) :
 {
     connect(&m_ntpSyncOnDelay, &TimerSingleShotQt::sigExpired,
             this, &TestTimedate1Connection::onSyncDelay);
+}
+
+void TestTimedate1Connection::setInitialTimezone(const QString &initialTimezone)
+{
+    m_initialTimezone = initialTimezone;
+}
+
+const QString TestTimedate1Connection::getDefaultRegion()
+{
+    return TimezoneExtractor::extractRegion(getDefaultTimezone());
+}
+
+const QString TestTimedate1Connection::getDefaultCity()
+{
+    return TimezoneExtractor::extractCityOrCountry(getDefaultTimezone());
 }
 
 void TestTimedate1Connection::start()
