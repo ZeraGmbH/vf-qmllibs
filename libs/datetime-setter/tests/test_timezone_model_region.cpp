@@ -22,9 +22,8 @@ void test_timezone_model_region::connectionStartEarly()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
     QStringList regions;
     QModelIndex index;
     for(int i=0; i<model.rowCount(); i++) {
@@ -40,9 +39,8 @@ void test_timezone_model_region::connectionStartLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
 
@@ -61,9 +59,8 @@ void test_timezone_model_region::checkRegions()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), "Africa");
@@ -79,9 +76,8 @@ void test_timezone_model_region::checkRegionsTranslatedNoTranslationSet()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), "Africa");
@@ -98,9 +94,8 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetEarly()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
 
     QModelIndex index;
     index = model.index(0, 0);
@@ -117,9 +112,8 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetLate()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneModelBase> baseModel =
-        std::make_shared<TimezoneModelBase>(m_timeDateConnection);
-    TimezoneModelRegion model(baseModel, m_translations);
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneModelRegion model(tzController, m_translations);
 
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);

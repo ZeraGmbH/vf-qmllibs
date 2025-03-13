@@ -1,9 +1,7 @@
 #ifndef TEST_TIMEZONE_MODEL_CITY_FILTERED_H
 #define TEST_TIMEZONE_MODEL_CITY_FILTERED_H
 
-#include "timezonemodelbase.h"
 #include "timezonemodelcityfiltered.h"
-#include <QObject>
 #include <memory>
 
 class test_timezone_model_city_filtered : public QObject
@@ -26,7 +24,7 @@ private:
 
     std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
-    std::shared_ptr<TimezoneModelBase> m_baseModel;
+    std::shared_ptr<TimezoneStateController> m_timezoneController;
 };
 
 #endif // TEST_TIMEZONE_MODEL_CITY_FILTERED_H

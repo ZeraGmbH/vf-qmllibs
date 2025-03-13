@@ -10,7 +10,7 @@ class TimezoneStateController : public QObject
 public:
     explicit TimezoneStateController(std::shared_ptr<AbstractTimedate1Connection> timedateConnection);
 
-    const QStringList getTimezones() const;
+    const QStringList &getTimezones() const;
 
     QString getSelectedRegion() const;
     void setSelectedRegion(const QString &region);

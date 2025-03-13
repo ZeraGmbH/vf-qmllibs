@@ -1,12 +1,13 @@
 #include "timezonemodelregion.h"
+#include "timezoneextractor.h"
 
-TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel,
+TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneStateController> timezoneController,
                                          std::shared_ptr<TimezoneTranslations> translations) :
-    m_sourceModel(sourceModel),
+    m_timezoneController(timezoneController),
     m_translations(translations)
 {
     fillModel();
-    connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,
+    connect(m_timezoneController.get(), &TimezoneStateController::sigTimezonesChanged,
             this, &TimezoneModelRegion::fillModel);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelRegion::fillModel);
@@ -45,15 +46,14 @@ QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
 
 void TimezoneModelRegion::fillModel()
 {
-    int timezoneCount = m_sourceModel->rowCount();
+    const QStringList& timezones = m_timezoneController->getTimezones();
     beginResetModel();
     m_timezoneRegions.clear();
-    for (int i=0; i<timezoneCount; ++i) {
-        QModelIndex index = m_sourceModel->index(i, 0);
-        QString regionStr = m_sourceModel->data(index, TimezoneModelBase::RegionRole).toString();
-        if(isNewRegion(regionStr)) {
+    for (const QString &timezone : timezones) {
+        QString region = TimezoneExtractor::extractRegion(timezone);;
+        if(isNewRegion(region)) {
             Region regionAdd {
-                regionStr
+                region
             };
             m_timezoneRegions.append(regionAdd);
         }

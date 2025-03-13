@@ -1,14 +1,15 @@
 #ifndef TIMEZONEMODELREGION_H
 #define TIMEZONEMODELREGION_H
 
-#include "timezonemodelbase.h"
+#include "timezonestatecontroller.h"
 #include "timezonetranslations.h"
+#include <QAbstractListModel>
 
 class TimezoneModelRegion : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelRegion(std::shared_ptr<TimezoneModelBase> sourceModel,
+    explicit TimezoneModelRegion(std::shared_ptr<TimezoneStateController> timezoneController,
                                  std::shared_ptr<TimezoneTranslations> translations);
 
     QHash<int, QByteArray> roleNames() const override;
@@ -24,7 +25,7 @@ private slots:
 private:
     bool isNewRegion(const QString &region) const;
 
-    std::shared_ptr<TimezoneModelBase> m_sourceModel;
+    std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
     struct Region {
         QString m_region;
