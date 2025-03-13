@@ -3,10 +3,11 @@
 
 
 static const char* noRegionLabel = "other";
+static const char* noRegionStr = "<other>";
 
 QString TimezoneExtractor::noRegionString()
 {
-    return QString("<%1>").arg(noRegionLabel);
+    return noRegionStr;
 }
 
 QString TimezoneExtractor::noRegionStringTranslated()
@@ -16,18 +17,26 @@ QString TimezoneExtractor::noRegionStringTranslated()
 
 QString TimezoneExtractor::extractRegion(const QString &timezone)
 {
-    QString region;
-    int separatorPos = timezone.indexOf("/");
-    if (separatorPos > 0)
-        region = timezone.left(separatorPos);
-    return region;
+    RegionCity regionCity = split(timezone);
+    return regionCity.region;
 }
 
 QString TimezoneExtractor::extractCityOrCountry(const QString &timezone)
 {
-    QString city = timezone;
-    int separatorPos = timezone.indexOf("/");
-    if (separatorPos > 0 && separatorPos < timezone.size()-1)
-        city = timezone.mid(separatorPos+1);
-    return city;
+    RegionCity regionCity = split(timezone);
+    return regionCity.city;
+}
+
+TimezoneExtractor::RegionCity TimezoneExtractor::split(const QString &timezone)
+{
+    RegionCity regionCity {noRegionString(), timezone};
+    QStringList splitList = timezone.split("/");
+    if (splitList.count() >=2) {
+        QString region = splitList.takeFirst();
+        QString city = splitList.join("/");
+        if (!region.isEmpty() && !region.endsWith(" ") &&
+            !city.isEmpty() && !city.startsWith(" "))
+            regionCity = { region, city };
+    }
+    return regionCity;
 }

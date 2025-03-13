@@ -20,6 +20,7 @@ function(SETUP_QTESTS_TIMEDATE1)
 endfunction()
 
 SETUP_QTESTS_TIMEDATE1(
+    test_timezone_extractor
     test_timedate1_connection
     test_timezone_model_base
     test_timezone_model_city_filtered
