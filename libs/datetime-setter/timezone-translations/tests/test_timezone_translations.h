@@ -16,6 +16,10 @@ private slots:
     void switchUSTwice();
     void switchCTwice();
     void translateGermanSwitchFrench();
+
+    // this is special due to ZeraTranslation'implementation / singleton
+    // and almost impossible to test on OE
+    //void translateGermanNoRegionUncommentOnDevEnv();
 };
 
 #endif // TEST_TIMEZONE_TRANSLATIONS_H

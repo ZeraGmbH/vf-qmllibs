@@ -1,13 +1,13 @@
 #include "timezonemodelcityfiltered.h"
 #include "timezonemodelbase.h"
-#include "timezoneextractor.h"
+#include "timezonetranslations.h"
 #include <QMap>
 
 TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneModelBase> sourceModel,
                                                      std::shared_ptr<TimezoneTranslations> translations) :
     m_sourceModel(sourceModel),
     m_translations(translations),
-    m_region(TimezoneExtractor::noRegionString())
+    m_region(TimezoneTranslations::noRegionString())
 {
     fillModel();
     connect(m_sourceModel.get(), &QAbstractItemModel::modelReset,

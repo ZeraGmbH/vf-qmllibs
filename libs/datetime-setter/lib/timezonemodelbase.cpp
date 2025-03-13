@@ -1,5 +1,6 @@
 #include "timezonemodelbase.h"
 #include "timezoneextractor.h"
+#include "timezonetranslations.h"
 
 TimezoneModelBase::TimezoneModelBase(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
     m_timedateConnection(timedateConnection)
@@ -114,7 +115,7 @@ QString TimezoneModelBase::regionFromTimezone(const QString &timezone) const
 {
     QString region = TimezoneExtractor::extractRegion(timezone);
     if (region.isEmpty())
-        region = TimezoneExtractor::noRegionString();
+        region = TimezoneTranslations::noRegionString();
     return region;
 }
 

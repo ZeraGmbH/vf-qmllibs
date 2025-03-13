@@ -17,7 +17,6 @@ add_library(timedate1-interface SHARED
 target_link_libraries(timedate1-interface
     PUBLIC
     Zera::zera-timers
-    ZeraTranslation::ZeraTranslation
     Qt5::DBus
     timezone-translations
 )

@@ -1,19 +1,6 @@
 #include "timezoneextractor.h"
-#include <zeratranslation.h>
-
-
-static const char* noRegionLabel = "other";
-static const char* noRegionStr = "<other>";
-
-QString TimezoneExtractor::noRegionString()
-{
-    return noRegionStr;
-}
-
-QString TimezoneExtractor::noRegionStringTranslated()
-{
-    return QString("<%1>").arg(ZeraTranslation::getInstance()->trValue(noRegionLabel).toString());
-}
+#include "timezonetranslations.h"
+#include <QStringList>
 
 QString TimezoneExtractor::extractRegion(const QString &timezone)
 {
@@ -29,7 +16,7 @@ QString TimezoneExtractor::extractCityOrCountry(const QString &timezone)
 
 TimezoneExtractor::RegionCity TimezoneExtractor::split(const QString &timezone)
 {
-    RegionCity regionCity {noRegionString(), timezone};
+    RegionCity regionCity {TimezoneTranslations::noRegionString(), timezone};
     QStringList splitList = timezone.split("/");
     if (splitList.count() >=2) {
         QString region = splitList.takeFirst();

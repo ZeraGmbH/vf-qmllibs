@@ -1,5 +1,6 @@
 #include "test_timezone_extractor.h"
 #include "timezoneextractor.h"
+#include "timezonetranslations.h"
 #include <QTest>
 
 QTEST_MAIN(test_timezone_extractor)
@@ -16,12 +17,12 @@ void test_timezone_extractor::extractRegionMultipleSeparator()
 
 void test_timezone_extractor::extractRegionEmptyIsOther()
 {
-    QCOMPARE(TimezoneExtractor::extractRegion("Zulu"), TimezoneExtractor::noRegionString());
+    QCOMPARE(TimezoneExtractor::extractRegion("Zulu"), TimezoneTranslations::noRegionString());
 }
 
 void test_timezone_extractor::extractRegionEmptyIsOtherWithSpacedSeparator()
 {
-    QCOMPARE(TimezoneExtractor::extractRegion("Scoresbysund / Ittoqqortoormiit"), TimezoneExtractor::noRegionString());
+    QCOMPARE(TimezoneExtractor::extractRegion("Scoresbysund / Ittoqqortoormiit"), TimezoneTranslations::noRegionString());
 }
 
 void test_timezone_extractor::extractCityRegionNonEmpty()
