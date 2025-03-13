@@ -23,12 +23,11 @@ public:
 private slots:
     void fillModel();
 private:
-    bool isNewRegion(const QString &region) const;
-
     std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
     struct Region {
         QString m_region;
+        QString m_regionTr;
     };
     QList<Region> m_timezoneRegions;
 };

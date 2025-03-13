@@ -1,5 +1,7 @@
 #include "timezonemodelregion.h"
 #include "timezoneextractor.h"
+#include <QMap>
+#include <QSet>
 
 TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneStateController> timezoneController,
                                          std::shared_ptr<TimezoneTranslations> translations) :
@@ -39,7 +41,7 @@ QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
     case RegionRole:
         return region.m_region;
     case RegionRoleTranslated:
-        return m_translations->translate(region.m_region);
+        return region.m_regionTr;
     }
     return QVariant();
 }
@@ -47,24 +49,27 @@ QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
 void TimezoneModelRegion::fillModel()
 {
     const QStringList& timezones = m_timezoneController->getTimezones();
-    beginResetModel();
-    m_timezoneRegions.clear();
+    QMap<QString /*regionTr*/, QString/*region*/> sortedRegions;
+    QSet<QString> addedRegions;
+    bool noRegionFound = false;
     for (const QString &timezone : timezones) {
         QString region = TimezoneExtractor::extractRegion(timezone);;
-        if(isNewRegion(region)) {
-            Region regionAdd {
-                region
-            };
-            m_timezoneRegions.append(regionAdd);
+        if (!addedRegions.contains(region)) {
+            addedRegions.insert(region);
+            if(region != TimezoneTranslations::noRegionString())
+                sortedRegions[m_translations->translate(region)] = region;
+            else
+                noRegionFound = true;
         }
     }
-    endResetModel();
-}
 
-bool TimezoneModelRegion::isNewRegion(const QString &region) const
-{
-    for (const Region &regionAvail : m_timezoneRegions)
-        if(regionAvail.m_region == region)
-            return false;
-    return true;
+    beginResetModel();
+    m_timezoneRegions.clear();
+    for(auto iter=sortedRegions.constBegin(); iter!=sortedRegions.constEnd(); ++iter)
+        m_timezoneRegions.append({iter.value(), iter.key()});
+    if(noRegionFound) {
+        const QString noRegionString = TimezoneTranslations::noRegionString();
+        m_timezoneRegions.append({ noRegionString, m_translations->translate(noRegionString) });
+    }
+    endResetModel();
 }
