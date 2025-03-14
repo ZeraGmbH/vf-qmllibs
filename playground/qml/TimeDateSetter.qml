@@ -24,7 +24,6 @@ ApplicationWindow {
         model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT" ]
         function changeLanguage(newLocaleStr) {
             Z.changeLanguage(newLocaleStr);
-            //ZLocale.localeName = newLocaleStr
         }
         onCurrentTextChanged: {
             changeLanguage(langCombo.currentText)
@@ -47,13 +46,8 @@ ApplicationWindow {
 
                 // Enlightment on how to do this with binding only is welcome
                 readonly property int modelIndex: model.selectedIndex
-                onCurrentIndexChanged: {
-                    model.selectedIndex = currentIndex
-                }
-                onModelIndexChanged: {
-                    currentIndex = modelIndex
-                }
-
+                onCurrentIndexChanged: { model.selectedIndex = currentIndex }
+                onModelIndexChanged: { currentIndex = modelIndex }
             }
             Item { Layout.fillWidth: true }
             ComboBox {
@@ -62,6 +56,11 @@ ApplicationWindow {
 
                 model: timedateModels.cityModel
                 textRole: "citytranslated"
+
+                // Enlightment on how to do this with binding only is welcome
+                readonly property int modelIndex: model.selectedIndex
+                onCurrentIndexChanged: { model.selectedIndex = currentIndex }
+                onModelIndexChanged: { currentIndex = modelIndex }
             }
         }
     }

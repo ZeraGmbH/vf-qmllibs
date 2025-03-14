@@ -18,18 +18,26 @@ public:
         TimezoneRole = Qt::UserRole,
         CityRoleTranslated
     };
+    Q_PROPERTY(int selectedIndex READ getSelectedIndex WRITE setSelectedIndex NOTIFY sigSelectedIndexChanged FINAL)
+    int getSelectedIndex() const;
+    void setSelectedIndex(int index);
+signals:
+    void sigSelectedIndexChanged();
 
 private slots:
     void fillModel();
-
+    void handleCityChange();
 private:
+    int findSelectedCity() const;
     std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
-    struct Timezone {
+    struct City {
         QString m_timezone;
+        QString m_city;
         QString m_cityTranslated;
     };
-    QList<Timezone> m_timezoneFilteredSorted;
+    QList<City> m_citiesSorted;
+    int m_selectedIndex = -1;
 };
 
 #endif // TIMEZONEMODELCITYFILTERED_H
