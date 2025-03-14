@@ -20,10 +20,10 @@ private slots:
     void initialIndexEarly();
     void initialIndexLate();
 
-    void setIndexOutOfLimitMinusOne();
-    void setIndexOutOfLimitLarge();
     void setIndex0();
     void setIndexLast();
+    void setIndexOutOfLimitMinusOne();
+    void setIndexOutOfLimitLarge();
     void setIndexSameNoChange();
     void setIndexTwice();
     void indexChangeOnLanguageChange();
