@@ -6,29 +6,22 @@
 TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneStateController> timezoneController,
                                                      std::shared_ptr<TimezoneTranslations> translations) :
     m_timezoneController(timezoneController),
-    m_translations(translations),
-    m_region(TimezoneTranslations::noRegionString())
+    m_translations(translations)
 {
     fillModel();
     connect(m_timezoneController.get(), &TimezoneStateController::sigTimezonesChanged,
             this, &TimezoneModelCityFiltered::fillModel);
+    connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
+            this, &TimezoneModelCityFiltered::fillModel);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelCityFiltered::fillModel);
-}
-
-void TimezoneModelCityFiltered::setRegion(const QString &region)
-{
-    if (m_region != region) {
-        m_region = region;
-        fillModel();
-    }
 }
 
 QHash<int, QByteArray> TimezoneModelCityFiltered::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
-        { CityOrCountryRoleTranslated, "cityorcountrytranslated"}
+        { CityRoleTranslated, "cityorcountrytranslated"}
     };
     return roles;
 }
@@ -49,7 +42,7 @@ QVariant TimezoneModelCityFiltered::data(const QModelIndex &index, int role) con
     switch(role) {
     case TimezoneRole:
         return timezone.m_timezone;
-    case CityOrCountryRoleTranslated:
+    case CityRoleTranslated:
         return timezone.m_cityTranslated;
     }
     return QVariant();
@@ -57,11 +50,12 @@ QVariant TimezoneModelCityFiltered::data(const QModelIndex &index, int role) con
 
 void TimezoneModelCityFiltered::fillModel()
 {
+    const QString selectedRegion = m_timezoneController->getSelectedRegion();
     const QStringList& timezones = m_timezoneController->getTimezones();
     QMap<QString /* cityTranslated */, QString /*timezone */> citySortedTimezones;
     for (const QString &timezone : timezones) {
         const QString region = TimezoneExtractor::extractRegion(timezone);
-        if (region == m_region) {
+        if (region == selectedRegion) {
             const QString city = TimezoneExtractor::extractCityOrCountry(timezone);
             const QString cityTr = m_translations->translate(city);
             citySortedTimezones[cityTr] = timezone;

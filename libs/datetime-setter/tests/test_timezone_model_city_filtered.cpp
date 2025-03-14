@@ -1,5 +1,4 @@
 #include "test_timezone_model_city_filtered.h"
-#include "testtimedate1connection.h"
 #include "timezonemodelregion.h"
 #include <signalspywaiter.h>
 #include <timemachineobject.h>
@@ -8,9 +7,9 @@
 QTEST_MAIN(test_timezone_model_city_filtered)
 
 static constexpr int waitTimeForStartOrSync = 10;
-static constexpr int timezoneCountEmptyFilter = 45;
+static constexpr int timezoneCountDefault = 64;
 static constexpr int timezoneCountAsia = 99;
-static constexpr int timezoneCountEurope = 64;
+static constexpr int timezoneCountEurope = timezoneCountDefault;
 static constexpr int timezoneCountPacific = 44;
 
 void test_timezone_model_city_filtered::init()
@@ -24,25 +23,26 @@ void test_timezone_model_city_filtered::init()
     QCOMPARE(spyTimezonesAvail.count(), 1);
 }
 
-void test_timezone_model_city_filtered::initialNoRegion()
+void test_timezone_model_city_filtered::initialDefaultRegion()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
+    qInfo("Default region: %s", qPrintable(m_timezoneController->getSelectedRegion()));
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
     qInfo("%s", qPrintable(cities.join("\n")));
 
     QVERIFY(checkProperSort(cities));
-    QCOMPARE(model.rowCount(), timezoneCountEmptyFilter);
-    QCOMPARE(cities.contains("Greenwich"), true);
-    QCOMPARE(cities.contains("GMT"), true);
+    QCOMPARE(model.rowCount(), timezoneCountDefault);
+    QCOMPARE(cities.contains("Berlin"), true);
+    QCOMPARE(cities.contains("Rome"), true);
 }
 
 void test_timezone_model_city_filtered::moveToEurope()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
-    model.setRegion("Europe");
+    m_timezoneController->setSelectedRegion("Europe");
 
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
@@ -58,7 +58,7 @@ void test_timezone_model_city_filtered::moveToAsia()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
-    model.setRegion("Asia");
+    m_timezoneController->setSelectedRegion("Asia");
 
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
@@ -74,7 +74,7 @@ void test_timezone_model_city_filtered::moveToPacific()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
-    model.setRegion("Pacific");
+    m_timezoneController->setSelectedRegion("Pacific");
 
     QStringList cities = fetchFilteredAndSortedCities(model);
     qInfo("Cities:");
@@ -90,7 +90,7 @@ void test_timezone_model_city_filtered::moveToAsiaChangeLanguageDe()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
-    model.setRegion("Asia");
+    m_timezoneController->setSelectedRegion("Asia");
     m_translations->setLanguage("de_DE");
     TimeMachineObject::feedEventLoop();
 
@@ -111,7 +111,7 @@ void test_timezone_model_city_filtered::asiaAndLanguageDeThenStart()
     m_timezoneController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
 
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
-    model.setRegion("Asia");
+    m_timeDateConnection->setInitialTimezone("Asia/Shanghai");
     m_translations->setLanguage("de_DE");
 
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -133,7 +133,7 @@ void test_timezone_model_city_filtered::languageDeMoveToPacificChange()
 {
     TimezoneModelCityFiltered model(m_timezoneController, m_translations);
 
-    model.setRegion("Pacific");
+    m_timezoneController->setSelectedRegion("Pacific");
     m_translations->setLanguage("de_DE");
 
     QStringList cities = fetchFilteredAndSortedCities(model);
@@ -159,7 +159,7 @@ void test_timezone_model_city_filtered::checkMaxCities()
     for (int row=0; row<regionModel.rowCount(); row++) {
         QModelIndex index = regionModel.index(row, 0);
         QString region = regionModel.data(index, TimezoneModelRegion::RegionRole).toString();
-        model.setRegion(region);
+        m_timezoneController->setSelectedRegion(region);
         int cityCount = model.rowCount();
         totaltimezoneCount += cityCount;
         if (cityCount > maxCities) {
@@ -178,7 +178,7 @@ QStringList test_timezone_model_city_filtered::fetchFilteredAndSortedCities(Time
     QModelIndex index;
     for(int i=0; i<model.rowCount(); i++) {
         index = model.index(i, 0);
-        QString city = model.data(index, TimezoneModelCityFiltered::CityOrCountryRoleTranslated).toString();
+        QString city = model.data(index, TimezoneModelCityFiltered::CityRoleTranslated).toString();
         cities.append(city);
     }
     return cities;
