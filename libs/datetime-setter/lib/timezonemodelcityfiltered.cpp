@@ -21,7 +21,7 @@ QHash<int, QByteArray> TimezoneModelCityFiltered::roleNames() const
 {
     static QHash<int, QByteArray> roles {
         { TimezoneRole, "timezone" },
-        { CityRoleTranslated, "cityorcountrytranslated"}
+        { CityRoleTranslated, "citytranslated"}
     };
     return roles;
 }
@@ -56,7 +56,7 @@ void TimezoneModelCityFiltered::fillModel()
     for (const QString &timezone : timezones) {
         const QString region = TimezoneExtractor::extractRegion(timezone);
         if (region == selectedRegion) {
-            const QString city = TimezoneExtractor::extractCityOrCountry(timezone);
+            const QString city = TimezoneExtractor::extractCity(timezone);
             const QString cityTr = m_translations->translate(city);
             citySortedTimezones[cityTr] = timezone;
         }

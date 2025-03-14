@@ -8,7 +8,7 @@ QString TimezoneExtractor::extractRegion(const QString &timezone)
     return regionCity.region;
 }
 
-QString TimezoneExtractor::extractCityOrCountry(const QString &timezone)
+QString TimezoneExtractor::extractCity(const QString &timezone)
 {
     RegionCity regionCity = split(timezone);
     return regionCity.city;

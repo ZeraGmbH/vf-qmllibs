@@ -61,7 +61,7 @@ ApplicationWindow {
                 Layout.preferredWidth: 390
 
                 model: timedateModels.cityModel
-                textRole: "cityorcountrytranslated"
+                textRole: "citytranslated"
             }
         }
     }
