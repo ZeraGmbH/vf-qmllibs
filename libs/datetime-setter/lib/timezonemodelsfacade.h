@@ -41,7 +41,7 @@ signals:
     void sigCanApplyChanged();
 
 private slots:
-    void onLanguageChanged();
+    void handleLanguageChange();
 private:
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
     std::shared_ptr<TimezoneTranslations> m_translations;
