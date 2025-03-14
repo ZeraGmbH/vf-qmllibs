@@ -11,6 +11,8 @@ TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneStateController
     fillModel();
     connect(m_timezoneController.get(), &TimezoneStateController::sigTimezonesChanged,
             this, &TimezoneModelRegion::fillModel);
+    connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
+            this, &TimezoneModelRegion::onRegionChanged);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelRegion::fillModel);
 }
@@ -46,6 +48,23 @@ QVariant TimezoneModelRegion::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
+int TimezoneModelRegion::getSelectedIndex() const
+{
+    return m_selectedIndex;
+}
+
+void TimezoneModelRegion::setSelectedIndex(int index)
+{
+    if (index < 0 || index >= m_timezoneRegions.count()) {
+        qWarning("TimezoneModelRegion::setSelectedIndex out of limit: %i!", index);
+        return;
+    }
+    if (m_selectedIndex != index) {
+        const QString &newRegion = m_timezoneRegions[index].m_region;
+        m_timezoneController->setSelectedRegion(newRegion);
+    }
+}
+
 void TimezoneModelRegion::fillModel()
 {
     const QStringList& timezones = m_timezoneController->getTimezones();
@@ -65,11 +84,32 @@ void TimezoneModelRegion::fillModel()
 
     beginResetModel();
     m_timezoneRegions.clear();
-    for(auto iter=sortedRegions.constBegin(); iter!=sortedRegions.constEnd(); ++iter)
+    for (auto iter=sortedRegions.constBegin(); iter!=sortedRegions.constEnd(); ++iter)
         m_timezoneRegions.append({iter.value(), iter.key()});
-    if(noRegionFound) {
+    if (noRegionFound) {
         const QString noRegionString = TimezoneTranslations::noRegionString();
         m_timezoneRegions.append({ noRegionString, m_translations->translate(noRegionString) });
     }
     endResetModel();
+    onRegionChanged();
+}
+
+void TimezoneModelRegion::onRegionChanged()
+{
+    int newIndex = findSelectedIndex();
+    if (m_selectedIndex != newIndex) {
+        m_selectedIndex = newIndex;
+        emit sigSelectedIndexChanged();
+    }
+}
+
+int TimezoneModelRegion::findSelectedIndex() const
+{
+    const QString currentRegion = m_timezoneController->getSelectedRegion();
+    for (int i=0; i<m_timezoneRegions.count(); i++) {
+        const Region &region = m_timezoneRegions[i];
+        if (region.m_region == currentRegion)
+            return i;
+    }
+    return -1;
 }

@@ -23,7 +23,18 @@ ApplicationWindow {
 
         ComboBox {
             id: regions
+
             model: timedateModels.regionModel
+
+            // Enlightment on how to do this with binding only is welcome
+            readonly property int modelIndex: model.selectedIndex
+            onCurrentIndexChanged: {
+                model.selectedIndex = currentIndex
+            }
+            onModelIndexChanged: {
+                currentIndex = modelIndex
+            }
+
             textRole: "regiontranslated"
             Layout.preferredWidth: 400
         }
@@ -34,8 +45,7 @@ ApplicationWindow {
             model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT" ]
             function changeLanguage(newLocaleStr) {
                 Z.changeLanguage(newLocaleStr);
-                //VirtualKeyboardSettings.locale = newLocaleStr
-                ZLocale.localeName = newLocaleStr
+                //ZLocale.localeName = newLocaleStr
             }
             onCurrentTextChanged: {
                 changeLanguage(langCombo.currentText)
