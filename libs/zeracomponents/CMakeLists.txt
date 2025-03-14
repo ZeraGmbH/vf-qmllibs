@@ -25,6 +25,7 @@ target_link_libraries(
     zeracomponents
     PUBLIC
     qmlhelpers
+    timedate-qml-wrapper
     )
 
 target_include_directories(zeracomponents
