@@ -71,8 +71,7 @@ void TimezoneStateController::fillTimezones()
 void TimezoneStateController::handleCityChange()
 {
     const QString currentCity = TimezoneExtractor::extractCity(m_timedateConnection->getTimeszone());
-    bool newCanApply = !m_selectedCity.isEmpty() &&
-                       m_selectedCity != currentCity;
+    bool newCanApply = !m_selectedCity.isEmpty() && m_selectedCity != currentCity;
     if (m_canApply != newCanApply) {
         m_canApply = newCanApply;
         emit sigCanApplyChanged();

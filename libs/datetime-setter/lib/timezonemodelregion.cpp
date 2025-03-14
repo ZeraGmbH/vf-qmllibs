@@ -59,10 +59,8 @@ void TimezoneModelRegion::setSelectedIndex(int index)
         qWarning("TimezoneModelRegion::setSelectedIndex out of limit: %i!", index);
         return;
     }
-    if (m_selectedIndex != index) {
-        const QString &newRegion = m_timezoneRegions[index].m_region;
-        m_timezoneController->setSelectedRegion(newRegion);
-    }
+    const QString &newRegion = m_timezoneRegions[index].m_region;
+    m_timezoneController->setSelectedRegion(newRegion);
 }
 
 void TimezoneModelRegion::fillModel()
