@@ -11,14 +11,12 @@ class TimezoneModelCityFiltered : public QAbstractListModel
 public:
     explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneStateController> timezoneController,
                                        std::shared_ptr<TimezoneTranslations> translations);
-    Q_INVOKABLE void setRegion(const QString &region);
-
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     enum Roles {
         TimezoneRole = Qt::UserRole,
-        CityOrCountryRoleTranslated
+        CityRoleTranslated
     };
 
 private slots:
@@ -27,7 +25,6 @@ private slots:
 private:
     std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
-    QString m_region;
     struct Timezone {
         QString m_timezone;
         QString m_cityTranslated;

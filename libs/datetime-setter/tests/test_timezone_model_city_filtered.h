@@ -2,6 +2,7 @@
 #define TEST_TIMEZONE_MODEL_CITY_FILTERED_H
 
 #include "timezonemodelcityfiltered.h"
+#include "testtimedate1connection.h"
 #include <memory>
 
 class test_timezone_model_city_filtered : public QObject
@@ -9,7 +10,7 @@ class test_timezone_model_city_filtered : public QObject
     Q_OBJECT
 private slots:
     void init();
-    void initialNoRegion();
+    void initialDefaultRegion();
     void moveToEurope();
     void moveToAsia();
     void moveToPacific();
@@ -23,7 +24,7 @@ private:
     bool checkProperSort(const QStringList &cities);
 
     std::shared_ptr<TimezoneTranslations> m_translations;
-    std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
+    std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;
     std::shared_ptr<TimezoneStateController> m_timezoneController;
 };
 
