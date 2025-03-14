@@ -13,6 +13,8 @@ RowLayout {
     ComboBox {
         id: regions
         Layout.fillWidth: true
+        Layout.fillHeight: true
+        font.pointSize: timezoneRow.height * 0.3
 
         model: timedateModels.regionModel
         textRole: "regiontranslated"
@@ -25,6 +27,8 @@ RowLayout {
     ComboBox {
         id: cities
         Layout.fillWidth: true
+        Layout.fillHeight: true
+        font.pointSize: timezoneRow.height * 0.3
 
         model: timedateModels.cityModel
         textRole: "citytranslated"
