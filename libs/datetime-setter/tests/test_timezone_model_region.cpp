@@ -173,48 +173,6 @@ void test_timezone_model_region::initialIndexLate()
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TestTimedate1Connection::getDefaultRegion());
 }
 
-void test_timezone_model_region::setIndexOutOfLimitMinusOne()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    QCOMPARE(spyTimezonesAvail.count(), 1);
-
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
-    QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
-    TimezoneModelRegion model(tzController, m_translations);
-    QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
-
-    model.setSelectedIndex(-1);
-    QCOMPARE(spyModelIndexChanged.count(), 0);
-    QCOMPARE(regionSpy.count(), 0);
-
-    int selectedIndex = model.getSelectedIndex();
-    QModelIndex index = model.index(selectedIndex, 0);
-    QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TestTimedate1Connection::getDefaultRegion());
-}
-
-void test_timezone_model_region::setIndexOutOfLimitLarge()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    QCOMPARE(spyTimezonesAvail.count(), 1);
-
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
-    QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
-    TimezoneModelRegion model(tzController, m_translations);
-    QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
-
-    model.setSelectedIndex(10000);
-    QCOMPARE(spyModelIndexChanged.count(), 0);
-    QCOMPARE(regionSpy.count(), 0);
-
-    int selectedIndex = model.getSelectedIndex();
-    QModelIndex index = model.index(selectedIndex, 0);
-    QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TestTimedate1Connection::getDefaultRegion());
-}
-
 void test_timezone_model_region::setIndex0()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -259,6 +217,48 @@ void test_timezone_model_region::setIndexLast()
     int selectedIndex = model.getSelectedIndex();
     QModelIndex index = model.index(selectedIndex, 0);
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TimezoneTranslations::noRegionString());
+}
+
+void test_timezone_model_region::setIndexOutOfLimitMinusOne()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    QCOMPARE(spyTimezonesAvail.count(), 1);
+
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
+    TimezoneModelRegion model(tzController, m_translations);
+    QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
+
+    model.setSelectedIndex(-1);
+    QCOMPARE(spyModelIndexChanged.count(), 0);
+    QCOMPARE(regionSpy.count(), 0);
+
+    int selectedIndex = model.getSelectedIndex();
+    QModelIndex index = model.index(selectedIndex, 0);
+    QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TestTimedate1Connection::getDefaultRegion());
+}
+
+void test_timezone_model_region::setIndexOutOfLimitLarge()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    QCOMPARE(spyTimezonesAvail.count(), 1);
+
+    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
+    TimezoneModelRegion model(tzController, m_translations);
+    QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
+
+    model.setSelectedIndex(10000);
+    QCOMPARE(spyModelIndexChanged.count(), 0);
+    QCOMPARE(regionSpy.count(), 0);
+
+    int selectedIndex = model.getSelectedIndex();
+    QModelIndex index = model.index(selectedIndex, 0);
+    QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), TestTimedate1Connection::getDefaultRegion());
 }
 
 void test_timezone_model_region::setIndexSameNoChange()
@@ -331,7 +331,6 @@ void test_timezone_model_region::indexChangeOnLanguageChange()
 
     int selectedIndex = model.getSelectedIndex();
     QModelIndex index = model.index(selectedIndex, 0);
-    // we cannot check translation
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRoleTranslated), "Kanada");
 }
 
@@ -361,5 +360,6 @@ void test_timezone_model_region::noIndexChangeOnLanguageChange()
 
     int selectedIndex = model.getSelectedIndex();
     QModelIndex index = model.index(selectedIndex, 0);
+    // ZeraTranslation does not change language
     QCOMPARE(model.data(index, TimezoneModelRegion::RegionRole), TimezoneTranslations::noRegionString());
 }
