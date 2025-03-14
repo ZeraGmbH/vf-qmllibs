@@ -27,7 +27,7 @@ signals:
 
 private slots:
     void fillModel();
-    void onRegionChanged();
+    void handleRegionChanged();
 private:
     int findSelectedIndex() const;
     std::shared_ptr<TimezoneStateController> m_timezoneController;

@@ -12,7 +12,7 @@ TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneStateController
     connect(m_timezoneController.get(), &TimezoneStateController::sigTimezonesChanged,
             this, &TimezoneModelRegion::fillModel);
     connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
-            this, &TimezoneModelRegion::onRegionChanged);
+            this, &TimezoneModelRegion::handleRegionChanged);
     connect(m_translations.get(), &TimezoneTranslations::sigLanguageChanged,
             this, &TimezoneModelRegion::fillModel);
 }
@@ -91,10 +91,10 @@ void TimezoneModelRegion::fillModel()
         m_timezoneRegions.append({ noRegionString, m_translations->translate(noRegionString) });
     }
     endResetModel();
-    onRegionChanged();
+    handleRegionChanged();
 }
 
-void TimezoneModelRegion::onRegionChanged()
+void TimezoneModelRegion::handleRegionChanged()
 {
     int newIndex = findSelectedIndex();
     if (m_selectedIndex != newIndex) {
