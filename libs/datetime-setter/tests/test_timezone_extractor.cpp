@@ -27,20 +27,20 @@ void test_timezone_extractor::extractRegionEmptyIsOtherWithSpacedSeparator()
 
 void test_timezone_extractor::extractCityRegionNonEmpty()
 {
-    QCOMPARE(TimezoneExtractor::extractCityOrCountry("Africa/Casablanca"), "Casablanca");
+    QCOMPARE(TimezoneExtractor::extractCity("Africa/Casablanca"), "Casablanca");
 }
 
 void test_timezone_extractor::extractCityRegionMultipleSeparator()
 {
-    QCOMPARE(TimezoneExtractor::extractCityOrCountry("America/North_Dakota/New_Salem"), "North_Dakota/New_Salem");
+    QCOMPARE(TimezoneExtractor::extractCity("America/North_Dakota/New_Salem"), "North_Dakota/New_Salem");
 }
 
 void test_timezone_extractor::extractCityRegionEmpty()
 {
-    QCOMPARE(TimezoneExtractor::extractCityOrCountry("Zulu"), "Zulu");
+    QCOMPARE(TimezoneExtractor::extractCity("Zulu"), "Zulu");
 }
 
 void test_timezone_extractor::extractCityRegionEmptyWithSpacedSeparator()
 {
-    QCOMPARE(TimezoneExtractor::extractCityOrCountry("Scoresbysund / Ittoqqortoormiit"), "Scoresbysund / Ittoqqortoormiit");
+    QCOMPARE(TimezoneExtractor::extractCity("Scoresbysund / Ittoqqortoormiit"), "Scoresbysund / Ittoqqortoormiit");
 }

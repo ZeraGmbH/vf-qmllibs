@@ -7,7 +7,7 @@ class TimezoneExtractor
 {
 public:
     static QString extractRegion(const QString &timezone);
-    static QString extractCityOrCountry(const QString &timezone);
+    static QString extractCity(const QString &timezone);
 private:
     struct RegionCity {
         QString region;

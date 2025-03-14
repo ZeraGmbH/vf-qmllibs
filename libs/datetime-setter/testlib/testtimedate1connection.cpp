@@ -21,7 +21,7 @@ const QString TestTimedate1Connection::getDefaultRegion()
 
 const QString TestTimedate1Connection::getDefaultCity()
 {
-    return TimezoneExtractor::extractCityOrCountry(getDefaultTimezone());
+    return TimezoneExtractor::extractCity(getDefaultTimezone());
 }
 
 void TestTimedate1Connection::start()

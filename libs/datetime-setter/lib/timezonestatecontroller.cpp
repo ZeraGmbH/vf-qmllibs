@@ -64,13 +64,13 @@ void TimezoneStateController::fillTimezones()
         emit sigTimezonesChanged();
         const QString newTimezone = m_timedateConnection->getTimeszone();
         setSelectedRegion(TimezoneExtractor::extractRegion(newTimezone));
-        setSelectedCity(TimezoneExtractor::extractCityOrCountry(newTimezone));
+        setSelectedCity(TimezoneExtractor::extractCity(newTimezone));
     }
 }
 
 void TimezoneStateController::handleCityChange()
 {
-    const QString currentCity = TimezoneExtractor::extractCityOrCountry(m_timedateConnection->getTimeszone());
+    const QString currentCity = TimezoneExtractor::extractCity(m_timedateConnection->getTimeszone());
     bool newCanApply = !m_selectedCity.isEmpty() &&
                        m_selectedCity != currentCity;
     if (m_canApply != newCanApply) {
@@ -91,7 +91,7 @@ bool TimezoneStateController::isValidCity(const QString &city) const
 {
     for (const QString &timezone : m_timezones)
         if (m_selectedRegion == TimezoneExtractor::extractRegion(timezone))
-            if (city == TimezoneExtractor::extractCityOrCountry(timezone))
+            if (city == TimezoneExtractor::extractCity(timezone))
                 return true;
     return false;
 }
