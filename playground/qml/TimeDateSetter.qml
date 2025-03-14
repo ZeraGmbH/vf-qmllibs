@@ -16,42 +16,52 @@ ApplicationWindow {
         id: timedateModels
     }
 
-    RowLayout {
+    ComboBox {
+        id: langCombo
+        anchors.top: parent.top
         anchors.left: parent.left
         anchors.right: parent.right
-        anchors.top: parent.top
-
-        ComboBox {
-            id: regions
-
-            model: timedateModels.regionModel
-
-            // Enlightment on how to do this with binding only is welcome
-            readonly property int modelIndex: model.selectedIndex
-            onCurrentIndexChanged: {
-                model.selectedIndex = currentIndex
-            }
-            onModelIndexChanged: {
-                currentIndex = modelIndex
-            }
-
-            textRole: "regiontranslated"
-            Layout.preferredWidth: 400
+        model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT" ]
+        function changeLanguage(newLocaleStr) {
+            Z.changeLanguage(newLocaleStr);
+            //ZLocale.localeName = newLocaleStr
         }
-        Item { Layout.fillWidth: true }
-        ComboBox {
-            id: langCombo
-            Layout.preferredWidth: 200
-            model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT" ]
-            function changeLanguage(newLocaleStr) {
-                Z.changeLanguage(newLocaleStr);
-                //ZLocale.localeName = newLocaleStr
+        onCurrentTextChanged: {
+            changeLanguage(langCombo.currentText)
+        }
+        Component.onCompleted: {
+            changeLanguage(langCombo.currentText)
+        }
+    }
+    ColumnLayout {
+        anchors.top: langCombo.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        RowLayout{
+            ComboBox {
+                id: regions
+                Layout.preferredWidth: 390
+
+                model: timedateModels.regionModel
+                textRole: "regiontranslated"
+
+                // Enlightment on how to do this with binding only is welcome
+                readonly property int modelIndex: model.selectedIndex
+                onCurrentIndexChanged: {
+                    model.selectedIndex = currentIndex
+                }
+                onModelIndexChanged: {
+                    currentIndex = modelIndex
+                }
+
             }
-            onCurrentTextChanged: {
-                changeLanguage(langCombo.currentText)
-            }
-            Component.onCompleted: {
-                changeLanguage(langCombo.currentText)
+            Item { Layout.fillWidth: true }
+            ComboBox {
+                id: cities
+                Layout.preferredWidth: 390
+
+                model: timedateModels.cityModel
+                textRole: "cityorcountrytranslated"
             }
         }
     }
