@@ -19,10 +19,17 @@ public:
         RegionRole = Qt::UserRole,
         RegionRoleTranslated
     };
+    Q_PROPERTY(int selectedIndex READ getSelectedIndex WRITE setSelectedIndex NOTIFY sigSelectedIndexChanged FINAL)
+    int getSelectedIndex() const;
+    void setSelectedIndex(int index);
+signals:
+    void sigSelectedIndexChanged();
 
 private slots:
     void fillModel();
+    void onRegionChanged();
 private:
+    int findSelectedIndex() const;
     std::shared_ptr<TimezoneStateController> m_timezoneController;
     std::shared_ptr<TimezoneTranslations> m_translations;
     struct Region {
@@ -30,6 +37,7 @@ private:
         QString m_regionTr;
     };
     QList<Region> m_timezoneRegions;
+    int m_selectedIndex = -1;
 };
 
 #endif // TIMEZONEMODELREGION_H

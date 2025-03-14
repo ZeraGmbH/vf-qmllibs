@@ -17,6 +17,18 @@ private slots:
     void checkRegionsTranslatedTranslationSetEarly();
     void checkRegionsTranslatedTranslationSetLate();
 
+    void initialIndexEarly();
+    void initialIndexLate();
+
+    void setIndexOutOfLimitMinusOne();
+    void setIndexOutOfLimitLarge();
+    void setIndex0();
+    void setIndexLast();
+    void setIndexSameNoChange();
+    void setIndexTwice();
+    void indexChangeOnLanguageChange();
+    void noIndexChangeOnLanguageChange();
+
 private:
     std::shared_ptr<TimezoneTranslations> m_translations;
     std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
