@@ -1,7 +1,7 @@
 #include "test_timezone_state_controller.h"
-#include "timezonestatecontroller.h"
 #include "testtimedate1connection.h"
 #include <signalspywaiter.h>
+#include <timemachineobject.h>
 #include <QTest>
 
 QTEST_MAIN(test_timezone_state_controller)
@@ -390,4 +390,139 @@ void test_timezone_state_controller::invalidCityKeepsCanApply()
     controller.setSelectedCity("foo");
     QCOMPARE(spyCanApplyChanged.count(), 1);
     QCOMPARE(controller.canApply(), true);
+}
+
+void test_timezone_state_controller::handleInitialThenTimezoneChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    m_timeDateConnection->setTimezone("Atlantic/Madeira");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(signalNamesReceived.count(), 2);
+    QCOMPARE(signalNamesReceived[0], "sigRegionChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCityChanged");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::handleChangeRegionThenTimezoneChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Atlantic");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "");
+    QCOMPARE(controller.canApply(), false);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    m_timeDateConnection->setTimezone("Atlantic/Madeira");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(signalNamesReceived.count(), 1);
+    QCOMPARE(signalNamesReceived[0], "sigCityChanged");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneChangeToSame()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Atlantic");
+    controller.setSelectedCity("Madeira");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    m_timeDateConnection->setTimezone("Atlantic/Madeira");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(signalNamesReceived.count(), 1);
+    QCOMPARE(signalNamesReceived[0], "sigCanApplyChanged");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneChangeToSameRegionDifferentCity()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Atlantic");
+    controller.setSelectedCity("Madeira");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    m_timeDateConnection->setTimezone("Atlantic/Cape_Verde");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(signalNamesReceived.count(), 2);
+    QCOMPARE(signalNamesReceived[0], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCanApplyChanged");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Cape_Verde");
+    QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneChangeToDiffentRegionDifferentCity()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Atlantic");
+    controller.setSelectedCity("Madeira");
+    QCOMPARE(controller.getSelectedRegion(), "Atlantic");
+    QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canApply(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    m_timeDateConnection->setTimezone("Australia/Sydney");
+    TimeMachineObject::feedEventLoop();
+
+    QCOMPARE(signalNamesReceived.count(), 3);
+    QCOMPARE(signalNamesReceived[0], "sigRegionChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanApplyChanged");
+    QCOMPARE(controller.getSelectedRegion(), "Australia");
+    QCOMPARE(controller.getSelectedCity(), "Sydney");
+    QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList)
+{
+    connect(controller, &TimezoneStateController::sigCanApplyChanged, [&]() {
+        signalNameList.append("sigCanApplyChanged");
+    });
+    connect(controller, &TimezoneStateController::sigCityChanged, [&]() {
+        signalNameList.append("sigCityChanged");
+    });
+    connect(controller, &TimezoneStateController::sigRegionChanged, [&]() {
+        signalNameList.append("sigRegionChanged");
+    });
 }

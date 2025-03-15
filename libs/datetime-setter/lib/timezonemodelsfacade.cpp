@@ -16,6 +16,7 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
     m_modelRegion(std::make_shared<TimezoneModelRegion>(m_timezoneController, m_translations)),
     m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_timezoneController, m_translations))
 {
+    handleLanguageChange();
     connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
             this, &TimezoneModelsFacade::sigRegionSelectedChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCityChanged,
@@ -23,7 +24,7 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
             this, &TimezoneModelsFacade::sigCanApplyChanged);
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
-            this, &TimezoneModelsFacade::onLanguageChanged);
+            this, &TimezoneModelsFacade::handleLanguageChange);
 }
 
 QAbstractListModel *TimezoneModelsFacade::getRegionModel() const
@@ -66,7 +67,7 @@ void TimezoneModelsFacade::doApply()
     m_timezoneController->doApply();
 }
 
-void TimezoneModelsFacade::onLanguageChanged()
+void TimezoneModelsFacade::handleLanguageChange()
 {
     m_translations->setLanguage(ZeraTranslation::getInstance()->getLanguage());
 }

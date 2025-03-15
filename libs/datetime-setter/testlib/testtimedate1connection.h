@@ -32,8 +32,6 @@ private slots:
     void onSyncDelay();
 private:
     QStringList m_timezonesAvailable;
-    QString m_initialTimezone = getDefaultTimezone();
-    QString m_timezone;
     bool m_ntpAvailable = true;
     bool m_ntpSynced = true;
     bool m_ntpActive = true;

@@ -57,7 +57,9 @@ int TimezoneModelCityFiltered::getSelectedIndex() const
 
 void TimezoneModelCityFiltered::setSelectedIndex(int index)
 {
-    if(index < 0 || index >= m_citiesSorted.count()) {
+    if (index == m_selectedIndex)
+        return;
+    if (index < 0 || index >= m_citiesSorted.count()) {
         qWarning("TimezoneModelCityFiltered::setSelectedIndex out of limit: %i!", index);
         return;
     }

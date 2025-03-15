@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.14
 import QtQuick.Layouts 1.14
 import ZeraLocale 1.0
 import ZeraTranslation 1.0
-import Timedate 1.0
+import ZeraComponents 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -12,9 +12,6 @@ ApplicationWindow {
     title: "TimedateSetter test"
     width: 800
     height: 800
-    TimedateModels {
-        id: timedateModels
-    }
 
     ComboBox {
         id: langCombo
@@ -36,32 +33,8 @@ ApplicationWindow {
         anchors.top: langCombo.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        RowLayout{
-            ComboBox {
-                id: regions
-                Layout.preferredWidth: 390
-
-                model: timedateModels.regionModel
-                textRole: "regiontranslated"
-
-                // Enlightment on how to do this with binding only is welcome
-                readonly property int modelIndex: model.selectedIndex
-                onCurrentIndexChanged: { model.selectedIndex = currentIndex }
-                onModelIndexChanged: { currentIndex = modelIndex }
-            }
-            Item { Layout.fillWidth: true }
-            ComboBox {
-                id: cities
-                Layout.preferredWidth: 390
-
-                model: timedateModels.cityModel
-                textRole: "citytranslated"
-
-                // Enlightment on how to do this with binding only is welcome
-                readonly property int modelIndex: model.selectedIndex
-                onCurrentIndexChanged: { model.selectedIndex = currentIndex }
-                onModelIndexChanged: { currentIndex = modelIndex }
-            }
+        TimezoneComboRow {
+            id: timezoneRow
         }
     }
 }
