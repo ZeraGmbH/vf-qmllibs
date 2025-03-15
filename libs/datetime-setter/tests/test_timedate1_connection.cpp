@@ -20,7 +20,7 @@ void test_timedate1_connection::initTestCase_data()
 
 void test_timedate1_connection::init()
 {
-    setupConnection();
+    setupConnection(m_connection);
 
     QSignalSpy spyStart(m_connection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
     m_connection->start();
@@ -162,6 +162,26 @@ void test_timedate1_connection::changeTimezoneInvalid()
     QCOMPARE(spyNtpSynced.count(), 0);
 }
 
+void test_timedate1_connection::changeTimezoneValidExternally()
+{
+    std::unique_ptr<AbstractTimedate1Connection> externalConnection;
+    setupConnection(externalConnection);
+    QSignalSpy spyStartExternal(externalConnection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
+    externalConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyStartExternal, 1, m_waitTimeNoPolkit);
+    QCOMPARE(spyStartExternal.count(), 1);
+
+    QSignalSpy spyTimezoneInternal(m_connection.get(), &Timedate1Connection::sigTimezoneChanged);
+    const QString timezoneValid = "Etc/GMT+0";
+    externalConnection->setTimezone(timezoneValid);
+
+    SignalSpyWaiter::waitForSignals(&spyTimezoneInternal, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyTimezoneInternal.count(), 1);
+    QCOMPARE(m_connection->getTimeszone(), timezoneValid);
+
+    waitNtpSync();
+}
+
 void test_timedate1_connection::changeTimeNtpOn()
 {
     QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeChanged);
@@ -201,7 +221,7 @@ void test_timedate1_connection::changeTimeNtpOff()
     QCOMPARE(m_connection->getNtpSynced(), false);
 }
 
-void test_timedate1_connection::setupConnection()
+void test_timedate1_connection::setupConnection(std::unique_ptr<AbstractTimedate1Connection> &connection)
 {
     QFETCH_GLOBAL(QString, testType);
     qInfo("Test type: %s", qPrintable(testType));
@@ -209,13 +229,13 @@ void test_timedate1_connection::setupConnection()
         m_ntpSyncMaxWaitMs = 10000;
         m_waitTimeToEnterPolkitPassword = 20000;
         m_waitTimeNoPolkit = 1000;
-        m_connection = std::make_unique<Timedate1Connection>();
+        connection = std::make_unique<Timedate1Connection>();
     }
     else {
         m_ntpSyncMaxWaitMs = 10;
         m_waitTimeToEnterPolkitPassword = 10;
         m_waitTimeNoPolkit = 10;
-        m_connection = std::make_unique<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
+        connection = std::make_unique<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
     }
 }
 
