@@ -23,6 +23,10 @@ public:
 
     void setDateTime(const QDateTime dateTime) override;
 
+private slots:
+    void onPropertiesChanged(const QString &interface,
+                             const QVariantMap &changed_properties,
+                             const QStringList &invalidated_properties);
 private:
     void updateProperties();
     void updateTimezone(const QString &timezone);

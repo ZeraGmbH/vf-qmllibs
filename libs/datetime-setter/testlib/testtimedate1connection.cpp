@@ -1,17 +1,19 @@
 #include "testtimedate1connection.h"
+#include "testtimedate1storage.h"
 #include "timezoneextractor.h"
 #include <QFile>
 
 TestTimedate1Connection::TestTimedate1Connection(int maxNtpSyncTimeoutMs) :
     m_ntpSyncOnDelay(maxNtpSyncTimeoutMs/2)
 {
+    setInitialTimezone(getDefaultTimezone());
     connect(&m_ntpSyncOnDelay, &TimerSingleShotQt::sigExpired,
             this, &TestTimedate1Connection::onSyncDelay);
 }
 
 void TestTimedate1Connection::setInitialTimezone(const QString &initialTimezone)
 {
-    m_initialTimezone = initialTimezone;
+    TestTimedate1Storage::setInitialTimezone(initialTimezone);
 }
 
 const QString TestTimedate1Connection::getDefaultRegion()
@@ -27,16 +29,17 @@ const QString TestTimedate1Connection::getDefaultCity()
 void TestTimedate1Connection::start()
 {
     Q_INIT_RESOURCE(datetime_setter_test);
-    if(m_timezonesAvailable.isEmpty()) {
+    if (m_timezonesAvailable.isEmpty()) {
         QFile file("://available_timezones");
         if(file.open(QFile::ReadOnly)) {
             QString timezones = file.readAll();
             m_timezonesAvailable = timezones.split("\n", Qt::SkipEmptyParts);
             file.close();
         }
+        connect(TestTimedate1Storage::getInstance(), &TestTimedate1Storage::sigTimezoneChanged,
+                this, &TestTimedate1Connection::sigTimezoneChanged);
         QMetaObject::invokeMethod(this, "sigAvailTimezonesChanged", Qt::QueuedConnection);
         QMetaObject::invokeMethod(this, "sigStarted", Qt::QueuedConnection);
-        m_timezone = m_initialTimezone;
     }
 }
 
@@ -47,15 +50,13 @@ const QStringList &TestTimedate1Connection::getAvailTimezones() const
 
 QString TestTimedate1Connection::getTimeszone() const
 {
-    return m_timezone;
+    return TestTimedate1Storage::getInstance()->getTimezone();
 }
 
 void TestTimedate1Connection::setTimezone(const QString &timezone)
 {
-    if (m_timezonesAvailable.contains(timezone)) {
-        m_timezone = timezone;
-        QMetaObject::invokeMethod(this, "sigTimezoneChanged", Qt::QueuedConnection);
-    }
+    if (m_timezonesAvailable.contains(timezone))
+        TestTimedate1Storage::getInstance()->setTimezone(timezone);
 }
 
 bool TestTimedate1Connection::getNtpAvailable() const
@@ -79,7 +80,7 @@ void TestTimedate1Connection::setNtpActive(bool active)
         return;
     m_ntpActive = active;
     QMetaObject::invokeMethod(this, "sigNtpActiveChanged", Qt::QueuedConnection);
-    if(active) {
+    if (active) {
         m_ntpSynced = false;
         QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
         m_ntpSyncOnDelay.start();
@@ -95,7 +96,7 @@ void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
                               "sigDateTimeChanged",
                               Qt::QueuedConnection,
                               Q_ARG(bool, changeDateTimeOk));
-    if(changeDateTimeOk) {
+    if (changeDateTimeOk) {
         m_ntpSynced = false;
         QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
     }

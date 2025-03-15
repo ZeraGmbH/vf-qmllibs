@@ -17,10 +17,11 @@ private slots:
     void disableEnableNtp();
     void changeTimezoneValid();
     void changeTimezoneInvalid();
+    void changeTimezoneValidExternally();
     void changeTimeNtpOn();
     void changeTimeNtpOff();
 private:
-    void setupConnection();
+    void setupConnection(std::unique_ptr<AbstractTimedate1Connection> &connection);
     void waitNtpSync();
     std::unique_ptr<AbstractTimedate1Connection> m_connection;
     QString m_hostTimezone;
