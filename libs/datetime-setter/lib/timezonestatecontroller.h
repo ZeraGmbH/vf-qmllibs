@@ -30,6 +30,7 @@ signals:
 private slots:
     void fillTimezones();
     void handleCityChange();
+    void onTimezoneChange();
 private:
     bool isValidRegion(const QString &region) const;
     bool isValidCity(const QString &city) const;

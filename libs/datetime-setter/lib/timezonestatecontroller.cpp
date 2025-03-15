@@ -7,6 +7,8 @@ TimezoneStateController::TimezoneStateController(std::shared_ptr<AbstractTimedat
     fillTimezones();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
             this, &TimezoneStateController::fillTimezones);
+    connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigTimezoneChanged,
+            this, &TimezoneStateController::onTimezoneChange);
     connect(this, &TimezoneStateController::sigCityChanged,
             this, &TimezoneStateController::handleCityChange);
 }
@@ -76,6 +78,27 @@ void TimezoneStateController::handleCityChange()
         m_canApply = newCanApply;
         emit sigCanApplyChanged();
     }
+}
+
+void TimezoneStateController::onTimezoneChange()
+{
+    QString timezone = m_timedateConnection->getTimeszone();
+
+    bool oldCanApply = m_canApply; // avoid on city change emit of sigCanApplyChanged
+    m_canApply = false;
+
+    QString region = TimezoneExtractor::extractRegion(timezone);
+    if (m_selectedRegion != region) {
+        m_selectedRegion = region;
+        emit sigRegionChanged();
+    }
+    QString city = TimezoneExtractor::extractCity(timezone);
+    if (m_selectedCity != city) {
+        m_selectedCity = city;
+        emit sigCityChanged();
+    }
+    if (oldCanApply)
+        emit sigCanApplyChanged();
 }
 
 bool TimezoneStateController::isValidRegion(const QString &region) const

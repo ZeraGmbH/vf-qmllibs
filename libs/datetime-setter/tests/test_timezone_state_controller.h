@@ -2,6 +2,7 @@
 #define TEST_TIMEZONE_STATE_CONTROLLER_H
 
 #include "testtimedate1connection.h"
+#include "timezonestatecontroller.h"
 #include <memory>
 
 class test_timezone_state_controller : public QObject
@@ -40,7 +41,14 @@ private slots:
     void invalidRegionKeepsCanApply();
     void validCityChangesCanApply();
     void invalidCityKeepsCanApply();
+
+    void handleInitialThenTimezoneChange();
+    void handleChangeRegionThenTimezoneChange();
+    void handleChangeRegionChangeCityThenTimezoneChangeToSame();
+    void handleChangeRegionChangeCityThenTimezoneChangeToSameRegionDifferentCity();
+    void handleChangeRegionChangeCityThenTimezoneChangeToDiffentRegionDifferentCity();
 private:
+    void spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList);
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;
 };
 
