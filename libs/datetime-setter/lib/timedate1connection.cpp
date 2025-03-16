@@ -37,6 +37,14 @@ void Timedate1Connection::start()
         QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
             watcher->deleteLater();
             m_timezonesAvailable = reply.value();
+            // At the time of writing:
+            // * on our target 'Universal' is not reported by timedate1 but can be set and is
+            //   default on first boot
+            // * On build host 'Universal' is reported (just interesting: same for 'Etc/Universal')
+            // * Our testlib/'available_timezones' contains both: 'Universal' and 'Etc/Universal'
+            const QString initialTimezoneOnOurDeviceNotReportedByTimedate1 = "Universal";
+            if (!m_timezonesAvailable.contains(initialTimezoneOnOurDeviceNotReportedByTimedate1))
+                m_timezonesAvailable.append(initialTimezoneOnOurDeviceNotReportedByTimedate1);
             updateProperties();
             emit sigAvailTimezonesChanged();
             emit sigStarted();
