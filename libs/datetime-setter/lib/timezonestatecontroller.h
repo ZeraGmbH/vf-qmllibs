@@ -38,7 +38,9 @@ private slots:
     void setSystemTimezone();
 private:
     bool isValidRegion(const QString &region) const;
+    void changeRegion(const QString &region);
     bool isValidCity(const QString &city) const;
+    void changeCity(const QString &city);
 
     QStringList m_timezones;
     std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
