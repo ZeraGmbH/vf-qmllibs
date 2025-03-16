@@ -9,7 +9,7 @@ TimezoneStateController::TimezoneStateController(std::shared_ptr<AbstractTimedat
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,
             this, &TimezoneStateController::fillTimezones);
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigTimezoneChanged,
-            this, &TimezoneStateController::onTimezoneChange);
+            this, &TimezoneStateController::setSystemTimezone);
     connect(this, &TimezoneStateController::sigCityChanged,
             this, &TimezoneStateController::handleCityChange);
 }
@@ -49,6 +49,16 @@ void TimezoneStateController::setSelectedCity(const QString &city)
     }
 }
 
+bool TimezoneStateController::canUndo() const
+{
+    return m_canUndo;
+}
+
+void TimezoneStateController::doUndo()
+{
+    setSystemTimezone();
+}
+
 bool TimezoneStateController::canApply() const
 {
     return m_canApply;
@@ -76,7 +86,16 @@ void TimezoneStateController::fillTimezones()
 
 void TimezoneStateController::handleCityChange()
 {
-    const QString currentCity = TimezoneExtractor::extractCity(m_timedateConnection->getTimeszone());
+    const QString timezone = m_timedateConnection->getTimeszone();
+    const QString currentRegion = TimezoneExtractor::extractRegion(timezone);
+    const QString currentCity = TimezoneExtractor::extractCity(timezone);
+
+    bool newCanUndo = m_selectedRegion != currentRegion || m_selectedCity != currentCity;
+    if (m_canUndo != newCanUndo) {
+        m_canUndo = newCanUndo;
+        emit sigCanUndoChanged();
+    }
+
     bool newCanApply = !m_selectedCity.isEmpty() && m_selectedCity != currentCity;
     if (m_canApply != newCanApply) {
         m_canApply = newCanApply;
@@ -84,10 +103,12 @@ void TimezoneStateController::handleCityChange()
     }
 }
 
-void TimezoneStateController::onTimezoneChange()
+void TimezoneStateController::setSystemTimezone()
 {
     QString timezone = m_timedateConnection->getTimeszone();
 
+    bool oldCanUndo = m_canUndo; // avoid on city change emit of sigCanUndoChanged
+    m_canUndo = false;
     bool oldCanApply = m_canApply; // avoid on city change emit of sigCanApplyChanged
     m_canApply = false;
 
@@ -101,6 +122,8 @@ void TimezoneStateController::onTimezoneChange()
         m_selectedCity = city;
         emit sigCityChanged();
     }
+    if (oldCanUndo)
+        emit sigCanUndoChanged();
     if (oldCanApply)
         emit sigCanApplyChanged();
 }

@@ -42,12 +42,25 @@ private slots:
     void validCityChangesCanApply();
     void invalidCityKeepsCanApply();
 
+    void getCanUndoEarly();
+    void getCanUndoLate();
+    void validRegionChangesCanUndo();
+    void invalidRegionKeepsCanUndo();
+    void validCityChangesCanUndo();
+    void invalidCityKeepsCanUndo();
+
     void handleInitialThenTimezoneChange();
     void handleChangeRegionThenTimezoneChange();
     void handleChangeRegionChangeCityThenTimezoneChangeToSame();
     void handleChangeRegionChangeCityThenTimezoneChangeToSameRegionDifferentCity();
     void handleChangeRegionChangeCityThenTimezoneChangeToDiffentRegionDifferentCity();
 
+    void doUndoOnUnchanged();
+    void doUndoAfterCityChange();
+    void doUndoAfterRegionChange();
+    void doUndoAfterRegionAndCityChange();
+
+    void doApplyOnUnchanged();
     void setAllTimezonesViaController();
 private:
     void spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList);

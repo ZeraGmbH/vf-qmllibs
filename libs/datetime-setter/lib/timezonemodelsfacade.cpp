@@ -21,6 +21,8 @@ TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Conn
             this, &TimezoneModelsFacade::sigRegionSelectedChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCityChanged,
             this, &TimezoneModelsFacade::sigCitySelectedChanged);
+    connect(m_timezoneController.get(), &TimezoneStateController::sigCanUndoChanged,
+            this, &TimezoneModelsFacade::sigCanUndoChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
             this, &TimezoneModelsFacade::sigCanApplyChanged);
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
@@ -55,6 +57,16 @@ QString TimezoneModelsFacade::getCitySelected() const
 void TimezoneModelsFacade::setCitySelected(const QString &city)
 {
     m_timezoneController->setSelectedCity(city);
+}
+
+bool TimezoneModelsFacade::canUndo() const
+{
+    return m_timezoneController->canUndo();
+}
+
+void TimezoneModelsFacade::doUndo()
+{
+    m_timezoneController->doUndo();
 }
 
 bool TimezoneModelsFacade::canApply() const

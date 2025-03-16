@@ -31,6 +31,10 @@ public:
     QString getCitySelected() const;
     void setCitySelected(const QString &city);
 
+    Q_PROPERTY(bool canUndo READ canUndo NOTIFY sigCanUndoChanged FINAL)
+    bool canUndo() const;
+    Q_INVOKABLE void doUndo();
+
     Q_PROPERTY(bool canApply READ canApply NOTIFY sigCanApplyChanged FINAL)
     bool canApply() const;
     Q_INVOKABLE void doApply();
@@ -38,6 +42,7 @@ public:
 signals:
     void sigRegionSelectedChanged();
     void sigCitySelectedChanged();
+    void sigCanUndoChanged();
     void sigCanApplyChanged();
 
 private slots:
