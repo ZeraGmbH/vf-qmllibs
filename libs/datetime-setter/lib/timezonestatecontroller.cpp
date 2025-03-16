@@ -27,12 +27,9 @@ QString TimezoneStateController::getSelectedRegion() const
 void TimezoneStateController::setSelectedRegion(const QString &region)
 {
     if (m_selectedRegion != region && isValidRegion(region)) {
-        m_selectedRegion = region;
-        emit sigRegionChanged();
-        if(!m_selectedCity.isEmpty()) {
-            m_selectedCity.clear();
-            emit sigCityChanged();
-        }
+        changeRegion(region);
+        if(!m_selectedCity.isEmpty())
+            changeCity("");
     }
 }
 
@@ -43,10 +40,8 @@ QString TimezoneStateController::getSelectedCity() const
 
 void TimezoneStateController::setSelectedCity(const QString &city)
 {
-    if (m_selectedCity != city && isValidCity(city)) {
-        m_selectedCity = city;
-        emit sigCityChanged();
-    }
+    if (m_selectedCity != city && isValidCity(city))
+        changeCity(city);
 }
 
 bool TimezoneStateController::canUndo() const
@@ -105,23 +100,20 @@ void TimezoneStateController::handleCityChange()
 
 void TimezoneStateController::setSystemTimezone()
 {
-    QString timezone = m_timedateConnection->getTimeszone();
-
     bool oldCanUndo = m_canUndo; // avoid on city change emit of sigCanUndoChanged
     m_canUndo = false;
     bool oldCanApply = m_canApply; // avoid on city change emit of sigCanApplyChanged
     m_canApply = false;
 
+    QString timezone = m_timedateConnection->getTimeszone();
+
     QString region = TimezoneExtractor::extractRegion(timezone);
-    if (m_selectedRegion != region) {
-        m_selectedRegion = region;
-        emit sigRegionChanged();
-    }
+    if (m_selectedRegion != region)
+        changeRegion(region);
     QString city = TimezoneExtractor::extractCity(timezone);
-    if (m_selectedCity != city) {
-        m_selectedCity = city;
-        emit sigCityChanged();
-    }
+    if (m_selectedCity != city)
+        changeCity(city);
+
     if (oldCanUndo)
         emit sigCanUndoChanged();
     if (oldCanApply)
@@ -136,6 +128,12 @@ bool TimezoneStateController::isValidRegion(const QString &region) const
     return false;
 }
 
+void TimezoneStateController::changeRegion(const QString &region)
+{
+    m_selectedRegion = region;
+    emit sigRegionChanged();
+}
+
 bool TimezoneStateController::isValidCity(const QString &city) const
 {
     for (const QString &timezone : m_timezones)
@@ -143,4 +141,10 @@ bool TimezoneStateController::isValidCity(const QString &city) const
             if (city == TimezoneExtractor::extractCity(timezone))
                 return true;
     return false;
+}
+
+void TimezoneStateController::changeCity(const QString &city)
+{
+    m_selectedCity = city;
+    emit sigCityChanged();
 }
