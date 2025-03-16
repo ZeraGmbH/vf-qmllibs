@@ -2,7 +2,6 @@
 #define TEST_TIMEDATE1_CONNECTION_H
 
 #include "abstracttimedate1connection.h"
-#include <memory>
 
 class test_timedate1_connection : public QObject
 {
@@ -21,9 +20,9 @@ private slots:
     void changeTimeNtpOn();
     void changeTimeNtpOff();
 private:
-    void setupConnection(std::unique_ptr<AbstractTimedate1Connection> &connection);
+    void setupConnection(AbstractTimedate1ConnectionPtr &connection);
     void waitNtpSync();
-    std::unique_ptr<AbstractTimedate1Connection> m_connection;
+    AbstractTimedate1ConnectionPtr m_connection;
     QString m_hostTimezone;
     int m_ntpSyncMaxWaitMs = 0;
     int m_waitTimeToEnterPolkitPassword = 0;

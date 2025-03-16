@@ -3,7 +3,6 @@
 
 #include "testtimedate1connection.h"
 #include "timezonestatecontroller.h"
-#include <memory>
 
 class test_timezone_state_controller : public QObject
 {

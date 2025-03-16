@@ -8,8 +8,8 @@ TimezoneModelsFacade::TimezoneModelsFacade() :
     m_timedateConnection->start();
 }
 
-TimezoneModelsFacade::TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
-                                           std::shared_ptr<TimezoneTranslations> translations) :
+TimezoneModelsFacade::TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timedateConnection,
+                                           TimezoneTranslationsPtr translations) :
     m_timedateConnection(timedateConnection),
     m_translations(translations),
     m_timezoneController(std::make_shared<TimezoneStateController>(m_timedateConnection)),

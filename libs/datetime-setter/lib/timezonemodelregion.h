@@ -9,8 +9,8 @@ class TimezoneModelRegion : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelRegion(std::shared_ptr<TimezoneStateController> timezoneController,
-                                 std::shared_ptr<TimezoneTranslations> translations);
+    explicit TimezoneModelRegion(TimezoneStateControllerPtr timezoneController,
+                                 TimezoneTranslationsPtr translations);
 
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
@@ -30,8 +30,8 @@ private slots:
     void handleRegionChanged();
 private:
     int findSelectedIndex() const;
-    std::shared_ptr<TimezoneStateController> m_timezoneController;
-    std::shared_ptr<TimezoneTranslations> m_translations;
+    TimezoneStateControllerPtr m_timezoneController;
+    TimezoneTranslationsPtr m_translations;
     struct Region {
         QString m_region;
         QString m_regionTr;
