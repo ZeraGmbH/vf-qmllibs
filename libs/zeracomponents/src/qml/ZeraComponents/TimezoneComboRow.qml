@@ -5,16 +5,17 @@ import QtQuick.Layouts 1.14
 import ZeraLocale 1.0
 import ZeraTranslation 1.0
 import Timedate 1.0
+import ZeraFa 1.0
 
 RowLayout {
     id: timezoneRow
-    property real comboWidth: 390
     TimedateModels { id: timedateModels }
+    readonly property real pointSize: height * 0.3
     ComboBox {
         id: regions
         Layout.fillWidth: true
         Layout.fillHeight: true
-        font.pointSize: timezoneRow.height * 0.3
+        font.pointSize: pointSize
 
         model: timedateModels.regionModel
         textRole: "regiontranslated"
@@ -28,7 +29,7 @@ RowLayout {
         id: cities
         Layout.fillWidth: true
         Layout.fillHeight: true
-        font.pointSize: timezoneRow.height * 0.3
+        font.pointSize: pointSize
 
         model: timedateModels.cityModel
         textRole: "citytranslated"
@@ -37,5 +38,30 @@ RowLayout {
         readonly property int modelIndex: model.selectedIndex
         onCurrentIndexChanged: { model.selectedIndex = currentIndex }
         onModelIndexChanged: { currentIndex = modelIndex }
+    }
+    Row {
+        id: buttonRow
+        Layout.preferredWidth: timezoneRow.height * 2
+        Layout.fillHeight: true
+        spacing: 4
+        Button {
+            id: buttonClearSelection
+            text: FA.fa_undo
+            font.pointSize: pointSize
+            height: buttonRow.height
+            width: height
+            enabled: timedateModels.canUndo
+            onClicked: timedateModels.doUndo()
+        }
+        Button {
+            id: buttonApplySelection
+            text: FA.fa_check
+            Material.foreground: Material.accentColor
+            font.pointSize: pointSize
+            height: buttonRow.height
+            width: height
+            enabled: timedateModels.canApply
+            onClicked: timedateModels.doApply()
+        }
     }
 }
