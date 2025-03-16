@@ -393,6 +393,88 @@ void test_timezone_state_controller::invalidCityKeepsCanApply()
     QCOMPARE(controller.canApply(), true);
 }
 
+void test_timezone_state_controller::getCanUndoEarly()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+    QCOMPARE(controller.canUndo(), false);
+}
+
+void test_timezone_state_controller::getCanUndoLate()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    TimezoneStateController controller(m_timeDateConnection);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    QCOMPARE(controller.canUndo(), false);
+}
+
+void test_timezone_state_controller::validRegionChangesCanUndo()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QSignalSpy spyCanUndoChanged(&controller, &TimezoneStateController::sigCanUndoChanged);
+
+    controller.setSelectedRegion("Asia");
+    QCOMPARE(spyCanUndoChanged.count(), 1);
+    QCOMPARE(controller.canUndo(), true);
+}
+
+void test_timezone_state_controller::invalidRegionKeepsCanUndo()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QSignalSpy spyCanUndoChanged(&controller, &TimezoneStateController::sigCanUndoChanged);
+
+    controller.setSelectedRegion("foo");
+    QCOMPARE(spyCanUndoChanged.count(), 0);
+    QCOMPARE(controller.canUndo(), false);
+}
+
+void test_timezone_state_controller::validCityChangesCanUndo()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QSignalSpy spyCanUndoChanged(&controller, &TimezoneStateController::sigCanUndoChanged);
+
+    controller.setSelectedCity("Rome");
+    QCOMPARE(spyCanUndoChanged.count(), 1);
+    QCOMPARE(controller.canUndo(), true);
+}
+
+void test_timezone_state_controller::invalidCityKeepsCanUndo()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QSignalSpy spyCanUndoChanged(&controller, &TimezoneStateController::sigCanUndoChanged);
+
+    controller.setSelectedCity("foo");
+    QCOMPARE(spyCanUndoChanged.count(), 0);
+    QCOMPARE(controller.canUndo(), false);
+
+    controller.setSelectedCity("Rome");
+    QCOMPARE(spyCanUndoChanged.count(), 1);
+    QCOMPARE(controller.canUndo(), true);
+
+    controller.setSelectedCity("foo");
+    QCOMPARE(spyCanUndoChanged.count(), 1);
+    QCOMPARE(controller.canUndo(), true);
+}
+
 void test_timezone_state_controller::handleInitialThenTimezoneChange()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -410,6 +492,7 @@ void test_timezone_state_controller::handleInitialThenTimezoneChange()
     QCOMPARE(signalNamesReceived[1], "sigCityChanged");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), false);
     QCOMPARE(controller.canApply(), false);
 }
 
@@ -423,6 +506,7 @@ void test_timezone_state_controller::handleChangeRegionThenTimezoneChange()
     controller.setSelectedRegion("Atlantic");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "");
+    QCOMPARE(controller.canUndo(), true);
     QCOMPARE(controller.canApply(), false);
 
     QStringList signalNamesReceived;
@@ -430,10 +514,12 @@ void test_timezone_state_controller::handleChangeRegionThenTimezoneChange()
     m_timeDateConnection->setTimezone("Atlantic/Madeira");
     TimeMachineObject::feedEventLoop();
 
-    QCOMPARE(signalNamesReceived.count(), 1);
+    QCOMPARE(signalNamesReceived.count(), 2);
     QCOMPARE(signalNamesReceived[0], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCanUndoChanged");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), false);
     QCOMPARE(controller.canApply(), false);
 }
 
@@ -448,6 +534,7 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     controller.setSelectedCity("Madeira");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), true);
     QCOMPARE(controller.canApply(), true);
 
     QStringList signalNamesReceived;
@@ -455,10 +542,12 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     m_timeDateConnection->setTimezone("Atlantic/Madeira");
     TimeMachineObject::feedEventLoop();
 
-    QCOMPARE(signalNamesReceived.count(), 1);
-    QCOMPARE(signalNamesReceived[0], "sigCanApplyChanged");
+    QCOMPARE(signalNamesReceived.count(), 2);
+    QCOMPARE(signalNamesReceived[0], "sigCanUndoChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCanApplyChanged");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), false);
     QCOMPARE(controller.canApply(), false);
 }
 
@@ -473,6 +562,7 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     controller.setSelectedCity("Madeira");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), true);
     QCOMPARE(controller.canApply(), true);
 
     QStringList signalNamesReceived;
@@ -480,11 +570,13 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     m_timeDateConnection->setTimezone("Atlantic/Cape_Verde");
     TimeMachineObject::feedEventLoop();
 
-    QCOMPARE(signalNamesReceived.count(), 2);
+    QCOMPARE(signalNamesReceived.count(), 3);
     QCOMPARE(signalNamesReceived[0], "sigCityChanged");
-    QCOMPARE(signalNamesReceived[1], "sigCanApplyChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCanUndoChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanApplyChanged");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Cape_Verde");
+    QCOMPARE(controller.canUndo(), false);
     QCOMPARE(controller.canApply(), false);
 }
 
@@ -499,6 +591,7 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     controller.setSelectedCity("Madeira");
     QCOMPARE(controller.getSelectedRegion(), "Atlantic");
     QCOMPARE(controller.getSelectedCity(), "Madeira");
+    QCOMPARE(controller.canUndo(), true);
     QCOMPARE(controller.canApply(), true);
 
     QStringList signalNamesReceived;
@@ -506,13 +599,119 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     m_timeDateConnection->setTimezone("Australia/Sydney");
     TimeMachineObject::feedEventLoop();
 
-    QCOMPARE(signalNamesReceived.count(), 3);
+    QCOMPARE(signalNamesReceived.count(), 4);
     QCOMPARE(signalNamesReceived[0], "sigRegionChanged");
     QCOMPARE(signalNamesReceived[1], "sigCityChanged");
-    QCOMPARE(signalNamesReceived[2], "sigCanApplyChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanUndoChanged");
+    QCOMPARE(signalNamesReceived[3], "sigCanApplyChanged");
     QCOMPARE(controller.getSelectedRegion(), "Australia");
     QCOMPARE(controller.getSelectedCity(), "Sydney");
+    QCOMPARE(controller.canUndo(), false);
     QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::doUndoOnUnchanged()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    controller.doUndo();
+
+    QCOMPARE(signalNamesReceived.count(), 0);
+}
+
+void test_timezone_state_controller::doUndoAfterCityChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedCity("Brussels");
+    QCOMPARE(controller.getSelectedCity(), "Brussels");
+    QCOMPARE(controller.canUndo(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    controller.doUndo();
+
+    QCOMPARE(signalNamesReceived.count(), 3);
+    QCOMPARE(signalNamesReceived[0], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCanUndoChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanApplyChanged");
+
+    QCOMPARE(controller.getSelectedRegion(), "Europe");
+    QCOMPARE(controller.getSelectedCity(), "Berlin");
+}
+
+void test_timezone_state_controller::doUndoAfterRegionChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Asia");
+    QCOMPARE(controller.getSelectedRegion(), "Asia");
+    QCOMPARE(controller.canUndo(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    controller.doUndo();
+
+    QCOMPARE(signalNamesReceived.count(), 3);
+    // Apply was not active due to city empty
+    QCOMPARE(signalNamesReceived[0], "sigRegionChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanUndoChanged");
+
+    QCOMPARE(controller.getSelectedRegion(), "Europe");
+    QCOMPARE(controller.getSelectedCity(), "Berlin");
+}
+
+void test_timezone_state_controller::doUndoAfterRegionAndCityChange()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    controller.setSelectedRegion("Asia");
+    QCOMPARE(controller.getSelectedRegion(), "Asia");
+    controller.setSelectedCity("Macao");
+    QCOMPARE(controller.getSelectedCity(), "Macao");
+    QCOMPARE(controller.canUndo(), true);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    controller.doUndo();
+
+    QCOMPARE(signalNamesReceived.count(), 4);
+    QCOMPARE(signalNamesReceived[0], "sigRegionChanged");
+    QCOMPARE(signalNamesReceived[1], "sigCityChanged");
+    QCOMPARE(signalNamesReceived[2], "sigCanUndoChanged");
+    QCOMPARE(signalNamesReceived[3], "sigCanApplyChanged");
+
+    QCOMPARE(controller.getSelectedRegion(), "Europe");
+    QCOMPARE(controller.getSelectedCity(), "Berlin");
+}
+
+void test_timezone_state_controller::doApplyOnUnchanged()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QStringList signalNamesReceived;
+    spyControllerSignals(&controller, signalNamesReceived);
+    controller.doApply();
+
+    QCOMPARE(signalNamesReceived.count(), 0);
 }
 
 void test_timezone_state_controller::setAllTimezonesViaController()
@@ -549,6 +748,9 @@ void test_timezone_state_controller::setAllTimezonesViaController()
 
 void test_timezone_state_controller::spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList)
 {
+    connect(controller, &TimezoneStateController::sigCanUndoChanged, [&]() {
+        signalNameList.append("sigCanUndoChanged");
+    });
     connect(controller, &TimezoneStateController::sigCanApplyChanged, [&]() {
         signalNameList.append("sigCanApplyChanged");
     });
