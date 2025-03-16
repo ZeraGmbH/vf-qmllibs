@@ -2,8 +2,8 @@
 #include "timezoneextractor.h"
 #include "timezonetranslations.h"
 
-TimezoneStateController::TimezoneStateController(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
-    m_timedateConnection{timedateConnection}
+TimezoneStateController::TimezoneStateController(AbstractTimedate1ConnectionPtr timedateConnection) :
+    m_timedateConnection(timedateConnection)
 {
     fillTimezones();
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged,

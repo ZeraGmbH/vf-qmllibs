@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QStringList>
 #include <QDateTime>
+#include <memory>
 
 class AbstractTimedate1Connection : public QObject
 {
@@ -33,5 +34,7 @@ signals:
 
     void sigDateTimeChanged(bool ok);
 };
+
+typedef std::shared_ptr<AbstractTimedate1Connection> AbstractTimedate1ConnectionPtr;
 
 #endif // ABSTRACTTIMEDATE1CONNECTION_H

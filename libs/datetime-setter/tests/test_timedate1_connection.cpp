@@ -164,7 +164,7 @@ void test_timedate1_connection::changeTimezoneInvalid()
 
 void test_timedate1_connection::changeTimezoneValidExternally()
 {
-    std::unique_ptr<AbstractTimedate1Connection> externalConnection;
+    AbstractTimedate1ConnectionPtr externalConnection;
     setupConnection(externalConnection);
     QSignalSpy spyStartExternal(externalConnection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
     externalConnection->start();
@@ -221,7 +221,7 @@ void test_timedate1_connection::changeTimeNtpOff()
     QCOMPARE(m_connection->getNtpSynced(), false);
 }
 
-void test_timedate1_connection::setupConnection(std::unique_ptr<AbstractTimedate1Connection> &connection)
+void test_timedate1_connection::setupConnection(AbstractTimedate1ConnectionPtr &connection)
 {
     QFETCH_GLOBAL(QString, testType);
     qInfo("Test type: %s", qPrintable(testType));
@@ -229,13 +229,13 @@ void test_timedate1_connection::setupConnection(std::unique_ptr<AbstractTimedate
         m_ntpSyncMaxWaitMs = 10000;
         m_waitTimeToEnterPolkitPassword = 20000;
         m_waitTimeNoPolkit = 1000;
-        connection = std::make_unique<Timedate1Connection>();
+        connection = std::make_shared<Timedate1Connection>();
     }
     else {
         m_ntpSyncMaxWaitMs = 10;
         m_waitTimeToEnterPolkitPassword = 10;
         m_waitTimeNoPolkit = 10;
-        connection = std::make_unique<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
+        connection = std::make_shared<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
     }
 }
 

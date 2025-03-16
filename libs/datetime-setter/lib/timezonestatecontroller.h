@@ -2,13 +2,12 @@
 #define TIMEZONESTATECONTROLLER_H
 
 #include "abstracttimedate1connection.h"
-#include <memory>
 
 class TimezoneStateController : public QObject
 {
     Q_OBJECT
 public:
-    explicit TimezoneStateController(std::shared_ptr<AbstractTimedate1Connection> timedateConnection);
+    explicit TimezoneStateController(AbstractTimedate1ConnectionPtr timedateConnection);
 
     const QStringList &getTimezones() const;
 
@@ -43,12 +42,14 @@ private:
     void changeCity(const QString &city);
 
     QStringList m_timezones;
-    std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
+    AbstractTimedate1ConnectionPtr m_timedateConnection;
 
     QString m_selectedRegion;
     QString m_selectedCity;
     bool m_canUndo = false;
     bool m_canApply = false;
 };
+
+typedef std::shared_ptr<TimezoneStateController> TimezoneStateControllerPtr;
 
 #endif // TIMEZONESTATECONTROLLER_H

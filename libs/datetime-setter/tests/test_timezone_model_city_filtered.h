@@ -3,7 +3,6 @@
 
 #include "timezonemodelcityfiltered.h"
 #include "testtimedate1connection.h"
-#include <memory>
 
 class test_timezone_model_city_filtered : public QObject
 {
@@ -37,9 +36,9 @@ private:
     QStringList fetchFilteredAndSortedCities(TimezoneModelCityFiltered &model);
     bool checkProperSort(const QStringList &cities);
 
-    std::shared_ptr<TimezoneTranslations> m_translations;
+    TimezoneTranslationsPtr m_translations;
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;
-    std::shared_ptr<TimezoneStateController> m_timezoneController;
+    TimezoneStateControllerPtr m_timezoneController;
 };
 
 #endif // TEST_TIMEZONE_MODEL_CITY_FILTERED_H

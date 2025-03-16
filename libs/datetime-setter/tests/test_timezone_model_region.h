@@ -3,7 +3,6 @@
 
 #include "timezonetranslations.h"
 #include "abstracttimedate1connection.h"
-#include <memory>
 
 class test_timezone_model_region : public QObject
 {
@@ -30,8 +29,8 @@ private slots:
     void noIndexChangeOnLanguageChange();
 
 private:
-    std::shared_ptr<TimezoneTranslations> m_translations;
-    std::shared_ptr<AbstractTimedate1Connection> m_timeDateConnection;
+    TimezoneTranslationsPtr m_translations;
+    AbstractTimedate1ConnectionPtr m_timeDateConnection;
 };
 
 #endif // TEST_TIMEZONE_MODEL_REGION_H

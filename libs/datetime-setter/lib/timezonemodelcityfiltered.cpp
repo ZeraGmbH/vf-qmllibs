@@ -3,8 +3,8 @@
 #include "timezoneextractor.h"
 #include <QMap>
 
-TimezoneModelCityFiltered::TimezoneModelCityFiltered(std::shared_ptr<TimezoneStateController> timezoneController,
-                                                     std::shared_ptr<TimezoneTranslations> translations) :
+TimezoneModelCityFiltered::TimezoneModelCityFiltered(TimezoneStateControllerPtr timezoneController,
+                                                     TimezoneTranslationsPtr translations) :
     m_timezoneController(timezoneController),
     m_translations(translations)
 {

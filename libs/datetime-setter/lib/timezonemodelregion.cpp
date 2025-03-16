@@ -3,8 +3,8 @@
 #include <QMap>
 #include <QSet>
 
-TimezoneModelRegion::TimezoneModelRegion(std::shared_ptr<TimezoneStateController> timezoneController,
-                                         std::shared_ptr<TimezoneTranslations> translations) :
+TimezoneModelRegion::TimezoneModelRegion(TimezoneStateControllerPtr timezoneController,
+                                         TimezoneTranslationsPtr translations) :
     m_timezoneController(timezoneController),
     m_translations(translations)
 {

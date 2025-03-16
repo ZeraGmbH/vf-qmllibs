@@ -9,8 +9,8 @@ class TimezoneModelCityFiltered : public QAbstractListModel
 {
     Q_OBJECT
 public:
-    explicit TimezoneModelCityFiltered(std::shared_ptr<TimezoneStateController> timezoneController,
-                                       std::shared_ptr<TimezoneTranslations> translations);
+    explicit TimezoneModelCityFiltered(TimezoneStateControllerPtr timezoneController,
+                                       TimezoneTranslationsPtr translations);
     QHash<int, QByteArray> roleNames() const override;
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
@@ -29,8 +29,8 @@ private slots:
     void handleCityChange();
 private:
     int findSelectedCity() const;
-    std::shared_ptr<TimezoneStateController> m_timezoneController;
-    std::shared_ptr<TimezoneTranslations> m_translations;
+    TimezoneStateControllerPtr m_timezoneController;
+    TimezoneTranslationsPtr m_translations;
     struct City {
         QString m_timezone;
         QString m_city;

@@ -22,7 +22,7 @@ void test_timezone_model_region::connectionStartEarly()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QStringList regions;
     QModelIndex index;
@@ -39,7 +39,7 @@ void test_timezone_model_region::connectionStartLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
     QSignalSpy spyModelReset(&model, &QAbstractItemModel::modelReset);
@@ -59,7 +59,7 @@ void test_timezone_model_region::checkRegions()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
@@ -80,7 +80,7 @@ void test_timezone_model_region::checkRegionsTranslatedNoTranslationSet()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QModelIndex index;
     index = model.index(0, 0);
@@ -98,7 +98,7 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetEarly()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
 
     QModelIndex index;
@@ -116,7 +116,7 @@ void test_timezone_model_region::checkRegionsTranslatedTranslationSetLate()
     m_timeDateConnection->start();
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
 
     QSignalSpy spyModelAboutToBeReset(&model, &QAbstractItemModel::modelAboutToBeReset);
@@ -141,7 +141,7 @@ void test_timezone_model_region::initialIndexEarly()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
 
@@ -157,7 +157,7 @@ void test_timezone_model_region::initialIndexLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     TimezoneModelRegion model(tzController, m_translations);
     QCOMPARE(model.getSelectedIndex(), -1);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -180,7 +180,7 @@ void test_timezone_model_region::setIndex0()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -203,7 +203,7 @@ void test_timezone_model_region::setIndexLast()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -226,7 +226,7 @@ void test_timezone_model_region::setIndexOutOfLimitMinusOne()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -247,7 +247,7 @@ void test_timezone_model_region::setIndexOutOfLimitLarge()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -268,7 +268,7 @@ void test_timezone_model_region::setIndexSameNoChange()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -289,7 +289,7 @@ void test_timezone_model_region::setIndexTwice()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -313,7 +313,7 @@ void test_timezone_model_region::indexChangeOnLanguageChange()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);
@@ -341,7 +341,7 @@ void test_timezone_model_region::noIndexChangeOnLanguageChange()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
     QCOMPARE(spyTimezonesAvail.count(), 1);
 
-    std::shared_ptr<TimezoneStateController> tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
+    TimezoneStateControllerPtr tzController = std::make_shared<TimezoneStateController>(m_timeDateConnection);
     QSignalSpy regionSpy(tzController.get(), &TimezoneStateController::sigRegionChanged);
     TimezoneModelRegion model(tzController, m_translations);
     QSignalSpy spyModelIndexChanged(&model, &TimezoneModelRegion::sigSelectedIndexChanged);

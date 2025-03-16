@@ -7,15 +7,14 @@
 #include "timezonemodelregion.h"
 #include "timezonetranslations.h"
 #include <QAbstractListModel>
-#include <memory>
 
 class TimezoneModelsFacade : public QObject
 {
     Q_OBJECT
 public:
     explicit TimezoneModelsFacade();
-    explicit TimezoneModelsFacade(std::shared_ptr<AbstractTimedate1Connection> timedateConnection,
-                                  std::shared_ptr<TimezoneTranslations> translations);
+    explicit TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timedateConnection,
+                                  TimezoneTranslationsPtr translations);
 
     Q_PROPERTY(QAbstractListModel* regionModel READ getRegionModel CONSTANT)
     QAbstractListModel* getRegionModel() const;
@@ -48,9 +47,9 @@ signals:
 private slots:
     void handleLanguageChange();
 private:
-    std::shared_ptr<AbstractTimedate1Connection> m_timedateConnection;
-    std::shared_ptr<TimezoneTranslations> m_translations;
-    std::shared_ptr<TimezoneStateController> m_timezoneController;
+    AbstractTimedate1ConnectionPtr m_timedateConnection;
+    TimezoneTranslationsPtr m_translations;
+    TimezoneStateControllerPtr m_timezoneController;
     std::shared_ptr<TimezoneModelRegion> m_modelRegion;
     std::shared_ptr<TimezoneModelCityFiltered> m_modelCities;
 };
