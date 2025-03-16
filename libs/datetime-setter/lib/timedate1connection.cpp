@@ -65,6 +65,8 @@ QString Timedate1Connection::getTimeszone() const
 
 void Timedate1Connection::setTimezone(const QString &timezone)
 {
+    if(m_timezone != timezone)
+        qInfo("Timezone changed to: '%s'", qPrintable(timezone));
     m_timedateInterface->SetTimezone(timezone, polkitInteractive);
 }
 
@@ -131,7 +133,6 @@ void Timedate1Connection::updateTimezone(const QString &timezone)
 {
     if (m_timezone != timezone) {
         m_timezone = timezone;
-        qInfo("Timezone changed to: '%s'", qPrintable(timezone));
         emit sigTimezoneChanged();
     }
 }
