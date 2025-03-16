@@ -1,5 +1,6 @@
 #include "test_timezone_state_controller.h"
 #include "testtimedate1connection.h"
+#include "timezoneextractor.h"
 #include <signalspywaiter.h>
 #include <timemachineobject.h>
 #include <QTest>
@@ -512,6 +513,38 @@ void test_timezone_state_controller::handleChangeRegionChangeCityThenTimezoneCha
     QCOMPARE(controller.getSelectedRegion(), "Australia");
     QCOMPARE(controller.getSelectedCity(), "Sydney");
     QCOMPARE(controller.canApply(), false);
+}
+
+void test_timezone_state_controller::setAllTimezonesViaController()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+    TimezoneStateController controller(m_timeDateConnection);
+
+    QStringList failedTimezones;
+    const QStringList timezones = controller.getTimezones();
+    for (const QString &timezone : timezones) {
+        const QString region = TimezoneExtractor::extractRegion(timezone);
+        controller.setSelectedRegion(region);
+        const QString city = TimezoneExtractor::extractCity(timezone);
+        controller.setSelectedCity(city);
+
+        if (!controller.canApply())
+            failedTimezones.append(timezone + ": canApply on");
+        controller.doApply();
+        TimeMachineObject::feedEventLoop();
+        if (controller.canApply())
+            failedTimezones.append(timezone + ": canApply off");
+        if (m_timeDateConnection->getTimeszone() != timezone)
+            failedTimezones.append(timezone + ": not set");
+    }
+    if (!failedTimezones.isEmpty()) {
+        QString msg = failedTimezones.join("\n");
+        qWarning("Failed to set the following timezones:");
+        qWarning("%s", qPrintable(msg));
+        QVERIFY(false);
+    }
 }
 
 void test_timezone_state_controller::spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList)
