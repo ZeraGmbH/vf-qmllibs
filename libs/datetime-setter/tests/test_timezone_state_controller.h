@@ -47,6 +47,8 @@ private slots:
     void handleChangeRegionChangeCityThenTimezoneChangeToSame();
     void handleChangeRegionChangeCityThenTimezoneChangeToSameRegionDifferentCity();
     void handleChangeRegionChangeCityThenTimezoneChangeToDiffentRegionDifferentCity();
+
+    void setAllTimezonesViaController();
 private:
     void spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList);
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;

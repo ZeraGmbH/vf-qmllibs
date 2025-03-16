@@ -1,5 +1,6 @@
 #include "timezonestatecontroller.h"
 #include "timezoneextractor.h"
+#include "timezonetranslations.h"
 
 TimezoneStateController::TimezoneStateController(std::shared_ptr<AbstractTimedate1Connection> timedateConnection) :
     m_timedateConnection{timedateConnection}
@@ -55,7 +56,10 @@ bool TimezoneStateController::canApply() const
 
 void TimezoneStateController::doApply()
 {
-
+    const QString timezone =
+        m_selectedRegion == TimezoneTranslations::noRegionString() ?
+                                 m_selectedCity : QString("%1/%2").arg(m_selectedRegion, m_selectedCity);
+    m_timedateConnection->setTimezone(timezone);
 }
 
 void TimezoneStateController::fillTimezones()
