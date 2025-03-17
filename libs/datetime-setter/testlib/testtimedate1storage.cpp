@@ -18,7 +18,6 @@ QString TestTimedate1Storage::getTimezone() const
 void TestTimedate1Storage::setTimezone(const QString &timezone)
 {
     if (m_timezone != timezone) {
-        qInfo("Timezone changed to: '%s'", qPrintable(timezone));
         m_timezone = timezone;
         QMetaObject::invokeMethod(this, "sigTimezoneChanged", Qt::QueuedConnection);
     }
