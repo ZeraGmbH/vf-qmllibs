@@ -29,12 +29,17 @@ ApplicationWindow {
             changeLanguage(langCombo.currentText)
         }
     }
-    ColumnLayout {
+    TimezoneComboRow {
+        id: timezoneRow
         anchors.top: langCombo.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        TimezoneComboRow {
-            id: timezoneRow
-        }
+    }
+    Label {
+        id: currentTime
+        anchors.top: timezoneRow.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text: Z.trDateTimeLong(Z.dateTimeNow)
     }
 }
