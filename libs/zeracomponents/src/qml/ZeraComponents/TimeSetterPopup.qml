@@ -20,6 +20,7 @@ Popup {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
+    TimedateModels { id: timedateModels }
     ButtonGroup {
         id: radioGroup
     }
@@ -55,9 +56,20 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: day
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 1
+                top: {
+                    let iYear = parseInt(year.text)
+                    let iMonth = parseInt(month.text)
+                    if(iYear > 0 && iMonth > 0)
+                        return timedateModels.maxDaysInYearMonth(parseInt(year.text), parseInt(month.text))
+                    return 31
+                }
+            }
         }
         Label {
             text: "/"
@@ -66,9 +78,14 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: month
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 1
+                top: 12
+            }
         }
         Label {
             text: "/"
@@ -77,9 +94,14 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: year
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 2025
+                top: 2500
+            }
         }
 
         Label {
@@ -89,9 +111,14 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: hour
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 0
+                top: 23
+            }
         }
         Label {
             text: ":"
@@ -100,9 +127,14 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: minute
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 0
+                top: 59
+            }
         }
         Label {
             text: ":"
@@ -111,9 +143,14 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
+            id: second
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            validator: IntValidator {
+                bottom: 0
+                top: 59
+            }
         }
     }
     RowLayout {
