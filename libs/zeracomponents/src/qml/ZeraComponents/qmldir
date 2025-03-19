@@ -5,6 +5,7 @@ SacVuIndicator 1.0 SacVuIndicator.qml
 SacVuSigned 1.0 SacVuSigned.qml
 SacVuUnsigned 1.0 SacVuUnsigned.qml
 TimezoneComboRow 1.0 TimezoneComboRow.qml
+TimeSetterPopup 1.0 TimeSetterPopup.qml
 ZButton 1.0 ZButton.qml
 ZCheckBox 1.0 ZCheckBox.qml
 ZComboBox 1.0 ZComboBox.qml

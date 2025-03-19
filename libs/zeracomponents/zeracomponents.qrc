@@ -7,6 +7,7 @@
         <file>src/qml/ZeraComponents/SacVuSigned.qml</file>
         <file>src/qml/ZeraComponents/SacVuUnsigned.qml</file>
         <file>src/qml/ZeraComponents/TimezoneComboRow.qml</file>
+        <file>src/qml/ZeraComponents/TimeSetterPopup.qml</file>
         <file>src/qml/ZeraComponents/ZButton.qml</file>
         <file>src/qml/ZeraComponents/ZCheckBox.qml</file>
         <file>src/qml/ZeraComponents/ZComboBox.qml</file>
