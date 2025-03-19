@@ -22,6 +22,16 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     TimedateModels { id: timedateModels }
+    onAboutToShow: {
+        const currentDate = new Date()
+        dayEdit.text = currentDate.getDate()
+        monthEdit.text = currentDate.getMonth() + 1 // Javascript is zero based!!!
+        yearEdit.text = currentDate.getFullYear()
+        hourEdit.text = currentDate.getHours()
+        minuteEdit.text = currentDate.getMinutes()
+        secondEdit.text = currentDate.getSeconds()
+    }
+
     ButtonGroup {
         id: radioGroup
     }
