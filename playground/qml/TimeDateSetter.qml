@@ -36,8 +36,25 @@ ApplicationWindow {
         anchors.right: parent.right
     }
     Label {
-        id: currentTime
+        id: currentTimeShort
         anchors.top: timezoneRow.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text: Z.trDateTimeShort(Z.dateTimeNow)
+    }
+    Label {
+        id: currentTimeShortTr
+        anchors.top: currentTimeShort.bottom
+        anchors.left: parent.left
+        anchors.right: parent.right
+        text: {
+            let now = Z.dateTimeNow
+            return Z.trDateTimeShort(now) + " (" + Z.trDateTimeTz(now) + ")"
+        }
+    }
+    Label {
+        id: currentTimeLong
+        anchors.top: currentTimeShortTr.bottom
         anchors.left: parent.left
         anchors.right: parent.right
         text: Z.trDateTimeLong(Z.dateTimeNow)
