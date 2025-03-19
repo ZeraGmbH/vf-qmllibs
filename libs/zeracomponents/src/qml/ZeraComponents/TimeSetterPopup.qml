@@ -14,8 +14,8 @@ Popup {
     anchors.centerIn: Overlay.overlay
     readonly property real rowHeight: pointSize * 2.5
     readonly property int rowCount: 5
-    readonly property real editWidth: rowHeight * 2
-    contentWidth: pointSize * 25
+    readonly property real editWidth: rowHeight * 1.6
+    contentWidth: pointSize * 22
     contentHeight: (rowCount+1) * rowHeight
     modal: true
     focus: true
@@ -37,16 +37,18 @@ Popup {
     }
     ZRadioButton {
         id: ntpSync
+        text: Z.tr("Network")
         anchors.top: parent.top
         height: rowHeight
-        text: Z.tr("Network")
+        width: contentWidth
         ButtonGroup.group: radioGroup
     }
     ZRadioButton {
         id: internalRtc
+        text: Z.tr("Internal clock")
         anchors.top: ntpSync.bottom
         height: rowHeight
-        text: Z.tr("Internal clock")
+        width: contentWidth
         ButtonGroup.group: radioGroup
     }
     Grid {
@@ -65,13 +67,14 @@ Popup {
             text: Z.tr("Date:")
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: dayEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 1
                 top: {
@@ -87,13 +90,14 @@ Popup {
             text: "/"
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: monthEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 1
                 top: 12
@@ -103,13 +107,14 @@ Popup {
             text: "/"
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: yearEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 2025
                 top: 2500
@@ -120,13 +125,14 @@ Popup {
             text: Z.tr("Time:")
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: hourEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 0
                 top: 23
@@ -136,13 +142,14 @@ Popup {
             text: ":"
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: minuteEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 0
                 top: 59
@@ -152,13 +159,14 @@ Popup {
             text: ":"
             height: rowHeight
             font.pointSize: pointSize
-            verticalAlignment: Label.AlignTop
+            verticalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
             id: secondEdit
             width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
+            textAlignment: Text.AlignHCenter
             validator: IntValidator {
                 bottom: 0
                 top: 59
@@ -174,11 +182,12 @@ Popup {
         anchors.bottomMargin: pointSize
 
         Item { Layout.fillWidth: true }
+        readonly property real buttonWidth: Math.max(cancelButton.implicitWidth, okButton.implicitWidth) * 1.1
         Button {
             id: cancelButton
             text: Z.tr("Cancel")
             font.pointSize: pointSize
-            Layout.preferredWidth: cancelButton.width
+            Layout.preferredWidth: okCancelButtonRow.buttonWidth
             onClicked: {
                 timeSetterPopup.close()
             }
@@ -187,7 +196,7 @@ Popup {
             id: okButton
             text: Z.tr("OK")
             font.pointSize: pointSize
-            Layout.preferredWidth: cancelButton.width
+            Layout.preferredWidth: okCancelButtonRow.buttonWidth
             enabled: {
                 if (ntpSync.checked)
                     return true
