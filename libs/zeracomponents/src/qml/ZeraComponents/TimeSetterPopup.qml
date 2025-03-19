@@ -37,7 +37,7 @@ Popup {
     }
     ZRadioButton {
         id: ntpSync
-        text: Z.tr("Network")
+        text: Z.tr("Synchronize from network")
         anchors.top: parent.top
         height: rowHeight
         width: contentWidth
@@ -45,7 +45,7 @@ Popup {
     }
     ZRadioButton {
         id: internalRtc
-        text: Z.tr("Internal clock")
+        text: Z.tr("Internal timebase")
         anchors.top: ntpSync.bottom
         height: rowHeight
         width: contentWidth
