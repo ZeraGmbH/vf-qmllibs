@@ -14,6 +14,7 @@ Popup {
     anchors.centerIn: Overlay.overlay
     readonly property real rowHeight: pointSize * 2.5
     readonly property int rowCount: 5
+    readonly property real editWidth: rowHeight * 2
     contentWidth: pointSize * 25
     contentHeight: (rowCount+1) * rowHeight
     modal: true
@@ -43,21 +44,22 @@ Popup {
         columns: 6
         spacing: pointSize * 0.2
         anchors.top: internalRtc.bottom
+        anchors.topMargin: rowHeight * 0.1
         anchors.left: parent.left
-        anchors.leftMargin: pointSize * 5
+        anchors.leftMargin: pointSize * 4.75
         anchors.right: parent.right
         enabled: internalRtc.checked
-
         height: rowHeight * 3
+
         Label {
             text: Z.tr("Date:")
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: dayEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -75,11 +77,11 @@ Popup {
             text: "/"
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: monthEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -91,11 +93,11 @@ Popup {
             text: "/"
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: yearEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -108,11 +110,11 @@ Popup {
             text: Z.tr("Time:")
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: hourEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -124,11 +126,11 @@ Popup {
             text: ":"
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: minuteEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -140,11 +142,11 @@ Popup {
             text: ":"
             height: rowHeight
             font.pointSize: pointSize
-            horizontalAlignment: Label.AlignVCenter
+            verticalAlignment: Label.AlignTop
         }
         ZLineEdit {
             id: secondEdit
-            width: rowHeight * 2
+            width: editWidth
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
@@ -159,7 +161,7 @@ Popup {
         anchors.right: parent.right
         height: rowHeight
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: pointSize //* 0.5
+        anchors.bottomMargin: pointSize
 
         Item { Layout.fillWidth: true }
         Button {
