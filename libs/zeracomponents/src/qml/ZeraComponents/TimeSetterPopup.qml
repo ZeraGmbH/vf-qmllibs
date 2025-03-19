@@ -56,17 +56,17 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: day
+            id: dayEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
             validator: IntValidator {
                 bottom: 1
                 top: {
-                    let iYear = parseInt(year.text)
-                    let iMonth = parseInt(month.text)
+                    let iYear = parseInt(yearEdit.text)
+                    let iMonth = parseInt(monthEdit.text)
                     if(iYear > 0 && iMonth > 0)
-                        return timedateModels.maxDaysInYearMonth(parseInt(year.text), parseInt(month.text))
+                        return timedateModels.maxDaysInYearMonth(parseInt(yearEdit.text), parseInt(monthEdit.text))
                     return 31
                 }
             }
@@ -78,7 +78,7 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: month
+            id: monthEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
@@ -94,7 +94,7 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: year
+            id: yearEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
@@ -111,7 +111,7 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: hour
+            id: hourEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
@@ -127,7 +127,7 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: minute
+            id: minuteEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
@@ -143,7 +143,7 @@ Popup {
             horizontalAlignment: Label.AlignVCenter
         }
         ZLineEdit {
-            id: second
+            id: secondEdit
             width: rowHeight * 2
             height: rowHeight
             pointSize: timeSetterPopup.pointSize
@@ -176,6 +176,17 @@ Popup {
             text: Z.tr("OK")
             font.pointSize: pointSize
             Layout.preferredWidth: cancelButton.width
+            enabled: {
+                if (ntpSync.checked)
+                    return true
+                return  internalRtc.checked &&
+                        dayEdit.hasValidInput() &&
+                        monthEdit.hasValidInput() &&
+                        yearEdit.hasValidInput() &&
+                        hourEdit.hasValidInput() &&
+                        minuteEdit.hasValidInput() &&
+                        secondEdit.hasValidInput()
+            }
             onClicked: {
 
                 timeSetterPopup.close()
