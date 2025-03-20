@@ -14,6 +14,7 @@ private slots:
     void availableTimezones();
     void disableNtp();
     void disableEnableNtp();
+    void disableEnableNtpExternally();
     void changeTimezoneValid();
     void changeTimezoneInvalid();
     void changeTimezoneValidExternally();

@@ -112,7 +112,43 @@ void test_timedate1_connection::disableEnableNtp()
     // test side effects on other properties
     SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
     QCOMPARE(spyNtpAvailable.count(), 0);
+}
 
+void test_timedate1_connection::disableEnableNtpExternally()
+{
+    QSignalSpy spyNtpAvailable(m_connection.get(), &Timedate1Connection::sigNtpAvailableChanged);
+    QSignalSpy spyNtpActive(m_connection.get(), &Timedate1Connection::sigNtpActiveChanged);
+    QSignalSpy spyNtpSynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);
+
+    AbstractTimedate1ConnectionPtr externalConnection;
+    setupConnection(externalConnection);
+    QSignalSpy spyStartExternal(externalConnection.get(), &Timedate1Connection::sigAvailTimezonesChanged);
+    externalConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyStartExternal, 1, m_waitTimeNoPolkit);
+    QCOMPARE(spyStartExternal.count(), 1);
+
+    externalConnection->setNtpActive(false);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyNtpActive.count(), 1);
+    QCOMPARE(m_connection->getNtpActive(), false);
+
+    externalConnection->setNtpActive(true);
+    SignalSpyWaiter::waitForSignals(&spyNtpActive, 2, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyNtpActive.count(), 2);
+    QCOMPARE(m_connection->getNtpActive(), true);
+
+    // NTP on after off sets NTP sync off
+    // We cross checked that with 'timedatectl set-ntp off' / 'timedatectl set-ntp on' / 'timedatectl show'
+    QCOMPARE(spyNtpSynced.count(), 1);
+    QCOMPARE(m_connection->getNtpSynced(), false);
+
+    waitNtpSync();
+    QCOMPARE(spyNtpSynced.count(), 2);
+    QCOMPARE(m_connection->getNtpSynced(), true);
+
+    // test side effects on other properties
+    SignalSpyWaiter::waitForSignals(&spyNtpAvailable, 1, m_waitTimeNoPolkit);
+    QCOMPARE(spyNtpAvailable.count(), 0);
 }
 
 void test_timedate1_connection::changeTimezoneValid()

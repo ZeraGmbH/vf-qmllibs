@@ -36,6 +36,8 @@ void TestTimedate1Connection::start()
             m_timezonesAvailable = timezones.split("\n", Qt::SkipEmptyParts);
             file.close();
         }
+        connect(TestTimedate1Storage::getInstance(), &TestTimedate1Storage::sigNtpActiveChanged,
+                this, &TestTimedate1Connection::onNtpActiveChange);
         connect(TestTimedate1Storage::getInstance(), &TestTimedate1Storage::sigTimezoneChanged,
                 this, &TestTimedate1Connection::sigTimezoneChanged);
         QMetaObject::invokeMethod(this, "sigAvailTimezonesChanged", Qt::QueuedConnection);
@@ -71,27 +73,21 @@ bool TestTimedate1Connection::getNtpSynced() const
 
 bool TestTimedate1Connection::getNtpActive() const
 {
-    return m_ntpActive;
+    return TestTimedate1Storage::getInstance()->getNtpActive();
 }
 
 void TestTimedate1Connection::setNtpActive(bool active)
 {
-    if(active == m_ntpActive)
+    if(active == TestTimedate1Storage::getInstance()->getNtpActive())
         return;
-    m_ntpActive = active;
-    QMetaObject::invokeMethod(this, "sigNtpActiveChanged", Qt::QueuedConnection);
-    if (active) {
-        m_ntpSynced = false;
-        QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
-        m_ntpSyncOnDelay.start();
-    }
+    TestTimedate1Storage::getInstance()->setNtpActive(active);
 }
 
 void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
 {
     // We have no tests / mock on valid datetime yet
     Q_UNUSED(dateTime)
-    bool changeDateTimeOk = !m_ntpActive;
+    bool changeDateTimeOk = !TestTimedate1Storage::getInstance()->getNtpActive();
     QMetaObject::invokeMethod(this,
                               "sigDateTimeChanged",
                               Qt::QueuedConnection,
@@ -106,4 +102,15 @@ void TestTimedate1Connection::onSyncDelay()
 {
     m_ntpSynced = true;
     QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
+}
+
+void TestTimedate1Connection::onNtpActiveChange()
+{
+    QMetaObject::invokeMethod(this, "sigNtpActiveChanged", Qt::QueuedConnection);
+    bool active = TestTimedate1Storage::getInstance()->getNtpActive();
+    if (active) {
+        m_ntpSynced = false;
+        QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
+        m_ntpSyncOnDelay.start();
+    }
 }

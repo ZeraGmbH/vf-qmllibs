@@ -85,12 +85,7 @@ bool Timedate1Connection::getNtpActive() const
 
 void Timedate1Connection::setNtpActive(bool active)
 {
-    QDBusPendingReply<> reply = m_timedateInterface->SetNTP(active, polkitInteractive);
-    auto watcher = new QDBusPendingCallWatcher(reply, this);
-    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
-        updateProperties();
-        watcher->deleteLater();
-    });
+    m_timedateInterface->SetNTP(active, polkitInteractive);
 }
 
 void Timedate1Connection::setDateTime(const QDateTime dateTime)
@@ -116,6 +111,9 @@ void Timedate1Connection::onPropertiesChanged(const QString &interface,
             const QString newTimezone = changed_properties[timezoneProperty].toString();
             updateTimezone(newTimezone);
         }
+        static const QString ntpActiveProperty = "NTP";
+        if (changed_properties.contains(ntpActiveProperty))
+            updateProperties();
     }
 }
 

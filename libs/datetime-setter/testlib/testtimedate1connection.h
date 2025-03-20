@@ -30,11 +30,11 @@ public:
 
 private slots:
     void onSyncDelay();
+    void onNtpActiveChange();
 private:
     QStringList m_timezonesAvailable;
     bool m_ntpAvailable = true;
     bool m_ntpSynced = true;
-    bool m_ntpActive = true;
     TimerSingleShotQt m_ntpSyncOnDelay;
 };
 
