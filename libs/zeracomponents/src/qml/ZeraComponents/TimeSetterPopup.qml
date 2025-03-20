@@ -203,7 +203,7 @@ Popup {
             font.pointSize: pointSize
             Layout.preferredWidth: okCancelButtonRow.buttonWidth
             enabled: {
-                if (ntpSync.checked)
+                if (ntpSync.checked && !timedateModels.ntpActive)
                     return true
                 return  internalRtc.checked &&
                         dayEdit.hasValidInput() &&
