@@ -111,9 +111,9 @@ void Timedate1Connection::onPropertiesChanged(const QString &interface,
                                               const QStringList &invalidated_properties)
 {
     if (interface == dbusTimdate1Name) {
-        static const QString timezonProperty = "Timezone";
-        if (changed_properties.contains(timezonProperty)) {
-            const QString newTimezone = changed_properties[timezonProperty].toString();
+        static const QString timezoneProperty = "Timezone";
+        if (changed_properties.contains(timezoneProperty)) {
+            const QString newTimezone = changed_properties[timezoneProperty].toString();
             updateTimezone(newTimezone);
         }
     }
