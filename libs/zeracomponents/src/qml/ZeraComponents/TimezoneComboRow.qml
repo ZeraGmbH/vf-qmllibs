@@ -50,8 +50,8 @@ RowLayout {
             font.pointSize: pointSize
             height: buttonRow.height
             width: height
-            enabled: timedateModels.canUndo
-            onClicked: timedateModels.doUndo()
+            enabled: timedateModels.canUndoTimezone
+            onClicked: timedateModels.doUndoTimezone()
         }
         Button {
             id: buttonApplySelection
@@ -60,8 +60,8 @@ RowLayout {
             font.pointSize: pointSize
             height: buttonRow.height
             width: height
-            enabled: timedateModels.canApply
-            onClicked: timedateModels.doApply()
+            enabled: timedateModels.canApplyTimezone
+            onClicked: timedateModels.doApplyTimezone()
         }
     }
 }

@@ -33,19 +33,19 @@ public:
     // convenience helper
     Q_INVOKABLE int maxDaysInYearMonth(int year, int month);
 
-    Q_PROPERTY(bool canUndo READ canUndo NOTIFY sigCanUndoChanged FINAL)
-    bool canUndo() const;
-    Q_INVOKABLE void doUndo();
+    Q_PROPERTY(bool canUndoTimezone READ canUndoTimezone NOTIFY sigCanUndoTimezoneChanged FINAL)
+    bool canUndoTimezone() const;
+    Q_INVOKABLE void doUndoTimezone();
 
-    Q_PROPERTY(bool canApply READ canApply NOTIFY sigCanApplyChanged FINAL)
-    bool canApply() const;
-    Q_INVOKABLE void doApply();
+    Q_PROPERTY(bool canApplyTimezone READ canApplyTimezone NOTIFY sigCanApplyTimezoneChanged FINAL)
+    bool canApplyTimezone() const;
+    Q_INVOKABLE void doApplyTimezone();
 
 signals:
     void sigRegionSelectedChanged();
     void sigCitySelectedChanged();
-    void sigCanUndoChanged();
-    void sigCanApplyChanged();
+    void sigCanUndoTimezoneChanged();
+    void sigCanApplyTimezoneChanged();
 
 private slots:
     void handleLanguageChange();

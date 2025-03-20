@@ -22,9 +22,9 @@ TimezoneModelsFacade::TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timeda
     connect(m_timezoneController.get(), &TimezoneStateController::sigCityChanged,
             this, &TimezoneModelsFacade::sigCitySelectedChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanUndoChanged,
-            this, &TimezoneModelsFacade::sigCanUndoChanged);
+            this, &TimezoneModelsFacade::sigCanUndoTimezoneChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
-            this, &TimezoneModelsFacade::sigCanApplyChanged);
+            this, &TimezoneModelsFacade::sigCanApplyTimezoneChanged);
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
             this, &TimezoneModelsFacade::handleLanguageChange);
 }
@@ -65,22 +65,22 @@ int TimezoneModelsFacade::maxDaysInYearMonth(int year, int month)
     return calendar.daysInMonth(month, year);
 }
 
-bool TimezoneModelsFacade::canUndo() const
+bool TimezoneModelsFacade::canUndoTimezone() const
 {
     return m_timezoneController->canUndo();
 }
 
-void TimezoneModelsFacade::doUndo()
+void TimezoneModelsFacade::doUndoTimezone()
 {
     m_timezoneController->doUndo();
 }
 
-bool TimezoneModelsFacade::canApply() const
+bool TimezoneModelsFacade::canApplyTimezone() const
 {
     return m_timezoneController->canApply();
 }
 
-void TimezoneModelsFacade::doApply()
+void TimezoneModelsFacade::doApplyTimezone()
 {
     m_timezoneController->doApply();
 }
