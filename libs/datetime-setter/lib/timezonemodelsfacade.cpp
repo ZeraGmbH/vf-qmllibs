@@ -26,9 +26,6 @@ TimezoneModelsFacade::TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timeda
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
             this, &TimezoneModelsFacade::sigCanApplyTimezoneChanged);
 
-    connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigNtpActiveChanged,
-            this, &TimezoneModelsFacade::sigNtpActiveChanged);
-
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
             this, &TimezoneModelsFacade::handleLanguageChange);
 }
@@ -81,16 +78,6 @@ bool TimezoneModelsFacade::canApplyTimezone() const
 void TimezoneModelsFacade::doApplyTimezone()
 {
     m_timezoneController->doApply();
-}
-
-bool TimezoneModelsFacade::getNtpActive() const
-{
-    return m_timedateConnection->getNtpActive();
-}
-
-void TimezoneModelsFacade::setNtpActive(bool active)
-{
-    m_timedateConnection->setNtpActive(active);
 }
 
 void TimezoneModelsFacade::handleLanguageChange()

@@ -21,7 +21,6 @@ Popup {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    TimedateModels { id: timedateModels }
     TimedateIO { id: timedateIo }
     onAboutToShow: {
         const currentDate = new Date()
@@ -32,7 +31,7 @@ Popup {
         minuteEdit.text = currentDate.getMinutes()
         secondEdit.text = currentDate.getSeconds()
 
-        if(timedateModels.ntpActive)
+        if(timedateIo.ntpActive)
             ntpSync.checked = true
         else
             internalRtc.checked = true
@@ -204,7 +203,7 @@ Popup {
             font.pointSize: pointSize
             Layout.preferredWidth: okCancelButtonRow.buttonWidth
             enabled: {
-                if (ntpSync.checked && !timedateModels.ntpActive)
+                if (ntpSync.checked && !timedateIo.ntpActive)
                     return true
                 return  internalRtc.checked &&
                         dayEdit.hasValidInput() &&
