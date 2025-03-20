@@ -30,9 +30,6 @@ public:
     QString getCitySelected() const;
     void setCitySelected(const QString &city);
 
-    // convenience helper
-    Q_INVOKABLE int maxDaysInYearMonth(int year, int month);
-
     Q_PROPERTY(bool canUndoTimezone READ canUndoTimezone NOTIFY sigCanUndoTimezoneChanged FINAL)
     bool canUndoTimezone() const;
     Q_INVOKABLE void doUndoTimezone();

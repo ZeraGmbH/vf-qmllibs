@@ -22,6 +22,7 @@ Popup {
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
     TimedateModels { id: timedateModels }
+    TimedateIO { id: timedateIo }
     onAboutToShow: {
         const currentDate = new Date()
         dayEdit.text = currentDate.getDate()
@@ -86,7 +87,7 @@ Popup {
                     let iYear = parseInt(yearEdit.text)
                     let iMonth = parseInt(monthEdit.text)
                     if(iYear > 0 && iMonth > 0)
-                        return timedateModels.maxDaysInYearMonth(parseInt(yearEdit.text), parseInt(monthEdit.text))
+                        return timedateIo.maxDaysInYearMonth(parseInt(yearEdit.text), parseInt(monthEdit.text))
                     return 31
                 }
             }

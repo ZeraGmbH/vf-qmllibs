@@ -63,12 +63,6 @@ void TimezoneModelsFacade::setCitySelected(const QString &city)
     m_timezoneController->setSelectedCity(city);
 }
 
-int TimezoneModelsFacade::maxDaysInYearMonth(int year, int month)
-{
-    QCalendar calendar;
-    return calendar.daysInMonth(month, year);
-}
-
 bool TimezoneModelsFacade::canUndoTimezone() const
 {
     return m_timezoneController->canUndo();
