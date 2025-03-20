@@ -10,7 +10,7 @@ import ZeraFa 1.0
 RowLayout {
     id: timezoneRow
     TimedateModels { id: timedateModels }
-    readonly property real pointSize: height * 0.3
+    property real pointSize: height * 0.3
     ComboBox {
         id: regions
         Layout.fillWidth: true
