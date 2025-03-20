@@ -30,6 +30,11 @@ Popup {
         hourEdit.text = currentDate.getHours()
         minuteEdit.text = currentDate.getMinutes()
         secondEdit.text = currentDate.getSeconds()
+
+        if(timedateModels.ntpActive)
+            ntpSync.checked = true
+        else
+            internalRtc.checked = true
     }
 
     ButtonGroup {
