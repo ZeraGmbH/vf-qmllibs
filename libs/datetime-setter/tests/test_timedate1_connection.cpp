@@ -214,8 +214,6 @@ void test_timedate1_connection::changeTimezoneValidExternally()
     SignalSpyWaiter::waitForSignals(&spyTimezoneInternal, 1, m_waitTimeToEnterPolkitPassword);
     QCOMPARE(spyTimezoneInternal.count(), 1);
     QCOMPARE(m_connection->getTimeszone(), timezoneValid);
-
-    waitNtpSync();
 }
 
 void test_timedate1_connection::changeTimeNtpOn()
