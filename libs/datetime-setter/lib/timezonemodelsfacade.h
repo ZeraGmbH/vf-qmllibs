@@ -41,11 +41,16 @@ public:
     bool canApplyTimezone() const;
     Q_INVOKABLE void doApplyTimezone();
 
+    Q_PROPERTY(bool ntpActive READ getNtpActive WRITE setNtpActive NOTIFY sigNtpActiveChanged FINAL)
+    bool getNtpActive() const;
+    void setNtpActive(bool active);
+
 signals:
     void sigRegionSelectedChanged();
     void sigCitySelectedChanged();
     void sigCanUndoTimezoneChanged();
     void sigCanApplyTimezoneChanged();
+    void sigNtpActiveChanged();
 
 private slots:
     void handleLanguageChange();
