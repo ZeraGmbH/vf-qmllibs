@@ -24,7 +24,6 @@ ApplicationWindow {
             id: timesetterPopup
         }
 
-
         ComboBox {
             id: langCombo
             anchors.top: parent.top
