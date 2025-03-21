@@ -12,18 +12,18 @@ public:
     explicit TimezoneModelRegion(TimezoneStateControllerPtr timezoneController,
                                  TimezoneTranslationsPtr translations);
 
-    QHash<int, QByteArray> roleNames() const override;
-    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
-    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     enum Roles {
         RegionRole = Qt::UserRole,
         RegionRoleTranslated
     };
+    QHash<int, QByteArray> roleNames() const override;
+    int rowCount(const QModelIndex &parent = QModelIndex()) const override;
+    QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
+
     Q_PROPERTY(int selectedIndex READ getSelectedIndex WRITE setSelectedIndex NOTIFY sigSelectedIndexChanged FINAL)
     int getSelectedIndex() const;
     void setSelectedIndex(int index);
-signals:
-    void sigSelectedIndexChanged();
+    Q_SIGNAL void sigSelectedIndexChanged();
 
 private slots:
     void fillModel();
