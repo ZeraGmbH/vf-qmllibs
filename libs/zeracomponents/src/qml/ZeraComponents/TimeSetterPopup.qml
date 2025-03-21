@@ -13,9 +13,9 @@ Popup {
 
     anchors.centerIn: Overlay.overlay
     readonly property real rowHeight: pointSize * 2.5
-    readonly property int rowCount: 5
+    readonly property real rowCount: 9
     readonly property real editWidth: rowHeight * 1.6
-    contentWidth: pointSize * 22
+    contentWidth: pointSize * 30
     contentHeight: (rowCount+1) * rowHeight
     modal: true
     focus: true
@@ -37,13 +37,42 @@ Popup {
             internalRtc.checked = true
     }
 
-    ButtonGroup {
-        id: radioGroup
+    Label {
+        id: timezoneLabel
+        text: Z.tr("Timezone:")
+        font.pointSize: timeSetterPopup.pointSize
+        verticalAlignment: Label.AlignVCenter
+        anchors.top: parent.top
+        height: rowHeight
+        width: contentWidth
+    }
+    TimezoneComboRow {
+        id: timezoneRow
+        pointSize: timeSetterPopup.pointSize
+        anchors.top: timezoneLabel.bottom
+        height: rowHeight * 1.2
+        width: contentWidth
+    }
+
+    Item {
+        id: spacer1
+        anchors.top: timezoneRow.bottom
+        height: rowHeight /2
+    }
+
+    Label {
+        id: timesourceLabel
+        text: Z.tr("Date/Time:")
+        font.pointSize: timeSetterPopup.pointSize
+        verticalAlignment: Label.AlignVCenter
+        anchors.top: spacer1.bottom
+        height: rowHeight
+        width: contentWidth
     }
     ZRadioButton {
         id: ntpSync
         text: Z.tr("Synchronize from network")
-        anchors.top: parent.top
+        anchors.top: timesourceLabel.bottom
         height: rowHeight
         width: contentWidth
         ButtonGroup.group: radioGroup
@@ -56,6 +85,7 @@ Popup {
         width: contentWidth
         ButtonGroup.group: radioGroup
     }
+    ButtonGroup { id: radioGroup }
     Grid {
         id: grid
         columns: 6
@@ -203,15 +233,17 @@ Popup {
             font.pointSize: pointSize
             Layout.preferredWidth: okCancelButtonRow.buttonWidth
             enabled: {
+                let canApplyTimezone = timezoneRow.models.canApplyTimezone
                 if (ntpSync.checked && !timedateIo.ntpActive)
-                    return true
-                return  internalRtc.checked &&
-                        dayEdit.hasValidInput() &&
-                        monthEdit.hasValidInput() &&
-                        yearEdit.hasValidInput() &&
-                        hourEdit.hasValidInput() &&
-                        minuteEdit.hasValidInput() &&
-                        secondEdit.hasValidInput()
+                    return canApplyTimezone
+                return  canApplyTimezone || (
+                            internalRtc.checked &&
+                            dayEdit.hasValidInput() &&
+                            monthEdit.hasValidInput() &&
+                            yearEdit.hasValidInput() &&
+                            hourEdit.hasValidInput() &&
+                            minuteEdit.hasValidInput() &&
+                            secondEdit.hasValidInput() )
             }
             onClicked: {
 
