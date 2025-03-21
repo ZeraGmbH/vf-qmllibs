@@ -15,10 +15,9 @@ public:
     Q_INVOKABLE int maxDaysInYearMonth(int year, int month);
 
     Q_PROPERTY(bool ntpActive READ getNtpActive WRITE setNtpActive NOTIFY sigNtpActiveChanged FINAL)
+    Q_SIGNAL void sigNtpActiveChanged();
     bool getNtpActive() const;
     void setNtpActive(bool active);
-signals:
-    void sigNtpActiveChanged();
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
