@@ -10,26 +10,25 @@ public:
     explicit TimezoneStateController(AbstractTimedate1ConnectionPtr timedateConnection);
 
     const QStringList &getTimezones() const;
+    Q_SIGNAL void sigTimezonesChanged();
 
     QString getSelectedRegion() const;
     void setSelectedRegion(const QString &region);
+    Q_SIGNAL void sigRegionChanged();
 
     QString getSelectedCity() const;
     void setSelectedCity(const QString &city);
+    Q_SIGNAL void sigCityChanged();
 
     // In case of future extensions/changes we should think about separating Undo/Apply
     // out into another class. Implementation and Tests are already big and complex...
     bool canUndo() const;
     void doUndo();
+    Q_SIGNAL void sigCanUndoChanged();
+
     bool canApply() const;
     void doApply();
-
-signals:
-    void sigTimezonesChanged();
-    void sigRegionChanged();
-    void sigCityChanged();
-    void sigCanUndoChanged();
-    void sigCanApplyChanged();
+    Q_SIGNAL void sigCanApplyChanged();
 
 private slots:
     void fillTimezones();
