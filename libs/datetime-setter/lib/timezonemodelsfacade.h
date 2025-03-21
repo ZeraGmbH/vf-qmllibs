@@ -22,6 +22,7 @@ public:
     Q_PROPERTY(QString regionSelected READ getRegionSelected WRITE setRegionSelected NOTIFY sigRegionSelectedChanged FINAL)
     QString getRegionSelected() const;
     void setRegionSelected(const QString &region);
+    Q_SIGNAL void sigRegionSelectedChanged();
 
     Q_PROPERTY(QAbstractListModel* cityModel READ getCityModel CONSTANT)
     QAbstractListModel* getCityModel() const;
@@ -29,20 +30,17 @@ public:
     Q_PROPERTY(QString citySelected READ getCitySelected WRITE setCitySelected NOTIFY sigCitySelectedChanged FINAL)
     QString getCitySelected() const;
     void setCitySelected(const QString &city);
+    Q_SIGNAL void sigCitySelectedChanged();
 
     Q_PROPERTY(bool canUndoTimezone READ canUndoTimezone NOTIFY sigCanUndoTimezoneChanged FINAL)
     bool canUndoTimezone() const;
+    Q_SIGNAL void sigCanUndoTimezoneChanged();
     Q_INVOKABLE void doUndoTimezone();
 
     Q_PROPERTY(bool canApplyTimezone READ canApplyTimezone NOTIFY sigCanApplyTimezoneChanged FINAL)
     bool canApplyTimezone() const;
+    Q_SIGNAL void sigCanApplyTimezoneChanged();
     Q_INVOKABLE void doApplyTimezone();
-
-signals:
-    void sigRegionSelectedChanged();
-    void sigCitySelectedChanged();
-    void sigCanUndoTimezoneChanged();
-    void sigCanApplyTimezoneChanged();
 
 private slots:
     void handleLanguageChange();
