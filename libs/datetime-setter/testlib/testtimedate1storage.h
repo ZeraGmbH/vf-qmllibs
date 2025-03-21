@@ -8,15 +8,15 @@ class TestTimedate1Storage : public QObject
     Q_OBJECT
 public:
     static TestTimedate1Storage* getInstance();
+
     QString getTimezone() const;
     void setTimezone(const QString &timezone);
+    Q_SIGNAL void sigTimezoneChanged();
     static void setInitialTimezone(const QString &timezone);
 
     bool getNtpActive() const;
     void setNtpActive(bool active) ;
-signals:
-    void sigTimezoneChanged();
-    void sigNtpActiveChanged();
+    Q_SIGNAL void sigNtpActiveChanged();
 
 private:
     TestTimedate1Storage() = default;
