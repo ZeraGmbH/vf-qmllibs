@@ -39,29 +39,13 @@ RowLayout {
         onCurrentIndexChanged: { model.selectedIndex = currentIndex }
         onModelIndexChanged: { currentIndex = modelIndex }
     }
-    Row {
-        id: buttonRow
-        Layout.preferredWidth: timezoneRow.height * 2
+    Button {
+        id: buttonClearSelection
+        text: FA.fa_undo
+        font.pointSize: pointSize
         Layout.fillHeight: true
-        spacing: 4
-        Button {
-            id: buttonClearSelection
-            text: FA.fa_undo
-            font.pointSize: pointSize
-            height: buttonRow.height
-            width: height
-            enabled: timedateModels.canUndoTimezone
-            onClicked: timedateModels.doUndoTimezone()
-        }
-        Button {
-            id: buttonApplySelection
-            text: FA.fa_check
-            Material.foreground: Material.accentColor
-            font.pointSize: pointSize
-            height: buttonRow.height
-            width: height
-            enabled: timedateModels.canApplyTimezone
-            onClicked: timedateModels.doApplyTimezone()
-        }
+        Layout.preferredWidth: timezoneRow.height
+        enabled: timedateModels.canUndoTimezone
+        onClicked: timedateModels.doUndoTimezone()
     }
 }
