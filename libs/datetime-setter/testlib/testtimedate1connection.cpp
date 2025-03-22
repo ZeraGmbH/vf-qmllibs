@@ -31,7 +31,7 @@ void TestTimedate1Connection::start()
     Q_INIT_RESOURCE(datetime_setter_test);
     if (m_timezonesAvailable.isEmpty()) {
         QFile file("://available_timezones");
-        if(file.open(QFile::ReadOnly)) {
+        if (file.open(QFile::ReadOnly)) {
             QString timezones = file.readAll();
             m_timezonesAvailable = timezones.split("\n", Qt::SkipEmptyParts);
             file.close();
@@ -57,8 +57,13 @@ QString TestTimedate1Connection::getTimeszone() const
 
 void TestTimedate1Connection::setTimezone(const QString &timezone)
 {
-    if (m_timezonesAvailable.contains(timezone))
+    bool ok = m_timezonesAvailable.contains(timezone);
+    if (ok)
         TestTimedate1Storage::getInstance()->setTimezone(timezone);
+    QMetaObject::invokeMethod(this,
+                              "sigTimezoneSet",
+                              Qt::QueuedConnection,
+                              Q_ARG(bool, ok));
 }
 
 bool TestTimedate1Connection::getNtpAvailable() const
@@ -78,9 +83,13 @@ bool TestTimedate1Connection::getNtpActive() const
 
 void TestTimedate1Connection::setNtpActive(bool active)
 {
-    if(active == TestTimedate1Storage::getInstance()->getNtpActive())
-        return;
-    TestTimedate1Storage::getInstance()->setNtpActive(active);
+    if (active != TestTimedate1Storage::getInstance()->getNtpActive())
+        TestTimedate1Storage::getInstance()->setNtpActive(active);
+    // For now pass always
+    QMetaObject::invokeMethod(this,
+                              "sigNtpActiveSet",
+                              Qt::QueuedConnection,
+                              Q_ARG(bool, true));
 }
 
 void TestTimedate1Connection::setDateTime(const QDateTime dateTime)

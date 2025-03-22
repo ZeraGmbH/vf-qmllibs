@@ -65,7 +65,13 @@ QString Timedate1Connection::getTimeszone() const
 
 void Timedate1Connection::setTimezone(const QString &timezone)
 {
-    m_timedateInterface->SetTimezone(timezone, polkitInteractive);
+    QDBusPendingReply<> reply = m_timedateInterface->SetTimezone(timezone, polkitInteractive);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
+        bool ok = !reply.isError();
+        emit sigTimezoneSet(ok);
+        watcher->deleteLater();
+    });
 }
 
 bool Timedate1Connection::getNtpAvailable() const
@@ -85,7 +91,13 @@ bool Timedate1Connection::getNtpActive() const
 
 void Timedate1Connection::setNtpActive(bool active)
 {
-    m_timedateInterface->SetNTP(active, polkitInteractive);
+    QDBusPendingReply<> reply = m_timedateInterface->SetNTP(active, polkitInteractive);
+    auto watcher = new QDBusPendingCallWatcher(reply, this);
+    QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
+        bool ok = !reply.isError();
+        emit sigNtpActiveSet(ok);
+        watcher->deleteLater();
+    });
 }
 
 void Timedate1Connection::setDateTime(const QDateTime dateTime)
@@ -94,8 +106,8 @@ void Timedate1Connection::setDateTime(const QDateTime dateTime)
     QDBusPendingReply<> reply = m_timedateInterface->SetTime(usecUtc, false, polkitInteractive);
     auto watcher = new QDBusPendingCallWatcher(reply, this);
     QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
-        bool error = reply.isError();
-        emit sigDateTimeSet(!error);
+        bool ok = !reply.isError();
+        emit sigDateTimeSet(ok);
         updateProperties();
         watcher->deleteLater();
     });
@@ -113,7 +125,7 @@ void Timedate1Connection::onPropertiesChanged(const QString &interface,
         }
         static const QString ntpActiveProperty = "NTP";
         if (changed_properties.contains(ntpActiveProperty))
-            updateProperties();
+            updateProperties(); // NTP change can change at least NTPsync
     }
 }
 
