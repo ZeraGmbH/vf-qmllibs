@@ -12,12 +12,19 @@ private slots:
     void cleanup();
 
     void availableTimezones();
+
     void disableNtp();
     void disableEnableNtp();
     void disableEnableNtpExternally();
+    void setNtpUnchangedCheckNotification();
+    void setNtpChangedCheckNotification();
+
     void changeTimezoneValid();
     void changeTimezoneInvalid();
     void changeTimezoneValidExternally();
+    void changeTimezoneValidNotification();
+    void changeTimezoneInvalidNotification();
+
     void changeTimeNtpOn();
     void changeTimeNtpOff();
 private:

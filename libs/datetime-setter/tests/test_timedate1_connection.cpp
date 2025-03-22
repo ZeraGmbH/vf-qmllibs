@@ -10,12 +10,15 @@ QTEST_MAIN(test_timedate1_connection)
 void test_timedate1_connection::initTestCase_data()
 {
     QTest::addColumn<QString>("testType");
-
-    // uncomment out for manual tests of Timedate1Connection
-    // Be aware that production tests touch NTP/timezone settings and polkit asks for password!
-    //QTest::newRow("Production") << QString("Production");
-
     QTest::newRow("Test") << QString("Test");
+
+    // Uncomment 'QTest::newRow("Production")...' below for manual tests of Timedate1Connection
+    // Be aware that manual (production) tests
+    // * touch NTP/timezone settings and polkit asks for password! So in case of error
+    //   it is strongly recommended to ask 'timedatectl status' to check if dev-host is
+    //   still in state expected
+    // * take very long due to waiting on NtpSync here and there
+    //QTest::newRow("Production") << QString("Production");
 }
 
 void test_timedate1_connection::init()
@@ -37,22 +40,22 @@ void test_timedate1_connection::init()
 void test_timedate1_connection::cleanup()
 {
     // Make sure tests leave with timezone entered and NTP on + synced
-    if (!m_connection->getNtpActive()) {
-        qInfo("Cleanup: Activate NTP");
-        QSignalSpy spyNtpActive(m_connection.get(), &Timedate1Connection::sigNtpActiveChanged);
-        m_connection->setNtpActive(true);
-        SignalSpyWaiter::waitForSignals(&spyNtpActive, 1, m_waitTimeNoPolkit);
-    }
-    if (m_connection->getTimeszone() != m_hostTimezone) {
-        qInfo("Cleanup: Restore timezone %s", qPrintable(m_hostTimezone));
-        QSignalSpy spyTimezone(m_connection.get(), &Timedate1Connection::sigTimezoneChanged);
-        m_connection->setTimezone(m_hostTimezone);
-        SignalSpyWaiter::waitForSignals(&spyTimezone, 1, m_waitTimeNoPolkit);
-    }
-    if(!m_connection->getNtpSynced())
+    qInfo("Cleanup: Activate NTP");
+    QSignalSpy spyNtpSet(m_connection.get(), &Timedate1Connection::sigNtpActiveSet);
+    m_connection->setNtpActive(true);
+    SignalSpyWaiter::waitForSignals(&spyNtpSet, 1, m_waitTimeNoPolkit);
+
+    qInfo("Cleanup: Restore timezone %s", qPrintable(m_hostTimezone));
+    QSignalSpy spyTimezoneSet(m_connection.get(), &Timedate1Connection::sigTimezoneSet);
+    m_connection->setTimezone(m_hostTimezone);
+    SignalSpyWaiter::waitForSignals(&spyTimezoneSet, 1, m_waitTimeNoPolkit);
+
+    if (!m_connection->getNtpSynced())
         waitNtpSync();
+
     Q_ASSERT(m_connection->getNtpActive());
     Q_ASSERT(m_connection->getNtpSynced());
+
     m_connection.reset();
 }
 
@@ -151,6 +154,26 @@ void test_timedate1_connection::disableEnableNtpExternally()
     QCOMPARE(spyNtpAvailable.count(), 0);
 }
 
+void test_timedate1_connection::setNtpUnchangedCheckNotification()
+{
+    QSignalSpy spyNtpSet(m_connection.get(), &Timedate1Connection::sigNtpActiveSet);
+
+    m_connection->setNtpActive(true);
+    SignalSpyWaiter::waitForSignals(&spyNtpSet, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyNtpSet.count(), 1);
+    QCOMPARE(spyNtpSet[0][0], true); // Howto test error???
+}
+
+void test_timedate1_connection::setNtpChangedCheckNotification()
+{
+    QSignalSpy spyNtpSet(m_connection.get(), &Timedate1Connection::sigNtpActiveSet);
+
+    m_connection->setNtpActive(false);
+    SignalSpyWaiter::waitForSignals(&spyNtpSet, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyNtpSet.count(), 1);
+    QCOMPARE(spyNtpSet[0][0], true); // Howto test error???
+}
+
 void test_timedate1_connection::changeTimezoneValid()
 {
     QSignalSpy spyTimezone(m_connection.get(), &Timedate1Connection::sigTimezoneChanged);
@@ -216,6 +239,28 @@ void test_timedate1_connection::changeTimezoneValidExternally()
     QCOMPARE(m_connection->getTimeszone(), timezoneValid);
 }
 
+void test_timedate1_connection::changeTimezoneValidNotification()
+{
+    QSignalSpy spyTimezoneSet(m_connection.get(), &Timedate1Connection::sigTimezoneSet);
+
+    const QString timezoneValid = "Etc/GMT+0";
+    m_connection->setTimezone(timezoneValid);
+    SignalSpyWaiter::waitForSignals(&spyTimezoneSet, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyTimezoneSet.count(), 1);
+    QCOMPARE(spyTimezoneSet[0][0], true);
+}
+
+void test_timedate1_connection::changeTimezoneInvalidNotification()
+{
+    QSignalSpy spyTimezoneSet(m_connection.get(), &Timedate1Connection::sigTimezoneSet);
+
+    const QString timezoneValid = "Foo";
+    m_connection->setTimezone(timezoneValid);
+    SignalSpyWaiter::waitForSignals(&spyTimezoneSet, 1, m_waitTimeToEnterPolkitPassword);
+    QCOMPARE(spyTimezoneSet.count(), 1);
+    QCOMPARE(spyTimezoneSet[0][0], false);
+}
+
 void test_timedate1_connection::changeTimeNtpOn()
 {
     QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeSet);
@@ -259,7 +304,7 @@ void test_timedate1_connection::setupConnection(AbstractTimedate1ConnectionPtr &
 {
     QFETCH_GLOBAL(QString, testType);
     qInfo("Test type: %s", qPrintable(testType));
-    if(testType == "Production") {
+    if (testType == "Production") {
         m_ntpSyncMaxWaitMs = 10000;
         m_waitTimeToEnterPolkitPassword = 20000;
         m_waitTimeNoPolkit = 1000;
