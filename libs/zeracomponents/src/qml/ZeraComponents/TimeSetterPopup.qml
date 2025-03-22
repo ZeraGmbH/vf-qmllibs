@@ -4,6 +4,7 @@ import QtQuick.Controls.Material 2.14
 import QtQuick.Layouts 1.14
 import ZeraLocale 1.0
 import ZeraTranslation 1.0
+import ZeraTranslationBackend 1.0
 import Timedate 1.0
 import ZeraFa 1.0
 
@@ -122,7 +123,7 @@ Popup {
             }
         }
         Label {
-            text: "/"
+            text: ZTR.dateSeparator
             height: rowHeight
             font.pointSize: pointSize
             verticalAlignment: Label.AlignVCenter
@@ -139,7 +140,7 @@ Popup {
             }
         }
         Label {
-            text: "/"
+            text: ZTR.dateSeparator
             height: rowHeight
             font.pointSize: pointSize
             verticalAlignment: Label.AlignVCenter

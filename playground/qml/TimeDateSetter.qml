@@ -2,8 +2,8 @@ import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 import QtQuick.Layouts 1.14
-import ZeraLocale 1.0
 import ZeraTranslation 1.0
+import ZeraTranslationBackend 1.0
 import ZeraComponents 1.0
 
 ApplicationWindow {
@@ -53,14 +53,14 @@ ApplicationWindow {
             spacing: parent.height * 0.03
             Label {
                 id: currentTimeShort
-                text: Z.trDateTimeShort(Z.dateTimeNow)
+                text: ZTR.trDateTimeShort(ZTR.dateTimeNow)
             }
             RowLayout {
                 id: currentTimeShortTr
                 Label {
                     text: {
-                        let now = Z.dateTimeNow
-                        return Z.trDateTimeShort(now) + " (" + Z.trDateTimeTz(now) + ")"
+                        let now = ZTR.dateTimeNow
+                        return ZTR.trDateTimeShort(now) + " (" + ZTR.trDateTimeTz(now) + ")"
                     }
                     Layout.fillWidth: true
                 }
@@ -71,7 +71,7 @@ ApplicationWindow {
             }
             Label {
                 id: currentTimeLong
-                text: Z.trDateTimeLong(Z.dateTimeNow)
+                text: ZTR.trDateTimeLong(ZTR.dateTimeNow)
             }
         }
     }
