@@ -19,6 +19,7 @@ public:
     virtual QString getTimeszone() const = 0;
     virtual void setTimezone(const QString &timezone) = 0;
     Q_SIGNAL void sigTimezoneChanged();
+    Q_SIGNAL void sigTimezoneSet(bool ok);
 
     virtual bool getNtpAvailable() const = 0;
     Q_SIGNAL void sigNtpAvailableChanged();
@@ -29,9 +30,10 @@ public:
     virtual bool getNtpActive() const = 0;
     virtual void setNtpActive(bool active) = 0;
     Q_SIGNAL void sigNtpActiveChanged();
+    Q_SIGNAL void sigNtpActiveSet(bool ok);
 
     virtual void setDateTime(const QDateTime dateTime) = 0;
-    Q_SIGNAL void sigDateTimeChanged(bool ok);
+    Q_SIGNAL void sigDateTimeSet(bool ok);
 };
 
 typedef std::shared_ptr<AbstractTimedate1Connection> AbstractTimedate1ConnectionPtr;
