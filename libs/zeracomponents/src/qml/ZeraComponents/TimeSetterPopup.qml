@@ -24,6 +24,8 @@ Popup {
 
     TimedateIO { id: timedateIo }
     onAboutToShow: {
+        timezoneRow.models.doUndoTimezone()
+
         const currentDate = new Date()
         dayEdit.text = currentDate.getDate()
         monthEdit.text = currentDate.getMonth() + 1 // Javascript is zero based!!!
