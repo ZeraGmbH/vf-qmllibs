@@ -95,7 +95,7 @@ void Timedate1Connection::setDateTime(const QDateTime dateTime)
     auto watcher = new QDBusPendingCallWatcher(reply, this);
     QObject::connect(watcher, &QDBusPendingCallWatcher::finished, this, [=]() {
         bool error = reply.isError();
-        emit sigDateTimeChanged(!error);
+        emit sigDateTimeSet(!error);
         updateProperties();
         watcher->deleteLater();
     });

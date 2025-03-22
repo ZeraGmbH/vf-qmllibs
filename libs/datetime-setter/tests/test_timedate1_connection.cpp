@@ -218,7 +218,7 @@ void test_timedate1_connection::changeTimezoneValidExternally()
 
 void test_timedate1_connection::changeTimeNtpOn()
 {
-    QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeChanged);
+    QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeSet);
 
     QDateTime testDateTime = QDateTime::fromString("2000-01-01 00:00:00", "yyyy-MM-dd HH:mm:ss");
     m_connection->setDateTime(testDateTime);
@@ -229,7 +229,7 @@ void test_timedate1_connection::changeTimeNtpOn()
 
 void test_timedate1_connection::changeTimeNtpOff()
 {
-    QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeChanged);
+    QSignalSpy spyDateTime(m_connection.get(), &Timedate1Connection::sigDateTimeSet);
     QSignalSpy spyNtpAvailable(m_connection.get(), &Timedate1Connection::sigNtpAvailableChanged);
     QSignalSpy spyNtpActive(m_connection.get(), &Timedate1Connection::sigNtpActiveChanged);
     QSignalSpy spyNtpSynced(m_connection.get(), &Timedate1Connection::sigNtpSyncedChanged);

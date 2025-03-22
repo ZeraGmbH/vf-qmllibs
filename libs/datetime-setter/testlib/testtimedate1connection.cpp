@@ -89,7 +89,7 @@ void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
     Q_UNUSED(dateTime)
     bool changeDateTimeOk = !TestTimedate1Storage::getInstance()->getNtpActive();
     QMetaObject::invokeMethod(this,
-                              "sigDateTimeChanged",
+                              "sigDateTimeSet",
                               Qt::QueuedConnection,
                               Q_ARG(bool, changeDateTimeOk));
     if (changeDateTimeOk) {
