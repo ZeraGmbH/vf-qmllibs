@@ -5,7 +5,6 @@ import QtQuick.Layouts 1.14
 import ZeraLocale 1.0
 import ZeraTranslation 1.0
 import Timedate 1.0
-import ZeraFa 1.0
 
 RowLayout {
     id: timezoneRow
@@ -40,14 +39,5 @@ RowLayout {
         readonly property int modelIndex: model.selectedIndex
         onCurrentIndexChanged: { model.selectedIndex = currentIndex }
         onModelIndexChanged: { currentIndex = modelIndex }
-    }
-    Button {
-        id: buttonClearSelection
-        text: FA.fa_undo
-        font.pointSize: pointSize
-        Layout.fillHeight: true
-        Layout.preferredWidth: timezoneRow.height
-        enabled: timedateModels.canUndoTimezone
-        onClicked: timedateModels.doUndoTimezone()
     }
 }
