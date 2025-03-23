@@ -9,12 +9,14 @@ file(GLOB HEADERS
     *.h
     controller-and-models/*.h
     qml-interfaces/*.h
+    tasks/*.h
 )
 
 file(GLOB SOURCES
     *.cpp
     controller-and-models/*.cpp
     qml-interfaces/*.cpp
+    tasks/*.cpp
 )
 
 add_library(timedate1-interface SHARED
@@ -26,6 +28,7 @@ add_library(timedate1-interface SHARED
 target_link_libraries(timedate1-interface
     PUBLIC
     Zera::zera-timers
+    Zera::zera-tasks-base
     Qt5::DBus
     timezone-translations
 )
@@ -35,6 +38,7 @@ target_include_directories(timedate1-interface
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/controller-and-models>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qml-interfaces>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/tasks>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
