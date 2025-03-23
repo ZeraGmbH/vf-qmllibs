@@ -3,11 +3,13 @@
 
 #include "abstracttimedate1connection.h"
 #include <timersingleshotqt.h>
+#include <QDateTime>
 
 class TestTimedate1Connection : public AbstractTimedate1Connection
 {
     Q_OBJECT
 public:
+    static void setCanNtp(bool on); // once we find a way to disable canNTP on production, this has to go
     TestTimedate1Connection(int maxNtpSyncTimeoutMs);
 
     void setInitialTimezone(const QString &initialTimezone);
@@ -28,6 +30,8 @@ public:
 
     void setDateTime(const QDateTime dateTime) override;
 
+    QDateTime getDateTimeSetSuccessfully() const;
+
 private slots:
     void onSyncDelay();
     void onNtpActiveChange();
@@ -36,6 +40,8 @@ private:
     bool m_ntpAvailable = true;
     bool m_ntpSynced = true;
     TimerSingleShotQt m_ntpSyncOnDelay;
+    QDateTime m_dateTimeSetSuccessfully;
+    static bool m_canNtp;
 };
 
 #endif // TESTTIMEDATE1CONNECTION_H
