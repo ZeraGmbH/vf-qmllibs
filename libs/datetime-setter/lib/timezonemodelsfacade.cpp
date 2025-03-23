@@ -17,10 +17,8 @@ TimezoneModelsFacade::TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timeda
     m_modelCities(std::make_shared<TimezoneModelCityFiltered>(m_timezoneController, m_translations))
 {
     handleLanguageChange();
-    connect(m_timezoneController.get(), &TimezoneStateController::sigRegionChanged,
-            this, &TimezoneModelsFacade::sigRegionSelectedChanged);
-    connect(m_timezoneController.get(), &TimezoneStateController::sigCityChanged,
-            this, &TimezoneModelsFacade::sigCitySelectedChanged);
+    connect(m_timezoneController.get(), &TimezoneStateController::sigSelectedTimezoneChanged,
+            this, &TimezoneModelsFacade::sigSelectedTimezoneChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanUndoChanged,
             this, &TimezoneModelsFacade::sigCanUndoTimezoneChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
@@ -35,29 +33,14 @@ QAbstractListModel *TimezoneModelsFacade::getRegionModel() const
     return m_modelRegion.get();
 }
 
-QString TimezoneModelsFacade::getRegionSelected() const
-{
-    return m_timezoneController->getSelectedRegion();
-}
-
-void TimezoneModelsFacade::setRegionSelected(const QString &region)
-{
-    m_timezoneController->setSelectedRegion(region);
-}
-
 QAbstractListModel *TimezoneModelsFacade::getCityModel() const
 {
     return m_modelCities.get();
 }
 
-QString TimezoneModelsFacade::getCitySelected() const
+QString TimezoneModelsFacade::getSelectedTimezone() const
 {
-    return m_timezoneController->getSelectedCity();
-}
-
-void TimezoneModelsFacade::setCitySelected(const QString &city)
-{
-    m_timezoneController->setSelectedCity(city);
+    return m_timezoneController->getSelectedTimezone();
 }
 
 bool TimezoneModelsFacade::canUndoTimezone() const
@@ -73,11 +56,6 @@ void TimezoneModelsFacade::doUndoTimezone()
 bool TimezoneModelsFacade::canApplyTimezone() const
 {
     return m_timezoneController->canApply();
-}
-
-void TimezoneModelsFacade::doApplyTimezone()
-{
-    m_timezoneController->doApply();
 }
 
 void TimezoneModelsFacade::handleLanguageChange()

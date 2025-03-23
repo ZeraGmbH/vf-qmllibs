@@ -9,8 +9,13 @@ class test_timezone_state_controller : public QObject
     Q_OBJECT
 private slots:
     void init();
-    void getTimezoneConnectionStartEarly();
-    void getTimezoneConnectionStartLate();
+    void getTimezonesConnectionStartEarly();
+    void getTimezonesConnectionStartLate();
+
+    void getTimzoneDefaultConnectionStartEarly();
+    void getTimzoneDefaultConnectionStartLate();
+    void getTimzoneDefaultChangedConnectionStartEarly();
+    void getTimzoneDefaultChangedConnectionStartLate();
 
     void getRegionDefaultConnectionStartEarly();
     void getRegionDefaultChangedConnectionStartEarly();
@@ -26,7 +31,7 @@ private slots:
     void changeRegionValid();
     void tryChangeRegionInvalid();
     void tryChangeRegionEmpty();
-    void changeRegionValidCausesEmptyCity();
+    void changeRegionValidCausesEmptyCityAndTimezone();
 
     void setSameCity();
     void changeCityValid();
@@ -59,8 +64,8 @@ private slots:
     void doUndoAfterRegionChange();
     void doUndoAfterRegionAndCityChange();
 
-    void doApplyOnUnchanged();
-    void setAllTimezonesViaController();
+    void allTimezonesFormControllerCanBeSet();
+
 private:
     void spyControllerSignals(TimezoneStateController *controller, QStringList &signalNameList);
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;

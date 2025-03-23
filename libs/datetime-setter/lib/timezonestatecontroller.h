@@ -20,14 +20,15 @@ public:
     void setSelectedCity(const QString &city);
     Q_SIGNAL void sigCityChanged();
 
-    // In case of future extensions/changes we should think about separating Undo/Apply
-    // out into another class. Implementation and Tests are already big and complex...
+    QString getSelectedTimezone() const;
+    Q_SIGNAL void sigSelectedTimezoneChanged();
+
     bool canUndo() const;
     void doUndo();
     Q_SIGNAL void sigCanUndoChanged();
 
+    // We have tasks to change setting -> no doApply
     bool canApply() const;
-    void doApply();
     Q_SIGNAL void sigCanApplyChanged();
 
 private slots:
