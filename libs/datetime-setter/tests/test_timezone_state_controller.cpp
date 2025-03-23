@@ -15,7 +15,7 @@ void test_timezone_state_controller::init()
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
 }
 
-void test_timezone_state_controller::getTimezoneConnectionStartEarly()
+void test_timezone_state_controller::getTimezonesConnectionStartEarly()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -26,7 +26,7 @@ void test_timezone_state_controller::getTimezoneConnectionStartEarly()
     QCOMPARE(timezones.count(), timezoneCount);
 }
 
-void test_timezone_state_controller::getTimezoneConnectionStartLate()
+void test_timezone_state_controller::getTimezonesConnectionStartLate()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
 
@@ -39,6 +39,55 @@ void test_timezone_state_controller::getTimezoneConnectionStartLate()
     QCOMPARE(spyTimezonesChanged.count(), 1);
     QStringList timezones = controller.getTimezones();
     QCOMPARE(timezones.count(), timezoneCount);
+}
+
+void test_timezone_state_controller::getTimzoneDefaultConnectionStartEarly()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneStateController controller(m_timeDateConnection);
+    QCOMPARE(controller.getSelectedTimezone(), TestTimedate1Connection::getDefaultTimezone());
+}
+
+void test_timezone_state_controller::getTimzoneDefaultConnectionStartLate()
+{
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+
+    TimezoneStateController controller(m_timeDateConnection);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
+
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    QCOMPARE(spyTimezoneChanged.count(), 1);
+    QCOMPARE(controller.getSelectedTimezone(), TestTimedate1Connection::getDefaultTimezone());
+}
+
+void test_timezone_state_controller::getTimzoneDefaultChangedConnectionStartEarly()
+{
+    m_timeDateConnection->setInitialTimezone("Africa/Casablanca");
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    TimezoneStateController controller(m_timeDateConnection);
+    QCOMPARE(controller.getSelectedTimezone(), "Africa/Casablanca");
+}
+
+void test_timezone_state_controller::getTimzoneDefaultChangedConnectionStartLate()
+{
+    m_timeDateConnection->setInitialTimezone("Africa/Casablanca");
+    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
+    TimezoneStateController controller(m_timeDateConnection);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
+
+    m_timeDateConnection->start();
+    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
+
+    QCOMPARE(spyTimezoneChanged.count(), 1);
+    QCOMPARE(controller.getSelectedTimezone(), "Africa/Casablanca");
 }
 
 void test_timezone_state_controller::getRegionDefaultConnectionStartEarly()
@@ -91,6 +140,7 @@ void test_timezone_state_controller::getRegionDefaultChangedConnectionStartLate(
     QCOMPARE(spyRegionChanged.count(), 1);
     QString region = controller.getSelectedRegion();
     QCOMPARE(region, "Africa");
+    QCOMPARE(controller.getSelectedTimezone(), "Africa/Casablanca");
 }
 
 void test_timezone_state_controller::getCityDefaultConnectionStartEarly()
@@ -153,11 +203,16 @@ void test_timezone_state_controller::setSameRegion()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyRegionChanged(&controller, &TimezoneStateController::sigRegionChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedRegion(TestTimedate1Connection::getDefaultRegion());
 
     QCOMPARE(spyRegionChanged.count(), 0);
     QString region = controller.getSelectedRegion();
     QCOMPARE(region, TestTimedate1Connection::getDefaultRegion());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::changeRegionValid()
@@ -168,11 +223,16 @@ void test_timezone_state_controller::changeRegionValid()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyRegionChanged(&controller, &TimezoneStateController::sigRegionChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedRegion("Africa");
 
     QCOMPARE(spyRegionChanged.count(), 1);
     QString region = controller.getSelectedRegion();
     QCOMPARE(region, "Africa");
+
+    QCOMPARE(spyTimezoneChanged.count(), 1);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, "");
 }
 
 void test_timezone_state_controller::tryChangeRegionInvalid()
@@ -183,11 +243,16 @@ void test_timezone_state_controller::tryChangeRegionInvalid()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyRegionChanged(&controller, &TimezoneStateController::sigRegionChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedRegion("foo");
 
     QCOMPARE(spyRegionChanged.count(), 0);
     QString region = controller.getSelectedRegion();
     QCOMPARE(region, TestTimedate1Connection::getDefaultRegion());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::tryChangeRegionEmpty()
@@ -198,14 +263,19 @@ void test_timezone_state_controller::tryChangeRegionEmpty()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyRegionChanged(&controller, &TimezoneStateController::sigRegionChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedRegion("");
 
     QCOMPARE(spyRegionChanged.count(), 0);
     QString region = controller.getSelectedRegion();
     QCOMPARE(region, TestTimedate1Connection::getDefaultRegion());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
-void test_timezone_state_controller::changeRegionValidCausesEmptyCity()
+void test_timezone_state_controller::changeRegionValidCausesEmptyCityAndTimezone()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -214,6 +284,7 @@ void test_timezone_state_controller::changeRegionValidCausesEmptyCity()
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyRegionChanged(&controller, &TimezoneStateController::sigRegionChanged);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedRegion("Africa");
 
     QCOMPARE(spyRegionChanged.count(), 1);
@@ -222,6 +293,10 @@ void test_timezone_state_controller::changeRegionValidCausesEmptyCity()
     QCOMPARE(spyCityChanged.count(), 1);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, "");
+
+    QCOMPARE(spyTimezoneChanged.count(), 1);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, "");
 }
 
 void test_timezone_state_controller::setSameCity()
@@ -232,11 +307,16 @@ void test_timezone_state_controller::setSameCity()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedCity(TestTimedate1Connection::getDefaultCity());
 
     QCOMPARE(spyCityChanged.count(), 0);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, TestTimedate1Connection::getDefaultCity());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::changeCityValid()
@@ -247,11 +327,16 @@ void test_timezone_state_controller::changeCityValid()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedCity("Rome");
 
     QCOMPARE(spyCityChanged.count(), 1);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, "Rome");
+
+    QCOMPARE(spyTimezoneChanged.count(), 1);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultRegion() + "/Rome");
 }
 
 void test_timezone_state_controller::tryChangeCityInvalid()
@@ -262,11 +347,16 @@ void test_timezone_state_controller::tryChangeCityInvalid()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedCity("foo");
 
     QCOMPARE(spyCityChanged.count(), 0);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, TestTimedate1Connection::getDefaultCity());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::tryChangeCityNotInRegion()
@@ -277,11 +367,16 @@ void test_timezone_state_controller::tryChangeCityNotInRegion()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedCity("Casablanca");
 
     QCOMPARE(spyCityChanged.count(), 0);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, TestTimedate1Connection::getDefaultCity());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::tryChangeCityEmpty()
@@ -292,11 +387,16 @@ void test_timezone_state_controller::tryChangeCityEmpty()
 
     TimezoneStateController controller(m_timeDateConnection);
     QSignalSpy spyCityChanged(&controller, &TimezoneStateController::sigCityChanged);
+    QSignalSpy spyTimezoneChanged(&controller, &TimezoneStateController::sigSelectedTimezoneChanged);
     controller.setSelectedCity("");
 
     QCOMPARE(spyCityChanged.count(), 0);
     QString city = controller.getSelectedCity();
     QCOMPARE(city, TestTimedate1Connection::getDefaultCity());
+
+    QCOMPARE(spyTimezoneChanged.count(), 0);
+    QString timezone = controller.getSelectedTimezone();
+    QCOMPARE(timezone, TestTimedate1Connection::getDefaultTimezone());
 }
 
 void test_timezone_state_controller::getCanApplyEarly()
@@ -700,21 +800,7 @@ void test_timezone_state_controller::doUndoAfterRegionAndCityChange()
     QCOMPARE(controller.getSelectedCity(), "Berlin");
 }
 
-void test_timezone_state_controller::doApplyOnUnchanged()
-{
-    QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
-    m_timeDateConnection->start();
-    SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
-    TimezoneStateController controller(m_timeDateConnection);
-
-    QStringList signalNamesReceived;
-    spyControllerSignals(&controller, signalNamesReceived);
-    controller.doApply();
-
-    QCOMPARE(signalNamesReceived.count(), 0);
-}
-
-void test_timezone_state_controller::setAllTimezonesViaController()
+void test_timezone_state_controller::allTimezonesFormControllerCanBeSet()
 {
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
     m_timeDateConnection->start();
@@ -731,10 +817,14 @@ void test_timezone_state_controller::setAllTimezonesViaController()
 
         if (!controller.canApply())
             failedTimezones.append(timezone + ": canApply on");
-        controller.doApply();
+        if (!controller.canUndo())
+            failedTimezones.append(timezone + ": canUndo on");
+        m_timeDateConnection->setTimezone(controller.getSelectedTimezone());
         TimeMachineObject::feedEventLoop();
         if (controller.canApply())
             failedTimezones.append(timezone + ": canApply off");
+        if (controller.canUndo())
+            failedTimezones.append(timezone + ": canUndo off");
         if (m_timeDateConnection->getTimeszone() != timezone)
             failedTimezones.append(timezone + ": not set");
     }

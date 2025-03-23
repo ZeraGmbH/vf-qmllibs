@@ -44,6 +44,20 @@ void TimezoneStateController::setSelectedCity(const QString &city)
         changeCity(city);
 }
 
+QString TimezoneStateController::getSelectedTimezone() const
+{
+    if(!canApply()) {
+        if(!canUndo())
+            return m_timedateConnection->getTimeszone();
+        return QString();
+    }
+
+    const QString timezone =
+        m_selectedRegion == TimezoneTranslations::noRegionString() ?
+            m_selectedCity : QString("%1/%2").arg(m_selectedRegion, m_selectedCity);
+    return timezone;
+}
+
 bool TimezoneStateController::canUndo() const
 {
     return m_canUndo;
@@ -57,14 +71,6 @@ void TimezoneStateController::doUndo()
 bool TimezoneStateController::canApply() const
 {
     return m_canApply;
-}
-
-void TimezoneStateController::doApply()
-{
-    const QString timezone =
-        m_selectedRegion == TimezoneTranslations::noRegionString() ?
-                                 m_selectedCity : QString("%1/%2").arg(m_selectedRegion, m_selectedCity);
-    m_timedateConnection->setTimezone(timezone);
 }
 
 void TimezoneStateController::fillTimezones()
@@ -147,4 +153,5 @@ void TimezoneStateController::changeCity(const QString &city)
 {
     m_selectedCity = city;
     emit sigCityChanged();
+    emit sigSelectedTimezoneChanged();
 }
