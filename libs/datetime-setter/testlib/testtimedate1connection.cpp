@@ -3,6 +3,13 @@
 #include "timezoneextractor.h"
 #include <QFile>
 
+bool TestTimedate1Connection::m_canNtp = true;
+
+void TestTimedate1Connection::setCanNtp(bool on)
+{
+    m_canNtp = on;
+}
+
 TestTimedate1Connection::TestTimedate1Connection(int maxNtpSyncTimeoutMs) :
     m_ntpSyncOnDelay(maxNtpSyncTimeoutMs/2)
 {
@@ -83,20 +90,19 @@ bool TestTimedate1Connection::getNtpActive() const
 
 void TestTimedate1Connection::setNtpActive(bool active)
 {
-    if (active != TestTimedate1Storage::getInstance()->getNtpActive())
+    if (m_canNtp && active != TestTimedate1Storage::getInstance()->getNtpActive())
         TestTimedate1Storage::getInstance()->setNtpActive(active);
-    // For now pass always
     QMetaObject::invokeMethod(this,
                               "sigNtpActiveSet",
                               Qt::QueuedConnection,
-                              Q_ARG(bool, true));
+                              Q_ARG(bool, m_canNtp));
 }
 
 void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
 {
-    // We have no tests / mock on valid datetime yet
-    Q_UNUSED(dateTime)
     bool changeDateTimeOk = !TestTimedate1Storage::getInstance()->getNtpActive();
+    if(changeDateTimeOk)
+        m_dateTimeSetSuccessfully = dateTime;
     QMetaObject::invokeMethod(this,
                               "sigDateTimeSet",
                               Qt::QueuedConnection,
@@ -105,6 +111,11 @@ void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
         m_ntpSynced = false;
         QMetaObject::invokeMethod(this, "sigNtpSyncedChanged", Qt::QueuedConnection);
     }
+}
+
+QDateTime TestTimedate1Connection::getDateTimeSetSuccessfully() const
+{
+    return m_dateTimeSetSuccessfully;
 }
 
 void TestTimedate1Connection::onSyncDelay()
