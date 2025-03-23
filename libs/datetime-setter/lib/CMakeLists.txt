@@ -5,8 +5,17 @@ add_custom_target( # for visibility in qt creator
 
 qt5_add_dbus_interface(INTERFACE_SOURCES timedate1.xml timedate1interface)
 
-file(GLOB HEADERS *.h)
-file(GLOB SOURCES *.cpp)
+file(GLOB HEADERS
+    *.h
+    controller-and-models/*.h
+    qml-interfaces/*.h
+)
+
+file(GLOB SOURCES
+    *.cpp
+    controller-and-models/*.cpp
+    qml-interfaces/*.cpp
+)
 
 add_library(timedate1-interface SHARED
     ${INTERFACE_SOURCES}
@@ -24,6 +33,8 @@ target_link_libraries(timedate1-interface
 target_include_directories(timedate1-interface
     PUBLIC
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/controller-and-models>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qml-interfaces>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>
 )
 
