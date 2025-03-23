@@ -19,10 +19,8 @@ TimezoneModelsFacade::TimezoneModelsFacade(AbstractTimedate1ConnectionPtr timeda
     handleLanguageChange();
     connect(m_timezoneController.get(), &TimezoneStateController::sigSelectedTimezoneChanged,
             this, &TimezoneModelsFacade::sigSelectedTimezoneChanged);
-    connect(m_timezoneController.get(), &TimezoneStateController::sigCanUndoChanged,
-            this, &TimezoneModelsFacade::sigCanUndoTimezoneChanged);
     connect(m_timezoneController.get(), &TimezoneStateController::sigCanApplyChanged,
-            this, &TimezoneModelsFacade::sigCanApplyTimezoneChanged);
+            this, &TimezoneModelsFacade::sigCanApplyChangesChanged);
 
     connect(ZeraTranslation::getInstance(), &ZeraTranslation::sigLanguageChanged,
             this, &TimezoneModelsFacade::handleLanguageChange);
@@ -43,17 +41,12 @@ QString TimezoneModelsFacade::getSelectedTimezone() const
     return m_timezoneController->getSelectedTimezone();
 }
 
-bool TimezoneModelsFacade::canUndoTimezone() const
-{
-    return m_timezoneController->canUndo();
-}
-
-void TimezoneModelsFacade::doUndoTimezone()
+void TimezoneModelsFacade::doUndoChanges()
 {
     m_timezoneController->doUndo();
 }
 
-bool TimezoneModelsFacade::canApplyTimezone() const
+bool TimezoneModelsFacade::canApplyChanges() const
 {
     return m_timezoneController->canApply();
 }

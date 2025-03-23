@@ -24,7 +24,7 @@ Popup {
 
     TimedateHelper { id: timedateHelper }
     onAboutToShow: {
-        timezoneRow.models.doUndoTimezone()
+        timezoneRow.models.doUndoChanges()
 
         const currentDate = new Date()
         dayEdit.text = currentDate.getDate()
@@ -246,7 +246,7 @@ Popup {
                         !secondEdit.hasValidInput())
                         return false
                 }
-                let timezoneChanged = timezoneRow.models.canApplyTimezone
+                let timezoneChanged = timezoneRow.models.canApplyChanges
                 let ntpChanged = ntpSync.checked != timedateHelper.ntpActive
                 return userWantsToSetRtc || timezoneChanged || ntpChanged
             }
