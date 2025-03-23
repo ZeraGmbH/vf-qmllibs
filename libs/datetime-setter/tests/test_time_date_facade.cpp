@@ -1,5 +1,5 @@
 #include "test_time_date_facade.h"
-#include "timedatefacade.h"
+#include "timedatehelper.h"
 #include "testtimedate1connection.h"
 #include <timemachineobject.h>
 #include "signalspywaiter.h"
@@ -20,15 +20,15 @@ void test_time_date_facade::init()
 
 void test_time_date_facade::daysInMonth()
 {
-    TimeDateFacade facade(m_timeDateConnection);
+    TimeDateHelper facade(m_timeDateConnection);
     QCOMPARE(facade.maxDaysInYearMonth(2025, 2), 28);
     QCOMPARE(facade.maxDaysInYearMonth(2028, 2), 29);
 }
 
 void test_time_date_facade::ntpChange()
 {
-    TimeDateFacade facade(m_timeDateConnection);
-    QSignalSpy spyNtpChange(&facade, &TimeDateFacade::sigNtpActiveChanged);
+    TimeDateHelper facade(m_timeDateConnection);
+    QSignalSpy spyNtpChange(&facade, &TimeDateHelper::sigNtpActiveChanged);
 
     m_timeDateConnection->setNtpActive(false);
     TimeMachineObject::feedEventLoop();

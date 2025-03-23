@@ -22,7 +22,7 @@ Popup {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    TimedateIO { id: timedateIo }
+    TimedateHelper { id: timedateHelper }
     onAboutToShow: {
         timezoneRow.models.doUndoTimezone()
 
@@ -34,7 +34,7 @@ Popup {
         minuteEdit.text = currentDate.getMinutes()
         secondEdit.text = currentDate.getSeconds()
 
-        if(timedateIo.ntpActive)
+        if(timedateHelper.ntpActive)
             ntpSync.checked = true
         else
             internalRtc.checked = true
@@ -119,7 +119,7 @@ Popup {
                     let iYear = parseInt(yearEdit.text)
                     let iMonth = parseInt(monthEdit.text)
                     if(iYear > 0 && iMonth > 0)
-                        return timedateIo.maxDaysInYearMonth(parseInt(yearEdit.text), parseInt(monthEdit.text))
+                        return timedateHelper.maxDaysInYearMonth(parseInt(yearEdit.text), parseInt(monthEdit.text))
                     return 31
                 }
             }
@@ -236,17 +236,19 @@ Popup {
             font.pointSize: pointSize
             Layout.preferredWidth: okCancelButtonRow.buttonWidth
             enabled: {
-                let canApplyTimezone = timezoneRow.models.canApplyTimezone
-                if (ntpSync.checked && !timedateIo.ntpActive)
-                    return canApplyTimezone
-                return  canApplyTimezone || (
-                            internalRtc.checked &&
-                            dayEdit.hasValidInput() &&
-                            monthEdit.hasValidInput() &&
-                            yearEdit.hasValidInput() &&
-                            hourEdit.hasValidInput() &&
-                            minuteEdit.hasValidInput() &&
-                            secondEdit.hasValidInput() )
+                let userWantsToSetRtc = internalRtc.checked
+                if (internalRtc.checked) {
+                    if (!dayEdit.hasValidInput() ||
+                        !monthEdit.hasValidInput() ||
+                        !yearEdit.hasValidInput() ||
+                        !hourEdit.hasValidInput() ||
+                        !minuteEdit.hasValidInput() ||
+                        !secondEdit.hasValidInput())
+                        return false
+                }
+                let timezoneChanged = timezoneRow.models.canApplyTimezone
+                let ntpChanged = ntpSync.checked != timedateHelper.ntpActive
+                return userWantsToSetRtc || timezoneChanged || ntpChanged
             }
             onClicked: {
 
