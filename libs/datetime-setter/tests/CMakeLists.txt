@@ -26,4 +26,5 @@ SETUP_QTESTS_TIMEDATE1(
     test_timezone_model_region
     test_timezone_state_controller
     test_time_date_helper
+    test_tasks_datetime
 )
