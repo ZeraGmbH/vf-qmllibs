@@ -1,4 +1,4 @@
-#include "test_time_date_facade.h"
+#include "test_time_date_helper.h"
 #include "timedatehelper.h"
 #include "testtimedate1connection.h"
 #include <timemachineobject.h>
@@ -6,11 +6,11 @@
 #include <QSignalSpy>
 #include <QTest>
 
-QTEST_MAIN(test_time_date_facade)
+QTEST_MAIN(test_time_date_helper)
 
 static constexpr int waitTimeForStartOrSync = 10;
 
-void test_time_date_facade::init()
+void test_time_date_helper::init()
 {
     m_timeDateConnection = std::make_shared<TestTimedate1Connection>(waitTimeForStartOrSync);
     QSignalSpy spyTimezonesAvail(m_timeDateConnection.get(), &AbstractTimedate1Connection::sigAvailTimezonesChanged);
@@ -18,14 +18,14 @@ void test_time_date_facade::init()
     SignalSpyWaiter::waitForSignals(&spyTimezonesAvail, 1, waitTimeForStartOrSync);
 }
 
-void test_time_date_facade::daysInMonth()
+void test_time_date_helper::daysInMonth()
 {
     TimeDateHelper facade(m_timeDateConnection);
     QCOMPARE(facade.maxDaysInYearMonth(2025, 2), 28);
     QCOMPARE(facade.maxDaysInYearMonth(2028, 2), 29);
 }
 
-void test_time_date_facade::ntpChange()
+void test_time_date_helper::ntpChange()
 {
     TimeDateHelper facade(m_timeDateConnection);
     QSignalSpy spyNtpChange(&facade, &TimeDateHelper::sigNtpActiveChanged);

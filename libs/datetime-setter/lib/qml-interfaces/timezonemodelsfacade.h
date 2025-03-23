@@ -26,14 +26,11 @@ public:
     QString getSelectedTimezone() const;
     Q_SIGNAL void sigSelectedTimezoneChanged();
 
-    Q_PROPERTY(bool canUndoTimezone READ canUndoTimezone NOTIFY sigCanUndoTimezoneChanged FINAL)
-    bool canUndoTimezone() const;
-    Q_SIGNAL void sigCanUndoTimezoneChanged();
-    Q_INVOKABLE void doUndoTimezone();
+    Q_INVOKABLE void doUndoChanges();
 
-    Q_PROPERTY(bool canApplyTimezone READ canApplyTimezone NOTIFY sigCanApplyTimezoneChanged FINAL)
-    bool canApplyTimezone() const;
-    Q_SIGNAL void sigCanApplyTimezoneChanged();
+    Q_PROPERTY(bool canApplyChanges READ canApplyChanges NOTIFY sigCanApplyChangesChanged FINAL)
+    bool canApplyChanges() const;
+    Q_SIGNAL void sigCanApplyChangesChanged();
 
 private slots:
     void handleLanguageChange();
