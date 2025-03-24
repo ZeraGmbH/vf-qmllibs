@@ -2,7 +2,7 @@
 #include "tasksetdatetime.h"
 #include "tasksetntp.h"
 #include "tasksettimezone.h"
-#include "taskdatetimeall.h"
+#include "tasksetalldatetime.h"
 #include <timemachineobject.h>
 #include <signalspywaiter.h>
 #include <QDate>
@@ -140,4 +140,64 @@ void test_tasks_datetime::setTimezonePass()
     QCOMPARE(spy[0][0], true);
     QCOMPARE(m_timeDateConnection->getTimeszone(), "Europe/Zurich");
     QCOMPARE(errorIndicator, 0);
+}
+
+void test_tasks_datetime::setAllSetTimezoneFail()
+{
+    std::shared_ptr<QStringList> errors = std::make_shared<QStringList>();
+    TaskTemplatePtr task = TaskSetAllDateTime::create(m_timeDateConnection,
+                                                   "foo", false, m_testDatetime,
+                                                   errors);
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
+    TimeMachineObject::feedEventLoop();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy[0][0], false);
+    QCOMPARE(errors->count(), 1);
+    QCOMPARE(errors->at(0), "Set timezone failed!");
+}
+
+void test_tasks_datetime::setAllSetNtpFail()
+{
+    TestTimedate1Connection::setCanNtp(false);
+    std::shared_ptr<QStringList> errors = std::make_shared<QStringList>();
+    TaskTemplatePtr task = TaskSetAllDateTime::create(m_timeDateConnection,
+                                                   "Europe/Zurich", false, m_testDatetime,
+                                                   errors);
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
+    TimeMachineObject::feedEventLoop();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy[0][0], false);
+    QCOMPARE(errors->count(), 1);
+    QCOMPARE(errors->at(0), "NTP deactivate failed!");
+}
+
+void test_tasks_datetime::setAllSetDateTimeFail()
+{
+    std::shared_ptr<QStringList> errors = std::make_shared<QStringList>();
+    TaskTemplatePtr task = TaskSetAllDateTime::create(m_timeDateConnection,
+                                                   "Europe/Zurich", false, QDateTime(),
+                                                   errors);
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
+    TimeMachineObject::feedEventLoop();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy[0][0], false);
+    QCOMPARE(errors->count(), 1);
+    QCOMPARE(errors->at(0), "Set date/time failed!");
+}
+
+void test_tasks_datetime::setAllPass()
+{
+    std::shared_ptr<QStringList> errors = std::make_shared<QStringList>();
+    TaskTemplatePtr task = TaskSetAllDateTime::create(m_timeDateConnection,
+                                                   "Europe/Zurich", false, m_testDatetime,
+                                                   errors);
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
+    TimeMachineObject::feedEventLoop();
+    QCOMPARE(spy.count(), 1);
+    QCOMPARE(spy[0][0], true);
+    QCOMPARE(errors->count(), 0);
 }
