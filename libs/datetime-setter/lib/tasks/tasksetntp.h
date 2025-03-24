@@ -11,14 +11,16 @@ class TaskSetNtp : public TaskTemplate
 public:
     static TaskTemplatePtr create(AbstractTimedate1ConnectionPtr timedateConnection,
                                   bool ntpActive,
-                                  std::function<void()> additionalErrorHandler = []{}, int timeoutMs = defaultTimeout);
+                                  std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetNtp(AbstractTimedate1ConnectionPtr timedateConnection,
-                        bool ntpActive);
+                        bool ntpActive,
+                        std::function<void()> additionalErrorHandler = []{});
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     bool m_ntpActive;
+    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETNTP_H

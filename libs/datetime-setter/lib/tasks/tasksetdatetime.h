@@ -14,14 +14,16 @@ class TaskSetDateTime : public TaskTemplate
 public:
     static TaskTemplatePtr create(AbstractTimedate1ConnectionPtr timedateConnection,
                                   QDateTime datetime,
-                                  std::function<void()> additionalErrorHandler = []{}, int timeoutMs = defaultTimeout);
+                                  std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetDateTime(AbstractTimedate1ConnectionPtr timedateConnection,
-                             QDateTime datetime);
+                             QDateTime datetime,
+                             std::function<void()> additionalErrorHandler = []{});
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     QDateTime m_datetime;
+    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETDATETIME_H
