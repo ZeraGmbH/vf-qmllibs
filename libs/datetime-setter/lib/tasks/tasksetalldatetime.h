@@ -16,7 +16,7 @@ public:
                              const QString &timezone, bool ntpActive, QDateTime datetime,
                              std::shared_ptr<QStringList> errorMessages);
     void start() override;
-    QStringList getErrorMessages() const;
+
 private:
     TaskTemplatePtr getTimezoneTask(AbstractTimedate1ConnectionPtr timedateConnection,
                                    const QString &timezone);
