@@ -22,7 +22,13 @@ Popup {
     focus: true
     closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutsideParent
 
-    TimedateHelper { id: timedateHelper }
+    TimedateHelper {
+        id: timedateHelper
+        onSigAllDateTimeSet: {
+
+            timeSetterPopup.close()
+        }
+    }
     onAboutToShow: {
         timezoneRow.models.doUndoChanges()
 
@@ -251,9 +257,12 @@ Popup {
                 return userWantsToSetRtc || timezoneChanged || ntpChanged
             }
             onClicked: {
-
-                timeSetterPopup.close()
+                timedateHelper.setAllDateTime(timezoneRow.models.selectedTimezone,
+                                              ntpSync.checked,
+                                              yearEdit.text, monthEdit.text, dayEdit.text,
+                                              hourEdit.text, minuteEdit.text, secondEdit.text)
             }
         }
     }
+
 }
