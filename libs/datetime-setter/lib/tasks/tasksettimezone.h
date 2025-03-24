@@ -7,7 +7,6 @@
 class TaskSetTimezone : public TaskTemplate
 {
     Q_OBJECT
-    static constexpr int defaultTimeout = 3000;
 public:
     static TaskTemplatePtr create(AbstractTimedate1ConnectionPtr timedateConnection,
                                   const QString &timezone,
