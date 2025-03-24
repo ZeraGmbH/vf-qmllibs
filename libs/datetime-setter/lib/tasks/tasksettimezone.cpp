@@ -1,4 +1,14 @@
 #include "tasksettimezone.h"
+#include <taskdecoratortimeout.h>
+
+TaskTemplatePtr TaskSetTimezone::create(AbstractTimedate1ConnectionPtr timedateConnection,
+                                        const QString &timezone,
+                                        std::function<void ()> additionalErrorHandler, int timeoutMs)
+{
+    return TaskDecoratorTimeout::wrapTimeout(timeoutMs,
+                                             std::make_unique<TaskSetTimezone>(timedateConnection, timezone),
+                                             additionalErrorHandler);
+}
 
 TaskSetTimezone::TaskSetTimezone(AbstractTimedate1ConnectionPtr timedateConnection,
                                  const QString &timezone) :
