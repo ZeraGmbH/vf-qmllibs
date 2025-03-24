@@ -9,14 +9,15 @@ class test_tasks_datetime : public QObject
     Q_OBJECT
 private slots:
     void init();
-    void setDateTimeNotSucessful();
-    void setDateTimeSucessful();
+    void setDateTimeFail();
+    void setDateTimePass();
 
-    void setNtpOffOn();
-    void setNtpNotAvail();
+    void setNtpOffOnPass();
+    void setNtpFail();
 
-    void setTimezoneNotSuccesful();
-    void setTimezoneSuccesful();
+    void setTimezoneFail();
+    void setTimezonePass();
+
 private:
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;
     QDateTime m_testDatetime;
