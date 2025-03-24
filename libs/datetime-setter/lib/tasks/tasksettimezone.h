@@ -12,14 +12,12 @@ public:
                                   const QString &timezone,
                                   std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetTimezone(AbstractTimedate1ConnectionPtr timedateConnection,
-                             const QString &timezone,
-                             std::function<void ()> additionalErrorHandler = []{});
+                             const QString &timezone);
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     QString m_timezone;
-    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETTIMEZONE_H
