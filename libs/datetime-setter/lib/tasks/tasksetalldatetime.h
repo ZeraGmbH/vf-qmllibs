@@ -27,6 +27,7 @@ private:
 
     TaskContainerInterfacePtr m_tasks;
     std::shared_ptr<QStringList> m_errorMessages;
+    static constexpr int ntpSettleTimeoutMs = 5000;
 };
 
 #endif // TASKSETALLDATETIME_H
