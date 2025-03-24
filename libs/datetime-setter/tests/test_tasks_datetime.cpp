@@ -112,24 +112,31 @@ void test_tasks_datetime::setNtpNotAvail()
 
 void test_tasks_datetime::setTimezoneNotSuccesful()
 {
-    TaskSetTimezone task(m_timeDateConnection,
-                         "foo");
-    QSignalSpy spy(&task, &TaskTemplate::sigFinish);
-    task.start();
+    int errorIndicator = 0;
+    TaskTemplatePtr task = TaskSetTimezone::create(m_timeDateConnection,
+                                                   "foo",
+                                                   [&]() { errorIndicator = 42; });
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spy.count(), 1);
     QCOMPARE(spy[0][0], false);
     QCOMPARE(m_timeDateConnection->getTimeszone(), TestTimedate1Connection::getDefaultTimezone());
+    QCOMPARE(errorIndicator, 42);
 }
 
 void test_tasks_datetime::setTimezoneSuccesful()
 {
-    TaskSetTimezone task(m_timeDateConnection,
-                         "Europe/Zurich");
-    QSignalSpy spy(&task, &TaskTemplate::sigFinish);
-    task.start();
+    int errorIndicator = 0;
+    TaskTemplatePtr task = TaskSetTimezone::create(m_timeDateConnection,
+                                                   "Europe/Zurich",
+                                                   [&]() { errorIndicator = 42; });
+
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spy.count(), 1);
     QCOMPARE(spy[0][0], true);
     QCOMPARE(m_timeDateConnection->getTimeszone(), "Europe/Zurich");
+    QCOMPARE(errorIndicator, 0);
 }
