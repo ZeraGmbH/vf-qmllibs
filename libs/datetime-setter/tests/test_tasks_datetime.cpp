@@ -2,6 +2,7 @@
 #include "tasksetdatetime.h"
 #include "tasksetntp.h"
 #include "tasksettimezone.h"
+#include "taskdatetimeall.h"
 #include <timemachineobject.h>
 #include <signalspywaiter.h>
 #include <QDate>
@@ -33,7 +34,7 @@ void test_tasks_datetime::init()
 }
 
 
-void test_tasks_datetime::setDateTimeNotSucessful()
+void test_tasks_datetime::setDateTimeFail()
 {
     int errorIndicator = 0;
     TaskTemplatePtr task = TaskSetDateTime::create(m_timeDateConnection,
@@ -48,7 +49,7 @@ void test_tasks_datetime::setDateTimeNotSucessful()
     QVERIFY(m_testDatetime != m_timeDateConnection->getDateTimeSetSuccessfully());
 }
 
-void test_tasks_datetime::setDateTimeSucessful()
+void test_tasks_datetime::setDateTimePass()
 {
     // To set time we need NTP off
     m_timeDateConnection->setNtpActive(false);
@@ -67,7 +68,7 @@ void test_tasks_datetime::setDateTimeSucessful()
     QCOMPARE(m_testDatetime, m_timeDateConnection->getDateTimeSetSuccessfully());
 }
 
-void test_tasks_datetime::setNtpOffOn()
+void test_tasks_datetime::setNtpOffOnPass()
 {
     int errorIndicatorOff = 0;
     TaskTemplatePtr taskOff = TaskSetNtp::create(m_timeDateConnection,
@@ -94,7 +95,7 @@ void test_tasks_datetime::setNtpOffOn()
     QCOMPARE(errorIndicatorOn, 0);
 }
 
-void test_tasks_datetime::setNtpNotAvail()
+void test_tasks_datetime::setNtpFail()
 {
     TestTimedate1Connection::setCanNtp(false);
     int errorIndicatorOff = 0;
@@ -110,7 +111,7 @@ void test_tasks_datetime::setNtpNotAvail()
     QCOMPARE(errorIndicatorOff, 42);
 }
 
-void test_tasks_datetime::setTimezoneNotSuccesful()
+void test_tasks_datetime::setTimezoneFail()
 {
     int errorIndicator = 0;
     TaskTemplatePtr task = TaskSetTimezone::create(m_timeDateConnection,
@@ -125,7 +126,7 @@ void test_tasks_datetime::setTimezoneNotSuccesful()
     QCOMPARE(errorIndicator, 42);
 }
 
-void test_tasks_datetime::setTimezoneSuccesful()
+void test_tasks_datetime::setTimezonePass()
 {
     int errorIndicator = 0;
     TaskTemplatePtr task = TaskSetTimezone::create(m_timeDateConnection,
