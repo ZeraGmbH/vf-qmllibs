@@ -100,7 +100,7 @@ void TestTimedate1Connection::setNtpActive(bool active)
 
 void TestTimedate1Connection::setDateTime(const QDateTime dateTime)
 {
-    bool changeDateTimeOk = !TestTimedate1Storage::getInstance()->getNtpActive();
+    bool changeDateTimeOk = dateTime.isValid() && !TestTimedate1Storage::getInstance()->getNtpActive();
     if(changeDateTimeOk)
         m_dateTimeSetSuccessfully = dateTime;
     QMetaObject::invokeMethod(this,
