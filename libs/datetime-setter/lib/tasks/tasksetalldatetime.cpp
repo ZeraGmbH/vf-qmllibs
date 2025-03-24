@@ -1,8 +1,10 @@
 #include "tasksetalldatetime.h"
 #include "tasksettimezone.h"
 #include "tasksetntp.h"
+#include "taskwaitntp.h"
 #include "tasksetdatetime.h"
 #include <taskcontainersequence.h>
+#include <taskdecoratortimeout.h>
 #include <zeratranslation.h>
 
 TaskTemplatePtr TaskSetAllDateTime::create(AbstractTimedate1ConnectionPtr timedateConnection,
@@ -50,12 +52,18 @@ TaskTemplatePtr TaskSetAllDateTime::getNtpTask(AbstractTimedate1ConnectionPtr ti
     const QString errMsgNtp = ntpActive ?
                                   ZeraTranslation::getInstance()->trValue("NTP activate failed!").toString() :
                                   ZeraTranslation::getInstance()->trValue("NTP deactivate failed!").toString();
-    return TaskSetNtp::create(timedateConnection,
-                                       ntpActive,
-                                       [this, errMsgNtp]() {
-                                           m_errorMessages->append(errMsgNtp);
-                                       });
-
+    TaskContainerInterfacePtr task = TaskContainerSequence::create();
+    std::function<void ()> errorHandler = [this, errMsgNtp]() {
+        m_errorMessages->append(errMsgNtp);
+    };
+    // No timeout for DBUS response TaskSetNtp: on dev machine we have to enter password
+    task->addSub(TaskSetNtp::create(timedateConnection,
+                                    ntpActive,
+                                    errorHandler));
+    task->addSub(TaskDecoratorTimeout::wrapTimeout(ntpSettleTimeoutMs,
+                                                   TaskWaitNtp::create(timedateConnection, ntpActive),
+                                                   errorHandler));
+    return task;
 }
 
 TaskTemplatePtr TaskSetAllDateTime::getDatetimeTask(AbstractTimedate1ConnectionPtr timedateConnection,
