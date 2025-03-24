@@ -33,11 +33,6 @@ void TaskSetAllDateTime::start()
     m_tasks->start();
 }
 
-QStringList TaskSetAllDateTime::getErrorMessages() const
-{
-    return *m_errorMessages;
-}
-
 TaskTemplatePtr TaskSetAllDateTime::getTimezoneTask(AbstractTimedate1ConnectionPtr timedateConnection,
                                                     const QString &timezone)
 {
