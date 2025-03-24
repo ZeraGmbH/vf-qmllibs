@@ -69,36 +69,45 @@ void test_tasks_datetime::setDateTimeSucessful()
 
 void test_tasks_datetime::setNtpOffOn()
 {
-    TaskSetNtp taskOff(m_timeDateConnection,
-                       false);
-    QSignalSpy spyOff(&taskOff, &TaskTemplate::sigFinish);
-    taskOff.start();
+    int errorIndicatorOff = 0;
+    TaskTemplatePtr taskOff = TaskSetNtp::create(m_timeDateConnection,
+                                              false,
+                                              [&]() { errorIndicatorOff = 42; });
+    QSignalSpy spyOff(taskOff.get(), &TaskTemplate::sigFinish);
+    taskOff->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spyOff.count(), 1);
     QCOMPARE(spyOff[0][0], true);
     QCOMPARE(m_timeDateConnection->getNtpActive(), false);
+    QCOMPARE(errorIndicatorOff, 0);
 
-    TaskSetNtp taskOn(m_timeDateConnection,
-                      true);
-    QSignalSpy spyOn(&taskOff, &TaskTemplate::sigFinish);
-    taskOn.start();
+    int errorIndicatorOn = 0;
+    TaskTemplatePtr taskOn = TaskSetNtp::create(m_timeDateConnection,
+                                                 true,
+                                                 [&]() { errorIndicatorOn = 42; });
+    QSignalSpy spyOn(taskOn.get(), &TaskTemplate::sigFinish);
+    taskOn->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spyOn.count(), 1);
     QCOMPARE(spyOn[0][0], true);
     QCOMPARE(m_timeDateConnection->getNtpActive(), true);
+    QCOMPARE(errorIndicatorOn, 0);
 }
 
 void test_tasks_datetime::setNtpNotAvail()
 {
     TestTimedate1Connection::setCanNtp(false);
-    TaskSetNtp taskOff(m_timeDateConnection,
-                       false);
-    QSignalSpy spyOff(&taskOff, &TaskTemplate::sigFinish);
-    taskOff.start();
+    int errorIndicatorOff = 0;
+    TaskTemplatePtr taskOff = TaskSetNtp::create(m_timeDateConnection,
+                                                 false,
+                                                 [&]() { errorIndicatorOff = 42; });
+    QSignalSpy spyOff(taskOff.get(), &TaskTemplate::sigFinish);
+    taskOff->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spyOff.count(), 1);
     QCOMPARE(spyOff[0][0], false);
     QCOMPARE(m_timeDateConnection->getNtpActive(), true);
+    QCOMPARE(errorIndicatorOff, 42);
 }
 
 void test_tasks_datetime::setTimezoneNotSuccesful()
