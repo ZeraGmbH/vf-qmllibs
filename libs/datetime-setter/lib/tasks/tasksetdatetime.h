@@ -15,14 +15,12 @@ public:
                                   QDateTime datetime,
                                   std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetDateTime(AbstractTimedate1ConnectionPtr timedateConnection,
-                             QDateTime datetime,
-                             std::function<void()> additionalErrorHandler = []{});
+                             QDateTime datetime);
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     QDateTime m_datetime;
-    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETDATETIME_H
