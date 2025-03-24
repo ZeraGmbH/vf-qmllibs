@@ -35,13 +35,16 @@ void test_tasks_datetime::init()
 
 void test_tasks_datetime::setDateTimeNotSucessful()
 {
-    TaskSetDateTime task(m_timeDateConnection,
-                         m_testDatetime);
-    QSignalSpy spy(&task, &TaskTemplate::sigFinish);
-    task.start();
+    int errorIndicator = 0;
+    TaskTemplatePtr task = TaskSetDateTime::create(m_timeDateConnection,
+                                                   m_testDatetime,
+                                                   [&]() { errorIndicator = 42; });
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spy.count(), 1);
     QCOMPARE(spy[0][0], false);
+    QCOMPARE(errorIndicator, 42);
     QVERIFY(m_testDatetime != m_timeDateConnection->getDateTimeSetSuccessfully());
 }
 
@@ -51,13 +54,16 @@ void test_tasks_datetime::setDateTimeSucessful()
     m_timeDateConnection->setNtpActive(false);
     TimeMachineObject::feedEventLoop();
 
-    TaskSetDateTime task(m_timeDateConnection,
-                         m_testDatetime);
-    QSignalSpy spy(&task, &TaskTemplate::sigFinish);
-    task.start();
+    int errorIndicator = 0;
+    TaskTemplatePtr task = TaskSetDateTime::create(m_timeDateConnection,
+                                                   m_testDatetime,
+                                                   [&]() { errorIndicator = 42; });
+    QSignalSpy spy(task.get(), &TaskTemplate::sigFinish);
+    task->start();
     TimeMachineObject::feedEventLoop();
     QCOMPARE(spy.count(), 1);
     QCOMPARE(spy[0][0], true);
+    QCOMPARE(errorIndicator, 0);
     QCOMPARE(m_testDatetime, m_timeDateConnection->getDateTimeSetSuccessfully());
 }
 
