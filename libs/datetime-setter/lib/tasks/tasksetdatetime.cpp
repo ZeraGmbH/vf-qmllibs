@@ -1,5 +1,15 @@
 #include "tasksetdatetime.h"
+#include <taskdecoratortimeout.h>
 #include <QDateTime>
+
+TaskTemplatePtr TaskSetDateTime::create(AbstractTimedate1ConnectionPtr timedateConnection,
+                                        QDateTime datetime,
+                                        std::function<void ()> additionalErrorHandler, int timeoutMs)
+{
+    return TaskDecoratorTimeout::wrapTimeout(timeoutMs,
+                                             std::make_unique<TaskSetDateTime>(timedateConnection, datetime),
+                                             additionalErrorHandler);
+}
 
 TaskSetDateTime::TaskSetDateTime(AbstractTimedate1ConnectionPtr timedateConnection,
                                  QDateTime datetime) :
