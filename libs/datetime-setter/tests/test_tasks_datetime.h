@@ -18,6 +18,10 @@ private slots:
     void setTimezoneFail();
     void setTimezonePass();
 
+    void setAllSetTimezoneFail();
+    void setAllSetNtpFail();
+    void setAllSetDateTimeFail();
+    void setAllPass();
 private:
     std::shared_ptr<TestTimedate1Connection> m_timeDateConnection;
     QDateTime m_testDatetime;
