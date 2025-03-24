@@ -11,14 +11,16 @@ class TaskSetTimezone : public TaskTemplate
 public:
     static TaskTemplatePtr create(AbstractTimedate1ConnectionPtr timedateConnection,
                                   const QString &timezone,
-                                  std::function<void()> additionalErrorHandler = []{}, int timeoutMs = defaultTimeout);
+                                  std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetTimezone(AbstractTimedate1ConnectionPtr timedateConnection,
-                             const QString &timezone);
+                             const QString &timezone,
+                             std::function<void ()> additionalErrorHandler = []{});
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     QString m_timezone;
+    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETTIMEZONE_H
