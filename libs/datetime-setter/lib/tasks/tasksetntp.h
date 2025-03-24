@@ -12,14 +12,12 @@ public:
                                   bool ntpActive,
                                   std::function<void()> additionalErrorHandler = []{});
     explicit TaskSetNtp(AbstractTimedate1ConnectionPtr timedateConnection,
-                        bool ntpActive,
-                        std::function<void()> additionalErrorHandler = []{});
+                        bool ntpActive);
     void start() override;
 
 private:
     AbstractTimedate1ConnectionPtr m_timedateConnection;
     bool m_ntpActive;
-    std::function<void()> m_additionalErrorHandler;
 };
 
 #endif // TASKSETNTP_H

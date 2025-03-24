@@ -1,17 +1,19 @@
 #include "tasksetntp.h"
+#include <taskdecoratorerrorhandler.h>
 
 TaskTemplatePtr TaskSetNtp::create(AbstractTimedate1ConnectionPtr timedateConnection,
                                    bool ntpActive,
                                    std::function<void ()> additionalErrorHandler)
 {
-    return std::make_unique<TaskSetNtp>(timedateConnection, ntpActive, additionalErrorHandler);
+    return TaskDecoratorErrorHandler::create(
+        std::make_unique<TaskSetNtp>(timedateConnection, ntpActive),
+        additionalErrorHandler);
 }
 
 TaskSetNtp::TaskSetNtp(AbstractTimedate1ConnectionPtr timedateConnection,
-                       bool ntpActive, std::function<void ()> additionalErrorHandler) :
+                       bool ntpActive) :
     m_timedateConnection(timedateConnection),
-    m_ntpActive(ntpActive),
-    m_additionalErrorHandler(additionalErrorHandler)
+    m_ntpActive(ntpActive)
 {
 }
 
@@ -22,8 +24,6 @@ void TaskSetNtp::start()
         return;
     }
     connect(m_timedateConnection.get(), &AbstractTimedate1Connection::sigNtpActiveSet, this, [=](bool ok) {
-        if(!ok)
-            m_additionalErrorHandler();
         finishTask(ok);
     });
     m_timedateConnection->setNtpActive(m_ntpActive);
