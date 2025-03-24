@@ -18,6 +18,13 @@ public:
     void start() override;
     QStringList getErrorMessages() const;
 private:
+    TaskTemplatePtr getTimezoneTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                                   const QString &timezone);
+    TaskTemplatePtr getNtpTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                               bool ntpActive);
+    TaskTemplatePtr getDatetimeTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                                    QDateTime datetime);
+
     TaskContainerInterfacePtr m_tasks;
     std::shared_ptr<QStringList> m_errorMessages;
 };

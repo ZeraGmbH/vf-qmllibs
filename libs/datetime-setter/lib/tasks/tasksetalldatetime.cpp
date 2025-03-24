@@ -20,29 +20,10 @@ TaskSetAllDateTime::TaskSetAllDateTime(AbstractTimedate1ConnectionPtr timedateCo
     m_tasks(TaskContainerSequence::create()),
     m_errorMessages(errorMessages)
 {
-    const QString errMsgTimezone = ZeraTranslation::getInstance()->trValue("Set timezone failed!").toString();
-    m_tasks->addSub(TaskSetTimezone::create(timedateConnection,
-                                            timezone,
-                                            [this, errMsgTimezone]() {
-                                                m_errorMessages->append(errMsgTimezone);
-                                            }));
-
-    const QString errMsgNtp = ntpActive ?
-                               ZeraTranslation::getInstance()->trValue("NTP activate failed!").toString() :
-                               ZeraTranslation::getInstance()->trValue("NTP deactivate failed!").toString();
-    m_tasks->addSub(TaskSetNtp::create(timedateConnection,
-                                       ntpActive,
-                                       [this, errMsgNtp]() {
-                                            m_errorMessages->append(errMsgNtp);
-                                       }));
-    if(!ntpActive) {
-        const QString errMsgDateTime = ZeraTranslation::getInstance()->trValue("Set date/time failed!").toString();
-        m_tasks->addSub(TaskSetDateTime::create(timedateConnection,
-                                                datetime,
-                                                [this, errMsgDateTime]() {
-                                                    m_errorMessages->append(errMsgDateTime);
-                                                }));
-    }
+    m_tasks->addSub(getTimezoneTask(timedateConnection, timezone));
+    m_tasks->addSub(getNtpTask(timedateConnection, ntpActive));
+    if(!ntpActive)
+        m_tasks->addSub(getDatetimeTask(timedateConnection, datetime));
 }
 
 void TaskSetAllDateTime::start()
@@ -55,4 +36,40 @@ void TaskSetAllDateTime::start()
 QStringList TaskSetAllDateTime::getErrorMessages() const
 {
     return *m_errorMessages;
+}
+
+TaskTemplatePtr TaskSetAllDateTime::getTimezoneTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                                                    const QString &timezone)
+{
+    const QString errMsgTimezone = ZeraTranslation::getInstance()->trValue("Set timezone failed!").toString();
+    return TaskSetTimezone::create(timedateConnection,
+                                   timezone,
+                                   [this, errMsgTimezone]() {
+                                       m_errorMessages->append(errMsgTimezone);
+                                   });
+}
+
+TaskTemplatePtr TaskSetAllDateTime::getNtpTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                                               bool ntpActive)
+{
+    const QString errMsgNtp = ntpActive ?
+                                  ZeraTranslation::getInstance()->trValue("NTP activate failed!").toString() :
+                                  ZeraTranslation::getInstance()->trValue("NTP deactivate failed!").toString();
+    return TaskSetNtp::create(timedateConnection,
+                                       ntpActive,
+                                       [this, errMsgNtp]() {
+                                           m_errorMessages->append(errMsgNtp);
+                                       });
+
+}
+
+TaskTemplatePtr TaskSetAllDateTime::getDatetimeTask(AbstractTimedate1ConnectionPtr timedateConnection,
+                                                    QDateTime datetime)
+{
+    const QString errMsgDateTime = ZeraTranslation::getInstance()->trValue("Set date/time failed!").toString();
+    return TaskSetDateTime::create(timedateConnection,
+                                            datetime,
+                                            [this, errMsgDateTime]() {
+                                                m_errorMessages->append(errMsgDateTime);
+                                            });
 }
