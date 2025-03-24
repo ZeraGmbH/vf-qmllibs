@@ -39,6 +39,7 @@ Popup {
         hourEdit.text = currentDate.getHours()
         minuteEdit.text = currentDate.getMinutes()
         secondEdit.text = currentDate.getSeconds()
+        dateTimeWasChanged = false
 
         if(timedateHelper.ntpActive)
             ntpSync.checked = true
@@ -95,6 +96,8 @@ Popup {
         ButtonGroup.group: radioGroup
     }
     ButtonGroup { id: radioGroup }
+
+    property bool dateTimeWasChanged: false
     Grid {
         id: grid
         columns: 6
@@ -129,6 +132,10 @@ Popup {
                     return 31
                 }
             }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
+            }
         }
         Label {
             text: ZTR.dateSeparator
@@ -146,6 +153,10 @@ Popup {
                 bottom: 1
                 top: 12
             }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
+            }
         }
         Label {
             text: ZTR.dateSeparator
@@ -162,6 +173,10 @@ Popup {
             validator: IntValidator {
                 bottom: 2025
                 top: 2500
+            }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
             }
         }
 
@@ -181,6 +196,10 @@ Popup {
                 bottom: 0
                 top: 23
             }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
+            }
         }
         Label {
             text: ":"
@@ -198,6 +217,10 @@ Popup {
                 bottom: 0
                 top: 59
             }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
+            }
         }
         Label {
             text: ":"
@@ -214,6 +237,10 @@ Popup {
             validator: IntValidator {
                 bottom: 0
                 top: 59
+            }
+            function doApplyInput(newText) {
+                dateTimeWasChanged = true
+                return true
             }
         }
     }
@@ -254,7 +281,7 @@ Popup {
                 }
                 let timezoneChanged = timezoneRow.models.canApplyChanges
                 let ntpChanged = ntpSync.checked != timedateHelper.ntpActive
-                return userWantsToSetRtc || timezoneChanged || ntpChanged
+                return (userWantsToSetRtc && dateTimeWasChanged) || timezoneChanged || ntpChanged
             }
             onClicked: {
                 timedateHelper.setAllDateTime(timezoneRow.models.selectedTimezone,
