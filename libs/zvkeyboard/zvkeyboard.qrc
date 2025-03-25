@@ -1,24 +1,37 @@
 <RCC>
     <qresource prefix="/">
         <file>zvkeyboard/DarkKey.qml</file>
-        <file>zvkeyboard/layouts/de_DE/numbers.fallback</file>
+        <file>zvkeyboard/layouts/de_DE/dialpad.fallback</file>
         <file>zvkeyboard/layouts/de_DE/main.qml</file>
+        <file>zvkeyboard/layouts/de_DE/numbers.fallback</file>
         <file>zvkeyboard/layouts/de_DE/symbols.fallback</file>
+
+        <file>zvkeyboard/layouts/en_GB/dialpad.fallback</file>
         <file>zvkeyboard/layouts/en_GB/numbers.fallback</file>
         <file>zvkeyboard/layouts/en_GB/main.fallback</file>
         <file>zvkeyboard/layouts/en_GB/symbols.fallback</file>
         <file>zvkeyboard/layouts/en_US/numbers.fallback</file>
+
+        <file>zvkeyboard/layouts/en_US/dialpad.fallback</file>
         <file>zvkeyboard/layouts/en_US/main.fallback</file>
         <file>zvkeyboard/layouts/en_US/symbols.fallback</file>
+
+        <file>zvkeyboard/layouts/es_ES/dialpad.fallback</file>
         <file>zvkeyboard/layouts/es_ES/numbers.fallback</file>
         <file>zvkeyboard/layouts/es_ES/main.qml</file>
         <file>zvkeyboard/layouts/es_ES/symbols.qml</file>
+
+        <file>zvkeyboard/layouts/fallback/dialpad.qml</file>
         <file>zvkeyboard/layouts/fallback/numbers.qml</file>
         <file>zvkeyboard/layouts/fallback/main.qml</file>
         <file>zvkeyboard/layouts/fallback/symbols.qml</file>
+
+        <file>zvkeyboard/layouts/fr_FR/dialpad.fallback</file>
         <file>zvkeyboard/layouts/fr_FR/symbols.fallback</file>
         <file>zvkeyboard/layouts/fr_FR/numbers.fallback</file>
         <file>zvkeyboard/layouts/fr_FR/main.qml</file>
+
+        <file>zvkeyboard/layouts/pt_PT/dialpad.fallback</file>
         <file>zvkeyboard/layouts/pt_PT/numbers.fallback</file>
         <file>zvkeyboard/layouts/pt_PT/main.qml</file>
         <file>zvkeyboard/layouts/pt_PT/symbols.fallback</file>
