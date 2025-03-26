@@ -1,6 +1,8 @@
 pragma Singleton
 import QtQuick 2.0
 
+// TODO: Move this to zeratranslation
+
 // Container with defaults for all settings ZeraHelpers uses. To make changes
 // or make settings persistent, bind them to other properties or set them on
 // change
