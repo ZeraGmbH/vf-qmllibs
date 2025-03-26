@@ -37,7 +37,7 @@ import "../../" as ZVKEYB
 
 KeyboardLayout {
     inputMethod: PlainInputMethod {}
-    inputMode: InputEngine.InputMode.Numeric
+    inputMode: InputEngine.InputMode.Latin
     KeyboardColumn {
         Layout.fillWidth: true
         Layout.fillHeight: true
