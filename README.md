@@ -47,5 +47,5 @@ in your build directory.
 * Build 
 
 ## Timezode translations
-see [This document](libs/datetime-setter/timezone-translations/lib/README.md) for more information
+see [this document](libs/datetime-setter/timezone-translations/lib/README.md) for more information
 
