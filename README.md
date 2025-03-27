@@ -46,3 +46,6 @@ in your build directory.
 * Run CMake 
 * Build 
 
+## Timezode translations
+see [This document](libs/datetime-setter/timezone-translations/lib/README.md) for more information
+

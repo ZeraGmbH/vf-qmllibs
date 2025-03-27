@@ -1,3 +1,5 @@
+# Timezone translations
+
 The po files in this folder were taken from [1].
 Note that en_US is missing. Let's assume untranslated texts match en_US.
 
