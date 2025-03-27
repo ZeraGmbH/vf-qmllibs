@@ -29,7 +29,7 @@ ApplicationWindow {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT" ]
+            model: [ "en_GB", "en_US", "de_DE", "es_ES", "fr_FR", "pt_PT", "uk_UA" ]
             function changeLanguage(newLocaleStr) {
                 Z.changeLanguage(newLocaleStr);
             }
