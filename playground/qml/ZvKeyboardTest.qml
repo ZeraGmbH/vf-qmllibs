@@ -7,6 +7,7 @@ import QtQuick.Controls.Material 2.14
 import QtQuick.VirtualKeyboard 2.14
 import QtQuick.VirtualKeyboard.Settings 2.14
 import ZeraComponents 1.0
+import ZeraTranslationBackend 1.0
 
 ApplicationWindow {
     id: window
@@ -29,7 +30,7 @@ ApplicationWindow {
         ComboBox {
             id: langCombo
             width: 200
-            model: [ "en_GB", "en_US", "de_DE", "fr_FR" ]
+            model: ZTR.supportedLanguages
             onCurrentTextChanged: {
                 VirtualKeyboardSettings.locale = langCombo.currentText
             }
