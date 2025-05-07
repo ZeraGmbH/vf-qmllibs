@@ -29,6 +29,7 @@
 
 import QtQuick 2.0
 import QtQuick.VirtualKeyboard 2.3
+import "../../" as ZVKEYB
 
 KeyboardLayoutLoader {
     sharedLayouts: ['symbols']
@@ -156,40 +157,41 @@ KeyboardLayoutLoader {
                     text: "ю"
                 }
                 Key {
-                    key: Qt.Key_Apostrophe
-                    text: "'"
+                    key: Qt.Key_Period
+                    text: "."
                 }
                 ShiftKey {
                     weight: 272
                 }
             }
             KeyboardRow {
-                keyWeight: 154
+                keyWeight: 180
+                ZVKEYB.DarkKey {
+                    key: Qt.Key_Escape
+                    displayText: "Esc"
+                    showPreview: false
+                }
                 SymbolModeKey {
-                    weight: 217
-                }
-                ChangeLanguageKey {
-                    weight: 154
-                }
-                HandwritingModeKey {
-                    weight: 154
                 }
                 SpaceKey {
-                    weight: 864
+                    weight: 1000
                 }
-                Key {
-                    key: Qt.Key_Period
-                    text: "."
-                    alternativeKeys: ";:!?.,"
-                    smallTextVisible: true
+                ZVKEYB.DarkKey {
+                    displayText: "\u2190"
+                    key: Qt.Key_Left
+                    showPreview: false
+                    repeat: true
                 }
-                Key {
-                    key: 0xE000
-                    text: ":-)"
-                    alternativeKeys: [ ";-)", ":-)", ":-D", ":-(", "<3" ]
+                ZVKEYB.DarkKey {
+                    text: "\u2192"
+                    key: Qt.Key_Right
+                    showPreview: false
+                    repeat: true
                 }
-                HideKeyboardKey {
-                    weight: 204
+                ZVKEYB.DarkKey {
+                    showPreview: false
+                    key: Qt.Key_End
+                    text: "End"
                 }
             }
         }
@@ -327,45 +329,45 @@ KeyboardLayoutLoader {
                     text: "m"
                 }
                 Key {
-                    key: Qt.Key_Minus
-                    text: "-"
-                    alternativeKeys: "-\"'"
+                    key: Qt.Key_Comma
+                    text: ","
                 }
                 Key {
-                    key: Qt.Key_Apostrophe
-                    text: "'"
+                    key: Qt.Key_Period
+                    text: "."
                 }
                 ShiftKey {
                     weight: 204
                 }
             }
             KeyboardRow {
-                keyWeight: 154
+                keyWeight: 180
+                ZVKEYB.DarkKey {
+                    key: Qt.Key_Escape
+                    displayText: "Esc"
+                    showPreview: false
+                }
                 SymbolModeKey {
-                    weight: 217
-                }
-                ChangeLanguageKey {
-                    weight: 154
-                }
-                HandwritingModeKey {
-                    weight: 154
                 }
                 SpaceKey {
-                    weight: 864
+                    weight: 1000
                 }
-                Key {
-                    key: Qt.Key_Period
-                    text: "."
-                    alternativeKeys: ";:!?.,"
-                    smallTextVisible: true
+                ZVKEYB.DarkKey {
+                    displayText: "\u2190"
+                    key: Qt.Key_Left
+                    showPreview: false
+                    repeat: true
                 }
-                Key {
-                    key: 0xE000
-                    text: ":-)"
-                    alternativeKeys: [ ";-)", ":-)", ":-D", ":-(", "<3" ]
+                ZVKEYB.DarkKey {
+                    text: "\u2192"
+                    key: Qt.Key_Right
+                    showPreview: false
+                    repeat: true
                 }
-                HideKeyboardKey {
-                    weight: 204
+                ZVKEYB.DarkKey {
+                    showPreview: false
+                    key: Qt.Key_End
+                    text: "End"
                 }
             }
         }
