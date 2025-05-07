@@ -35,5 +35,10 @@
         <file>zvkeyboard/layouts/pt_PT/numbers.fallback</file>
         <file>zvkeyboard/layouts/pt_PT/main.qml</file>
         <file>zvkeyboard/layouts/pt_PT/symbols.fallback</file>
+
+        <file>zvkeyboard/layouts/uk_UA/dialpad.fallback</file>
+        <file>zvkeyboard/layouts/uk_UA/numbers.fallback</file>
+        <file>zvkeyboard/layouts/uk_UA/main.qml</file>
+        <file>zvkeyboard/layouts/uk_UA/symbols.fallback</file>
     </qresource>
 </RCC>
