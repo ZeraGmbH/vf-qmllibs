@@ -16,7 +16,6 @@ find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xm
 find_package(FontAweSomeQml REQUIRED)
 find_package(ZenuxCore REQUIRED)
 find_package(ZeraTranslation REQUIRED)
-find_package(SortFilterProxyModel REQUIRED)
 find_package(KF5NetworkManagerQt REQUIRED)
 find_package(KF5ModemManagerQt REQUIRED)
 find_package(PkgConfig REQUIRED)
