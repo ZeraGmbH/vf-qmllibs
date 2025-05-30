@@ -4,6 +4,7 @@
 #include <QAbstractListModel>
 #include <QHash>
 #include <QVariant>
+#include <NetworkManagerQt/Manager>
 
 class InfoInterface: public QAbstractListModel
 {
@@ -42,6 +43,9 @@ private slots:
     void removeActiveConnection(const QString &path);
     void ipv4Change();
     void ipv6Change();
+private:
+    void modifyV4(InfoStruct &connection, const NetworkManager::IpAddresses &v4Adresses);
+    void modifyV6(InfoStruct &connection, const NetworkManager::IpAddresses &v6Adresses);
 };
 
 #endif // INFOINTERFACE_H

@@ -1,5 +1,4 @@
 #include "infointerface.h"
-#include <NetworkManagerQt/Manager>
 
 InfoInterface::InfoInterface()
 {
@@ -24,6 +23,7 @@ QHash<int, QByteArray> InfoInterface::roleNames() const
 
 int InfoInterface::rowCount(const QModelIndex &parent) const
 {
+    Q_UNUSED(parent)
     return m_activeCons.size();
 }
 
@@ -58,27 +58,25 @@ void InfoInterface::addActiveConnection(const QString &path)
     if(acon) {
         // The connection data can change. They are also available later than the object.
         // So we connect the change event with this lambda function which updates the model.
-        connect(acon.data(),&NetworkManager::ActiveConnection::ipV4ConfigChanged,this,&InfoInterface::ipv4Change);
-        connect(acon.data(),&NetworkManager::ActiveConnection::ipV6ConfigChanged,this,&InfoInterface::ipv6Change);
+        connect(acon.data(), &NetworkManager::ActiveConnection::ipV4ConfigChanged,
+                this, &InfoInterface::ipv4Change);
+        connect(acon.data(), &NetworkManager::ActiveConnection::ipV6ConfigChanged,
+                this, &InfoInterface::ipv6Change);
 
         const int index = m_activeCons.size();
         beginInsertRows(QModelIndex(), index, index);
         InfoStruct itm;
-        if(acon->ipV4Config().addresses().size()>0)
-            itm.ipv4 = acon->ipV4Config().addresses().at(0).ip().toString();
-        else
-            itm.ipv4 = "N/A";
-        if(acon->ipV4Config().addresses().size()>0)
-            itm.subnetmask = acon->ipV4Config().addresses().at(0).netmask().toString();
-        else
-            itm.subnetmask = "N/A";
-        if(acon->ipV6Config().addresses().size()>0)
-            itm.ipv6= acon->ipV6Config().addresses().at(0).ip().toString();
-        else
-            itm.ipv6 = "N/A";
+
+        const NetworkManager::IpAddresses v4Adresses = acon->ipV4Config().addresses();
+        modifyV4(itm, v4Adresses);
+
+        const NetworkManager::IpAddresses v6Adresses = acon->ipV6Config().addresses();
+        modifyV6(itm, v6Adresses);
+
         if(acon->devices().size()>0)
             itm.device = NetworkManager::findNetworkInterface(acon->devices().at(0))->interfaceName();
         itm.path=path;
+
         m_activeCons.append(itm);
         endInsertRows();
         emit sigEntryCountChanged();
@@ -106,14 +104,8 @@ void InfoInterface::ipv4Change()
     for(int i = 0; i < this->m_activeCons.size(); ++i){
         NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(m_activeCons[i].path);
         if(!acon.isNull()){
-            if(acon->ipV4Config().addresses().size()>0)
-                m_activeCons[i].ipv4 = acon->ipV4Config().addresses().at(0).ip().toString();
-            else
-                m_activeCons[i].ipv4 = "N/A";
-            if(acon->ipV4Config().addresses().size()>0)
-                m_activeCons[i].subnetmask = acon->ipV4Config().addresses().at(0).netmask().toString();
-            else
-                m_activeCons[i].subnetmask = "N/A";
+            const NetworkManager::IpAddresses v4Adresses = acon->ipV4Config().addresses();
+            modifyV4(m_activeCons[i], v4Adresses);
             emit this->dataChanged(this->index(i),this->index(i));
         }
     }
@@ -124,11 +116,29 @@ void InfoInterface::ipv6Change()
     for(int i = 0; i < this->m_activeCons.size(); ++i){
         NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(m_activeCons[i].path);
         if(!acon.isNull()){
-            if(acon->ipV6Config().addresses().size()>0)
-                m_activeCons[i].ipv6= acon->ipV6Config().addresses().at(0).ip().toString();
-            else
-                m_activeCons[i].ipv6 = "N/A";
+            const NetworkManager::IpAddresses v6Adresses = acon->ipV6Config().addresses();
+            modifyV6(m_activeCons[i], v6Adresses);
             emit this->dataChanged(this->index(i),this->index(i));
         }
     }
+}
+
+void InfoInterface::modifyV4(InfoStruct &connection, const NetworkManager::IpAddresses &v4Adresses)
+{
+    if (v4Adresses.size() > 0) {
+        connection.ipv4 = v4Adresses.at(0).ip().toString();
+        connection.subnetmask = v4Adresses.at(0).netmask().toString();
+    }
+    else {
+        connection.ipv4 = "N/A";
+        connection.subnetmask = "N/A";
+    }
+}
+
+void InfoInterface::modifyV6(InfoStruct &connection, const NetworkManager::IpAddresses &v6Adresses)
+{
+    if(v6Adresses.size() > 0)
+        connection.ipv6= v6Adresses.at(0).ip().toString();
+    else
+        connection.ipv6 = "N/A";
 }
