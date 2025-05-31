@@ -46,6 +46,20 @@ NetworkManager::Device::List DeviceManager::getDevicesbyInterface(QString p_inte
     return devList;
 }
 
+bool DeviceManager::isLocalHost(const QString &connectionPath)
+{
+    NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(connectionPath);
+    if (activeConnection) {
+        if (activeConnection->devices().size() > 0) {
+            QString upperDevice =
+                NetworkManager::findNetworkInterface(activeConnection->devices().at(0))->interfaceName().toUpper();
+            if (upperDevice == "LO") // Ignore 127.0.0.1
+                return true;
+        }
+    }
+    return false;
+}
+
 void DeviceManager::deviceAdded(const QString &p_uni)
 {
     m_devList = NetworkManager::networkInterfaces();

@@ -16,6 +16,7 @@ public:
     QList<QString> getDevices();
     NetworkManager::Device::Ptr getDevice(QString p_devicePath);
     NetworkManager::Device::List getDevicesbyInterface(QString p_interfaceName);
+    static bool isLocalHost(const QString &connectionPath);
 private:
     NetworkManager::Device::List m_devList;
 public slots:
