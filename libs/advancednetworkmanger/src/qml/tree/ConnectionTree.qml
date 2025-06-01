@@ -1,5 +1,6 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
+import SortFilterProxyModel 0.2
 import QtQuick.Controls 2.0
 import QtQuick.Controls.Material 2.0
 import QtQuick.Layouts 1.12
@@ -196,7 +197,10 @@ Pane {
         clip: true
         spacing: parent.height /50
 
-        model: backend.dataList
+        model: SortFilterProxyModel{
+            sourceModel: backend.dataList
+            sorters: StringSorter { roleName: "groupe" }
+        }
         delegate: ConnectionRowAdvanced {
             name_: name
             available_: available
