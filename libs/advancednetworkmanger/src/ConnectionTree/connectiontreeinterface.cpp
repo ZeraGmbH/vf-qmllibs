@@ -2,25 +2,20 @@
 #include "ethernetnetworks.h"
 #include "wifinetworks.h"
 
-ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) : QObject(parent)
-{
-    init();
-}
-
-void ConnectionTreeInterface::init()
+ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
+    QObject(parent),
+    m_devManager(std::make_shared<DeviceManager>())
 {
     // Is there some cleanup questionark???
-    m_devManager = new DeviceManager();
-    m_model = new ConnectionModel();
-    ConnectionList* list = new ConnectionList();
-    m_model->setList(list);
+    std::shared_ptr<ConnectionList> list = std::make_shared<ConnectionList>();
+    m_model.setConnectionList(list);
     m_networkTypeList.append(new EthernetNetworks());
     WifiNetworks *wtmpPtr = new WifiNetworks();
     m_networkTypeList.append(wtmpPtr);
     QObject::connect(wtmpPtr,&WifiNetworks::authFailed,this,&ConnectionTreeInterface::authFailed);
     m_devManager->init();
     for(auto it=m_networkTypeList.begin(); it != m_networkTypeList.end(); ++it)
-        (*it)->init(*list,*m_devManager);
+        (*it)->init(list, m_devManager);
 }
 
 void ConnectionTreeInterface::removeConnection(QString p_path)
@@ -70,7 +65,7 @@ void ConnectionTreeInterface::disconnect(QString p_conPath)
     }
 }
 
-QAbstractListModel* ConnectionTreeInterface::getDataListQml() const
+QAbstractListModel* ConnectionTreeInterface::getDataListQml()
 {
-    return m_model;
+    return &m_model;
 }

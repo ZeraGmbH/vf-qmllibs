@@ -5,10 +5,10 @@ EthernetNetworks::EthernetNetworks()
 {
 }
 
-bool EthernetNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
+bool EthernetNetworks::init(std::shared_ptr<ConnectionList> connList, std::shared_ptr<DeviceManager> devManager)
 {
-    m_list = &p_list;
-    m_devManager = &p_devManager;
+    m_list = connList;
+    m_devManager = devManager;
     m_type = NetworkManager::Device::Type::Ethernet;
     m_setType = NetworkManager::Setting::SettingType::Wired;
 
@@ -29,8 +29,10 @@ bool EthernetNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager
         findAvailableConnections(uni);
     }
 
-    connect(m_devManager,&DeviceManager::addDevice,this,&AbstractNetwork::addDevice);
-    connect(m_devManager,&DeviceManager::removeDevice,this,&AbstractNetwork::removeDevice);
+    connect(m_devManager.get(), &DeviceManager::addDevice,
+            this, &AbstractNetwork::addDevice);
+    connect(m_devManager.get(), &DeviceManager::removeDevice,
+            this, &AbstractNetwork::removeDevice);
 
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionAdded, this, &AbstractNetwork::addConnection);
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionRemoved, this, &AbstractNetwork::removeConnection);

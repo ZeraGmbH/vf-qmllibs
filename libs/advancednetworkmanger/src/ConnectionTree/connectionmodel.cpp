@@ -118,26 +118,26 @@ Qt::ItemFlags ConnectionModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable;
 }
 
-void ConnectionModel::setList(ConnectionList *list)
+void ConnectionModel::setConnectionList(std::shared_ptr<ConnectionList> list)
 {
     m_list = list;
 
-    connect(m_list, &ConnectionList::preItemAppended, this, [=]() {
+    connect(m_list.get(), &ConnectionList::preItemAppended, this, [=]() {
                const int index = m_list->items().size();
         beginInsertRows(QModelIndex(), index, index);
     });
-    connect(m_list, &ConnectionList::postItemAppended, this, [=]() {
+    connect(m_list.get(), &ConnectionList::postItemAppended, this, [=]() {
         endInsertRows();
     });
 
-    connect(m_list, &ConnectionList::preItemRemoved, this, [=](int index) {
+    connect(m_list.get(), &ConnectionList::preItemRemoved, this, [=](int index) {
         beginRemoveRows(QModelIndex(), index, index);
     });
-    connect(m_list, &ConnectionList::postItemRemoved, this, [=]() {
+    connect(m_list.get(), &ConnectionList::postItemRemoved, this, [=]() {
         endRemoveRows();
     });
 
-    connect(m_list, &ConnectionList::dataChanged, this, [=](int p_row) {
+    connect(m_list.get(), &ConnectionList::dataChanged, this, [=](int p_row) {
         emit dataChanged(this->index(p_row),this->index(p_row));
     });
 }

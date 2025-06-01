@@ -14,7 +14,7 @@ class WifiNetworks : public AbstractNetwork
 public:
     WifiNetworks();
     ~WifiNetworks();
-    bool init(ConnectionList  &p_list, DeviceManager &p_devManager) override;
+    bool init(std::shared_ptr<ConnectionList> connList, std::shared_ptr<DeviceManager> devManager) override;
 private:
     void findAPs(QString &p_uni);
     ConnectionItem CreateConItem(NetworkManager::Connection::Ptr) override;

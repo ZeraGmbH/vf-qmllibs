@@ -4,6 +4,7 @@
 #include "connectionmodel.h"
 #include "abstractnetwork.h"
 #include <QList>
+#include <memory>
 
 /**
  * @brief The ConnectionTreeInterface class
@@ -23,16 +24,15 @@ public:
     Q_INVOKABLE void connect(QString p_conPath, QString p_devPath,bool force = true);
     Q_INVOKABLE void disconnect(QString p_conPath);
 
-    QAbstractListModel* getDataListQml() const;
+    QAbstractListModel* getDataListQml();
 signals:
     void dummyNotify();
     void authFailed(const QString &name,const QString &path,const QString &device);
 
 private:
-    void init();
     QList<AbstractNetwork*> m_networkTypeList;
-    DeviceManager* m_devManager;
-    ConnectionModel* m_model;
+    std::shared_ptr<DeviceManager> m_devManager;
+    ConnectionModel m_model;
 };
 
 #endif // CONNECTIONTREEINTERFACE_H

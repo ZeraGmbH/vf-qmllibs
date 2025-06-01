@@ -7,11 +7,9 @@ class EthernetNetworks :  public AbstractNetwork
 {
 public:
     EthernetNetworks();
-    bool init(ConnectionList  &p_list, DeviceManager &p_devManager) override;
+    bool init(std::shared_ptr<ConnectionList> connList, std::shared_ptr<DeviceManager> devManager) override;
 private:
     ConnectionItem CreateConItem(NetworkManager::Connection::Ptr p_con) override;
-public slots:
-
 };
 
 #endif // ETHERNETNETWORKS_H

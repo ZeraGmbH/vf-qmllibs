@@ -14,10 +14,10 @@ WifiNetworks::~WifiNetworks()
     }
 }
 
-bool WifiNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
+bool WifiNetworks::init(std::shared_ptr<ConnectionList> connList, std::shared_ptr<DeviceManager> devManager)
 {
-    m_list=&p_list;
-    m_devManager=&p_devManager;
+    m_list = connList;
+    m_devManager = devManager;
     m_type= NetworkManager::Device::Type::Wifi;
     m_setType = NetworkManager::Setting::SettingType::Wireless;
 
@@ -27,8 +27,10 @@ bool WifiNetworks::init(ConnectionList  &p_list, DeviceManager &p_devManager)
         findAvailableConnections(uni);
     }
 
-    connect(m_devManager,&DeviceManager::addDevice,this,&AbstractNetwork::addDevice);
-    connect(m_devManager,&DeviceManager::removeDevice,this,&AbstractNetwork::removeDevice);
+    connect(m_devManager.get(), &DeviceManager::addDevice,
+            this, &AbstractNetwork::addDevice);
+    connect(m_devManager.get(), &DeviceManager::removeDevice,
+            this, &AbstractNetwork::removeDevice);
 
     for(QString uni : m_devManager->getDevices(NetworkManager::Device::Type::Wifi)){
         DevStruct device;

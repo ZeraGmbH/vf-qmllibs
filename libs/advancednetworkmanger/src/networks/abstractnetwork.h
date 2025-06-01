@@ -14,6 +14,7 @@
 #include <NetworkManagerQt/Ipv6Setting>
 #include <QMap>
 #include <QList>
+#include <memory>
 
 class ConStruct{
 public:
@@ -39,7 +40,7 @@ class AbstractNetwork : public QObject
     Q_OBJECT
 public:
     AbstractNetwork();
-    virtual bool init(ConnectionList &p_list, DeviceManager &p_devManager) = 0;
+    virtual bool init(std::shared_ptr<ConnectionList> connList, std::shared_ptr<DeviceManager> devManager) = 0;
 public slots:
     virtual void addConnection(const QString &connection);
     virtual void removeConnection(const QString &connection);
@@ -60,11 +61,11 @@ protected:
     bool isConnectionActive(QString p_path);
     QString getIpv4(QString p_path);
 
-    ConnectionList* m_list;
+    std::shared_ptr<ConnectionList> m_list;
     QMap<QString,ConStruct> m_conList;
     QMap<QString,AconStruct> m_aConList;
     QMap<QString,DevStruct> m_devList;
-    DeviceManager* m_devManager;
+    std::shared_ptr<DeviceManager> m_devManager;
     NetworkManager::Device::Type m_type;
     NetworkManager::Setting::SettingType m_setType;
 
