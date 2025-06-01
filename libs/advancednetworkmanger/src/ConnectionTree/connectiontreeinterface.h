@@ -30,7 +30,7 @@ signals:
     void authFailed(const QString &name,const QString &path,const QString &device);
 
 private:
-    QList<AbstractNetwork*> m_networkTypeList;
+    QList<std::shared_ptr<AbstractNetwork>> m_networkTypeList;
     std::shared_ptr<DeviceManager> m_devManager;
     ConnectionModel m_model;
 };

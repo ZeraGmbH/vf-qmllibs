@@ -6,13 +6,14 @@ ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
     QObject(parent),
     m_devManager(std::make_shared<DeviceManager>())
 {
-    // Is there some cleanup questionark???
     std::shared_ptr<ConnectionList> list = std::make_shared<ConnectionList>();
     m_model.setConnectionList(list);
-    m_networkTypeList.append(new EthernetNetworks());
-    WifiNetworks *wtmpPtr = new WifiNetworks();
+
+    m_networkTypeList.append(std::make_shared<EthernetNetworks>());
+    std::shared_ptr<WifiNetworks> wtmpPtr = std::make_shared<WifiNetworks>();
     m_networkTypeList.append(wtmpPtr);
-    QObject::connect(wtmpPtr,&WifiNetworks::authFailed,this,&ConnectionTreeInterface::authFailed);
+    QObject::connect(wtmpPtr.get(),&WifiNetworks::authFailed,this,&ConnectionTreeInterface::authFailed);
+
     m_devManager->init();
     for(auto it=m_networkTypeList.begin(); it != m_networkTypeList.end(); ++it)
         (*it)->init(list, m_devManager);
