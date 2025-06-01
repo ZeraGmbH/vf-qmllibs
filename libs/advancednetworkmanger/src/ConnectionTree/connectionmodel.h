@@ -30,10 +30,10 @@ public:
     bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
     Qt::ItemFlags flags(const QModelIndex& index) const override;
 
-    void setConnectionList(std::shared_ptr<ConnectionList> list);
+    std::shared_ptr<ConnectionList> getConnectionList();
 
 private:
-    std::shared_ptr<ConnectionList> m_list;
+    std::shared_ptr<ConnectionList> m_connectionList;
 };
 
 #endif // CONMODELITEM_H

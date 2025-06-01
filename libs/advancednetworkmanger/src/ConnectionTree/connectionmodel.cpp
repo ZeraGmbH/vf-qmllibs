@@ -1,8 +1,27 @@
 #include "connectionmodel.h"
-#include "connectionlist.h"
 
-ConnectionModel::ConnectionModel(QObject *parent) : QAbstractListModel(parent)
+ConnectionModel::ConnectionModel(QObject *parent) :
+    QAbstractListModel(parent),
+    m_connectionList(std::make_shared<ConnectionList>())
 {
+    connect(m_connectionList.get(), &ConnectionList::preItemAppended, this, [=]() {
+        const int index = m_connectionList->items().size();
+        beginInsertRows(QModelIndex(), index, index);
+    });
+    connect(m_connectionList.get(), &ConnectionList::postItemAppended, this, [=]() {
+        endInsertRows();
+    });
+
+    connect(m_connectionList.get(), &ConnectionList::preItemRemoved, this, [=](int index) {
+        beginRemoveRows(QModelIndex(), index, index);
+    });
+    connect(m_connectionList.get(), &ConnectionList::postItemRemoved, this, [=]() {
+        endRemoveRows();
+    });
+
+    connect(m_connectionList.get(), &ConnectionList::dataChanged, this, [=](int p_row) {
+        emit dataChanged(this->index(p_row),this->index(p_row));
+    });
 }
 
 QHash<int, QByteArray> ConnectionModel::roleNames() const
@@ -24,16 +43,15 @@ QHash<int, QByteArray> ConnectionModel::roleNames() const
 
 int ConnectionModel::rowCount(const QModelIndex &parent) const
 {
-    if(parent.isValid()){
+    if(parent.isValid())
         return 0;
-    }
-    return m_list->items().length();
+    return m_connectionList->items().length();
 }
 
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
 
-    ConnectionItem itm=m_list->items().at(index.row());
+    ConnectionItem itm = m_connectionList->items().at(index.row());
     switch(role){
     case GroupeRole:
         return itm.Groupe;
@@ -73,7 +91,7 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 
 bool ConnectionModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
-    ConnectionItem itm=m_list->items().at(index.row());
+    ConnectionItem itm = m_connectionList->items().at(index.row());
         switch(role){
         case GroupeRole:
             itm.Groupe = value.toString();
@@ -118,26 +136,7 @@ Qt::ItemFlags ConnectionModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEditable;
 }
 
-void ConnectionModel::setConnectionList(std::shared_ptr<ConnectionList> list)
+std::shared_ptr<ConnectionList> ConnectionModel::getConnectionList()
 {
-    m_list = list;
-
-    connect(m_list.get(), &ConnectionList::preItemAppended, this, [=]() {
-               const int index = m_list->items().size();
-        beginInsertRows(QModelIndex(), index, index);
-    });
-    connect(m_list.get(), &ConnectionList::postItemAppended, this, [=]() {
-        endInsertRows();
-    });
-
-    connect(m_list.get(), &ConnectionList::preItemRemoved, this, [=](int index) {
-        beginRemoveRows(QModelIndex(), index, index);
-    });
-    connect(m_list.get(), &ConnectionList::postItemRemoved, this, [=]() {
-        endRemoveRows();
-    });
-
-    connect(m_list.get(), &ConnectionList::dataChanged, this, [=](int p_row) {
-        emit dataChanged(this->index(p_row),this->index(p_row));
-    });
+    return m_connectionList;
 }
