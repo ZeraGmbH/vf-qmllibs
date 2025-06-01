@@ -1,6 +1,4 @@
 #include "connectiontreeinterface.h"
-#include "ethernetnetworks.h"
-#include "wifinetworks.h"
 
 ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
     QObject(parent),
@@ -9,14 +7,12 @@ ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
     std::shared_ptr<ConnectionList> list = std::make_shared<ConnectionList>();
     m_model.setConnectionList(list);
 
-    m_networkTypeList.append(std::make_shared<EthernetNetworks>());
-    std::shared_ptr<WifiNetworks> wtmpPtr = std::make_shared<WifiNetworks>();
-    m_networkTypeList.append(wtmpPtr);
-    QObject::connect(wtmpPtr.get(),&WifiNetworks::authFailed,this,&ConnectionTreeInterface::authFailed);
+    QObject::connect(&m_wifiNets, &WifiNetworks::authFailed,
+                     this, &ConnectionTreeInterface::authFailed);
 
     m_devManager->init();
-    for(auto it=m_networkTypeList.begin(); it != m_networkTypeList.end(); ++it)
-        (*it)->init(list, m_devManager);
+    m_etherNets.init(list, m_devManager);
+    m_wifiNets.init(list, m_devManager);
 }
 
 void ConnectionTreeInterface::removeConnection(QString p_path)

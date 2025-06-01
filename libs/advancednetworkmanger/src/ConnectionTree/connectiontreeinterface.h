@@ -3,7 +3,8 @@
 
 #include "connectionmodel.h"
 #include "abstractnetwork.h"
-#include <QList>
+#include "ethernetnetworks.h"
+#include "wifinetworks.h"
 #include <memory>
 
 /**
@@ -30,7 +31,8 @@ signals:
     void authFailed(const QString &name,const QString &path,const QString &device);
 
 private:
-    QList<std::shared_ptr<AbstractNetwork>> m_networkTypeList;
+    EthernetNetworks m_etherNets;
+    WifiNetworks m_wifiNets;
     std::shared_ptr<DeviceManager> m_devManager;
     ConnectionModel m_model;
 };
