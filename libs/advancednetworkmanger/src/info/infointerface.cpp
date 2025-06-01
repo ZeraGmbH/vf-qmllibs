@@ -55,10 +55,10 @@ int InfoInterface::getEntryCount()
 
 void InfoInterface::addActiveConnection(const QString &path)
 {
-    if (DeviceManager::isLocalHost(path))
-        return;
     NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(path);
     if (acon) {
+        if (DeviceManager::isLocalHost(acon))
+            return;
         // The connection data can change. They are also available later than the object.
         // So we connect the change event with this lambda function which updates the model.
         connect(acon.data(), &NetworkManager::ActiveConnection::ipV4ConfigChanged,

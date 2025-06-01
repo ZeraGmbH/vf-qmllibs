@@ -46,15 +46,23 @@ NetworkManager::Device::List DeviceManager::getDevicesbyInterface(QString p_inte
     return devList;
 }
 
-bool DeviceManager::isLocalHost(const QString &connectionPath)
+bool DeviceManager::isLocalHost(const QString &interfaceName)
 {
-    NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(connectionPath);
+    QString upperInterfaceName = interfaceName.toUpper();
+    return upperInterfaceName == "LO";
+}
+
+bool DeviceManager::isLocalHost(NetworkManager::Device::Ptr device)
+{
+    return isLocalHost(device->interfaceName());
+}
+
+bool DeviceManager::isLocalHost(NetworkManager::ActiveConnection::Ptr activeConnection)
+{
     if (activeConnection) {
         if (activeConnection->devices().size() > 0) {
-            QString upperDevice =
-                NetworkManager::findNetworkInterface(activeConnection->devices().at(0))->interfaceName().toUpper();
-            if (upperDevice == "LO") // Ignore 127.0.0.1
-                return true;
+            NetworkManager::Device::Ptr device = NetworkManager::findNetworkInterface(activeConnection->devices().at(0));
+            return isLocalHost(device);
         }
     }
     return false;
