@@ -3,7 +3,6 @@
 
 ConnectionModel::ConnectionModel(QObject *parent) : QAbstractListModel(parent)
 {
-
 }
 
 QHash<int, QByteArray> ConnectionModel::roleNames() const
@@ -70,8 +69,6 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     default:
         return QVariant();
     }
-
-
 }
 
 bool ConnectionModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -127,25 +124,20 @@ void ConnectionModel::setList(ConnectionList *list)
 
     connect(m_list, &ConnectionList::preItemAppended, this, [=]() {
                const int index = m_list->items().size();
-               beginInsertRows(QModelIndex(), index, index);
-           });
-           connect(m_list, &ConnectionList::postItemAppended, this, [=]() {
-               endInsertRows();
-           });
+        beginInsertRows(QModelIndex(), index, index);
+    });
+    connect(m_list, &ConnectionList::postItemAppended, this, [=]() {
+        endInsertRows();
+    });
 
-           connect(m_list, &ConnectionList::preItemRemoved, this, [=](int index) {
-               beginRemoveRows(QModelIndex(), index, index);
-           });
-           connect(m_list, &ConnectionList::postItemRemoved, this, [=]() {
-               endRemoveRows();
-           });
+    connect(m_list, &ConnectionList::preItemRemoved, this, [=](int index) {
+        beginRemoveRows(QModelIndex(), index, index);
+    });
+    connect(m_list, &ConnectionList::postItemRemoved, this, [=]() {
+        endRemoveRows();
+    });
 
-
-           connect(m_list, &ConnectionList::dataChanged, this, [=](int p_row) {
-               emit dataChanged(this->index(p_row),this->index(p_row));
-           });
+    connect(m_list, &ConnectionList::dataChanged, this, [=](int p_row) {
+        emit dataChanged(this->index(p_row),this->index(p_row));
+    });
 }
-
-
-
-
