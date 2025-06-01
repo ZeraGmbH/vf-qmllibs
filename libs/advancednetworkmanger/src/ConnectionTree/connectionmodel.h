@@ -3,6 +3,7 @@
 
 #include "connectionlist.h"
 #include <QAbstractListModel>
+#include <memory>
 
 class ConnectionModel : public QAbstractListModel
 {
