@@ -43,6 +43,8 @@ void AbstractNetwork::connectionDeactivate(const QString &p_path)
 
 void AbstractNetwork::addConnectionToList(NetworkManager::Connection::Ptr p_con, ConnectionItem conItem)
 {
+    if (DeviceManager::isLocalHost(conItem.Name))
+        return;
     QString path = p_con->path();
     if(!m_conList.contains(path)) {
         ConStruct conBuf;
