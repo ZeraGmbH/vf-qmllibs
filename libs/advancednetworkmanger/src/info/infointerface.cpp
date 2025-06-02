@@ -1,5 +1,6 @@
 #include "infointerface.h"
 #include "devicemanager.h"
+#include <timersingleshotqt.h>
 
 InfoInterface::InfoInterface()
 {
@@ -8,8 +9,8 @@ InfoInterface::InfoInterface()
     connect(NetworkManager::notifier(), &NetworkManager::Notifier::activeConnectionRemoved,
             this, &InfoInterface::removeActiveConnection);
     const NetworkManager::ActiveConnection::List activeConnections = NetworkManager::activeConnections();
-    for(const NetworkManager::ActiveConnection::Ptr &acon : activeConnections)
-        addActiveConnection(acon->path());
+    for(const NetworkManager::ActiveConnection::Ptr &activeConnection : activeConnections)
+        addActiveConnection(activeConnection->path());
 }
 
 QHash<int, QByteArray> InfoInterface::roleNames() const
@@ -30,118 +31,84 @@ int InfoInterface::rowCount(const QModelIndex &parent) const
 
 QVariant InfoInterface::data(const QModelIndex &index, int role) const
 {
-    InfoStruct itm = m_activeCons.at(index.row());
-    switch(role){
-    case ipv4Role:
-        return itm.ipv4;
-        break;
-    case subnetmaskRole:
-        return itm.subnetmask;
-        break;
-    case ipv6Role:
-        return itm.ipv6;
-        break;
-    case deviceRole:
-        return itm.device;
-        break;
+    if(index.row() < m_activeCons.count()) {
+        ConnectionInfoPtr entry = m_activeCons.at(index.row());
+        switch(role){
+        case ipv4Role:
+            return entry->getIpV4();
+        case subnetmaskRole:
+            return entry->getSubnetMask();
+        case ipv6Role:
+            return entry->getIpV6();
+        case deviceRole:
+            return entry->getDevice();
+        }
     }
     return QVariant();
 }
 
-int InfoInterface::getEntryCount()
+int InfoInterface::getEntryCount() const
 {
     return rowCount();
 }
 
 void InfoInterface::addActiveConnection(const QString &path)
 {
-    NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(path);
-    if (acon) {
-        if (DeviceManager::isLocalHost(acon))
+    NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(path);
+    if (activeConnection) {
+        if (DeviceManager::isLocalHost(activeConnection))
             return;
-        // The connection data can change. They are also available later than the object.
-        // So we connect the change event with this lambda function which updates the model.
-        connect(acon.data(), &NetworkManager::ActiveConnection::ipV4ConfigChanged,
-                this, &InfoInterface::ipv4Change);
-        connect(acon.data(), &NetworkManager::ActiveConnection::ipV6ConfigChanged,
-                this, &InfoInterface::ipv6Change);
 
-        const int index = m_activeCons.size();
-        beginInsertRows(QModelIndex(), index, index);
-        InfoStruct itm;
+        connect(activeConnection.data(), &NetworkManager::ActiveConnection::ipV4ConfigChanged, this, [=]() {
+            startDetailsDelayTimer();
+        });
+        connect(activeConnection.data(), &NetworkManager::ActiveConnection::ipV6ConfigChanged, this, [=]() {
+            startDetailsDelayTimer();
+        });
 
-        const NetworkManager::IpAddresses v4Adresses = acon->ipV4Config().addresses();
-        modifyV4(itm, v4Adresses);
-
-        const NetworkManager::IpAddresses v6Adresses = acon->ipV6Config().addresses();
-        modifyV6(itm, v6Adresses);
-
-        if(acon->devices().size()>0)
-            itm.device = NetworkManager::findNetworkInterface(acon->devices().at(0))->interfaceName();
-        itm.path=path;
-
-        m_activeCons.append(itm);
+        const int newIndex = m_activeCons.size();
+        beginInsertRows(QModelIndex(), newIndex, newIndex);
+        ConnectionInfoPtr newEntry = std::make_shared<ConnectionInfo>(activeConnection);
+        m_activeCons.append(newEntry);
         endInsertRows();
+
         emit sigEntryCountChanged();
     }
 }
 
-void InfoInterface::removeActiveConnection(const QString &path)
+int InfoInterface::findIdxByPath(const QString &path) const
 {
     int idx = 0;
-    for(const InfoStruct &itm : qAsConst(m_activeCons)) {
-        if(itm.path == path){
-            beginRemoveRows(QModelIndex(), idx, idx);
-            m_activeCons.removeAt(idx);
-            endRemoveRows();
-            emit sigEntryCountChanged();
-            break;
-        }
+    for (const ConnectionInfoPtr &itm : qAsConst(m_activeCons)) {
+        if(itm->getPath() == path)
+            return idx;
         idx++;
     }
+    return -1;
 }
 
-void InfoInterface::ipv4Change()
+void InfoInterface::removeActiveConnection(const QString &path)
 {
-    // Searching for the corresponding model object using the path.
-    for(int i = 0; i < this->m_activeCons.size(); ++i){
-        NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(m_activeCons[i].path);
-        if(!acon.isNull()){
-            const NetworkManager::IpAddresses v4Adresses = acon->ipV4Config().addresses();
-            modifyV4(m_activeCons[i], v4Adresses);
-            emit this->dataChanged(this->index(i),this->index(i));
-        }
-    }
+    int idx = findIdxByPath(path);
+    if (idx < 0)
+        return;
+    beginRemoveRows(QModelIndex(), idx, idx);
+    m_activeCons.removeAt(idx);
+    endRemoveRows();
+    emit sigEntryCountChanged();
 }
 
-void InfoInterface::ipv6Change()
+void InfoInterface::startDetailsDelayTimer()
 {
-    for(int i = 0; i < this->m_activeCons.size(); ++i){
-        NetworkManager::ActiveConnection::Ptr acon = NetworkManager::findActiveConnection(m_activeCons[i].path);
-        if(!acon.isNull()){
-            const NetworkManager::IpAddresses v6Adresses = acon->ipV6Config().addresses();
-            modifyV6(m_activeCons[i], v6Adresses);
-            emit this->dataChanged(this->index(i),this->index(i));
-        }
-    }
+    m_delayTimer = std::make_unique<TimerSingleShotQt>(300);
+    connect(m_delayTimer.get(), &TimerTemplateQt::sigExpired,
+            this, &InfoInterface::updateActiveConnections);
+    m_delayTimer->start();
 }
 
-void InfoInterface::modifyV4(InfoStruct &connection, const NetworkManager::IpAddresses &v4Adresses)
+void InfoInterface::updateActiveConnections()
 {
-    if (v4Adresses.size() > 0) {
-        connection.ipv4 = v4Adresses.at(0).ip().toString();
-        connection.subnetmask = v4Adresses.at(0).netmask().toString();
-    }
-    else {
-        connection.ipv4 = "N/A";
-        connection.subnetmask = "N/A";
-    }
-}
-
-void InfoInterface::modifyV6(InfoStruct &connection, const NetworkManager::IpAddresses &v6Adresses)
-{
-    if(v6Adresses.size() > 0)
-        connection.ipv6= v6Adresses.at(0).ip().toString();
-    else
-        connection.ipv6 = "N/A";
+    for (int idx=0; idx<m_activeCons.size(); idx++)
+        if (m_activeCons[idx]->updateConnection())
+            emit dataChanged(index(idx), index(idx));
 }
