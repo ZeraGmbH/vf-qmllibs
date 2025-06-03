@@ -137,14 +137,6 @@ Item{
                 height: width
                 visible: type_ === 1 && available_
             }
-            Rectangle{
-                id: rectangle
-                anchors.verticalCenter: parent.verticalCenter
-                width: rootItm.width/33
-                height: width
-                color: "transparent"
-                visible: type_ !== 1 || !available_
-            }
         }
         // edit connection button
         Row {
