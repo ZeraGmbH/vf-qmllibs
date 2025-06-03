@@ -1,6 +1,7 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.12
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQuick.Controls.Material 2.14
 import anmsettings 1.0
 import ZeraFa 1.0
 import ZeraComponentsConfig 1.0
@@ -151,8 +152,8 @@ Item{
                 font.pixelSize: rootItm.width/35
                 font.family: FA.old
                 text: FA.fa_edit
-                background: Rectangle {
-                    color: "transparent"
+                background: Rectangle  {
+                    color: Material.backgroundColor
                 }
                 onClicked: {
                     edit(rootItm.nmPath_)
@@ -173,7 +174,7 @@ Item{
                 font.family: FA.old
                 text: FA.fa_trash
                 background: Rectangle{
-                    color: "transparent"
+                    color: Material.backgroundColor
                 }
                 onClicked: {
                     remove(rootItm.nmPath_)
