@@ -344,8 +344,6 @@ void FftBarChart::setColorLeftAxis(QColor t_color)
     QPalette tmpPa;
     tmpPa.setColor(QPalette::Text, t_color);
     tmpPa.setColor(QPalette::WindowText, t_color);
-    tmpPa.setColor(QPalette::Window, Qt::transparent);
-    tmpPa.setColor(QPalette::Base, Qt::transparent);
 
     m_plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
     m_colorLeftAxis = t_color;
@@ -414,8 +412,6 @@ void FftBarChart::setColorRightAxis(QColor t_color)
     QPalette tmpPa;
     tmpPa.setColor(QPalette::Text, t_color);
     tmpPa.setColor(QPalette::WindowText, t_color);
-    tmpPa.setColor(QPalette::Window, Qt::transparent);
-    tmpPa.setColor(QPalette::Base, Qt::transparent);
 
     m_plot->axisWidget(QwtPlot::yRight)->setPalette(tmpPa);
     m_colorRightAxis = t_color;
