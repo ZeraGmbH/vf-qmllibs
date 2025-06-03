@@ -12,6 +12,7 @@ void test_timedate1_connection::initTestCase_data()
     QTest::addColumn<QString>("testType");
     QTest::newRow("Test") << QString("Test");
 
+    // QSKIP alike:
     // Uncomment 'QTest::newRow("Production")...' below for manual tests of Timedate1Connection
     // Be aware that manual (production) tests
     // * touch NTP/timezone settings and polkit asks for password! So in case of error
