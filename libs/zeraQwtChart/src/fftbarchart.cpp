@@ -243,21 +243,13 @@ void FftBarChart::setChartTitle(QString t_chartTitle)
 
 void FftBarChart::setLegendEnabled(bool t_legendEnabled)
 {
-    if(t_legendEnabled!=m_legendEnabled) {
+    if (t_legendEnabled!=m_legendEnabled) {
         if(t_legendEnabled) {
-            QwtLegend *tmpLegend = new QwtLegend(); //cleaned up by the plot
-            QPalette tmpPa;
-            tmpPa.setColor(QPalette::Text, t_legendEnabled);
-            tmpPa.setColor(QPalette::WindowText, t_legendEnabled);
-            tmpPa.setColor(QPalette::Window, Qt::transparent);
-            tmpPa.setColor(QPalette::Base, Qt::transparent);
-
-            tmpLegend->setPalette(tmpPa);
+            QwtLegend *tmpLegend = new QwtLegend(); // cleaned up by the plot
             m_plot->insertLegend(tmpLegend);
         }
-        else {
+        else
             m_plot->insertLegend(nullptr);
-        }
         refreshPlot();
     }
     m_legendEnabled=t_legendEnabled;
