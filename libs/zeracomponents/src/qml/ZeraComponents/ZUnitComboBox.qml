@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
 import VeinEntity 1.0
 import ZeraComponents 1.0
 
