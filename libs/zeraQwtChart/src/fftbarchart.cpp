@@ -262,9 +262,6 @@ void FftBarChart::setTextColor(QColor t_textColor)
         QPalette tmpPa;
         tmpPa.setColor(QPalette::Text, t_textColor);
         tmpPa.setColor(QPalette::WindowText, t_textColor);
-        tmpPa.setColor(QPalette::Window, Qt::transparent);
-        tmpPa.setColor(QPalette::Base, Qt::transparent);
-
         m_plot->setPalette(tmpPa);
 
         if(m_plot->legend()) {
