@@ -4,7 +4,6 @@ import ZeraComponents 1.0
 import ZeraTranslation 1.0
 
 ZComboBox {
-    id: root
     property QtObject entity
     property string controlPropertyName
     property bool entityIsIndex: false
@@ -35,10 +34,16 @@ ZComboBox {
     }
 
     QtObject {
-        property int intermediate: entityIsIndex !== true ? model.indexOf(root.entity[root.controlPropertyName]) : root.entity[root.controlPropertyName];
+        readonly property int intermediate: {
+            if (model === undefined || entity === undefined || controlPropertyName === undefined)
+                return -1
+            if (entityIsIndex !== true)
+                return model.indexOf(entity[controlPropertyName])
+            return entity[controlPropertyName]
+        }
         onIntermediateChanged: {
-            if(root.currentIndex !== intermediate)
-                root.currentIndex = intermediate
+            if(currentIndex !== intermediate)
+                currentIndex = intermediate
         }
     }
 }
