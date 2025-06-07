@@ -3,7 +3,6 @@ import QtQuick.Controls 2.14
 import ZeraComponents 1.0
 
 ZCheckBox {
-    id: root
     property QtObject entity
     property string controlPropertyName
 
@@ -12,7 +11,11 @@ ZCheckBox {
             entity[controlPropertyName] = checked
     }
     QtObject {
-        readonly property bool intermediate: entity[controlPropertyName]
+        readonly property bool intermediate: {
+            if (entity !== undefined)
+                return entity[controlPropertyName]
+            return false
+        }
         onIntermediateChanged: {
             if(checked !== intermediate)
                 checked = intermediate
