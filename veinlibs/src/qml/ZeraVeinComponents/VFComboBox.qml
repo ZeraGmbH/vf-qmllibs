@@ -35,11 +35,12 @@ ZComboBox {
 
     QtObject {
         readonly property int intermediate: {
-            if (model === undefined || entity === undefined || controlPropertyName === undefined)
-                return -1
-            if (entityIsIndex !== true)
-                return model.indexOf(entity[controlPropertyName])
-            return entity[controlPropertyName]
+            if (model && entity && controlPropertyName) {
+                if (entityIsIndex !== true)
+                    return model.indexOf(entity[controlPropertyName])
+                return entity[controlPropertyName]
+            }
+            return -1
         }
         onIntermediateChanged: {
             if(currentIndex !== intermediate)
