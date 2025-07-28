@@ -23,5 +23,7 @@
         <file>src/qml/ZeraComponents/ZvKeyboardFlickable.qml</file>
         <file>src/qml/ZeraComponentsConfig/qmldir</file>
         <file>src/qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
+        <file>src/qml/ZeraThemeConfig/qmldir</file>
+        <file>src/qml/ZeraThemeConfig/ZeraThemeConfig.qml</file>
     </qresource>
 </RCC>

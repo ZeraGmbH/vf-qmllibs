@@ -1,6 +1,8 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
+import QtQuick.Controls.Material.impl 2.14
+import ZeraThemeConfig 1.0
 
 /**
   * @b A combo box implementation that can use JS arrays as model and is able to layout the content in a grid, displaying all items at once (if possible)
@@ -42,12 +44,15 @@ Rectangle {
     property int displayColumns: Math.ceil(count/displayRows)
     onModelInitializedChanged: updateFakeModel();
 
-    color: Qt.darker(Material.frameColor, (activeFocus ? 1.25 : 2.0)) //buttonPressColor
-    property var textColor: Material.foreground
-    readonly property real opacityDefault: enabled ? 1.0 : 0.5
-    opacity: opacityDefault
+    color: enabled ? ZTC.buttonColor : ZTC.buttonColorDisabled
+    property color textColor: ZTC.primaryTextColor
     radius: 4
     activeFocusOnTab: true
+
+    layer.enabled: enabled
+    layer.effect: ElevationEffect {
+        elevation: 2
+    }
 
     function updateFakeModel() {
         if(modelInitialized === true) {
@@ -207,7 +212,7 @@ Rectangle {
                 }
 
                 delegate: Rectangle {
-                    color: (root.targetIndex === index) ? Material.accent : Qt.darker(Material.frameColor) //buttonPressColor
+                    color: (root.targetIndex === index) ? Material.accent : ZTC.buttonColor
                     border.color: Material.dropShadowColor
 
                     height: comboView.cellHeight
