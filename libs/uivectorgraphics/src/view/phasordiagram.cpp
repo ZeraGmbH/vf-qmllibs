@@ -56,7 +56,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
                                            m_maxVoltage,
                                            t_voltageFactor,
                                            label,
-                                           labelVectorLen(screenLenVector),
+                                           m_vectorPainter.labelVectorLen(screenLenVector),
                                            (1/screenLenVector)*m_currLabelRotateAngleU*detectCollision(idx));
                 // negative len for long -> short order
                 sortedVectors.insert(-screenLenVector, currVectorData);
@@ -83,7 +83,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
                                            m_maxCurrent,
                                            1.0,
                                            label,
-                                           labelVectorLen(screenLenVectorI),
+                                           m_vectorPainter.labelVectorLen(screenLenVectorI),
                                            labelRotateAngleI);
                 // In case we have identical vectors for current and voltage:
                 // display voltage topmost
@@ -169,7 +169,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
         m_vectorUScreen[0] = m_vector1 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[0].length();
          m_vectorPainter.drawLabel(t_painter, m_vector1Label, m_defaultFont, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color,
-                  labelVectorLen(screenLenLabel),
+                  m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
 
@@ -177,7 +177,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
         m_vectorUScreen[1] = m_vector2 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[1].length();
          m_vectorPainter.drawLabel(t_painter, m_vector2Label, m_defaultFont, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color,
-                  labelVectorLen(screenLenLabel),
+                  m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
 
@@ -185,7 +185,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
         m_vectorUScreen[2] = m_vector3 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[2].length();
          m_vectorPainter.drawLabel(t_painter, m_vector3Label, m_defaultFont, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color,
-                  labelVectorLen(screenLenLabel),
+                  m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
 }
@@ -213,20 +213,6 @@ void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
                     2 * (m_gridScale * m_circleValue + radiusWidth),
                     0, 5760);
     }
-}
-
-float PhasorDiagram::labelVectorLen(float screenLen)
-{
-    // limit labels out of range
-    float labelLen = screenLen * 1.25;
-    if(labelLen > 1.1) {
-        return 1.1;
-    }
-    // avoid crowded center
-    if(labelLen < 0.4)  {
-        return 0.4;
-    }
-    return labelLen;
 }
 
 float PhasorDiagram::detectCollision(int uPhase)

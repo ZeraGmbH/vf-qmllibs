@@ -92,6 +92,18 @@ void VectorPainter::drawArrowHead(QPainter *painter, QVector2D vector, QColor co
     }
 }
 
+float VectorPainter::labelVectorLen(float screenLen)
+{
+    // limit labels out of range
+    float labelLen = screenLen * 1.25;
+    if(labelLen > 1.1)
+        return 1.1;
+    // avoid crowded center
+    if(labelLen < 0.4)
+        return 0.4;
+    return labelLen;
+}
+
 void VectorPainter::drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue)
 {
     painter->setPen(QPen(color, 2));

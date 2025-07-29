@@ -66,12 +66,13 @@ public: // during transition -> will turn private
     void drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue);
     void drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue);
 
+    static float labelVectorLen(float screenLen);
+
 private:
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
     void drawGridAndCircle(QPainter *painter);
-    float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
 
     static int height(QPainter *painter);
