@@ -8,75 +8,7 @@ static constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
 static constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -30.0 * M_PI/180;
 static constexpr float LABEL_ROTATE_ANGLE_3PH_I =  -5.0 * M_PI/180;
 
-
-float PhasorDiagram::pixelScale(float t_base)
-{
-    return std::min(height(), width())/t_base/2;
-}
-
-void PhasorDiagram::drawLabel(QPainter *t_painter, const QString &t_label, float t_vectorPhi, QColor t_color, float t_scale, float t_labelPhiOffset)
-{
-    QFontMetrics fontMetrics(m_defaultFont);
-    int xOffset = fontMetrics.horizontalAdvance(t_label) / 2;
-
-    const float tmpPhi = t_vectorPhi - m_phiOrigin;
-    constexpr float maxPhi = 0.25;
-    if(fabs(t_labelPhiOffset) > maxPhi) {
-        if(t_labelPhiOffset > 0)
-            t_labelPhiOffset = maxPhi;
-        else
-            t_labelPhiOffset = -maxPhi;
-    }
-    float xPos = m_fromX - xOffset + t_scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + t_labelPhiOffset);
-    float yPos = m_fromY + 5 + 0.9 * t_scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + t_labelPhiOffset);
-
-    t_painter->setPen(QPen(t_color, 2));
-    t_painter->setFont(m_defaultFont);
-    t_painter->drawText(round(xPos), round(yPos),t_label);
-}
-
-void PhasorDiagram::drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue)
-{
-    t_painter->setPen(QPen(t_color, 2));
-    float arrowHeadSize = height() / 35;
-
-    const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
-    const float tmpToX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
-    const float tmpToY = m_fromY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
-
-    const float angle = atan2(tmpToY - m_fromY , tmpToX - m_fromX);
-    if((pixelScale(t_maxValue) * t_vector.length()) != 0){
-        QVector<QPoint> points = {
-            QPoint(roundf(tmpToX), roundf(tmpToY)),
-            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle - M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle - M_PI / 8))),
-            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle + M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle + M_PI / 8))),
-        };
-
-        QPolygon poly(points);
-
-        t_painter->drawPolygon(poly);
-
-        QBrush brush;
-        brush.setColor(t_color);
-        brush.setStyle(Qt::SolidPattern);
-
-        QPainterPath path;
-        path.addPolygon(poly);
-
-        t_painter->fillPath(path, brush);
-    }
-}
-
-void PhasorDiagram::drawVectorLine(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue)
-{
-    t_painter->setPen(QPen(t_color, 2));
-    const float tmpPhi = atan2(t_vector.y(), t_vector.x()) - m_phiOrigin;
-    const float tmpX = m_fromX + pixelScale(t_maxValue) * t_vector.length() * cos(tmpPhi);
-    const float tmpY = m_fromY + pixelScale(t_maxValue) * t_vector.length() * sin(tmpPhi);
-    t_painter->drawLine(roundf(m_fromX), roundf(m_fromY), roundf(tmpX), roundf(tmpY));
-}
-
-void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
+void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
 {
     // To get a nice experience, vectors are drawn in the sequence of their
     // visible lengths: Long vectors first / short vectors last
@@ -177,14 +109,14 @@ void PhasorDiagram::drawVectors(QPainter *t_painter, bool drawVoltages, bool dra
     }
     // draw sorted long -> short
     for(const TVectorData &vData : sortedVectors) {
-        drawArrowHead(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
-        drawVectorLine(t_painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
-        drawLabel(t_painter, vData.label, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
+        m_vectorPainter.drawArrowHead(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
+        m_vectorPainter.drawVectorLine(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
+        m_vectorPainter.drawLabel(painter, vData.label, m_defaultFont, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
     }
 
     // do not leave center on random colour
     if(sortedVectors.count() >1) {
-        drawCenterPoint(t_painter);
+        drawCenterPoint(painter);
     }
 }
 
@@ -237,7 +169,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
         m_vectorUScreen[0] = m_vector1 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[0].length();
-        drawLabel(t_painter, m_vector1Label, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color,
+         m_vectorPainter.drawLabel(t_painter, m_vector1Label, m_defaultFont, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color,
                   labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
@@ -245,7 +177,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
         m_vectorUScreen[1] = m_vector2 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[1].length();
-        drawLabel(t_painter, m_vector2Label, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color,
+         m_vectorPainter.drawLabel(t_painter, m_vector2Label, m_defaultFont, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color,
                   labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
@@ -253,7 +185,7 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage / 10) {
         m_vectorUScreen[2] = m_vector3 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[2].length();
-        drawLabel(t_painter, m_vector3Label, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color,
+         m_vectorPainter.drawLabel(t_painter, m_vector3Label, m_defaultFont, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color,
                   labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
@@ -364,6 +296,80 @@ PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) : QQuickPaintedItem(t_parent)
     setOpaquePainting(true);
 }
 
+float PhasorDiagram::fromX() const
+{
+    return m_fromX;
+}
+
+void PhasorDiagram::setFromX(const float &fromX)
+{
+    m_vectorPainter.setFromX(fromX);
+    if(fromX == m_fromX)
+        return;
+    m_fromX = fromX;
+    emit fromXChanged();
+    update();
+}
+
+float PhasorDiagram::fromY() const
+{
+    return m_fromY;
+}
+
+void PhasorDiagram::setFromY(const float &fromY)
+{
+    m_vectorPainter.setFromY(fromY);
+    if(fromY == m_fromY)
+        return;
+    m_fromY = fromY;
+    emit fromYChanged();
+    update();
+}
+
+float PhasorDiagram::phiOrigin() const
+{
+    return m_phiOrigin;
+}
+
+void PhasorDiagram::setPhiOrigin(const float &phiOrigin)
+{
+    m_vectorPainter.setPhiOrigin(phiOrigin);
+    if(phiOrigin == m_phiOrigin)
+        return;
+    m_phiOrigin = phiOrigin;
+    emit phiOriginChanged();
+    update();
+}
+
+float PhasorDiagram::gridScale() const
+{
+    return m_gridScale;
+}
+
+void PhasorDiagram::setGridScale(const float &gridScale)
+{
+    m_vectorPainter.setGridScale(gridScale);
+    if(gridScale == m_gridScale)
+        return;
+    m_gridScale = gridScale;
+    emit gridScaleChanged();
+    update();
+}
+
+float PhasorDiagram::circleValue() const
+{
+    return m_circleValue;
+}
+
+void PhasorDiagram::setCircleValue(const float &circleValue)
+{
+    m_vectorPainter.setCircleValue(circleValue);
+    if(circleValue == m_circleValue)
+        return;
+    m_circleValue = circleValue;
+    emit circleValueChanged();
+    update();
+}
 
 void PhasorDiagram::paint(QPainter *t_painter)
 {

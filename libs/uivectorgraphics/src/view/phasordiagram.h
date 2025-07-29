@@ -1,10 +1,10 @@
 ﻿#ifndef PHASORDIAGRAM_H
 #define PHASORDIAGRAM_H
 
+
+#include "vectorpainter.h"
 #include <QQuickPaintedItem>
 #include <QQuickItem>
-
-
 #include <QVector2D>
 #include <QPainter>
 
@@ -39,10 +39,33 @@ public:
     };
     Q_ENUM(VectorView)
 
-    QNANO_PROPERTY(float, m_fromX, fromX, setFromX)
-    QNANO_PROPERTY(float, m_fromY, fromY, setFromY)
-    QNANO_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
-    QNANO_PROPERTY(float, m_gridScale, gridScale, setGridScale)
+public:
+    Q_PROPERTY(float fromX READ fromX WRITE setFromX NOTIFY fromXChanged)
+    float fromX() const;
+    void setFromX(const float &fromX);
+
+    Q_PROPERTY(float fromY READ fromY WRITE setFromY NOTIFY fromYChanged)
+    float fromY() const;
+    void setFromY(const float &fromY);
+
+    Q_PROPERTY(float phiOrigin READ phiOrigin WRITE setPhiOrigin NOTIFY phiOriginChanged)
+    float phiOrigin() const;
+    void setPhiOrigin(const float &phiOrigin);
+
+    Q_PROPERTY(float gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
+    float gridScale() const;
+    void setGridScale(const float &gridScale);
+
+    Q_PROPERTY(float circleValue READ circleValue WRITE setCircleValue NOTIFY circleValueChanged)
+    float circleValue() const;
+    void setCircleValue(const float &circleValue);
+signals:
+    void fromXChanged();
+    void fromYChanged();
+    void phiOriginChanged();
+    void gridScaleChanged();
+    void circleValueChanged();
+public:
     QNANO_PROPERTY(float, m_maxVoltage, maxVoltage, setMaxVoltage)
     QNANO_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
     QNANO_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
@@ -54,7 +77,6 @@ public:
     QNANO_PROPERTY(QColor, m_gridColor, gridColor, setGridColor)
     QNANO_PROPERTY(bool, m_circleVisible, circleVisible, setCircleVisible)
     QNANO_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
-    QNANO_PROPERTY(float, m_circleValue, circleValue, setCircleValue)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
     QNANO_PROPERTY(QList<double>, m_vector1Data, vector1Data, setVector1Data)
@@ -82,17 +104,20 @@ private:
     // Reimplement
     void paint(QPainter *t_painter) override;
 
-    float pixelScale(float t_base);
-    void drawLabel(QPainter *t_painter, const QString &t_label, float t_vectorPhi, QColor t_color, float t_scale=1, float t_labelPhiOffset=0);
-    void drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
-    void drawVectorLine(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
-    void drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
-    void drawCurrentArrows(QPainter *t_painter);
+    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
+    void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *t_painter);
     void drawGridAndCircle(QPainter *t_painter);
     void drawCenterPoint(QPainter *t_painter);
     float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
+
+    VectorPainter m_vectorPainter;
+    float m_fromX;
+    float m_fromY;
+    float m_phiOrigin;
+    float m_gridScale;
+    float m_circleValue;
 
     static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;
