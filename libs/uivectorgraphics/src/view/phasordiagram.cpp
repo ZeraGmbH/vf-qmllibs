@@ -8,6 +8,42 @@ static constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
 static constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -30.0 * M_PI/180;
 static constexpr float LABEL_ROTATE_ANGLE_3PH_I =  -5.0 * M_PI/180;
 
+PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) :
+    QQuickPaintedItem(t_parent),
+    m_gridColor(Qt::darkGray)
+{
+    setAntialiasing(true);
+    setOpaquePainting(true);
+}
+
+void PhasorDiagram::paint(QPainter *t_painter)
+{
+    inDataToVector2d();
+    m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
+    m_vectorPainter.drawGridAndCircle(t_painter);
+    m_SetUCollisions.clear();
+
+    switch(m_vectorView)
+    {
+    case PhasorDiagram::VectorView::VIEW_STAR:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawVectors(t_painter, true, true);
+        break;
+    case PhasorDiagram::VectorView::VIEW_TRIANGLE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawTriangle(t_painter);
+        drawVectors(t_painter, false, true);
+        break;
+    case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
+        drawVectors(t_painter, true, true, sqrt(3.0f)/*concatenated voltage */);
+        break;
+    }
+}
+
 void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor)
 {
     // To get a nice experience, vectors are drawn in the sequence of their
@@ -212,70 +248,18 @@ float PhasorDiagram::detectCollision(int uPhase)
     return 1.0;
 }
 
-void PhasorDiagram::synchronize(QQuickItem *t_item)
+void PhasorDiagram::inDataToVector2d()
 {
-    PhasorDiagram *realItem  = static_cast<PhasorDiagram *>(t_item);
-    Q_ASSERT(realItem != nullptr);
-
-    QList<double> tmpData = realItem->vector1Data();
-    if(tmpData.length() > 1) {
-        m_vector1 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-    tmpData = realItem->vector2Data();
-    if(tmpData.length() > 1) {
-        m_vector2 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-    tmpData = realItem->vector3Data();
-    if(tmpData.length() > 1) {
-        m_vector3 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-    tmpData = realItem->vector4Data();
-    if(tmpData.length() > 1) {
-        m_vector4 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-    tmpData = realItem->vector5Data();
-    if(tmpData.length() > 1) {
-        m_vector5 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-    tmpData = realItem->vector6Data();
-    if(tmpData.length() > 1) {
-        m_vector6 = QVector2D(tmpData.at(0), tmpData.at(1));
-    }
-}
-
-
-PhasorDiagram::PhasorDiagram(QQuickItem *t_parent) :
-    QQuickPaintedItem(t_parent),
-    m_gridColor(Qt::darkGray)
-{
-    setAntialiasing(true);
-    setOpaquePainting(true);
-}
-
-void PhasorDiagram::paint(QPainter *t_painter)
-{
-    synchronize((QQuickItem*)this);
-    m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
-    m_vectorPainter.drawGridAndCircle(t_painter);
-    m_SetUCollisions.clear();
-
-    switch(m_vectorView)
-    {
-    case PhasorDiagram::VectorView::VIEW_STAR:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
-        drawVectors(t_painter, true, true);
-        break;
-    case PhasorDiagram::VectorView::VIEW_TRIANGLE:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
-        drawTriangle(t_painter);
-        drawVectors(t_painter, false, true);
-        break;
-    case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
-        drawVectors(t_painter, true, true, sqrt(3.0f)/*concatenated voltage */);
-        break;
-    }
+    if (vector1Data().length() > 1)
+        m_vector1 = QVector2D(vector1Data().at(0), vector1Data().at(1));
+    if (vector2Data().length() > 1)
+        m_vector2 = QVector2D(vector2Data().at(0), vector2Data().at(1));
+    if (vector3Data().length() > 1)
+        m_vector3 = QVector2D(vector3Data().at(0), vector3Data().at(1));
+    if (vector4Data().length() > 1)
+        m_vector4 = QVector2D(vector4Data().at(0), vector4Data().at(1));
+    if (vector5Data().length() > 1)
+        m_vector5 = QVector2D(vector5Data().at(0), vector5Data().at(1));
+    if (vector6Data().length() > 1)
+        m_vector6 = QVector2D(vector6Data().at(0), vector6Data().at(1));
 }

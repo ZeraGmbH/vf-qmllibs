@@ -105,6 +105,7 @@ private:
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *t_painter);
     float detectCollision(int uPhase);
+    void inDataToVector2d();
 
     VectorPainter m_vectorPainter;
 
@@ -121,8 +122,6 @@ private:
     float m_currLabelRotateAngleU;
     float m_currLabelRotateAngleI;
 
-protected:
-    void synchronize(QQuickItem *t_item);
 };
 
 #endif // PHASORDIAGRAM_H
