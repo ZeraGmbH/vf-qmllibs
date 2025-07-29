@@ -28,6 +28,36 @@ void VectorPainter::setMaxVoltage(float maxVoltage)
     m_maxVoltage = maxVoltage;
 }
 
+void VectorPainter::setMinVoltage(float minVoltage)
+{
+    m_minVoltage = minVoltage;
+}
+
+void VectorPainter::setMaxCurrent(float maxCurrent)
+{
+    m_maxCurrent = maxCurrent;
+}
+
+void VectorPainter::setMinCurrent(float minCurrent)
+{
+    m_minCurrent = minCurrent;
+}
+
+void VectorPainter::setVectorView(VectorView vectorView)
+{
+    m_vectorView = vectorView;
+}
+
+void VectorPainter::setMaxValueVoltage(float maxValueVoltage)
+{
+    m_maxValueVoltage = maxValueVoltage;
+}
+
+void VectorPainter::setMaxValueCurrent(float maxValueCurrent)
+{
+    m_maxValueCurrent = maxValueCurrent;
+}
+
 void VectorPainter::setGridVisible(bool gridVisible)
 {
     m_gridVisible = gridVisible;

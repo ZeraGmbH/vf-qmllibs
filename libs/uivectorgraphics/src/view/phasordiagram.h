@@ -1,7 +1,6 @@
 ﻿#ifndef PHASORDIAGRAM_H
 #define PHASORDIAGRAM_H
 
-
 #include "vectorpainter.h"
 #include <QQuickPaintedItem>
 #include <QQuickItem>
@@ -20,6 +19,24 @@
     private: \
     type variable;
 
+#define Q_VECTOR_PROPERTY(type, variable, getter, setter) \
+private: \
+    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
+    Q_SIGNALS: \
+    void getter##Changed(); \
+    public: \
+    type const& getter() const { return variable; } \
+    public Q_SLOTS: \
+    void setter(type const &v) { \
+        m_vectorPainter.setter(v); \
+        if(v == variable) \
+            return; \
+        variable = v; \
+        emit getter##Changed(); \
+        update(); \
+    } \
+    private: \
+    type variable;
 
 /**
  * @brief Paints the phasor diagram (VectorModulePage.qml)
@@ -40,65 +57,23 @@ public:
     Q_ENUM(VectorView)
 
 public:
-    Q_PROPERTY(float fromX READ fromX WRITE setFromX NOTIFY fromXChanged)
-    float fromX() const;
-    void setFromX(const float &fromX);
+    Q_VECTOR_PROPERTY(float, m_fromX, fromX, setFromX)
+    Q_VECTOR_PROPERTY(float, m_fromY, fromY, setFromY)
+    Q_VECTOR_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
+    Q_VECTOR_PROPERTY(float, m_gridScale, gridScale, setGridScale)
+    Q_VECTOR_PROPERTY(bool,  m_gridVisible, gridVisible, setGridVisible)
+    Q_VECTOR_PROPERTY(QColor,m_gridColor, gridColor, setGridColor)
+    Q_VECTOR_PROPERTY(float, m_circleValue, circleValue, setCircleValue)
+    Q_VECTOR_PROPERTY(bool,  m_circleVisible, circleVisible, setCircleVisible)
+    Q_VECTOR_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
+    Q_VECTOR_PROPERTY(float, m_maxVoltage, maxVoltage, setMaxVoltage)
+    Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
+    Q_VECTOR_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
+    Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
+    Q_VECTOR_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
+    Q_VECTOR_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
 
-    Q_PROPERTY(float fromY READ fromY WRITE setFromY NOTIFY fromYChanged)
-    float fromY() const;
-    void setFromY(const float &fromY);
-
-    Q_PROPERTY(float phiOrigin READ phiOrigin WRITE setPhiOrigin NOTIFY phiOriginChanged)
-    float phiOrigin() const;
-    void setPhiOrigin(const float &phiOrigin);
-
-    Q_PROPERTY(float gridScale READ gridScale WRITE setGridScale NOTIFY gridScaleChanged)
-    float gridScale() const;
-    void setGridScale(const float &gridScale);
-
-    Q_PROPERTY(bool gridVisible READ gridVisible WRITE setGridVisible NOTIFY gridVisibleChanged)
-    bool gridVisible() const;
-    void setGridVisible(const bool &gridVisible);
-
-    Q_PROPERTY(QColor gridColor READ gridColor WRITE setGridColor NOTIFY gridColorChanged)
-    QColor gridColor() const;
-    void setGridColor(const QColor &gridColor);
-
-    Q_PROPERTY(float circleValue READ circleValue WRITE setCircleValue NOTIFY circleValueChanged)
-    float circleValue() const;
-    void setCircleValue(const float &circleValue);
-
-    Q_PROPERTY(bool circleVisible READ circleVisible WRITE setCircleVisible NOTIFY circleVisibleChanged)
-    bool circleVisible() const;
-    void setCircleVisible(const bool circleVisible);
-
-    Q_PROPERTY(QColor circleColor READ circleColor WRITE setCircleColor NOTIFY circleColorChanged)
-    QColor circleColor() const;
-    void setCircleColor(const QColor &circleColor);
-
-    Q_PROPERTY(float maxVoltage READ maxVoltage WRITE setMaxVoltage NOTIFY maxVoltageChanged)
-    float maxVoltage() const;
-    void setMaxVoltage(const float &maxVoltage);
-
-signals:
-    void fromXChanged();
-    void fromYChanged();
-    void phiOriginChanged();
-    void gridScaleChanged();
-    void gridVisibleChanged();
-    void gridColorChanged();
-    void circleValueChanged();
-    void circleVisibleChanged();
-    void circleColorChanged();
-    void maxVoltageChanged();
-
-public:
-    QNANO_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
-    QNANO_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
-    QNANO_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
-    QNANO_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
-    QNANO_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
     QNANO_PROPERTY(QList<double>, m_vector1Data, vector1Data, setVector1Data)
@@ -132,16 +107,6 @@ private:
     float detectCollision(int uPhase);
 
     VectorPainter m_vectorPainter;
-    float m_fromX;
-    float m_fromY;
-    float m_phiOrigin;
-    float m_gridScale;
-    bool m_gridVisible;
-    QColor m_gridColor = Qt::darkGray;
-    float m_circleValue;
-    bool m_circleVisible;
-    QColor m_circleColor = Qt::darkGray;
-    float m_maxVoltage;
 
     static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;

@@ -26,7 +26,7 @@ public:
     void setMinVoltage(float minVoltage);
     void setMaxCurrent(float maxCurrent);
     void setMinCurrent(float minCurrent);
-    void setDisplayStyle(VectorView displayStyle);
+    void setVectorView(VectorView vectorView);
     void setMaxValueVoltage(float maxValueVoltage);
     void setMaxValueCurrent(float maxValueCurrent);
     void setGridVisible(bool gridVisible);
@@ -86,7 +86,7 @@ private:
     float m_minVoltage = 0.0;
     float m_maxCurrent = 0.0;
     float m_minCurrent = 0.0;
-    VectorView m_displayStyle = VectorView::VIEW_STAR;
+    VectorView m_vectorView = VectorView::VIEW_STAR;
     float m_maxValueVoltage = 0.0;
     float m_maxValueCurrent = 0.0;
     bool m_gridVisible = false;
