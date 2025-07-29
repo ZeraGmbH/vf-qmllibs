@@ -79,6 +79,21 @@ public:
     QNANO_PROPERTY(QString, m_vector6Label, vector6Label, setVector6Label)
 
 private:
+    // Reimplement
+    void paint(QPainter *t_painter) override;
+
+    float pixelScale(float t_base);
+    void drawLabel(QPainter *t_painter, const QString &t_label, float t_vectorPhi, QColor t_color, float t_scale=1, float t_labelPhiOffset=0);
+    void drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
+    void drawVectorLine(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
+    void drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
+    void drawCurrentArrows(QPainter *t_painter);
+    void drawTriangle(QPainter *t_painter);
+    void drawGridAndCircle(QPainter *t_painter);
+    void drawCenterPoint(QPainter *t_painter);
+    float labelVectorLen(float screenLen);
+    float detectCollision(int uPhase);
+
     static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;
     QVector2D m_vector2;
@@ -91,33 +106,8 @@ private:
     QFont m_defaultFont;
     float m_currLabelRotateAngleU;
     float m_currLabelRotateAngleI;
-    // Reimplement
-    void paint(QPainter *t_painter) override;
 
-    float pixelScale(float t_base);
-
-    void drawLabel(QPainter *t_painter, const QString &t_label, float t_vectorPhi, QColor t_color, float t_scale=1, float t_labelPhiOffset=0);
-
-    void drawArrowHead(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
-
-    void drawVectorLine(QPainter *t_painter, QVector2D t_vector, QColor t_color, float t_maxValue);
-
-    void drawVectors(QPainter *t_painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
-
-    void drawCurrentArrows(QPainter *t_painter);
-
-    void drawTriangle(QPainter *t_painter);
-
-    void drawGridAndCircle(QPainter *t_painter);
-
-    void drawCenterPoint(QPainter *t_painter);
-
-    float labelVectorLen(float screenLen);
-
-    float detectCollision(int uPhase);
-
-  protected:
-
+protected:
     void synchronize(QQuickItem *t_item);
 };
 
