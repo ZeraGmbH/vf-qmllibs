@@ -56,26 +56,40 @@ public:
     float gridScale() const;
     void setGridScale(const float &gridScale);
 
+    Q_PROPERTY(bool gridVisible READ gridVisible WRITE setGridVisible NOTIFY gridVisibleChanged)
+    bool gridVisible() const;
+    void setGridVisible(const bool &gridVisible);
+
     Q_PROPERTY(float circleValue READ circleValue WRITE setCircleValue NOTIFY circleValueChanged)
     float circleValue() const;
     void setCircleValue(const float &circleValue);
+
+    Q_PROPERTY(bool circleVisible READ circleVisible WRITE setCircleVisible NOTIFY circleVisibleChanged)
+    bool circleVisible() const;
+    void setCircleVisible(const bool circleVisible);
+
+    Q_PROPERTY(float maxVoltage READ maxVoltage WRITE setMaxVoltage NOTIFY maxVoltageChanged)
+    float maxVoltage() const;
+    void setMaxVoltage(const float &maxVoltage);
+
 signals:
     void fromXChanged();
     void fromYChanged();
     void phiOriginChanged();
     void gridScaleChanged();
+    void gridVisibleChanged();
     void circleValueChanged();
+    void circleVisibleChanged();
+    void maxVoltageChanged();
+
 public:
-    QNANO_PROPERTY(float, m_maxVoltage, maxVoltage, setMaxVoltage)
     QNANO_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
     QNANO_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
     QNANO_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
     QNANO_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
     QNANO_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
-    QNANO_PROPERTY(bool, m_gridVisible, gridVisible, setGridVisible)
     QNANO_PROPERTY(QColor, m_gridColor, gridColor, setGridColor)
-    QNANO_PROPERTY(bool, m_circleVisible, circleVisible, setCircleVisible)
     QNANO_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
@@ -107,7 +121,6 @@ private:
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *t_painter);
-    void drawGridAndCircle(QPainter *t_painter);
     float detectCollision(int uPhase);
 
     VectorPainter m_vectorPainter;
@@ -115,7 +128,10 @@ private:
     float m_fromY;
     float m_phiOrigin;
     float m_gridScale;
+    bool m_gridVisible;
     float m_circleValue;
+    bool m_circleVisible;
+    float m_maxVoltage;
 
     static constexpr int COUNT_PHASES = 3;
     QVector2D m_vector1;

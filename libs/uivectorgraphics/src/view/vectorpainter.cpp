@@ -23,6 +23,21 @@ void VectorPainter::setGridScale(float gridScale)
     m_gridScale = gridScale;
 }
 
+void VectorPainter::setMaxVoltage(float maxVoltage)
+{
+    m_maxVoltage = maxVoltage;
+}
+
+void VectorPainter::setGridVisible(bool gridVisible)
+{
+    m_gridVisible = gridVisible;
+}
+
+void VectorPainter::setCircleVisible(bool circleVisible)
+{
+    m_circleVisible = circleVisible;
+}
+
 void VectorPainter::setCircleValue(float circleValue)
 {
     m_circleValue = circleValue;
@@ -102,6 +117,31 @@ float VectorPainter::labelVectorLen(float screenLen)
     if(labelLen < 0.4)
         return 0.4;
     return labelLen;
+}
+
+void VectorPainter::drawGridAndCircle(QPainter *painter)
+{
+    constexpr double radiusWidth = 1.5;
+    painter->setPen(QPen(Qt::darkGray, radiusWidth));
+
+    //grid
+    if(m_gridVisible) {
+        //x axis
+        painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
+
+        //y axis
+        painter->drawLine(m_fromX, m_fromY - m_maxVoltage * m_gridScale, m_fromX, m_fromY + m_maxVoltage * m_gridScale);
+    }
+
+    //circle
+    if(m_circleVisible) {
+        painter->drawArc(
+            m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
+            m_fromY-(m_gridScale * m_circleValue)-radiusWidth,
+            2 * (m_gridScale * m_circleValue + radiusWidth),
+            2 * (m_gridScale * m_circleValue + radiusWidth),
+            0, 5760);
+    }
 }
 
 void VectorPainter::drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue)

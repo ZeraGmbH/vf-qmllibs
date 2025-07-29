@@ -190,31 +190,6 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     }
 }
 
-void PhasorDiagram::drawGridAndCircle(QPainter *t_painter)
-{
-    constexpr double radiusWidth = 1.5;
-    t_painter->setPen(QPen(Qt::darkGray, radiusWidth));
-
-    //grid
-    if(m_gridVisible) {
-        //x axis
-        t_painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
-
-        //y axis
-        t_painter->drawLine(m_fromX, m_fromY - m_maxVoltage * m_gridScale, m_fromX, m_fromY + m_maxVoltage * m_gridScale);
-    }
-
-    //circle
-    if(m_circleVisible) {
-        t_painter->drawArc(
-                    m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
-                    m_fromY-(m_gridScale * m_circleValue)-radiusWidth,
-                    2 * (m_gridScale * m_circleValue + radiusWidth),
-                    2 * (m_gridScale * m_circleValue + radiusWidth),
-                    0, 5760);
-    }
-}
-
 float PhasorDiagram::detectCollision(int uPhase)
 {
     // check collision with I vectors
@@ -335,6 +310,21 @@ void PhasorDiagram::setGridScale(const float &gridScale)
     update();
 }
 
+bool PhasorDiagram::gridVisible() const
+{
+    return m_gridVisible;
+}
+
+void PhasorDiagram::setGridVisible(const bool &gridVisible)
+{
+    m_vectorPainter.setGridVisible(gridVisible);
+    if(gridVisible == m_gridVisible)
+        return;
+    m_gridVisible = gridVisible;
+    emit gridVisibleChanged();
+    update();
+}
+
 float PhasorDiagram::circleValue() const
 {
     return m_circleValue;
@@ -350,11 +340,41 @@ void PhasorDiagram::setCircleValue(const float &circleValue)
     update();
 }
 
+bool PhasorDiagram::circleVisible() const
+{
+    return m_circleVisible;
+}
+
+void PhasorDiagram::setCircleVisible(const bool circleVisible)
+{
+    m_vectorPainter.setCircleVisible(circleVisible);
+    if(circleVisible == m_circleVisible)
+        return;
+    m_circleVisible = circleVisible;
+    emit circleVisibleChanged();
+    update();
+}
+
+float PhasorDiagram::maxVoltage() const
+{
+    return m_maxVoltage;
+}
+
+void PhasorDiagram::setMaxVoltage(const float &maxVoltage)
+{
+    m_vectorPainter.setMaxVoltage(maxVoltage);
+    if(maxVoltage == m_maxVoltage)
+        return;
+    m_maxVoltage = maxVoltage;
+    emit maxVoltageChanged();
+    update();
+}
+
 void PhasorDiagram::paint(QPainter *t_painter)
 {
     synchronize((QQuickItem*)this);
     m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
-    drawGridAndCircle(t_painter);
+    m_vectorPainter.drawGridAndCircle(t_painter);
     m_SetUCollisions.clear();
 
     switch(m_vectorView)
