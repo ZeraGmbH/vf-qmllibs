@@ -108,7 +108,6 @@ private:
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *t_painter);
     void drawGridAndCircle(QPainter *t_painter);
-    void drawCenterPoint(QPainter *t_painter);
     float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
 

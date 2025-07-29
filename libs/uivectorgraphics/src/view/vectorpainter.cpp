@@ -33,6 +33,12 @@ float VectorPainter::pixelScale(QPainter *painter, float base)
     return std::min(height(painter), width(painter))/base/2;
 }
 
+void VectorPainter::drawCenterPoint(QPainter *painter)
+{
+    painter->setPen(QPen(Qt::gray, 2));
+    painter->drawPoint(m_fromX, m_fromY);
+}
+
 void VectorPainter::drawLabel(QPainter *painter, const QString &label, const QFont &font, float vectorPhi, QColor color, float scale, float labelPhiOffset)
 {
     QFontMetrics fontMetrics(font);
@@ -53,8 +59,6 @@ void VectorPainter::drawLabel(QPainter *painter, const QString &label, const QFo
     painter->setFont(font);
     painter->drawText(round(xPos), round(yPos),label);
 }
-
-
 
 void VectorPainter::drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue)
 {

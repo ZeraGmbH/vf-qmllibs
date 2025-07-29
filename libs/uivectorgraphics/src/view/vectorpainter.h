@@ -61,6 +61,7 @@ public:
 
 public: // during transition -> will turn private
     static float pixelScale(QPainter *painter, float base);
+    void drawCenterPoint(QPainter *painter);
     void drawLabel(QPainter *painter, const QString &label, const QFont &font, float vectorPhi, QColor color, float scale=1, float labelPhiOffset=0);
     void drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue);
     void drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue);
@@ -70,7 +71,6 @@ private:
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
     void drawGridAndCircle(QPainter *painter);
-    void drawCenterPoint(QPainter *painter);
     float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
 
