@@ -33,9 +33,19 @@ void VectorPainter::setGridVisible(bool gridVisible)
     m_gridVisible = gridVisible;
 }
 
+void VectorPainter::setGridColor(const QColor &gridColor)
+{
+    m_gridColor = gridColor;
+}
+
 void VectorPainter::setCircleVisible(bool circleVisible)
 {
     m_circleVisible = circleVisible;
+}
+
+void VectorPainter::setCircleColor(const QColor &circleColor)
+{
+    m_circleColor = circleColor;
 }
 
 void VectorPainter::setCircleValue(float circleValue)
@@ -122,10 +132,9 @@ float VectorPainter::labelVectorLen(float screenLen)
 void VectorPainter::drawGridAndCircle(QPainter *painter)
 {
     constexpr double radiusWidth = 1.5;
-    painter->setPen(QPen(Qt::darkGray, radiusWidth));
-
     //grid
     if(m_gridVisible) {
+        painter->setPen(QPen(m_gridColor, radiusWidth));
         //x axis
         painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
 
@@ -135,6 +144,7 @@ void VectorPainter::drawGridAndCircle(QPainter *painter)
 
     //circle
     if(m_circleVisible) {
+        painter->setPen(QPen(m_circleColor, radiusWidth));
         painter->drawArc(
             m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
             m_fromY-(m_gridScale * m_circleValue)-radiusWidth,

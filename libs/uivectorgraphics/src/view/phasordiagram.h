@@ -60,6 +60,10 @@ public:
     bool gridVisible() const;
     void setGridVisible(const bool &gridVisible);
 
+    Q_PROPERTY(QColor gridColor READ gridColor WRITE setGridColor NOTIFY gridColorChanged)
+    QColor gridColor() const;
+    void setGridColor(const QColor &gridColor);
+
     Q_PROPERTY(float circleValue READ circleValue WRITE setCircleValue NOTIFY circleValueChanged)
     float circleValue() const;
     void setCircleValue(const float &circleValue);
@@ -67,6 +71,10 @@ public:
     Q_PROPERTY(bool circleVisible READ circleVisible WRITE setCircleVisible NOTIFY circleVisibleChanged)
     bool circleVisible() const;
     void setCircleVisible(const bool circleVisible);
+
+    Q_PROPERTY(QColor circleColor READ circleColor WRITE setCircleColor NOTIFY circleColorChanged)
+    QColor circleColor() const;
+    void setCircleColor(const QColor &circleColor);
 
     Q_PROPERTY(float maxVoltage READ maxVoltage WRITE setMaxVoltage NOTIFY maxVoltageChanged)
     float maxVoltage() const;
@@ -78,8 +86,10 @@ signals:
     void phiOriginChanged();
     void gridScaleChanged();
     void gridVisibleChanged();
+    void gridColorChanged();
     void circleValueChanged();
     void circleVisibleChanged();
+    void circleColorChanged();
     void maxVoltageChanged();
 
 public:
@@ -89,8 +99,6 @@ public:
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
     QNANO_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
     QNANO_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
-    QNANO_PROPERTY(QColor, m_gridColor, gridColor, setGridColor)
-    QNANO_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
     QNANO_PROPERTY(QList<double>, m_vector1Data, vector1Data, setVector1Data)
@@ -129,8 +137,10 @@ private:
     float m_phiOrigin;
     float m_gridScale;
     bool m_gridVisible;
+    QColor m_gridColor = Qt::darkGray;
     float m_circleValue;
     bool m_circleVisible;
+    QColor m_circleColor = Qt::darkGray;
     float m_maxVoltage;
 
     static constexpr int COUNT_PHASES = 3;

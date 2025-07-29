@@ -90,9 +90,9 @@ private:
     float m_maxValueVoltage = 0.0;
     float m_maxValueCurrent = 0.0;
     bool m_gridVisible = false;
-    QColor m_gridColor;
+    QColor m_gridColor = Qt::darkGray;
     bool m_circleVisible = false;
-    QColor m_circleColor;
+    QColor m_circleColor = Qt::darkGray;
     float m_circleValue = 0.0;
     bool m_forceI1Top = false;
 

@@ -325,6 +325,21 @@ void PhasorDiagram::setGridVisible(const bool &gridVisible)
     update();
 }
 
+QColor PhasorDiagram::gridColor() const
+{
+    return m_gridColor;
+}
+
+void PhasorDiagram::setGridColor(const QColor &gridColor)
+{
+    m_vectorPainter.setGridColor(gridColor);
+    if(gridColor == m_gridColor)
+        return;
+    m_gridColor = gridColor;
+    emit gridColorChanged();
+    update();
+}
+
 float PhasorDiagram::circleValue() const
 {
     return m_circleValue;
@@ -352,6 +367,21 @@ void PhasorDiagram::setCircleVisible(const bool circleVisible)
         return;
     m_circleVisible = circleVisible;
     emit circleVisibleChanged();
+    update();
+}
+
+QColor PhasorDiagram::circleColor() const
+{
+    return m_circleColor;
+}
+
+void PhasorDiagram::setCircleColor(const QColor &circleColor)
+{
+    m_vectorPainter.setCircleColor(circleColor);
+    if(circleColor == m_circleColor)
+        return;
+    m_circleColor = circleColor;
+    emit circleColorChanged();
     update();
 }
 
