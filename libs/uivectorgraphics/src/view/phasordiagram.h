@@ -19,25 +19,6 @@
     private: \
     type variable;
 
-#define Q_VECTOR_PROPERTY(type, variable, getter, setter) \
-private: \
-    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
-    Q_SIGNALS: \
-    void getter##Changed(); \
-    public: \
-    type const& getter() const { return variable; } \
-    public Q_SLOTS: \
-    void setter(type const &v) { \
-        m_vectorPainter.setter(v); \
-        if(v == variable) \
-            return; \
-        variable = v; \
-        emit getter##Changed(); \
-        update(); \
-    } \
-    private: \
-    type variable;
-
 /**
  * @brief Paints the phasor diagram (VectorModulePage.qml)
  */
@@ -56,7 +37,26 @@ public:
     };
     Q_ENUM(VectorView)
 
-public:
+#define Q_VECTOR_PROPERTY(type, variable, getter, setter) \
+private: \
+    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
+    Q_SIGNALS: \
+    void getter##Changed(); \
+public: \
+    type const& getter() const { return variable; } \
+public Q_SLOTS: \
+    void setter(type const &v) { \
+        m_vectorPainter.setter(v); \
+        if(v == variable) \
+            return; \
+        variable = v; \
+        emit getter##Changed(); \
+        update(); \
+    } \
+private: \
+    type variable;
+// end Q_VECTOR_PROPERTY
+
     Q_VECTOR_PROPERTY(float, m_fromX, fromX, setFromX)
     Q_VECTOR_PROPERTY(float, m_fromY, fromY, setFromY)
     Q_VECTOR_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
