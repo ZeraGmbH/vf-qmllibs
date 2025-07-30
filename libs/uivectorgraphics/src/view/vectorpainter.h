@@ -50,8 +50,8 @@ public: // during transition -> will turn private
                    const QFont &font,
                    float scale=1,
                    float labelPhiOffset=0);
-    void drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue);
-    void drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue);
+    void drawVectorLine(QPainter *painter, int idx, float maxValue);
+    void drawArrowHead(QPainter *painter, int idx, float maxValue);
     void drawGridAndCircle(QPainter *painter);
 
     static float labelVectorLen(float screenLen);

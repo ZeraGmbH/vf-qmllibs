@@ -136,11 +136,13 @@ void VectorPainter::drawLabel(QPainter *painter,
     painter->drawText(round(xPos), round(yPos), label);
 }
 
-void VectorPainter::drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue)
+void VectorPainter::drawArrowHead(QPainter *painter, int idx, float maxValue)
 {
+    const QColor &color = m_vectorColor[idx];
     painter->setPen(QPen(color, 2));
     float arrowHeadSize = height(painter) / 35;
 
+    const QVector2D vector = m_vector[idx];
     const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
     const float tmpToX = m_fromX + pixelScale(painter, maxValue) * vector.length() * cos(tmpPhi);
     const float tmpToY = m_fromY + pixelScale(painter, maxValue) * vector.length() * sin(tmpPhi);
@@ -154,7 +156,6 @@ void VectorPainter::drawArrowHead(QPainter *painter, QVector2D vector, QColor co
         };
 
         QPolygon poly(points);
-
         painter->drawPolygon(poly);
 
         QBrush brush;
@@ -205,9 +206,10 @@ void VectorPainter::drawGridAndCircle(QPainter *painter)
     }
 }
 
-void VectorPainter::drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue)
+void VectorPainter::drawVectorLine(QPainter *painter, int idx, float maxValue)
 {
-    painter->setPen(QPen(color, 2));
+    painter->setPen(QPen(m_vectorColor[idx], 2));
+    const QVector2D vector = m_vector[idx];
     const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
     const float tmpX = m_fromX + pixelScale(painter, maxValue) * vector.length() * cos(tmpPhi);
     const float tmpY = m_fromY + pixelScale(painter, maxValue) * vector.length() * sin(tmpPhi);

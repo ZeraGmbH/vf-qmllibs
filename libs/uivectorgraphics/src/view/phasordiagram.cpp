@@ -149,8 +149,8 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     }
     // draw sorted long -> short
     for(const TVectorData &vData : sortedVectors) {
-        m_vectorPainter.drawArrowHead(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
-        m_vectorPainter.drawVectorLine(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
+        m_vectorPainter.drawArrowHead(painter, vData.idx, vData.maxVal * vData.factorVal);
+        m_vectorPainter.drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
         m_vectorPainter.drawLabel(painter,
                                   vData.idx,
                                   m_defaultFont,
