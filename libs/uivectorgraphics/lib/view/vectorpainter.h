@@ -74,7 +74,7 @@ private:
     QColor m_gridColor = Qt::darkGray;
     bool m_circleVisible = false;
     QColor m_circleColor = Qt::darkGray;
-    float m_circleValue = 0.0;
+    float m_circleValue = 1.0;
     bool m_forceI1Top = false;
 
     QVector<QVector2D> m_vector = QVector<QVector2D>(COUNT_PHASES*2);

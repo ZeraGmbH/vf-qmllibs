@@ -62,6 +62,7 @@ void VectorPainter::setCircleColor(const QColor &circleColor)
 void VectorPainter::setCircleValue(float circleValue)
 {
     m_circleValue = circleValue;
+    qWarning("%f", circleValue);
 }
 
 void VectorPainter::setForceI1Top(bool forceI1Top)
