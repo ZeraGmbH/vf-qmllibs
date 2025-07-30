@@ -83,6 +83,11 @@ void VectorPainter::setCircleValue(float circleValue)
     m_circleValue = circleValue;
 }
 
+void VectorPainter::setVector(int idx, const QVector2D &vector)
+{
+    m_vector[idx] = vector;
+}
+
 void VectorPainter::setVectorColor(int idx, const QColor &vectorColor)
 {
     m_vectorColor[idx] = vectorColor;
@@ -107,7 +112,6 @@ void VectorPainter::drawCenterPoint(QPainter *painter)
 void VectorPainter::drawLabel(QPainter *painter,
                               int idx,
                               const QFont &font,
-                              float vectorPhi,
                               float scale,
                               float labelPhiOffset)
 {
@@ -115,6 +119,7 @@ void VectorPainter::drawLabel(QPainter *painter,
     const QString& label = m_vectorLabel[idx];
     int xOffset = fontMetrics.horizontalAdvance(label) / 2;
 
+    const float vectorPhi = atan2(m_vector[idx].y(), m_vector[idx].x());
     const float tmpPhi = vectorPhi - m_phiOrigin;
     constexpr float maxPhi = 0.25;
     if(fabs(labelPhiOffset) > maxPhi) {

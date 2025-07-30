@@ -2,7 +2,6 @@
 #define VECTORPAINTER_H
 
 #include <QColor>
-#include <QList>
 #include <QVector>
 #include <QPainter>
 #include <QVector2D>
@@ -37,13 +36,7 @@ public:
     void setCircleValue(float circleValue);
     void setForceI1Top(bool forceI1Top);
 
-    void setVectorData0(const QList<double> &vectorData0);
-    void setVectorData1(const QList<double> &vectorData1);
-    void setVectorData2(const QList<double> &vectorData2);
-    void setVectorData3(const QList<double> &vectorData3);
-    void setVectorData4(const QList<double> &vectorData4);
-    void setVectorData5(const QList<double> &vectorData5);
-
+    void setVector(int idx, const QVector2D &vector);
     void setVectorColor(int idx, const QColor &vectorColor);
     void setVectorLabel(int idx, const QString &vectorLabel);
 
@@ -55,7 +48,6 @@ public: // during transition -> will turn private
     void drawLabel(QPainter *painter,
                    int idx,
                    const QFont &font,
-                   float vectorPhi,
                    float scale=1,
                    float labelPhiOffset=0);
     void drawVectorLine(QPainter *painter, QVector2D vector, QColor color, float maxValue);
@@ -91,13 +83,7 @@ private:
     float m_circleValue = 0.0;
     bool m_forceI1Top = false;
 
-    const QList<double> m_vectorData0;
-    const QList<double> m_vectorData1;
-    const QList<double> m_vectorData2;
-    const QList<double> m_vectorData3;
-    const QList<double> m_vectorData4;
-    const QList<double> m_vectorData5;
-
+    QVector<QVector2D> m_vector = QVector<QVector2D>(COUNT_PHASES*2);
     QVector<QColor> m_vectorColor = QVector<QColor>(COUNT_PHASES*2);
     QVector<QString> m_vectorLabel = QVector<QString>(COUNT_PHASES*2);
 };

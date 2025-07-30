@@ -154,7 +154,6 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
         m_vectorPainter.drawLabel(painter,
                                   vData.idx,
                                   m_defaultFont,
-                                  atan2(vData.vector.y(), vData.vector.x()),
                                   vData.labelPositionScale,
                                   vData.labelPhiOffset);
     }
@@ -217,7 +216,6 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
             t_painter,
             0,
             m_defaultFont,
-            atan2(m_vector0.y(), m_vector0.x()),
             m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
@@ -229,7 +227,6 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
             t_painter,
             1,
             m_defaultFont,
-            atan2(m_vector1.y(), m_vector1.x()),
             m_vectorPainter.labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
@@ -241,7 +238,6 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
             t_painter,
             2,
             m_defaultFont,
-            atan2(m_vector2.y(), m_vector2.x()),
             m_vectorPainter.labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
