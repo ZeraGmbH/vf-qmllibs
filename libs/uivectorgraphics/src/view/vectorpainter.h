@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QPainter>
 #include <QVector2D>
+#include <QSet>
 
 class VectorPainter
 {
@@ -55,16 +56,21 @@ public: // during transition -> will turn private
     void drawGridAndCircle(QPainter *painter);
 
     static float labelVectorLen(float screenLen);
+    float detectCollision(int uPhase);
+
+    // internal
+    QVector2D m_vectorUScreen[COUNT_PHASES];
+    QSet<int> m_SetUCollisions; // key: I
 
 private:
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
-    float detectCollision(int uPhase);
 
     static int height(QPainter *painter);
     static int width(QPainter *painter);
 
+    // API
     float m_fromX = 0.0;
     float m_fromY = 0.0;
     float m_phiOrigin = 0.0;

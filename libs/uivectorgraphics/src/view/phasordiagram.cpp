@@ -18,10 +18,10 @@ PhasorDiagram::PhasorDiagram(QQuickItem *parent) :
 
 void PhasorDiagram::paint(QPainter *painter)
 {
+    m_vectorPainter.paint(painter);
     inDataToVector2d();
     m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
     m_vectorPainter.drawGridAndCircle(painter);
-    m_SetUCollisions.clear();
 
     switch(m_vectorView)
     {
@@ -74,14 +74,14 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
         QVector2D vectors[] = { m_vector0, m_vector1, m_vector2 };
         for(int idx = 0; idx < COUNT_PHASES; ++idx) {
             QVector2D vector = vectors[idx];
-            m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
+            m_vectorPainter.m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
             if(vector.length() > m_minVoltage * voltageFactor) {
-                float screenLenVector = m_vectorUScreen[idx].length();
+                float screenLenVector = m_vectorPainter.m_vectorUScreen[idx].length();
                 TVectorData currVectorData(idx,
                                            m_maxVoltage,
                                            voltageFactor,
                                            m_vectorPainter.labelVectorLen(screenLenVector),
-                                           (1/screenLenVector)*m_currLabelRotateAngleU*detectCollision(idx));
+                                           (1/screenLenVector)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(idx));
                 // negative len for long -> short order
                 sortedVectors.insert(-screenLenVector, currVectorData);
             }
@@ -96,7 +96,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
             if(vector.length() > m_minCurrent) {
                 float screenLenVectorI = vectorIScreen.length();
                 float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
-                if(m_SetUCollisions.contains(idx)) {
+                if(m_vectorPainter.m_SetUCollisions.contains(idx)) {
                     labelRotateAngleI = -labelRotateAngleI;
                 }
                 TVectorData currVectorData(idx+COUNT_PHASES,
@@ -109,7 +109,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
                 float lenUPreferFactor = 1.0;
                 if(drawVoltages) {
                     for(int uidx = 0; uidx<COUNT_PHASES; ++uidx) {
-                        if(vectorIScreen.distanceToPoint(m_vectorUScreen[uidx]) < 0.02) {
+                        if(vectorIScreen.distanceToPoint(m_vectorPainter.m_vectorUScreen[uidx]) < 0.02) {
                             if(!m_forceI1Top || (uidx == 0 && idx == 0) || idx != 0) {
                                 lenUPreferFactor = 1.02;
                             }
@@ -189,59 +189,37 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
     painter->drawLine(v3X, v3Y,v1X, v1Y);
 
     if(m_vectorLabel0.isEmpty() == false && m_vector0.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[0] = m_vector0 / m_maxVoltage;
-        float screenLenLabel = m_vectorUScreen[0].length();
+        m_vectorPainter.m_vectorUScreen[0] = m_vector0 / m_maxVoltage;
+        float screenLenLabel = m_vectorPainter.m_vectorUScreen[0].length();
          m_vectorPainter.drawLabel(
             painter,
             0,
             m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-                  (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
+                  (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(0));
     }
 
     if(m_vectorLabel1.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[1] = m_vector1 / m_maxVoltage;
-        float screenLenLabel = m_vectorUScreen[1].length();
+        m_vectorPainter.m_vectorUScreen[1] = m_vector1 / m_maxVoltage;
+        float screenLenLabel = m_vectorPainter.m_vectorUScreen[1].length();
          m_vectorPainter.drawLabel(
             painter,
             1,
             m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
+            (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(1));
     }
 
     if(m_vectorLabel2.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[2] = m_vector2 / m_maxVoltage;
-        float screenLenLabel = m_vectorUScreen[2].length();
+        m_vectorPainter.m_vectorUScreen[2] = m_vector2 / m_maxVoltage;
+        float screenLenLabel = m_vectorPainter.m_vectorUScreen[2].length();
          m_vectorPainter.drawLabel(
             painter,
             2,
             m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
+            (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(2));
     }
-}
-
-float PhasorDiagram::detectCollision(int uPhase)
-{
-    // check collision with I vectors
-    QVector2D vectors[] = { m_vector3, m_vector4, m_vector5 };
-    QString labels[] = { m_vectorLabel3, m_vectorLabel4, m_vectorLabel5 };
-
-    for(int idx = 0; idx<COUNT_PHASES; ++idx) {
-        QVector2D vectorI = vectors[idx];
-        // compare angles
-        QVector2D vectorIScreen = vectorI / m_maxCurrent;
-        QVector2D vectorUScreen = m_vectorUScreen[uPhase];
-        float angleI = atan2(vectorIScreen.y() , vectorIScreen.x());
-        float angleU = atan2(vectorUScreen.y() , vectorUScreen.x());
-        float diffAngle = fabs(angleU - angleI);
-        if(angleU > angleI && diffAngle < 0.7) {
-            m_SetUCollisions.insert(idx);
-            return -1.0;
-        }
-    }
-    return 1.0;
 }
 
 void PhasorDiagram::inDataToVector2d()

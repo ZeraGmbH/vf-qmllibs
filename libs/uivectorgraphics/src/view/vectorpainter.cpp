@@ -98,6 +98,12 @@ void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
     m_vectorLabel[idx] = vectorLabel;
 }
 
+void VectorPainter::paint(QPainter *painter)
+{
+    m_SetUCollisions.clear();
+
+}
+
 float VectorPainter::pixelScale(QPainter *painter, float base)
 {
     return std::min(height(painter), width(painter))/base/2;
@@ -179,6 +185,26 @@ float VectorPainter::labelVectorLen(float screenLen)
     if(labelLen < 0.4)
         return 0.4;
     return labelLen;
+}
+
+float VectorPainter::detectCollision(int uPhase)
+{
+    // check collision with I vectors
+    QVector2D vectors[] = { m_vector[3], m_vector[4], m_vector[5] };
+    for(int idx = 0; idx<COUNT_PHASES; ++idx) {
+        QVector2D vectorI = vectors[idx];
+        // compare angles
+        QVector2D vectorIScreen = vectorI / m_maxCurrent;
+        QVector2D vectorUScreen = m_vectorUScreen[uPhase];
+        float angleI = atan2(vectorIScreen.y() , vectorIScreen.x());
+        float angleU = atan2(vectorUScreen.y() , vectorUScreen.x());
+        float diffAngle = fabs(angleU - angleI);
+        if(angleU > angleI && diffAngle < 0.7) {
+            m_SetUCollisions.insert(idx);
+            return -1.0;
+        }
+    }
+    return 1.0;
 }
 
 void VectorPainter::drawGridAndCircle(QPainter *painter)

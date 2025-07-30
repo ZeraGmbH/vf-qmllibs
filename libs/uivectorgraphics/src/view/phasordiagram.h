@@ -149,7 +149,6 @@ private:
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
-    float detectCollision(int uPhase);
     void inDataToVector2d();
 
     VectorPainter m_vectorPainter;
@@ -161,8 +160,6 @@ private:
     QVector2D m_vector3;
     QVector2D m_vector4;
     QVector2D m_vector5;
-    QVector2D m_vectorUScreen[COUNT_PHASES];
-    QSet<int> m_SetUCollisions; // key: I
     QFont m_defaultFont;
     float m_currLabelRotateAngleU;
     float m_currLabelRotateAngleI;
