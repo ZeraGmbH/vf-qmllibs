@@ -76,35 +76,6 @@ private: \
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
-#define Q_VECTOR_DATA_ARRAY_PROPERTY(idx) \
-private: \
-    Q_PROPERTY(QList<double> vectorData##idx READ vectorData##idx WRITE setVectorData##idx NOTIFY vectorDataChanged##idx) \
-Q_SIGNALS: \
-    void vectorDataChanged##idx(); \
-public: \
-    const QList<double> &vectorData##idx() const { return m_vectorData##idx; } \
-public Q_SLOTS: \
-    void setVectorData##idx(const QList<double> &v) \
-    { \
-        if (v.length() > 1) \
-            m_vectorPainter.setVector(idx, QVector2D(v.at(0), v.at(1))); \
-        if(v == m_vectorData##idx) \
-            return; \
-        m_vectorData##idx = v; \
-        emit vectorDataChanged##idx(); \
-        update(); \
-    } \
-private: \
-    QList<double> m_vectorData##idx;
-// end Q_VECTOR_DATA_ARRAY_PROPERTY
-
-    Q_VECTOR_DATA_ARRAY_PROPERTY(0)
-    Q_VECTOR_DATA_ARRAY_PROPERTY(1)
-    Q_VECTOR_DATA_ARRAY_PROPERTY(2)
-    Q_VECTOR_DATA_ARRAY_PROPERTY(3)
-    Q_VECTOR_DATA_ARRAY_PROPERTY(4)
-    Q_VECTOR_DATA_ARRAY_PROPERTY(5)
-
 #define Q_VECTOR_ARRAY_PROPERTY(type, idx, variable, getter, setter) \
 private: \
     Q_PROPERTY(type getter##idx READ getter##idx WRITE setter##idx NOTIFY getter##Changed##idx) \
@@ -125,6 +96,7 @@ private: \
     type variable##idx;
 // end Q_VECTOR_ARRAY_PROPERTY
 
+    // create vectorColor.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 0, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 1, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 2, m_vectorColor, vectorColor, setVectorColor)
@@ -132,12 +104,43 @@ private: \
     Q_VECTOR_ARRAY_PROPERTY(QColor, 4, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 5, m_vectorColor, vectorColor, setVectorColor)
 
+    // create setVectorLabel.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 1, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 2, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 3, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 4, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 5, m_vectorLabel, vectorLabel, setVectorLabel)
+
+#define Q_VECTOR_DATA_ARRAY_PROPERTY(idx) \
+private: \
+        Q_PROPERTY(QList<double> vectorData##idx READ vectorData##idx WRITE setVectorData##idx NOTIFY vectorDataChanged##idx) \
+        Q_SIGNALS: \
+        void vectorDataChanged##idx(); \
+    public: \
+    const QList<double> &vectorData##idx() const { return m_vectorData##idx; } \
+        public Q_SLOTS: \
+        void setVectorData##idx(const QList<double> &v) \
+    { \
+            if (v.length() > 1) \
+            m_vectorPainter.setVector(idx, QVector2D(v.at(0), v.at(1))); \
+            if(v == m_vectorData##idx) \
+            return; \
+            m_vectorData##idx = v; \
+            emit vectorDataChanged##idx(); \
+            update(); \
+    } \
+    private: \
+    QList<double> m_vectorData##idx;
+    // end Q_VECTOR_DATA_ARRAY_PROPERTY
+
+    // create vectorData.. Q_PROPERTIES (getter / setter+conversion->QVector2D / notifier)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(0)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(1)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(2)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(3)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(4)
+    Q_VECTOR_DATA_ARRAY_PROPERTY(5)
 
 private:
     // Reimplement
