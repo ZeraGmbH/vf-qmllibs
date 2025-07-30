@@ -96,7 +96,7 @@ private: \
     type variable##idx;
 // end Q_VECTOR_ARRAY_PROPERTY
 
-    // create vectorColor.. Q_PROPERTIES (getter / setter / notifier)
+    // create vectorColor0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 0, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 1, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 2, m_vectorColor, vectorColor, setVectorColor)
@@ -104,7 +104,7 @@ private: \
     Q_VECTOR_ARRAY_PROPERTY(QColor, 4, m_vectorColor, vectorColor, setVectorColor)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 5, m_vectorColor, vectorColor, setVectorColor)
 
-    // create setVectorLabel.. Q_PROPERTIES (getter / setter / notifier)
+    // create setVectorLabel0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 1, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 2, m_vectorLabel, vectorLabel, setVectorLabel)
@@ -134,7 +134,7 @@ private: \
     QList<double> m_vectorData##idx;
     // end Q_VECTOR_DATA_ARRAY_PROPERTY
 
-    // create vectorData.. Q_PROPERTIES (getter / setter+conversion->QVector2D / notifier)
+    // create vectorData0.. Q_PROPERTIES (getter / setter+conversion->QVector2D / notifier)
     Q_VECTOR_DATA_ARRAY_PROPERTY(0)
     Q_VECTOR_DATA_ARRAY_PROPERTY(1)
     Q_VECTOR_DATA_ARRAY_PROPERTY(2)

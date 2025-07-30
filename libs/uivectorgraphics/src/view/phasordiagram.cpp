@@ -51,28 +51,19 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     // To accomplish, we use QMultiMap with key containing visible length
     struct TVectorData {
         TVectorData(int idx,
-                    QVector2D vector,
-                    QColor colour,
                     float maxVal,
                     float factorVal,
-                    QString label,
                     float labelPositionScale,
                     float labelPhiOffset) {
             this->idx = idx;
-            this->vector = vector;
-            this->colour = colour;
             this->maxVal = maxVal;
             this->factorVal = factorVal;
-            this->label = label;
             this->labelPositionScale = labelPositionScale;
             this->labelPhiOffset = labelPhiOffset;
         }
         int idx;
-        QVector2D vector;
-        QColor colour;
         float maxVal;
         float factorVal;
-        QString label;
         float labelPositionScale;
         float labelPhiOffset;
     };
@@ -81,20 +72,14 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     // add voltages sorted
     if(drawVoltages) {
         QVector2D vectors[] = { m_vector0, m_vector1, m_vector2 };
-        QColor colors[] = { m_vectorColor0, m_vectorColor1, m_vectorColor2 };
-        QString labels[] = { m_vectorLabel0, m_vectorLabel1, m_vectorLabel2 };
         for(int idx = 0; idx < COUNT_PHASES; ++idx) {
             QVector2D vector = vectors[idx];
             m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
-            QString label = labels[idx];
             if(vector.length() > m_minVoltage * voltageFactor) {
                 float screenLenVector = m_vectorUScreen[idx].length();
                 TVectorData currVectorData(idx,
-                                           vector,
-                                           colors[idx],
                                            m_maxVoltage,
                                            voltageFactor,
-                                           label,
                                            m_vectorPainter.labelVectorLen(screenLenVector),
                                            (1/screenLenVector)*m_currLabelRotateAngleU*detectCollision(idx));
                 // negative len for long -> short order
@@ -105,12 +90,9 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     // add currents sorted
     if(drawCurrents) {
         QVector2D vectors[] = { m_vector3, m_vector4, m_vector5 };
-        QColor colors[] = { m_vectorColor3, m_vectorColor4, m_vectorColor5 };
-        QString labels[] = { m_vectorLabel3, m_vectorLabel4, m_vectorLabel5 };
         for(int idx = 0; idx < COUNT_PHASES; ++idx) {
             QVector2D vector = vectors[idx];
             QVector2D vectorIScreen = vector / m_maxCurrent;
-            QString label = labels[idx];
             if(vector.length() > m_minCurrent) {
                 float screenLenVectorI = vectorIScreen.length();
                 float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
@@ -118,11 +100,8 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
                     labelRotateAngleI = -labelRotateAngleI;
                 }
                 TVectorData currVectorData(idx+COUNT_PHASES,
-                                           vector,
-                                           colors[idx],
                                            m_maxCurrent,
                                            1.0,
-                                           label,
                                            m_vectorPainter.labelVectorLen(screenLenVectorI),
                                            labelRotateAngleI);
                 // In case we have identical vectors for current and voltage:
