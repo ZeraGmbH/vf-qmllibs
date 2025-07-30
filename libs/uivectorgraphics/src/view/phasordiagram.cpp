@@ -50,13 +50,15 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     // visible lengths: Long vectors first / short vectors last
     // To accomplish, we use QMultiMap with key containing visible length
     struct TVectorData {
-        TVectorData(QVector2D vector,
+        TVectorData(int idx,
+                    QVector2D vector,
                     QColor colour,
                     float maxVal,
                     float factorVal,
                     QString label,
                     float labelPositionScale,
                     float labelPhiOffset) {
+            this->idx = idx;
             this->vector = vector;
             this->colour = colour;
             this->maxVal = maxVal;
@@ -65,7 +67,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
             this->labelPositionScale = labelPositionScale;
             this->labelPhiOffset = labelPhiOffset;
         }
-
+        int idx;
         QVector2D vector;
         QColor colour;
         float maxVal;
@@ -87,7 +89,8 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
             QString label = labels[idx];
             if(vector.length() > m_minVoltage * t_voltageFactor) {
                 float screenLenVector = m_vectorUScreen[idx].length();
-                TVectorData currVectorData(vector,
+                TVectorData currVectorData(idx,
+                                           vector,
                                            colors[idx],
                                            m_maxVoltage,
                                            t_voltageFactor,
@@ -114,7 +117,8 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
                 if(m_SetUCollisions.contains(idx)) {
                     labelRotateAngleI = -labelRotateAngleI;
                 }
-                TVectorData currVectorData(vector,
+                TVectorData currVectorData(idx+COUNT_PHASES,
+                                           vector,
                                            colors[idx],
                                            m_maxCurrent,
                                            1.0,
@@ -147,7 +151,12 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     for(const TVectorData &vData : sortedVectors) {
         m_vectorPainter.drawArrowHead(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
         m_vectorPainter.drawVectorLine(painter, vData.vector, vData.colour, vData.maxVal * vData.factorVal);
-        m_vectorPainter.drawLabel(painter, vData.label, m_defaultFont, atan2(vData.vector.y(), vData.vector.x()), vData.colour, vData.labelPositionScale, vData.labelPhiOffset);
+        m_vectorPainter.drawLabel(painter,
+                                  vData.idx,
+                                  m_defaultFont,
+                                  atan2(vData.vector.y(), vData.vector.x()),
+                                  vData.labelPositionScale,
+                                  vData.labelPhiOffset);
     }
 
     // do not leave center on random colour
@@ -204,25 +213,37 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     if(m_vectorLabel0.isEmpty() == false && m_vector0.length() > m_maxVoltage / 10) {
         m_vectorUScreen[0] = m_vector0 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[0].length();
-         m_vectorPainter.drawLabel(t_painter, m_vectorLabel0, m_defaultFont, atan2(m_vector0.y(), m_vector0.x()), m_vectorColor0,
-                  m_vectorPainter.labelVectorLen(screenLenLabel),
+         m_vectorPainter.drawLabel(
+            t_painter,
+            0,
+            m_defaultFont,
+            atan2(m_vector0.y(), m_vector0.x()),
+            m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
 
     if(m_vectorLabel1.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
         m_vectorUScreen[1] = m_vector1 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[1].length();
-         m_vectorPainter.drawLabel(t_painter, m_vectorLabel1, m_defaultFont, atan2(m_vector1.y(), m_vector1.x()), m_vectorColor1,
-                  m_vectorPainter.labelVectorLen(screenLenLabel),
-                  (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
+         m_vectorPainter.drawLabel(
+            t_painter,
+            1,
+            m_defaultFont,
+            atan2(m_vector1.y(), m_vector1.x()),
+            m_vectorPainter.labelVectorLen(screenLenLabel),
+            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
 
     if(m_vectorLabel2.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
         m_vectorUScreen[2] = m_vector2 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[2].length();
-         m_vectorPainter.drawLabel(t_painter, m_vectorLabel2, m_defaultFont, atan2(m_vector2.y(), m_vector2.x()), m_vectorColor2,
-                  m_vectorPainter.labelVectorLen(screenLenLabel),
-                  (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
+         m_vectorPainter.drawLabel(
+            t_painter,
+            2,
+            m_defaultFont,
+            atan2(m_vector2.y(), m_vector2.x()),
+            m_vectorPainter.labelVectorLen(screenLenLabel),
+            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
 }
 

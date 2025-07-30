@@ -104,9 +104,15 @@ void VectorPainter::drawCenterPoint(QPainter *painter)
     painter->drawPoint(m_fromX, m_fromY);
 }
 
-void VectorPainter::drawLabel(QPainter *painter, const QString &label, const QFont &font, float vectorPhi, QColor color, float scale, float labelPhiOffset)
+void VectorPainter::drawLabel(QPainter *painter,
+                              int idx,
+                              const QFont &font,
+                              float vectorPhi,
+                              float scale,
+                              float labelPhiOffset)
 {
     QFontMetrics fontMetrics(font);
+    const QString& label = m_vectorLabel[idx];
     int xOffset = fontMetrics.horizontalAdvance(label) / 2;
 
     const float tmpPhi = vectorPhi - m_phiOrigin;
@@ -120,9 +126,9 @@ void VectorPainter::drawLabel(QPainter *painter, const QString &label, const QFo
     float xPos = m_fromX - xOffset + scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + labelPhiOffset);
     float yPos = m_fromY + 5 + 0.9 * scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + labelPhiOffset);
 
-    painter->setPen(QPen(color, 2));
+    painter->setPen(QPen(m_vectorColor[idx], 2));
     painter->setFont(font);
-    painter->drawText(round(xPos), round(yPos),label);
+    painter->drawText(round(xPos), round(yPos), label);
 }
 
 void VectorPainter::drawArrowHead(QPainter *painter, QVector2D vector, QColor color, float maxValue)
