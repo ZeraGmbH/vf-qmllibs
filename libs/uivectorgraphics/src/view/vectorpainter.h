@@ -36,26 +36,26 @@ public:
     void setCircleValue(float circleValue);
     void setForceI1Top(bool forceI1Top);
 
-    void setVector1Data(const QList<double> &vector1Data);
-    void setVector2Data(const QList<double> &vector2Data);
-    void setVector3Data(const QList<double> &vector3Data);
-    void setVector4Data(const QList<double> &vector4Data);
-    void setVector5Data(const QList<double> &vector5Data);
-    void setVector6Data(const QList<double> &vector6Data);
+    void setVectorData0(const QList<double> &vectorData0);
+    void setVectorData1(const QList<double> &vectorData1);
+    void setVectorData2(const QList<double> &vectorData2);
+    void setVectorData3(const QList<double> &vectorData3);
+    void setVectorData4(const QList<double> &vectorData4);
+    void setVectorData5(const QList<double> &vectorData5);
 
-    void setVector1Color(const QColor &vector1Color);
-    void setVector2Color(const QColor &vector2Color);
-    void setVector3Color(const QColor &vector3Color);
-    void setVector4Color(const QColor &vector4Color);
-    void setVector5Color(const QColor &vector5Color);
-    void setVector6Color(const QColor &vector6Color);
+    void setVectorColor0(const QColor &vectorColor0);
+    void setVectorColor1(const QColor &vectorColor1);
+    void setVectorColor2(const QColor &vectorColor2);
+    void setVectorColor3(const QColor &vectorColor3);
+    void setVectorColor4(const QColor &vectorColor4);
+    void setVectorColor5(const QColor &vectorColor5);
 
-    void setVector1Label(const QString &vector1Label);
-    void setVector2Label(const QString &vector2Label);
-    void setVector3Label(const QString &vector3Label);
-    void setVector4Label(const QString &vector4Label);
-    void setVector5Label(const QString &vector5Label);
-    void setVector6Label(const QString &vector6Label);
+    void setVectorLabel0(const QString &vectorLabel0);
+    void setVectorLabel1(const QString &vectorLabel1);
+    void setVectorLabel2(const QString &vectorLabel2);
+    void setVectorLabel3(const QString &vectorLabel3);
+    void setVectorLabel4(const QString &vectorLabel4);
+    void setVectorLabel5(const QString &vectorLabel5);
 
     void paint(QPainter *painter);
 
@@ -96,26 +96,26 @@ private:
     float m_circleValue = 0.0;
     bool m_forceI1Top = false;
 
-    const QList<double> m_vector1Data;
-    const QList<double> m_vector2Data;
-    const QList<double> m_vector3Data;
-    const QList<double> m_vector4Data;
-    const QList<double> m_vector5Data;
-    const QList<double> m_vector6Data;
+    const QList<double> m_vectorData0;
+    const QList<double> m_vectorData1;
+    const QList<double> m_vectorData2;
+    const QList<double> m_vectorData3;
+    const QList<double> m_vectorData4;
+    const QList<double> m_vectorData5;
 
-    QColor m_vector1Color;
-    QColor m_vector2Color;
-    QColor m_vector3Color;
-    QColor m_vector4Color;
-    QColor m_vector5Color;
-    QColor m_vector6Color;
+    QColor m_vectorColor0;
+    QColor m_vectorColor1;
+    QColor m_vectorColor2;
+    QColor m_vectorColor3;
+    QColor m_vectorColor4;
+    QColor m_vectorColor5;
 
-    QString m_vector1Label;
-    QString m_vector2Label;
-    QString m_vector3Label;
-    QString m_vector4Label;
-    QString m_vector5Label;
-    QString m_vector6Label;
+    QString m_vectorLabel0;
+    QString m_vectorLabel1;
+    QString m_vectorLabel2;
+    QString m_vectorLabel3;
+    QString m_vectorLabel4;
+    QString m_vectorLabel5;
 };
 
 #endif // VECTORPAINTER_H

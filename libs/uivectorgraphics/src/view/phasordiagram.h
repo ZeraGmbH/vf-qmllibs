@@ -76,26 +76,45 @@ private: \
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
     QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
-    QNANO_PROPERTY(QList<double>, m_vector1Data, vector1Data, setVector1Data)
-    QNANO_PROPERTY(QList<double>, m_vector2Data, vector2Data, setVector2Data)
-    QNANO_PROPERTY(QList<double>, m_vector3Data, vector3Data, setVector3Data)
-    QNANO_PROPERTY(QList<double>, m_vector4Data, vector4Data, setVector4Data)
-    QNANO_PROPERTY(QList<double>, m_vector5Data, vector5Data, setVector5Data)
-    QNANO_PROPERTY(QList<double>, m_vector6Data, vector6Data, setVector6Data)
+    QNANO_PROPERTY(QList<double>, m_vectorData0, vectorData0, setVectorData0)
+    QNANO_PROPERTY(QList<double>, m_vectorData1, vectorData1, setVectorData1)
+    QNANO_PROPERTY(QList<double>, m_vectorData2, vectorData2, setVectorData2)
+    QNANO_PROPERTY(QList<double>, m_vectorData3, vectorData3, setVectorData3)
+    QNANO_PROPERTY(QList<double>, m_vectorData4, vectorData4, setVectorData4)
+    QNANO_PROPERTY(QList<double>, m_vectorData5, vectorData5, setVectorData5)
 
-    QNANO_PROPERTY(QColor, m_vector1Color, vector1Color, setVector1Color)
-    QNANO_PROPERTY(QColor, m_vector2Color, vector2Color, setVector2Color)
-    QNANO_PROPERTY(QColor, m_vector3Color, vector3Color, setVector3Color)
-    QNANO_PROPERTY(QColor, m_vector4Color, vector4Color, setVector4Color)
-    QNANO_PROPERTY(QColor, m_vector5Color, vector5Color, setVector5Color)
-    QNANO_PROPERTY(QColor, m_vector6Color, vector6Color, setVector6Color)
+#define Q_VECTOR_ARRAY_PROPERTY(type, variable, getter, setter) \
+private: \
+        Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
+        Q_SIGNALS: \
+        void getter##Changed(); \
+    public: \
+    type const& getter() const { return variable; } \
+        public Q_SLOTS: \
+        void setter(type const &v) { \
+            m_vectorPainter.setter(v); \
+            if(v == variable) \
+            return; \
+            variable = v; \
+            emit getter##Changed(); \
+            update(); \
+    } \
+    private: \
+    type variable;
+    // end Q_VECTOR_ARRAY_PROPERTY
+    QNANO_PROPERTY(QColor, m_vectorColor0, vectorColor0, setVectorColor0)
+    QNANO_PROPERTY(QColor, m_vectorColor1, vectorColor1, setVectorColor1)
+    QNANO_PROPERTY(QColor, m_vectorColor2, vectorColor2, setVectorColor2)
+    QNANO_PROPERTY(QColor, m_vectorColor3, vectorColor3, setVectorColor3)
+    QNANO_PROPERTY(QColor, m_vectorColor4, vectorColor4, setVectorColor4)
+    QNANO_PROPERTY(QColor, m_vectorColor5, vectorColor5, setVectorColor5)
 
-    QNANO_PROPERTY(QString, m_vector1Label, vector1Label, setVector1Label)
-    QNANO_PROPERTY(QString, m_vector2Label, vector2Label, setVector2Label)
-    QNANO_PROPERTY(QString, m_vector3Label, vector3Label, setVector3Label)
-    QNANO_PROPERTY(QString, m_vector4Label, vector4Label, setVector4Label)
-    QNANO_PROPERTY(QString, m_vector5Label, vector5Label, setVector5Label)
-    QNANO_PROPERTY(QString, m_vector6Label, vector6Label, setVector6Label)
+    QNANO_PROPERTY(QString, m_vectorLabel0, vectorLabel0, setVectorLabel0)
+    QNANO_PROPERTY(QString, m_vectorLabel1, vectorLabel1, setVectorLabel1)
+    QNANO_PROPERTY(QString, m_vectorLabel2, vectorLabel2, setVectorLabel2)
+    QNANO_PROPERTY(QString, m_vectorLabel3, vectorLabel3, setVectorLabel3)
+    QNANO_PROPERTY(QString, m_vectorLabel4, vectorLabel4, setVectorLabel4)
+    QNANO_PROPERTY(QString, m_vectorLabel5, vectorLabel5, setVectorLabel5)
 
 private:
     // Reimplement
@@ -110,12 +129,12 @@ private:
     VectorPainter m_vectorPainter;
 
     static constexpr int COUNT_PHASES = 3;
+    QVector2D m_vector0;
     QVector2D m_vector1;
     QVector2D m_vector2;
     QVector2D m_vector3;
     QVector2D m_vector4;
     QVector2D m_vector5;
-    QVector2D m_vector6;
     QVector2D m_vectorUScreen[COUNT_PHASES];
     QSet<int> m_SetUCollisions; // key: I
     QFont m_defaultFont;

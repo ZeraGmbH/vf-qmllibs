@@ -184,26 +184,26 @@ ApplicationWindow {
             fromX: Math.floor(width/2)
             fromY: Math.floor(height/2)
 
-            vector1Color: "red"
-            vector2Color: "green"
-            vector3Color: "blue"
-            vector4Color: "red"
-            vector5Color: "green"
-            vector6Color: "blue"
+            vectorColor0: "red"
+            vectorColor1: "green"
+            vectorColor2: "blue"
+            vectorColor3: "red"
+            vectorColor4: "green"
+            vectorColor5: "blue"
 
-            vector1Data: [v1x.text,v1y.text];
-            vector2Data: [v2x.text,v2y.text];
-            vector3Data: [v3x.text,v3y.text];
-            vector4Data: [v4x.text,v4y.text];
-            vector5Data: [v5x.text,v5y.text];
-            vector6Data: [v6x.text,v6y.text];
+            vectorData0: [v1x.text,v1y.text];
+            vectorData1: [v2x.text,v2y.text];
+            vectorData2: [v3x.text,v3y.text];
+            vectorData3: [v4x.text,v4y.text];
+            vectorData4: [v5x.text,v5y.text];
+            vectorData5: [v6x.text,v6y.text];
 
-            vector1Label: "U1";
-            vector2Label: "U2";
-            vector3Label: "U3";
-            vector4Label: "I1";
-            vector5Label: "I2";
-            vector6Label: "I3";
+            vectorLabel0: "U1";
+            vectorLabel1: "U2";
+            vectorLabel2: "U3";
+            vectorLabel3: "I1";
+            vectorLabel4: "I2";
+            vectorLabel5: "I3";
 
             phiOrigin: 0
             maxVoltage: maxVol.text

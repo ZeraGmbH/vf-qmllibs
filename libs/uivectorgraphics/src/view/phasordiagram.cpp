@@ -78,9 +78,9 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
 
     // add voltages sorted
     if(drawVoltages) {
-        QVector2D vectors[] = { m_vector1, m_vector2, m_vector3 };
-        QColor colors[] = { m_vector1Color, m_vector2Color, m_vector3Color };
-        QString labels[] = { m_vector1Label, m_vector2Label, m_vector3Label };
+        QVector2D vectors[] = { m_vector0, m_vector1, m_vector2 };
+        QColor colors[] = { m_vectorColor0, m_vectorColor1, m_vectorColor2 };
+        QString labels[] = { m_vectorLabel0, m_vectorLabel1, m_vectorLabel2 };
         for(int idx = 0; idx < COUNT_PHASES; ++idx) {
             QVector2D vector = vectors[idx];
             m_vectorUScreen[idx] = vector / (m_maxVoltage * t_voltageFactor);
@@ -101,9 +101,9 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
     }
     // add currents sorted
     if(drawCurrents) {
-        QVector2D vectors[] = { m_vector4, m_vector5, m_vector6 };
-        QColor colors[] = { m_vector4Color, m_vector5Color, m_vector6Color };
-        QString labels[] = { m_vector4Label, m_vector5Label, m_vector6Label };
+        QVector2D vectors[] = { m_vector3, m_vector4, m_vector5 };
+        QColor colors[] = { m_vectorColor3, m_vectorColor4, m_vectorColor5 };
+        QString labels[] = { m_vectorLabel3, m_vectorLabel4, m_vectorLabel5 };
         for(int idx = 0; idx < COUNT_PHASES; ++idx) {
             QVector2D vector = vectors[idx];
             QVector2D vectorIScreen = vector / m_maxCurrent;
@@ -159,35 +159,35 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
 {
     //Scale vectors and convert to x/y
     //v1
-    const float v1Phi = atan2(m_vector1.y(), m_vector1.x()) - m_phiOrigin;
-    const float v1X = m_fromX + m_gridScale * m_vector1.length() * cos(v1Phi);
-    const float v1Y = m_fromY + m_gridScale * m_vector1.length() * sin(v1Phi);
+    const float v1Phi = atan2(m_vector0.y(), m_vector0.x()) - m_phiOrigin;
+    const float v1X = m_fromX + m_gridScale * m_vector0.length() * cos(v1Phi);
+    const float v1Y = m_fromY + m_gridScale * m_vector0.length() * sin(v1Phi);
 
     //v2
-    const float v2Phi = atan2(m_vector2.y(), m_vector2.x()) - m_phiOrigin;
-    const float v2X = m_fromX + m_gridScale * m_vector2.length() * cos(v2Phi);
-    const float v2Y = m_fromY + m_gridScale * m_vector2.length() * sin(v2Phi);
+    const float v2Phi = atan2(m_vector1.y(), m_vector1.x()) - m_phiOrigin;
+    const float v2X = m_fromX + m_gridScale * m_vector1.length() * cos(v2Phi);
+    const float v2Y = m_fromY + m_gridScale * m_vector1.length() * sin(v2Phi);
 
     //v3
-    const float v3Phi = atan2(m_vector3.y(), m_vector3.x()) - m_phiOrigin;
-    const float v3X = m_fromX + m_gridScale * m_vector3.length() * cos(v3Phi);
-    const float v3Y = m_fromY + m_gridScale * m_vector3.length() * sin(v3Phi);
+    const float v3Phi = atan2(m_vector2.y(), m_vector2.x()) - m_phiOrigin;
+    const float v3X = m_fromX + m_gridScale * m_vector2.length() * cos(v3Phi);
+    const float v3Y = m_fromY + m_gridScale * m_vector2.length() * sin(v3Phi);
 
     //Gradients
     //v1->v2
     QLinearGradient grd1(QPoint(v1X, v1Y), QPoint(v2X, v2Y));
-    grd1.setColorAt(0,m_vector1Color);
-    grd1.setColorAt(1,m_vector2Color);
+    grd1.setColorAt(0,m_vectorColor0);
+    grd1.setColorAt(1,m_vectorColor1);
 
     //v2->v3
     QLinearGradient grd2(QPoint(v2X, v2Y), QPoint(v3X, v3Y));
-    grd2.setColorAt(0,m_vector2Color);
-    grd2.setColorAt(1,m_vector3Color);
+    grd2.setColorAt(0,m_vectorColor1);
+    grd2.setColorAt(1,m_vectorColor2);
 
     //v3->v1
     QLinearGradient grd3(QPoint(v3X, v3Y), QPoint(v1X, v1Y));
-    grd3.setColorAt(0,m_vector3Color);
-    grd3.setColorAt(1,m_vector1Color);
+    grd3.setColorAt(0,m_vectorColor2);
+    grd3.setColorAt(1,m_vectorColor0);
 
     //--Draw--//////////////////////// v1 -> v2
     t_painter->setPen(QPen(grd1, 2));
@@ -201,26 +201,26 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
     t_painter->setPen(QPen(grd3, 2));
     t_painter->drawLine(v3X, v3Y,v1X, v1Y);
 
-    if(m_vector1Label.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[0] = m_vector1 / m_maxVoltage;
+    if(m_vectorLabel0.isEmpty() == false && m_vector0.length() > m_maxVoltage / 10) {
+        m_vectorUScreen[0] = m_vector0 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[0].length();
-         m_vectorPainter.drawLabel(t_painter, m_vector1Label, m_defaultFont, atan2(m_vector1.y(), m_vector1.x()), m_vector1Color,
+         m_vectorPainter.drawLabel(t_painter, m_vectorLabel0, m_defaultFont, atan2(m_vector0.y(), m_vector0.x()), m_vectorColor0,
                   m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
 
-    if(m_vector2Label.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[1] = m_vector2 / m_maxVoltage;
+    if(m_vectorLabel1.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
+        m_vectorUScreen[1] = m_vector1 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[1].length();
-         m_vectorPainter.drawLabel(t_painter, m_vector2Label, m_defaultFont, atan2(m_vector2.y(), m_vector2.x()), m_vector2Color,
+         m_vectorPainter.drawLabel(t_painter, m_vectorLabel1, m_defaultFont, atan2(m_vector1.y(), m_vector1.x()), m_vectorColor1,
                   m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
 
-    if(m_vector3Label.isEmpty() == false && m_vector3.length() > m_maxVoltage / 10) {
-        m_vectorUScreen[2] = m_vector3 / m_maxVoltage;
+    if(m_vectorLabel2.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
+        m_vectorUScreen[2] = m_vector2 / m_maxVoltage;
         float screenLenLabel = m_vectorUScreen[2].length();
-         m_vectorPainter.drawLabel(t_painter, m_vector3Label, m_defaultFont, atan2(m_vector3.y(), m_vector3.x()), m_vector3Color,
+         m_vectorPainter.drawLabel(t_painter, m_vectorLabel2, m_defaultFont, atan2(m_vector2.y(), m_vector2.x()), m_vectorColor2,
                   m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
@@ -229,8 +229,8 @@ void PhasorDiagram::drawTriangle(QPainter *t_painter)
 float PhasorDiagram::detectCollision(int uPhase)
 {
     // check collision with I vectors
-    QVector2D vectors[] = { m_vector4, m_vector5, m_vector6 };
-    QString labels[] = { m_vector4Label, m_vector5Label, m_vector6Label };
+    QVector2D vectors[] = { m_vector3, m_vector4, m_vector5 };
+    QString labels[] = { m_vectorLabel3, m_vectorLabel4, m_vectorLabel5 };
 
     for(int idx = 0; idx<COUNT_PHASES; ++idx) {
         QVector2D vectorI = vectors[idx];
@@ -250,16 +250,16 @@ float PhasorDiagram::detectCollision(int uPhase)
 
 void PhasorDiagram::inDataToVector2d()
 {
-    if (vector1Data().length() > 1)
-        m_vector1 = QVector2D(vector1Data().at(0), vector1Data().at(1));
-    if (vector2Data().length() > 1)
-        m_vector2 = QVector2D(vector2Data().at(0), vector2Data().at(1));
-    if (vector3Data().length() > 1)
-        m_vector3 = QVector2D(vector3Data().at(0), vector3Data().at(1));
-    if (vector4Data().length() > 1)
-        m_vector4 = QVector2D(vector4Data().at(0), vector4Data().at(1));
-    if (vector5Data().length() > 1)
-        m_vector5 = QVector2D(vector5Data().at(0), vector5Data().at(1));
-    if (vector6Data().length() > 1)
-        m_vector6 = QVector2D(vector6Data().at(0), vector6Data().at(1));
+    if (vectorData0().length() > 1)
+        m_vector0 = QVector2D(vectorData0().at(0), vectorData0().at(1));
+    if (vectorData1().length() > 1)
+        m_vector1 = QVector2D(vectorData1().at(0), vectorData1().at(1));
+    if (vectorData2().length() > 1)
+        m_vector2 = QVector2D(vectorData2().at(0), vectorData2().at(1));
+    if (vectorData3().length() > 1)
+        m_vector3 = QVector2D(vectorData3().at(0), vectorData3().at(1));
+    if (vectorData4().length() > 1)
+        m_vector4 = QVector2D(vectorData4().at(0), vectorData4().at(1));
+    if (vectorData5().length() > 1)
+        m_vector5 = QVector2D(vectorData5().at(0), vectorData5().at(1));
 }
