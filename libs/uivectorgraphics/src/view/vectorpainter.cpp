@@ -103,6 +103,8 @@ void VectorPainter::paint(QPainter *painter)
     m_SetUCollisions.clear();
     m_defaultFont.setPixelSize(height(painter) > 0.0 ? height(painter) / 25 : 10.0);
 
+    drawGridAndCircle(painter);
+
 }
 
 float VectorPainter::pixelScale(QPainter *painter, float base)

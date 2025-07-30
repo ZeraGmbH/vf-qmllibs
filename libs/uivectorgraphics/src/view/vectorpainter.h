@@ -54,7 +54,6 @@ public: // during transition -> will turn private
                    float labelPhiOffset=0);
     void drawVectorLine(QPainter *painter, int idx, float maxValue);
     void drawArrowHead(QPainter *painter, int idx, float maxValue);
-    void drawGridAndCircle(QPainter *painter);
 
     static float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
@@ -65,6 +64,8 @@ public: // during transition -> will turn private
     QSet<int> m_SetUCollisions; // key: I
 
 private:
+    void drawGridAndCircle(QPainter *painter);
+
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);

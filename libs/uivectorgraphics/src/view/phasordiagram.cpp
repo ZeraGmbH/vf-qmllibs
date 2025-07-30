@@ -20,7 +20,6 @@ void PhasorDiagram::paint(QPainter *painter)
 {
     m_vectorPainter.paint(painter);
     inDataToVector2d();
-    m_vectorPainter.drawGridAndCircle(painter);
 
     switch(m_vectorView)
     {
