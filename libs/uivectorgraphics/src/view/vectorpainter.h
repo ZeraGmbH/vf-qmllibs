@@ -69,9 +69,6 @@ public: // during transition -> will turn private
 
 private:
     void drawGridAndCircle(QPainter *painter);
-
-    void drawCurrentArrows(QPainter *painter);
-
     static int height(QPainter *painter);
     static int width(QPainter *painter);
 

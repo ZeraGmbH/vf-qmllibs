@@ -143,21 +143,8 @@ private: \
     Q_VECTOR_DATA_ARRAY_PROPERTY(5)
 
 private:
-    // Reimplement
     void paint(QPainter *painter) override;
-
-    void drawCurrentArrows(QPainter *painter);
-    void inDataToVector2d();
-
     VectorPainter m_vectorPainter;
-
-    static constexpr int COUNT_PHASES = 3;
-    QVector2D m_vector0;
-    QVector2D m_vector1;
-    QVector2D m_vector2;
-    QVector2D m_vector3;
-    QVector2D m_vector4;
-    QVector2D m_vector5;
 };
 
 #endif // PHASORDIAGRAM_H
