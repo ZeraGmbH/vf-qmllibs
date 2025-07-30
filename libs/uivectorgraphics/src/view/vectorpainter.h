@@ -4,6 +4,7 @@
 #include <QColor>
 #include <QVector>
 #include <QPainter>
+#include <QFont>
 #include <QVector2D>
 #include <QSet>
 
@@ -59,6 +60,7 @@ public: // during transition -> will turn private
     float detectCollision(int uPhase);
 
     // internal
+    QFont m_defaultFont;
     QVector2D m_vectorUScreen[COUNT_PHASES];
     QSet<int> m_SetUCollisions; // key: I
 

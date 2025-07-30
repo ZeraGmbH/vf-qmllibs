@@ -20,7 +20,6 @@ void PhasorDiagram::paint(QPainter *painter)
 {
     m_vectorPainter.paint(painter);
     inDataToVector2d();
-    m_defaultFont.setPixelSize(height() > 0.0 ? height() / 25 : 10.0);
     m_vectorPainter.drawGridAndCircle(painter);
 
     switch(m_vectorView)
@@ -132,7 +131,7 @@ void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
         m_vectorPainter.drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
         m_vectorPainter.drawLabel(painter,
                                   vData.idx,
-                                  m_defaultFont,
+                                  m_vectorPainter.m_defaultFont,
                                   vData.labelPositionScale,
                                   vData.labelPhiOffset);
     }
@@ -194,7 +193,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
          m_vectorPainter.drawLabel(
             painter,
             0,
-            m_defaultFont,
+            m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
                   (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(0));
     }
@@ -205,7 +204,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
          m_vectorPainter.drawLabel(
             painter,
             1,
-            m_defaultFont,
+            m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(1));
     }
@@ -216,7 +215,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
          m_vectorPainter.drawLabel(
             painter,
             2,
-            m_defaultFont,
+            m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(2));
     }

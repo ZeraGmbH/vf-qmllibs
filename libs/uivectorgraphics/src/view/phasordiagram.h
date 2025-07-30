@@ -160,7 +160,6 @@ private:
     QVector2D m_vector3;
     QVector2D m_vector4;
     QVector2D m_vector5;
-    QFont m_defaultFont;
     float m_currLabelRotateAngleU;
     float m_currLabelRotateAngleI;
 

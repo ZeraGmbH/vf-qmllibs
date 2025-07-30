@@ -101,6 +101,7 @@ void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
 void VectorPainter::paint(QPainter *painter)
 {
     m_SetUCollisions.clear();
+    m_defaultFont.setPixelSize(height(painter) > 0.0 ? height(painter) / 25 : 10.0);
 
 }
 
