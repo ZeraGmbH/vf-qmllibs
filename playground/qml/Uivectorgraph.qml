@@ -181,9 +181,6 @@ ApplicationWindow {
             anchors.fill: parent
             // anchors.topMargin: root.topMargin
 
-            fromX: Math.floor(width/2)
-            fromY: Math.floor(height/2)
-
             vectorColor0: "red"
             vectorColor1: "green"
             vectorColor2: "blue"

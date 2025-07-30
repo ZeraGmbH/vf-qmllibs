@@ -24,8 +24,6 @@ public:
     Q_ENUM(VectorView)
 
     // create various Q_PROPERTIES (getter / setter / notifier)
-    Q_VECTOR_PROPERTY(float, m_fromX, fromX, setFromX)
-    Q_VECTOR_PROPERTY(float, m_fromY, fromY, setFromY)
     Q_VECTOR_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
     Q_VECTOR_PROPERTY(float, m_gridScale, gridScale, setGridScale)
     Q_VECTOR_PROPERTY(bool,  m_gridVisible, gridVisible, setGridVisible)

@@ -4,16 +4,6 @@
 #include <QMultiMap>
 #include <math.h>
 
-void VectorPainter::setFromX(const float &fromX)
-{
-    m_fromX = fromX;
-}
-
-void VectorPainter::setFromY(const float &fromY)
-{
-    m_fromY = fromY;
-}
-
 void VectorPainter::setPhiOrigin(const float &phiOrigin)
 {
     m_phiOrigin = phiOrigin;
@@ -107,6 +97,8 @@ void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
 void VectorPainter::paint(QPainter *painter)
 {
     m_SetUCollisions.clear();
+    m_fromX = painter->device()->width() / 2;
+    m_fromY = painter->device()->height() / 2;
     m_defaultFont.setPixelSize(height(painter) > 0.0 ? height(painter) / 25 : 10.0);
 
     drawGridAndCircle(painter);

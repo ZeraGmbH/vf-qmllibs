@@ -21,8 +21,6 @@ public:
         VIEW_THREE_PHASE = 2
     };
 
-    void setFromX(const float &fromX);
-    void setFromY(const float &fromY);
     void setPhiOrigin(const float &phiOrigin);
     void setGridScale(float gridScale);
     void setMaxVoltage(float maxVoltage);
