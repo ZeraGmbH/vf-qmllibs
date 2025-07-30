@@ -39,16 +39,6 @@ void VectorPainter::setVectorView(VectorView vectorView)
     m_vectorView = vectorView;
 }
 
-void VectorPainter::setMaxValueVoltage(float maxValueVoltage)
-{
-    m_maxValueVoltage = maxValueVoltage;
-}
-
-void VectorPainter::setMaxValueCurrent(float maxValueCurrent)
-{
-    m_maxValueCurrent = maxValueCurrent;
-}
-
 void VectorPainter::setGridVisible(bool gridVisible)
 {
     m_gridVisible = gridVisible;

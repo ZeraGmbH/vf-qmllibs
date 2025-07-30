@@ -35,8 +35,6 @@ public:
     Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
     Q_VECTOR_PROPERTY(float, m_maxCurrent, maxCurrent, setMaxCurrent)
     Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
-    Q_VECTOR_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
-    Q_VECTOR_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
     Q_VECTOR_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
     Q_PROPERTY(VectorView vectorView READ vectorView WRITE setVectorView NOTIFY vectorViewChanged)

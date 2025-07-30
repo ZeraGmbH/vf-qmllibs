@@ -28,8 +28,6 @@ public:
     void setMaxCurrent(float maxCurrent);
     void setMinCurrent(float minCurrent);
     void setVectorView(VectorView vectorView);
-    void setMaxValueVoltage(float maxValueVoltage);
-    void setMaxValueCurrent(float maxValueCurrent);
     void setGridVisible(bool gridVisible);
     void setGridColor(const QColor& gridColor);
     void setCircleVisible(bool circleVisible);
@@ -72,8 +70,6 @@ private:
     float m_maxCurrent = 0.0;
     float m_minCurrent = 0.0;
     VectorView m_vectorView = VectorView::VIEW_STAR;
-    float m_maxValueVoltage = 0.0;
-    float m_maxValueCurrent = 0.0;
     bool m_gridVisible = false;
     QColor m_gridColor = Qt::darkGray;
     bool m_circleVisible = false;
