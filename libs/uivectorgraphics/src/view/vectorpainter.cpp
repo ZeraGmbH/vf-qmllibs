@@ -179,6 +179,86 @@ void VectorPainter::drawArrowHead(QPainter *painter, int idx, float maxValue)
     }
 }
 
+void VectorPainter::drawTriangle(QPainter *painter)
+{
+    //Scale vectors and convert to x/y
+    //v1
+    const float v1Phi = atan2(m_vector[0].y(), m_vector[0].x()) - m_phiOrigin;
+    const float v1X = m_fromX + m_gridScale * m_vector[0].length() * cos(v1Phi);
+    const float v1Y = m_fromY + m_gridScale * m_vector[0].length() * sin(v1Phi);
+
+    //v2
+    const float v2Phi = atan2(m_vector[1].y(), m_vector[1].x()) - m_phiOrigin;
+    const float v2X = m_fromX + m_gridScale * m_vector[1].length() * cos(v2Phi);
+    const float v2Y = m_fromY + m_gridScale * m_vector[1].length() * sin(v2Phi);
+
+    //v3
+    const float v3Phi = atan2(m_vector[2].y(), m_vector[2].x()) - m_phiOrigin;
+    const float v3X = m_fromX + m_gridScale * m_vector[2].length() * cos(v3Phi);
+    const float v3Y = m_fromY + m_gridScale * m_vector[2].length() * sin(v3Phi);
+
+    //Gradients
+    //v1->v2
+    QLinearGradient grd1(QPoint(v1X, v1Y), QPoint(v2X, v2Y));
+    grd1.setColorAt(0,m_vectorColor[0]);
+    grd1.setColorAt(1,m_vectorColor[1]);
+
+    //v2->v3
+    QLinearGradient grd2(QPoint(v2X, v2Y), QPoint(v3X, v3Y));
+    grd2.setColorAt(0,m_vectorColor[1]);
+    grd2.setColorAt(1,m_vectorColor[2]);
+
+    //v3->v1
+    QLinearGradient grd3(QPoint(v3X, v3Y), QPoint(v1X, v1Y));
+    grd3.setColorAt(0,m_vectorColor[2]);
+    grd3.setColorAt(1,m_vectorColor[0]);
+
+    //--Draw--//////////////////////// v1 -> v2
+    painter->setPen(QPen(grd1, 2));
+    painter->drawLine(v1X, v1Y,v2X, v2Y);
+
+    //--Draw--//////////////////////// v2 -> v3
+    painter->setPen(QPen(grd2, 2));
+    painter->drawLine(v2X, v2Y,v3X, v3Y);
+
+    //--Draw--//////////////////////// v3 -> v1
+    painter->setPen(QPen(grd3, 2));
+    painter->drawLine(v3X, v3Y,v1X, v1Y);
+
+    if(m_vectorLabel[0].isEmpty() == false && m_vector[0].length() > m_maxVoltage / 10) {
+        m_vectorUScreen[0] = m_vector[0] / m_maxVoltage;
+        float screenLenLabel = m_vectorUScreen[0].length();
+        drawLabel(
+            painter,
+            0,
+            m_defaultFont,
+            labelVectorLen(screenLenLabel),
+            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
+    }
+
+    if(m_vectorLabel[1].isEmpty() == false && m_vector[1].length() > m_maxVoltage / 10) {
+        m_vectorUScreen[1] = m_vector[1] / m_maxVoltage;
+        float screenLenLabel = m_vectorUScreen[1].length();
+        drawLabel(
+            painter,
+            1,
+            m_defaultFont,
+            labelVectorLen(screenLenLabel),
+            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
+    }
+
+    if(m_vectorLabel[2].isEmpty() == false && m_vector[2].length() > m_maxVoltage / 10) {
+        m_vectorUScreen[2] = m_vector[2] / m_maxVoltage;
+        float screenLenLabel = m_vectorUScreen[2].length();
+        drawLabel(
+            painter,
+            2,
+            m_defaultFont,
+            labelVectorLen(screenLenLabel),
+            (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
+    }
+}
+
 float VectorPainter::labelVectorLen(float screenLen)
 {
     // limit labels out of range

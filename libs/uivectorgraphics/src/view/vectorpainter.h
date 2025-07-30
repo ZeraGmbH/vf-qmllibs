@@ -55,6 +55,7 @@ public: // during transition -> will turn private
                    float labelPhiOffset=0);
     void drawVectorLine(QPainter *painter, int idx, float maxValue);
     void drawArrowHead(QPainter *painter, int idx, float maxValue);
+    void drawTriangle(QPainter *painter);
 
     static float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
@@ -70,7 +71,6 @@ private:
     void drawGridAndCircle(QPainter *painter);
 
     void drawCurrentArrows(QPainter *painter);
-    void drawTriangle(QPainter *painter);
 
     static int height(QPainter *painter);
     static int width(QPainter *painter);

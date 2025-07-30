@@ -147,7 +147,6 @@ private:
     void paint(QPainter *painter) override;
 
     void drawCurrentArrows(QPainter *painter);
-    void drawTriangle(QPainter *painter);
     void inDataToVector2d();
 
     VectorPainter m_vectorPainter;
