@@ -83,6 +83,16 @@ void VectorPainter::setCircleValue(float circleValue)
     m_circleValue = circleValue;
 }
 
+void VectorPainter::setVectorColor(int idx, const QColor &vectorColor)
+{
+    m_vectorColor[idx] = vectorColor;
+}
+
+void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
+{
+    m_vectorLabel[idx] = vectorLabel;
+}
+
 float VectorPainter::pixelScale(QPainter *painter, float base)
 {
     return std::min(height(painter), width(painter))/base/2;

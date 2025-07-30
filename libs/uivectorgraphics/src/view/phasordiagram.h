@@ -83,38 +83,39 @@ private: \
     QNANO_PROPERTY(QList<double>, m_vectorData4, vectorData4, setVectorData4)
     QNANO_PROPERTY(QList<double>, m_vectorData5, vectorData5, setVectorData5)
 
-#define Q_VECTOR_ARRAY_PROPERTY(type, variable, getter, setter) \
+#define Q_VECTOR_ARRAY_PROPERTY(type, idx, variable, getter, setter) \
 private: \
-        Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
+        Q_PROPERTY(type getter##idx READ getter##idx WRITE setter##idx NOTIFY getter##Changed##idx) \
         Q_SIGNALS: \
-        void getter##Changed(); \
+        void getter##Changed##idx(); \
     public: \
-    type const& getter() const { return variable; } \
+    type const& getter##idx() const { return variable##idx; } \
         public Q_SLOTS: \
-        void setter(type const &v) { \
-            m_vectorPainter.setter(v); \
-            if(v == variable) \
-            return; \
-            variable = v; \
-            emit getter##Changed(); \
+        void setter##idx(type const &v) { \
+            m_vectorPainter.setter(idx, v); \
+            if(v == variable##idx) \
+                return; \
+            variable##idx = v; \
+            emit getter##Changed##idx(); \
             update(); \
     } \
     private: \
-    type variable;
+    type variable##idx;
     // end Q_VECTOR_ARRAY_PROPERTY
-    QNANO_PROPERTY(QColor, m_vectorColor0, vectorColor0, setVectorColor0)
-    QNANO_PROPERTY(QColor, m_vectorColor1, vectorColor1, setVectorColor1)
-    QNANO_PROPERTY(QColor, m_vectorColor2, vectorColor2, setVectorColor2)
-    QNANO_PROPERTY(QColor, m_vectorColor3, vectorColor3, setVectorColor3)
-    QNANO_PROPERTY(QColor, m_vectorColor4, vectorColor4, setVectorColor4)
-    QNANO_PROPERTY(QColor, m_vectorColor5, vectorColor5, setVectorColor5)
 
-    QNANO_PROPERTY(QString, m_vectorLabel0, vectorLabel0, setVectorLabel0)
-    QNANO_PROPERTY(QString, m_vectorLabel1, vectorLabel1, setVectorLabel1)
-    QNANO_PROPERTY(QString, m_vectorLabel2, vectorLabel2, setVectorLabel2)
-    QNANO_PROPERTY(QString, m_vectorLabel3, vectorLabel3, setVectorLabel3)
-    QNANO_PROPERTY(QString, m_vectorLabel4, vectorLabel4, setVectorLabel4)
-    QNANO_PROPERTY(QString, m_vectorLabel5, vectorLabel5, setVectorLabel5)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 0, m_vectorColor, vectorColor, setVectorColor)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 1, m_vectorColor, vectorColor, setVectorColor)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 2, m_vectorColor, vectorColor, setVectorColor)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 3, m_vectorColor, vectorColor, setVectorColor)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 4, m_vectorColor, vectorColor, setVectorColor)
+    Q_VECTOR_ARRAY_PROPERTY(QColor, 5, m_vectorColor, vectorColor, setVectorColor)
+
+    Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)
+    Q_VECTOR_ARRAY_PROPERTY(QString, 1, m_vectorLabel, vectorLabel, setVectorLabel)
+    Q_VECTOR_ARRAY_PROPERTY(QString, 2, m_vectorLabel, vectorLabel, setVectorLabel)
+    Q_VECTOR_ARRAY_PROPERTY(QString, 3, m_vectorLabel, vectorLabel, setVectorLabel)
+    Q_VECTOR_ARRAY_PROPERTY(QString, 4, m_vectorLabel, vectorLabel, setVectorLabel)
+    Q_VECTOR_ARRAY_PROPERTY(QString, 5, m_vectorLabel, vectorLabel, setVectorLabel)
 
 private:
     // Reimplement

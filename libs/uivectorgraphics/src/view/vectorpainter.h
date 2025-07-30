@@ -3,6 +3,7 @@
 
 #include <QColor>
 #include <QList>
+#include <QVector>
 #include <QPainter>
 #include <QVector2D>
 
@@ -43,19 +44,8 @@ public:
     void setVectorData4(const QList<double> &vectorData4);
     void setVectorData5(const QList<double> &vectorData5);
 
-    void setVectorColor0(const QColor &vectorColor0);
-    void setVectorColor1(const QColor &vectorColor1);
-    void setVectorColor2(const QColor &vectorColor2);
-    void setVectorColor3(const QColor &vectorColor3);
-    void setVectorColor4(const QColor &vectorColor4);
-    void setVectorColor5(const QColor &vectorColor5);
-
-    void setVectorLabel0(const QString &vectorLabel0);
-    void setVectorLabel1(const QString &vectorLabel1);
-    void setVectorLabel2(const QString &vectorLabel2);
-    void setVectorLabel3(const QString &vectorLabel3);
-    void setVectorLabel4(const QString &vectorLabel4);
-    void setVectorLabel5(const QString &vectorLabel5);
+    void setVectorColor(int idx, const QColor &vectorColor);
+    void setVectorLabel(int idx, const QString &vectorLabel);
 
     void paint(QPainter *painter);
 
@@ -103,19 +93,8 @@ private:
     const QList<double> m_vectorData4;
     const QList<double> m_vectorData5;
 
-    QColor m_vectorColor0;
-    QColor m_vectorColor1;
-    QColor m_vectorColor2;
-    QColor m_vectorColor3;
-    QColor m_vectorColor4;
-    QColor m_vectorColor5;
-
-    QString m_vectorLabel0;
-    QString m_vectorLabel1;
-    QString m_vectorLabel2;
-    QString m_vectorLabel3;
-    QString m_vectorLabel4;
-    QString m_vectorLabel5;
+    QVector<QColor> m_vectorColor = QVector<QColor>(COUNT_PHASES*2);
+    QVector<QString> m_vectorLabel = QVector<QString>(COUNT_PHASES*2);
 };
 
 #endif // VECTORPAINTER_H
