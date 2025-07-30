@@ -72,9 +72,9 @@ private: \
     Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
     Q_VECTOR_PROPERTY(float, m_maxValueVoltage, maxValueVoltage, setMaxValueVoltage)
     Q_VECTOR_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
+    Q_VECTOR_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
     QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
-    QNANO_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
 #define Q_VECTOR_ARRAY_PROPERTY(type, idx, variable, getter, setter) \
 private: \

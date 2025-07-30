@@ -84,6 +84,11 @@ void VectorPainter::setCircleValue(float circleValue)
     m_circleValue = circleValue;
 }
 
+void VectorPainter::setForceI1Top(bool forceI1Top)
+{
+    m_forceI1Top = forceI1Top;
+}
+
 void VectorPainter::setVector(int idx, const QVector2D &vector)
 {
     m_vector[idx] = vector;
