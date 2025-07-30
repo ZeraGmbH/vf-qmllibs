@@ -27,7 +27,7 @@ class PhasorDiagram: public QQuickPaintedItem
     Q_OBJECT
 
 public:
-    explicit PhasorDiagram(QQuickItem *t_parent = nullptr);
+    explicit PhasorDiagram(QQuickItem *parent = nullptr);
 
     enum class VectorView : int
     {
@@ -144,11 +144,11 @@ private: \
 
 private:
     // Reimplement
-    void paint(QPainter *t_painter) override;
+    void paint(QPainter *painter) override;
 
-    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float t_voltageFactor=1);
+    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
-    void drawTriangle(QPainter *t_painter);
+    void drawTriangle(QPainter *painter);
     float detectCollision(int uPhase);
     void inDataToVector2d();
 
