@@ -12,17 +12,18 @@ class VectorPainter
 {
 public:
     ~VectorPainter() = default;
+
     static constexpr int COUNT_PHASES = 3;
-    enum class VectorView : int
+    enum class VectorView : int // this must be in sync to PhasorDiagram::VectorView - suggestions?
     {
         VIEW_STAR = 0,
         VIEW_TRIANGLE = 1,
         VIEW_THREE_PHASE = 2
     };
+
     void setFromX(const float &fromX);
     void setFromY(const float &fromY);
     void setPhiOrigin(const float &phiOrigin);
-
     void setGridScale(float gridScale);
     void setMaxVoltage(float maxVoltage);
     void setMinVoltage(float minVoltage);
@@ -44,9 +45,8 @@ public:
 
     void paint(QPainter *painter);
 
-public: // during transition -> will turn private
-    static float pixelScale(QPainter *painter, float base);
-    void drawCenterPoint(QPainter *painter);
+private:
+    void drawGridAndCircle(QPainter *painter);
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawLabel(QPainter *painter,
                    int idx,
@@ -56,21 +56,13 @@ public: // during transition -> will turn private
     void drawVectorLine(QPainter *painter, int idx, float maxValue);
     void drawArrowHead(QPainter *painter, int idx, float maxValue);
     void drawTriangle(QPainter *painter);
+    void drawCenterPoint(QPainter *painter);
 
-    static float labelVectorLen(float screenLen);
-    float detectCollision(int uPhase);
-
-    // internal
-    QFont m_defaultFont;
-    QVector2D m_vectorUScreen[COUNT_PHASES];
-    QSet<int> m_SetUCollisions; // key: I
-    float m_currLabelRotateAngleU;
-    float m_currLabelRotateAngleI;
-
-private:
-    void drawGridAndCircle(QPainter *painter);
+    static float pixelScale(QPainter *painter, float base);
     static int height(QPainter *painter);
     static int width(QPainter *painter);
+    static float labelVectorLen(float screenLen);
+    float detectCollision(int uPhase);
 
     // API
     float m_fromX = 0.0;
@@ -94,6 +86,13 @@ private:
     QVector<QVector2D> m_vector = QVector<QVector2D>(COUNT_PHASES*2);
     QVector<QColor> m_vectorColor = QVector<QColor>(COUNT_PHASES*2);
     QVector<QString> m_vectorLabel = QVector<QString>(COUNT_PHASES*2);
+
+    // internal
+    QFont m_defaultFont;
+    QVector2D m_vectorUScreen[COUNT_PHASES];
+    QSet<int> m_SetUCollisions; // key: I
+    float m_currLabelRotateAngleU;
+    float m_currLabelRotateAngleI;
 };
 
 #endif // VECTORPAINTER_H
