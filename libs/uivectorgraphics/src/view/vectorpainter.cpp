@@ -1,6 +1,7 @@
 #include "vectorpainter.h"
 #include <QGradient>
 #include <QPainterPath>
+#include <QMultiMap>
 #include <math.h>
 
 void VectorPainter::setFromX(const float &fromX)
@@ -233,6 +234,104 @@ void VectorPainter::drawGridAndCircle(QPainter *painter)
             2 * (m_gridScale * m_circleValue + radiusWidth),
             0, 5760);
     }
+}
+
+void VectorPainter::drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor)
+{
+    // To get a nice experience, vectors are drawn in the sequence of their
+    // visible lengths: Long vectors first / short vectors last
+    // To accomplish, we use QMultiMap with key containing visible length
+    struct TVectorData {
+        TVectorData(int idx,
+                    float maxVal,
+                    float factorVal,
+                    float labelPositionScale,
+                    float labelPhiOffset) {
+            this->idx = idx;
+            this->maxVal = maxVal;
+            this->factorVal = factorVal;
+            this->labelPositionScale = labelPositionScale;
+            this->labelPhiOffset = labelPhiOffset;
+        }
+        int idx;
+        float maxVal;
+        float factorVal;
+        float labelPositionScale;
+        float labelPhiOffset;
+    };
+    QMultiMap<float, TVectorData> sortedVectors;
+
+    // add voltages sorted
+    if(drawVoltages) {
+        QVector2D vectors[] = { m_vector[0], m_vector[1], m_vector[2] };
+        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
+            QVector2D vector = vectors[idx];
+            m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
+            if(vector.length() > m_minVoltage * voltageFactor) {
+                float screenLenVector = m_vectorUScreen[idx].length();
+                TVectorData currVectorData(idx,
+                                           m_maxVoltage,
+                                           voltageFactor,
+                                           labelVectorLen(screenLenVector),
+                                           (1/screenLenVector)*m_currLabelRotateAngleU * detectCollision(idx));
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLenVector, currVectorData);
+            }
+        }
+    }
+    // add currents sorted
+    if(drawCurrents) {
+        QVector2D vectors[] = { m_vector[3], m_vector[4], m_vector[5] };
+        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
+            QVector2D vector = vectors[idx];
+            QVector2D vectorIScreen = vector / m_maxCurrent;
+            if(vector.length() > m_minCurrent) {
+                float screenLenVectorI = vectorIScreen.length();
+                float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
+                if(m_SetUCollisions.contains(idx)) {
+                    labelRotateAngleI = -labelRotateAngleI;
+                }
+                TVectorData currVectorData(idx+COUNT_PHASES,
+                                           m_maxCurrent,
+                                           1.0,
+                                           labelVectorLen(screenLenVectorI),
+                                           labelRotateAngleI);
+                // In case we have identical vectors for current and voltage:
+                // display voltage topmost
+                float lenUPreferFactor = 1.0;
+                if(drawVoltages) {
+                    for(int uidx = 0; uidx<COUNT_PHASES; ++uidx) {
+                        if(vectorIScreen.distanceToPoint(m_vectorUScreen[uidx]) < 0.02) {
+                            if(!m_forceI1Top || (uidx == 0 && idx == 0) || idx != 0) {
+                                lenUPreferFactor = 1.02;
+                            }
+                            else {
+                                lenUPreferFactor = 0.98;
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLenVectorI*lenUPreferFactor, currVectorData);
+            }
+        }
+    }
+    // draw sorted long -> short
+    for(const TVectorData &vData : sortedVectors) {
+        drawArrowHead(painter, vData.idx, vData.maxVal * vData.factorVal);
+        drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
+        drawLabel(painter,
+                  vData.idx,
+                  m_defaultFont,
+                  vData.labelPositionScale,
+                  vData.labelPhiOffset);
+    }
+
+    // do not leave center on random colour
+    if(sortedVectors.count() >1)
+        drawCenterPoint(painter);
 }
 
 void VectorPainter::drawVectorLine(QPainter *painter, int idx, float maxValue)

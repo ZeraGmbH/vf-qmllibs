@@ -47,6 +47,7 @@ public:
 public: // during transition -> will turn private
     static float pixelScale(QPainter *painter, float base);
     void drawCenterPoint(QPainter *painter);
+    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawLabel(QPainter *painter,
                    int idx,
                    const QFont &font,
@@ -62,11 +63,12 @@ public: // during transition -> will turn private
     QFont m_defaultFont;
     QVector2D m_vectorUScreen[COUNT_PHASES];
     QSet<int> m_SetUCollisions; // key: I
+    float m_currLabelRotateAngleU;
+    float m_currLabelRotateAngleI;
 
 private:
     void drawGridAndCircle(QPainter *painter);
 
-    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
 

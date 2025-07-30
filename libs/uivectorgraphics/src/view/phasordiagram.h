@@ -146,7 +146,6 @@ private:
     // Reimplement
     void paint(QPainter *painter) override;
 
-    void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawCurrentArrows(QPainter *painter);
     void drawTriangle(QPainter *painter);
     void inDataToVector2d();
@@ -160,9 +159,6 @@ private:
     QVector2D m_vector3;
     QVector2D m_vector4;
     QVector2D m_vector5;
-    float m_currLabelRotateAngleU;
-    float m_currLabelRotateAngleI;
-
 };
 
 #endif // PHASORDIAGRAM_H

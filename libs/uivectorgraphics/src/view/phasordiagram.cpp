@@ -24,120 +24,22 @@ void PhasorDiagram::paint(QPainter *painter)
     switch(m_vectorView)
     {
     case PhasorDiagram::VectorView::VIEW_STAR:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
-        drawVectors(painter, true, true);
+        m_vectorPainter.m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_vectorPainter.m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        m_vectorPainter.drawVectors(painter, true, true);
         break;
     case PhasorDiagram::VectorView::VIEW_TRIANGLE:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        m_vectorPainter.m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_vectorPainter.m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
         drawTriangle(painter);
-        drawVectors(painter, false, true);
+        m_vectorPainter.drawVectors(painter, false, true);
         break;
     case PhasorDiagram::VectorView::VIEW_THREE_PHASE:
-        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
-        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
-        drawVectors(painter, true, true, sqrt(3.0f)/*concatenated voltage */);
+        m_vectorPainter.m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
+        m_vectorPainter.m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
+        m_vectorPainter.drawVectors(painter, true, true, sqrt(3.0f)/*concatenated voltage */);
         break;
     }
-}
-
-void PhasorDiagram::drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor)
-{
-    // To get a nice experience, vectors are drawn in the sequence of their
-    // visible lengths: Long vectors first / short vectors last
-    // To accomplish, we use QMultiMap with key containing visible length
-    struct TVectorData {
-        TVectorData(int idx,
-                    float maxVal,
-                    float factorVal,
-                    float labelPositionScale,
-                    float labelPhiOffset) {
-            this->idx = idx;
-            this->maxVal = maxVal;
-            this->factorVal = factorVal;
-            this->labelPositionScale = labelPositionScale;
-            this->labelPhiOffset = labelPhiOffset;
-        }
-        int idx;
-        float maxVal;
-        float factorVal;
-        float labelPositionScale;
-        float labelPhiOffset;
-    };
-    QMultiMap<float, TVectorData> sortedVectors;
-
-    // add voltages sorted
-    if(drawVoltages) {
-        QVector2D vectors[] = { m_vector0, m_vector1, m_vector2 };
-        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
-            QVector2D vector = vectors[idx];
-            m_vectorPainter.m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
-            if(vector.length() > m_minVoltage * voltageFactor) {
-                float screenLenVector = m_vectorPainter.m_vectorUScreen[idx].length();
-                TVectorData currVectorData(idx,
-                                           m_maxVoltage,
-                                           voltageFactor,
-                                           m_vectorPainter.labelVectorLen(screenLenVector),
-                                           (1/screenLenVector)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(idx));
-                // negative len for long -> short order
-                sortedVectors.insert(-screenLenVector, currVectorData);
-            }
-        }
-    }
-    // add currents sorted
-    if(drawCurrents) {
-        QVector2D vectors[] = { m_vector3, m_vector4, m_vector5 };
-        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
-            QVector2D vector = vectors[idx];
-            QVector2D vectorIScreen = vector / m_maxCurrent;
-            if(vector.length() > m_minCurrent) {
-                float screenLenVectorI = vectorIScreen.length();
-                float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
-                if(m_vectorPainter.m_SetUCollisions.contains(idx)) {
-                    labelRotateAngleI = -labelRotateAngleI;
-                }
-                TVectorData currVectorData(idx+COUNT_PHASES,
-                                           m_maxCurrent,
-                                           1.0,
-                                           m_vectorPainter.labelVectorLen(screenLenVectorI),
-                                           labelRotateAngleI);
-                // In case we have identical vectors for current and voltage:
-                // display voltage topmost
-                float lenUPreferFactor = 1.0;
-                if(drawVoltages) {
-                    for(int uidx = 0; uidx<COUNT_PHASES; ++uidx) {
-                        if(vectorIScreen.distanceToPoint(m_vectorPainter.m_vectorUScreen[uidx]) < 0.02) {
-                            if(!m_forceI1Top || (uidx == 0 && idx == 0) || idx != 0) {
-                                lenUPreferFactor = 1.02;
-                            }
-                            else {
-                                lenUPreferFactor = 0.98;
-                            }
-                            break;
-                        }
-                    }
-                }
-
-                // negative len for long -> short order
-                sortedVectors.insert(-screenLenVectorI*lenUPreferFactor, currVectorData);
-            }
-        }
-    }
-    // draw sorted long -> short
-    for(const TVectorData &vData : sortedVectors) {
-        m_vectorPainter.drawArrowHead(painter, vData.idx, vData.maxVal * vData.factorVal);
-        m_vectorPainter.drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
-        m_vectorPainter.drawLabel(painter,
-                                  vData.idx,
-                                  m_vectorPainter.m_defaultFont,
-                                  vData.labelPositionScale,
-                                  vData.labelPhiOffset);
-    }
-
-    // do not leave center on random colour
-    if(sortedVectors.count() >1)
-        m_vectorPainter.drawCenterPoint(painter);
 }
 
 void PhasorDiagram::drawTriangle(QPainter *painter)
@@ -194,7 +96,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
             0,
             m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-                  (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(0));
+                  (1/screenLenLabel)*m_vectorPainter.m_currLabelRotateAngleU*m_vectorPainter.detectCollision(0));
     }
 
     if(m_vectorLabel1.isEmpty() == false && m_vector1.length() > m_maxVoltage / 10) {
@@ -205,7 +107,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
             1,
             m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-            (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(1));
+            (1/screenLenLabel)*m_vectorPainter.m_currLabelRotateAngleU*m_vectorPainter.detectCollision(1));
     }
 
     if(m_vectorLabel2.isEmpty() == false && m_vector2.length() > m_maxVoltage / 10) {
@@ -216,7 +118,7 @@ void PhasorDiagram::drawTriangle(QPainter *painter)
             2,
             m_vectorPainter.m_defaultFont,
             m_vectorPainter.labelVectorLen(screenLenLabel),
-            (1/screenLenLabel)*m_currLabelRotateAngleU*m_vectorPainter.detectCollision(2));
+            (1/screenLenLabel)*m_vectorPainter.m_currLabelRotateAngleU*m_vectorPainter.detectCollision(2));
     }
 }
 
