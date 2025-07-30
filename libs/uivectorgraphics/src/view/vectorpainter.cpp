@@ -111,6 +111,30 @@ void VectorPainter::paint(QPainter *painter)
 
     drawGridAndCircle(painter);
 
+    constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
+    // 3ph display has longer texts (e.g 'UL1-UL2') so needs to rotate more
+    constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -30.0 * M_PI / 180;
+    constexpr float LABEL_ROTATE_ANGLE_3PH_I =  -5.0 * M_PI / 180;
+
+    switch(m_vectorView)
+    {
+    case VectorView::VIEW_STAR:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawVectors(painter, true, true);
+        break;
+    case VectorView::VIEW_TRIANGLE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawTriangle(painter);
+        drawVectors(painter, false, true);
+        break;
+    case VectorView::VIEW_THREE_PHASE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
+        drawVectors(painter, true, true, sqrt(3.0f)/*concatenated voltage */);
+        break;
+    }
 }
 
 float VectorPainter::pixelScale(QPainter *painter, float base)

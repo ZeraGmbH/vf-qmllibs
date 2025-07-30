@@ -2,30 +2,16 @@
 #define PHASORDIAGRAM_H
 
 #include "vectorpainter.h"
+#include "phasordiagrampropertygeneratormacros.h"
 #include <QQuickPaintedItem>
 #include <QQuickItem>
 #include <QVector2D>
 #include <QPainter>
 
-#define QNANO_PROPERTY(type, variable, getter, setter) \
-    private: \
-    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
-    Q_SIGNALS: \
-    void getter##Changed(); \
-    public: \
-    type const& getter() const { return variable; } \
-    public Q_SLOTS: \
-    void setter(type const &v) { if(v == variable) return; variable = v; emit getter##Changed(); update(); } \
-    private: \
-    type variable;
-
-/**
- * @brief Paints the phasor diagram (VectorModulePage.qml)
- */
+// PhasorDiagram is the QML property interface to VectorPainter
 class PhasorDiagram: public QQuickPaintedItem
 {
     Q_OBJECT
-
 public:
     explicit PhasorDiagram(QQuickItem *parent = nullptr);
 
@@ -37,26 +23,7 @@ public:
     };
     Q_ENUM(VectorView)
 
-#define Q_VECTOR_PROPERTY(type, variable, getter, setter) \
-private: \
-    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
-    Q_SIGNALS: \
-    void getter##Changed(); \
-public: \
-    type const& getter() const { return variable; } \
-public Q_SLOTS: \
-    void setter(type const &v) { \
-        m_vectorPainter.setter(v); \
-        if(v == variable) \
-            return; \
-        variable = v; \
-        emit getter##Changed(); \
-        update(); \
-    } \
-private: \
-    type variable;
-// end Q_VECTOR_PROPERTY
-
+    // create various Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_PROPERTY(float, m_fromX, fromX, setFromX)
     Q_VECTOR_PROPERTY(float, m_fromY, fromY, setFromY)
     Q_VECTOR_PROPERTY(float, m_phiOrigin, phiOrigin, setPhiOrigin)
@@ -74,27 +41,10 @@ private: \
     Q_VECTOR_PROPERTY(float, m_maxValueCurrent, maxValueCurrent, setMaxValueCurrent)
     Q_VECTOR_PROPERTY(bool, m_forceI1Top, forceI1Top, setForceI1Top)
 
-    QNANO_PROPERTY(VectorView, m_vectorView, vectorView, setVectorView)
-
-#define Q_VECTOR_ARRAY_PROPERTY(type, idx, variable, getter, setter) \
-private: \
-    Q_PROPERTY(type getter##idx READ getter##idx WRITE setter##idx NOTIFY getter##Changed##idx) \
-Q_SIGNALS: \
-    void getter##Changed##idx(); \
-public: \
-    type const& getter##idx() const { return variable##idx; } \
-public Q_SLOTS: \
-    void setter##idx(type const &v) { \
-        m_vectorPainter.setter(idx, v); \
-        if(v == variable##idx) \
-            return; \
-        variable##idx = v; \
-        emit getter##Changed##idx(); \
-        update(); \
-    } \
-private: \
-    type variable##idx;
-// end Q_VECTOR_ARRAY_PROPERTY
+    Q_PROPERTY(VectorView vectorView READ vectorView WRITE setVectorView NOTIFY vectorViewChanged)
+    const VectorView &vectorView();
+    void setVectorView(const VectorView &vectorView);
+    Q_SIGNAL void vectorViewChanged();
 
     // create vectorColor0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QColor, 0, m_vectorColor, vectorColor, setVectorColor)
@@ -112,28 +62,6 @@ private: \
     Q_VECTOR_ARRAY_PROPERTY(QString, 4, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 5, m_vectorLabel, vectorLabel, setVectorLabel)
 
-#define Q_VECTOR_DATA_ARRAY_PROPERTY(idx) \
-private: \
-        Q_PROPERTY(QList<double> vectorData##idx READ vectorData##idx WRITE setVectorData##idx NOTIFY vectorDataChanged##idx) \
-        Q_SIGNALS: \
-        void vectorDataChanged##idx(); \
-    public: \
-    const QList<double> &vectorData##idx() const { return m_vectorData##idx; } \
-        public Q_SLOTS: \
-        void setVectorData##idx(const QList<double> &v) \
-    { \
-            if (v.length() > 1) \
-            m_vectorPainter.setVector(idx, QVector2D(v.at(0), v.at(1))); \
-            if(v == m_vectorData##idx) \
-            return; \
-            m_vectorData##idx = v; \
-            emit vectorDataChanged##idx(); \
-            update(); \
-    } \
-    private: \
-    QList<double> m_vectorData##idx;
-    // end Q_VECTOR_DATA_ARRAY_PROPERTY
-
     // create vectorData0.. Q_PROPERTIES (getter / setter+conversion->QVector2D / notifier)
     Q_VECTOR_DATA_ARRAY_PROPERTY(0)
     Q_VECTOR_DATA_ARRAY_PROPERTY(1)
@@ -144,7 +72,9 @@ private: \
 
 private:
     void paint(QPainter *painter) override;
+
     VectorPainter m_vectorPainter;
+    VectorView m_vectorView;
 };
 
 #endif // PHASORDIAGRAM_H
