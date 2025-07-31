@@ -4,7 +4,6 @@
 #include <QColor>
 #include <QVector>
 #include <QPainter>
-#include <QFont>
 #include <QVector2D>
 #include <QSet>
 
@@ -46,7 +45,6 @@ private:
     void drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor=1);
     void drawLabel(QPainter *painter,
                    int idx,
-                   const QFont &font,
                    float scale=1,
                    float labelPhiOffset=0);
     void drawVectorLine(QPainter *painter, int idx, float maxValue);
@@ -82,7 +80,6 @@ private:
     QVector<QString> m_vectorLabel = QVector<QString>(COUNT_PHASES*2);
 
     // internal
-    QFont m_defaultFont;
     QVector2D m_vectorUScreen[COUNT_PHASES];
     QSet<int> m_SetUCollisions; // key: I
     float m_currLabelRotateAngleU;

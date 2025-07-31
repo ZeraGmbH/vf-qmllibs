@@ -1,4 +1,5 @@
 #include "vectorpainter.h"
+#include <QFont>
 #include <QGradient>
 #include <QPainterPath>
 #include <QMultiMap>
@@ -90,9 +91,10 @@ void VectorPainter::paint(QPainter *painter)
     m_fromX = painter->device()->width() / 2;
     m_fromY = painter->device()->height() / 2;
     const int minXy = std::min(height(painter), width(painter));
-    m_defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
-    m_defaultFont.setFamily("Sans");
-    painter->setFont(m_defaultFont);
+    QFont defaultFont;
+    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
+    defaultFont.setFamily("Sans");
+    painter->setFont(defaultFont);
 
     drawGridAndCircle(painter);
 
@@ -135,11 +137,10 @@ void VectorPainter::drawCenterPoint(QPainter *painter)
 
 void VectorPainter::drawLabel(QPainter *painter,
                               int idx,
-                              const QFont &font,
                               float scale,
                               float labelPhiOffset)
 {
-    QFontMetrics fontMetrics(font);
+    QFontMetrics fontMetrics(painter->font());
     const QString& label = m_vectorLabel[idx];
     int xOffset = fontMetrics.horizontalAdvance(label) / 2;
 
@@ -244,7 +245,6 @@ void VectorPainter::drawTriangle(QPainter *painter)
         drawLabel(
             painter,
             0,
-            m_defaultFont,
             labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(0));
     }
@@ -255,7 +255,6 @@ void VectorPainter::drawTriangle(QPainter *painter)
         drawLabel(
             painter,
             1,
-            m_defaultFont,
             labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(1));
     }
@@ -266,7 +265,6 @@ void VectorPainter::drawTriangle(QPainter *painter)
         drawLabel(
             painter,
             2,
-            m_defaultFont,
             labelVectorLen(screenLenLabel),
             (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(2));
     }
@@ -417,7 +415,6 @@ void VectorPainter::drawVectors(QPainter *painter, bool drawVoltages, bool drawC
         drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
         drawLabel(painter,
                   vData.idx,
-                  m_defaultFont,
                   vData.labelPositionScale,
                   vData.labelPhiOffset);
     }
