@@ -2,7 +2,10 @@
 
 PhasorDiagram::PhasorDiagram(QQuickItem *parent) :
     QQuickPaintedItem(parent),
-    m_gridColor(Qt::darkGray)
+    m_gridVisible(true),
+    m_gridColor(Qt::darkGray),
+    m_circleVisible(true),
+    m_circleColor(Qt::darkGray)
 {
     setAntialiasing(true);
     setOpaquePainting(true);

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>svgs/gridOnlyRectangleNarrow.svg</file>
+        <file>svgs/gridOnlyRectangleWide.svg</file>
+        <file>svgs/gridOnlySquare.svg</file>
+    </qresource>
+</RCC>

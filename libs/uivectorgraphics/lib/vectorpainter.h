@@ -54,7 +54,7 @@ private:
     void drawTriangle(QPainter *painter);
     void drawCenterPoint(QPainter *painter);
 
-    static float pixelScale(QPainter *painter, float base);
+    static float pixelScale(QPainter *painter, float base = 1.0);
     static int height(QPainter *painter);
     static int width(QPainter *painter);
     static float labelVectorLen(float screenLen);
@@ -70,12 +70,12 @@ private:
     float m_maxCurrent = 0.0;
     float m_minCurrent = 0.0;
     VectorView m_vectorView = VectorView::VIEW_STAR;
-    bool m_gridVisible = false;
+    bool m_gridVisible = true;
     QColor m_gridColor = Qt::darkGray;
-    bool m_circleVisible = false;
+    bool m_circleVisible = true;
     QColor m_circleColor = Qt::darkGray;
     float m_circleValue = 1.0;
-    bool m_forceI1Top = false;
+    bool m_forceI1Top = true;
 
     QVector<QVector2D> m_vector = QVector<QVector2D>(COUNT_PHASES*2);
     QVector<QColor> m_vectorColor = QVector<QColor>(COUNT_PHASES*2);

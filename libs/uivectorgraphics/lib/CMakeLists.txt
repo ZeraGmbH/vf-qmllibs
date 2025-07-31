@@ -12,11 +12,11 @@ add_library(uivlib
     ${SOURCES}
     )
 
-target_link_libraries(
-    uivlib
+target_link_libraries(uivlib
     PUBLIC
     Qt5::Quick
     Qt5::Qml
+    Qt5::Svg
     )
 
 target_include_directories(uivlib

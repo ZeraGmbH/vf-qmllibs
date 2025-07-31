@@ -12,7 +12,7 @@ project(vf-qmllibs VERSION ${PROJECT_VERSION} LANGUAGES CXX)
 
 option(buildVein "Building libs depending on vein" ON)
 
-find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xml Test)
+find_package(Qt5 CONFIG REQUIRED COMPONENTS Core Qml Quick QuickCompiler DBus Xml Svg Test)
 find_package(FontAweSomeQml REQUIRED)
 find_package(ZenuxCore REQUIRED)
 find_package(ZeraTranslation REQUIRED)

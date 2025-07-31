@@ -89,7 +89,10 @@ void VectorPainter::paint(QPainter *painter)
     m_SetUCollisions.clear();
     m_fromX = painter->device()->width() / 2;
     m_fromY = painter->device()->height() / 2;
-    m_defaultFont.setPixelSize(height(painter) > 0.0 ? height(painter) / 25 : 10.0);
+    const int minXy = std::min(height(painter), width(painter));
+    m_defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
+    m_defaultFont.setFamily("Sans");
+    painter->setFont(m_defaultFont);
 
     drawGridAndCircle(painter);
 
@@ -153,7 +156,6 @@ void VectorPainter::drawLabel(QPainter *painter,
     float yPos = m_fromY + 5 + 0.9 * scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + labelPhiOffset);
 
     painter->setPen(QPen(m_vectorColor[idx], 2));
-    painter->setFont(font);
     painter->drawText(round(xPos), round(yPos), label);
 }
 
@@ -308,11 +310,11 @@ void VectorPainter::drawGridAndCircle(QPainter *painter)
     //grid
     if(m_gridVisible) {
         painter->setPen(QPen(m_gridColor, radiusWidth));
+        float lenFromCenter = pixelScale(painter);
         //x axis
-        painter->drawLine(m_fromX - m_maxVoltage * m_gridScale, m_fromY, m_fromX + m_maxVoltage * m_gridScale, m_fromY);
-
+        painter->drawLine(m_fromX-lenFromCenter, m_fromY, m_fromX+lenFromCenter, m_fromY);
         //y axis
-        painter->drawLine(m_fromX, m_fromY - m_maxVoltage * m_gridScale, m_fromX, m_fromY + m_maxVoltage * m_gridScale);
+        painter->drawLine(m_fromX, m_fromY-lenFromCenter, m_fromX, m_fromY+lenFromCenter);
     }
 
     //circle

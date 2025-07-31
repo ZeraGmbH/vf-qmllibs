@@ -1,5 +1,5 @@
 #include "uivectorgraphics.h"
-#include "view/phasordiagram.h"
+#include "phasordiagram.h"
 #include <QtQml>
 
 bool UiVectorgraphics::m_wasRegistered = false;
