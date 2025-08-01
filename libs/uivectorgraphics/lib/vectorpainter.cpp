@@ -100,7 +100,7 @@ void VectorPainter::paint(QPainter *painter)
 
     constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
     // 3ph display has longer texts (e.g 'UL1-UL2') so needs to rotate more
-    constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -30.0 * M_PI / 180;
+    constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -10.0 * M_PI / 180;
     constexpr float LABEL_ROTATE_ANGLE_3PH_I =  -5.0 * M_PI / 180;
 
     switch(m_vectorView)
@@ -140,24 +140,27 @@ void VectorPainter::drawLabel(QPainter *painter,
                               float scale,
                               float labelPhiOffset)
 {
-    QFontMetrics fontMetrics(painter->font());
-    const QString& label = m_vectorLabel[idx];
-    int xOffset = fontMetrics.horizontalAdvance(label) / 2;
-
     const float vectorPhi = atan2(m_vector[idx].y(), m_vector[idx].x());
     const float tmpPhi = vectorPhi - m_phiOrigin;
-    constexpr float maxPhi = 0.25;
-    if(fabs(labelPhiOffset) > maxPhi) {
-        if(labelPhiOffset > 0)
-            labelPhiOffset = maxPhi;
-        else
-            labelPhiOffset = -maxPhi;
-    }
-    float xPos = m_fromX - xOffset + scale * m_gridScale * m_circleValue * 1.2 * cos(tmpPhi + labelPhiOffset);
-    float yPos = m_fromY + 5 + 0.9 * scale * m_gridScale * m_circleValue * 1.2 * sin(tmpPhi + labelPhiOffset);
+    constexpr float fromRadius = 1.1;
+    float xPos = m_fromX + scale * m_gridScale * m_circleValue * fromRadius * cos(tmpPhi + labelPhiOffset);
+    float yPos = m_fromY + scale * m_gridScale * m_circleValue * fromRadius * sin(tmpPhi + labelPhiOffset);
+
+    // Test for our text metrics aproximization. Dot should be in center of label
+    //painter->setPen(QPen(Qt::white, 2));
+    //painter->drawPoint(xPos, yPos);
+
+    float pixelSize = painter->font().pixelSize();
+    const QString& label = m_vectorLabel[idx];
+
+    float approxXOffset = pixelSize * 0.25 * label.size();
+    xPos -= approxXOffset;
+    float approxYOffset = pixelSize * 0.3;
+    yPos += approxYOffset;
 
     painter->setPen(QPen(m_vectorColor[idx], 2));
-    painter->drawText(round(xPos), round(yPos), label);
+    QPoint textPos(round(xPos), round(yPos));
+    painter->drawText(textPos, label);
 }
 
 void VectorPainter::drawArrowHead(QPainter *painter, int idx, float maxValue)
