@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
+        <file>svgs/fullStarangle0.svg</file>
+        <file>svgs/fullStarangle30.svg</file>
+        <file>svgs/fullStarangle90.svg</file>
+        <file>svgs/fullStarangle-30.svg</file>
         <file>svgs/gridOnlyRectangleNarrow.svg</file>
         <file>svgs/gridOnlyRectangleWide.svg</file>
         <file>svgs/gridOnlySquare.svg</file>
