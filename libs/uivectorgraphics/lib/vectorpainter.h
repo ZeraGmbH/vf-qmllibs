@@ -82,8 +82,8 @@ private:
     // internal
     QVector2D m_vectorUScreen[COUNT_PHASES];
     QSet<int> m_SetUCollisions; // key: I
-    float m_currLabelRotateAngleU;
-    float m_currLabelRotateAngleI;
+    float m_currLabelRotateAngleU = 0.0;
+    float m_currLabelRotateAngleI = 0.0;
 };
 
 #endif // VECTORPAINTER_H
