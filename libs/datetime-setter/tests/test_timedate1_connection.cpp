@@ -313,7 +313,7 @@ void test_timedate1_connection::setupConnection(AbstractTimedate1ConnectionPtr &
     }
     else {
         m_ntpSyncMaxWaitMs = 10;
-        m_waitTimeToEnterPolkitPassword = 10;
+        m_waitTimeToEnterPolkitPassword = 100;
         m_waitTimeNoPolkit = 10;
         connection = std::make_shared<TestTimedate1Connection>(m_ntpSyncMaxWaitMs);
     }
