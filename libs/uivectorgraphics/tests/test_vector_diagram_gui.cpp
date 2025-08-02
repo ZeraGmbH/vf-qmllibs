@@ -88,25 +88,52 @@ void test_vector_diagram_gui::gridOnlyRectangleNarrow()
     QVERIFY(ok);
 }
 
+static QString getNameFomViewType(VectorPainter::VectorView type)
+{
+    switch (type) {
+    case VectorPainter::VectorView::VIEW_STAR:
+        return "star";
+    case VectorPainter::VectorView::VIEW_TRIANGLE:
+        return "triangle";
+    case VectorPainter::VectorView::VIEW_THREE_PHASE:
+        return "three_phase";
+    }
+    return QString();
+}
+
+Q_DECLARE_METATYPE(VectorPainter::VectorView)
+
 void test_vector_diagram_gui::fullStar_data()
 {
     QTest::addColumn<int>("angle");
+    QTest::addColumn<VectorPainter::VectorView>("viewType");
     const QVector<int> angles { -30, 0, 30, 90 };
-    for (int angle : angles)
-        QTest::newRow(QString("angle_%1").arg(angle).toLatin1()) << angle;
+    const QVector<VectorPainter::VectorView> viewTypes {
+        VectorPainter::VectorView::VIEW_STAR,
+        VectorPainter::VectorView::VIEW_TRIANGLE,
+        VectorPainter::VectorView::VIEW_THREE_PHASE
+    };
+    for (int angle : angles) {
+        for (VectorPainter::VectorView viewType : viewTypes) {
+            const QString angleLabel = QString("angle-%1").arg(angle);
+            const QString typeLabel = QString("type-%1").arg(getNameFomViewType(viewType));
+            const QString rowName = QString("%1_%2").arg(angleLabel, typeLabel);
+            QTest::newRow(rowName.toUtf8()) << angle << viewType;
+        }
+    }
 }
 
 void test_vector_diagram_gui::fullStar()
 {
     QFETCH(int, angle);
-
-    const QString fileBase = QString(QTest::currentTestFunction()) + QString("angle%1").arg(angle) + ".svg";
+    QFETCH(VectorPainter::VectorView, viewType);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPainter *vectorPainter = svgPainter.getVectorPainter();
     setSymmetricValues(vectorPainter, 230, 5, angle);
-    vectorPainter->setCircleVisible(true);
+    vectorPainter->setVectorView(viewType);
     svgPainter.paintToFile(dumpFile);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
