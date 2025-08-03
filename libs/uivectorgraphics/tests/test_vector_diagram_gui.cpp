@@ -147,7 +147,8 @@ void test_vector_diagram_gui::fullStar()
 
 void test_vector_diagram_gui::setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle)
 {
-    QVector<QColor> colors{QColor("red").darker(),  QColor("yellow").darker(),  QColor("blue").darker(),
+    int dark = 130;
+    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow").darker(dark), QColor("blue").darker(dark),
                            QColor("red").lighter(), QColor("yellow").lighter(), QColor("blue").lighter()};
 
     constexpr double overload = 1.25;

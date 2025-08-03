@@ -4,60 +4,60 @@
  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.2" baseProfile="tiny">
 <defs>
 <linearGradient gradientUnits="userSpaceOnUse" x1="1000" y1="0" x2="1866" y2="1500" id="gradient1">
-    <stop offset="0" stop-color="#7f0000" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f7f00" stop-opacity="1" />
+    <stop offset="0" stop-color="#c40000" stop-opacity="1" />
+    <stop offset="1" stop-color="#c4c400" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="1866" y1="1500" x2="134" y2="1500" id="gradient2">
-    <stop offset="0" stop-color="#7f7f00" stop-opacity="1" />
-    <stop offset="1" stop-color="#00007f" stop-opacity="1" />
+    <stop offset="0" stop-color="#c4c400" stop-opacity="1" />
+    <stop offset="1" stop-color="#0000c4" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient3">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient4">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient5">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient6">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient7">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient8">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient9">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient10">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient11">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient12">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient13">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="134" y1="1500" x2="1000" y2="0" id="gradient14">
-    <stop offset="0" stop-color="#00007f" stop-opacity="1" />
-    <stop offset="1" stop-color="#7f0000" stop-opacity="1" />
+    <stop offset="0" stop-color="#0000c4" stop-opacity="1" />
+    <stop offset="1" stop-color="#c40000" stop-opacity="1" />
 </linearGradient>
 </defs>
 <g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
@@ -88,24 +88,24 @@ font-family="Sans" font-size="80" font-weight="400" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M134.866,1500.5 L1000.87,0.499989 L999.134,-0.499989 L133.134,1499.5 L134.866,1500.5"/>
 </g>
 
-<g fill="url(#gradient4)" stroke="#7f0000" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient4)" stroke="#c40000" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
 >
-<text fill="#7f0000" fill-opacity="1" stroke="none" xml:space="preserve" x="1055" y="152" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
+<text fill="#c40000" fill-opacity="1" stroke="none" xml:space="preserve" x="1055" y="152" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
  >UL1</text>
 </g>
 
-<g fill="url(#gradient5)" stroke="#7f7f00" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient5)" stroke="#c4c400" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
 >
-<text fill="#7f7f00" fill-opacity="1" stroke="none" xml:space="preserve" x="1638" y="1560" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
+<text fill="#c4c400" fill-opacity="1" stroke="none" xml:space="preserve" x="1638" y="1560" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
  >UL2</text>
 </g>
 
-<g fill="url(#gradient6)" stroke="#00007f" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="url(#gradient6)" stroke="#0000c4" stroke-opacity="1" stroke-width="2" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
 >
-<text fill="#00007f" fill-opacity="1" stroke="none" xml:space="preserve" x="127" y="1361" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
+<text fill="#0000c4" fill-opacity="1" stroke="none" xml:space="preserve" x="127" y="1361" font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
  >UL3</text>
 </g>
 
