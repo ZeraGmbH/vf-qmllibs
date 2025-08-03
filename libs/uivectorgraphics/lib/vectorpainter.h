@@ -57,6 +57,7 @@ private:
     static int width(QPainter *painter);
     static float labelVectorLen(float screenLen);
     float detectCollision(int uPhase);
+    QPolygonF lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width);
 
     // API
     float m_fromX = 0.0;

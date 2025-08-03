@@ -221,16 +221,22 @@ void VectorPainter::drawTriangle(QPainter *painter)
     grd3.setColorAt(0,m_vectorColor[2]);
     grd3.setColorAt(1,m_vectorColor[0]);
 
-    // Draw
+    // Lines with gradients are painted black on SVG.
+    // Work around by drawing lines as rectangles (polygon)
+    const int lineWidth = 2;
+    painter->setPen(Qt::NoPen);
     // 1 -> 2
-    painter->setPen(QPen(grd1, 2));
-    painter->drawLine(positions[0], positions[1]);
+    QPolygonF rect12 = lineToRectangleForSvgGradient(positions[0], positions[1], lineWidth);
+    painter->setBrush(grd1);
+    painter->drawPolygon(rect12);
     // 2 -> 3
-    painter->setPen(QPen(grd2, 2));
-    painter->drawLine(positions[1], positions[2]);
+    QPolygonF rect23 = lineToRectangleForSvgGradient(positions[1], positions[2], lineWidth);
+    painter->setBrush(grd2);
+    painter->drawPolygon(rect23);
     // 3 -> 1
-    painter->setPen(QPen(grd3, 2));
-    painter->drawLine(positions[2], positions[0]);
+    QPolygonF rect31 = lineToRectangleForSvgGradient(positions[2], positions[0], lineWidth);
+    painter->setBrush(grd3);
+    painter->drawPolygon(rect31);
 
     for (int phase=0; phase<COUNT_PHASES; phase++) {
         if(m_vectorLabel[phase].isEmpty() == false && m_vector[phase].length() > m_maxVoltage / 10) {
@@ -275,6 +281,27 @@ float VectorPainter::detectCollision(int uPhase)
         }
     }
     return 1.0;
+}
+
+QPolygonF VectorPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width)
+{
+    // Calculate the direction vector
+    QLineF line(start, end);
+    QPointF direction = line.p2() - line.p1();
+
+    // Get the normalized perpendicular vector (for width offset)
+    QPointF norm = QPointF(-direction.y(), direction.x());
+    norm /= std::sqrt(norm.x()*norm.x() + norm.y()*norm.y()); // normalize
+    norm *= (width/2.0);
+
+    // Rectangle corners (counter-clockwise or clockwise)
+    QPointF corner1 = QPointF(start) + norm;
+    QPointF corner2 = QPointF(end) + norm;
+    QPointF corner3 = QPointF(end) - norm;
+    QPointF corner4 = QPointF(start) - norm;
+    QPolygonF polygon;
+    polygon << corner1 << corner2 << corner3 << corner4;
+    return polygon;
 }
 
 void VectorPainter::drawGridAndCircle(QPainter *painter)
