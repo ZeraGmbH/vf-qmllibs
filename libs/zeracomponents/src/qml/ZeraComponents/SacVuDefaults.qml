@@ -1,4 +1,5 @@
 import QtQuick 2.14
+import ZeraThemeConfig 1.0
 
 Item {
     property real nominal
@@ -13,7 +14,7 @@ Item {
     property real vuStartRadius: 0//vuEndRadius * 0.2
     property real vuEndRadius: horizontal ? height/2 : width/2
 
-    property color vuBackColor: Qt.darker("dimgray", 1.325)
+    property color vuBackColor: ZTC.dividerColor
     property color vuNominalColor: "lawngreen"
     property color vuOvershootColor1: "yellow"
     property color vuOvershootColor2: "red"
