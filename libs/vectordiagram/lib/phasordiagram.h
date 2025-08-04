@@ -26,7 +26,7 @@ public:
     // create various Q_PROPERTIES (getter / setter / notifier)
     Q_PROPERTY(VectorType VectorType READ vectorType WRITE setVectorType NOTIFY vectorTypeChanged)
     const VectorType &vectorType();
-    void setVectorType(const VectorType &VectorType);
+    void setVectorType(const VectorType &vectorType);
     Q_SIGNAL void vectorTypeChanged();
 
     Q_VECTOR_PROPERTY(float, m_maxOvershootFactor, maxOvershootFactor, setMaxOvershootFactor)
