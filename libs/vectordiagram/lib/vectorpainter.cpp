@@ -1,0 +1,454 @@
+#include "vectorpainter.h"
+#include <QFont>
+#include <QGradient>
+#include <QPainterPath>
+#include <QMultiMap>
+#include <math.h>
+
+void VectorPainter::setPhiOrigin(const float &phiOrigin)
+{
+    m_phiOrigin = phiOrigin;
+}
+
+void VectorPainter::setGridScale(float gridScale)
+{
+    m_gridScale = gridScale;
+}
+
+void VectorPainter::setMaxVoltage(float maxVoltage)
+{
+    m_maxVoltage = maxVoltage;
+}
+
+void VectorPainter::setMinVoltage(float minVoltage)
+{
+    m_minVoltage = minVoltage;
+}
+
+void VectorPainter::setMaxCurrent(float maxCurrent)
+{
+    m_maxCurrent = maxCurrent;
+}
+
+void VectorPainter::setMinCurrent(float minCurrent)
+{
+    m_minCurrent = minCurrent;
+}
+
+void VectorPainter::setVectorView(VectorView vectorView)
+{
+    m_vectorView = vectorView;
+}
+
+void VectorPainter::setGridVisible(bool gridVisible)
+{
+    m_gridVisible = gridVisible;
+}
+
+void VectorPainter::setGridColor(const QColor &gridColor)
+{
+    m_gridColor = gridColor;
+}
+
+void VectorPainter::setCircleVisible(bool circleVisible)
+{
+    m_circleVisible = circleVisible;
+}
+
+void VectorPainter::setCircleColor(const QColor &circleColor)
+{
+    m_circleColor = circleColor;
+}
+
+void VectorPainter::setCircleValue(float circleValue)
+{
+    m_circleValue = circleValue;
+}
+
+void VectorPainter::setForceI1Top(bool forceI1Top)
+{
+    m_forceI1Top = forceI1Top;
+}
+
+void VectorPainter::setVector(int idx, const QVector2D &vector)
+{
+    m_vector[idx] = vector;
+}
+
+void VectorPainter::setVectorColor(int idx, const QColor &vectorColor)
+{
+    m_vectorColor[idx] = vectorColor;
+}
+
+void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
+{
+    m_vectorLabel[idx] = vectorLabel;
+}
+
+void VectorPainter::paint(QPainter *painter)
+{
+    m_SetUCollisions.clear();
+    m_fromX = painter->device()->width() / 2;
+    m_fromY = painter->device()->height() / 2;
+    const int minXy = std::min(height(painter), width(painter));
+    QFont defaultFont;
+    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
+    defaultFont.setFamily("Sans");
+    painter->setFont(defaultFont);
+
+    drawGridAndCircle(painter);
+
+    constexpr float LABEL_ROTATE_ANGLE =  -6.0 * M_PI / 180;
+    // 3ph display has longer texts (e.g 'UL1-UL2') so needs to rotate more
+    constexpr float LABEL_ROTATE_ANGLE_3PH_U =  -10.0 * M_PI / 180;
+    constexpr float LABEL_ROTATE_ANGLE_3PH_I =  -5.0 * M_PI / 180;
+
+    switch(m_vectorView)
+    {
+    case VectorView::VIEW_STAR:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawVectors(painter, true, true);
+        break;
+    case VectorView::VIEW_TRIANGLE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE;
+        drawTriangle(painter);
+        drawVectors(painter, false, true);
+        break;
+    case VectorView::VIEW_THREE_PHASE:
+        m_currLabelRotateAngleU = LABEL_ROTATE_ANGLE_3PH_U;
+        m_currLabelRotateAngleI = LABEL_ROTATE_ANGLE_3PH_I;
+        drawVectors(painter, true, true, sqrt(3.0f)/*concatenated voltage */);
+        break;
+    }
+}
+
+float VectorPainter::pixelScale(QPainter *painter, float base)
+{
+    return std::min(height(painter), width(painter))/base/2;
+}
+
+void VectorPainter::drawCenterPoint(QPainter *painter)
+{
+    painter->setPen(QPen(Qt::gray, 2));
+    painter->drawPoint(m_fromX, m_fromY);
+}
+
+void VectorPainter::drawLabel(QPainter *painter,
+                              int idx,
+                              float scale,
+                              float labelPhiOffset)
+{
+    const float vectorPhi = atan2(m_vector[idx].y(), m_vector[idx].x());
+    const float tmpPhi = vectorPhi - m_phiOrigin;
+    constexpr float fromRadius = 1.1;
+    float xPos = m_fromX + scale * m_gridScale * m_circleValue * fromRadius * cos(tmpPhi + labelPhiOffset);
+    float yPos = m_fromY + scale * m_gridScale * m_circleValue * fromRadius * sin(tmpPhi + labelPhiOffset);
+
+    // Test for our text metrics aproximization. Dot should be in center of label
+    //painter->setPen(QPen(Qt::white, 2));
+    //painter->drawPoint(xPos, yPos);
+
+    float pixelSize = painter->font().pixelSize();
+    const QString& label = m_vectorLabel[idx];
+
+    float approxXOffset = pixelSize * 0.25 * label.size();
+    xPos -= approxXOffset;
+    float approxYOffset = pixelSize * 0.3;
+    yPos += approxYOffset;
+
+    painter->setPen(QPen(m_vectorColor[idx], 2));
+    QPoint textPos(round(xPos), round(yPos));
+    painter->drawText(textPos, label);
+}
+
+void VectorPainter::drawArrowHead(QPainter *painter, int idx, float maxValue)
+{
+    const QColor &color = m_vectorColor[idx];
+    painter->setPen(QPen(color, 2));
+    float arrowHeadSize = height(painter) / 35;
+
+    const QVector2D vector = m_vector[idx];
+    const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
+    const float tmpToX = m_fromX + pixelScale(painter, maxValue) * vector.length() * cos(tmpPhi);
+    const float tmpToY = m_fromY + pixelScale(painter, maxValue) * vector.length() * sin(tmpPhi);
+
+    const float angle = atan2(tmpToY - m_fromY , tmpToX - m_fromX);
+    if((pixelScale(painter, maxValue) * vector.length()) != 0){
+        QVector<QPoint> points = {
+            QPoint(roundf(tmpToX), roundf(tmpToY)),
+            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle - M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle - M_PI / 8))),
+            QPoint(roundf(tmpToX - arrowHeadSize * cos(angle + M_PI / 8)), roundf(tmpToY - arrowHeadSize * sin(angle + M_PI / 8))),
+        };
+
+        QPolygon poly(points);
+        painter->drawPolygon(poly);
+
+        QBrush brush;
+        brush.setColor(color);
+        brush.setStyle(Qt::SolidPattern);
+
+        QPainterPath path;
+        path.addPolygon(poly);
+
+        painter->fillPath(path, brush);
+    }
+}
+
+void VectorPainter::drawTriangle(QPainter *painter)
+{
+    // Scale vectors and convert to x/y
+    QVector<QPoint> positions(COUNT_PHASES);
+    for (int phase=0; phase<COUNT_PHASES; phase++) {
+        const float angle = atan2(m_vector[phase].y(), m_vector[phase].x()) - m_phiOrigin;
+        const int x = round(m_fromX + m_gridScale * m_vector[phase].length() * cos(angle));
+        const int y =  round(m_fromY + m_gridScale * m_vector[phase].length() * sin(angle));
+        positions[phase] = QPoint(x, y);
+    }
+
+    // Gradients
+    // 1 -> 2
+    QLinearGradient grd1(positions[0], positions[1]);
+    grd1.setColorAt(0, m_vectorColor[0]);
+    grd1.setColorAt(1, m_vectorColor[1]);
+    // 2 -> 3
+    QLinearGradient grd2(positions[1], positions[2]);
+    grd2.setColorAt(0,m_vectorColor[1]);
+    grd2.setColorAt(1,m_vectorColor[2]);
+    // 3 -> 1
+    QLinearGradient grd3(positions[2], positions[0]);
+    grd3.setColorAt(0,m_vectorColor[2]);
+    grd3.setColorAt(1,m_vectorColor[0]);
+
+    // Lines with gradients are painted black on SVG.
+    // Work around by drawing lines as rectangles (polygon)
+    const int lineWidth = 2;
+    painter->setPen(Qt::NoPen);
+    // 1 -> 2
+    QPolygonF rect12 = lineToRectangleForSvgGradient(positions[0], positions[1], lineWidth);
+    painter->setBrush(grd1);
+    painter->drawPolygon(rect12);
+    // 2 -> 3
+    QPolygonF rect23 = lineToRectangleForSvgGradient(positions[1], positions[2], lineWidth);
+    painter->setBrush(grd2);
+    painter->drawPolygon(rect23);
+    // 3 -> 1
+    QPolygonF rect31 = lineToRectangleForSvgGradient(positions[2], positions[0], lineWidth);
+    painter->setBrush(grd3);
+    painter->drawPolygon(rect31);
+
+    for (int phase=0; phase<COUNT_PHASES; phase++) {
+        if(m_vectorLabel[phase].isEmpty() == false && m_vector[phase].length() > m_maxVoltage / 10) {
+            m_vectorUScreen[phase] = m_vector[phase] / m_maxVoltage;
+            float screenLenLabel = m_vectorUScreen[phase].length();
+            drawLabel(
+                painter,
+                phase,
+                labelVectorLen(screenLenLabel),
+                (1/screenLenLabel)*m_currLabelRotateAngleU*detectCollision(phase));
+        }
+    }
+}
+
+float VectorPainter::labelVectorLen(float screenLen)
+{
+    // limit labels out of range
+    float labelLen = screenLen * 1.25;
+    if(labelLen > 1.1)
+        return 1.1;
+    // avoid crowded center
+    if(labelLen < 0.4)
+        return 0.4;
+    return labelLen;
+}
+
+float VectorPainter::detectCollision(int uPhase)
+{
+    // check collision with I vectors
+    QVector2D vectors[] = { m_vector[3], m_vector[4], m_vector[5] };
+    for(int idx = 0; idx<COUNT_PHASES; ++idx) {
+        QVector2D vectorI = vectors[idx];
+        // compare angles
+        QVector2D vectorIScreen = vectorI / m_maxCurrent;
+        QVector2D vectorUScreen = m_vectorUScreen[uPhase];
+        float angleI = atan2(vectorIScreen.y() , vectorIScreen.x());
+        float angleU = atan2(vectorUScreen.y() , vectorUScreen.x());
+        float diffAngle = fabs(angleU - angleI);
+        if(angleU > angleI && diffAngle < 0.7) {
+            m_SetUCollisions.insert(idx);
+            return -1.0;
+        }
+    }
+    return 1.0;
+}
+
+QPolygonF VectorPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width)
+{
+    // Calculate the direction vector
+    QLineF line(start, end);
+    QPointF direction = line.p2() - line.p1();
+
+    // Get the normalized perpendicular vector (for width offset)
+    QPointF norm = QPointF(-direction.y(), direction.x());
+    norm /= std::sqrt(norm.x()*norm.x() + norm.y()*norm.y()); // normalize
+    norm *= (width/2.0);
+
+    // Rectangle corners (counter-clockwise or clockwise)
+    QPointF corner1 = QPointF(start) + norm;
+    QPointF corner2 = QPointF(end) + norm;
+    QPointF corner3 = QPointF(end) - norm;
+    QPointF corner4 = QPointF(start) - norm;
+    QPolygonF polygon;
+    polygon << corner1 << corner2 << corner3 << corner4;
+    return polygon;
+}
+
+void VectorPainter::drawGridAndCircle(QPainter *painter)
+{
+    constexpr double radiusWidth = 1.5;
+    //grid
+    if(m_gridVisible) {
+        painter->setPen(QPen(m_gridColor, radiusWidth));
+        float lenFromCenter = pixelScale(painter);
+        //x axis
+        painter->drawLine(m_fromX-lenFromCenter, m_fromY, m_fromX+lenFromCenter, m_fromY);
+        //y axis
+        painter->drawLine(m_fromX, m_fromY-lenFromCenter, m_fromX, m_fromY+lenFromCenter);
+    }
+
+    //circle
+    if(m_circleVisible) {
+        painter->setPen(QPen(m_circleColor, radiusWidth));
+        painter->drawArc(
+            m_fromX-(m_gridScale * m_circleValue)-radiusWidth,
+            m_fromY-(m_gridScale * m_circleValue)-radiusWidth,
+            2 * (m_gridScale * m_circleValue + radiusWidth),
+            2 * (m_gridScale * m_circleValue + radiusWidth),
+            0, 5760);
+    }
+}
+
+void VectorPainter::drawVectors(QPainter *painter, bool drawVoltages, bool drawCurrents, float voltageFactor)
+{
+    // To get a nice experience, vectors are drawn in the sequence of their
+    // visible lengths: Long vectors first / short vectors last
+    // To accomplish, we use QMultiMap with key containing visible length
+    struct TVectorData {
+        TVectorData(int idx,
+                    float maxVal,
+                    float factorVal,
+                    float labelPositionScale,
+                    float labelPhiOffset) {
+            this->idx = idx;
+            this->maxVal = maxVal;
+            this->factorVal = factorVal;
+            this->labelPositionScale = labelPositionScale;
+            this->labelPhiOffset = labelPhiOffset;
+        }
+        int idx;
+        float maxVal;
+        float factorVal;
+        float labelPositionScale;
+        float labelPhiOffset;
+    };
+    QMultiMap<float, TVectorData> sortedVectors;
+
+    // add voltages sorted
+    if(drawVoltages) {
+        QVector2D vectors[] = { m_vector[0], m_vector[1], m_vector[2] };
+        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
+            QVector2D vector = vectors[idx];
+            m_vectorUScreen[idx] = vector / (m_maxVoltage * voltageFactor);
+            if(vector.length() > m_minVoltage * voltageFactor) {
+                float screenLenVector = m_vectorUScreen[idx].length();
+                TVectorData currVectorData(idx,
+                                           m_maxVoltage,
+                                           voltageFactor,
+                                           labelVectorLen(screenLenVector),
+                                           (1/screenLenVector)*m_currLabelRotateAngleU * detectCollision(idx));
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLenVector, currVectorData);
+            }
+        }
+    }
+    // add currents sorted
+    if(drawCurrents) {
+        QVector2D vectors[] = { m_vector[3], m_vector[4], m_vector[5] };
+        for(int idx = 0; idx < COUNT_PHASES; ++idx) {
+            QVector2D vector = vectors[idx];
+            QVector2D vectorIScreen = vector / m_maxCurrent;
+            if(vector.length() > m_minCurrent) {
+                float screenLenVectorI = vectorIScreen.length();
+                float labelRotateAngleI = (-1/screenLenVectorI)*m_currLabelRotateAngleI;
+                if(m_SetUCollisions.contains(idx)) {
+                    labelRotateAngleI = -labelRotateAngleI;
+                }
+                TVectorData currVectorData(idx+COUNT_PHASES,
+                                           m_maxCurrent,
+                                           1.0,
+                                           labelVectorLen(screenLenVectorI),
+                                           labelRotateAngleI);
+                // In case we have identical vectors for current and voltage:
+                // display voltage topmost
+                float lenUPreferFactor = 1.0;
+                if(drawVoltages) {
+                    for(int uidx = 0; uidx<COUNT_PHASES; ++uidx) {
+                        if(vectorIScreen.distanceToPoint(m_vectorUScreen[uidx]) < 0.02) {
+                            if(!m_forceI1Top || (uidx == 0 && idx == 0) || idx != 0) {
+                                lenUPreferFactor = 1.02;
+                            }
+                            else {
+                                lenUPreferFactor = 0.98;
+                            }
+                            break;
+                        }
+                    }
+                }
+
+                // negative len for long -> short order
+                sortedVectors.insert(-screenLenVectorI*lenUPreferFactor, currVectorData);
+            }
+        }
+    }
+    // draw sorted long -> short
+    for(const TVectorData &vData : sortedVectors) {
+        drawArrowHead(painter, vData.idx, vData.maxVal * vData.factorVal);
+        drawVectorLine(painter, vData.idx, vData.maxVal * vData.factorVal);
+        drawLabel(painter,
+                  vData.idx,
+                  vData.labelPositionScale,
+                  vData.labelPhiOffset);
+    }
+
+    // do not leave center on random colour
+    if(sortedVectors.count() >1)
+        drawCenterPoint(painter);
+}
+
+void VectorPainter::drawVectorLine(QPainter *painter, int idx, float maxValue)
+{
+    painter->setPen(QPen(m_vectorColor[idx], 2));
+    const QVector2D vector = m_vector[idx];
+    const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
+    const float tmpX = m_fromX + pixelScale(painter, maxValue) * vector.length() * cos(tmpPhi);
+    const float tmpY = m_fromY + pixelScale(painter, maxValue) * vector.length() * sin(tmpPhi);
+    painter->drawLine(roundf(m_fromX), roundf(m_fromY), roundf(tmpX), roundf(tmpY));
+}
+
+int VectorPainter::height(QPainter *painter)
+{
+    QPaintDevice *paintDevice = painter->device();
+    if (paintDevice)
+        return paintDevice->height();
+    return 1;
+}
+
+int VectorPainter::width(QPainter *painter)
+{
+    QPaintDevice *paintDevice = painter->device();
+    if (paintDevice)
+        return paintDevice->width();
+    return 1;
+}
+

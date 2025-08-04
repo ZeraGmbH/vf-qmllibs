@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file>svgs/fullStarangle-0_type-star.svg</file>
+        <file>svgs/fullStarangle-0_type-three_phase.svg</file>
+        <file>svgs/fullStarangle-0_type-triangle.svg</file>
+        <file>svgs/fullStarangle-30_type-star.svg</file>
+        <file>svgs/fullStarangle-30_type-three_phase.svg</file>
+        <file>svgs/fullStarangle-30_type-triangle.svg</file>
+        <file>svgs/fullStarangle-90_type-star.svg</file>
+        <file>svgs/fullStarangle-90_type-three_phase.svg</file>
+        <file>svgs/fullStarangle-90_type-triangle.svg</file>
+        <file>svgs/fullStarangle--30_type-star.svg</file>
+        <file>svgs/fullStarangle--30_type-three_phase.svg</file>
+        <file>svgs/fullStarangle--30_type-triangle.svg</file>
+        <file>svgs/gridOnlyRectangleNarrow.svg</file>
+        <file>svgs/gridOnlyRectangleWide.svg</file>
+        <file>svgs/gridOnlySquare.svg</file>
+    </qresource>
+</RCC>
