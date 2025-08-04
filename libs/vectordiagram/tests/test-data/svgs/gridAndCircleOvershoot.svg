@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg width="705.556mm" height="1058.33mm"
- viewBox="0 0 2000 3000"
+<svg width="705.556mm" height="705.556mm"
+ viewBox="0 0 2000 2000"
  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"  version="1.2" baseProfile="tiny">
 <defs>
 </defs>
@@ -9,8 +9,9 @@
 <g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="10" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="0,1500 2000,1500 " />
-<polyline fill="none" vector-effect="none" points="1000,500 1000,2500 " />
+<polyline fill="none" vector-effect="none" points="0,1000 2000,1000 " />
+<polyline fill="none" vector-effect="none" points="1000,0 1000,2000 " />
+<path vector-effect="none" fill-rule="evenodd" d="M1400,1000 C1400,779.086 1220.91,600 1000,600 C779.086,600 600,779.086 600,1000 C600,1220.91 779.086,1400 1000,1400 C1220.91,1400 1400,1220.91 1400,1000 "/>
 </g>
 </g>
 </svg>

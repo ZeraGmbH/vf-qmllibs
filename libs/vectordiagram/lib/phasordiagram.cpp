@@ -11,20 +11,20 @@ PhasorDiagram::PhasorDiagram(QQuickItem *parent) :
     setOpaquePainting(true);
 }
 
-void PhasorDiagram::setVectorView(const VectorView &vectorView)
+void PhasorDiagram::setVectorType(const VectorType &VectorType)
 {
-    VectorPainter::VectorView painterVectorView = VectorPainter::VectorView(vectorView);
-    m_vectorPainter.setVectorView(painterVectorView);
-    if (m_vectorView != vectorView) {
-        m_vectorView = vectorView;
-        emit vectorViewChanged();
+    VectorPainter::VectorType painterVectorType = VectorPainter::VectorType(VectorType);
+    m_vectorPainter.setVectorType(painterVectorType);
+    if (m_vectorType != VectorType) {
+        m_vectorType = VectorType;
+        emit vectorTypeChanged();
         update();
     }
 }
 
-const PhasorDiagram::VectorView &PhasorDiagram::vectorView()
+const PhasorDiagram::VectorType &PhasorDiagram::vectorType()
 {
-    return m_vectorView;
+    return m_vectorType;
 }
 
 void PhasorDiagram::paint(QPainter *painter)

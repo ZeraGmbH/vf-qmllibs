@@ -12,12 +12,16 @@ class test_vector_diagram : public QObject
 private slots:
     void initTestCase();
     void init();
+    void noGridSquare();
     void gridOnlySquare();
     void gridOnlyRectangleWide();
     void gridOnlyRectangleNarrow();
+    void gridOnlyBlue();
 
-    void fullStar_data();
-    void fullStar();
+    void gridAndCircleNoOvershoot();
+    void gridAndCircleOvershoot();
+    void gridAndCircleBlue();
+
 private:
     void setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle);
     double gradToDeg(double angle);

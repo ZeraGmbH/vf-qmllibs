@@ -24,6 +24,32 @@ void test_vector_diagram::init()
 constexpr int clipLenShort = 2000;
 constexpr int clipLenLong = 3000;
 
+void test_vector_diagram::noGridSquare()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(false);
+    vectorPainter->setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::gridOnlySquare()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
@@ -31,6 +57,7 @@ void test_vector_diagram::gridOnlySquare()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -56,6 +83,7 @@ void test_vector_diagram::gridOnlyRectangleWide()
 
     VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
     VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -75,6 +103,7 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -87,52 +116,16 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
     QVERIFY(ok);
 }
 
-static QString getNameFomViewType(VectorPainter::VectorView type)
+void test_vector_diagram::gridOnlyBlue()
 {
-    switch (type) {
-    case VectorPainter::VectorView::VIEW_STAR:
-        return "star";
-    case VectorPainter::VectorView::VIEW_TRIANGLE:
-        return "triangle";
-    case VectorPainter::VectorView::VIEW_THREE_PHASE:
-        return "three_phase";
-    }
-    return QString();
-}
-
-Q_DECLARE_METATYPE(VectorPainter::VectorView)
-
-void test_vector_diagram::fullStar_data()
-{
-    QTest::addColumn<int>("angle");
-    QTest::addColumn<VectorPainter::VectorView>("viewType");
-    const QVector<int> angles { -30, 0, 30, 90 };
-    const QVector<VectorPainter::VectorView> viewTypes {
-        VectorPainter::VectorView::VIEW_STAR,
-        VectorPainter::VectorView::VIEW_TRIANGLE,
-        VectorPainter::VectorView::VIEW_THREE_PHASE
-    };
-    for (int angle : angles) {
-        for (VectorPainter::VectorView viewType : viewTypes) {
-            const QString angleLabel = QString("angle-%1").arg(angle);
-            const QString typeLabel = QString("type-%1").arg(getNameFomViewType(viewType));
-            const QString rowName = QString("%1_%2").arg(angleLabel, typeLabel);
-            QTest::newRow(rowName.toUtf8()) << angle << viewType;
-        }
-    }
-}
-
-void test_vector_diagram::fullStar()
-{
-    QFETCH(int, angle);
-    QFETCH(VectorPainter::VectorView, viewType);
-    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPainter *vectorPainter = svgPainter.getVectorPainter();
-    setSymmetricValues(vectorPainter, 230, 5, angle);
-    vectorPainter->setVectorView(viewType);
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setGridColor(Qt::blue);
+    vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -144,6 +137,91 @@ void test_vector_diagram::fullStar()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::gridAndCircleNoOvershoot()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setCircleVisible(true);
+    vectorPainter->setMaxOvershootFactor(1.0);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::gridAndCircleOvershoot()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setCircleVisible(true);
+    vectorPainter->setMaxOvershootFactor(2.0);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::gridAndCircleBlue()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setCircleVisible(true);
+    vectorPainter->setCircleColor(Qt::blue);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+Q_DECLARE_METATYPE(VectorPainter::VectorType)
+
+
+
 void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle)
 {
     int dark = 130;
@@ -151,15 +229,13 @@ void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uVal
                            QColor("red").lighter(), QColor("yellow").lighter(), QColor("blue").lighter()};
 
     constexpr double overload = 1.25;
+    painter->setMaxOvershootFactor(overload);
+
     double uLen = uValue * M_SQRT2;
-    painter->setMaxVoltage(uLen*overload);
+    painter->setNominalVoltage(uLen);
 
     double iLen = iValue * M_SQRT2;
-    painter->setMaxCurrent(iLen*overload);
-
-    painter->setPhiOrigin(gradToDeg(90));
-    painter->setGridScale(clipLenShort / uLen / 2);
-    painter->setCircleValue(uLen / overload);
+    painter->setNominalCurrent(iLen);
 
     for (int i=0; i<VectorPainter::COUNT_PHASES; i++) {
         int uIdx = i;
