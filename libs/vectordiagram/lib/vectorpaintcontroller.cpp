@@ -7,27 +7,27 @@
 
 void VectorPaintController::setMaxOvershootFactor(float maxOvershoot)
 {
-    m_vectorSettings.setMaxOvershoot(maxOvershoot);
+    m_vectorSettingsLengths.setMaxOvershoot(maxOvershoot);
 }
 
 void VectorPaintController::setNominalVoltage(float nomVoltage)
 {
-    m_vectorSettings.setNomVoltage(nomVoltage);
+    m_vectorSettingsLengths.setNomVoltage(nomVoltage);
 }
 
 void VectorPaintController::setMinVoltage(float minVoltage)
 {
-    m_vectorSettings.setMinVoltage(minVoltage);
+    m_vectorSettingsLengths.setMinVoltage(minVoltage);
 }
 
 void VectorPaintController::setNominalCurrent(float nomCurrent)
 {
-    m_vectorSettings.setNomCurrent(nomCurrent);
+    m_vectorSettingsLengths.setNomCurrent(nomCurrent);
 }
 
 void VectorPaintController::setMinCurrent(float minCurrent)
 {
-    m_vectorSettings.setMinCurrent(minCurrent);
+    m_vectorSettingsLengths.setMinCurrent(minCurrent);
 }
 
 void VectorPaintController::setVectorType(VectorType vectorType)
@@ -77,8 +77,8 @@ void VectorPaintController::paint(QPainter *painter)
     drawCircle(painter);
 
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
-        if (m_vector[idx].length() > m_vectorSettings.getMinimalUOrI(idx)) {
-            const float nomValue = m_vectorSettings.getNominalUOrI(idx);
+        if (m_vector[idx].length() > m_vectorSettingsLengths.getMinimalUOrI(idx)) {
+            const float nomValue = m_vectorSettingsLengths.getNominalUOrI(idx);
             drawVectorLine(painter, nomValue, m_vector[idx], m_vectorColor[idx]);
             drawArrowHead(painter, nomValue, m_vector[idx], m_vectorColor[idx]);
         }
@@ -119,7 +119,7 @@ void VectorPaintController::drawCircle(QPainter *painter)
         return;
     float lineWidth = VectorSettingsStatic::getGridAndCircleLineWidth(painter);
     painter->setPen(QPen(m_circleColor, lineWidth));
-    const float radius = m_vectorSettings.getVectorLenNominalInPixels(painter);
+    const float radius = m_vectorSettingsLengths.getVectorLenNominalInPixels(painter);
     QRect circleRect(
         round(VectorPaintCalc::centerX(painter) - radius),
         round(VectorPaintCalc::centerY(painter) - radius),
@@ -176,7 +176,7 @@ void VectorPaintController::drawArrowHead(QPainter *painter, float nomValue, con
 QVector2D VectorPaintController::calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels)
 {
     const float angle = atan2(value.y(), value.x()) - m_phiOrigin;
-    const float nomRadius = m_vectorSettings.getVectorLenNominalInPixels(painter);
+    const float nomRadius = m_vectorSettingsLengths.getVectorLenNominalInPixels(painter);
     const float vectLenPixels = nomRadius * value.length() / nomValue - shortenPixels;
     QVector2D resultVector(
         vectLenPixels * cos(angle),

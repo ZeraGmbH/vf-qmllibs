@@ -1,7 +1,7 @@
 #ifndef VECTORPAINTCONTROLLER_H
 #define VECTORPAINTCONTROLLER_H
 
-#include "vectorsettings.h"
+#include "vectorsettingslengths.h"
 #include "vectorsettingsstatic.h"
 #include <QColor>
 #include <QVector>
@@ -50,7 +50,7 @@ private:
     QVector2D calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels = 0.0);
 
     // API
-    VectorSettings m_vectorSettings;
+    VectorSettingsLengths m_vectorSettingsLengths;
     float m_phiOrigin = 0.0;
     VectorType m_vectorType = VectorType::VIEW_STAR;
     bool m_gridVisible = true;

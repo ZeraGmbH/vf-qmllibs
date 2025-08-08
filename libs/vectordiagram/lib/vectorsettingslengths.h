@@ -1,9 +1,9 @@
-#ifndef VECTORSETTINGS_H
-#define VECTORSETTINGS_H
+#ifndef VECTORSETTINGSLENGTHS_H
+#define VECTORSETTINGSLENGTHS_H
 
 #include <QPainter>
 
-class VectorSettings
+class VectorSettingsLengths
 {
 public:
     void setNomVoltage(float nomVoltage);
@@ -25,4 +25,4 @@ private:
     float m_maxOvershoot = 1.25;
 };
 
-#endif // VECTORSETTINGS_H
+#endif // VECTORSETTINGSLENGTHS_H
