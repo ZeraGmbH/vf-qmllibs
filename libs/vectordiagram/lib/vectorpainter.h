@@ -44,15 +44,27 @@ public:
 private:
     void drawGrid(QPainter *painter);
     void drawCircle(QPainter* painter);
+    void drawVectorLine(QPainter *painter, int idx);
+    void drawArrowHead(QPainter *painter, int idx);
 
     static int height(const QPainter *painter);
     static int width(const QPainter *painter);
 
+    float getNominalUOrI(int idx);
+    float getMinimalUOrI(int idx);
+
     float getClipSquareLen(const QPainter *painter);
     float getGridAndCircleLineWidth(const QPainter *painter);
+    float getVectorLineWidth(const QPainter *painter);
     float getVectorLenMaxInPixels(const QPainter *painter);
     float getVectorLenNominalInPixels(const QPainter *painter);
-
+    float getArrowHeight(const QPainter *painter);
+    void setFontForLabels(QPainter *painter);
+    struct PixelVector {
+        float x;
+        float y;
+    };
+    PixelVector calcPixVec(QPainter *painter, int idx, float shortenPixels = 0.0);
 
     // API
     float m_phiOrigin = 0.0;
@@ -76,7 +88,6 @@ private:
     // internal
     float m_fromX = 0.0;
     float m_fromY = 0.0;
-    void setFontForLabels(QPainter *painter);
 };
 
 #endif // VECTORPAINTER_H

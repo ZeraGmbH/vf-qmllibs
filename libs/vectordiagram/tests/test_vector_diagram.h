@@ -22,6 +22,9 @@ private slots:
     void gridAndCircleOvershoot();
     void gridAndCircleBlue();
 
+    void starVectorsNoOvershoot();
+    void starVectorsIgnoreLessThanMin();
+
 private:
     void setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle);
     double gradToDeg(double angle);

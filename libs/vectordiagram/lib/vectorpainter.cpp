@@ -70,15 +70,6 @@ void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
     m_vectorLabel[idx] = vectorLabel;
 }
 
-void VectorPainter::setFontForLabels(QPainter *painter)
-{
-    const int minXy = std::min(height(painter), width(painter));
-    QFont defaultFont;
-    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
-    defaultFont.setFamily("Sans");
-    painter->setFont(defaultFont);
-}
-
 void VectorPainter::paint(QPainter *painter)
 {
     m_fromX = painter->device()->width() / 2;
@@ -87,6 +78,13 @@ void VectorPainter::paint(QPainter *painter)
     setFontForLabels(painter);
     drawGrid(painter);
     drawCircle(painter);
+
+    for(int idx=0; idx<COUNT_PHASES*2; ++idx) {
+        if (m_vector[idx].length() > getMinimalUOrI(idx)) {
+            drawVectorLine(painter, idx);
+            drawArrowHead(painter, idx);
+        }
+    }
 }
 
 void VectorPainter::drawGrid(QPainter *painter)
@@ -113,49 +111,57 @@ void VectorPainter::drawGrid(QPainter *painter)
 
 // circle radius is nominal
 
-constexpr float totalLenAvail = 1.0;
-constexpr float extraLabelLenFromAvail = 0.2;
-constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
-
-float VectorPainter::getVectorLenMaxInPixels(const QPainter *painter)
-{
-    const float pixelsAvailforVector = getClipSquareLen(painter) / 2 * vectorLenFromAvail;
-    return pixelsAvailforVector;
-}
-
-float VectorPainter::getVectorLenNominalInPixels(const QPainter *painter)
-{
-    return getVectorLenMaxInPixels(painter) / m_maxOvershoot;
-}
-
 
 void VectorPainter::drawCircle(QPainter *painter)
 {
     if(!m_circleVisible)
         return;
 
-    painter->setPen(QPen(m_circleColor, getGridAndCircleLineWidth(painter)));
+    float lineWidth = getGridAndCircleLineWidth(painter);
+    painter->setPen(QPen(m_circleColor, lineWidth));
     const float radius = getVectorLenNominalInPixels(painter);
-    painter->drawArc(
-        m_fromX - radius,
-        m_fromY - radius,
-        2 * radius,
-        2 * radius,
-        0, 5760);
+    QRect circleRect(
+        round(m_fromX - radius),
+        round(m_fromY - radius),
+        round(2 * radius),
+        round(2 * radius));
+    painter->drawArc(circleRect, 0, 16*360);
 }
 
-float VectorPainter::getClipSquareLen(const QPainter *painter)
+void VectorPainter::drawVectorLine(QPainter *painter, int idx)
 {
-    const float w = width(painter);
-    const float h = height(painter);
-    return std::min(h, w);
+    const float lineWidth = getVectorLineWidth(painter);
+    painter->setPen(QPen(m_vectorColor[idx], lineWidth));
+    PixelVector pixVector = calcPixVec(painter, idx, getArrowHeight(painter)); // still overlap lineWidth/2
+    QLine line(round(m_fromX), round(m_fromY), round(pixVector.x), round(pixVector.y));
+    painter->drawLine(line);
 }
 
-float VectorPainter::getGridAndCircleLineWidth(const QPainter *painter)
+void VectorPainter::drawArrowHead(QPainter *painter, int idx)
 {
-    return getClipSquareLen(painter) * 0.005; // to be adjusted...
-}
+    painter->setPen(QPen(m_vectorColor[idx], 0/*getVectorLineWidth(painter)*/));
+    PixelVector pixVector = calcPixVec(painter, idx);
 
+    const float angle = atan2(pixVector.y - m_fromY , pixVector.x - m_fromX);
+    constexpr float arrowWidth = M_PI * 0.125;
+    const float arrowHeight = getArrowHeight(painter);
+    QVector<QPoint> points = {
+        QPoint(round(pixVector.x), round(pixVector.y)),
+        QPoint(round(pixVector.x - arrowHeight * cos(angle - arrowWidth)), round(pixVector.y - arrowHeight * sin(angle - arrowWidth))),
+        QPoint(round(pixVector.x - arrowHeight * cos(angle + arrowWidth)), round(pixVector.y - arrowHeight * sin(angle + arrowWidth))),
+    };
+
+    QBrush brush;
+    brush.setColor(m_vectorColor[idx]);
+    brush.setStyle(Qt::SolidPattern);
+
+    QPolygon poly(points);
+    painter->drawPolygon(poly);
+    QPainterPath path;
+    path.addPolygon(poly);
+
+    painter->fillPath(path, brush);
+}
 
 int VectorPainter::height(const QPainter *painter)
 {
@@ -173,3 +179,75 @@ int VectorPainter::width(const QPainter *painter)
     return 1;
 }
 
+float VectorPainter::getNominalUOrI(int idx)
+{
+    if (idx < COUNT_PHASES)
+        return m_nomVoltage;
+    return m_nomCurrent;
+}
+
+float VectorPainter::getMinimalUOrI(int idx)
+{
+    if (idx < COUNT_PHASES)
+        return m_minVoltage;
+    return m_minCurrent;
+}
+
+float VectorPainter::getClipSquareLen(const QPainter *painter)
+{
+    const float w = width(painter);
+    const float h = height(painter);
+    return std::min(h, w);
+}
+
+float VectorPainter::getGridAndCircleLineWidth(const QPainter *painter)
+{
+    return getClipSquareLen(painter) * 0.005; // to be adjusted...
+}
+
+float VectorPainter::getVectorLineWidth(const QPainter *painter)
+{
+    return getClipSquareLen(painter) * 0.01; // to be adjusted...
+}
+
+float VectorPainter::getVectorLenMaxInPixels(const QPainter *painter)
+{
+    constexpr float totalLenAvail = 1.0;
+    constexpr float extraLabelLenFromAvail = 0.2;
+    constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
+
+    const float pixelsAvailforVector = getClipSquareLen(painter) / 2 * vectorLenFromAvail;
+    return pixelsAvailforVector;
+}
+
+float VectorPainter::getVectorLenNominalInPixels(const QPainter *painter)
+{
+    return getVectorLenMaxInPixels(painter) / m_maxOvershoot;
+}
+
+float VectorPainter::getArrowHeight(const QPainter *painter)
+{
+    return getClipSquareLen(painter) * 0.03;
+}
+
+void VectorPainter::setFontForLabels(QPainter *painter)
+{
+    const int minXy = std::min(height(painter), width(painter));
+    QFont defaultFont;
+    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
+    defaultFont.setFamily("Sans");
+    painter->setFont(defaultFont);
+}
+
+VectorPainter::PixelVector VectorPainter::calcPixVec(QPainter *painter, int idx, float shortenPixels)
+{
+    const QVector2D vector = m_vector[idx];
+    const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
+    const float nomValue = getNominalUOrI(idx);
+    const float nomRadius = getVectorLenNominalInPixels(painter);
+    const float vectLenPixels = nomRadius * vector.length() / nomValue - shortenPixels;
+    PixelVector pixVector;
+    pixVector.x = m_fromX + vectLenPixels * cos(tmpPhi);
+    pixVector.y = m_fromY + vectLenPixels * sin(tmpPhi);
+    return pixVector;
+}

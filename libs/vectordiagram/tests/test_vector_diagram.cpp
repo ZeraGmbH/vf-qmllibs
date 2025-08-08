@@ -218,6 +218,79 @@ void test_vector_diagram::gridAndCircleBlue()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::starVectorsNoOvershoot()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float iNom = 10;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setCircleVisible(true);
+    vectorPainter->setMaxOvershootFactor(1.0);
+
+    vectorPainter->setNominalVoltage(uNom);
+    vectorPainter->setNominalCurrent(iNom);
+    setSymmetricValues(vectorPainter, uNom, iNom, angle);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::starVectorsIgnoreLessThanMin()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float uMin = 23;
+    const float iNom = 10;
+    const float iMin = 1;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    vectorPainter->setGridVisible(true);
+    vectorPainter->setCircleVisible(true);
+    vectorPainter->setMaxOvershootFactor(1.0);
+
+    vectorPainter->setNominalVoltage(uNom);
+    vectorPainter->setMinVoltage(uMin);
+    vectorPainter->setNominalCurrent(iNom);
+    vectorPainter->setMinCurrent(iMin);
+    setSymmetricValues(vectorPainter, uMin*0.99, iMin*0.99, angle);
+    svgPainter.paintToFile(dumpFile);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+
+    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+
 Q_DECLARE_METATYPE(VectorPainter::VectorType)
 
 
@@ -225,17 +298,8 @@ Q_DECLARE_METATYPE(VectorPainter::VectorType)
 void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle)
 {
     int dark = 130;
-    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow").darker(dark), QColor("blue").darker(dark),
-                           QColor("red").lighter(), QColor("yellow").lighter(), QColor("blue").lighter()};
-
-    constexpr double overload = 1.25;
-    painter->setMaxOvershootFactor(overload);
-
-    double uLen = uValue * M_SQRT2;
-    painter->setNominalVoltage(uLen);
-
-    double iLen = iValue * M_SQRT2;
-    painter->setNominalCurrent(iLen);
+    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark),
+                           QColor("red").lighter(), QColor("yellow").lighter(160), QColor("blue").lighter()};
 
     for (int i=0; i<VectorPainter::COUNT_PHASES; i++) {
         int uIdx = i;
@@ -247,11 +311,11 @@ void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uVal
         painter->setVectorLabel(i+VectorPainter::COUNT_PHASES, QString("IL%1").arg(i+1));
 
         const double uPhi = gradToDeg(i*120);
-        std::complex<double> uRawValue = std::polar<double>(uLen, uPhi);
+        std::complex<double> uRawValue = std::polar<double>(uValue, uPhi);
         painter->setVector(i, QVector2D(uRawValue.real(), uRawValue.imag()));
 
         const double iPhi = uPhi + gradToDeg(iAngle);
-        std::complex<double> iRawValue = std::polar<double>(iLen, iPhi);
+        std::complex<double> iRawValue = std::polar<double>(iValue, iPhi);
         painter->setVector(i+VectorPainter::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
     }
 }
