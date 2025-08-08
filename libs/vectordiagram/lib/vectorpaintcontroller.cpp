@@ -147,7 +147,7 @@ void VectorPaintController::drawArrowHead(QPainter *painter, float nomValue, con
     painter->setPen(QPen(color, 0));
     const QVector2D pixVector = calcPixVec(painter, nomValue, value);
     const float angle = atan2(pixVector.y(), pixVector.x());
-    constexpr float arrowWidth = M_PI * 0.125;
+    const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
     const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
