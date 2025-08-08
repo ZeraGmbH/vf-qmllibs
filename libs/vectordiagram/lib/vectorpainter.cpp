@@ -132,23 +132,25 @@ void VectorPainter::drawVectorLine(QPainter *painter, int idx)
 {
     const float lineWidth = getVectorLineWidth(painter);
     painter->setPen(QPen(m_vectorColor[idx], lineWidth));
-    PixelVector pixVector = calcPixVec(painter, idx, getArrowHeight(painter)); // still overlap lineWidth/2
-    QLine line(round(m_fromX), round(m_fromY), round(pixVector.x), round(pixVector.y));
+    QVector2D vectorFull = calcPixVec(painter, idx, getArrowHeight(painter)); // still overlap lineWidth/2
+    QVector2D vectorKeepOut = calcVectorOtherLen(vectorFull, lineWidth / 2);
+    QLine line(round(m_fromX + vectorKeepOut.x()), round(m_fromY + vectorKeepOut.y()),
+               round(m_fromX + vectorFull.x()), round(m_fromY + vectorFull.y()));
     painter->drawLine(line);
 }
 
 void VectorPainter::drawArrowHead(QPainter *painter, int idx)
 {
-    painter->setPen(QPen(m_vectorColor[idx], 0/*getVectorLineWidth(painter)*/));
-    PixelVector pixVector = calcPixVec(painter, idx);
-
-    const float angle = atan2(pixVector.y - m_fromY , pixVector.x - m_fromX);
+    painter->setPen(QPen(m_vectorColor[idx], 0));
+    const QVector2D pixVector = calcPixVec(painter, idx);
+    const float angle = atan2(pixVector.y(), pixVector.x());
     constexpr float arrowWidth = M_PI * 0.125;
     const float arrowHeight = getArrowHeight(painter);
+    const QVector2D vectorMoved = pixVector + QVector2D(m_fromX, m_fromY);
     QVector<QPoint> points = {
-        QPoint(round(pixVector.x), round(pixVector.y)),
-        QPoint(round(pixVector.x - arrowHeight * cos(angle - arrowWidth)), round(pixVector.y - arrowHeight * sin(angle - arrowWidth))),
-        QPoint(round(pixVector.x - arrowHeight * cos(angle + arrowWidth)), round(pixVector.y - arrowHeight * sin(angle + arrowWidth))),
+        QPoint(round(vectorMoved.x()), round(vectorMoved.y())),
+        QPoint(round(vectorMoved.x() - arrowHeight * cos(angle - arrowWidth)), round(vectorMoved.y() - arrowHeight * sin(angle - arrowWidth))),
+        QPoint(round(vectorMoved.x() - arrowHeight * cos(angle + arrowWidth)), round(vectorMoved.y() - arrowHeight * sin(angle + arrowWidth))),
     };
 
     QBrush brush;
@@ -239,15 +241,25 @@ void VectorPainter::setFontForLabels(QPainter *painter)
     painter->setFont(defaultFont);
 }
 
-VectorPainter::PixelVector VectorPainter::calcPixVec(QPainter *painter, int idx, float shortenPixels)
+QVector2D VectorPainter::calcPixVec(QPainter *painter, int idx, float shortenPixels)
 {
     const QVector2D vector = m_vector[idx];
     const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
     const float nomValue = getNominalUOrI(idx);
     const float nomRadius = getVectorLenNominalInPixels(painter);
     const float vectLenPixels = nomRadius * vector.length() / nomValue - shortenPixels;
-    PixelVector pixVector;
-    pixVector.x = m_fromX + vectLenPixels * cos(tmpPhi);
-    pixVector.y = m_fromY + vectLenPixels * sin(tmpPhi);
-    return pixVector;
+    QVector2D resultVector(
+        vectLenPixels * cos(tmpPhi),
+        vectLenPixels * sin(tmpPhi));
+    return resultVector;
+}
+
+QVector2D VectorPainter::calcVectorOtherLen(const QVector2D &vector, float len)
+{
+    const float origLen = vector.length();
+    const float mult = len / origLen;
+    QVector2D resultVector(
+        vector.x() * mult,
+        vector.y() * mult);
+    return resultVector;
 }

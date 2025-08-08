@@ -60,11 +60,8 @@ private:
     float getVectorLenNominalInPixels(const QPainter *painter);
     float getArrowHeight(const QPainter *painter);
     void setFontForLabels(QPainter *painter);
-    struct PixelVector {
-        float x;
-        float y;
-    };
-    PixelVector calcPixVec(QPainter *painter, int idx, float shortenPixels = 0.0);
+    QVector2D calcPixVec(QPainter *painter, int idx, float shortenPixels = 0.0);
+    QVector2D calcVectorOtherLen(const QVector2D &vector, float len);
 
     // API
     float m_phiOrigin = 0.0;
