@@ -30,7 +30,7 @@ void test_vector_diagram::noGridSquare()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(false);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
@@ -56,7 +56,7 @@ void test_vector_diagram::gridOnlySquare()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
@@ -82,7 +82,7 @@ void test_vector_diagram::gridOnlyRectangleWide()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
@@ -102,7 +102,7 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
@@ -122,7 +122,7 @@ void test_vector_diagram::gridOnlyBlue()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setGridColor(Qt::blue);
     vectorPainter->setCircleVisible(false);
@@ -143,7 +143,7 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
@@ -170,7 +170,7 @@ void test_vector_diagram::gridAndCircleOvershoot()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(2.0);
@@ -197,7 +197,7 @@ void test_vector_diagram::gridAndCircleBlue()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setCircleColor(Qt::blue);
@@ -227,7 +227,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float iNom = 10;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
@@ -263,7 +263,7 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const float iMin = 1;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPainter *vectorPainter = svgPainter.getVectorPainter();
+    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
     vectorPainter->setGridVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
@@ -291,24 +291,24 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
 }
 
 
-Q_DECLARE_METATYPE(VectorPainter::VectorType)
+Q_DECLARE_METATYPE(VectorPaintController::VectorType)
 
 
 
-void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle)
+void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle)
 {
     int dark = 130;
     QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark),
                            QColor("red").lighter(), QColor("yellow").lighter(160), QColor("blue").lighter()};
 
-    for (int i=0; i<VectorPainter::COUNT_PHASES; i++) {
+    for (int i=0; i<VectorPaintController::COUNT_PHASES; i++) {
         int uIdx = i;
-        int iIdx = i + VectorPainter::COUNT_PHASES;
+        int iIdx = i + VectorPaintController::COUNT_PHASES;
         painter->setVectorColor(uIdx, colors[uIdx]);
         painter->setVectorColor(iIdx, colors[iIdx]);
 
         painter->setVectorLabel(i, QString("UL%1").arg(i+1));
-        painter->setVectorLabel(i+VectorPainter::COUNT_PHASES, QString("IL%1").arg(i+1));
+        painter->setVectorLabel(i+VectorPaintController::COUNT_PHASES, QString("IL%1").arg(i+1));
 
         const double uPhi = gradToDeg(i*120);
         std::complex<double> uRawValue = std::polar<double>(uValue, uPhi);
@@ -316,7 +316,7 @@ void test_vector_diagram::setSymmetricValues(VectorPainter *painter, double uVal
 
         const double iPhi = uPhi + gradToDeg(iAngle);
         std::complex<double> iRawValue = std::polar<double>(iValue, iPhi);
-        painter->setVector(i+VectorPainter::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
+        painter->setVector(i+VectorPaintController::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
     }
 }
 

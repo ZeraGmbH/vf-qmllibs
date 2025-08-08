@@ -1,5 +1,5 @@
-#ifndef VECTORPAINTER_H
-#define VECTORPAINTER_H
+#ifndef VECTORPAINTCONTROLLER_H
+#define VECTORPAINTCONTROLLER_H
 
 #include <QColor>
 #include <QVector>
@@ -7,10 +7,10 @@
 #include <QVector2D>
 #include <QSet>
 
-class VectorPainter
+class VectorPaintController
 {
 public:
-    ~VectorPainter() = default;
+    ~VectorPaintController() = default;
 
     static constexpr int COUNT_PHASES = 3;
     enum class VectorType : int // this must be in sync to PhasorDiagram::VectorType - suggestions?
@@ -87,4 +87,4 @@ private:
     float m_fromY = 0.0;
 };
 
-#endif // VECTORPAINTER_H
+#endif // VECTORPAINTCONTROLLER_H

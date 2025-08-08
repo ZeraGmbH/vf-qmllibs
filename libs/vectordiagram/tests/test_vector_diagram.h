@@ -1,7 +1,7 @@
 #ifndef TEST_VECTOR_DIAGRAM_GUI_H
 #define TEST_VECTOR_DIAGRAM_GUI_H
 
-#include "vectorpainter.h"
+#include "vectorpaintcontroller.h"
 #include <QObject>
 #include <QSvgGenerator>
 #include <memory>
@@ -26,7 +26,7 @@ private slots:
     void starVectorsIgnoreLessThanMin();
 
 private:
-    void setSymmetricValues(VectorPainter *painter, double uValue, double iValue, double iAngle);
+    void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
     double gradToDeg(double angle);
     std::unique_ptr<QSvgGenerator> m_generator;
 };

@@ -10,7 +10,7 @@ VectorToSvgPainter::VectorToSvgPainter(int width, int height,
 {
 }
 
-VectorPainter *VectorToSvgPainter::getVectorPainter()
+VectorPaintController *VectorToSvgPainter::getVectorPainter()
 {
     return &m_vectorPainter;
 }

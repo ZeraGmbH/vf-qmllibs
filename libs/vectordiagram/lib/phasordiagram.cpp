@@ -13,7 +13,7 @@ PhasorDiagram::PhasorDiagram(QQuickItem *parent) :
 
 void PhasorDiagram::setVectorType(const VectorType &vectorType)
 {
-    VectorPainter::VectorType painterVectorType = VectorPainter::VectorType(vectorType);
+    VectorPaintController::VectorType painterVectorType = VectorPaintController::VectorType(vectorType);
     m_vectorPainter.setVectorType(painterVectorType);
     if (m_vectorType != vectorType) {
         m_vectorType = vectorType;

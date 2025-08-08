@@ -1,76 +1,76 @@
-#include "vectorpainter.h"
+#include "vectorpaintcontroller.h"
 #include <QFont>
 #include <QGradient>
 #include <QPainterPath>
 #include <QMultiMap>
 #include <math.h>
 
-void VectorPainter::setMaxOvershootFactor(float maxOvershoot)
+void VectorPaintController::setMaxOvershootFactor(float maxOvershoot)
 {
     m_maxOvershoot = maxOvershoot;
 }
 
-void VectorPainter::setNominalVoltage(float nomVoltage)
+void VectorPaintController::setNominalVoltage(float nomVoltage)
 {
     m_nomVoltage = nomVoltage;
 }
 
-void VectorPainter::setMinVoltage(float minVoltage)
+void VectorPaintController::setMinVoltage(float minVoltage)
 {
     m_minVoltage = minVoltage;
 }
 
-void VectorPainter::setNominalCurrent(float nomCurrent)
+void VectorPaintController::setNominalCurrent(float nomCurrent)
 {
     m_nomCurrent = nomCurrent;
 }
 
-void VectorPainter::setMinCurrent(float minCurrent)
+void VectorPaintController::setMinCurrent(float minCurrent)
 {
     m_minCurrent = minCurrent;
 }
 
-void VectorPainter::setVectorType(VectorType vectorType)
+void VectorPaintController::setVectorType(VectorType vectorType)
 {
     m_vectorType = vectorType;
 }
 
-void VectorPainter::setGridVisible(bool gridVisible)
+void VectorPaintController::setGridVisible(bool gridVisible)
 {
     m_gridVisible = gridVisible;
 }
 
-void VectorPainter::setGridColor(const QColor &gridColor)
+void VectorPaintController::setGridColor(const QColor &gridColor)
 {
     m_gridColor = gridColor;
 }
 
-void VectorPainter::setCircleVisible(bool circleVisible)
+void VectorPaintController::setCircleVisible(bool circleVisible)
 {
     m_circleVisible = circleVisible;
 }
 
-void VectorPainter::setCircleColor(const QColor &circleColor)
+void VectorPaintController::setCircleColor(const QColor &circleColor)
 {
     m_circleColor = circleColor;
 }
 
-void VectorPainter::setVector(int idx, const QVector2D &vector)
+void VectorPaintController::setVector(int idx, const QVector2D &vector)
 {
     m_vector[idx] = vector;
 }
 
-void VectorPainter::setVectorColor(int idx, const QColor &vectorColor)
+void VectorPaintController::setVectorColor(int idx, const QColor &vectorColor)
 {
     m_vectorColor[idx] = vectorColor;
 }
 
-void VectorPainter::setVectorLabel(int idx, const QString &vectorLabel)
+void VectorPaintController::setVectorLabel(int idx, const QString &vectorLabel)
 {
     m_vectorLabel[idx] = vectorLabel;
 }
 
-void VectorPainter::paint(QPainter *painter)
+void VectorPaintController::paint(QPainter *painter)
 {
     m_fromX = painter->device()->width() / 2;
     m_fromY = painter->device()->height() / 2;
@@ -87,7 +87,7 @@ void VectorPainter::paint(QPainter *painter)
     }
 }
 
-void VectorPainter::drawGrid(QPainter *painter)
+void VectorPaintController::drawGrid(QPainter *painter)
 {
     if(!m_gridVisible)
         return;
@@ -112,7 +112,7 @@ void VectorPainter::drawGrid(QPainter *painter)
 // circle radius is nominal
 
 
-void VectorPainter::drawCircle(QPainter *painter)
+void VectorPaintController::drawCircle(QPainter *painter)
 {
     if(!m_circleVisible)
         return;
@@ -128,7 +128,7 @@ void VectorPainter::drawCircle(QPainter *painter)
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPainter::drawVectorLine(QPainter *painter, int idx)
+void VectorPaintController::drawVectorLine(QPainter *painter, int idx)
 {
     const float lineWidth = getVectorLineWidth(painter);
     painter->setPen(QPen(m_vectorColor[idx], lineWidth));
@@ -139,7 +139,7 @@ void VectorPainter::drawVectorLine(QPainter *painter, int idx)
     painter->drawLine(line);
 }
 
-void VectorPainter::drawArrowHead(QPainter *painter, int idx)
+void VectorPaintController::drawArrowHead(QPainter *painter, int idx)
 {
     painter->setPen(QPen(m_vectorColor[idx], 0));
     const QVector2D pixVector = calcPixVec(painter, idx);
@@ -165,7 +165,7 @@ void VectorPainter::drawArrowHead(QPainter *painter, int idx)
     painter->fillPath(path, brush);
 }
 
-int VectorPainter::height(const QPainter *painter)
+int VectorPaintController::height(const QPainter *painter)
 {
     QPaintDevice *paintDevice = painter->device();
     if (paintDevice)
@@ -173,7 +173,7 @@ int VectorPainter::height(const QPainter *painter)
     return 1;
 }
 
-int VectorPainter::width(const QPainter *painter)
+int VectorPaintController::width(const QPainter *painter)
 {
     QPaintDevice *paintDevice = painter->device();
     if (paintDevice)
@@ -181,38 +181,38 @@ int VectorPainter::width(const QPainter *painter)
     return 1;
 }
 
-float VectorPainter::getNominalUOrI(int idx)
+float VectorPaintController::getNominalUOrI(int idx)
 {
     if (idx < COUNT_PHASES)
         return m_nomVoltage;
     return m_nomCurrent;
 }
 
-float VectorPainter::getMinimalUOrI(int idx)
+float VectorPaintController::getMinimalUOrI(int idx)
 {
     if (idx < COUNT_PHASES)
         return m_minVoltage;
     return m_minCurrent;
 }
 
-float VectorPainter::getClipSquareLen(const QPainter *painter)
+float VectorPaintController::getClipSquareLen(const QPainter *painter)
 {
     const float w = width(painter);
     const float h = height(painter);
     return std::min(h, w);
 }
 
-float VectorPainter::getGridAndCircleLineWidth(const QPainter *painter)
+float VectorPaintController::getGridAndCircleLineWidth(const QPainter *painter)
 {
     return getClipSquareLen(painter) * 0.005; // to be adjusted...
 }
 
-float VectorPainter::getVectorLineWidth(const QPainter *painter)
+float VectorPaintController::getVectorLineWidth(const QPainter *painter)
 {
     return getClipSquareLen(painter) * 0.01; // to be adjusted...
 }
 
-float VectorPainter::getVectorLenMaxInPixels(const QPainter *painter)
+float VectorPaintController::getVectorLenMaxInPixels(const QPainter *painter)
 {
     constexpr float totalLenAvail = 1.0;
     constexpr float extraLabelLenFromAvail = 0.2;
@@ -222,17 +222,17 @@ float VectorPainter::getVectorLenMaxInPixels(const QPainter *painter)
     return pixelsAvailforVector;
 }
 
-float VectorPainter::getVectorLenNominalInPixels(const QPainter *painter)
+float VectorPaintController::getVectorLenNominalInPixels(const QPainter *painter)
 {
     return getVectorLenMaxInPixels(painter) / m_maxOvershoot;
 }
 
-float VectorPainter::getArrowHeight(const QPainter *painter)
+float VectorPaintController::getArrowHeight(const QPainter *painter)
 {
     return getClipSquareLen(painter) * 0.03;
 }
 
-void VectorPainter::setFontForLabels(QPainter *painter)
+void VectorPaintController::setFontForLabels(QPainter *painter)
 {
     const int minXy = std::min(height(painter), width(painter));
     QFont defaultFont;
@@ -241,7 +241,7 @@ void VectorPainter::setFontForLabels(QPainter *painter)
     painter->setFont(defaultFont);
 }
 
-QVector2D VectorPainter::calcPixVec(QPainter *painter, int idx, float shortenPixels)
+QVector2D VectorPaintController::calcPixVec(QPainter *painter, int idx, float shortenPixels)
 {
     const QVector2D vector = m_vector[idx];
     const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
@@ -254,7 +254,7 @@ QVector2D VectorPainter::calcPixVec(QPainter *painter, int idx, float shortenPix
     return resultVector;
 }
 
-QVector2D VectorPainter::calcVectorOtherLen(const QVector2D &vector, float len)
+QVector2D VectorPaintController::calcVectorOtherLen(const QVector2D &vector, float len)
 {
     const float origLen = vector.length();
     const float mult = len / origLen;

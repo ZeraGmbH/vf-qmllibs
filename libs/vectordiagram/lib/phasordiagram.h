@@ -1,14 +1,14 @@
 ﻿#ifndef PHASORDIAGRAM_H
 #define PHASORDIAGRAM_H
 
-#include "vectorpainter.h"
+#include "vectorpaintcontroller.h"
 #include "phasordiagrampropertygeneratormacros.h"
 #include <QQuickPaintedItem>
 #include <QQuickItem>
 #include <QVector2D>
 #include <QPainter>
 
-// PhasorDiagram is the QML property interface to VectorPainter
+// PhasorDiagram is the QML property interface to VectorPaintController
 class PhasorDiagram: public QQuickPaintedItem
 {
     Q_OBJECT
@@ -66,7 +66,7 @@ public:
 private:
     void paint(QPainter *painter) override;
 
-    VectorPainter m_vectorPainter;
+    VectorPaintController m_vectorPainter;
     VectorType m_vectorType;
 };
 
