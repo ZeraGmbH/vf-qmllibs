@@ -1,9 +1,10 @@
 #ifndef VECTORPAINTCONTROLLER_H
 #define VECTORPAINTCONTROLLER_H
 
+#include "vectorsettings.h"
+#include "vectorsettingsstatic.h"
 #include <QColor>
 #include <QVector>
-#include <QPainter>
 #include <QVector2D>
 #include <QSet>
 
@@ -12,7 +13,6 @@ class VectorPaintController
 public:
     ~VectorPaintController() = default;
 
-    static constexpr int COUNT_PHASES = 3;
     enum class VectorType : int // this must be in sync to PhasorDiagram::VectorType - suggestions?
     {
         VIEW_STAR = 0,
@@ -44,47 +44,26 @@ public:
 private:
     void drawGrid(QPainter *painter);
     void drawCircle(QPainter* painter);
-    void drawVectorLine(QPainter *painter, int idx);
-    void drawArrowHead(QPainter *painter, int idx);
+    void drawVectorLine(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);
+    void drawArrowHead(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);
 
-    static int height(const QPainter *painter);
-    static int width(const QPainter *painter);
-
-    float getNominalUOrI(int idx);
-    float getMinimalUOrI(int idx);
-
-    float getClipSquareLen(const QPainter *painter);
-    float getGridAndCircleLineWidth(const QPainter *painter);
-    float getVectorLineWidth(const QPainter *painter);
-    float getVectorLenMaxInPixels(const QPainter *painter);
-    float getVectorLenNominalInPixels(const QPainter *painter);
-    float getArrowHeight(const QPainter *painter);
-    void setFontForLabels(QPainter *painter);
-    QVector2D calcPixVec(QPainter *painter, int idx, float shortenPixels = 0.0);
-    QVector2D calcVectorOtherLen(const QVector2D &vector, float len);
+    QVector2D calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels = 0.0);
 
     // API
+    VectorSettings m_vectorSettings;
     float m_phiOrigin = 0.0;
-    float m_nomVoltage = 0.0;
-    float m_minVoltage = 0.0;
-    float m_nomCurrent = 0.0;
-    float m_minCurrent = 0.0;
     VectorType m_vectorType = VectorType::VIEW_STAR;
     bool m_gridVisible = true;
     QColor m_gridColor = Qt::darkGray;
     bool m_circleVisible = true;
     QColor m_circleColor = Qt::darkGray;
-    float m_maxOvershoot = 1.25;
-    QVector<QColor> m_vectorColor = QVector<QColor>(COUNT_PHASES*2);
-    QVector<QString> m_vectorLabel = QVector<QString>(COUNT_PHASES*2);
+    QVector<QColor> m_vectorColor = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
+    QVector<QString> m_vectorLabel = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
 
     bool m_forceI1Top = true;
 
-    QVector<QVector2D> m_vector = QVector<QVector2D>(COUNT_PHASES*2);
+    QVector<QVector2D> m_vector = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
 
-    // internal
-    float m_fromX = 0.0;
-    float m_fromY = 0.0;
 };
 
 #endif // VECTORPAINTCONTROLLER_H

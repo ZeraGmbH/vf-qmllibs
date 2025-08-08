@@ -1,5 +1,5 @@
 #include "vectorpaintcontroller.h"
-#include <QFont>
+#include "vectorpaintcalc.h"
 #include <QGradient>
 #include <QPainterPath>
 #include <QMultiMap>
@@ -7,27 +7,27 @@
 
 void VectorPaintController::setMaxOvershootFactor(float maxOvershoot)
 {
-    m_maxOvershoot = maxOvershoot;
+    m_vectorSettings.setMaxOvershoot(maxOvershoot);
 }
 
 void VectorPaintController::setNominalVoltage(float nomVoltage)
 {
-    m_nomVoltage = nomVoltage;
+    m_vectorSettings.setNomVoltage(nomVoltage);
 }
 
 void VectorPaintController::setMinVoltage(float minVoltage)
 {
-    m_minVoltage = minVoltage;
+    m_vectorSettings.setMinVoltage(minVoltage);
 }
 
 void VectorPaintController::setNominalCurrent(float nomCurrent)
 {
-    m_nomCurrent = nomCurrent;
+    m_vectorSettings.setNomCurrent(nomCurrent);
 }
 
 void VectorPaintController::setMinCurrent(float minCurrent)
 {
-    m_minCurrent = minCurrent;
+    m_vectorSettings.setMinCurrent(minCurrent);
 }
 
 void VectorPaintController::setVectorType(VectorType vectorType)
@@ -72,17 +72,15 @@ void VectorPaintController::setVectorLabel(int idx, const QString &vectorLabel)
 
 void VectorPaintController::paint(QPainter *painter)
 {
-    m_fromX = painter->device()->width() / 2;
-    m_fromY = painter->device()->height() / 2;
-
-    setFontForLabels(painter);
+    VectorSettingsStatic::setFontForLabels(painter);
     drawGrid(painter);
     drawCircle(painter);
 
-    for(int idx=0; idx<COUNT_PHASES*2; ++idx) {
-        if (m_vector[idx].length() > getMinimalUOrI(idx)) {
-            drawVectorLine(painter, idx);
-            drawArrowHead(painter, idx);
+    for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
+        if (m_vector[idx].length() > m_vectorSettings.getMinimalUOrI(idx)) {
+            const float nomValue = m_vectorSettings.getNominalUOrI(idx);
+            drawVectorLine(painter, nomValue, m_vector[idx], m_vectorColor[idx]);
+            drawArrowHead(painter, nomValue, m_vector[idx], m_vectorColor[idx]);
         }
     }
 }
@@ -91,11 +89,14 @@ void VectorPaintController::drawGrid(QPainter *painter)
 {
     if(!m_gridVisible)
         return;
-
-    painter->setPen(QPen(m_gridColor, getGridAndCircleLineWidth(painter)));
-    float lenFromCenter = getClipSquareLen(painter) / 2;
-    painter->drawLine(m_fromX-lenFromCenter, m_fromY, m_fromX+lenFromCenter, m_fromY); // x axis
-    painter->drawLine(m_fromX, m_fromY-lenFromCenter, m_fromX, m_fromY+lenFromCenter); // y axis
+    painter->setPen(QPen(m_gridColor, VectorSettingsStatic::getGridAndCircleLineWidth(painter)));
+    const float lenFromCenter = VectorPaintCalc::getClipSquareLen(painter) / 2;
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    painter->drawLine(round(centerX-lenFromCenter), round(centerY),
+                      round(centerX+lenFromCenter), round(centerY)); // x axis
+    painter->drawLine(round(centerX), round(centerY-lenFromCenter),
+                      round(centerX), round(centerY+lenFromCenter)); // y axis
 }
 
 // Some thoughts:
@@ -116,45 +117,52 @@ void VectorPaintController::drawCircle(QPainter *painter)
 {
     if(!m_circleVisible)
         return;
-
-    float lineWidth = getGridAndCircleLineWidth(painter);
+    float lineWidth = VectorSettingsStatic::getGridAndCircleLineWidth(painter);
     painter->setPen(QPen(m_circleColor, lineWidth));
-    const float radius = getVectorLenNominalInPixels(painter);
+    const float radius = m_vectorSettings.getVectorLenNominalInPixels(painter);
     QRect circleRect(
-        round(m_fromX - radius),
-        round(m_fromY - radius),
+        round(VectorPaintCalc::centerX(painter) - radius),
+        round(VectorPaintCalc::centerY(painter) - radius),
         round(2 * radius),
         round(2 * radius));
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPaintController::drawVectorLine(QPainter *painter, int idx)
+void VectorPaintController::drawVectorLine(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color)
 {
-    const float lineWidth = getVectorLineWidth(painter);
-    painter->setPen(QPen(m_vectorColor[idx], lineWidth));
-    QVector2D vectorFull = calcPixVec(painter, idx, getArrowHeight(painter)); // still overlap lineWidth/2
-    QVector2D vectorKeepOut = calcVectorOtherLen(vectorFull, lineWidth / 2);
-    QLine line(round(m_fromX + vectorKeepOut.x()), round(m_fromY + vectorKeepOut.y()),
-               round(m_fromX + vectorFull.x()), round(m_fromY + vectorFull.y()));
+    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
+    painter->setPen(QPen(color, lineWidth));
+    // still overlap lineWidth/2 caused by line end
+    QVector2D vectorFull = calcPixVec(painter, nomValue, value, VectorSettingsStatic::getArrowHeight(painter));
+    QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorFull, lineWidth / 2);
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    QLine line(round(centerX + vectorKeepOut.x()), round(centerY + vectorKeepOut.y()),
+               round(centerX + vectorFull.x()), round(centerY + vectorFull.y()));
     painter->drawLine(line);
 }
 
-void VectorPaintController::drawArrowHead(QPainter *painter, int idx)
+void VectorPaintController::drawArrowHead(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color)
 {
-    painter->setPen(QPen(m_vectorColor[idx], 0));
-    const QVector2D pixVector = calcPixVec(painter, idx);
+    painter->setPen(QPen(color, 0));
+    const QVector2D pixVector = calcPixVec(painter, nomValue, value);
     const float angle = atan2(pixVector.y(), pixVector.x());
     constexpr float arrowWidth = M_PI * 0.125;
-    const float arrowHeight = getArrowHeight(painter);
-    const QVector2D vectorMoved = pixVector + QVector2D(m_fromX, m_fromY);
+    const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    const QVector2D centeredVector = pixVector + QVector2D(centerX, centerY);
     QVector<QPoint> points = {
-        QPoint(round(vectorMoved.x()), round(vectorMoved.y())),
-        QPoint(round(vectorMoved.x() - arrowHeight * cos(angle - arrowWidth)), round(vectorMoved.y() - arrowHeight * sin(angle - arrowWidth))),
-        QPoint(round(vectorMoved.x() - arrowHeight * cos(angle + arrowWidth)), round(vectorMoved.y() - arrowHeight * sin(angle + arrowWidth))),
+        QPoint(round(centeredVector.x()),
+               round(centeredVector.y())),
+        QPoint(round(centeredVector.x() - arrowHeight * cos(angle - arrowWidth)),
+               round(centeredVector.y() - arrowHeight * sin(angle - arrowWidth))),
+        QPoint(round(centeredVector.x() - arrowHeight * cos(angle + arrowWidth)),
+               round(centeredVector.y() - arrowHeight * sin(angle + arrowWidth))),
     };
 
     QBrush brush;
-    brush.setColor(m_vectorColor[idx]);
+    brush.setColor(color);
     brush.setStyle(Qt::SolidPattern);
 
     QPolygon poly(points);
@@ -165,101 +173,13 @@ void VectorPaintController::drawArrowHead(QPainter *painter, int idx)
     painter->fillPath(path, brush);
 }
 
-int VectorPaintController::height(const QPainter *painter)
+QVector2D VectorPaintController::calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels)
 {
-    QPaintDevice *paintDevice = painter->device();
-    if (paintDevice)
-        return paintDevice->height();
-    return 1;
-}
-
-int VectorPaintController::width(const QPainter *painter)
-{
-    QPaintDevice *paintDevice = painter->device();
-    if (paintDevice)
-        return paintDevice->width();
-    return 1;
-}
-
-float VectorPaintController::getNominalUOrI(int idx)
-{
-    if (idx < COUNT_PHASES)
-        return m_nomVoltage;
-    return m_nomCurrent;
-}
-
-float VectorPaintController::getMinimalUOrI(int idx)
-{
-    if (idx < COUNT_PHASES)
-        return m_minVoltage;
-    return m_minCurrent;
-}
-
-float VectorPaintController::getClipSquareLen(const QPainter *painter)
-{
-    const float w = width(painter);
-    const float h = height(painter);
-    return std::min(h, w);
-}
-
-float VectorPaintController::getGridAndCircleLineWidth(const QPainter *painter)
-{
-    return getClipSquareLen(painter) * 0.005; // to be adjusted...
-}
-
-float VectorPaintController::getVectorLineWidth(const QPainter *painter)
-{
-    return getClipSquareLen(painter) * 0.01; // to be adjusted...
-}
-
-float VectorPaintController::getVectorLenMaxInPixels(const QPainter *painter)
-{
-    constexpr float totalLenAvail = 1.0;
-    constexpr float extraLabelLenFromAvail = 0.2;
-    constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
-
-    const float pixelsAvailforVector = getClipSquareLen(painter) / 2 * vectorLenFromAvail;
-    return pixelsAvailforVector;
-}
-
-float VectorPaintController::getVectorLenNominalInPixels(const QPainter *painter)
-{
-    return getVectorLenMaxInPixels(painter) / m_maxOvershoot;
-}
-
-float VectorPaintController::getArrowHeight(const QPainter *painter)
-{
-    return getClipSquareLen(painter) * 0.03;
-}
-
-void VectorPaintController::setFontForLabels(QPainter *painter)
-{
-    const int minXy = std::min(height(painter), width(painter));
-    QFont defaultFont;
-    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
-    defaultFont.setFamily("Sans");
-    painter->setFont(defaultFont);
-}
-
-QVector2D VectorPaintController::calcPixVec(QPainter *painter, int idx, float shortenPixels)
-{
-    const QVector2D vector = m_vector[idx];
-    const float tmpPhi = atan2(vector.y(), vector.x()) - m_phiOrigin;
-    const float nomValue = getNominalUOrI(idx);
-    const float nomRadius = getVectorLenNominalInPixels(painter);
-    const float vectLenPixels = nomRadius * vector.length() / nomValue - shortenPixels;
+    const float angle = atan2(value.y(), value.x()) - m_phiOrigin;
+    const float nomRadius = m_vectorSettings.getVectorLenNominalInPixels(painter);
+    const float vectLenPixels = nomRadius * value.length() / nomValue - shortenPixels;
     QVector2D resultVector(
-        vectLenPixels * cos(tmpPhi),
-        vectLenPixels * sin(tmpPhi));
-    return resultVector;
-}
-
-QVector2D VectorPaintController::calcVectorOtherLen(const QVector2D &vector, float len)
-{
-    const float origLen = vector.length();
-    const float mult = len / origLen;
-    QVector2D resultVector(
-        vector.x() * mult,
-        vector.y() * mult);
+        vectLenPixels * cos(angle),
+        vectLenPixels * sin(angle));
     return resultVector;
 }
