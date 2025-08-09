@@ -2,8 +2,8 @@
 
 PhasorDiagram::PhasorDiagram(QQuickItem *parent) :
     QQuickPaintedItem(parent),
-    m_gridVisible(true),
-    m_gridColor(Qt::darkGray),
+    m_coordCrossVisible(true),
+    m_coordCrossColor(Qt::darkGray),
     m_circleVisible(true),
     m_circleColor(Qt::darkGray)
 {

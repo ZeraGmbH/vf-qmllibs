@@ -29,8 +29,8 @@ public:
     void setNominalCurrent(float nomCurrent);
     void setMinCurrent(float minCurrent);
 
-    void setGridVisible(bool gridVisible);
-    void setGridColor(const QColor& gridColor);
+    void setCoordCrossVisible(bool coordCrossVisible);
+    void setCoordCrossColor(const QColor& coordCrossColor);
     void setCircleVisible(bool circleVisible);
     void setCircleColor(const QColor& circleColor);
 
@@ -42,18 +42,11 @@ public:
     void paint(QPainter *painter);
 
 private:
-    void drawCoordCross(QPainter *painter);
-    void drawCircle(QPainter* painter);
-    void drawVectorLine(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);
-    void drawArrowHead(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);
-
-    QVector2D calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels = 0.0);
-
     // API
     VectorSettingsGeometry m_settingsGeometry;
     VectorType m_vectorType = VectorType::VIEW_STAR;
-    bool m_gridVisible = true;
-    QColor m_gridColor = Qt::darkGray;
+    bool m_coordCrossVisible = true;
+    QColor m_coordCrossColor = Qt::darkGray;
     bool m_circleVisible = true;
     QColor m_circleColor = Qt::darkGray;
     QVector<QColor> m_vectorColor = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);

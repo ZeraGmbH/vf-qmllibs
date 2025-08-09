@@ -31,7 +31,7 @@ void test_vector_diagram::noGridSquare()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(false);
+    vectorPainter->setCoordCrossVisible(false);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -57,7 +57,7 @@ void test_vector_diagram::gridOnlySquare()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -83,7 +83,7 @@ void test_vector_diagram::gridOnlyRectangleWide()
 
     VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -103,7 +103,7 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -123,8 +123,8 @@ void test_vector_diagram::gridOnlyBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
-    vectorPainter->setGridColor(Qt::blue);
+    vectorPainter->setCoordCrossVisible(true);
+    vectorPainter->setCoordCrossColor(Qt::blue);
     vectorPainter->setCircleVisible(false);
     svgPainter.paintToFile(dumpFile);
 
@@ -144,7 +144,7 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
     svgPainter.paintToFile(dumpFile);
@@ -171,7 +171,7 @@ void test_vector_diagram::gridAndCircleOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(2.0);
     svgPainter.paintToFile(dumpFile);
@@ -198,7 +198,7 @@ void test_vector_diagram::gridAndCircleBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setCircleColor(Qt::blue);
     svgPainter.paintToFile(dumpFile);
@@ -228,7 +228,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
 
@@ -264,7 +264,7 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setGridVisible(true);
+    vectorPainter->setCoordCrossVisible(true);
     vectorPainter->setCircleVisible(true);
     vectorPainter->setMaxOvershootFactor(1.0);
 

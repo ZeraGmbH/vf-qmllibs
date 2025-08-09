@@ -34,8 +34,8 @@ public:
     Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
     Q_VECTOR_PROPERTY(float, m_nominalCurrent, nominalCurrent, setNominalCurrent)
     Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
-    Q_VECTOR_PROPERTY(bool,  m_gridVisible, gridVisible, setGridVisible)
-    Q_VECTOR_PROPERTY(QColor,m_gridColor, gridColor, setGridColor)
+    Q_VECTOR_PROPERTY(bool,  m_coordCrossVisible, coordCrossVisible, setCoordCrossVisible)
+    Q_VECTOR_PROPERTY(QColor,m_coordCrossColor, coordCrossColor, setCoordCrossColor)
     Q_VECTOR_PROPERTY(bool,  m_circleVisible, circleVisible, setCircleVisible)
     Q_VECTOR_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
 
