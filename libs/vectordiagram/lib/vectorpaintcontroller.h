@@ -42,7 +42,7 @@ public:
     void paint(QPainter *painter);
 
 private:
-    void drawGrid(QPainter *painter);
+    void drawCoordCross(QPainter *painter);
     void drawCircle(QPainter* painter);
     void drawVectorLine(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);
     void drawArrowHead(QPainter *painter, float nomValue, const QVector2D &value, const QColor &color);

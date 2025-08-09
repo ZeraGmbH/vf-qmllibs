@@ -73,7 +73,7 @@ void VectorPaintController::setVectorLabel(int idx, const QString &vectorLabel)
 void VectorPaintController::paint(QPainter *painter)
 {
     VectorSettingsStatic::setFontForLabels(painter);
-    drawGrid(painter);
+    drawCoordCross(painter);
     drawCircle(painter);
 
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
@@ -85,7 +85,7 @@ void VectorPaintController::paint(QPainter *painter)
     }
 }
 
-void VectorPaintController::drawGrid(QPainter *painter)
+void VectorPaintController::drawCoordCross(QPainter *painter)
 {
     if(!m_gridVisible)
         return;
