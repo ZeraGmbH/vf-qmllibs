@@ -175,7 +175,7 @@ void VectorPaintController::drawArrowHead(QPainter *painter, float nomValue, con
 
 QVector2D VectorPaintController::calcPixVec(QPainter *painter, float nomValue, const QVector2D &value, float shortenPixels)
 {
-    const float angle = atan2(value.y(), value.x()) - m_phiOrigin;
+    const float angle = atan2(value.y(), value.x()) + m_vectorSettingsAngles.getOffsetAngle();
     const float nomRadius = m_vectorSettingsLengths.getVectorLenNominalInPixels(painter);
     const float vectLenPixels = nomRadius * value.length() / nomValue - shortenPixels;
     QVector2D resultVector(

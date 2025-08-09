@@ -1,6 +1,7 @@
 #ifndef VECTORPAINTCONTROLLER_H
 #define VECTORPAINTCONTROLLER_H
 
+#include "vectorsettingsangles.h"
 #include "vectorsettingslengths.h"
 #include "vectorsettingsstatic.h"
 #include <QColor>
@@ -51,7 +52,7 @@ private:
 
     // API
     VectorSettingsLengths m_vectorSettingsLengths;
-    float m_phiOrigin = 0.0;
+    VectorSettingsAngles m_vectorSettingsAngles;
     VectorType m_vectorType = VectorType::VIEW_STAR;
     bool m_gridVisible = true;
     QColor m_gridColor = Qt::darkGray;
