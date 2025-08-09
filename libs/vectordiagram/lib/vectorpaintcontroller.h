@@ -1,6 +1,7 @@
 #ifndef VECTORPAINTCONTROLLER_H
 #define VECTORPAINTCONTROLLER_H
 
+#include "abstractvectorpainter.h"
 #include "vectorsettingsgeometry.h"
 #include "vectorsettingsstatic.h"
 #include <QColor>
@@ -8,7 +9,7 @@
 #include <QVector2D>
 #include <QSet>
 
-class VectorPaintController
+class VectorPaintController : public AbstractVectorPainter
 {
 public:
     ~VectorPaintController() = default;
@@ -39,7 +40,7 @@ public:
 
     void setVector(int idx, const QVector2D &vector);
 
-    void paint(QPainter *painter);
+    void paint(QPainter *painter) override;
 
 private:
     // API

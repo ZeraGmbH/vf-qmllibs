@@ -22,7 +22,13 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
 endfunction()
 
 SETUP_QTESTS_VECTOR_DIAGRAM(
+    test_primitive_painter
     test_vector_diagram
+)
+
+target_sources(test_primitive_painter
+    PRIVATE
+    test-data/test-svgs.qrc
 )
 
 target_sources(test_vector_diagram

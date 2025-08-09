@@ -10,12 +10,7 @@ VectorToSvgPainter::VectorToSvgPainter(int width, int height,
 {
 }
 
-VectorPaintController *VectorToSvgPainter::getVectorPainter()
-{
-    return &m_vectorPainter;
-}
-
-void VectorToSvgPainter::paintToFile(const QString &fileName)
+void VectorToSvgPainter::paintToFile(const QString &fileName, AbstractVectorPainter *abstractPainter)
 {
     QSvgGenerator svgGenerator;
     svgGenerator.setSize(QSize(m_width, m_height));
@@ -25,11 +20,11 @@ void VectorToSvgPainter::paintToFile(const QString &fileName)
     svgGenerator.setFileName(fileName);
 
     m_painter.begin(&svgGenerator);
-    m_vectorPainter.paint(&m_painter);
+    abstractPainter->paint(&m_painter);
     m_painter.end();
 }
 
-QByteArray VectorToSvgPainter::paintByteArray()
+QByteArray VectorToSvgPainter::paintByteArray(AbstractVectorPainter *abstractPainter)
 {
     QByteArray svgGenerated;
     QBuffer buff(&svgGenerated);
@@ -42,7 +37,7 @@ QByteArray VectorToSvgPainter::paintByteArray()
     svgGenerator.setOutputDevice(&buff);
 
     m_painter.begin(&svgGenerator);
-    m_vectorPainter.paint(&m_painter);
+    abstractPainter->paint(&m_painter);
     m_painter.end();
     return svgGenerated;
 }

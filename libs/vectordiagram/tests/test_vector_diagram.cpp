@@ -30,21 +30,15 @@ void test_vector_diagram::noGridSquare()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(false);
-    vectorPainter->setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(false);
+    vectorPainter.setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
@@ -56,10 +50,10 @@ void test_vector_diagram::gridOnlySquare()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
@@ -69,7 +63,7 @@ void test_vector_diagram::gridOnlySquare()
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
 
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
+    dumped = svgPainter.paintByteArray(&vectorPainter); // check byte array variant once
     ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -82,10 +76,10 @@ void test_vector_diagram::gridOnlyRectangleWide()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
@@ -102,10 +96,10 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
@@ -122,11 +116,11 @@ void test_vector_diagram::gridOnlyBlue()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCoordCrossColor(Qt::blue);
-    vectorPainter->setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCoordCrossColor(Qt::blue);
+    vectorPainter.setCircleVisible(false);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
@@ -143,22 +137,16 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(true);
-    vectorPainter->setMaxOvershootFactor(1.0);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setMaxOvershootFactor(1.0);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
@@ -170,22 +158,16 @@ void test_vector_diagram::gridAndCircleOvershoot()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(true);
-    vectorPainter->setMaxOvershootFactor(2.0);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setMaxOvershootFactor(2.0);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
@@ -197,22 +179,16 @@ void test_vector_diagram::gridAndCircleBlue()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(true);
-    vectorPainter->setCircleColor(Qt::blue);
-    svgPainter.paintToFile(dumpFile);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setCircleColor(Qt::blue);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
@@ -227,26 +203,20 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float iNom = 10;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(true);
-    vectorPainter->setMaxOvershootFactor(1.0);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setMaxOvershootFactor(1.0);
 
-    vectorPainter->setNominalVoltage(uNom);
-    vectorPainter->setNominalCurrent(iNom);
-    setSymmetricValues(vectorPainter, uNom, iNom, angle);
-    svgPainter.paintToFile(dumpFile);
+    vectorPainter.setNominalVoltage(uNom);
+    vectorPainter.setNominalCurrent(iNom);
+    setSymmetricValues(&vectorPainter, uNom, iNom, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
@@ -263,28 +233,22 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const float iMin = 1;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController *vectorPainter = svgPainter.getVectorPainter();
-    vectorPainter->setCoordCrossVisible(true);
-    vectorPainter->setCircleVisible(true);
-    vectorPainter->setMaxOvershootFactor(1.0);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setMaxOvershootFactor(1.0);
 
-    vectorPainter->setNominalVoltage(uNom);
-    vectorPainter->setMinVoltage(uMin);
-    vectorPainter->setNominalCurrent(iNom);
-    vectorPainter->setMinCurrent(iMin);
-    setSymmetricValues(vectorPainter, uMin*0.99, iMin*0.99, angle);
-    svgPainter.paintToFile(dumpFile);
+    vectorPainter.setNominalVoltage(uNom);
+    vectorPainter.setMinVoltage(uMin);
+    vectorPainter.setNominalCurrent(iNom);
+    vectorPainter.setMinCurrent(iMin);
+    setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
     XmlDocumentCompare compare;
     bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
