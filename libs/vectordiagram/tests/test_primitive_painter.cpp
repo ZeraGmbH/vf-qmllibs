@@ -1,8 +1,9 @@
 #include "test_primitive_painter.h"
+#include "testprimitivevectorpainter.h"
 #include "vectortosvgpainter.h"
-#include <complex>
 #include <xmldocumentcompare.h>
 #include <testloghelpers.h>
+#include <math.h>
 #include <QTest>
 
 QTEST_MAIN(test_primitive_painter)
@@ -20,18 +21,71 @@ void test_primitive_painter::init()
     m_generator->setDescription("test_primitive_painter");
 }
 
-void test_primitive_painter::twoVector_data()
-{
+constexpr int clipLen = 3000;
 
-}
-
-// We use huge numbers to avoid float/rounding problems and find scalabilty issues
-constexpr int clipLenShort = 2000;
-constexpr int clipLenLong = 3000;
-
-void test_primitive_painter::twoVector()
+void test_primitive_painter::initialTestPrimitivePainter()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    TestPrimitiveVectorPainter primPainter;
+    svgPainter.paintToFile(dumpFile, &primPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+Q_DECLARE_METATYPE(VectorSettingsAngles::RotationDirection)
+
+void test_primitive_painter::variationAngleOffsetRotationDir_data()
+{
+    QTest::addColumn<float>("angleOffset");
+    QTest::addColumn<VectorSettingsAngles::RotationDirection>("rotationDir");
+    const QVector<float> angleOffsets { 0, 90, 180, 270 };
+    const QVector<VectorSettingsAngles::RotationDirection> rotationDirs {
+        VectorSettingsAngles::Mathematical,
+        VectorSettingsAngles::Clockwise };
+    for (float angleOffset : angleOffsets) {
+        for (auto rotationDir : rotationDirs) {
+            const QString angleOffsetLabel = QString("offset-%1").arg(angleOffset);
+            const QString rotationDirLabel = QString("rotatdir-%1").
+                                              arg(rotationDir == VectorSettingsAngles::Mathematical ? "math" : "clock");
+            const QString rowName = QString("%1_%2").arg(angleOffsetLabel, rotationDirLabel);
+            QTest::newRow(rowName.toUtf8()) << angleOffset << rotationDir;
+        }
+    }
+}
+
+void test_primitive_painter::variationAngleOffsetRotationDir()
+{
+    QFETCH(float, angleOffset);
+    QFETCH(VectorSettingsAngles::RotationDirection, rotationDir);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    TestPrimitiveVectorPainter primPainter;
+    primPainter.m_settingsGeometry.m_angles.setOffsetAngle(gradToDeg(angleOffset));
+    primPainter.m_settingsGeometry.m_angles.setRotationDirection(rotationDir);
+
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    svgPainter.paintToFile(dumpFile, &primPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+double test_primitive_painter::gradToDeg(double angle)
+{
+    return 2*M_PI * angle/360;
 }

@@ -17,6 +17,7 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
             Zera::testlib-common
             Zera::xml-compare-testlib
             vector-diagram-lib
+            vector-diagram-testlib
         )
     endforeach()
 endfunction()

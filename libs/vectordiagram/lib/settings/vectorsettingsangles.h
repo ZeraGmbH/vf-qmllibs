@@ -7,14 +7,14 @@ public:
     void setOffsetAngle(float offsetAngle);
     float getOffsetAngle() const;
     enum RotationDirection {
-        Mathehmatical,
+        Mathematical,
         Clockwise
     };
     void setRotationDirection(RotationDirection direction);
     RotationDirection getRotationDirection() const;
 private:
     float m_offsetAngle = 0.0;
-    RotationDirection m_rotationDirection;
+    RotationDirection m_rotationDirection = Mathematical;
 };
 
 #endif // VECTORSETTINGSANGLES_H

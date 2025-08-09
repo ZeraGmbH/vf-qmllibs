@@ -1,14 +1,23 @@
 <RCC>
     <qresource prefix="/">
-        <file>svgs/gridOnlySquare.svg</file>
-        <file>svgs/starVectorsNoOvershoot.svg</file>
-        <file>svgs/gridOnlyRectangleWide.svg</file>
         <file>svgs/gridAndCircleNoOvershoot.svg</file>
+        <file>svgs/gridAndCircleOvershoot.svg</file>
+        <file>svgs/gridOnlyBlue.svg</file>
+        <file>svgs/gridOnlyRectangleNarrow.svg</file>
+        <file>svgs/gridOnlyRectangleWide.svg</file>
+        <file>svgs/gridOnlySquare.svg</file>
         <file>svgs/noGridSquare.svg</file>
         <file>svgs/starVectorsIgnoreLessThanMin.svg</file>
         <file>svgs/gridAndCircleBlue.svg</file>
-        <file>svgs/gridOnlyBlue.svg</file>
-        <file>svgs/gridOnlyRectangleNarrow.svg</file>
-        <file>svgs/gridAndCircleOvershoot.svg</file>
+        <file>svgs/initialTestPrimitivePainter.svg</file>
+        <file>svgs/starVectorsNoOvershoot.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-math.svg</file>
     </qresource>
 </RCC>

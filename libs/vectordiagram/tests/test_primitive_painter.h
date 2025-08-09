@@ -11,8 +11,11 @@ class test_primitive_painter : public QObject
 private slots:
     void initTestCase();
     void init();
-    void twoVector_data();
-    void twoVector();
+
+    void initialTestPrimitivePainter();
+
+    void variationAngleOffsetRotationDir_data();
+    void variationAngleOffsetRotationDir();
 private:
     double gradToDeg(double angle);
     std::unique_ptr<QSvgGenerator> m_generator;

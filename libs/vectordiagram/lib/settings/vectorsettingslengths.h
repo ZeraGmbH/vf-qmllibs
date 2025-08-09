@@ -18,11 +18,11 @@ public:
     float getMinimalUOrI(int vectorIdx) const;
     float getVectorLenNominalInPixels(const QPainter *painter) const;
 private:
-    float m_nomVoltage = 0.0;
-    float m_minVoltage = 0.0;
-    float m_nomCurrent = 0.0;
-    float m_minCurrent = 0.0;
-    float m_maxOvershoot = 1.25;
+    float m_nomVoltage = 1e-9;
+    float m_minVoltage = 1e-9;
+    float m_nomCurrent = 1e-9;
+    float m_minCurrent = 1e-9;
+    float m_maxOvershoot = 1.0;
 };
 
 #endif // VECTORSETTINGSLENGTHS_H

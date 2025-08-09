@@ -16,7 +16,7 @@ font-family="Sans" font-size="80" font-weight="400" font-style="normal"
 <g fill="none" stroke="#0000ff" stroke-opacity="1" stroke-width="10" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1640,1000 C1640,646.538 1353.46,360 1000,360 C646.538,360 360,646.538 360,1000 C360,1353.46 646.538,1640 1000,1640 C1353.46,1640 1640,1353.46 1640,1000 "/>
+<path vector-effect="none" fill-rule="evenodd" d="M1800,1000 C1800,558.172 1441.83,200 1000,200 C558.172,200 200,558.172 200,1000 C200,1441.83 558.172,1800 1000,1800 C1441.83,1800 1800,1441.83 1800,1000 "/>
 </g>
 </g>
 </svg>
