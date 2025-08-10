@@ -12,10 +12,11 @@ private slots:
     void initTestCase();
     void init();
 
-    void initialTestPrimitivePainter();
-
+    void initialTestPrimitivePainterStar();
     void variationAngleOffsetRotationDir_data();
     void variationAngleOffsetRotationDir();
+
+    void initialTestPrimitivePainterTriangle();
 private:
     double gradToDeg(double angle);
     std::unique_ptr<QSvgGenerator> m_generator;

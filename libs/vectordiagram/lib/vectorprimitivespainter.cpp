@@ -50,6 +50,53 @@ void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorSettings
     drawArrowHead(painter, geomSetttings, nominalValue, vector);
 }
 
+void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
+                                           float nominalValue,
+                                           const VectorData &vector1, const VectorData &vector2, const VectorData &vector3)
+{
+    // positions
+    const QVector<VectorData> vectors{vector1, vector2, vector3};
+    QVector<QPoint> positions(VectorSettingsStatic::COUNT_PHASES);
+    for (int phase=0; phase<VectorSettingsStatic::COUNT_PHASES; phase++) {
+        QVector2D vector = calcPixVec(painter, geomSetttings,
+                                    nominalValue, vectors[phase].value);
+        const float centerX = VectorPaintCalc::centerX(painter);
+        const float centerY = VectorPaintCalc::centerY(painter);
+        positions[phase] = QPoint(round(centerX+vector.x()), round(centerY+vector.y()));
+    }
+
+    // gradients
+    // 1 -> 2
+    QLinearGradient grd1(positions[0], positions[1]);
+    grd1.setColorAt(0, vector1.color);
+    grd1.setColorAt(1, vector2.color);
+    // 2 -> 3
+    QLinearGradient grd2(positions[1], positions[2]);
+    grd2.setColorAt(0, vector2.color);
+    grd2.setColorAt(1, vector3.color);
+    // 3 -> 1
+    QLinearGradient grd3(positions[2], positions[0]);
+    grd3.setColorAt(0, vector3.color);
+    grd3.setColorAt(1, vector1.color);
+
+    // Lines with gradients are painted black on SVG.
+    // Work around by drawing lines as rectangles (polygon)
+    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
+    painter->setPen(Qt::NoPen);
+    // 1 -> 2
+    QPolygonF rect12 = lineToRectangleForSvgGradient(positions[0], positions[1], lineWidth);
+    painter->setBrush(grd1);
+    painter->drawPolygon(rect12);
+    // 2 -> 3
+    QPolygonF rect23 = lineToRectangleForSvgGradient(positions[1], positions[2], lineWidth);
+    painter->setBrush(grd2);
+    painter->drawPolygon(rect23);
+    // 3 -> 1
+    QPolygonF rect31 = lineToRectangleForSvgGradient(positions[2], positions[0], lineWidth);
+    painter->setBrush(grd3);
+    painter->drawPolygon(rect31);
+}
+
 void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
                                              float nominalValue, const VectorData &vector)
 {
@@ -113,3 +160,23 @@ QVector2D VectorPrimitivesPainter::calcPixVec(QPainter *painter, const VectorSet
     return resultVector;
 }
 
+QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width)
+{
+    // Calculate the direction vector
+    QLineF line(start, end);
+    QPointF direction = line.p2() - line.p1();
+
+    // Get the normalized perpendicular vector (for width offset)
+    QPointF norm = QPointF(-direction.y(), direction.x());
+    norm /= std::sqrt(norm.x()*norm.x() + norm.y()*norm.y()); // normalize
+    norm *= (width/2.0);
+
+    // Rectangle corners (counter-clockwise or clockwise)
+    QPointF corner1 = QPointF(start) + norm;
+    QPointF corner2 = QPointF(end) + norm;
+    QPointF corner3 = QPointF(end) - norm;
+    QPointF corner4 = QPointF(start) - norm;
+    QPolygonF polygon;
+    polygon << corner1 << corner2 << corner3 << corner4;
+    return polygon;
+}

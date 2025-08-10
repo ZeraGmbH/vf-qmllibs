@@ -1,5 +1,6 @@
 #include "test_primitive_painter.h"
 #include "testprimitivepainterstar.h"
+#include "testprimitivepaintertriangle.h"
 #include "vectortosvgpainter.h"
 #include <xmldocumentcompare.h>
 #include <testloghelpers.h>
@@ -23,7 +24,7 @@ void test_primitive_painter::init()
 
 constexpr int clipLen = 3000;
 
-void test_primitive_painter::initialTestPrimitivePainter()
+void test_primitive_painter::initialTestPrimitivePainterStar()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
@@ -74,6 +75,24 @@ void test_primitive_painter::variationAngleOffsetRotationDir()
     primPainter.m_settingsGeometry.m_angles.setRotationDirection(rotationDir);
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
+    svgPainter.paintToFile(dumpFile, &primPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_primitive_painter::initialTestPrimitivePainterTriangle()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    TestPrimitivePainterTriangle primPainter;
     svgPainter.paintToFile(dumpFile, &primPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
