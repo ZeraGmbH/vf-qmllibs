@@ -5,10 +5,10 @@
 <defs>
 <linearGradient gradientUnits="userSpaceOnUse" x1="2700" y1="1500" x2="900" y2="461" id="gradient1">
     <stop offset="0" stop-color="#c40000" stop-opacity="1" />
-    <stop offset="1" stop-color="#c4c400" stop-opacity="1" />
+    <stop offset="1" stop-color="#ffff00" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="900" y1="461" x2="900" y2="2539" id="gradient2">
-    <stop offset="0" stop-color="#c4c400" stop-opacity="1" />
+    <stop offset="0" stop-color="#ffff00" stop-opacity="1" />
     <stop offset="1" stop-color="#0000c4" stop-opacity="1" />
 </linearGradient>
 <linearGradient gradientUnits="userSpaceOnUse" x1="900" y1="2539" x2="2700" y2="1500" id="gradient3">

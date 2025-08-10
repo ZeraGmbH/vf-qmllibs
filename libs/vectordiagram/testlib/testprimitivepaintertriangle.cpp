@@ -26,7 +26,7 @@ void TestPrimitivePainterTriangle::paint(QPainter *painter)
 void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
 {
     constexpr int dark = 130;
-    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow").darker(dark), QColor("blue").darker(dark)};
+    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark)};
     QVector<VectorPrimitivesPainter::VectorData> corners(colors.size());
     for(int idx=0; idx<colors.count(); ++idx) {
         std::complex<double> corner = std::polar<double>(vectorLen, idx*120 * (2*M_PI/360));
