@@ -29,19 +29,25 @@ font-family="Sans" font-size="120" font-weight="400" font-style="normal"
 <g fill="url(#gradient1)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M2707.5,1487.01 L907.499,448.009 L892.501,473.991 L2692.5,1512.99 L2707.5,1487.01"/>
+<path vector-effect="none" fill-rule="evenodd" d="M2694.51,1479.51 L920.49,455.508 L905.492,481.49 L2679.51,1505.49 L2694.51,1479.51"/>
+<circle cx="912.991" cy="468.499" r="15"/>
+<circle cx="2687.01" cy="1492.5" r="15"/>
 </g>
 
 <g fill="url(#gradient2)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M885,461 L885,2539 L915,2539 L915,461 L885,461"/>
+<path vector-effect="none" fill-rule="evenodd" d="M885,476 L885,2524 L915,2524 L915,476 L885,476"/>
+<circle cx="900" cy="2524" r="15"/>
+<circle cx="900" cy="476" r="15"/>
 </g>
 
 <g fill="url(#gradient3)" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M907.499,2551.99 L2707.5,1512.99 L2692.5,1487.01 L892.501,2526.01 L907.499,2551.99"/>
+<path vector-effect="none" fill-rule="evenodd" d="M920.49,2544.49 L2694.51,1520.49 L2679.51,1494.51 L905.492,2518.51 L920.49,2544.49"/>
+<circle cx="2687.01" cy="1507.5" r="15"/>
+<circle cx="912.991" cy="2531.5" r="15"/>
 </g>
 </g>
 </svg>

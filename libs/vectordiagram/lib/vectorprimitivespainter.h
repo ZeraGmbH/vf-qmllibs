@@ -25,9 +25,16 @@ private:
                                const VectorData &vector);
     static void drawArrowHead(QPainter *painter, const VectorSettingsGeometry &geomSetttings, float nominalValue,
                               const VectorData &vector);
+    struct PointData {
+        QPoint point;
+        QColor color;
+    };
+    static void drawGradientLine(QPainter *painter, const float lineWidth,
+                                 const PointData &pt1, const PointData &pt2);
     static QVector2D calcPixVec(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                float nomValue, const QVector2D &value, float shortenPixels = 0.0);
-    static QPolygonF lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width);
+                                float nomValue, const QVector2D &value, float shorten = 0.0);
+    static QPolygonF lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end,
+                                                   float width, float shortenBothEnds = 0);
 };
 
 #endif // VECTORPRIMITIVESPAINTER_H

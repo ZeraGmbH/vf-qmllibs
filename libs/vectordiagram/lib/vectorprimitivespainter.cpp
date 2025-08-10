@@ -52,49 +52,28 @@ void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorSettings
 
 void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
                                            float nominalValue,
-                                           const VectorData &vector1, const VectorData &vector2, const VectorData &vector3)
+                                           const VectorData &vector1,
+                                           const VectorData &vector2,
+                                           const VectorData &vector3)
 {
     // positions
     const QVector<VectorData> vectors{vector1, vector2, vector3};
     QVector<QPoint> positions(VectorSettingsStatic::COUNT_PHASES);
+    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
     for (int phase=0; phase<VectorSettingsStatic::COUNT_PHASES; phase++) {
         QVector2D vector = calcPixVec(painter, geomSetttings,
-                                    nominalValue, vectors[phase].value);
+                                      nominalValue, vectors[phase].value);
         const float centerX = VectorPaintCalc::centerX(painter);
         const float centerY = VectorPaintCalc::centerY(painter);
         positions[phase] = QPoint(round(centerX+vector.x()), round(centerY+vector.y()));
     }
 
-    // gradients
     // 1 -> 2
-    QLinearGradient grd1(positions[0], positions[1]);
-    grd1.setColorAt(0, vector1.color);
-    grd1.setColorAt(1, vector2.color);
+    drawGradientLine(painter, lineWidth, {positions[0], vector1.color}, {positions[1], vector2.color});
     // 2 -> 3
-    QLinearGradient grd2(positions[1], positions[2]);
-    grd2.setColorAt(0, vector2.color);
-    grd2.setColorAt(1, vector3.color);
+    drawGradientLine(painter, lineWidth, {positions[1], vector2.color}, {positions[2], vector3.color});
     // 3 -> 1
-    QLinearGradient grd3(positions[2], positions[0]);
-    grd3.setColorAt(0, vector3.color);
-    grd3.setColorAt(1, vector1.color);
-
-    // Lines with gradients are painted black on SVG.
-    // Work around by drawing lines as rectangles (polygon)
-    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
-    painter->setPen(Qt::NoPen);
-    // 1 -> 2
-    QPolygonF rect12 = lineToRectangleForSvgGradient(positions[0], positions[1], lineWidth);
-    painter->setBrush(grd1);
-    painter->drawPolygon(rect12);
-    // 2 -> 3
-    QPolygonF rect23 = lineToRectangleForSvgGradient(positions[1], positions[2], lineWidth);
-    painter->setBrush(grd2);
-    painter->drawPolygon(rect23);
-    // 3 -> 1
-    QPolygonF rect31 = lineToRectangleForSvgGradient(positions[2], positions[0], lineWidth);
-    painter->setBrush(grd3);
-    painter->drawPolygon(rect31);
+    drawGradientLine(painter, lineWidth, {positions[2], vector3.color}, {positions[0], vector1.color});
 }
 
 void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
@@ -145,12 +124,40 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorSetti
     painter->fillPath(path, brush);
 }
 
+void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float lineWidth,
+                                               const PointData &pt1, const PointData &pt2)
+{
+    // Lines with gradients are painted black on SVG.
+    // Work around by drawing lines as rectangles (polygon)
+    QLinearGradient grad(pt1.point, pt2.point);
+    grad.setColorAt(0, pt1.color);
+    grad.setColorAt(1, pt2.color);
+    painter->setBrush(grad);
+    painter->setPen(Qt::NoPen);
+
+    QPolygonF polyRect = lineToRectangleForSvgGradient(pt1.point, pt2.point, lineWidth, lineWidth/2);
+    painter->drawPolygon(polyRect);
+
+    // Draw rounded caps
+    QPointF p1 = polyRect[1];
+    QPointF p2 = polyRect[2];
+    QLineF l1(p1, p2);
+    QPointF center1 = l1.center();
+    painter->drawEllipse(center1, lineWidth/2, lineWidth/2);
+
+    QPointF p0 = polyRect[0];
+    QPointF p3 = polyRect[3];
+    QLineF l2(p0, p3);
+    QPointF center2 = l2.center();
+    painter->drawEllipse(center2, lineWidth/2, lineWidth/2);
+}
+
 QVector2D VectorPrimitivesPainter::calcPixVec(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                              float nomValue, const QVector2D &value, float shortenPixels)
+                                              float nomValue, const QVector2D &value, float shorten)
 {
     const float angle = atan2(value.y(), value.x()) + geomSetttings.m_angles.getOffsetAngle();
     const float nomRadius = geomSetttings.m_lengths.getVectorLenNominalInPixels(painter);
-    const float vectLenPixels = nomRadius * value.length() / nomValue - shortenPixels;
+    const float vectLenPixels = nomRadius * value.length() / nomValue - shorten;
     const float directionFactor =
         // y on screen increases downwards => Mathematical <=> -1.0
         geomSetttings.m_angles.getRotationDirection() == VectorSettingsAngles::Mathematical ? -1.0 : 1.0;
@@ -160,7 +167,8 @@ QVector2D VectorPrimitivesPainter::calcPixVec(QPainter *painter, const VectorSet
     return resultVector;
 }
 
-QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end, int width)
+QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end,
+                                                                 float width, float shortenBothEnds)
 {
     // Calculate the direction vector
     QLineF line(start, end);
@@ -171,11 +179,16 @@ QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &s
     norm /= std::sqrt(norm.x()*norm.x() + norm.y()*norm.y()); // normalize
     norm *= (width/2.0);
 
+    // len offset
+    QPointF shortPt = QPointF(direction.x(), direction.y());
+    shortPt /= std::sqrt(shortPt.x()*shortPt.x() + shortPt.y()*shortPt.y()); // normalize
+    shortPt *= (shortenBothEnds);
+
     // Rectangle corners (counter-clockwise or clockwise)
-    QPointF corner1 = QPointF(start) + norm;
-    QPointF corner2 = QPointF(end) + norm;
-    QPointF corner3 = QPointF(end) - norm;
-    QPointF corner4 = QPointF(start) - norm;
+    QPointF corner1 = QPointF(start) + norm + shortPt;
+    QPointF corner2 = QPointF(end) + norm - shortPt;
+    QPointF corner3 = QPointF(end) - norm - shortPt;
+    QPointF corner4 = QPointF(start) - norm + shortPt;
     QPolygonF polygon;
     polygon << corner1 << corner2 << corner3 << corner4;
     return polygon;
