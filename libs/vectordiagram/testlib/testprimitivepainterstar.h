@@ -1,13 +1,13 @@
-#ifndef TESTPRIMITIVEVECTORPAINTER_H
-#define TESTPRIMITIVEVECTORPAINTER_H
+#ifndef TESTPRIMITIVEPAINTERSTAR_H
+#define TESTPRIMITIVEPAINTERSTAR_H
 
 #include "vectorsettingsgeometry.h"
 #include <abstractvectorpainter.h>
 
-class TestPrimitiveVectorPainter : public AbstractVectorPainter
+class TestPrimitivePainterStar : public AbstractVectorPainter
 {
 public:
-    TestPrimitiveVectorPainter();
+    TestPrimitivePainterStar();
     void paint(QPainter *painter) override;
 
     VectorSettingsGeometry m_settingsGeometry;
@@ -16,4 +16,4 @@ private:
     void draw2Vectors(QPainter *painter);
 };
 
-#endif // TESTPRIMITIVEVECTORPAINTER_H
+#endif // TESTPRIMITIVEPAINTERSTAR_H

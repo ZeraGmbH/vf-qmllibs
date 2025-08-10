@@ -82,7 +82,7 @@ void VectorPaintController::paint(QPainter *painter)
         if (m_vector[idx].length() > m_settingsGeometry.m_lengths.getMinimalUOrI(idx)) {
             const float nomValue = m_settingsGeometry.m_lengths.getNominalUOrI(idx);
             VectorPrimitivesPainter::drawVector(painter, m_settingsGeometry,
-                                                nomValue, m_vector[idx], m_vectorColor[idx]);
+                                                nomValue, {m_vector[idx], m_vectorColor[idx]});
         }
     }
 }

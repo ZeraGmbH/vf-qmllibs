@@ -1,4 +1,4 @@
-#include "testprimitivevectorpainter.h"
+#include "testprimitivepainterstar.h"
 #include "vectorsettingsstatic.h"
 #include "vectorprimitivespainter.h"
 #include <QVector2D>
@@ -6,13 +6,13 @@
 
 constexpr float vectorLen = 1.0;
 
-TestPrimitiveVectorPainter::TestPrimitiveVectorPainter()
+TestPrimitivePainterStar::TestPrimitivePainterStar()
 {
     m_settingsGeometry.m_lengths.setNomVoltage(vectorLen);
     m_settingsGeometry.m_lengths.setNomCurrent(vectorLen);
 }
 
-void TestPrimitiveVectorPainter::paint(QPainter *painter)
+void TestPrimitivePainterStar::paint(QPainter *painter)
 {
     VectorSettingsStatic::setFontForLabels(painter); // for reproducability
 
@@ -23,7 +23,7 @@ void TestPrimitiveVectorPainter::paint(QPainter *painter)
     draw2Vectors(painter);
 }
 
-void TestPrimitiveVectorPainter::draw2Vectors(QPainter *painter)
+void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
 {
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("red").darker(dark), QColor("red").lighter()};
@@ -40,7 +40,7 @@ void TestPrimitiveVectorPainter::draw2Vectors(QPainter *painter)
         if (vectors[idx].length() > m_settingsGeometry.m_lengths.getMinimalUOrI(idx)) {
             const float nomValue = m_settingsGeometry.m_lengths.getNominalUOrI(idx);
             VectorPrimitivesPainter::drawVector(painter, m_settingsGeometry,
-                                                nomValue, vectors[idx], colors[idx]);
+                                                nomValue, {vectors[idx], colors[idx]});
         }
     }
 }
