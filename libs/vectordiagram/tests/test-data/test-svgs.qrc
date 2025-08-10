@@ -9,7 +9,6 @@
         <file>svgs/noGridSquare.svg</file>
         <file>svgs/starVectorsIgnoreLessThanMin.svg</file>
         <file>svgs/gridAndCircleBlue.svg</file>
-        <file>svgs/initialTestPrimitivePainterStar.svg</file>
         <file>svgs/starVectorsNoOvershoot.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-clock.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-math.svg</file>
@@ -19,5 +18,7 @@
         <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-math.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-clock.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-math.svg</file>
+        <file>svgs/initialTestPrimitivePainterStar.svg</file>
+        <file>svgs/initialTestPrimitivePainterTriangle.svg</file>
     </qresource>
 </RCC>
