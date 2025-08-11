@@ -16,23 +16,20 @@ public:
         QVector2D value;
         QColor color;
     };
-    static void drawVector(QPainter *painter, const GeometryParam &geomParam,
-                           const VectorData &vector);
+    static void drawVector(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
     static void drawTriangle(QPainter *painter, const GeometryParam &geomParam,
                              const VectorData &vector1, const VectorData &vector2, const VectorData &vector3);
 private:
-    static void drawVectorLine(QPainter *painter, const GeometryParam &geomParam,
-                               const VectorData &vector);
-    static void drawArrowHead(QPainter *painter, const GeometryParam &geomParam,
-                              const VectorData &vector);
+    static void drawVectorLine(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
+    static void drawArrowHead(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
     struct PointData {
-        QPoint point;
+        QPointF point;
         QColor color;
     };
     static void drawGradientLine(QPainter *painter, const float lineWidth,
                                  const PointData &pt1, const PointData &pt2);
-    static QPolygonF lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end,
-                                                   float width, float shortenBothEnds = 0);
+    static QPolygonF lineToRectangleForSvgGradient(const QLineF &line, float width,
+                                                   float shortenBothEnds = 0);
 };
 
 #endif // VECTORPRIMITIVESPAINTER_H

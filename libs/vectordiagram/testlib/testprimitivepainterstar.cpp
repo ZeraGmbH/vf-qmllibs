@@ -40,7 +40,9 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
     for(int idx=0; idx<colors.count(); ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
         if (vectors[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
-            VectorPrimitivesPainter::drawVector(painter, { m_settingsGeometry, type }, { vectors[idx], colors[idx] });
+            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+                painter, { m_settingsGeometry, type }, vectors[idx]);
+            VectorPrimitivesPainter::drawVector(painter, colors[idx], pixLenVector);
         }
     }
 }

@@ -42,11 +42,10 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPrimitivesPainter::drawVector(QPainter *painter, const GeometryParam &geomParam,
-                                         const VectorData &vector)
+void VectorPrimitivesPainter::drawVector(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
 {
-    drawVectorLine(painter, geomParam, vector);
-    drawArrowHead(painter, geomParam, vector);
+    drawVectorLine(painter, color, pixLenVector);
+    drawArrowHead(painter, color, pixLenVector);
 }
 
 void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryParam &geomParam,
@@ -73,33 +72,31 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryPara
     drawGradientLine(painter, lineWidth, {positions[2], vector3.color}, {positions[0], vector1.color});
 }
 
-void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const GeometryParam &geomParam,
-                                             const VectorData &vector)
+void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
 {
     const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
-    painter->setPen(QPen(vector.color, lineWidth));
+    painter->setPen(QPen(color, lineWidth));
     // still overlap lineWidth/2 caused by line end
-    QVector2D vectorFull = VectorPaintCalc::calcPixVec(painter, geomParam, vector.value,
-                                                       VectorSettingsStatic::getArrowHeight(painter));
-    QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorFull, lineWidth / 2);
+    QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
+        pixLenVector,
+        pixLenVector.length() - VectorSettingsStatic::getArrowHeight(painter));
+    QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     QLine line(round(centerX + vectorKeepOut.x()), round(centerY + vectorKeepOut.y()),
-               round(centerX + vectorFull.x()), round(centerY + vectorFull.y()));
+               round(centerX + vectorShortened.x()), round(centerY + vectorShortened.y()));
     painter->drawLine(line);
 }
 
-void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const GeometryParam &geomParam,
-                                            const VectorData &vector)
+void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
 {
-    painter->setPen(QPen(vector.color, 0));
-    const QVector2D pixVector = VectorPaintCalc::calcPixVec(painter, geomParam, vector.value);
-    const float angle = atan2(pixVector.y(), pixVector.x());
+    painter->setPen(QPen(color, 0));
+    const float angle = atan2(pixLenVector.y(), pixLenVector.x());
     const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
     const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
-    const QVector2D centeredVector = pixVector + QVector2D(centerX, centerY);
+    const QVector2D centeredVector = pixLenVector + QVector2D(centerX, centerY);
     QVector<QPoint> points = {
         QPoint(round(centeredVector.x()),
                round(centeredVector.y())),
@@ -110,7 +107,7 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const GeometryPar
     };
 
     QBrush brush;
-    brush.setColor(vector.color);
+    brush.setColor(color);
     brush.setStyle(Qt::SolidPattern);
 
     QPolygon poly(points);
@@ -132,7 +129,7 @@ void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float li
     painter->setBrush(grad);
     painter->setPen(Qt::NoPen);
 
-    QPolygonF polyRect = lineToRectangleForSvgGradient(pt1.point, pt2.point, lineWidth, lineWidth/2);
+    QPolygonF polyRect = lineToRectangleForSvgGradient(QLineF(pt1.point, pt2.point), lineWidth, lineWidth/2);
     painter->drawPolygon(polyRect);
 
     // Draw rounded caps
@@ -149,12 +146,13 @@ void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float li
     painter->drawEllipse(center2, lineWidth/2, lineWidth/2);
 }
 
-QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end,
-                                                                 float width, float shortenBothEnds)
+QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QLineF &line, float width,
+                                                                 float shortenBothEnds)
 {
+    const QPointF &start = line.p1();
+    const QPointF &end = line.p2();
     // Calculate the direction vector
-    QLineF line(start, end);
-    QPointF direction = line.p2() - line.p1();
+    QPointF direction = end - start;
 
     // Get the normalized perpendicular vector (for width offset)
     QPointF norm = QPointF(-direction.y(), direction.x());
@@ -167,10 +165,10 @@ QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QPoint &s
     shortPt *= (shortenBothEnds);
 
     // Rectangle corners (counter-clockwise or clockwise)
-    QPointF corner1 = QPointF(start) + norm + shortPt;
-    QPointF corner2 = QPointF(end) + norm - shortPt;
-    QPointF corner3 = QPointF(end) - norm - shortPt;
-    QPointF corner4 = QPointF(start) - norm + shortPt;
+    QPointF corner1 = start + norm + shortPt;
+    QPointF corner2 = end + norm - shortPt;
+    QPointF corner3 = end - norm - shortPt;
+    QPointF corner4 = start - norm + shortPt;
     QPolygonF polygon;
     polygon << corner1 << corner2 << corner3 << corner4;
     return polygon;
