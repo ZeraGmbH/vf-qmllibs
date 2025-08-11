@@ -1,7 +1,6 @@
 #include "vectorsettingsstatic.h"
 #include "vectorpaintcalc.h"
 #include <QFont>
-#include <math.h>
 
 VectorSettingsStatic::VectorType VectorSettingsStatic::getVectorType(int vectorIdx)
 {
@@ -35,7 +34,7 @@ float VectorSettingsStatic::getArrowHeight(const QPainter *painter)
 
 float VectorSettingsStatic::getArrowSpreadAngle()
 {
-    return M_PI * 0.125;
+    return degToRad(22.5);
 }
 
 void VectorSettingsStatic::setFontForLabels(QPainter *painter)

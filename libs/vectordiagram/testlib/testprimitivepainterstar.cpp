@@ -1,4 +1,5 @@
 #include "testprimitivepainterstar.h"
+#include "vectorpaintcalc.h"
 #include "vectorsettingsstatic.h"
 #include "vectorprimitivespainter.h"
 #include <QVector2D>
@@ -28,7 +29,7 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("red").darker(dark), QColor("red").lighter()};
 
-    constexpr float angle30 = 30 * (2*M_PI/360);
+    constexpr float angle30 = degToRad(30);
     std::complex<double> uRawValue[] = { std::polar<double>(vectorLen, 0), std::polar<double>(vectorLen*0.5, angle30)};
     QVector<QVector2D> vectors(colors.size());
     for(int idx=0; idx<colors.count(); ++idx) {

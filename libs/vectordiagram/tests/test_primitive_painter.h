@@ -18,7 +18,6 @@ private slots:
 
     void initialTestPrimitivePainterTriangle();
 private:
-    double gradToDeg(double angle);
     std::unique_ptr<QSvgGenerator> m_generator;
     VectorSettingsGeometry m_geomSettings;
 };

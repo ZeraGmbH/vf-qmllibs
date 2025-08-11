@@ -1,4 +1,5 @@
 #include "testprimitivepaintertriangle.h"
+#include "vectorpaintcalc.h"
 #include "vectorsettingsstatic.h"
 #include "vectorprimitivespainter.h"
 #include <QVector2D>
@@ -29,7 +30,7 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
     QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark)};
     QVector<VectorPrimitivesPainter::VectorData> corners(colors.size());
     for(int idx=0; idx<colors.count(); ++idx) {
-        std::complex<double> corner = std::polar<double>(vectorLen, idx*120 * (2*M_PI/360));
+        std::complex<double> corner = std::polar<double>(vectorLen, degToRad(idx*120));
         corners[idx] = { QVector2D(corner.real(),corner.imag()), colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter, { m_settingsGeometry, VectorSettingsStatic::TYPE_U},

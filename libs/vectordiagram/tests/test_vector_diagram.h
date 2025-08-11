@@ -27,7 +27,6 @@ private slots:
 
 private:
     void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
-    double gradToDeg(double angle);
     std::unique_ptr<QSvgGenerator> m_generator;
 };
 

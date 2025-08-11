@@ -3,6 +3,10 @@
 
 #include <QPainter>
 #include <QVector2D>
+#include <math.h>
+
+#define degToRad(degree) ((degree) * M_PI / 180.0)
+#define radToDeg(radian) ((radian) * 180.0 / M_PI)
 
 class VectorPaintCalc
 {

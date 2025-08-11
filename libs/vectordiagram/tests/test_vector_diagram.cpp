@@ -1,4 +1,5 @@
 #include "test_vector_diagram.h"
+#include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
 #include <complex>
 #include <xmldocumentcompare.h>
@@ -274,17 +275,12 @@ void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, dou
         painter->setVectorLabel(i, QString("UL%1").arg(i+1));
         painter->setVectorLabel(i+VectorSettingsStatic::COUNT_PHASES, QString("IL%1").arg(i+1));
 
-        const double uPhi = gradToDeg(i*120);
+        const double uPhi = degToRad(i*120);
         std::complex<double> uRawValue = std::polar<double>(uValue, uPhi);
         painter->setVector(i, QVector2D(uRawValue.real(), uRawValue.imag()));
 
-        const double iPhi = uPhi + gradToDeg(iAngle);
+        const double iPhi = uPhi + degToRad(iAngle);
         std::complex<double> iRawValue = std::polar<double>(iValue, iPhi);
         painter->setVector(i+VectorSettingsStatic::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
     }
-}
-
-double test_vector_diagram::gradToDeg(double angle)
-{
-    return 2*M_PI * angle/360;
 }

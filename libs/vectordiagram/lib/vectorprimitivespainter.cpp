@@ -3,7 +3,6 @@
 #include "vectorpaintcalc.h"
 #include <QGradient>
 #include <QPainterPath>
-#include <math.h>
 
 void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &color)
 {

@@ -1,10 +1,10 @@
 #include "test_primitive_painter.h"
 #include "testprimitivepainterstar.h"
 #include "testprimitivepaintertriangle.h"
+#include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
 #include <xmldocumentcompare.h>
 #include <testloghelpers.h>
-#include <math.h>
 #include <QTest>
 
 QTEST_MAIN(test_primitive_painter)
@@ -71,7 +71,7 @@ void test_primitive_painter::variationAngleOffsetRotationDir()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     TestPrimitivePainterStar primPainter;
-    primPainter.m_settingsGeometry.m_angles.setOffsetAngle(gradToDeg(angleOffset));
+    primPainter.m_settingsGeometry.m_angles.setOffsetAngle(degToRad(angleOffset));
     primPainter.m_settingsGeometry.m_angles.setRotationDirection(rotationDir);
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
@@ -102,9 +102,4 @@ void test_primitive_painter::initialTestPrimitivePainterTriangle()
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
-}
-
-double test_primitive_painter::gradToDeg(double angle)
-{
-    return 2*M_PI * angle/360;
 }
