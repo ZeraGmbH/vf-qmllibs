@@ -1,6 +1,7 @@
 #ifndef VECTORSETTINGSLENGTHS_H
 #define VECTORSETTINGSLENGTHS_H
 
+#include "vectorsettingsstatic.h"
 #include <QPainter>
 
 class VectorSettingsLengths
@@ -14,8 +15,8 @@ public:
 
     void setMaxOvershoot(float maxOvershoot);
 
-    float getNominalUOrI(int vectorIdx) const;
-    float getMinimalUOrI(int vectorIdx) const;
+    float getNominalValue(VectorSettingsStatic::VectorType vectorType) const;
+    float getMinimalValue(VectorSettingsStatic::VectorType vectorType) const;
     float getVectorLenNominalInPixels(const QPainter *painter) const;
 private:
     float m_nomVoltage = 1e-9;

@@ -1,5 +1,4 @@
 #include "vectorsettingslengths.h"
-#include "vectorsettingsstatic.h"
 
 void VectorSettingsLengths::setNomVoltage(float nomVoltage)
 {
@@ -26,16 +25,16 @@ void VectorSettingsLengths::setMaxOvershoot(float maxOvershoot)
     m_maxOvershoot = maxOvershoot;
 }
 
-float VectorSettingsLengths::getNominalUOrI(int vectorIdx) const
+float VectorSettingsLengths::getNominalValue(VectorSettingsStatic::VectorType vectorType) const
 {
-    if (vectorIdx < VectorSettingsStatic::COUNT_PHASES)
+    if (vectorType == VectorSettingsStatic::TYPE_U)
         return m_nomVoltage;
     return m_nomCurrent;
 }
 
-float VectorSettingsLengths::getMinimalUOrI(int vectorIdx) const
+float VectorSettingsLengths::getMinimalValue(VectorSettingsStatic::VectorType vectorType) const
 {
-    if (vectorIdx < VectorSettingsStatic::COUNT_PHASES)
+    if (vectorType == VectorSettingsStatic::TYPE_U)
         return m_minVoltage;
     return m_minCurrent;
 }

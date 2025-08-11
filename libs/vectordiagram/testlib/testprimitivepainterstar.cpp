@@ -37,10 +37,9 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
     }
 
     for(int idx=0; idx<colors.count(); ++idx) {
-        if (vectors[idx].length() > m_settingsGeometry.m_lengths.getMinimalUOrI(idx)) {
-            const float nomValue = m_settingsGeometry.m_lengths.getNominalUOrI(idx);
-            VectorPrimitivesPainter::drawVector(painter, m_settingsGeometry,
-                                                nomValue, {vectors[idx], colors[idx]});
+        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+        if (vectors[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
+            VectorPrimitivesPainter::drawVector(painter, { m_settingsGeometry, type }, { vectors[idx], colors[idx] });
         }
     }
 }

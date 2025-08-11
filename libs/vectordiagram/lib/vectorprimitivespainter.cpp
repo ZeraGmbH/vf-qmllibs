@@ -43,15 +43,14 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                         float nominalValue, const VectorData &vector)
+void VectorPrimitivesPainter::drawVector(QPainter *painter, const GeometryParam &geomParam,
+                                         const VectorData &vector)
 {
-    drawVectorLine(painter, geomSetttings, nominalValue, vector);
-    drawArrowHead(painter, geomSetttings, nominalValue, vector);
+    drawVectorLine(painter, geomParam, vector);
+    drawArrowHead(painter, geomParam, vector);
 }
 
-void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                           float nominalValue,
+void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryParam &geomParam,
                                            const VectorData &vector1,
                                            const VectorData &vector2,
                                            const VectorData &vector3)
@@ -61,8 +60,7 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const VectorSettin
     QVector<QPoint> positions(VectorSettingsStatic::COUNT_PHASES);
     const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
     for (int phase=0; phase<VectorSettingsStatic::COUNT_PHASES; phase++) {
-        QVector2D vector = calcPixVec(painter, geomSetttings,
-                                      nominalValue, vectors[phase].value);
+        QVector2D vector = calcPixVec(painter, geomParam, vectors[phase].value);
         const float centerX = VectorPaintCalc::centerX(painter);
         const float centerY = VectorPaintCalc::centerY(painter);
         positions[phase] = QPoint(round(centerX+vector.x()), round(centerY+vector.y()));
@@ -76,14 +74,14 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const VectorSettin
     drawGradientLine(painter, lineWidth, {positions[2], vector3.color}, {positions[0], vector1.color});
 }
 
-void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                             float nominalValue, const VectorData &vector)
+void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const GeometryParam &geomParam,
+                                             const VectorData &vector)
 {
     const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
     painter->setPen(QPen(vector.color, lineWidth));
     // still overlap lineWidth/2 caused by line end
-    QVector2D vectorFull = calcPixVec(painter, geomSetttings,
-                                      nominalValue, vector.value, VectorSettingsStatic::getArrowHeight(painter));
+    QVector2D vectorFull = calcPixVec(painter, geomParam, vector.value,
+                                      VectorSettingsStatic::getArrowHeight(painter));
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorFull, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -92,11 +90,11 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorSett
     painter->drawLine(line);
 }
 
-void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                            float nominalValue, const VectorData &vector)
+void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const GeometryParam &geomParam,
+                                            const VectorData &vector)
 {
     painter->setPen(QPen(vector.color, 0));
-    const QVector2D pixVector = calcPixVec(painter, geomSetttings, nominalValue, vector.value);
+    const QVector2D pixVector = calcPixVec(painter, geomParam, vector.value);
     const float angle = atan2(pixVector.y(), pixVector.x());
     const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
     const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
@@ -152,11 +150,13 @@ void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float li
     painter->drawEllipse(center2, lineWidth/2, lineWidth/2);
 }
 
-QVector2D VectorPrimitivesPainter::calcPixVec(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                              float nomValue, const QVector2D &value, float shorten)
+QVector2D VectorPrimitivesPainter::calcPixVec(QPainter *painter, const GeometryParam &geomParam,
+                                              const QVector2D &value, float shorten)
 {
+    const VectorSettingsGeometry &geomSetttings = geomParam.geomSetttings;
     const float angle = atan2(value.y(), value.x()) + geomSetttings.m_angles.getOffsetAngle();
     const float nomRadius = geomSetttings.m_lengths.getVectorLenNominalInPixels(painter);
+    const float nomValue = geomSetttings.m_lengths.getNominalValue(geomParam.vectorType);
     const float vectLenPixels = nomRadius * value.length() / nomValue - shorten;
     const float directionFactor =
         // y on screen increases downwards => Mathematical <=> -1.0

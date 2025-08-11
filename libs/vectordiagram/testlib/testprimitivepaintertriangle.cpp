@@ -32,8 +32,6 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
         std::complex<double> corner = std::polar<double>(vectorLen, idx*120 * (2*M_PI/360));
         corners[idx] = { QVector2D(corner.real(),corner.imag()), colors[idx] };
     }
-
-    const float nomValue = m_settingsGeometry.m_lengths.getNominalUOrI(0);
-    VectorPrimitivesPainter::drawTriangle(painter, m_settingsGeometry, nomValue,
+    VectorPrimitivesPainter::drawTriangle(painter, { m_settingsGeometry, VectorSettingsStatic::TYPE_U},
                                           corners[0], corners[1], corners[2]);
 }

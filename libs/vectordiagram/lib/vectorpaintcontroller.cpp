@@ -79,10 +79,11 @@ void VectorPaintController::paint(QPainter *painter)
         VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, m_circleColor);
 
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
-        if (m_vector[idx].length() > m_settingsGeometry.m_lengths.getMinimalUOrI(idx)) {
-            const float nomValue = m_settingsGeometry.m_lengths.getNominalUOrI(idx);
-            VectorPrimitivesPainter::drawVector(painter, m_settingsGeometry,
-                                                nomValue, {m_vector[idx], m_vectorColor[idx]});
+        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+        if (m_vector[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
+            VectorPrimitivesPainter::drawVector(painter,
+                                                { m_settingsGeometry, type },
+                                                { m_vector[idx], m_vectorColor[idx] });
         }
     }
 }

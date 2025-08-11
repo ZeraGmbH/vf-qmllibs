@@ -12,18 +12,22 @@ class VectorPrimitivesPainter
 public:
     static void drawCoordCross(QPainter *painter, const QColor& color);
     static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor& color);
+    struct GeometryParam {
+        const VectorSettingsGeometry &geomSetttings;
+        VectorSettingsStatic::VectorType vectorType;
+    };
     struct VectorData {
         QVector2D value;
         QColor color;
     };
-    static void drawVector(QPainter *painter, const VectorSettingsGeometry &geomSetttings, float nominalValue,
+    static void drawVector(QPainter *painter, const GeometryParam &geomParam,
                            const VectorData &vector);
-    static void drawTriangle(QPainter *painter, const VectorSettingsGeometry &geomSetttings, float nominalValue,
+    static void drawTriangle(QPainter *painter, const GeometryParam &geomParam,
                              const VectorData &vector1, const VectorData &vector2, const VectorData &vector3);
 private:
-    static void drawVectorLine(QPainter *painter, const VectorSettingsGeometry &geomSetttings, float nominalValue,
+    static void drawVectorLine(QPainter *painter, const GeometryParam &geomParam,
                                const VectorData &vector);
-    static void drawArrowHead(QPainter *painter, const VectorSettingsGeometry &geomSetttings, float nominalValue,
+    static void drawArrowHead(QPainter *painter, const GeometryParam &geomParam,
                               const VectorData &vector);
     struct PointData {
         QPoint point;
@@ -31,8 +35,9 @@ private:
     };
     static void drawGradientLine(QPainter *painter, const float lineWidth,
                                  const PointData &pt1, const PointData &pt2);
-    static QVector2D calcPixVec(QPainter *painter, const VectorSettingsGeometry &geomSetttings,
-                                float nomValue, const QVector2D &value, float shorten = 0.0);
+    static QVector2D calcPixVec(QPainter *painter, const GeometryParam &geomParam,
+                                const QVector2D &value,
+                                float shorten = 0.0);
     static QPolygonF lineToRectangleForSvgGradient(const QPoint &start, const QPoint &end,
                                                    float width, float shortenBothEnds = 0);
 };
