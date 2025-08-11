@@ -24,6 +24,7 @@ target_include_directories(vector-diagram-lib
     $<INSTALL_INTERFACE:include/vector-diagram-lib>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/settings>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qml>
     )
 
 set_target_properties(vector-diagram-lib PROPERTIES VERSION ${PROJECT_VERSION})
