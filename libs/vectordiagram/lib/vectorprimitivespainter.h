@@ -16,12 +16,17 @@ public:
         QVector2D value;
         QColor color;
     };
-    static void drawVector(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
+    struct VectorParam
+    {
+        const QVector2D &pixLenVector;
+        const QColor &color;
+    };
+    static void drawVector(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
     static void drawTriangle(QPainter *painter, const GeometryParam &geomParam,
                              const VectorData &vector1, const VectorData &vector2, const VectorData &vector3);
 private:
-    static void drawVectorLine(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
-    static void drawArrowHead(QPainter *painter, const QColor &color, const QVector2D &pixLenVector);
+    static void drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
+    static void drawArrowHead(QPainter *painter, const VectorParam &vectorParam);
     struct PointData {
         QPointF point;
         QColor color;

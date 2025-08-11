@@ -81,9 +81,10 @@ void VectorPaintController::paint(QPainter *painter)
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
         if (m_vector[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
+            const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_settingsGeometry, type }, m_vector[idx]);
-            VectorPrimitivesPainter::drawVector(painter, m_vectorColor[idx], pixLenVector);
+            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, m_vectorColor[idx] }, lineWidth);
         }
     }
 }

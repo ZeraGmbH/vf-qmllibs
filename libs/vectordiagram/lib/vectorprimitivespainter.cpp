@@ -42,10 +42,10 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPrimitivesPainter::drawVector(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
+void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorParam &vectorParam, float lineWidth)
 {
-    drawVectorLine(painter, color, pixLenVector);
-    drawArrowHead(painter, color, pixLenVector);
+    drawVectorLine(painter, vectorParam, lineWidth);
+    drawArrowHead(painter, vectorParam);
 }
 
 void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryParam &geomParam,
@@ -72,14 +72,13 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryPara
     drawGradientLine(painter, lineWidth, {positions[2], vector3.color}, {positions[0], vector1.color});
 }
 
-void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
+void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth)
 {
-    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
-    painter->setPen(QPen(color, lineWidth));
+    painter->setPen(QPen(vectorParam.color, lineWidth));
     // still overlap lineWidth/2 caused by line end
     QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
-        pixLenVector,
-        pixLenVector.length() - VectorSettingsStatic::getArrowHeight(painter));
+        vectorParam.pixLenVector,
+        vectorParam.pixLenVector.length() - VectorSettingsStatic::getArrowHeight(painter));
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -88,15 +87,15 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const QColor &co
     painter->drawLine(line);
 }
 
-void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const QColor &color, const QVector2D &pixLenVector)
+void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam)
 {
-    painter->setPen(QPen(color, 0));
-    const float angle = atan2(pixLenVector.y(), pixLenVector.x());
+    painter->setPen(QPen(vectorParam.color, 0));
+    const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
     const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
     const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
-    const QVector2D centeredVector = pixLenVector + QVector2D(centerX, centerY);
+    const QVector2D centeredVector = vectorParam.pixLenVector + QVector2D(centerX, centerY);
     QVector<QPoint> points = {
         QPoint(round(centeredVector.x()),
                round(centeredVector.y())),
@@ -107,7 +106,7 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const QColor &col
     };
 
     QBrush brush;
-    brush.setColor(color);
+    brush.setColor(vectorParam.color);
     brush.setStyle(Qt::SolidPattern);
 
     QPolygon poly(points);
