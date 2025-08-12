@@ -69,6 +69,7 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
 
 void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QString &label)
 {
+    VectorSettingsStatic::setFontForLabels(painter);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     QPointF positionCenter(centerX + vectorParam.pixLenVector.x(), centerY + vectorParam.pixLenVector.y());
