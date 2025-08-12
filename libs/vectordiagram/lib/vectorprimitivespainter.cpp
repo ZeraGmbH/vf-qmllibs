@@ -34,11 +34,11 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     float lineWidth = VectorSettingsStatic::getGridAndCircleLineWidth(painter);
     painter->setPen(QPen(color, lineWidth));
     const float radius = lengths.getVectorLenNominalInPixels(painter);
-    QRect circleRect(
-        round(VectorPaintCalc::centerX(painter) - radius),
-        round(VectorPaintCalc::centerY(painter) - radius),
-        round(2 * radius),
-        round(2 * radius));
+    QRectF circleRect(
+        VectorPaintCalc::centerX(painter) - radius,
+        VectorPaintCalc::centerY(painter) - radius,
+        2 * radius,
+        2 * radius);
     painter->drawArc(circleRect, 0, 16*360);
 }
 
