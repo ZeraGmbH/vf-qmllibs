@@ -20,7 +20,7 @@ public:
     static float getArrowSpreadAngle();
     static float getCenterDotDiameter(const QPainter *painter);
     static float getLabelVectorOvershootFactor();
-    static void setFontForLabels(QPainter *painter);
+    static QFont getDefaultFont(const QPainter *painter);
 };
 
 #endif // VECTORSETTINGSSTATIC_H

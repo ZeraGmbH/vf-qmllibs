@@ -16,7 +16,7 @@ TestPrimitivePainterLabel::TestPrimitivePainterLabel()
 
 void TestPrimitivePainterLabel::paint(QPainter *painter)
 {
-    VectorSettingsStatic::setFontForLabels(painter); // for reproducability
+    painter->setFont(VectorSettingsStatic::getDefaultFont(painter)); // for reproducability
 
     QColor circleCoordColor("grey");
     const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);

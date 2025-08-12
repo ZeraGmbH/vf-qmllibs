@@ -47,11 +47,11 @@ float VectorSettingsStatic::getLabelVectorOvershootFactor()
     return 1.07;
 }
 
-void VectorSettingsStatic::setFontForLabels(QPainter *painter)
+QFont VectorSettingsStatic::getDefaultFont(const QPainter *painter)
 {
     QFont defaultFont;
     defaultFont.setPointSizeF(VectorPaintCalc::getClipSquareLen(painter) * 0.03);
     defaultFont.setFamily("Sans");
     defaultFont.setWeight(QFont::Medium);
-    painter->setFont(defaultFont);
+    return defaultFont;
 }

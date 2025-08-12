@@ -71,7 +71,7 @@ void VectorPaintController::setVectorLabel(int idx, const QString &vectorLabel)
 
 void VectorPaintController::paint(QPainter *painter)
 {
-    VectorSettingsStatic::setFontForLabels(painter);
+    painter->setFont(VectorSettingsStatic::getDefaultFont(painter));
 
     const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
     if (m_coordCrossVisible)
