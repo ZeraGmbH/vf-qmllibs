@@ -1,7 +1,7 @@
 #ifndef VECTORPRIMITIVESPAINTER_H
 #define VECTORPRIMITIVESPAINTER_H
 
-#include "vectorpaintcalc.h"
+#include "vectorsettingslengths.h"
 #include <QPainter>
 #include <QColor>
 #include <QVector2D>
@@ -18,12 +18,13 @@ public:
     };
     struct VectorParam
     {
-        const QVector2D &pixLenVector;
-        const QColor &color;
+        QVector2D pixLenVector;
+        QColor color;
     };
     static void drawVector(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
-    static void drawTriangle(QPainter *painter, const GeometryParam &geomParam,
-                             const VectorData &vector1, const VectorData &vector2, const VectorData &vector3);
+    static void drawTriangle(QPainter *painter,
+                             const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
+                             float lineWidth);
 private:
     static void drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
     static void drawArrowHead(QPainter *painter, const VectorParam &vectorParam);

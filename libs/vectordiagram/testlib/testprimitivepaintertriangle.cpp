@@ -28,11 +28,17 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
 {
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark)};
-    QVector<VectorPrimitivesPainter::VectorData> corners(colors.size());
+    Q_ASSERT(VectorSettingsStatic::COUNT_PHASES == colors.size());
+
+    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorSettingsStatic::COUNT_PHASES);
+    QVector<QVector2D> vectorPixLens(VectorSettingsStatic::COUNT_PHASES);
     for(int idx=0; idx<colors.count(); ++idx) {
         std::complex<double> corner = std::polar<double>(vectorLen, degToRad(idx*120));
-        corners[idx] = { QVector2D(corner.real(),corner.imag()), colors[idx] };
+        QVector2D value = QVector2D(corner.real(),corner.imag());
+        vectorPixLens[idx] = VectorPaintCalc::calcPixVec(painter, { m_settingsGeometry, VectorSettingsStatic::TYPE_U}, value);
+        corners[idx] = { vectorPixLens[idx], colors[idx] };
     }
-    VectorPrimitivesPainter::drawTriangle(painter, { m_settingsGeometry, VectorSettingsStatic::TYPE_U},
-                                          corners[0], corners[1], corners[2]);
+    VectorPrimitivesPainter::drawTriangle(painter,
+                                          corners[0], corners[1], corners[2],
+                                          VectorSettingsStatic::getVectorLineWidth(painter));
 }

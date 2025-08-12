@@ -48,28 +48,24 @@ void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorParam &v
     drawArrowHead(painter, vectorParam);
 }
 
-void VectorPrimitivesPainter::drawTriangle(QPainter *painter, const GeometryParam &geomParam,
-                                           const VectorData &vector1,
-                                           const VectorData &vector2,
-                                           const VectorData &vector3)
+void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
+                                           const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
+                                           float lineWidth)
 {
-    // positions
-    const QVector<VectorData> vectors{vector1, vector2, vector3};
-    QVector<QPoint> positions(VectorSettingsStatic::COUNT_PHASES);
-    const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
+    const QVector<QVector2D> vectors{vectorParam1.pixLenVector, vectorParam2.pixLenVector, vectorParam3.pixLenVector};
+    QVector<QPointF> positions(VectorSettingsStatic::COUNT_PHASES);
     for (int phase=0; phase<VectorSettingsStatic::COUNT_PHASES; phase++) {
-        QVector2D vector = VectorPaintCalc::calcPixVec(painter, geomParam, vectors[phase].value);
         const float centerX = VectorPaintCalc::centerX(painter);
         const float centerY = VectorPaintCalc::centerY(painter);
-        positions[phase] = QPoint(round(centerX+vector.x()), round(centerY+vector.y()));
+        positions[phase] = QPointF(centerX + vectors[phase].x(), centerY + vectors[phase].y());
     }
 
     // 1 -> 2
-    drawGradientLine(painter, lineWidth, {positions[0], vector1.color}, {positions[1], vector2.color});
+    drawGradientLine(painter, lineWidth, {positions[0], vectorParam1.color}, {positions[1], vectorParam2.color});
     // 2 -> 3
-    drawGradientLine(painter, lineWidth, {positions[1], vector2.color}, {positions[2], vector3.color});
+    drawGradientLine(painter, lineWidth, {positions[1], vectorParam2.color}, {positions[2], vectorParam3.color});
     // 3 -> 1
-    drawGradientLine(painter, lineWidth, {positions[2], vector3.color}, {positions[0], vector1.color});
+    drawGradientLine(painter, lineWidth, {positions[2], vectorParam3.color}, {positions[0], vectorParam1.color});
 }
 
 void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth)

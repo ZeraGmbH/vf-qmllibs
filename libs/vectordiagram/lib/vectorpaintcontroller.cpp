@@ -1,4 +1,5 @@
 #include "vectorpaintcontroller.h"
+#include "vectorpaintcalc.h"
 #include "vectorprimitivespainter.h"
 #include <QMultiMap>
 #include <math.h>
