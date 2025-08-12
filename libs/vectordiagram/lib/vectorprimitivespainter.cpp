@@ -78,8 +78,8 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
-    QLine line(round(centerX + vectorKeepOut.x()), round(centerY + vectorKeepOut.y()),
-               round(centerX + vectorShortened.x()), round(centerY + vectorShortened.y()));
+    QLineF line(centerX + vectorKeepOut.x(), centerY + vectorKeepOut.y(),
+                centerX + vectorShortened.x(), centerY + vectorShortened.y());
     painter->drawLine(line);
 }
 
