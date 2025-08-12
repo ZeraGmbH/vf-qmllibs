@@ -11,6 +11,7 @@ class VectorPrimitivesPainter
 {
 public:
     static void drawCoordCross(QPainter *painter, const QColor& color, float lineWidth);
+    static void drawCoordCenterDot(QPainter *painter, const QColor& color, float diameter);
     static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor& color, float lineWidth);
     struct VectorParam
     {

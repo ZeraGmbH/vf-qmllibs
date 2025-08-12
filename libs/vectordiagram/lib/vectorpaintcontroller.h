@@ -50,10 +50,10 @@ private:
     QColor m_coordCrossColor = Qt::darkGray;
     bool m_circleVisible = true;
     QColor m_circleColor = Qt::darkGray;
+
     QVector<QColor> m_vectorColor = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
     QVector<QString> m_vectorLabel = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
 
-    bool m_forceI1Top = true;
 
     QVector<QVector2D> m_vector = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
 

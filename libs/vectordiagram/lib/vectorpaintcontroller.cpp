@@ -80,6 +80,7 @@ void VectorPaintController::paint(QPainter *painter)
     if(m_circleVisible)
         VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, m_circleColor, coordCircleLineWidth);
 
+    bool vectorDrawn = false;
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
         if (m_vector[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
@@ -87,6 +88,9 @@ void VectorPaintController::paint(QPainter *painter)
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_settingsGeometry, type }, m_vector[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, m_vectorColor[idx] }, lineWidth);
+            vectorDrawn = true;
         }
     }
+    if(vectorDrawn)
+        VectorPrimitivesPainter::drawCoordCenterDot(painter, m_coordCrossColor, VectorSettingsStatic::getCenterDotDiameter(painter));
 }

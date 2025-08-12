@@ -16,6 +16,16 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &co
     painter->drawLine(lineYAxis);
 }
 
+void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const QColor &color, float diameter)
+{
+    painter->setPen(QPen(color, 0));
+    painter->setBrush(color);
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    QPointF center(centerX, centerY);
+    painter->drawEllipse(center, diameter/2, diameter/2);
+}
+
 // Some thoughts:
 // overshoot = 1.0
 // |        /        |

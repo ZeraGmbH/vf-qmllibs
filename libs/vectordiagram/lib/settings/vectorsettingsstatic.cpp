@@ -37,6 +37,11 @@ float VectorSettingsStatic::getArrowSpreadAngle()
     return degToRad(22.5);
 }
 
+float VectorSettingsStatic::getCenterDotDiameter(const QPainter *painter)
+{
+    return getVectorLineWidth(painter);
+}
+
 void VectorSettingsStatic::setFontForLabels(QPainter *painter)
 {
     const int minXy = std::min(VectorPaintCalc::getHeight(painter), VectorPaintCalc::getWidth(painter));
