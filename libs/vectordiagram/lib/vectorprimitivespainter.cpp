@@ -67,6 +67,21 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
     drawGradientLine(painter, lineWidth, {positions[2], vectorParam3.color}, {positions[0], vectorParam1.color});
 }
 
+void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QString &label)
+{
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    QPointF positionCenter(centerX + vectorParam.pixLenVector.x(), centerY + vectorParam.pixLenVector.y());
+
+    float pixelSize = painter->font().pixelSize();
+    float approxXOffset = pixelSize * 0.28 * label.size();
+    float approxYOffset = pixelSize * 0.3;
+    QPointF positionTopLeft(positionCenter.x()-approxXOffset, positionCenter.y()+approxYOffset);
+
+    painter->setPen(QPen(vectorParam.color, 0));
+    painter->drawText(positionTopLeft, label);
+}
+
 void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth)
 {
     painter->setPen(QPen(vectorParam.color, lineWidth));

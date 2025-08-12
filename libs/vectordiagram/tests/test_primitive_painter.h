@@ -17,6 +17,8 @@ private slots:
     void variationAngleOffsetRotationDir();
 
     void initialTestPrimitivePainterTriangle();
+
+    void initialTestPrimitivePainterLabel();
 private:
     std::unique_ptr<QSvgGenerator> m_generator;
     VectorSettingsGeometry m_geomSettings;

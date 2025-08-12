@@ -1,6 +1,7 @@
 #include "test_primitive_painter.h"
 #include "testprimitivepainterstar.h"
 #include "testprimitivepaintertriangle.h"
+#include "testprimitivepainterlabel.h"
 #include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
 #include <xmldocumentcompare.h>
@@ -93,6 +94,24 @@ void test_primitive_painter::initialTestPrimitivePainterTriangle()
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     TestPrimitivePainterTriangle primPainter;
+    svgPainter.paintToFile(dumpFile, &primPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_primitive_painter::initialTestPrimitivePainterLabel()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    TestPrimitivePainterLabel primPainter;
     svgPainter.paintToFile(dumpFile, &primPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
