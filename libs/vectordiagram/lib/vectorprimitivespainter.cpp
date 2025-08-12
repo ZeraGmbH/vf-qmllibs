@@ -77,9 +77,9 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
     drawGradientLine(painter, lineWidth, {positions[2], vectorParam3.color}, {positions[0], vectorParam1.color});
 }
 
-void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QString &label)
+void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QFont &labelFont, const QString &label)
 {
-    painter->setFont(VectorSettingsStatic::getDefaultFont(painter));
+    painter->setFont(labelFont);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     QPointF positionCenter(centerX + vectorParam.pixLenVector.x(), centerY + vectorParam.pixLenVector.y());

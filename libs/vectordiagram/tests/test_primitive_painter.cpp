@@ -72,8 +72,8 @@ void test_primitive_painter::variationAngleOffsetRotationDir()
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     TestPrimitivePainterStar primPainter;
-    primPainter.m_settingsGeometry.m_angles.setOffsetAngle(degToRad(angleOffset));
-    primPainter.m_settingsGeometry.m_angles.setRotationDirection(rotationDir);
+    primPainter.m_vectorSettings.m_angles.setOffsetAngle(degToRad(angleOffset));
+    primPainter.m_vectorSettings.m_angles.setRotationDirection(rotationDir);
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     svgPainter.paintToFile(dumpFile, &primPainter);

@@ -1,4 +1,5 @@
 #include "vectorsettingslengths.h"
+#include "vectorpaintcalc.h"
 
 void VectorSettingsLengths::setNomVoltage(float nomVoltage)
 {
@@ -41,5 +42,10 @@ float VectorSettingsLengths::getMinimalValue(VectorSettingsStatic::VectorType ve
 
 float VectorSettingsLengths::getVectorLenNominalInPixels(const QPainter *painter) const
 {
-    return VectorSettingsStatic::getVectorLenMaxInPixels(painter) / m_maxOvershoot;
+    constexpr float totalLenAvail = 1.0;
+    constexpr float extraLabelLenFromAvail = 0.18;
+    constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
+    const float pixelsAvailforVector = VectorPaintCalc::getClipSquareLen(painter) / 2 * vectorLenFromAvail;
+
+    return pixelsAvailforVector / m_maxOvershoot;
 }

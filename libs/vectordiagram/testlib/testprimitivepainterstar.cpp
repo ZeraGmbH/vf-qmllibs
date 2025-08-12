@@ -9,18 +9,18 @@ constexpr float vectorLen = 1.0;
 
 TestPrimitivePainterStar::TestPrimitivePainterStar()
 {
-    m_settingsGeometry.m_lengths.setNomVoltage(vectorLen);
-    m_settingsGeometry.m_lengths.setNomCurrent(vectorLen);
+    m_vectorSettings.m_lengths.setNomVoltage(vectorLen);
+    m_vectorSettings.m_lengths.setNomCurrent(vectorLen);
 }
 
 void TestPrimitivePainterStar::paint(QPainter *painter)
 {
-    painter->setFont(VectorSettingsStatic::getDefaultFont(painter)); // for reproducability
+    painter->setFont(m_vectorSettings.m_layout.getDefaultFont(painter)); // for reproducability
 
     QColor circleCoordColor("grey");
     const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
     VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor, coordCircleLineWidth);
-    VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, circleCoordColor, coordCircleLineWidth);
+    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, circleCoordColor, coordCircleLineWidth);
 
     draw2Vectors(painter);
 }
@@ -41,12 +41,15 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
 
     for(int idx=0; idx<colors.count(); ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (vectors[idx].length() > m_settingsGeometry.m_lengths.getMinimalValue(type)) {
+        if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(type)) {
             const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { m_settingsGeometry, type }, vectors[idx]);
+                painter, { m_vectorSettings, type }, vectors[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, lineWidth);
-            VectorPrimitivesPainter::drawLabel(painter, { pixLenVector*VectorSettingsStatic::getLabelVectorOvershootFactor(), colors[idx]}, labels[idx]);
+            VectorPrimitivesPainter::drawLabel(painter,
+                                               { pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(), colors[idx]},
+                                               m_vectorSettings.m_layout.getDefaultFont(painter),
+                                               labels[idx]);
         }
     }
 }

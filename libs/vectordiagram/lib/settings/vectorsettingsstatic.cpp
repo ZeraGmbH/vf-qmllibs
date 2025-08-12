@@ -12,16 +12,6 @@ float VectorSettingsStatic::getCoordCrossAndCircleLineWidth(const QPainter *pain
     return VectorPaintCalc::getClipSquareLen(painter) * 0.004;
 }
 
-float VectorSettingsStatic::getVectorLenMaxInPixels(const QPainter *painter)
-{
-    constexpr float totalLenAvail = 1.0;
-    constexpr float extraLabelLenFromAvail = 0.18;
-    constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
-
-    const float pixelsAvailforVector = VectorPaintCalc::getClipSquareLen(painter) / 2 * vectorLenFromAvail;
-    return pixelsAvailforVector;
-}
-
 float VectorSettingsStatic::getVectorLineWidth(const QPainter *painter)
 {
     return VectorPaintCalc::getClipSquareLen(painter) * 0.01;
@@ -40,18 +30,4 @@ float VectorSettingsStatic::getArrowSpreadAngle()
 float VectorSettingsStatic::getCenterDotDiameter(const QPainter *painter)
 {
     return getVectorLineWidth(painter);
-}
-
-float VectorSettingsStatic::getLabelVectorOvershootFactor()
-{
-    return 1.07;
-}
-
-QFont VectorSettingsStatic::getDefaultFont(const QPainter *painter)
-{
-    QFont defaultFont;
-    defaultFont.setPointSizeF(VectorPaintCalc::getClipSquareLen(painter) * 0.03);
-    defaultFont.setFamily("Sans");
-    defaultFont.setWeight(QFont::Medium);
-    return defaultFont;
 }

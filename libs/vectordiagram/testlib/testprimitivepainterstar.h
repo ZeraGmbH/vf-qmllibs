@@ -10,7 +10,7 @@ public:
     TestPrimitivePainterStar();
     void paint(QPainter *painter) override;
 
-    VectorSettingsGeometry m_settingsGeometry;
+    VectorSettingsGeometry m_vectorSettings;
 
 private:
     void draw2Vectors(QPainter *painter);

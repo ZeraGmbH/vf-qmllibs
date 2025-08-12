@@ -10,7 +10,7 @@ public:
     TestPrimitivePainterTriangle();
     void paint(QPainter *painter) override;
 
-    VectorSettingsGeometry m_settingsGeometry;
+    VectorSettingsGeometry m_vectorSettings;
 
 private:
     void drawTriangle(QPainter *painter);

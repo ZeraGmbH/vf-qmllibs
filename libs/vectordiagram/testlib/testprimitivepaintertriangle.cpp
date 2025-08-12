@@ -9,18 +9,18 @@ constexpr float vectorLen = 1.0;
 
 TestPrimitivePainterTriangle::TestPrimitivePainterTriangle()
 {
-    m_settingsGeometry.m_lengths.setNomVoltage(vectorLen);
-    m_settingsGeometry.m_lengths.setNomCurrent(vectorLen);
+    m_vectorSettings.m_lengths.setNomVoltage(vectorLen);
+    m_vectorSettings.m_lengths.setNomCurrent(vectorLen);
 }
 
 void TestPrimitivePainterTriangle::paint(QPainter *painter)
 {
-    painter->setFont(VectorSettingsStatic::getDefaultFont(painter)); // for reproducability
+    painter->setFont(m_vectorSettings.m_layout.getDefaultFont(painter)); // for reproducability
 
     QColor circleCoordColor("grey");
     const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
     VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor, coordCircleLineWidth);
-    VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, circleCoordColor, coordCircleLineWidth);
+    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, circleCoordColor, coordCircleLineWidth);
 
     drawTriangle(painter);
 }
@@ -36,7 +36,7 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
     for(int idx=0; idx<colors.count(); ++idx) {
         std::complex<double> corner = std::polar<double>(vectorLen, degToRad(idx*120));
         QVector2D value = QVector2D(corner.real(),corner.imag());
-        vectorPixLens[idx] = VectorPaintCalc::calcPixVec(painter, { m_settingsGeometry, VectorSettingsStatic::TYPE_U}, value);
+        vectorPixLens[idx] = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, VectorSettingsStatic::TYPE_U}, value);
         corners[idx] = { vectorPixLens[idx], colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter,

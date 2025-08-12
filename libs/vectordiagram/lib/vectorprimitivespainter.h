@@ -22,7 +22,7 @@ public:
     static void drawTriangle(QPainter *painter,
                              const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
                              float lineWidth);
-    static void drawLabel(QPainter *painter, const VectorParam &vectorParam, const QString &label);
+    static void drawLabel(QPainter *painter, const VectorParam &vectorParam, const QFont& labelFont, const QString &label);
 private:
     static void drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
     static void drawArrowHead(QPainter *painter, const VectorParam &vectorParam);

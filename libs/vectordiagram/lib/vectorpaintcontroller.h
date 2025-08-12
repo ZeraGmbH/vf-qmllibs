@@ -44,7 +44,7 @@ public:
 
 private:
     // API
-    VectorSettingsGeometry m_settingsGeometry;
+    VectorSettingsGeometry m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;
     bool m_coordCrossVisible = true;
     QColor m_coordCrossColor = Qt::darkGray;

@@ -13,14 +13,12 @@ public:
         TYPE_I
     };
     static VectorType getVectorType(int vectorIdx);
+
     static float getCoordCrossAndCircleLineWidth(const QPainter *painter);
-    static float getVectorLenMaxInPixels(const QPainter *painter);
     static float getVectorLineWidth(const QPainter *painter);
     static float getArrowHeight(const QPainter *painter);
     static float getArrowSpreadAngle();
     static float getCenterDotDiameter(const QPainter *painter);
-    static float getLabelVectorOvershootFactor();
-    static QFont getDefaultFont(const QPainter *painter);
 };
 
 #endif // VECTORSETTINGSSTATIC_H
