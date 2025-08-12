@@ -23,6 +23,7 @@ private slots:
     void gridAndCircleBlue();
 
     void starVectorsNoOvershoot();
+    void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();
 
 private:

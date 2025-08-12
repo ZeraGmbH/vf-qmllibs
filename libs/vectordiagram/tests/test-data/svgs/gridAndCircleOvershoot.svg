@@ -6,12 +6,12 @@
 </defs>
 <g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
 
-<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="10" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
+<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="8" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <polyline fill="none" vector-effect="none" points="0,1000 2000,1000 " />
 <polyline fill="none" vector-effect="none" points="1000,0 1000,2000 " />
-<path vector-effect="none" fill-rule="evenodd" d="M1400,1000 C1400,779.086 1220.91,600 1000,600 C779.086,600 600,779.086 600,1000 C600,1220.91 779.086,1400 1000,1400 C1220.91,1400 1400,1220.91 1400,1000 "/>
+<path vector-effect="none" fill-rule="evenodd" d="M1410,1000 C1410,773.563 1226.44,590 1000,590 C773.563,590 590,773.563 590,1000 C590,1226.44 773.563,1410 1000,1410 C1226.44,1410 1410,1226.44 1410,1000 "/>
 </g>
 </g>
 </svg>

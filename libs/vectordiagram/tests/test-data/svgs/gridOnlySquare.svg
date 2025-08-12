@@ -6,8 +6,8 @@
 </defs>
 <g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
 
-<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="10" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="80" font-weight="400" font-style="normal" 
+<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="8" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <polyline fill="none" vector-effect="none" points="0,1000 2000,1000 " />
 <polyline fill="none" vector-effect="none" points="1000,0 1000,2000 " />

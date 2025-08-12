@@ -19,6 +19,7 @@ public:
     static float getArrowHeight(const QPainter *painter);
     static float getArrowSpreadAngle();
     static float getCenterDotDiameter(const QPainter *painter);
+    static float getLabelVectorOvershootFactor();
     static void setFontForLabels(QPainter *painter);
 };
 

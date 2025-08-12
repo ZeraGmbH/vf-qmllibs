@@ -9,13 +9,13 @@ VectorSettingsStatic::VectorType VectorSettingsStatic::getVectorType(int vectorI
 
 float VectorSettingsStatic::getCoordCrossAndCircleLineWidth(const QPainter *painter)
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * 0.005;
+    return VectorPaintCalc::getClipSquareLen(painter) * 0.004;
 }
 
 float VectorSettingsStatic::getVectorLenMaxInPixels(const QPainter *painter)
 {
     constexpr float totalLenAvail = 1.0;
-    constexpr float extraLabelLenFromAvail = 0.2;
+    constexpr float extraLabelLenFromAvail = 0.18;
     constexpr float vectorLenFromAvail = totalLenAvail - extraLabelLenFromAvail;
 
     const float pixelsAvailforVector = VectorPaintCalc::getClipSquareLen(painter) / 2 * vectorLenFromAvail;
@@ -42,11 +42,16 @@ float VectorSettingsStatic::getCenterDotDiameter(const QPainter *painter)
     return getVectorLineWidth(painter);
 }
 
+float VectorSettingsStatic::getLabelVectorOvershootFactor()
+{
+    return 1.07;
+}
+
 void VectorSettingsStatic::setFontForLabels(QPainter *painter)
 {
-    const int minXy = std::min(VectorPaintCalc::getHeight(painter), VectorPaintCalc::getWidth(painter));
     QFont defaultFont;
-    defaultFont.setPixelSize(minXy > 0.0 ? minXy / 25 : 10.0);
+    defaultFont.setPointSizeF(VectorPaintCalc::getClipSquareLen(painter) * 0.03);
     defaultFont.setFamily("Sans");
+    defaultFont.setWeight(QFont::Medium);
     painter->setFont(defaultFont);
 }

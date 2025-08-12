@@ -18,7 +18,7 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &co
 
 void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const QColor &color, float diameter)
 {
-    painter->setPen(QPen(color, 0));
+    painter->setPen(Qt::NoPen);
     painter->setBrush(color);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -84,9 +84,9 @@ void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &ve
     const float centerY = VectorPaintCalc::centerY(painter);
     QPointF positionCenter(centerX + vectorParam.pixLenVector.x(), centerY + vectorParam.pixLenVector.y());
 
-    float pixelSize = painter->font().pixelSize();
-    float approxXOffset = pixelSize * 0.28 * label.size();
-    float approxYOffset = pixelSize * 0.3;
+    float pointSize = painter->font().pointSizeF();
+    float approxXOffset = pointSize * 0.28 * label.size();
+    float approxYOffset = pointSize * 0.3;
     QPointF positionTopLeft(positionCenter.x()-approxXOffset, positionCenter.y()+approxYOffset);
 
     painter->setPen(QPen(vectorParam.color, 0));
@@ -110,7 +110,7 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
 
 void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam)
 {
-    painter->setPen(QPen(vectorParam.color, 0));
+    painter->setPen(Qt::NoPen);
     const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
     const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
     const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);

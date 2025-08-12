@@ -29,6 +29,7 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
 {
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("red").darker(dark), QColor("red").lighter()};
+    QStringList labels = QStringList() << "UL1-UL2" << "IL1";
 
     constexpr float angle30 = degToRad(30);
     std::complex<double> uRawValue[] = { std::polar<double>(vectorLen, 0), std::polar<double>(vectorLen*0.5, angle30)};
@@ -45,6 +46,7 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_settingsGeometry, type }, vectors[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, lineWidth);
+            VectorPrimitivesPainter::drawLabel(painter, { pixLenVector*VectorSettingsStatic::getLabelVectorOvershootFactor(), colors[idx]}, labels[idx]);
         }
     }
 }

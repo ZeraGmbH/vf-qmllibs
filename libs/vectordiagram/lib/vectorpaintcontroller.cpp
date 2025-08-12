@@ -88,6 +88,7 @@ void VectorPaintController::paint(QPainter *painter)
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_settingsGeometry, type }, m_vector[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, m_vectorColor[idx] }, lineWidth);
+            VectorPrimitivesPainter::drawLabel(painter, { pixLenVector*VectorSettingsStatic::getLabelVectorOvershootFactor(), m_vectorColor[idx]}, m_vectorLabel[idx]);
             vectorDrawn = true;
         }
     }

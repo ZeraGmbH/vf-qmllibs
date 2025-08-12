@@ -223,6 +223,34 @@ void test_vector_diagram::starVectorsNoOvershoot()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::starVectorsNoOvershootSmall()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float iNom = 10;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(50, 50);
+    VectorPaintController vectorPainter;
+    vectorPainter.setCoordCrossVisible(true);
+    vectorPainter.setCircleVisible(true);
+    vectorPainter.setMaxOvershootFactor(1.0);
+
+    vectorPainter.setNominalVoltage(uNom);
+    vectorPainter.setNominalCurrent(iNom);
+    setSymmetricValues(&vectorPainter, uNom, iNom, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::starVectorsIgnoreLessThanMin()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
