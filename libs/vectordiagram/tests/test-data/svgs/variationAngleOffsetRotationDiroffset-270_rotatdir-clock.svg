@@ -17,19 +17,19 @@ font-family="Sans" font-size="90" font-weight="570" font-style="normal"
 <g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="30" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1500,1485 1500,360 " />
+<polyline fill="none" vector-effect="none" points="1500,1485 1500,375 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1500,270 L1534.44,353.149 L1465.56,353.149 L1500,270"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1500,270 L1537.28,360 L1462.72,360 L1500,270"/>
 </g>
 
 <g fill="#c40000" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1500,270 L1534.44,353.149 L1465.56,353.149"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1500,270 L1537.28,360 L1462.72,360"/>
 </g>
 
 <g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
@@ -42,19 +42,19 @@ font-family="Sans" font-size="90" font-weight="570" font-style="normal"
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="30" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1507.5,1487.01 1762.5,1045.34 " />
+<polyline fill="none" vector-effect="none" points="1507.5,1487.01 1755,1058.33 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1807.5,967.394 L1795.75,1056.62 L1736.1,1022.18 L1807.5,967.394"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1807.5,967.394 L1794.78,1063.98 L1730.22,1026.7 L1807.5,967.394"/>
 </g>
 
 <g fill="#ff7f7f" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="90" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1807.5,967.394 L1795.75,1056.62 L1736.1,1022.18"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1807.5,967.394 L1794.78,1063.98 L1730.22,1026.7"/>
 </g>
 
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"

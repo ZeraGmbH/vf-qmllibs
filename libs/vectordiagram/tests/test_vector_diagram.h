@@ -21,6 +21,14 @@ private slots:
     void gridAndCircleNoOvershoot();
     void gridAndCircleOvershoot();
     void gridAndCircleBlue();
+    void setCrossAndCircleLineWidth();
+    void setVectorLineWidth();
+    void setArrowHeight();
+    void setArrowWidthWide();
+    void setArrowWidthNarrow();
+    void setArrowWidthTooHigh();
+    void setArrowWidthTooLow();
+    void setFontSize();
 
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();

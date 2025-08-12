@@ -56,19 +56,10 @@ void VectorSettingsLayout::setCircleColor(QColor circleColor)
     m_circleColor = circleColor;
 }
 
-float VectorSettingsLayout::getCenterDotDiameterRel() const
-{
-    return m_centerDotDiameterRel;
-}
-
-void VectorSettingsLayout::setCenterDotDiameterRel(float centerDotDiameterRel)
-{
-    m_centerDotDiameterRel = centerDotDiameterRel;
-}
-
 float VectorSettingsLayout::getCenterDotDiameter(const QPainter *painter) const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_centerDotDiameterRel;
+    // Use m_vectorLineWidthRel
+    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidthRel;
 }
 
 float VectorSettingsLayout::getVectorLineWidthRel() const
@@ -86,14 +77,34 @@ float VectorSettingsLayout::getVectorLineWidth(const QPainter *painter) const
     return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidthRel;
 }
 
+float VectorSettingsLayout::getArrowHeightRel() const
+{
+    return m_arrowHeightRel;
+}
+
+void VectorSettingsLayout::setArrowHeightRel(float arrowHeightRel)
+{
+    m_arrowHeightRel = arrowHeightRel;
+}
+
 float VectorSettingsLayout::getArrowHeight(const QPainter *painter) const
 {
     return VectorPaintCalc::getClipSquareLen(painter) * m_arrowHeightRel;
 }
 
+float VectorSettingsLayout::getArrowSpreadAngleDeg() const
+{
+    return m_arrowSpreadAngleDeg;
+}
+
 float VectorSettingsLayout::getArrowSpreadAngle() const
 {
-    return degToRad(m_arrowSpreadAngleRel);
+    return degToRad(m_arrowSpreadAngleDeg);
+}
+
+void VectorSettingsLayout::setArrowSpreadAngleDeg(float arrowSpreadAngle)
+{
+    m_arrowSpreadAngleDeg = arrowSpreadAngle;
 }
 
 float VectorSettingsLayout::getLabelVectorOvershootFactor() const

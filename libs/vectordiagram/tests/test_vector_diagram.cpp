@@ -195,6 +195,224 @@ void test_vector_diagram::gridAndCircleBlue()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::setCrossAndCircleLineWidth()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    // two variations...
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue*2.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidthRel(0.05);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setVectorLineWidth()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthRel(0.02);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowHeight()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightRel(0.1);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowWidthWide()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(45);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowWidthNarrow()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(12);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowWidthTooHigh()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(180);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowWidthTooLow()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(0);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setFontSize()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
+
+    const float fontSize = 0.06;
+    vectorPainter.getVectorSettings()->m_layout.setLabelFontSize(fontSize);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getLabelFontSize(), fontSize);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::starVectorsNoOvershoot()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";

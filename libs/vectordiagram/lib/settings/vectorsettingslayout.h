@@ -9,6 +9,7 @@ class VectorSettingsLayout
 public:
     bool getCoordCrossVisible() const;
     void setCoordCrossVisible(bool coordCrossVisible);
+
     bool getCircleVisible() const;
     void setCircleVisible(bool circleVisible);
 
@@ -21,15 +22,18 @@ public:
     QColor getCircleColor() const;
     void setCircleColor(QColor circleColor);
 
-    float getCenterDotDiameterRel() const;
-    void setCenterDotDiameterRel(float centerDotDiameterRel);
     float getCenterDotDiameter(const QPainter *painter) const;
 
     float getVectorLineWidthRel() const;
     void setVectorLineWidthRel(float vectorLineWidthRel);
     float getVectorLineWidth(const QPainter *painter) const;
 
+    float getArrowHeightRel() const;
+    void setArrowHeightRel(float arrowHeightRel);
     float getArrowHeight(const QPainter *painter) const;
+
+    float getArrowSpreadAngleDeg() const;
+    void setArrowSpreadAngleDeg(float arrowSpreadAngle);
     float getArrowSpreadAngle() const;
 
     float getLabelVectorOvershootFactor() const;
@@ -45,10 +49,9 @@ private:
     float m_coordCrossAndCircleLineWidthRel = 0.004;
     QColor m_coordCrossColor = Qt::darkGray;
     QColor m_circleColor = Qt::darkGray;
-    float m_centerDotDiameterRel = 0.01;
     float m_vectorLineWidthRel = 0.01;
     float m_arrowHeightRel = 0.03;
-    float m_arrowSpreadAngleRel = 22.5;
+    float m_arrowSpreadAngleDeg = 22.5;
     float m_labelFontSize = 0.03;
     float m_labelVectorOvershootFactor = 1.07;
 };

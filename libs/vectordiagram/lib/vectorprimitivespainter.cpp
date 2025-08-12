@@ -102,10 +102,9 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
 {
     const float lineWidth = layout.getVectorLineWidth(painter);
     painter->setPen(QPen(vectorParam.color, lineWidth));
-    // still overlap lineWidth/2 caused by line end
     QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
         vectorParam.pixLenVector,
-        vectorParam.pixLenVector.length() - layout.getArrowHeight(painter));
+        vectorParam.pixLenVector.length() - layout.getArrowHeight(painter) - lineWidth / 2);
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -120,17 +119,22 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam
     painter->setPen(Qt::NoPen);
     const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
     const float arrowHeight = layout.getArrowHeight(painter);
-    const float arrowSpreadAngle = layout.getArrowSpreadAngle();
+    float arrowSpreadAngle = layout.getArrowSpreadAngle();
+    if(radToDeg(arrowSpreadAngle) < 5)
+        arrowSpreadAngle = degToRad(5);
+    if(radToDeg(arrowSpreadAngle) > 60)
+        arrowSpreadAngle = degToRad(60);
+    const float arrowEffectiveHeight = arrowHeight / cos(arrowSpreadAngle);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     const QVector2D centeredVector = vectorParam.pixLenVector + QVector2D(centerX, centerY);
     QVector<QPointF> points = {
         QPointF(centeredVector.x(),
                 centeredVector.y()),
-        QPointF(centeredVector.x() - arrowHeight * cos(angle - arrowSpreadAngle),
-                centeredVector.y() - arrowHeight * sin(angle - arrowSpreadAngle)),
-        QPointF(centeredVector.x() - arrowHeight * cos(angle + arrowSpreadAngle),
-                centeredVector.y() - arrowHeight * sin(angle + arrowSpreadAngle)),
+        QPointF(centeredVector.x() - arrowEffectiveHeight * cos(angle - arrowSpreadAngle),
+                centeredVector.y() - arrowEffectiveHeight * sin(angle - arrowSpreadAngle)),
+        QPointF(centeredVector.x() - arrowEffectiveHeight * cos(angle + arrowSpreadAngle),
+                centeredVector.y() - arrowEffectiveHeight * sin(angle + arrowSpreadAngle)),
     };
 
     QBrush brush;
