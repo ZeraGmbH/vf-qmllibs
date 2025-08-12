@@ -23,13 +23,13 @@ font-family="Sans" font-size="120" font-weight="400" font-style="normal"
 <g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="non-scaling-stroke" fill-rule="evenodd" d="M2700,1500 L2617,1534 L2617,1466 L2700,1500"/>
+<path vector-effect="non-scaling-stroke" fill-rule="evenodd" d="M2700,1500 L2616.85,1534.44 L2616.85,1465.56 L2700,1500"/>
 </g>
 
 <g fill="#c40000" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M2700,1500 L2617,1534 L2617,1466"/>
+<path vector-effect="none" fill-rule="evenodd" d="M2700,1500 L2616.85,1534.44 L2616.85,1465.56"/>
 </g>
 
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="30" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
@@ -41,13 +41,13 @@ font-family="Sans" font-size="120" font-weight="400" font-style="normal"
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="non-scaling-stroke" fill-rule="evenodd" d="M2020,1200 L1965,1271 L1930,1212 L2020,1200"/>
+<path vector-effect="non-scaling-stroke" fill-rule="evenodd" d="M2019.62,1200 L1964.83,1271.4 L1930.39,1211.75 L2019.62,1200"/>
 </g>
 
 <g fill="#ff7f7f" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="120" font-weight="400" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M2020,1200 L1965,1271 L1930,1212"/>
+<path vector-effect="none" fill-rule="evenodd" d="M2019.62,1200 L1964.83,1271.4 L1930.39,1211.75"/>
 </g>
 </g>
 </svg>

@@ -92,20 +92,20 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     const QVector2D centeredVector = vectorParam.pixLenVector + QVector2D(centerX, centerY);
-    QVector<QPoint> points = {
-        QPoint(round(centeredVector.x()),
-               round(centeredVector.y())),
-        QPoint(round(centeredVector.x() - arrowHeight * cos(angle - arrowWidth)),
-               round(centeredVector.y() - arrowHeight * sin(angle - arrowWidth))),
-        QPoint(round(centeredVector.x() - arrowHeight * cos(angle + arrowWidth)),
-               round(centeredVector.y() - arrowHeight * sin(angle + arrowWidth))),
+    QVector<QPointF> points = {
+        QPointF(centeredVector.x(),
+                centeredVector.y()),
+        QPointF(centeredVector.x() - arrowHeight * cos(angle - arrowWidth),
+                centeredVector.y() - arrowHeight * sin(angle - arrowWidth)),
+        QPointF(centeredVector.x() - arrowHeight * cos(angle + arrowWidth),
+                centeredVector.y() - arrowHeight * sin(angle + arrowWidth)),
     };
 
     QBrush brush;
     brush.setColor(vectorParam.color);
     brush.setStyle(Qt::SolidPattern);
 
-    QPolygon poly(points);
+    QPolygonF poly(points);
     painter->drawPolygon(poly);
     QPainterPath path;
     path.addPolygon(poly);
