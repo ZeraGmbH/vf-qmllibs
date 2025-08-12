@@ -18,8 +18,9 @@ void TestPrimitivePainterTriangle::paint(QPainter *painter)
     VectorSettingsStatic::setFontForLabels(painter); // for reproducability
 
     QColor circleCoordColor("grey");
-    VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor);
-    VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, circleCoordColor);
+    const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
+    VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor, coordCircleLineWidth);
+    VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, circleCoordColor, coordCircleLineWidth);
 
     drawTriangle(painter);
 }

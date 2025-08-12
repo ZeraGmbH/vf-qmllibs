@@ -10,12 +10,8 @@
 class VectorPrimitivesPainter
 {
 public:
-    static void drawCoordCross(QPainter *painter, const QColor& color);
-    static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor& color);
-    struct VectorData {
-        QVector2D value;
-        QColor color;
-    };
+    static void drawCoordCross(QPainter *painter, const QColor& color, float lineWidth);
+    static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor& color, float lineWidth);
     struct VectorParam
     {
         QVector2D pixLenVector;

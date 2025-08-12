@@ -13,7 +13,7 @@ public:
         TYPE_I
     };
     static VectorType getVectorType(int vectorIdx);
-    static float getGridAndCircleLineWidth(const QPainter *painter);
+    static float getCoordCrossAndCircleLineWidth(const QPainter *painter);
     static float getVectorLenMaxInPixels(const QPainter *painter);
     static float getVectorLineWidth(const QPainter *painter);
     static float getArrowHeight(const QPainter *painter);

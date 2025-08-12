@@ -7,7 +7,7 @@ VectorSettingsStatic::VectorType VectorSettingsStatic::getVectorType(int vectorI
     return vectorIdx < VectorSettingsStatic::COUNT_PHASES ? TYPE_U : TYPE_I;
 }
 
-float VectorSettingsStatic::getGridAndCircleLineWidth(const QPainter *painter)
+float VectorSettingsStatic::getCoordCrossAndCircleLineWidth(const QPainter *painter)
 {
     return VectorPaintCalc::getClipSquareLen(painter) * 0.005;
 }

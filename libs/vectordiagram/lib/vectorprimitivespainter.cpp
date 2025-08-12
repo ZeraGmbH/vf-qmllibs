@@ -4,9 +4,9 @@
 #include <QGradient>
 #include <QPainterPath>
 
-void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &color)
+void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &color, float lineWidth)
 {
-    painter->setPen(QPen(color, VectorSettingsStatic::getGridAndCircleLineWidth(painter)));
+    painter->setPen(QPen(color, lineWidth));
     const float lenFromCenter = VectorPaintCalc::getClipSquareLen(painter) / 2;
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -29,9 +29,8 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &co
 
 // circle radius is nominal
 
-void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor &color)
+void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor &color, float lineWidth)
 {
-    float lineWidth = VectorSettingsStatic::getGridAndCircleLineWidth(painter);
     painter->setPen(QPen(color, lineWidth));
     const float radius = lengths.getVectorLenNominalInPixels(painter);
     QRectF circleRect(

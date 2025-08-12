@@ -73,11 +73,12 @@ void VectorPaintController::paint(QPainter *painter)
 {
     VectorSettingsStatic::setFontForLabels(painter);
 
+    const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
     if (m_coordCrossVisible)
-        VectorPrimitivesPainter::drawCoordCross(painter, m_coordCrossColor);
+        VectorPrimitivesPainter::drawCoordCross(painter, m_coordCrossColor, coordCircleLineWidth);
 
     if(m_circleVisible)
-        VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, m_circleColor);
+        VectorPrimitivesPainter::drawCircle(painter, m_settingsGeometry.m_lengths, m_circleColor, coordCircleLineWidth);
 
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
