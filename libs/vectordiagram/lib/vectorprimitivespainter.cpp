@@ -10,10 +10,10 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &co
     const float lenFromCenter = VectorPaintCalc::getClipSquareLen(painter) / 2;
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
-    painter->drawLine(round(centerX-lenFromCenter), round(centerY),
-                      round(centerX+lenFromCenter), round(centerY)); // x axis
-    painter->drawLine(round(centerX), round(centerY-lenFromCenter),
-                      round(centerX), round(centerY+lenFromCenter)); // y axis
+    QLineF lineXAxis(centerX-lenFromCenter, centerY, centerX+lenFromCenter, centerY);
+    painter->drawLine(lineXAxis);
+    QLineF lineYAxis(centerX, centerY-lenFromCenter, centerX, centerY+lenFromCenter);
+    painter->drawLine(lineYAxis);
 }
 
 // Some thoughts:
