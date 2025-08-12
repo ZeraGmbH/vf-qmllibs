@@ -15,12 +15,10 @@ TestPrimitivePainterStar::TestPrimitivePainterStar()
 
 void TestPrimitivePainterStar::paint(QPainter *painter)
 {
-    painter->setFont(m_vectorSettings.m_layout.getDefaultFont(painter)); // for reproducability
+    painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // for reproducability
 
-    QColor circleCoordColor("grey");
-    const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
-    VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor, coordCircleLineWidth);
-    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, circleCoordColor, coordCircleLineWidth);
+    VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
+    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
     draw2Vectors(painter);
 }
@@ -42,13 +40,12 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
     for(int idx=0; idx<colors.count(); ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
         if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(type)) {
-            const float lineWidth = VectorSettingsStatic::getVectorLineWidth(painter);
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_vectorSettings, type }, vectors[idx]);
-            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, lineWidth);
+            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, m_vectorSettings.m_layout);
             VectorPrimitivesPainter::drawLabel(painter,
                                                { pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(), colors[idx]},
-                                               m_vectorSettings.m_layout.getDefaultFont(painter),
+                                               m_vectorSettings.m_layout.getLabelFont(painter),
                                                labels[idx]);
         }
     }

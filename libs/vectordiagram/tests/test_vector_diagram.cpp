@@ -32,8 +32,8 @@ void test_vector_diagram::noGridSquare()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(false);
-    vectorPainter.setCircleVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -52,8 +52,8 @@ void test_vector_diagram::gridOnlySquare()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -78,8 +78,8 @@ void test_vector_diagram::gridOnlyRectangleWide()
 
     VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -98,8 +98,8 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -118,9 +118,9 @@ void test_vector_diagram::gridOnlyBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCoordCrossColor(Qt::blue);
-    vectorPainter.setCircleVisible(false);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossColor(Qt::blue);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -139,9 +139,9 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setMaxOvershootFactor(1.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -160,9 +160,9 @@ void test_vector_diagram::gridAndCircleOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setMaxOvershootFactor(2.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(2.0);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -181,9 +181,9 @@ void test_vector_diagram::gridAndCircleBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setCircleColor(Qt::blue);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleColor(Qt::blue);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -205,12 +205,12 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setMaxOvershootFactor(1.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.setNominalVoltage(uNom);
-    vectorPainter.setNominalCurrent(iNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
     setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -233,12 +233,12 @@ void test_vector_diagram::starVectorsNoOvershootSmall()
     const float angle = 30;
     VectorToSvgPainter svgPainter(50, 50);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setMaxOvershootFactor(1.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.setNominalVoltage(uNom);
-    vectorPainter.setNominalCurrent(iNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
     setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -263,14 +263,14 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.setCoordCrossVisible(true);
-    vectorPainter.setCircleVisible(true);
-    vectorPainter.setMaxOvershootFactor(1.0);
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
+    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.setNominalVoltage(uNom);
-    vectorPainter.setMinVoltage(uMin);
-    vectorPainter.setNominalCurrent(iNom);
-    vectorPainter.setMinCurrent(iMin);
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    vectorPainter.getVectorSettings()->m_lengths.setMinVoltage(uMin);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
+    vectorPainter.getVectorSettings()->m_lengths.setMinCurrent(iMin);
     setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 

@@ -4,9 +4,9 @@
 #include <QGradient>
 #include <QPainterPath>
 
-void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &color, float lineWidth)
+void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const VectorSettingsLayout &layout)
 {
-    painter->setPen(QPen(color, lineWidth));
+    painter->setPen(QPen(layout.getCoordCrossColor(), layout.getCoordCrossAndCircleLineWidth(painter)));
     const float lenFromCenter = VectorPaintCalc::getClipSquareLen(painter) / 2;
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -16,12 +16,13 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const QColor &co
     painter->drawLine(lineYAxis);
 }
 
-void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const QColor &color, float diameter)
+void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const VectorSettingsLayout &layout)
 {
     painter->setPen(Qt::NoPen);
-    painter->setBrush(color);
+    painter->setBrush(layout.getCoordCrossColor());
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
+    const float diameter = layout.getCenterDotDiameter(painter);
     QPointF center(centerX, centerY);
     painter->drawEllipse(center, diameter/2, diameter/2);
 }
@@ -39,9 +40,10 @@ void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const QColor
 
 // circle radius is nominal
 
-void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor &color, float lineWidth)
+void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths,
+                                         const VectorSettingsLayout &layout)
 {
-    painter->setPen(QPen(color, lineWidth));
+    painter->setPen(QPen(layout.getCircleColor(), layout.getCoordCrossAndCircleLineWidth(painter)));
     const float radius = lengths.getVectorLenNominalInPixels(painter);
     QRectF circleRect(
         VectorPaintCalc::centerX(painter) - radius,
@@ -51,15 +53,16 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorParam &vectorParam, float lineWidth)
+void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorParam &vectorParam,
+                                         const VectorSettingsLayout &layout)
 {
-    drawVectorLine(painter, vectorParam, lineWidth);
-    drawArrowHead(painter, vectorParam);
+    drawVectorLine(painter, vectorParam, layout);
+    drawArrowHead(painter, vectorParam, layout);
 }
 
 void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
                                            const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
-                                           float lineWidth)
+                                           const VectorSettingsLayout &layout)
 {
     const QVector<QVector2D> vectors{vectorParam1.pixLenVector, vectorParam2.pixLenVector, vectorParam3.pixLenVector};
     QVector<QPointF> positions(VectorSettingsStatic::COUNT_PHASES);
@@ -69,6 +72,7 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
         positions[phase] = QPointF(centerX + vectors[phase].x(), centerY + vectors[phase].y());
     }
 
+    const float lineWidth = layout.getVectorLineWidth(painter);
     // 1 -> 2
     drawGradientLine(painter, lineWidth, {positions[0], vectorParam1.color}, {positions[1], vectorParam2.color});
     // 2 -> 3
@@ -93,13 +97,15 @@ void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &ve
     painter->drawText(positionTopLeft, label);
 }
 
-void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth)
+void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam,
+                                             const VectorSettingsLayout &layout)
 {
+    const float lineWidth = layout.getVectorLineWidth(painter);
     painter->setPen(QPen(vectorParam.color, lineWidth));
     // still overlap lineWidth/2 caused by line end
     QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
         vectorParam.pixLenVector,
-        vectorParam.pixLenVector.length() - VectorSettingsStatic::getArrowHeight(painter));
+        vectorParam.pixLenVector.length() - layout.getArrowHeight(painter));
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -108,22 +114,23 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
     painter->drawLine(line);
 }
 
-void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam)
+void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam,
+                                            const VectorSettingsLayout &layout)
 {
     painter->setPen(Qt::NoPen);
     const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
-    const float arrowWidth = VectorSettingsStatic::getArrowSpreadAngle();
-    const float arrowHeight = VectorSettingsStatic::getArrowHeight(painter);
+    const float arrowHeight = layout.getArrowHeight(painter);
+    const float arrowSpreadAngle = layout.getArrowSpreadAngle();
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
     const QVector2D centeredVector = vectorParam.pixLenVector + QVector2D(centerX, centerY);
     QVector<QPointF> points = {
         QPointF(centeredVector.x(),
                 centeredVector.y()),
-        QPointF(centeredVector.x() - arrowHeight * cos(angle - arrowWidth),
-                centeredVector.y() - arrowHeight * sin(angle - arrowWidth)),
-        QPointF(centeredVector.x() - arrowHeight * cos(angle + arrowWidth),
-                centeredVector.y() - arrowHeight * sin(angle + arrowWidth)),
+        QPointF(centeredVector.x() - arrowHeight * cos(angle - arrowSpreadAngle),
+                centeredVector.y() - arrowHeight * sin(angle - arrowSpreadAngle)),
+        QPointF(centeredVector.x() - arrowHeight * cos(angle + arrowSpreadAngle),
+                centeredVector.y() - arrowHeight * sin(angle + arrowSpreadAngle)),
     };
 
     QBrush brush;

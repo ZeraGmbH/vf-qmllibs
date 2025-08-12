@@ -29,15 +29,15 @@ public:
     void setVectorType(const VectorType &vectorType);
     Q_SIGNAL void vectorTypeChanged();
 
-    Q_VECTOR_PROPERTY(float, m_maxOvershootFactor, maxOvershootFactor, setMaxOvershootFactor)
-    Q_VECTOR_PROPERTY(float, m_nominalVoltage, nominalVoltage, setNominalVoltage)
-    Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
-    Q_VECTOR_PROPERTY(float, m_nominalCurrent, nominalCurrent, setNominalCurrent)
-    Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
-    Q_VECTOR_PROPERTY(bool,  m_coordCrossVisible, coordCrossVisible, setCoordCrossVisible)
-    Q_VECTOR_PROPERTY(QColor,m_coordCrossColor, coordCrossColor, setCoordCrossColor)
-    Q_VECTOR_PROPERTY(bool,  m_circleVisible, circleVisible, setCircleVisible)
-    Q_VECTOR_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
+    //Q_VECTOR_PROPERTY(float, m_maxOvershootFactor, maxOvershootFactor, setMaxOvershootFactor)
+    //Q_VECTOR_PROPERTY(float, m_nominalVoltage, nominalVoltage, setNominalVoltage)
+    //Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
+    //Q_VECTOR_PROPERTY(float, m_nominalCurrent, nominalCurrent, setNominalCurrent)
+    //Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
+    //Q_VECTOR_PROPERTY(bool,  m_coordCrossVisible, coordCrossVisible, setCoordCrossVisible)
+    //Q_VECTOR_PROPERTY(QColor,m_coordCrossColor, coordCrossColor, setCoordCrossColor)
+    //Q_VECTOR_PROPERTY(bool,  m_circleVisible, circleVisible, setCircleVisible)
+    //Q_VECTOR_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
 
     // create setVectorLabel0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)

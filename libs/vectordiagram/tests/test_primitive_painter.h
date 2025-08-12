@@ -1,7 +1,7 @@
 #ifndef TEST_PRIMITIVE_PAINTER_H
 #define TEST_PRIMITIVE_PAINTER_H
 
-#include "vectorsettingsgeometry.h"
+#include "vectorsettings.h"
 #include <QObject>
 #include <QSvgGenerator>
 
@@ -21,7 +21,7 @@ private slots:
     void initialTestPrimitivePainterLabel();
 private:
     std::unique_ptr<QSvgGenerator> m_generator;
-    VectorSettingsGeometry m_geomSettings;
+    VectorSettings m_geomSettings;
 };
 
 #endif // TEST_PRIMITIVE_PAINTER_H

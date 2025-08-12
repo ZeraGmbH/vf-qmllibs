@@ -16,12 +16,10 @@ TestPrimitivePainterLabel::TestPrimitivePainterLabel()
 
 void TestPrimitivePainterLabel::paint(QPainter *painter)
 {
-    painter->setFont(m_vectorSettings.m_layout.getDefaultFont(painter)); // for reproducability
+    painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // for reproducability
 
-    QColor circleCoordColor("grey");
-    const float coordCircleLineWidth = VectorSettingsStatic::getCoordCrossAndCircleLineWidth(painter);
-    VectorPrimitivesPainter::drawCoordCross(painter, circleCoordColor, coordCircleLineWidth);
-    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, circleCoordColor, coordCircleLineWidth);
+    VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
+    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("black"), QColor("red").darker(dark), QColor("red").darker(dark)};
@@ -49,7 +47,7 @@ void TestPrimitivePainterLabel::paint(QPainter *painter)
 
         VectorPrimitivesPainter::drawLabel(painter,
                                            { vectorPixLen, color },
-                                           m_vectorSettings.m_layout.getDefaultFont(painter),
+                                           m_vectorSettings.m_layout.getLabelFont(painter),
                                            label);
         // Test for our text metrics aproximization. Dot should be in center of label
         const float dotWidth = 16;

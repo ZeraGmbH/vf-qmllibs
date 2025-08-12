@@ -1,14 +1,14 @@
-#ifndef VECTORSETTINGSGEOMETRY_H
-#define VECTORSETTINGSGEOMETRY_H
+#ifndef VECTORSETTINGS_H
+#define VECTORSETTINGS_H
 
 #include "vectorsettingslayout.h"
 #include "vectorsettingsangles.h"
 #include "vectorsettingslengths.h"
 
-struct VectorSettingsGeometry {
+struct VectorSettings {
     VectorSettingsLayout m_layout;
     VectorSettingsAngles m_angles;
     VectorSettingsLengths m_lengths;
 };
 
-#endif // VECTORSETTINGSGEOMETRY_H
+#endif // VECTORSETTINGS_H

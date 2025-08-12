@@ -7,9 +7,48 @@
 class VectorSettingsLayout
 {
 public:
-    float getLabelVectorOvershootFactor();
-    QFont getDefaultFont(const QPainter *painter);
+    bool getCoordCrossVisible() const;
+    void setCoordCrossVisible(bool coordCrossVisible);
+    bool getCircleVisible() const;
+    void setCircleVisible(bool circleVisible);
+
+    float getCoordCrossAndCircleLineWidthRel() const;
+    void setCoordCrossAndCircleLineWidthRel(float coordCrossAndCircleLineWidthRel);
+    float getCoordCrossAndCircleLineWidth(const QPainter *painter) const;
+
+    QColor getCoordCrossColor() const;
+    void setCoordCrossColor(QColor coordCrossColor);
+    QColor getCircleColor() const;
+    void setCircleColor(QColor circleColor);
+
+    float getCenterDotDiameterRel() const;
+    void setCenterDotDiameterRel(float centerDotDiameterRel);
+    float getCenterDotDiameter(const QPainter *painter) const;
+
+    float getVectorLineWidthRel() const;
+    void setVectorLineWidthRel(float vectorLineWidthRel);
+    float getVectorLineWidth(const QPainter *painter) const;
+
+    float getArrowHeight(const QPainter *painter) const;
+    float getArrowSpreadAngle() const;
+
+    float getLabelVectorOvershootFactor() const;
+    void setLabelVectorOvershootFactor(float labelVectorOvershootFactor);
+
+    float getLabelFontSize() const;
+    void setLabelFontSize(float labelFontSize);
+    QFont getLabelFont(const QPainter *painter) const;
+
 private:
+    bool m_coordCrossVisible = true;
+    bool m_circleVisible = true;
+    float m_coordCrossAndCircleLineWidthRel = 0.004;
+    QColor m_coordCrossColor = Qt::darkGray;
+    QColor m_circleColor = Qt::darkGray;
+    float m_centerDotDiameterRel = 0.01;
+    float m_vectorLineWidthRel = 0.01;
+    float m_arrowHeightRel = 0.03;
+    float m_arrowSpreadAngleRel = 22.5;
     float m_labelFontSize = 0.03;
     float m_labelVectorOvershootFactor = 1.07;
 };

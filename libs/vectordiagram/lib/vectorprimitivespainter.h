@@ -1,6 +1,7 @@
 #ifndef VECTORPRIMITIVESPAINTER_H
 #define VECTORPRIMITIVESPAINTER_H
 
+#include "vectorsettingslayout.h"
 #include "vectorsettingslengths.h"
 #include <QPainter>
 #include <QColor>
@@ -10,22 +11,22 @@
 class VectorPrimitivesPainter
 {
 public:
-    static void drawCoordCross(QPainter *painter, const QColor& color, float lineWidth);
-    static void drawCoordCenterDot(QPainter *painter, const QColor& color, float diameter);
-    static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const QColor& color, float lineWidth);
+    static void drawCoordCross(QPainter *painter, const VectorSettingsLayout &layout);
+    static void drawCoordCenterDot(QPainter *painter, const VectorSettingsLayout &layout);
+    static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const VectorSettingsLayout &layout);
     struct VectorParam
     {
         QVector2D pixLenVector;
         QColor color;
     };
-    static void drawVector(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
+    static void drawVector(QPainter *painter, const VectorParam &vectorParam, const VectorSettingsLayout &layout);
     static void drawTriangle(QPainter *painter,
                              const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
-                             float lineWidth);
+                             const VectorSettingsLayout &layout);
     static void drawLabel(QPainter *painter, const VectorParam &vectorParam, const QFont& labelFont, const QString &label);
 private:
-    static void drawVectorLine(QPainter *painter, const VectorParam &vectorParam, float lineWidth);
-    static void drawArrowHead(QPainter *painter, const VectorParam &vectorParam);
+    static void drawVectorLine(QPainter *painter, const VectorParam &vectorParam, const VectorSettingsLayout &layout);
+    static void drawArrowHead(QPainter *painter, const VectorParam &vectorParam, const VectorSettingsLayout &layout);
     struct PointData {
         QPointF point;
         QColor color;

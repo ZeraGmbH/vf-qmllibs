@@ -2,7 +2,7 @@
 #define VECTORPAINTCONTROLLER_H
 
 #include "abstractvectorpainter.h"
-#include "vectorsettingsgeometry.h"
+#include "vectorsettings.h"
 #include "vectorsettingsstatic.h"
 #include <QColor>
 #include <QVector>
@@ -22,18 +22,7 @@ public:
     };
 
     void setVectorType(VectorType vectorType);
-    void setMaxOvershootFactor(float maxOvershoot);
-
-    void setNominalVoltage(float nomVoltage);
-    void setMinVoltage(float minVoltage);
-
-    void setNominalCurrent(float nomCurrent);
-    void setMinCurrent(float minCurrent);
-
-    void setCoordCrossVisible(bool coordCrossVisible);
-    void setCoordCrossColor(const QColor& coordCrossColor);
-    void setCircleVisible(bool circleVisible);
-    void setCircleColor(const QColor& circleColor);
+    VectorSettings* getVectorSettings();
 
     void setVectorLabel(int idx, const QString &vectorLabel);
     void setVectorColor(int idx, const QColor &vectorColor);
@@ -44,16 +33,11 @@ public:
 
 private:
     // API
-    VectorSettingsGeometry m_vectorSettings;
+    VectorSettings m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;
-    bool m_coordCrossVisible = true;
-    QColor m_coordCrossColor = Qt::darkGray;
-    bool m_circleVisible = true;
-    QColor m_circleColor = Qt::darkGray;
 
     QVector<QColor> m_vectorColor = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
     QVector<QString> m_vectorLabel = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
-
 
     QVector<QVector2D> m_vector = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
 
