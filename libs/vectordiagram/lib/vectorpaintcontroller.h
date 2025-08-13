@@ -38,6 +38,8 @@ public:
         VIEW_THREE_PHASE = 2
     };
     void setVectorType(VectorType vectorType);
+    VectorType getVectorType() const;
+
     VectorSettings* getVectorSettings();
 
     void setVectorLabel(int idx, const QString &vectorLabel);
@@ -48,17 +50,26 @@ public:
     void paint(QPainter *painter) override;
 
 private:
-    void adjustAngleSettings();
+    struct VectorDataCurrent {
+        QVector<QColor> m_colors;
+        QVector<QString> m_label;
+        QVector<QVector2D> m_vectorData;
+    };
+    void adjustAngleSettings(const VectorDataCurrent& currentVectors);
+    bool drawVoltageStar(QPainter *painter, const VectorDataCurrent& currentVectors);
+    bool drawCurrentStar(QPainter *painter, const VectorDataCurrent& currentVectors);
+    bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorDataCurrent& currentVectors);
+    void drawVoltageTriangle(QPainter *painter, const VectorDataCurrent& currentVectors);
+    void drawLabels(QPainter *painter, const VectorDataCurrent& currentVectors);
+    VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
 
     VectorSettings m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;
     VectorStandard m_vectorStandard = VectorStandard::DIN;
 
-    QVector<QColor> m_vectorColor = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
-    QVector<QString> m_vectorLabel = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
-
-    QVector<QVector2D> m_vector = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
-
+    QVector<QColor> m_inVectorColors = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
+    QVector<QString> m_inVectorLabels = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
+    QVector<QVector2D> m_inVectors = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
 };
 
 #endif // VECTORPAINTCONTROLLER_H

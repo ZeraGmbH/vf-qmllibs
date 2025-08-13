@@ -34,6 +34,12 @@ private slots:
     void setIEC();
     void setANSI();
 
+    void setStar();
+    void setStarNoValues();
+    void setTriangle();
+    void setTriangleNoCurrent();
+    void set3Wire();
+
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();

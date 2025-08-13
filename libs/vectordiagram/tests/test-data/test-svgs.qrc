@@ -11,6 +11,7 @@
         <file>svgs/setCrossAndCircleLineWidth.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-math.svg</file>
         <file>svgs/gridOnlyRectangleWide.svg</file>
+        <file>svgs/setStarNoValues.svg</file>
         <file>svgs/gridAndCircleNoOvershoot.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-clock.svg</file>
         <file>svgs/noGridSquare.svg</file>
@@ -20,7 +21,9 @@
         <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-clock.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-clock.svg</file>
         <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-math.svg</file>
+        <file>svgs/setTriangle.svg</file>
         <file>svgs/setArrowWidthWide.svg</file>
+        <file>svgs/setTriangleNoCurrent.svg</file>
         <file>svgs/setANSI.svg</file>
         <file>svgs/initialTestPrimitivePainterTriangle.svg</file>
         <file>svgs/initialTestPrimitivePainterLabel.svg</file>
@@ -30,7 +33,9 @@
         <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-math.svg</file>
         <file>svgs/gridOnlyRectangleNarrow.svg</file>
         <file>svgs/gridAndCircleOvershoot.svg</file>
+        <file>svgs/setStar.svg</file>
         <file>svgs/setArrowWidthTooHigh.svg</file>
+        <file>svgs/set3Wire.svg</file>
         <file>svgs/setVectorLineWidth.svg</file>
         <file>svgs/setArrowWidthNarrow.svg</file>
     </qresource>

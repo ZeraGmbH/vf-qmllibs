@@ -32,13 +32,6 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M1000,180 L1082.84,380 L917.157,380"/>
 </g>
 
-<g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
->
-<text fill="#c40000" fill-opacity="1" stroke="none" xml:space="preserve" x="949.594" y="140.6" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
- >UL1</text>
-</g>
-
 <g fill="none" stroke="#ffff00" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
@@ -55,13 +48,6 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M1710.14,1410 L1495.51,1381.74 L1578.36,1238.26"/>
-</g>
-
-<g fill="none" stroke="#ffff00" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
->
-<text fill="#ffff00" fill-opacity="1" stroke="none" xml:space="preserve" x="1709.44" y="1456.7" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
- >UL2</text>
 </g>
 
 <g fill="none" stroke="#0000c4" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
@@ -82,13 +68,6 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M289.859,1410 L421.643,1238.26 L504.486,1381.74"/>
 </g>
 
-<g fill="none" stroke="#0000c4" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
->
-<text fill="#0000c4" fill-opacity="1" stroke="none" xml:space="preserve" x="189.734" y="1456.7" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
- >UL3</text>
-</g>
-
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
@@ -105,13 +84,6 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M1410,289.859 L1381.74,504.486 L1238.26,421.643"/>
-</g>
-
-<g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
->
-<text fill="#ff7f7f" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="258.149" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
- >IL1</text>
 </g>
 
 <g fill="none" stroke="#ffff99" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
@@ -132,13 +104,6 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M1410,1710.14 L1238.26,1578.36 L1381.74,1495.51"/>
 </g>
 
-<g fill="none" stroke="#ffff99" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
-font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
->
-<text fill="#ffff99" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="1777.85" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
- >IL2</text>
-</g>
-
 <g fill="none" stroke="#7f7fff" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
@@ -155,6 +120,41 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <path vector-effect="none" fill-rule="evenodd" d="M180,1000 L380,917.157 L380,1082.84"/>
+</g>
+
+<g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+>
+<text fill="#c40000" fill-opacity="1" stroke="none" xml:space="preserve" x="949.594" y="140.6" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+ >UL1</text>
+</g>
+
+<g fill="none" stroke="#ffff00" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+>
+<text fill="#ffff00" fill-opacity="1" stroke="none" xml:space="preserve" x="1709.44" y="1456.7" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+ >UL2</text>
+</g>
+
+<g fill="none" stroke="#0000c4" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+>
+<text fill="#0000c4" fill-opacity="1" stroke="none" xml:space="preserve" x="189.734" y="1456.7" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+ >UL3</text>
+</g>
+
+<g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+>
+<text fill="#ff7f7f" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="258.149" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+ >IL1</text>
+</g>
+
+<g fill="none" stroke="#ffff99" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+>
+<text fill="#ffff99" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="1777.85" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+ >IL2</text>
 </g>
 
 <g fill="none" stroke="#7f7fff" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
