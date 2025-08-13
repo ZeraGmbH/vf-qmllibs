@@ -21,6 +21,11 @@ void VectorSettingsLengths::setMinCurrent(float minCurrent)
     m_minCurrent = minCurrent;
 }
 
+float VectorSettingsLengths::getMaxOvershootFactor() const
+{
+    return m_maxOvershoot;
+}
+
 void VectorSettingsLengths::setMaxOvershootFactor(float maxOvershoot)
 {
     m_maxOvershoot = maxOvershoot;

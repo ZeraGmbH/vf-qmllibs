@@ -13,6 +13,7 @@ public:
     void setNomCurrent(float nomCurrent);
     void setMinCurrent(float minCurrent);
 
+    float getMaxOvershootFactor() const;
     void setMaxOvershootFactor(float maxOvershoot);
 
     float getNominalValue(VectorSettingsStatic::VectorType vectorType) const;

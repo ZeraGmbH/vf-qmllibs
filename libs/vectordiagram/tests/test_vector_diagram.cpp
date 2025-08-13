@@ -119,7 +119,9 @@ void test_vector_diagram::gridOnlyBlue()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController vectorPainter;
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossColor(Qt::blue);
+    QColor blue = Qt::blue;
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossColor(blue);
+    QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCoordCrossColor());
     vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -162,7 +164,10 @@ void test_vector_diagram::gridAndCircleOvershoot()
     VectorPaintController vectorPainter;
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
     vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(2.0);
+
+    const float over = 2.0;
+    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(over);
+    QCOMPARE(over, vectorPainter.getVectorSettings()->m_lengths.getMaxOvershootFactor());
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -183,7 +188,10 @@ void test_vector_diagram::gridAndCircleBlue()
     VectorPaintController vectorPainter;
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
     vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleColor(Qt::blue);
+
+    QColor blue = Qt::blue;
+    vectorPainter.getVectorSettings()->m_layout.setCircleColor(blue);
+    QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCircleColor());
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -208,7 +216,9 @@ void test_vector_diagram::setCrossAndCircleLineWidth()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
     // two variations...
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue*2.0);
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidthRel(0.05);
+    const float width = 0.05;
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidthRel(width);
+    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidthRel());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -235,7 +245,9 @@ void test_vector_diagram::setVectorLineWidth()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
-    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthRel(0.02);
+    const float width = 0.02;
+    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthRel(width);
+    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthRel());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -262,7 +274,9 @@ void test_vector_diagram::setArrowHeight()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
-    vectorPainter.getVectorSettings()->m_layout.setArrowHeightRel(0.1);
+    const float height = 0.1;
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightRel(height);
+    QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeightRel());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -289,7 +303,9 @@ void test_vector_diagram::setArrowWidthWide()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
-    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(45);
+    const float angleArrow = 45;
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(angleArrow);
+    QCOMPARE(angleArrow, vectorPainter.getVectorSettings()->m_layout.getArrowSpreadAngleDeg());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
