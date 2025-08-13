@@ -4,6 +4,16 @@
 #include <QMultiMap>
 #include <math.h>
 
+void VectorPaintController::setVectorStandard(VectorStandard vectorStandard)
+{
+    m_vectorStandard = vectorStandard;
+}
+
+VectorPaintController::VectorStandard VectorPaintController::getVectorStandard() const
+{
+    return m_vectorStandard;
+}
+
 void VectorPaintController::setVectorType(VectorType vectorType)
 {
     m_vectorType = vectorType;
@@ -38,6 +48,8 @@ void VectorPaintController::paint(QPainter *painter)
     if(m_vectorSettings.m_layout.getCircleVisible())
         VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
+    adjustAngleSettings();
+
     bool vectorDrawn = false;
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
@@ -55,4 +67,30 @@ void VectorPaintController::paint(QPainter *painter)
     }
     if(vectorDrawn)
         VectorPrimitivesPainter::drawCoordCenterDot(painter, m_vectorSettings.m_layout);
+}
+
+void VectorPaintController::adjustAngleSettings()
+{
+    switch(m_vectorStandard) {
+    case VectorStandard::DIN: {
+        const float angleUL1 = atan2(m_vector[0].y(), m_vector[0].x());
+        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setOffsetAngle(angleUL1-degToRad(90));
+        break;
+    }
+    case VectorStandard::IEC: {
+        const float angleIL1 = atan2(m_vector[VectorSettingsStatic::COUNT_PHASES].y(), m_vector[VectorSettingsStatic::COUNT_PHASES].x());
+        // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
+        // onlx if angle passed in are in IEC sytyle to. We come in as DIN always
+        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setOffsetAngle(-angleIL1);
+        break;
+    }
+    case VectorStandard::ANSI: {
+        const float angleUL1 = atan2(m_vector[0].y(), m_vector[0].x());
+        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setOffsetAngle(angleUL1);
+        break;
+    }
+    }
 }

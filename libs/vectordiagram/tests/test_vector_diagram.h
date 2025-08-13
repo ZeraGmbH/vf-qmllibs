@@ -30,6 +30,10 @@ private slots:
     void setArrowWidthTooLow();
     void setFontSize();
 
+    void setDIN();
+    void setIEC();
+    void setANSI();
+
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();
