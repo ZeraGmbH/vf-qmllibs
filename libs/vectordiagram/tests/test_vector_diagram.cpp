@@ -259,8 +259,10 @@ void test_vector_diagram::setArrowHeight()
     VectorPaintController vectorPainter;
 
     const float height = 0.1;
-    vectorPainter.getVectorSettings()->m_layout.setArrowHeight(height);
-    QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeight());
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightU(height*2);
+    QCOMPARE(height*2, vectorPainter.getVectorSettings()->m_layout.getArrowHeightU());
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightI(height);
+    QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeightI());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

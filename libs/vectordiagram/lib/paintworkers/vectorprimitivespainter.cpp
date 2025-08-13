@@ -103,7 +103,7 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
     painter->setPen(QPen(vectorParam.color, lineWidth));
     QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
         vectorParam.pixLenVector,
-        vectorParam.pixLenVector.length() - layout.getArrowHeightPix(painter) - lineWidth / 2);
+        vectorParam.pixLenVector.length() - layout.getArrowHeightPix(painter, vectorParam.phaseType) - lineWidth / 2);
     QVector2D vectorKeepOut = VectorPaintCalc::calcVectorOtherLen(vectorShortened, lineWidth / 2);
     const float centerX = VectorPaintCalc::centerX(painter);
     const float centerY = VectorPaintCalc::centerY(painter);
@@ -117,7 +117,7 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam
 {
     painter->setPen(Qt::NoPen);
     const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
-    const float arrowHeight = layout.getArrowHeightPix(painter);
+    const float arrowHeight = layout.getArrowHeightPix(painter, vectorParam.phaseType);
     float arrowSpreadAngle = layout.getArrowSpreadAngle();
     if(radToDeg(arrowSpreadAngle) < 5)
         arrowSpreadAngle = degToRad(5);

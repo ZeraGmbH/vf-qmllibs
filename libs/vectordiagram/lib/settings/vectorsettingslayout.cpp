@@ -88,19 +88,30 @@ float VectorSettingsLayout::getVectorLineWidthPix(const QPainter *painter, Phase
            (phaseType==PhaseType::TYPE_U ? m_vectorLineWidthU : m_vectorLineWidthI);
 }
 
-float VectorSettingsLayout::getArrowHeight() const
+float VectorSettingsLayout::getArrowHeightU() const
 {
-    return m_arrowHeight;
+    return m_arrowHeightU;
 }
 
-void VectorSettingsLayout::setArrowHeight(float arrowHeight)
+void VectorSettingsLayout::setArrowHeightU(float arrowHeight)
 {
-    m_arrowHeight = arrowHeight;
+    m_arrowHeightU = arrowHeight;
 }
 
-float VectorSettingsLayout::getArrowHeightPix(const QPainter *painter) const
+float VectorSettingsLayout::getArrowHeightI() const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_arrowHeight;
+    return m_arrowHeightI;
+}
+
+void VectorSettingsLayout::setArrowHeightI(float arrowHeight)
+{
+    m_arrowHeightI = arrowHeight;
+}
+
+float VectorSettingsLayout::getArrowHeightPix(const QPainter *painter, PhaseType phaseType) const
+{
+    return VectorPaintCalc::getClipSquareLen(painter) *
+           (phaseType==PhaseType::TYPE_U ? m_arrowHeightU : m_arrowHeightI);
 }
 
 float VectorSettingsLayout::getArrowSpreadAngleDeg() const

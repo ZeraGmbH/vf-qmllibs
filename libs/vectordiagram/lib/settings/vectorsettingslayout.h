@@ -31,9 +31,11 @@ public:
     void setVectorLineWidthI(float vectorLineWidth);
     float getVectorLineWidthPix(const QPainter *painter, PhaseType phaseType) const;
 
-    float getArrowHeight() const;
-    void setArrowHeight(float arrowHeight);
-    float getArrowHeightPix(const QPainter *painter) const;
+    float getArrowHeightU() const;
+    void setArrowHeightU(float arrowHeight);
+    float getArrowHeightI() const;
+    void setArrowHeightI(float arrowHeight);
+    float getArrowHeightPix(const QPainter *painter, PhaseType phaseType) const;
 
     float getArrowSpreadAngleDeg() const;
     void setArrowSpreadAngleDeg(float arrowSpreadAngle);
@@ -54,7 +56,8 @@ private:
     QColor m_circleColor = Qt::darkGray;
     float m_vectorLineWidthU = 0.01;
     float m_vectorLineWidthI = 0.01;
-    float m_arrowHeight = 0.03;
+    float m_arrowHeightU = 0.03;
+    float m_arrowHeightI = 0.03;
     float m_arrowSpreadAngleDeg = 22.5;
     float m_labelFontSize = 0.03;
     float m_labelVectorOvershootFactor = 1.07;
