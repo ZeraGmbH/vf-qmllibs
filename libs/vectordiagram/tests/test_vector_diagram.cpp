@@ -205,8 +205,8 @@ void test_vector_diagram::setCrossAndCircleLineWidth()
     VectorPaintController vectorPainter;
 
     const float width = 0.05;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidthRel(width);
-    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidthRel());
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidth(width);
+    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidth());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -231,8 +231,8 @@ void test_vector_diagram::setVectorLineWidth()
     VectorPaintController vectorPainter;
 
     const float width = 0.02;
-    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthRel(width);
-    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthRel());
+    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidth(width);
+    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidth());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -257,8 +257,8 @@ void test_vector_diagram::setArrowHeight()
     VectorPaintController vectorPainter;
 
     const float height = 0.1;
-    vectorPainter.getVectorSettings()->m_layout.setArrowHeightRel(height);
-    QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeightRel());
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeight(height);
+    QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeight());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

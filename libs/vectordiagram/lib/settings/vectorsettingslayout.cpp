@@ -21,19 +21,19 @@ void VectorSettingsLayout::setCircleVisible(bool circleVisible)
     m_circleVisible = circleVisible;
 }
 
-float VectorSettingsLayout::getCoordCrossAndCircleLineWidthRel() const
+float VectorSettingsLayout::getCoordCrossAndCircleLineWidth() const
 {
-    return m_coordCrossAndCircleLineWidthRel;
+    return m_coordCrossAndCircleLineWidth;
 }
 
-void VectorSettingsLayout::setCoordCrossAndCircleLineWidthRel(float coordCrossAndCircleLineWidthRel)
+void VectorSettingsLayout::setCoordCrossAndCircleLineWidth(float coordCrossAndCircleLineWidth)
 {
-    m_coordCrossAndCircleLineWidthRel = coordCrossAndCircleLineWidthRel;
+    m_coordCrossAndCircleLineWidth = coordCrossAndCircleLineWidth;
 }
 
-float VectorSettingsLayout::getCoordCrossAndCircleLineWidth(const QPainter *painter) const
+float VectorSettingsLayout::getCoordCrossAndCircleLineWidthPix(const QPainter *painter) const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_coordCrossAndCircleLineWidthRel;
+    return VectorPaintCalc::getClipSquareLen(painter) * m_coordCrossAndCircleLineWidth;
 }
 
 QColor VectorSettingsLayout::getCoordCrossColor() const
@@ -56,40 +56,40 @@ void VectorSettingsLayout::setCircleColor(QColor circleColor)
     m_circleColor = circleColor;
 }
 
-float VectorSettingsLayout::getCenterDotDiameter(const QPainter *painter) const
+float VectorSettingsLayout::getCenterDotDiameterPix(const QPainter *painter) const
 {
-    // Use m_vectorLineWidthRel
-    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidthRel;
+    // Use m_vectorLineWidth
+    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidth;
 }
 
-float VectorSettingsLayout::getVectorLineWidthRel() const
+float VectorSettingsLayout::getVectorLineWidth() const
 {
-    return m_vectorLineWidthRel;
+    return m_vectorLineWidth;
 }
 
-void VectorSettingsLayout::setVectorLineWidthRel(float vectorLineWidthRel)
+void VectorSettingsLayout::setVectorLineWidth(float vectorLineWidth)
 {
-    m_vectorLineWidthRel = vectorLineWidthRel;
+    m_vectorLineWidth = vectorLineWidth;
 }
 
-float VectorSettingsLayout::getVectorLineWidth(const QPainter *painter) const
+float VectorSettingsLayout::getVectorLineWidthPix(const QPainter *painter) const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidthRel;
+    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidth;
 }
 
-float VectorSettingsLayout::getArrowHeightRel() const
+float VectorSettingsLayout::getArrowHeight() const
 {
-    return m_arrowHeightRel;
+    return m_arrowHeight;
 }
 
-void VectorSettingsLayout::setArrowHeightRel(float arrowHeightRel)
+void VectorSettingsLayout::setArrowHeight(float arrowHeight)
 {
-    m_arrowHeightRel = arrowHeightRel;
+    m_arrowHeight = arrowHeight;
 }
 
-float VectorSettingsLayout::getArrowHeight(const QPainter *painter) const
+float VectorSettingsLayout::getArrowHeightPix(const QPainter *painter) const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_arrowHeightRel;
+    return VectorPaintCalc::getClipSquareLen(painter) * m_arrowHeight;
 }
 
 float VectorSettingsLayout::getArrowSpreadAngleDeg() const

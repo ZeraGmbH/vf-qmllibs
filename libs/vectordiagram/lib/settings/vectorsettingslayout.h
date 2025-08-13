@@ -13,24 +13,24 @@ public:
     bool getCircleVisible() const;
     void setCircleVisible(bool circleVisible);
 
-    float getCoordCrossAndCircleLineWidthRel() const;
-    void setCoordCrossAndCircleLineWidthRel(float coordCrossAndCircleLineWidthRel);
-    float getCoordCrossAndCircleLineWidth(const QPainter *painter) const;
+    float getCoordCrossAndCircleLineWidth() const;
+    void setCoordCrossAndCircleLineWidth(float coordCrossAndCircleLineWidth);
+    float getCoordCrossAndCircleLineWidthPix(const QPainter *painter) const;
 
     QColor getCoordCrossColor() const;
     void setCoordCrossColor(QColor coordCrossColor);
     QColor getCircleColor() const;
     void setCircleColor(QColor circleColor);
 
-    float getCenterDotDiameter(const QPainter *painter) const;
+    float getCenterDotDiameterPix(const QPainter *painter) const;
 
-    float getVectorLineWidthRel() const;
-    void setVectorLineWidthRel(float vectorLineWidthRel);
-    float getVectorLineWidth(const QPainter *painter) const;
+    float getVectorLineWidth() const;
+    void setVectorLineWidth(float vectorLineWidth);
+    float getVectorLineWidthPix(const QPainter *painter) const;
 
-    float getArrowHeightRel() const;
-    void setArrowHeightRel(float arrowHeightRel);
-    float getArrowHeight(const QPainter *painter) const;
+    float getArrowHeight() const;
+    void setArrowHeight(float arrowHeight);
+    float getArrowHeightPix(const QPainter *painter) const;
 
     float getArrowSpreadAngleDeg() const;
     void setArrowSpreadAngleDeg(float arrowSpreadAngle);
@@ -46,11 +46,11 @@ public:
 private:
     bool m_coordCrossVisible = true;
     bool m_circleVisible = true;
-    float m_coordCrossAndCircleLineWidthRel = 0.004;
+    float m_coordCrossAndCircleLineWidth = 0.004;
     QColor m_coordCrossColor = Qt::darkGray;
     QColor m_circleColor = Qt::darkGray;
-    float m_vectorLineWidthRel = 0.01;
-    float m_arrowHeightRel = 0.03;
+    float m_vectorLineWidth = 0.01;
+    float m_arrowHeight = 0.03;
     float m_arrowSpreadAngleDeg = 22.5;
     float m_labelFontSize = 0.03;
     float m_labelVectorOvershootFactor = 1.07;
