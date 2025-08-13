@@ -1,0 +1,83 @@
+#include "vectorgroupspainter.h"
+#include "vectorpaintcalc.h"
+#include "vectorprimitivespainter.h"
+#include <math.h>
+
+bool VectorGroupsPainter::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    return drawPhasesStar(painter, VectorSettingsStatic::IDX_UL1, VectorSettingsStatic::IDX_UL3,
+                          vectorSettings, currentVectors);
+}
+
+bool VectorGroupsPainter::drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    return drawPhasesStar(painter, VectorSettingsStatic::IDX_IL1, VectorSettingsStatic::IDX_IL3,
+                          vectorSettings, currentVectors);
+}
+
+bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    bool vectorDrawn = false;
+    for(int idx=startPhaseIdx; idx<=endPhaseIdx; ++idx) {
+        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
+            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, vectorSettings.m_layout);
+            vectorDrawn = true;
+        }
+    }
+    return vectorDrawn;
+}
+
+void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorSettingsStatic::COUNT_PHASES);
+    for(int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
+        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+        QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+            painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+        corners[idx] = { pixLenVector, currentVectors.m_colors[idx] };
+    }
+    VectorPrimitivesPainter::drawTriangle(painter,
+                                          corners[0], corners[1], corners[2],
+                                          vectorSettings.m_layout);
+}
+
+void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
+        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
+            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+            VectorPrimitivesPainter::drawLabel(painter,
+                                               { pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
+                                                currentVectors.m_colors[idx]},
+                                               vectorSettings.m_layout.getLabelFont(painter),
+                                               currentVectors.m_label[idx]);
+        }
+    }
+}
+
+VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurrent &currentData)
+{
+    VectorDataCurrent data3Wire(currentData);
+
+    const float sqrt3 = sqrt(3);
+    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL1] = // UL1-UL2
+        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL1] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorSettingsStatic::IDX_UL1] =
+        currentData.m_label[VectorSettingsStatic::IDX_UL1] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
+
+    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL2] = QVector2D(0,0);
+
+    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL3] = // UL3-UL2
+        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL3] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorSettingsStatic::IDX_UL3] =
+        currentData.m_label[VectorSettingsStatic::IDX_UL3] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
+
+    data3Wire.m_vectorData[VectorSettingsStatic::IDX_IL2] = QVector2D(0,0);
+
+    return data3Wire;
+}

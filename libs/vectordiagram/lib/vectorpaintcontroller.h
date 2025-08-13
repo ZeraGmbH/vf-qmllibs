@@ -4,10 +4,7 @@
 #include "abstractvectorpainter.h"
 #include "vectorsettings.h"
 #include "vectorsettingsstatic.h"
-#include <QColor>
-#include <QVector>
-#include <QVector2D>
-#include <QSet>
+#include "vectorgroupspainter.h"
 
 class VectorPaintController : public AbstractVectorPainter
 {
@@ -50,23 +47,7 @@ public:
     void paint(QPainter *painter) override;
 
 private:
-    struct VectorDataCurrent {
-        QVector<QColor> m_colors;
-        QVector<QString> m_label;
-        QVector<QVector2D> m_vectorData;
-    };
     void adjustAngleSettings(const VectorDataCurrent& currentVectors);
-    static bool drawVoltageStar(QPainter *painter,
-                                const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
-    static bool drawCurrentStar(QPainter *painter,
-                                const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
-    static bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
-                               const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
-    static void drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings,
-                             const VectorDataCurrent& currentVectors);
-    static void drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
-                           const VectorDataCurrent& currentVectors);
-    static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
 
     VectorSettings m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;

@@ -1,8 +1,6 @@
 #include "vectorpaintcontroller.h"
 #include "vectorpaintcalc.h"
 #include "vectorprimitivespainter.h"
-#include <QMultiMap>
-#include <math.h>
 
 void VectorPaintController::setVectorStandard(VectorStandard vectorStandard)
 {
@@ -46,7 +44,7 @@ void VectorPaintController::setVectorLabel(int idx, const QString &vectorLabel)
 
 void VectorPaintController::paint(QPainter *painter)
 {
-    painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter));
+    painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // yeah for the sake reproducability of test SVGs
 
     if(m_vectorSettings.m_layout.getCoordCrossVisible())
         VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
@@ -55,31 +53,31 @@ void VectorPaintController::paint(QPainter *painter)
 
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
     if (getVectorType() == VectorType::VIEW_THREE_PHASE)
-        currentData = calc3WireVectorData(currentData);
+        currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
 
     adjustAngleSettings(currentData);
 
     bool vectorDrawn = false;
     switch (getVectorType()) {
     case VectorType::VIEW_STAR:
-        if (drawVoltageStar(painter, m_vectorSettings, currentData))
+        if (VectorGroupsPainter::drawVoltageStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
-        if (drawCurrentStar(painter, m_vectorSettings, currentData))
+        if (VectorGroupsPainter::drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     case VectorType::VIEW_TRIANGLE:
-        drawVoltageTriangle(painter, m_vectorSettings, currentData);
-        if (drawCurrentStar(painter, m_vectorSettings, currentData))
+        VectorGroupsPainter::drawVoltageTriangle(painter, m_vectorSettings, currentData);
+        if (VectorGroupsPainter::drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     case VectorType::VIEW_THREE_PHASE:
-        if (drawVoltageStar(painter, m_vectorSettings, currentData))
+        if (VectorGroupsPainter::drawVoltageStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
-        if (drawCurrentStar(painter, m_vectorSettings, currentData))
+        if (VectorGroupsPainter::drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     }
-    drawLabels(painter, m_vectorSettings, currentData);
+    VectorGroupsPainter::drawLabels(painter, m_vectorSettings, currentData);
     if(vectorDrawn)
         VectorPrimitivesPainter::drawCoordCenterDot(painter, m_vectorSettings.m_layout);
 }
@@ -98,7 +96,7 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         const float angleIL1 = atan2(currentVectors.m_vectorData[VectorSettingsStatic::IDX_IL1].y(),
                                      currentVectors.m_vectorData[VectorSettingsStatic::IDX_IL1].x());
         // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
-        // only if angle passed in are in IEC sytyle to. We come in as DIN always
+        // only if angle passed in are in IEC sytyle too. ATTOW We come in as DIN always
         m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(-angleIL1);
         break;
@@ -111,88 +109,4 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         break;
     }
     }
-}
-
-bool VectorPaintController::drawVoltageStar(QPainter *painter,
-                                            const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
-{
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_UL1, VectorSettingsStatic::IDX_UL3,
-                          vectorSettings, currentVectors);
-}
-
-bool VectorPaintController::drawCurrentStar(QPainter *painter,
-                                            const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
-{
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_IL1, VectorSettingsStatic::IDX_IL3,
-                          vectorSettings, currentVectors);
-}
-
-bool VectorPaintController::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
-                                           const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
-{
-    bool vectorDrawn = false;
-    for(int idx=startPhaseIdx; idx<=endPhaseIdx; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
-            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
-            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, vectorSettings.m_layout);
-            vectorDrawn = true;
-        }
-    }
-    return vectorDrawn;
-}
-
-void VectorPaintController::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings,
-                                                const VectorDataCurrent &currentVectors)
-{
-    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorSettingsStatic::COUNT_PHASES);
-    for(int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-            painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
-        corners[idx] = { pixLenVector, currentVectors.m_colors[idx] };
-    }
-    VectorPrimitivesPainter::drawTriangle(painter,
-                                          corners[0], corners[1], corners[2],
-                                          vectorSettings.m_layout);
-}
-
-void VectorPaintController::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
-                                       const VectorDataCurrent &currentVectors)
-{
-    for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
-            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
-            VectorPrimitivesPainter::drawLabel(painter,
-                                               { pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
-                                                currentVectors.m_colors[idx]},
-                                               vectorSettings.m_layout.getLabelFont(painter),
-                                               currentVectors.m_label[idx]);
-        }
-    }
-}
-
-VectorPaintController::VectorDataCurrent VectorPaintController::calc3WireVectorData(const VectorDataCurrent &currentData)
-{
-    VectorDataCurrent data3Wire(currentData);
-
-    const float sqrt3 = sqrt(3);
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL1] = // UL1-UL2
-        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL1] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorSettingsStatic::IDX_UL1] =
-        currentData.m_label[VectorSettingsStatic::IDX_UL1] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
-
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL2] = QVector2D(0,0);
-
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL3] = // UL3-UL2
-        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL3] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorSettingsStatic::IDX_UL3] =
-        currentData.m_label[VectorSettingsStatic::IDX_UL3] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
-
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_IL2] = QVector2D(0,0);
-
-    return data3Wire;
 }
