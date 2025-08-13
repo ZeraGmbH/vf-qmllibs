@@ -1,6 +1,7 @@
 #ifndef VECTORSETTINGSLAYOUT_H
 #define VECTORSETTINGSLAYOUT_H
 
+#include "vectorconstants.h"
 #include <QPainter>
 #include <QFont>
 
@@ -24,9 +25,11 @@ public:
 
     float getCenterDotDiameterPix(const QPainter *painter) const;
 
-    float getVectorLineWidth() const;
-    void setVectorLineWidth(float vectorLineWidth);
-    float getVectorLineWidthPix(const QPainter *painter) const;
+    float getVectorLineWidthU() const;
+    void setVectorLineWidthU(float vectorLineWidth);
+    float getVectorLineWidthI() const;
+    void setVectorLineWidthI(float vectorLineWidth);
+    float getVectorLineWidthPix(const QPainter *painter, PhaseType phaseType) const;
 
     float getArrowHeight() const;
     void setArrowHeight(float arrowHeight);
@@ -49,7 +52,8 @@ private:
     float m_coordCrossAndCircleLineWidth = 0.004;
     QColor m_coordCrossColor = Qt::darkGray;
     QColor m_circleColor = Qt::darkGray;
-    float m_vectorLineWidth = 0.01;
+    float m_vectorLineWidthU = 0.01;
+    float m_vectorLineWidthI = 0.01;
     float m_arrowHeight = 0.03;
     float m_arrowSpreadAngleDeg = 22.5;
     float m_labelFontSize = 0.03;

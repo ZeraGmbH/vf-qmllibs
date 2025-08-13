@@ -71,7 +71,7 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
     for (int phase=0; phase<VectorConstants::COUNT_PHASES; phase++)
         positions[phase] = QPointF(centerX + vectors[phase].x(), centerY + vectors[phase].y());
 
-    const float lineWidth = layout.getVectorLineWidthPix(painter);
+    const float lineWidth = layout.getVectorLineWidthPix(painter, PhaseType::TYPE_U);
     // 1 -> 2
     drawGradientLine(painter, lineWidth, {positions[0], vectorParam1.color}, {positions[1], vectorParam2.color});
     // 2 -> 3
@@ -99,7 +99,7 @@ void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &ve
 void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam,
                                              const VectorSettingsLayout &layout)
 {
-    const float lineWidth = layout.getVectorLineWidthPix(painter);
+    const float lineWidth = layout.getVectorLineWidthPix(painter, vectorParam.phaseType);
     painter->setPen(QPen(vectorParam.color, lineWidth));
     QVector2D vectorShortened = VectorPaintCalc::calcVectorOtherLen(
         vectorParam.pixLenVector,

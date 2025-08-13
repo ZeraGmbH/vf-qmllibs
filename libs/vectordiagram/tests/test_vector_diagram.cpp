@@ -231,8 +231,10 @@ void test_vector_diagram::setVectorLineWidth()
     VectorPaintController vectorPainter;
 
     const float width = 0.02;
-    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidth(width);
-    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidth());
+    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthU(width*2);
+    QCOMPARE(width*2, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthU());
+    vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthI(width);
+    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthI());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

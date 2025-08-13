@@ -14,10 +14,10 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M1820,1000 C1820,547.127 1452.87,180 1000,180 C547.127,180 180,547.127 180,1000 C180,1452.87 547.127,1820 1000,1820 C1452.87,1820 1820,1452.87 1820,1000 "/>
 </g>
 
-<g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="40" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="80" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1000,980 1000,260 " />
+<polyline fill="none" vector-effect="none" points="1000,960 1000,280 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
@@ -32,10 +32,10 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M1000,180 L1024.85,240 L975.147,240"/>
 </g>
 
-<g fill="none" stroke="#ffff00" stroke-opacity="1" stroke-width="40" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="none" stroke="#ffff00" stroke-opacity="1" stroke-width="80" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1017.32,1010 1640.86,1370 " />
+<polyline fill="none" vector-effect="none" points="1034.64,1020 1623.54,1360 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
@@ -50,10 +50,10 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <path vector-effect="none" fill-rule="evenodd" d="M1710.14,1410 L1645.75,1401.52 L1670.61,1358.48"/>
 </g>
 
-<g fill="none" stroke="#0000c4" stroke-opacity="1" stroke-width="40" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="none" stroke="#0000c4" stroke-opacity="1" stroke-width="80" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="982.68,1010 359.141,1370 " />
+<polyline fill="none" vector-effect="none" points="965.359,1020 376.462,1360 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
@@ -167,7 +167,7 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <g fill="#808080" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<circle cx="1000" cy="1000" r="20"/>
+<circle cx="1000" cy="1000" r="40"/>
 </g>
 </g>
 </svg>

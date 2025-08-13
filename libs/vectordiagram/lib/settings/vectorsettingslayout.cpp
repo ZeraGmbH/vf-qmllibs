@@ -59,22 +59,33 @@ void VectorSettingsLayout::setCircleColor(QColor circleColor)
 float VectorSettingsLayout::getCenterDotDiameterPix(const QPainter *painter) const
 {
     // Use m_vectorLineWidth
-    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidth;
+    return VectorPaintCalc::getClipSquareLen(painter) * std::max(m_vectorLineWidthU, m_vectorLineWidthI);
 }
 
-float VectorSettingsLayout::getVectorLineWidth() const
+float VectorSettingsLayout::getVectorLineWidthU() const
 {
-    return m_vectorLineWidth;
+    return m_vectorLineWidthU;
 }
 
-void VectorSettingsLayout::setVectorLineWidth(float vectorLineWidth)
+void VectorSettingsLayout::setVectorLineWidthU(float vectorLineWidth)
 {
-    m_vectorLineWidth = vectorLineWidth;
+    m_vectorLineWidthU = vectorLineWidth;
 }
 
-float VectorSettingsLayout::getVectorLineWidthPix(const QPainter *painter) const
+float VectorSettingsLayout::getVectorLineWidthI() const
 {
-    return VectorPaintCalc::getClipSquareLen(painter) * m_vectorLineWidth;
+    return m_vectorLineWidthI;
+}
+
+void VectorSettingsLayout::setVectorLineWidthI(float vectorLineWidth)
+{
+    m_vectorLineWidthI = vectorLineWidth;
+}
+
+float VectorSettingsLayout::getVectorLineWidthPix(const QPainter *painter, PhaseType phaseType) const
+{
+    return VectorPaintCalc::getClipSquareLen(painter) *
+           (phaseType==PhaseType::TYPE_U ? m_vectorLineWidthU : m_vectorLineWidthI);
 }
 
 float VectorSettingsLayout::getArrowHeight() const
