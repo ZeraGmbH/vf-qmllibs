@@ -1,7 +1,7 @@
 #ifndef VECTORSETTINGSLENGTHS_H
 #define VECTORSETTINGSLENGTHS_H
 
-#include "vectorsettingsstatic.h"
+#include "vectorconstants.h"
 #include <QPainter>
 
 enum class VectorNominals : int
@@ -33,8 +33,8 @@ public:
     // internal
     void setMaxU(float maxU);
     void setMaxI(float maxI);
-    float getNomOrMaxValue(VectorSettingsStatic::VectorType vectorType) const;
-    float getMinimalValue(VectorSettingsStatic::VectorType vectorType) const;
+    float getNomOrMaxValue(PhaseType phaseType) const;
+    float getMinimalValue(PhaseType phaseType) const;
     float getVectorLenNominalInPixels(const QPainter *painter) const;
 private:
     VectorNominals m_nominalSelection = VectorNominals::MAXIMUM;

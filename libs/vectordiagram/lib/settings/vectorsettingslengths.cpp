@@ -71,16 +71,16 @@ void VectorSettingsLengths::setMaxI(float maxI)
     m_maxCurrent = maxI;
 }
 
-float VectorSettingsLengths::getNomOrMaxValue(VectorSettingsStatic::VectorType vectorType) const
+float VectorSettingsLengths::getNomOrMaxValue(PhaseType phaseType) const
 {
-    if (vectorType == VectorSettingsStatic::TYPE_U)
+    if (phaseType == PhaseType::TYPE_U)
         return m_nominalSelection == VectorNominals::NOMINAL ? m_nomVoltage: m_maxVoltage;
     return m_nominalSelection == VectorNominals::NOMINAL ? m_nomCurrent : m_maxCurrent;
 }
 
-float VectorSettingsLengths::getMinimalValue(VectorSettingsStatic::VectorType vectorType) const
+float VectorSettingsLengths::getMinimalValue(PhaseType phaseType) const
 {
-    if (vectorType == VectorSettingsStatic::TYPE_U)
+    if (phaseType == PhaseType::TYPE_U)
         return m_minVoltage;
     return m_minCurrent;
 }

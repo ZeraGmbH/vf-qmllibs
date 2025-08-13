@@ -2,7 +2,7 @@
 #define VECTORPAINTCALC_H
 
 #include "vectorsettings.h"
-#include "vectorsettingsstatic.h"
+#include "vectorconstants.h"
 #include <QPainter>
 #include <QVector2D>
 #include <math.h>
@@ -12,7 +12,7 @@
 
 struct VectorSettingsEx {
     const VectorSettings &vectorSetttings;
-    VectorSettingsStatic::VectorType vectorType;
+    PhaseType phaseType;
 };
 
 class VectorPaintCalc

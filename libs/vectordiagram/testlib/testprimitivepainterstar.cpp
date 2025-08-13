@@ -1,6 +1,6 @@
 #include "testprimitivepainterstar.h"
 #include "vectorpaintcalc.h"
-#include "vectorsettingsstatic.h"
+#include "vectorconstants.h"
 #include "vectorprimitivespainter.h"
 #include <QVector2D>
 #include <complex>
@@ -39,10 +39,10 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
     }
 
     for(int idx=0; idx<colors.count(); ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(type)) {
+        PhaseType phaseType = VectorConstants::getVectorType(idx);
+        if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { m_vectorSettings, type }, vectors[idx]);
+                painter, { m_vectorSettings, phaseType }, vectors[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, m_vectorSettings.m_layout);
             VectorPrimitivesPainter::drawLabel(painter,
                                                { pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(), colors[idx]},

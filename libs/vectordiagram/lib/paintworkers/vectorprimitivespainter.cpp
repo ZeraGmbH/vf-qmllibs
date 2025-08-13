@@ -1,5 +1,5 @@
 #include "vectorprimitivespainter.h"
-#include "vectorsettingsstatic.h"
+#include "vectorconstants.h"
 #include "vectorpaintcalc.h"
 #include <QGradient>
 #include <QPainterPath>
@@ -65,12 +65,11 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
                                            const VectorSettingsLayout &layout)
 {
     const QVector<QVector2D> vectors{vectorParam1.pixLenVector, vectorParam2.pixLenVector, vectorParam3.pixLenVector};
-    QVector<QPointF> positions(VectorSettingsStatic::COUNT_PHASES);
-    for (int phase=0; phase<VectorSettingsStatic::COUNT_PHASES; phase++) {
-        const float centerX = VectorPaintCalc::centerX(painter);
-        const float centerY = VectorPaintCalc::centerY(painter);
+    QVector<QPointF> positions(VectorConstants::COUNT_PHASES);
+    const float centerX = VectorPaintCalc::centerX(painter);
+    const float centerY = VectorPaintCalc::centerY(painter);
+    for (int phase=0; phase<VectorConstants::COUNT_PHASES; phase++)
         positions[phase] = QPointF(centerX + vectors[phase].x(), centerY + vectors[phase].y());
-    }
 
     const float lineWidth = layout.getVectorLineWidth(painter);
     // 1 -> 2

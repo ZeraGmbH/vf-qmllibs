@@ -3,7 +3,7 @@
 
 #include "abstractvectorpainter.h"
 #include "vectorsettings.h"
-#include "vectorsettingsstatic.h"
+#include "vectorconstants.h"
 #include "vectorgroupspainter.h"
 
 class VectorPaintController : public AbstractVectorPainter
@@ -47,9 +47,9 @@ private:
     VectorType m_vectorType = VectorType::VIEW_STAR;
     VectorStandard m_vectorStandard = VectorStandard::DIN;
 
-    QVector<QColor> m_inVectorColors = QVector<QColor>(VectorSettingsStatic::COUNT_VECTORS);
-    QVector<QString> m_inVectorLabels = QVector<QString>(VectorSettingsStatic::COUNT_VECTORS);
-    QVector<QVector2D> m_inVectors = QVector<QVector2D>(VectorSettingsStatic::COUNT_VECTORS);
+    QVector<QColor> m_inVectorColors = QVector<QColor>(VectorConstants::COUNT_VECTORS);
+    QVector<QString> m_inVectorLabels = QVector<QString>(VectorConstants::COUNT_VECTORS);
+    QVector<QVector2D> m_inVectors = QVector<QVector2D>(VectorConstants::COUNT_VECTORS);
 };
 
 #endif // VECTORPAINTCONTROLLER_H

@@ -5,13 +5,13 @@
 
 bool VectorGroupsPainter::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_UL1, VectorSettingsStatic::IDX_UL3,
+    return drawPhasesStar(painter, VectorConstants::IDX_UL1, VectorConstants::IDX_UL3,
                           vectorSettings, currentVectors);
 }
 
 bool VectorGroupsPainter::drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_IL1, VectorSettingsStatic::IDX_IL3,
+    return drawPhasesStar(painter, VectorConstants::IDX_IL1, VectorConstants::IDX_IL3,
                           vectorSettings, currentVectors);
 }
 
@@ -19,10 +19,10 @@ bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, i
 {
     bool vectorDrawn = false;
     for(int idx=startPhaseIdx; idx<=endPhaseIdx; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
+        PhaseType phaseType = VectorConstants::getVectorType(idx);
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+                painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
             VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, vectorSettings.m_layout);
             vectorDrawn = true;
         }
@@ -32,11 +32,11 @@ bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, i
 
 void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorSettingsStatic::COUNT_PHASES);
-    for(int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
+    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
+    for(int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
+        PhaseType phaseType = VectorConstants::getVectorType(idx);
         QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-            painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+            painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
         corners[idx] = { pixLenVector, currentVectors.m_colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter,
@@ -46,11 +46,11 @@ void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSet
 
 void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
-        VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
+    for(int idx=0; idx<VectorConstants::COUNT_VECTORS; ++idx) {
+        PhaseType phaseType = VectorConstants::getVectorType(idx);
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+                painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
             VectorPrimitivesPainter::drawLabel(painter,
                                                { pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
                                                 currentVectors.m_colors[idx]},
@@ -65,19 +65,19 @@ VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurre
     VectorDataCurrent data3Wire(currentData);
 
     const float sqrt3 = sqrt(3);
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL1] = // UL1-UL2
-        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL1] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorSettingsStatic::IDX_UL1] =
-        currentData.m_label[VectorSettingsStatic::IDX_UL1] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
+    data3Wire.m_vectorData[VectorConstants::IDX_UL1] = // UL1-UL2
+        (currentData.m_vectorData[VectorConstants::IDX_UL1] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorConstants::IDX_UL1] =
+        currentData.m_label[VectorConstants::IDX_UL1] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
 
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL2] = QVector2D(0,0);
+    data3Wire.m_vectorData[VectorConstants::IDX_UL2] = QVector2D(0,0);
 
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_UL3] = // UL3-UL2
-        (currentData.m_vectorData[VectorSettingsStatic::IDX_UL3] - currentData.m_vectorData[VectorSettingsStatic::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorSettingsStatic::IDX_UL3] =
-        currentData.m_label[VectorSettingsStatic::IDX_UL3] + "-" + currentData.m_label[VectorSettingsStatic::IDX_UL2];
+    data3Wire.m_vectorData[VectorConstants::IDX_UL3] = // UL3-UL2
+        (currentData.m_vectorData[VectorConstants::IDX_UL3] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorConstants::IDX_UL3] =
+        currentData.m_label[VectorConstants::IDX_UL3] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
 
-    data3Wire.m_vectorData[VectorSettingsStatic::IDX_IL2] = QVector2D(0,0);
+    data3Wire.m_vectorData[VectorConstants::IDX_IL2] = QVector2D(0,0);
 
     return data3Wire;
 }

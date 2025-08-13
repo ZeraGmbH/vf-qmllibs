@@ -87,15 +87,15 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
 {
     switch(m_vectorStandard) {
     case VectorStandard::DIN: {
-        const float angleUL1 = atan2(currentVectors.m_vectorData[VectorSettingsStatic::IDX_UL1].y(),
-                                     currentVectors.m_vectorData[VectorSettingsStatic::IDX_UL1].x());
+        const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
+                                     currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
         m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(-degToRad(90)-angleUL1);
         break;
     }
     case VectorStandard::IEC: {
-        const float angleIL1 = atan2(currentVectors.m_vectorData[VectorSettingsStatic::IDX_IL1].y(),
-                                     currentVectors.m_vectorData[VectorSettingsStatic::IDX_IL1].x());
+        const float angleIL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_IL1].y(),
+                                     currentVectors.m_vectorData[VectorConstants::IDX_IL1].x());
         // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
         // only if angle passed in are in IEC sytyle too. ATTOW We come in as DIN always
         m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
@@ -103,8 +103,8 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         break;
     }
     case VectorStandard::ANSI: {
-        const float angleUL1 = atan2(currentVectors.m_vectorData[VectorSettingsStatic::IDX_UL1].y(),
-                                     currentVectors.m_vectorData[VectorSettingsStatic::IDX_UL1].x());
+        const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
+                                     currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
         m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(angleUL1);
         break;
@@ -115,8 +115,8 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
 void VectorPaintController::calcAndSetMaxValues(const VectorDataCurrent &currentVectors)
 {
     float maxU = 1e-12;
-    const float minU = m_vectorSettings.m_lengths.getMinimalValue(VectorSettingsStatic::TYPE_U);
-    for (int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
+    const float minU = m_vectorSettings.m_lengths.getMinimalValue(PhaseType::TYPE_U);
+    for (int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
         const float currU = currentVectors.m_vectorData[idx].length();
         if (currU > minU && currU > maxU)
             maxU = currU;
@@ -124,8 +124,8 @@ void VectorPaintController::calcAndSetMaxValues(const VectorDataCurrent &current
     m_vectorSettings.m_lengths.setMaxU(maxU);
 
     float maxI = 1e-12;
-    const float minI = m_vectorSettings.m_lengths.getMinimalValue(VectorSettingsStatic::TYPE_I);
-    for (int idx=VectorSettingsStatic::IDX_IL1; idx<=VectorSettingsStatic::IDX_IL3; ++idx) {
+    const float minI = m_vectorSettings.m_lengths.getMinimalValue(PhaseType::TYPE_I);
+    for (int idx=VectorConstants::IDX_IL1; idx<=VectorConstants::IDX_IL3; ++idx) {
         const float currI = currentVectors.m_vectorData[idx].length();
         if (currI > minI && currI > maxI)
             maxI = currI;

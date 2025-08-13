@@ -44,7 +44,7 @@ void TestPrimitivePainterLabel::paint(QPainter *painter)
 
         std::complex<double> corner = std::polar<double>(vectorLen, angle);
         QVector2D value = QVector2D(corner.real(),corner.imag());
-        QVector2D vectorPixLen = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, VectorSettingsStatic::TYPE_U}, value);
+        QVector2D vectorPixLen = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, PhaseType::TYPE_U}, value);
 
         VectorPrimitivesPainter::drawLabel(painter,
                                            { vectorPixLen, color },
