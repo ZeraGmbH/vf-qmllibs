@@ -25,6 +25,7 @@ private slots:
     void setVectorLineWidth();
     void setArrowHeight();
     void setArrowWidthWide();
+    void setArrowWidthMix();
     void setArrowWidthNarrow();
     void setArrowWidthTooHigh();
     void setArrowWidthTooLow();

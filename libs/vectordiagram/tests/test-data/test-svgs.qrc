@@ -22,7 +22,6 @@
         <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-math.svg</file>
         <file>svgs/set3Wire.svg</file>
         <file>svgs/setANSI.svg</file>
-        <file>svgs/setArrowHeight.svg</file>
         <file>svgs/setArrowWidthNarrow.svg</file>
         <file>svgs/setArrowWidthTooHigh.svg</file>
         <file>svgs/setArrowWidthTooLow.svg</file>
@@ -34,12 +33,14 @@
         <file>svgs/setStarNoValues.svg</file>
         <file>svgs/setTriangle.svg</file>
         <file>svgs/setTriangleNoCurrent.svg</file>
-        <file>svgs/setVectorLineWidth.svg</file>
         <file>svgs/starVectorsNoOvershoot.svg</file>
         <file>svgs/starVectorsNoOvershootSmall.svg</file>
         <file>svgs/setCrossAndCircleLineWidth.svg</file>
         <file>svgs/setMaximumMode.svg</file>
         <file>svgs/setNominalMode.svg</file>
         <file>svgs/setMaximumTwice.svg</file>
+        <file>svgs/setVectorLineWidth.svg</file>
+        <file>svgs/setArrowHeight.svg</file>
+        <file>svgs/setArrowWidthMix.svg</file>
     </qresource>
 </RCC>

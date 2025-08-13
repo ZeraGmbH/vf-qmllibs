@@ -287,8 +287,37 @@ void test_vector_diagram::setArrowWidthWide()
     VectorPaintController vectorPainter;
 
     const float angleArrow = 45;
-    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(angleArrow);
-    QCOMPARE(angleArrow, vectorPainter.getVectorSettings()->m_layout.getArrowSpreadAngleDeg());
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(angleArrow);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(angleArrow);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setArrowWidthMix()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    const float angleArrowU = 45;
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(angleArrowU);
+    QCOMPARE(angleArrowU, vectorPainter.getVectorSettings()->m_layout.getArrowSpreadAngleDegU());
+    const float angleArrowI = 10;
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(angleArrowI);
+    QCOMPARE(angleArrowI, vectorPainter.getVectorSettings()->m_layout.getArrowSpreadAngleDegI());
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -312,7 +341,8 @@ void test_vector_diagram::setArrowWidthNarrow()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(12);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(12);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(12);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -336,7 +366,8 @@ void test_vector_diagram::setArrowWidthTooHigh()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(180);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(180);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(180);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -360,7 +391,8 @@ void test_vector_diagram::setArrowWidthTooLow()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(0);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(0);
+    vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(0);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

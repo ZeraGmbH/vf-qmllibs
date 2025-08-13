@@ -114,19 +114,29 @@ float VectorSettingsLayout::getArrowHeightPix(const QPainter *painter, PhaseType
            (phaseType==PhaseType::TYPE_U ? m_arrowHeightU : m_arrowHeightI);
 }
 
-float VectorSettingsLayout::getArrowSpreadAngleDeg() const
+float VectorSettingsLayout::getArrowSpreadAngleDegU() const
 {
-    return m_arrowSpreadAngleDeg;
+    return m_arrowSpreadAngleDegU;
 }
 
-float VectorSettingsLayout::getArrowSpreadAngle() const
+void VectorSettingsLayout::setArrowSpreadAngleDegU(float arrowSpreadAngle)
 {
-    return degToRad(m_arrowSpreadAngleDeg);
+    m_arrowSpreadAngleDegU = arrowSpreadAngle;
 }
 
-void VectorSettingsLayout::setArrowSpreadAngleDeg(float arrowSpreadAngle)
+float VectorSettingsLayout::getArrowSpreadAngleDegI() const
 {
-    m_arrowSpreadAngleDeg = arrowSpreadAngle;
+    return m_arrowSpreadAngleDegI;
+}
+
+void VectorSettingsLayout::setArrowSpreadAngleDegI(float arrowSpreadAngle)
+{
+    m_arrowSpreadAngleDegI = arrowSpreadAngle;
+}
+
+float VectorSettingsLayout::getArrowSpreadAngle(PhaseType phaseType) const
+{
+    return degToRad(phaseType==PhaseType::TYPE_U ? m_arrowSpreadAngleDegU : m_arrowSpreadAngleDegI);
 }
 
 float VectorSettingsLayout::getLabelVectorOvershootFactor() const

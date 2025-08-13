@@ -118,7 +118,7 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam
     painter->setPen(Qt::NoPen);
     const float angle = atan2(vectorParam.pixLenVector.y(), vectorParam.pixLenVector.x());
     const float arrowHeight = layout.getArrowHeightPix(painter, vectorParam.phaseType);
-    float arrowSpreadAngle = layout.getArrowSpreadAngle();
+    float arrowSpreadAngle = layout.getArrowSpreadAngle(vectorParam.phaseType);
     if(radToDeg(arrowSpreadAngle) < 5)
         arrowSpreadAngle = degToRad(5);
     if(radToDeg(arrowSpreadAngle) > 60)
