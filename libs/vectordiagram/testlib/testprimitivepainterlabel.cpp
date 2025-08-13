@@ -47,7 +47,7 @@ void TestPrimitivePainterLabel::paint(QPainter *painter)
         QVector2D vectorPixLen = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, PhaseType::TYPE_U}, value);
 
         VectorPrimitivesPainter::drawLabel(painter,
-                                           { vectorPixLen, color },
+                                           { PhaseType::TYPE_U, vectorPixLen, color },
                                            m_vectorSettings.m_layout.getLabelFont(painter),
                                            label);
         // Test for our text metrics aproximization. Dot should be in center of label

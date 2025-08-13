@@ -16,6 +16,7 @@ public:
     static void drawCircle(QPainter *painter, const VectorSettingsLengths &lengths, const VectorSettingsLayout &layout);
     struct VectorParam
     {
+        PhaseType phaseType;
         QVector2D pixLenVector;
         QColor color;
     };

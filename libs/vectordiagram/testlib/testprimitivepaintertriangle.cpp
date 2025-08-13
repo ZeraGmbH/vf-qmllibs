@@ -36,7 +36,7 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
         std::complex<double> corner = std::polar<double>(vectorLen, degToRad(idx*120));
         QVector2D value = QVector2D(corner.real(),corner.imag());
         vectorPixLens[idx] = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, PhaseType::TYPE_U}, value);
-        corners[idx] = { vectorPixLens[idx], colors[idx] };
+        corners[idx] = { PhaseType::TYPE_U, vectorPixLens[idx], colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],

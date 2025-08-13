@@ -23,7 +23,9 @@ bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, i
         if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
-            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, vectorSettings.m_layout);
+            VectorPrimitivesPainter::drawVector(painter,
+                                                { phaseType, pixLenVector, currentVectors.m_colors[idx] },
+                                                vectorSettings.m_layout);
             vectorDrawn = true;
         }
     }
@@ -37,7 +39,7 @@ void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSet
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
             painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
-        corners[idx] = { pixLenVector, currentVectors.m_colors[idx] };
+        corners[idx] = { phaseType, pixLenVector, currentVectors.m_colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],
@@ -52,7 +54,8 @@ void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &ve
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
             VectorPrimitivesPainter::drawLabel(painter,
-                                               { pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
+                                               {phaseType,
+                                                pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
                                                 currentVectors.m_colors[idx]},
                                                vectorSettings.m_layout.getLabelFont(painter),
                                                currentVectors.m_label[idx]);

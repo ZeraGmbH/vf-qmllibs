@@ -43,9 +43,13 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
         if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_vectorSettings, phaseType }, vectors[idx]);
-            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, colors[idx] }, m_vectorSettings.m_layout);
+            VectorPrimitivesPainter::drawVector(painter,
+                                                { phaseType, pixLenVector, colors[idx] },
+                                                m_vectorSettings.m_layout);
             VectorPrimitivesPainter::drawLabel(painter,
-                                               { pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(), colors[idx]},
+                                               {phaseType,
+                                                pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(),
+                                                colors[idx]},
                                                m_vectorSettings.m_layout.getLabelFont(painter),
                                                labels[idx]);
         }
