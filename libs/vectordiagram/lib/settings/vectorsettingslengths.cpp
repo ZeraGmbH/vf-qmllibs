@@ -1,9 +1,39 @@
 #include "vectorsettingslengths.h"
 #include "vectorpaintcalc.h"
 
+VectorNominals VectorSettingsLengths::getNominalSelection() const
+{
+    return m_nominalSelection;
+}
+
+void VectorSettingsLengths::setNominalSelection(VectorNominals nominalSelection)
+{
+    m_nominalSelection = nominalSelection;
+}
+
+float VectorSettingsLengths::getNomVoltage() const
+{
+    return m_nomVoltage;
+}
+
 void VectorSettingsLengths::setNomVoltage(float nomVoltage)
 {
     m_nomVoltage = nomVoltage;
+}
+
+float VectorSettingsLengths::getNomCurrent() const
+{
+    return m_nomCurrent;
+}
+
+void VectorSettingsLengths::setNomCurrent(float nomCurrent)
+{
+    m_nomCurrent = nomCurrent;
+}
+
+float VectorSettingsLengths::getMinVoltage() const
+{
+    return m_minVoltage;
 }
 
 void VectorSettingsLengths::setMinVoltage(float minVoltage)
@@ -11,9 +41,9 @@ void VectorSettingsLengths::setMinVoltage(float minVoltage)
     m_minVoltage = minVoltage;
 }
 
-void VectorSettingsLengths::setNomCurrent(float nomCurrent)
+float VectorSettingsLengths::getMinCurrent() const
 {
-    m_nomCurrent = nomCurrent;
+    return m_minCurrent;
 }
 
 void VectorSettingsLengths::setMinCurrent(float minCurrent)
@@ -31,11 +61,21 @@ void VectorSettingsLengths::setMaxOvershootFactor(float maxOvershoot)
     m_maxOvershoot = maxOvershoot;
 }
 
-float VectorSettingsLengths::getNominalValue(VectorSettingsStatic::VectorType vectorType) const
+void VectorSettingsLengths::setMaxU(float maxU)
+{
+    m_maxVoltage = maxU;
+}
+
+void VectorSettingsLengths::setMaxI(float maxI)
+{
+    m_maxCurrent = maxI;
+}
+
+float VectorSettingsLengths::getNomOrMaxValue(VectorSettingsStatic::VectorType vectorType) const
 {
     if (vectorType == VectorSettingsStatic::TYPE_U)
-        return m_nomVoltage;
-    return m_nomCurrent;
+        return m_nominalSelection == VectorNominals::NOMINAL ? m_nomVoltage: m_maxVoltage;
+    return m_nominalSelection == VectorNominals::NOMINAL ? m_nomCurrent : m_maxCurrent;
 }
 
 float VectorSettingsLengths::getMinimalValue(VectorSettingsStatic::VectorType vectorType) const

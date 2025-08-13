@@ -118,10 +118,10 @@ void test_vector_diagram::gridOnlyBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
     QColor blue = Qt::blue;
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossColor(blue);
     QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCoordCrossColor());
+    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
     vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -141,9 +141,6 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -162,9 +159,6 @@ void test_vector_diagram::gridAndCircleOvershoot()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-
     const float over = 2.0;
     vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(over);
     QCOMPARE(over, vectorPainter.getVectorSettings()->m_lengths.getMaxOvershootFactor());
@@ -186,9 +180,6 @@ void test_vector_diagram::gridAndCircleBlue()
 
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-
     QColor blue = Qt::blue;
     vectorPainter.getVectorSettings()->m_layout.setCircleColor(blue);
     QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCircleColor());
@@ -213,9 +204,6 @@ void test_vector_diagram::setCrossAndCircleLineWidth()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    // two variations...
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue*2.0);
     const float width = 0.05;
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidthRel(width);
     QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidthRel());
@@ -241,9 +229,6 @@ void test_vector_diagram::setVectorLineWidth()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     const float width = 0.02;
     vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthRel(width);
@@ -271,9 +256,6 @@ void test_vector_diagram::setArrowHeight()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     const float height = 0.1;
     vectorPainter.getVectorSettings()->m_layout.setArrowHeightRel(height);
     QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeightRel());
@@ -299,9 +281,6 @@ void test_vector_diagram::setArrowWidthWide()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     const float angleArrow = 45;
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(angleArrow);
@@ -329,9 +308,6 @@ void test_vector_diagram::setArrowWidthNarrow()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(12);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
@@ -355,9 +331,6 @@ void test_vector_diagram::setArrowWidthTooHigh()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(180);
 
@@ -383,9 +356,6 @@ void test_vector_diagram::setArrowWidthTooLow()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDeg(0);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
@@ -409,9 +379,6 @@ void test_vector_diagram::setFontSize()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     const float fontSize = 0.06;
     vectorPainter.getVectorSettings()->m_layout.setLabelFontSize(fontSize);
@@ -439,9 +406,6 @@ void test_vector_diagram::setDIN()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::DIN;
     vectorPainter.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorStandard(), standard);
@@ -467,9 +431,6 @@ void test_vector_diagram::setIEC()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::IEC;
     vectorPainter.setVectorStandard(standard);
@@ -497,9 +458,6 @@ void test_vector_diagram::setANSI()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::ANSI;
     vectorPainter.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorStandard(), standard);
@@ -525,9 +483,6 @@ void test_vector_diagram::setStar()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_STAR;
     vectorPainter.setVectorType(type);
@@ -578,9 +533,6 @@ void test_vector_diagram::setTriangle()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_TRIANGLE;
     vectorPainter.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorType(), type);
@@ -606,9 +558,6 @@ void test_vector_diagram::setTriangleNoCurrent()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
 
     VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_TRIANGLE;
     vectorPainter.setVectorType(type);
@@ -636,14 +585,98 @@ void test_vector_diagram::set3Wire()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(nomValue);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(nomValue);
-
     VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_THREE_PHASE;
     vectorPainter.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorType(), type);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setNominalMode()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float iNom = 10;
+    const float angle = -15;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    QCOMPARE(uNom, vectorPainter.getVectorSettings()->m_lengths.getNomVoltage());
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
+    QCOMPARE(iNom, vectorPainter.getVectorSettings()->m_lengths.getNomCurrent());
+
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::NOMINAL);
+    QCOMPARE(VectorNominals::NOMINAL, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
+
+    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setMaximumMode()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float iNom = 10;
+    const float angle = -15;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
+
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::MAXIMUM);
+    QCOMPARE(VectorNominals::MAXIMUM, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
+
+    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setMaximumTwice()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float uNom = 230;
+    const float iNom = 10;
+    const float angle = -15;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
+    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
+
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::MAXIMUM);
+    setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -665,12 +698,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
     setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -693,12 +721,7 @@ void test_vector_diagram::starVectorsNoOvershootSmall()
     const float angle = 30;
     VectorToSvgPainter svgPainter(50, 50);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
     setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -716,21 +739,17 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
-    const float uNom = 230;
     const float uMin = 23;
-    const float iNom = 10;
     const float iMin = 1;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(true);
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(1.0);
 
-    vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
     vectorPainter.getVectorSettings()->m_lengths.setMinVoltage(uMin);
-    vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
+    QCOMPARE(uMin, vectorPainter.getVectorSettings()->m_lengths.getMinVoltage());
     vectorPainter.getVectorSettings()->m_lengths.setMinCurrent(iMin);
+    QCOMPARE(iMin, vectorPainter.getVectorSettings()->m_lengths.getMinCurrent());
+
     setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -742,11 +761,6 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
 }
-
-
-Q_DECLARE_METATYPE(VectorPaintController::VectorType)
-
-
 
 void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle)
 {

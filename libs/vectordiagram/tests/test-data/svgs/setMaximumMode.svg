@@ -6,7 +6,7 @@
 </defs>
 <g fill="none" stroke="black" stroke-width="1" fill-rule="evenodd" stroke-linecap="square" stroke-linejoin="bevel" >
 
-<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="100" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
+<g fill="none" stroke="#808080" stroke-opacity="1" stroke-width="8" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
 <polyline fill="none" vector-effect="none" points="0,1000 2000,1000 " />
@@ -71,55 +71,55 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1005,991.34 1375,350.481 " />
+<polyline fill="none" vector-effect="none" points="997.412,990.341 805.886,275.556 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1410,289.859 L1401.52,354.247 L1358.48,329.394 L1410,289.859"/>
+<path vector-effect="none" fill-rule="evenodd" d="M787.768,207.941 L827.303,259.464 L779.292,272.329 L787.768,207.941"/>
 </g>
 
 <g fill="#ff7f7f" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1410,289.859 L1401.52,354.247 L1358.48,329.394"/>
+<path vector-effect="none" fill-rule="evenodd" d="M787.768,207.941 L827.303,259.464 L779.292,272.329"/>
 </g>
 
 <g fill="none" stroke="#ffff99" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="1005,1008.66 1375,1649.52 " />
+<polyline fill="none" vector-effect="none" points="1009.66,1002.59 1724.44,1194.11 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1410,1710.14 L1358.48,1670.61 L1401.52,1645.75 L1410,1710.14"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1792.06,1212.23 L1727.67,1220.71 L1740.54,1172.7 L1792.06,1212.23"/>
 </g>
 
 <g fill="#ffff99" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M1410,1710.14 L1358.48,1670.61 L1401.52,1645.75"/>
+<path vector-effect="none" fill-rule="evenodd" d="M1792.06,1212.23 L1727.67,1220.71 L1740.54,1172.7"/>
 </g>
 
 <g fill="none" stroke="#7f7fff" stroke-opacity="1" stroke-width="20" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<polyline fill="none" vector-effect="none" points="990,1000 250,1000 " />
+<polyline fill="none" vector-effect="none" points="992.929,1007.07 469.67,1530.33 " />
 </g>
 
 <g fill="none" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M180,1000 L240,975.147 L240,1024.85 L180,1000"/>
+<path vector-effect="none" fill-rule="evenodd" d="M420.173,1579.83 L445.025,1519.83 L480.173,1554.97 L420.173,1579.83"/>
 </g>
 
 <g fill="#7f7fff" fill-opacity="1" stroke="none" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<path vector-effect="none" fill-rule="evenodd" d="M180,1000 L240,975.147 L240,1024.85"/>
+<path vector-effect="none" fill-rule="evenodd" d="M420.173,1579.83 L445.025,1519.83 L480.173,1554.97"/>
 </g>
 
 <g fill="none" stroke="#c40000" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
@@ -146,21 +146,21 @@ font-family="Sans" font-size="60" font-weight="570" font-style="normal"
 <g fill="none" stroke="#ff7f7f" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<text fill="#ff7f7f" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="258.149" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+<text fill="#ff7f7f" fill-opacity="1" stroke="none" xml:space="preserve" x="722.5" y="170.497" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
  >IL1</text>
 </g>
 
 <g fill="none" stroke="#ffff99" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<text fill="#ffff99" fill-opacity="1" stroke="none" xml:space="preserve" x="1388.3" y="1777.85" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+<text fill="#ffff99" fill-opacity="1" stroke="none" xml:space="preserve" x="1797.09" y="1245.09" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
  >IL2</text>
 </g>
 
 <g fill="none" stroke="#7f7fff" stroke-opacity="1" stroke-width="1" stroke-linecap="square" stroke-linejoin="bevel" transform="matrix(1,0,0,1,0,0)"
 font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
 >
-<text fill="#7f7fff" fill-opacity="1" stroke="none" xml:space="preserve" x="72.1875" y="1018" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
+<text fill="#7f7fff" fill-opacity="1" stroke="none" xml:space="preserve" x="329.172" y="1638.42" font-family="Sans" font-size="60" font-weight="570" font-style="normal" 
  >IL3</text>
 </g>
 

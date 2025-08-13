@@ -55,6 +55,7 @@ void VectorPaintController::paint(QPainter *painter)
     if (getVectorType() == VectorType::VIEW_THREE_PHASE)
         currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
 
+    calcAndSetMaxValues(currentData);
     adjustAngleSettings(currentData);
 
     bool vectorDrawn = false;
@@ -109,4 +110,25 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         break;
     }
     }
+}
+
+void VectorPaintController::calcAndSetMaxValues(const VectorDataCurrent &currentVectors)
+{
+    float maxU = 1e-12;
+    const float minU = m_vectorSettings.m_lengths.getMinimalValue(VectorSettingsStatic::TYPE_U);
+    for (int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
+        const float currU = currentVectors.m_vectorData[idx].length();
+        if (currU > minU && currU > maxU)
+            maxU = currU;
+    }
+    m_vectorSettings.m_lengths.setMaxU(maxU);
+
+    float maxI = 1e-12;
+    const float minI = m_vectorSettings.m_lengths.getMinimalValue(VectorSettingsStatic::TYPE_I);
+    for (int idx=VectorSettingsStatic::IDX_IL1; idx<=VectorSettingsStatic::IDX_IL3; ++idx) {
+        const float currI = currentVectors.m_vectorData[idx].length();
+        if (currI > minI && currI > maxI)
+            maxI = currI;
+    }
+    m_vectorSettings.m_lengths.setMaxI(maxI);
 }

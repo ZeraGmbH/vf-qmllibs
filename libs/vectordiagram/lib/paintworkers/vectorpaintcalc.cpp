@@ -49,7 +49,7 @@ QVector2D VectorPaintCalc::calcPixVec(QPainter *painter, const VectorSettingsEx 
     const VectorSettings &vectorSetttings = vectorSettingsEx.vectorSetttings;
     const float angle = atan2(value.y(), value.x()) + vectorSetttings.m_angles.getOffsetAngle();
     const float nomRadius = vectorSetttings.m_lengths.getVectorLenNominalInPixels(painter);
-    const float nomValue = vectorSetttings.m_lengths.getNominalValue(vectorSettingsEx.vectorType);
+    const float nomValue = vectorSetttings.m_lengths.getNomOrMaxValue(vectorSettingsEx.vectorType);
     const float vectLenPixels = nomRadius * value.length() / nomValue - shorten;
     const float directionFactor =
         // y on screen increases downwards => Mathematical <=> -1.0

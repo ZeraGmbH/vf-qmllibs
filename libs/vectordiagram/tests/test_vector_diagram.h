@@ -40,6 +40,10 @@ private slots:
     void setTriangleNoCurrent();
     void set3Wire();
 
+    void setNominalMode();
+    void setMaximumMode();
+    void setMaximumTwice();
+
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();

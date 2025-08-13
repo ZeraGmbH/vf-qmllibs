@@ -21,13 +21,6 @@ public:
     void setVectorStandard(VectorStandard vectorStandard);
     VectorStandard getVectorStandard() const;
 
-    enum class VectorNominals : int
-    {
-        NOMINAL_SET,
-        MAXIMUM
-    };
-    void setVectorNominals(VectorNominals vectorNominals);
-
     enum class VectorType : int
     {
         VIEW_STAR = 0,
@@ -48,6 +41,7 @@ public:
 
 private:
     void adjustAngleSettings(const VectorDataCurrent& currentVectors);
+    void calcAndSetMaxValues(const VectorDataCurrent& currentVectors);
 
     VectorSettings m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;
