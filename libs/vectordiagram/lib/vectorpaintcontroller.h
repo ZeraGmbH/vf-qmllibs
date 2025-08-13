@@ -56,12 +56,17 @@ private:
         QVector<QVector2D> m_vectorData;
     };
     void adjustAngleSettings(const VectorDataCurrent& currentVectors);
-    bool drawVoltageStar(QPainter *painter, const VectorDataCurrent& currentVectors);
-    bool drawCurrentStar(QPainter *painter, const VectorDataCurrent& currentVectors);
-    bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorDataCurrent& currentVectors);
-    void drawVoltageTriangle(QPainter *painter, const VectorDataCurrent& currentVectors);
-    void drawLabels(QPainter *painter, const VectorDataCurrent& currentVectors);
-    VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
+    static bool drawVoltageStar(QPainter *painter,
+                                const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
+    static bool drawCurrentStar(QPainter *painter,
+                                const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
+    static bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
+                               const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
+    static void drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings,
+                             const VectorDataCurrent& currentVectors);
+    static void drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
+                           const VectorDataCurrent& currentVectors);
+    static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
 
     VectorSettings m_vectorSettings;
     VectorType m_vectorType = VectorType::VIEW_STAR;

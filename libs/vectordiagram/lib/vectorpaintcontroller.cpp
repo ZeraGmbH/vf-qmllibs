@@ -62,24 +62,24 @@ void VectorPaintController::paint(QPainter *painter)
     bool vectorDrawn = false;
     switch (getVectorType()) {
     case VectorType::VIEW_STAR:
-        if (drawVoltageStar(painter, currentData))
+        if (drawVoltageStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
-        if (drawCurrentStar(painter, currentData))
+        if (drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     case VectorType::VIEW_TRIANGLE:
-        drawVoltageTriangle(painter, currentData);
-        if (drawCurrentStar(painter, currentData))
+        drawVoltageTriangle(painter, m_vectorSettings, currentData);
+        if (drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     case VectorType::VIEW_THREE_PHASE:
-        if (drawVoltageStar(painter, currentData))
+        if (drawVoltageStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
-        if (drawCurrentStar(painter, currentData))
+        if (drawCurrentStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     }
-    drawLabels(painter, currentData);
+    drawLabels(painter, m_vectorSettings, currentData);
     if(vectorDrawn)
         VectorPrimitivesPainter::drawCoordCenterDot(painter, m_vectorSettings.m_layout);
 }
@@ -113,56 +113,63 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
     }
 }
 
-bool VectorPaintController::drawVoltageStar(QPainter *painter, const VectorDataCurrent &currentVectors)
+bool VectorPaintController::drawVoltageStar(QPainter *painter,
+                                            const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_UL1, VectorSettingsStatic::IDX_UL3, currentVectors);
+    return drawPhasesStar(painter, VectorSettingsStatic::IDX_UL1, VectorSettingsStatic::IDX_UL3,
+                          vectorSettings, currentVectors);
 }
 
-bool VectorPaintController::drawCurrentStar(QPainter *painter, const VectorDataCurrent &currentVectors)
+bool VectorPaintController::drawCurrentStar(QPainter *painter,
+                                            const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorSettingsStatic::IDX_IL1, VectorSettingsStatic::IDX_IL3, currentVectors);
+    return drawPhasesStar(painter, VectorSettingsStatic::IDX_IL1, VectorSettingsStatic::IDX_IL3,
+                          vectorSettings, currentVectors);
 }
 
-bool VectorPaintController::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorDataCurrent &currentVectors)
+bool VectorPaintController::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
+                                           const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     bool vectorDrawn = false;
     for(int idx=startPhaseIdx; idx<=endPhaseIdx; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(type)) {
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { m_vectorSettings, type }, currentVectors.m_vectorData[idx]);
-            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, m_vectorSettings.m_layout);
+                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
+            VectorPrimitivesPainter::drawVector(painter, { pixLenVector, currentVectors.m_colors[idx] }, vectorSettings.m_layout);
             vectorDrawn = true;
         }
     }
     return vectorDrawn;
 }
 
-void VectorPaintController::drawVoltageTriangle(QPainter *painter, const VectorDataCurrent &currentVectors)
+void VectorPaintController::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings,
+                                                const VectorDataCurrent &currentVectors)
 {
     QVector<VectorPrimitivesPainter::VectorParam> corners(VectorSettingsStatic::COUNT_PHASES);
     for(int idx=VectorSettingsStatic::IDX_UL1; idx<=VectorSettingsStatic::IDX_UL3; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
         QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-            painter, { m_vectorSettings, type }, currentVectors.m_vectorData[idx]);
+            painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
         corners[idx] = { pixLenVector, currentVectors.m_colors[idx] };
     }
     VectorPrimitivesPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],
-                                          m_vectorSettings.m_layout);
+                                          vectorSettings.m_layout);
 }
 
-void VectorPaintController::drawLabels(QPainter *painter, const VectorDataCurrent &currentVectors)
+void VectorPaintController::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
+                                       const VectorDataCurrent &currentVectors)
 {
     for(int idx=0; idx<VectorSettingsStatic::COUNT_VECTORS; ++idx) {
         VectorSettingsStatic::VectorType type = VectorSettingsStatic::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(type)) {
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(type)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { m_vectorSettings, type }, currentVectors.m_vectorData[idx]);
+                painter, { vectorSettings, type }, currentVectors.m_vectorData[idx]);
             VectorPrimitivesPainter::drawLabel(painter,
-                                               { pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(),
+                                               { pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
                                                 currentVectors.m_colors[idx]},
-                                               m_vectorSettings.m_layout.getLabelFont(painter),
+                                               vectorSettings.m_layout.getLabelFont(painter),
                                                currentVectors.m_label[idx]);
         }
     }
