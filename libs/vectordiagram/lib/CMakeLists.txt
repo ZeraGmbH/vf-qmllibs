@@ -23,8 +23,9 @@ target_include_directories(vector-diagram-lib
     PUBLIC
     $<INSTALL_INTERFACE:include/vector-diagram-lib>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/settings>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/paintworkers>
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/qml>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/settings>
     )
 
 set_target_properties(vector-diagram-lib PROPERTIES VERSION ${PROJECT_VERSION})
