@@ -1,7 +1,25 @@
 #ifndef VECTORDIAGRAMQMLMACROS_H
 #define VECTORDIAGRAMQMLMACROS_H
 
-#define Q_VECTOR_PROPERTY(type, variable, getter, setter) \
+#define Q_VECTOR_PROPERTY(name, vartype, settingsmember, getter, setter) \
+private: \
+    Q_PROPERTY(vartype name READ getter WRITE setter NOTIFY name##Changed) \
+    Q_SIGNAL void name##Changed(); \
+    public: \
+public: \
+    vartype getter() const { \
+        return m_vectorPainter.getVectorSettings()->settingsmember.getter(); \
+    } \
+    Q_SLOT void setter(vartype const &value) { \
+        if (getter() != value) { \
+            m_vectorPainter.getVectorSettings()->settingsmember.setter(value); \
+            emit name##Changed(); \
+            update(); \
+        } \
+}
+// end Q_VECTOR_PROPERTY
+
+#define Q_VECTOR_PROPERTY_OLD(type, variable, getter, setter) \
 private: \
     Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
     Q_SIGNAL void getter##Changed(); \

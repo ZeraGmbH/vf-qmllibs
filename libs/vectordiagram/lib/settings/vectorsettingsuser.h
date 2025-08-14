@@ -1,7 +1,6 @@
 #ifndef VECTORSETTINGSUSER_H
 #define VECTORSETTINGSUSER_H
 
-// enums must be in sync to PhasorDiagram::VectorType - suggestions?
 enum class VectorStandard : int
 {
     DIN,
@@ -19,11 +18,11 @@ enum class VectorType : int
 class VectorSettingsUser
 {
 public:
-    void setVectorStandard(VectorStandard vectorStandard);
     VectorStandard getVectorStandard() const;
+    void setVectorStandard(VectorStandard vectorStandard);
 
-    void setVectorType(VectorType vectorType);
     VectorType getVectorType() const;
+    void setVectorType(VectorType vectorType);
 
 private:
     VectorType m_vectorType = VectorType::VIEW_STAR;

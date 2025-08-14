@@ -15,18 +15,21 @@ class VectorDiagramQml: public QQuickPaintedItem
 public:
     explicit VectorDiagramQml(QQuickItem *parent = nullptr);
 
+    Q_ENUM(VectorStandard)
     Q_ENUM(VectorType)
+    Q_ENUM(VectorNominals)
 
-    // TODO vectorType
-    //Q_VECTOR_PROPERTY(float, m_maxOvershootFactor, maxOvershootFactor, setMaxOvershootFactor)
-    //Q_VECTOR_PROPERTY(float, m_nominalVoltage, nominalVoltage, setNominalVoltage)
-    //Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
-    //Q_VECTOR_PROPERTY(float, m_nominalCurrent, nominalCurrent, setNominalCurrent)
-    //Q_VECTOR_PROPERTY(float, m_minCurrent, minCurrent, setMinCurrent)
-    //Q_VECTOR_PROPERTY(bool,  m_coordCrossVisible, coordCrossVisible, setCoordCrossVisible)
-    //Q_VECTOR_PROPERTY(QColor,m_coordCrossColor, coordCrossColor, setCoordCrossColor)
-    //Q_VECTOR_PROPERTY(bool,  m_circleVisible, circleVisible, setCircleVisible)
-    //Q_VECTOR_PROPERTY(QColor, m_circleColor, circleColor, setCircleColor)
+    // TODO maybe vectorWidthMode
+    Q_VECTOR_PROPERTY(vectorStandard, VectorStandard, m_user, getVectorStandard, setVectorStandard)
+    Q_VECTOR_PROPERTY(vectorType, VectorType, m_user, getVectorType, setVectorType)
+    Q_VECTOR_PROPERTY(nominalSelection, VectorNominals, m_lengths, getNominalSelection, setNominalSelection)
+    Q_VECTOR_PROPERTY(maxOvershootFactor, float, m_lengths, getMaxOvershootFactor, setMaxOvershootFactor)
+    Q_VECTOR_PROPERTY(nominalVoltage, float, m_lengths, getNomVoltage, setNomVoltage)
+    Q_VECTOR_PROPERTY(minVoltage, float, m_lengths, getMinVoltage, setMinVoltage)
+    Q_VECTOR_PROPERTY(nominalCurrent, float, m_lengths, getNomCurrent, setNomCurrent)
+    Q_VECTOR_PROPERTY(minCurrent, float, m_lengths, getMinCurrent, setMinCurrent)
+    Q_VECTOR_PROPERTY(coordCrossColor, QColor, m_layout, getCoordCrossColor, setCoordCrossColor)
+    Q_VECTOR_PROPERTY(circleColor, QColor, m_layout, getCircleColor, setCircleColor)
 
     // create setVectorLabel0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)
