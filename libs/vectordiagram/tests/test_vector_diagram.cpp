@@ -520,7 +520,7 @@ void test_vector_diagram::setStar()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::STAR;
+    VectorType type = VectorType::VIEW_STAR;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -544,7 +544,7 @@ void test_vector_diagram::setStarNoValues()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::STAR);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_STAR);
 
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -567,7 +567,7 @@ void test_vector_diagram::setTriangle()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::TRIANGLE;
+    VectorType type = VectorType::VIEW_TRIANGLE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -593,7 +593,7 @@ void test_vector_diagram::setTriangleNoCurrent()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::TRIANGLE);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_TRIANGLE);
 
     setSymmetricValues(&vectorPainter, nomValue, 0, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -617,7 +617,7 @@ void test_vector_diagram::set3Wire()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::THREE_WIRE;
+    VectorType type = VectorType::VIEW_THREE_PHASE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -709,84 +709,6 @@ void test_vector_diagram::setMaximumTwice()
     setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
     svgPainter.paintToFile(dumpFile, &vectorPainter);
     setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::setISameWidth0()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    const float nomValue = 30;
-    const float angle = 0;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-
-    VectorUiWidth width = VectorUiWidth::SAME;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
-
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::setIWiderWidth0()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    const float nomValue = 30;
-    const float angle = 0;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-
-    VectorUiWidth width = VectorUiWidth::IWIDER;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
-
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::setIWiderWidth30()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    const float nomValue = 30;
-    const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-
-    VectorUiWidth width = VectorUiWidth::IWIDER;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
-
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);

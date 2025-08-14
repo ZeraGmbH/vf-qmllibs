@@ -19,11 +19,10 @@ public:
     Q_ENUM(VectorType)
     Q_ENUM(VectorNominals)
 
-    Q_VECTOR_PROPERTY(vectorStandard, VectorStandard, m_user, getVectorStandard, setVectorStandard) // DIN / ISO / ANSI
-    Q_VECTOR_PROPERTY(vectorType, VectorType, m_user, getVectorType, setVectorType) // star / Δ / 3wire
-    Q_VECTOR_PROPERTY(vectorUiWidth, VectorUiWidth, m_layout, getVectorUiWidth, setVectorUiWidth) // oldschool / WebSam alike style
-    Q_VECTOR_PROPERTY(nominalSelection, VectorNominals, m_lengths, getNominalSelection, setNominalSelection) // explicit nominal / max
-
+    // TODO maybe vectorWidthMode
+    Q_VECTOR_PROPERTY(vectorStandard, VectorStandard, m_user, getVectorStandard, setVectorStandard)
+    Q_VECTOR_PROPERTY(vectorType, VectorType, m_user, getVectorType, setVectorType)
+    Q_VECTOR_PROPERTY(nominalSelection, VectorNominals, m_lengths, getNominalSelection, setNominalSelection)
     Q_VECTOR_PROPERTY(maxOvershootFactor, float, m_lengths, getMaxOvershootFactor, setMaxOvershootFactor)
     Q_VECTOR_PROPERTY(nominalVoltage, float, m_lengths, getNomVoltage, setNomVoltage)
     Q_VECTOR_PROPERTY(minVoltage, float, m_lengths, getMinVoltage, setMinVoltage)

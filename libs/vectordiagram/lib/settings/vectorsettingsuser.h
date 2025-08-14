@@ -3,16 +3,16 @@
 
 enum class VectorStandard : int
 {
-    DIN = 0,
-    IEC = 1,
-    ANSI = 2
+    DIN,
+    IEC,
+    ANSI
 };
 
 enum class VectorType : int
 {
-    STAR = 0,
-    TRIANGLE = 1,
-    THREE_WIRE = 2
+    VIEW_STAR = 0,
+    VIEW_TRIANGLE = 1,
+    VIEW_THREE_PHASE = 2
 };
 
 class VectorSettingsUser
@@ -25,7 +25,7 @@ public:
     void setVectorType(VectorType vectorType);
 
 private:
-    VectorType m_vectorType = VectorType::STAR;
+    VectorType m_vectorType = VectorType::VIEW_STAR;
     VectorStandard m_vectorStandard = VectorStandard::DIN;
 };
 

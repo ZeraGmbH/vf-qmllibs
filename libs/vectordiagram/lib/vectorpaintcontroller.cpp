@@ -38,7 +38,7 @@ void VectorPaintController::paint(QPainter *painter)
 
     const VectorType vectorType = m_vectorSettings->m_user.getVectorType();
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
-    if (vectorType == VectorType::THREE_WIRE)
+    if (vectorType == VectorType::VIEW_THREE_PHASE)
         currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
 
     calcAndSetMaxValues(currentData);
@@ -46,21 +46,21 @@ void VectorPaintController::paint(QPainter *painter)
 
     bool vectorDrawn = false;
     switch (vectorType) {
-    case VectorType::STAR:
-        if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
-            vectorDrawn = true;
+    case VectorType::VIEW_STAR:
         if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
-        break;
-    case VectorType::TRIANGLE:
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
+        break;
+    case VectorType::VIEW_TRIANGLE:
         VectorGroupsPainter::drawVoltageTriangle(painter, *m_vectorSettings, currentData);
-        break;
-    case VectorType::THREE_WIRE:
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
+        break;
+    case VectorType::VIEW_THREE_PHASE:
         if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
+            vectorDrawn = true;
+        if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     }

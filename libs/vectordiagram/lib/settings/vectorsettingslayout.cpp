@@ -1,51 +1,6 @@
 #include "vectorsettingslayout.h"
 #include "vectorpaintcalc.h"
 
-VectorUiWidth VectorSettingsLayout::getVectorUiWidth() const
-{
-    return m_vectorUiWidth;
-}
-
-void VectorSettingsLayout::setVectorUiWidth(VectorUiWidth vectorUiWidth)
-{
-    // This is a 'dummy' convenicence property. It applies multiple changes
-    // on properties in here. This is fine ATTOW but as soon as QML (or other)
-    // interfaces are extended to export e.g vectorLineWidthI it needs a
-    // signalling mechanism when calling setVectorUiWidth
-    m_vectorUiWidth = vectorUiWidth;
-
-    if (m_vectorUiWidth == VectorUiWidth::SAME) {
-        m_vectorLineWidthI = 0.01;
-        m_arrowHeightI = 0.03;
-        m_arrowSpreadAngleDegI = 22.5;
-    }
-    else {
-        m_vectorLineWidthI = 0.02;
-        m_arrowHeightI = 0.033;
-        m_arrowSpreadAngleDegI = 30;
-    }
-}
-
-QColor VectorSettingsLayout::getCoordCrossColor() const
-{
-    return m_coordCrossColor;
-}
-
-void VectorSettingsLayout::setCoordCrossColor(QColor coordCrossColor)
-{
-    m_coordCrossColor = coordCrossColor;
-}
-
-QColor VectorSettingsLayout::getCircleColor() const
-{
-    return m_circleColor;
-}
-
-void VectorSettingsLayout::setCircleColor(QColor circleColor)
-{
-    m_circleColor = circleColor;
-}
-
 bool VectorSettingsLayout::getCoordCrossVisible() const
 {
     return m_coordCrossVisible;
@@ -79,6 +34,26 @@ void VectorSettingsLayout::setCoordCrossAndCircleLineWidth(float coordCrossAndCi
 float VectorSettingsLayout::getCoordCrossAndCircleLineWidthPix(const QPainter *painter) const
 {
     return VectorPaintCalc::getClipSquareLen(painter) * m_coordCrossAndCircleLineWidth;
+}
+
+QColor VectorSettingsLayout::getCoordCrossColor() const
+{
+    return m_coordCrossColor;
+}
+
+void VectorSettingsLayout::setCoordCrossColor(QColor coordCrossColor)
+{
+    m_coordCrossColor = coordCrossColor;
+}
+
+QColor VectorSettingsLayout::getCircleColor() const
+{
+    return m_circleColor;
+}
+
+void VectorSettingsLayout::setCircleColor(QColor circleColor)
+{
+    m_circleColor = circleColor;
 }
 
 float VectorSettingsLayout::getCenterDotDiameterPix(const QPainter *painter) const

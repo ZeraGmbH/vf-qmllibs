@@ -45,10 +45,6 @@ private slots:
     void setMaximumMode();
     void setMaximumTwice();
 
-    void setISameWidth0();
-    void setIWiderWidth0();
-    void setIWiderWidth30();
-
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();
