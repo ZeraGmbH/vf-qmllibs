@@ -19,9 +19,9 @@ public:
 
     enum class VectorType : int
     {
-        STAR = 0,
-        TRIANGLE = 1,
-        THREE_PHASE = 2
+        STAR,
+        TRIANGLE,
+        THREE_PHASE
     };
     Q_ENUM(VectorType)
     VectorType getVectorType() const;
