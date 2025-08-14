@@ -29,6 +29,9 @@ public:
     float getMinCurrent() const;
     void setMinCurrent(float minCurrent);
 
+    float getMaxVoltage() const;
+    float getMaxCurrent() const;
+
     float getMaxOvershootFactor() const;
     void setMaxOvershootFactor(float maxOvershoot);
 

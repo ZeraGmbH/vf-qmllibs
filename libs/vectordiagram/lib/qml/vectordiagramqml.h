@@ -31,6 +31,13 @@ public:
     Q_VECTOR_PROPERTY(coordCrossColor, QColor, m_layout, getCoordCrossColor, setCoordCrossColor)
     Q_VECTOR_PROPERTY(circleColor, QColor, m_layout, getCircleColor, setCircleColor)
 
+    Q_PROPERTY(float maxVoltage READ maxVoltage NOTIFY maxVoltageChanged)
+    Q_SIGNAL void maxVoltageChanged();
+    float maxVoltage();
+    Q_PROPERTY(float maxCurrent READ maxCurrent NOTIFY maxCurrentChanged)
+    Q_SIGNAL void maxCurrentChanged();
+    float maxCurrent();
+
     // create setVectorLabel0.. Q_PROPERTIES (getter / setter / notifier)
     Q_VECTOR_ARRAY_PROPERTY(QString, 0, m_vectorLabel, vectorLabel, setVectorLabel)
     Q_VECTOR_ARRAY_PROPERTY(QString, 1, m_vectorLabel, vectorLabel, setVectorLabel)

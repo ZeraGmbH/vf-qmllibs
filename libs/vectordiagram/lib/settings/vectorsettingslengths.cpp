@@ -51,6 +51,16 @@ void VectorSettingsLengths::setMinCurrent(float minCurrent)
     m_minCurrent = minCurrent;
 }
 
+float VectorSettingsLengths::getMaxVoltage() const
+{
+    return m_maxVoltage;
+}
+
+float VectorSettingsLengths::getMaxCurrent() const
+{
+    return m_maxCurrent;
+}
+
 float VectorSettingsLengths::getMaxOvershootFactor() const
 {
     return m_maxOvershoot;

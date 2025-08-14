@@ -19,25 +19,6 @@ public: \
 }
 // end Q_VECTOR_PROPERTY
 
-#define Q_VECTOR_PROPERTY_OLD(type, variable, getter, setter) \
-private: \
-    Q_PROPERTY(type getter READ getter WRITE setter NOTIFY getter##Changed) \
-    Q_SIGNAL void getter##Changed(); \
-public: \
-    type const& getter() const { return variable; } \
-    Q_SLOT void setter(type const &v) { \
-        m_vectorPainter.setter(v); \
-        if(v == variable) \
-            return; \
-        variable = v; \
-        emit getter##Changed(); \
-        update(); \
-    } \
-private: \
-    type variable;
-// end Q_VECTOR_PROPERTY
-
-
 #define Q_VECTOR_ARRAY_PROPERTY(type, idx, variable, getter, setter) \
 public: \
     Q_PROPERTY(type getter##idx READ getter##idx WRITE setter##idx NOTIFY getter##Changed##idx) \
