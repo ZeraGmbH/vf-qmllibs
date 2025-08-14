@@ -47,6 +47,7 @@ void VectorPaintController::paint(QPainter *painter)
     bool vectorDrawn = false;
     switch (vectorType) {
     case VectorType::STAR:
+    case VectorType::THREE_PHASE:
         if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
@@ -54,12 +55,6 @@ void VectorPaintController::paint(QPainter *painter)
         break;
     case VectorType::TRIANGLE:
         VectorGroupsPainter::drawVoltageTriangle(painter, *m_vectorSettings, currentData);
-        if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
-            vectorDrawn = true;
-        break;
-    case VectorType::THREE_PHASE:
-        if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
-            vectorDrawn = true;
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
