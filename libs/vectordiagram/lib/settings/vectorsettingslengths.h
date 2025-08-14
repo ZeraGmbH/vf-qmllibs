@@ -4,18 +4,17 @@
 #include "vectorconstants.h"
 #include <QPainter>
 
-enum class VectorNominals : int
+class VectorSettingsLengths : public QObject
 {
-    NOMINAL, // values with length == nominal value land on circle
-    MAXIMUM  // values with max values land on circle (nominal values are ignored)
-};
-
-Q_DECLARE_METATYPE(VectorNominals)
-
-class VectorSettingsLengths
-{
+    Q_OBJECT
 public:
     // external
+    enum class VectorNominals : int
+    {
+        NOMINAL, // values with length == nominal value land on circle
+        MAXIMUM  // values with max values land on circle (nominal values are ignored)
+    };
+    Q_ENUM(VectorNominals)
     VectorNominals getNominalSelection() const;
     void setNominalSelection(VectorNominals nominalSelection);
 

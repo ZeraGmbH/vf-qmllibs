@@ -15,17 +15,13 @@ class VectorDiagramQml: public QQuickPaintedItem
 public:
     explicit VectorDiagramQml(QQuickItem *parent = nullptr);
 
-    Q_ENUM(VectorStandard)
-    Q_ENUM(VectorType)
-    Q_ENUM(VectorNominals)
-
     // DIN / ISO / ANSI
-    Q_VECTOR_PROPERTY(vectorStandard, VectorStandard, m_user, getVectorStandard, setVectorStandard)
+    Q_VECTOR_PROPERTY(vectorStandard, VectorSettingsUser::VectorStandard, m_user, getVectorStandard, setVectorStandard)
     // star / Δ / 3wire
-    Q_VECTOR_PROPERTY(vectorType, VectorType, m_user, getVectorType, setVectorType)
+    Q_VECTOR_PROPERTY(vectorType, VectorSettingsUser::VectorType, m_user, getVectorType, setVectorType)
 
     // NOMINAL: Vectors with nominal length end on circle / MAXIMUM: Vectors with max length end on circle
-    Q_VECTOR_PROPERTY(nominalSelection, VectorNominals, m_lengths, getNominalSelection, setNominalSelection)
+    Q_VECTOR_PROPERTY(nominalSelection, VectorSettingsLengths::VectorNominals, m_lengths, getNominalSelection, setNominalSelection)
     // effective for nominalSelection == VectorNominals::NOMINAL
     Q_VECTOR_PROPERTY(nominalVoltage, float, m_lengths, getNomVoltage, setNomVoltage)
     // effective for nominalSelection == VectorNominals::NOMINAL

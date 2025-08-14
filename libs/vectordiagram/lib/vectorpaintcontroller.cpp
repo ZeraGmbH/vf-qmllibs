@@ -36,9 +36,9 @@ void VectorPaintController::paint(QPainter *painter)
     if(m_vectorSettings->m_layout.getCircleVisible())
         VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings->m_lengths, m_vectorSettings->m_layout);
 
-    const VectorType vectorType = m_vectorSettings->m_user.getVectorType();
+    const VectorSettingsUser::VectorType vectorType = m_vectorSettings->m_user.getVectorType();
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
-    if (vectorType == VectorType::THREE_PHASE)
+    if (vectorType == VectorSettingsUser::VectorType::THREE_PHASE)
         currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
 
     calcAndSetMaxValues(currentData);
@@ -46,14 +46,14 @@ void VectorPaintController::paint(QPainter *painter)
 
     bool vectorDrawn = false;
     switch (vectorType) {
-    case VectorType::STAR:
-    case VectorType::THREE_PHASE:
+    case VectorSettingsUser::VectorType::STAR:
+    case VectorSettingsUser::VectorType::THREE_PHASE:
         if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
-    case VectorType::TRIANGLE:
+    case VectorSettingsUser::VectorType::TRIANGLE:
         VectorGroupsPainter::drawVoltageTriangle(painter, *m_vectorSettings, currentData);
         if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
@@ -67,14 +67,14 @@ void VectorPaintController::paint(QPainter *painter)
 void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& currentVectors)
 {
     switch(m_vectorSettings->m_user.getVectorStandard()) {
-    case VectorStandard::DIN: {
+    case VectorSettingsUser::VectorStandard::DIN: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
         m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
         m_vectorSettings->m_angles.setOffsetAngle(-degToRad(90)-angleUL1);
         break;
     }
-    case VectorStandard::IEC: {
+    case VectorSettingsUser::VectorStandard::IEC: {
         const float angleIL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_IL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_IL1].x());
         // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
@@ -83,7 +83,7 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         m_vectorSettings->m_angles.setOffsetAngle(-angleIL1);
         break;
     }
-    case VectorStandard::ANSI: {
+    case VectorSettingsUser::VectorStandard::ANSI: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
         m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);

@@ -10,7 +10,7 @@ TestPrimitivePainterLabel::TestPrimitivePainterLabel()
 {
     m_vectorSettings.m_lengths.setNomVoltage(vectorLen);
     m_vectorSettings.m_lengths.setNomCurrent(vectorLen);
-    m_vectorSettings.m_lengths.setNominalSelection(VectorNominals::NOMINAL);
+    m_vectorSettings.m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
     m_vectorSettings.m_angles.setRotationDirection(RotationDirection::Clockwise);
     m_vectorSettings.m_angles.setOffsetAngle(degToRad(-90));
 }

@@ -442,7 +442,7 @@ void test_vector_diagram::setDIN()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorStandard standard = VectorStandard::DIN;
+    VectorSettingsUser::VectorStandard standard = VectorSettingsUser::VectorStandard::DIN;
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
@@ -468,7 +468,7 @@ void test_vector_diagram::setIEC()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorStandard standard = VectorStandard::IEC;
+    VectorSettingsUser::VectorStandard standard = VectorSettingsUser::VectorStandard::IEC;
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
@@ -494,7 +494,7 @@ void test_vector_diagram::setANSI()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorStandard standard = VectorStandard::ANSI;
+    VectorSettingsUser::VectorStandard standard = VectorSettingsUser::VectorStandard::ANSI;
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
@@ -520,7 +520,7 @@ void test_vector_diagram::setStar()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::STAR;
+    VectorSettingsUser::VectorType type = VectorSettingsUser::VectorType::STAR;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -544,7 +544,7 @@ void test_vector_diagram::setStarNoValues()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::STAR);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorSettingsUser::VectorType::STAR);
 
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -567,7 +567,7 @@ void test_vector_diagram::setTriangle()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::TRIANGLE;
+    VectorSettingsUser::VectorType type = VectorSettingsUser::VectorType::TRIANGLE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -593,7 +593,7 @@ void test_vector_diagram::setTriangleNoCurrent()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::TRIANGLE);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorSettingsUser::VectorType::TRIANGLE);
 
     setSymmetricValues(&vectorPainter, nomValue, 0, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -617,7 +617,7 @@ void test_vector_diagram::set3Wire()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::THREE_PHASE;
+    VectorSettingsUser::VectorType type = VectorSettingsUser::VectorType::THREE_PHASE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -649,8 +649,8 @@ void test_vector_diagram::setNominalMode()
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
     QCOMPARE(iNom, vectorPainter.getVectorSettings()->m_lengths.getNomCurrent());
 
-    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::NOMINAL);
-    QCOMPARE(VectorNominals::NOMINAL, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
+    QCOMPARE(VectorSettingsLengths::VectorNominals::NOMINAL, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
     setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -677,8 +677,8 @@ void test_vector_diagram::setMaximumMode()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
 
-    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::MAXIMUM);
-    QCOMPARE(VectorNominals::MAXIMUM, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::MAXIMUM);
+    QCOMPARE(VectorSettingsLengths::VectorNominals::MAXIMUM, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
     setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -705,7 +705,7 @@ void test_vector_diagram::setMaximumTwice()
     vectorPainter.getVectorSettings()->m_lengths.setNomVoltage(uNom);
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
 
-    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorNominals::MAXIMUM);
+    vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::MAXIMUM);
     setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
     svgPainter.paintToFile(dumpFile, &vectorPainter);
     setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small

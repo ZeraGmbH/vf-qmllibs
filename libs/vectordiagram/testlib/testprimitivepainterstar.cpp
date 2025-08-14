@@ -11,7 +11,7 @@ TestPrimitivePainterStar::TestPrimitivePainterStar()
 {
     m_vectorSettings.m_lengths.setNomVoltage(vectorLen);
     m_vectorSettings.m_lengths.setNomCurrent(vectorLen);
-    m_vectorSettings.m_lengths.setNominalSelection(VectorNominals::NOMINAL);
+    m_vectorSettings.m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
 }
 
 void TestPrimitivePainterStar::paint(QPainter *painter)

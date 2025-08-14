@@ -3,30 +3,27 @@
 
 #include <QObject>
 
-enum class VectorStandard : int
+class VectorSettingsUser : public QObject
 {
-    DIN,
-    IEC,
-    ANSI
-};
-
-Q_DECLARE_METATYPE(VectorStandard)
-
-enum class VectorType : int
-{
-    STAR = 0,
-    TRIANGLE = 1,
-    THREE_PHASE = 2
-};
-
-Q_DECLARE_METATYPE(VectorType)
-
-class VectorSettingsUser
-{
+    Q_OBJECT
 public:
+    enum class VectorStandard : int
+    {
+        DIN,
+        IEC,
+        ANSI
+    };
+    Q_ENUM(VectorStandard)
     VectorStandard getVectorStandard() const;
     void setVectorStandard(VectorStandard vectorStandard);
 
+    enum class VectorType : int
+    {
+        STAR = 0,
+        TRIANGLE = 1,
+        THREE_PHASE = 2
+    };
+    Q_ENUM(VectorType)
     VectorType getVectorType() const;
     void setVectorType(VectorType vectorType);
 

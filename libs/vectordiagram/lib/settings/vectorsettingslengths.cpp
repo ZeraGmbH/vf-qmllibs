@@ -1,7 +1,7 @@
 #include "vectorsettingslengths.h"
 #include "vectorpaintcalc.h"
 
-VectorNominals VectorSettingsLengths::getNominalSelection() const
+VectorSettingsLengths::VectorNominals VectorSettingsLengths::getNominalSelection() const
 {
     return m_nominalSelection;
 }
