@@ -2,26 +2,6 @@
 #include "vectorpaintcalc.h"
 #include "vectorprimitivespainter.h"
 
-void VectorPaintController::setVectorStandard(VectorStandard vectorStandard)
-{
-    m_vectorStandard = vectorStandard;
-}
-
-VectorPaintController::VectorStandard VectorPaintController::getVectorStandard() const
-{
-    return m_vectorStandard;
-}
-
-void VectorPaintController::setVectorType(VectorType vectorType)
-{
-    m_vectorType = vectorType;
-}
-
-VectorPaintController::VectorType VectorPaintController::getVectorType() const
-{
-    return m_vectorType;
-}
-
 VectorSettings *VectorPaintController::getVectorSettings()
 {
     return &m_vectorSettings;
@@ -51,15 +31,16 @@ void VectorPaintController::paint(QPainter *painter)
     if(m_vectorSettings.m_layout.getCircleVisible())
         VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
+    const VectorType vectorType = m_vectorSettings.m_user.getVectorType();
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
-    if (getVectorType() == VectorType::VIEW_THREE_PHASE)
+    if (vectorType == VectorType::VIEW_THREE_PHASE)
         currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
 
     calcAndSetMaxValues(currentData);
     adjustAngleSettings(currentData);
 
     bool vectorDrawn = false;
-    switch (getVectorType()) {
+    switch (vectorType) {
     case VectorType::VIEW_STAR:
         if (VectorGroupsPainter::drawVoltageStar(painter, m_vectorSettings, currentData))
             vectorDrawn = true;
@@ -85,7 +66,7 @@ void VectorPaintController::paint(QPainter *painter)
 
 void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& currentVectors)
 {
-    switch(m_vectorStandard) {
+    switch(m_vectorSettings.m_user.getVectorStandard()) {
     case VectorStandard::DIN: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());

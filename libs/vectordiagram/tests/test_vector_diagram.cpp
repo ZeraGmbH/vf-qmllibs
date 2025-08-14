@@ -442,9 +442,9 @@ void test_vector_diagram::setDIN()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::DIN;
-    vectorPainter.setVectorStandard(standard);
-    QCOMPARE(vectorPainter.getVectorStandard(), standard);
+    VectorStandard standard = VectorStandard::DIN;
+    vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -468,9 +468,9 @@ void test_vector_diagram::setIEC()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::IEC;
-    vectorPainter.setVectorStandard(standard);
-    QCOMPARE(vectorPainter.getVectorStandard(), standard);
+    VectorStandard standard = VectorStandard::IEC;
+    vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -494,9 +494,9 @@ void test_vector_diagram::setANSI()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorStandard standard = VectorPaintController::VectorStandard::ANSI;
-    vectorPainter.setVectorStandard(standard);
-    QCOMPARE(vectorPainter.getVectorStandard(), standard);
+    VectorStandard standard = VectorStandard::ANSI;
+    vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -520,9 +520,9 @@ void test_vector_diagram::setStar()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_STAR;
-    vectorPainter.setVectorType(type);
-    QCOMPARE(vectorPainter.getVectorType(), type);
+    VectorType type = VectorType::VIEW_STAR;
+    vectorPainter.getVectorSettings()->m_user.setVectorType(type);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -544,9 +544,7 @@ void test_vector_diagram::setStarNoValues()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_STAR;
-    vectorPainter.setVectorType(type);
-    QCOMPARE(vectorPainter.getVectorType(), type);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_STAR);
 
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -569,9 +567,9 @@ void test_vector_diagram::setTriangle()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_TRIANGLE;
-    vectorPainter.setVectorType(type);
-    QCOMPARE(vectorPainter.getVectorType(), type);
+    VectorType type = VectorType::VIEW_TRIANGLE;
+    vectorPainter.getVectorSettings()->m_user.setVectorType(type);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -595,9 +593,7 @@ void test_vector_diagram::setTriangleNoCurrent()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_TRIANGLE;
-    vectorPainter.setVectorType(type);
-    QCOMPARE(vectorPainter.getVectorType(), type);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_TRIANGLE);
 
     setSymmetricValues(&vectorPainter, nomValue, 0, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -621,9 +617,9 @@ void test_vector_diagram::set3Wire()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorPaintController::VectorType type = VectorPaintController::VectorType::VIEW_THREE_PHASE;
-    vectorPainter.setVectorType(type);
-    QCOMPARE(vectorPainter.getVectorType(), type);
+    VectorType type = VectorType::VIEW_THREE_PHASE;
+    vectorPainter.getVectorSettings()->m_user.setVectorType(type);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

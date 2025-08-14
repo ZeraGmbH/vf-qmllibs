@@ -15,20 +15,9 @@ class PhasorDiagram: public QQuickPaintedItem
 public:
     explicit PhasorDiagram(QQuickItem *parent = nullptr);
 
-    enum class VectorType : int
-    {
-        VIEW_STAR = 0,
-        VIEW_TRIANGLE = 1,
-        VIEW_THREE_PHASE = 2
-    };
     Q_ENUM(VectorType)
 
-    // create various Q_PROPERTIES (getter / setter / notifier)
-    Q_PROPERTY(VectorType VectorType READ vectorType WRITE setVectorType NOTIFY vectorTypeChanged)
-    const VectorType &vectorType();
-    void setVectorType(const VectorType &vectorType);
-    Q_SIGNAL void vectorTypeChanged();
-
+    // TODO vectorType
     //Q_VECTOR_PROPERTY(float, m_maxOvershootFactor, maxOvershootFactor, setMaxOvershootFactor)
     //Q_VECTOR_PROPERTY(float, m_nominalVoltage, nominalVoltage, setNominalVoltage)
     //Q_VECTOR_PROPERTY(float, m_minVoltage, minVoltage, setMinVoltage)
@@ -67,7 +56,6 @@ private:
     void paint(QPainter *painter) override;
 
     VectorPaintController m_vectorPainter;
-    VectorType m_vectorType;
 };
 
 #endif // PHASORDIAGRAM_H
