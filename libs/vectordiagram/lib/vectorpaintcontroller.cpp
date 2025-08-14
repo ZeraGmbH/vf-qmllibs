@@ -89,7 +89,7 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
     case VectorStandard::DIN: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
-        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setRotationDirection(RotationDirection::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(-degToRad(90)-angleUL1);
         break;
     }
@@ -98,14 +98,14 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
                                      currentVectors.m_vectorData[VectorConstants::IDX_IL1].x());
         // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
         // only if angle passed in are in IEC sytyle too. ATTOW We come in as DIN always
-        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setRotationDirection(RotationDirection::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(-angleIL1);
         break;
     }
     case VectorStandard::ANSI: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
-        m_vectorSettings.m_angles.setRotationDirection(VectorSettingsAngles::Clockwise);
+        m_vectorSettings.m_angles.setRotationDirection(RotationDirection::Clockwise);
         m_vectorSettings.m_angles.setOffsetAngle(angleUL1);
         break;
     }

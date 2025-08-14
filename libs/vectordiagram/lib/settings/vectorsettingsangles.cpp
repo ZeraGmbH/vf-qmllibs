@@ -15,7 +15,7 @@ void VectorSettingsAngles::setRotationDirection(RotationDirection direction)
     m_rotationDirection = direction;
 }
 
-VectorSettingsAngles::RotationDirection VectorSettingsAngles::getRotationDirection() const
+RotationDirection VectorSettingsAngles::getRotationDirection() const
 {
     return m_rotationDirection;
 }

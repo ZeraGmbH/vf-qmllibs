@@ -53,7 +53,7 @@ QVector2D VectorPaintCalc::calcPixVec(QPainter *painter, const VectorSettingsEx 
     const float vectLenPixels = nomRadius * value.length() / nomValue - shorten;
     const float directionFactor =
         // y on screen increases downwards => Mathematical <=> -1.0
-        vectorSetttings.m_angles.getRotationDirection() == VectorSettingsAngles::Mathematical ? -1.0 : 1.0;
+        vectorSetttings.m_angles.getRotationDirection() == RotationDirection::Mathematical ? -1.0 : 1.0;
     QVector2D resultVector(
         vectLenPixels * cos(angle),
         vectLenPixels * sin(angle) * directionFactor);

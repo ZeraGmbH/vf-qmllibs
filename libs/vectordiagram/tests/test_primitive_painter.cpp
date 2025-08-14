@@ -43,21 +43,21 @@ void test_primitive_painter::initialTestPrimitivePainterStar()
     QVERIFY(ok);
 }
 
-Q_DECLARE_METATYPE(VectorSettingsAngles::RotationDirection)
+Q_DECLARE_METATYPE(RotationDirection)
 
 void test_primitive_painter::variationAngleOffsetRotationDir_data()
 {
     QTest::addColumn<float>("angleOffset");
-    QTest::addColumn<VectorSettingsAngles::RotationDirection>("rotationDir");
+    QTest::addColumn<RotationDirection>("rotationDir");
     const QVector<float> angleOffsets { 0, 90, 180, 270 };
-    const QVector<VectorSettingsAngles::RotationDirection> rotationDirs {
-        VectorSettingsAngles::Mathematical,
-        VectorSettingsAngles::Clockwise };
+    const QVector<RotationDirection> rotationDirs {
+        RotationDirection::Mathematical,
+        RotationDirection::Clockwise };
     for (float angleOffset : angleOffsets) {
         for (auto rotationDir : rotationDirs) {
             const QString angleOffsetLabel = QString("offset-%1").arg(angleOffset);
             const QString rotationDirLabel = QString("rotatdir-%1").
-                                              arg(rotationDir == VectorSettingsAngles::Mathematical ? "math" : "clock");
+                                              arg(rotationDir == RotationDirection::Mathematical ? "math" : "clock");
             const QString rowName = QString("%1_%2").arg(angleOffsetLabel, rotationDirLabel);
             QTest::newRow(rowName.toUtf8()) << angleOffset << rotationDir;
         }
@@ -67,7 +67,7 @@ void test_primitive_painter::variationAngleOffsetRotationDir_data()
 void test_primitive_painter::variationAngleOffsetRotationDir()
 {
     QFETCH(float, angleOffset);
-    QFETCH(VectorSettingsAngles::RotationDirection, rotationDir);
+    QFETCH(RotationDirection, rotationDir);
     const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
