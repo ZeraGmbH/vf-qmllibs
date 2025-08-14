@@ -5,13 +5,15 @@
 #include "vectorsettings.h"
 #include "vectorconstants.h"
 #include "vectorgroupspainter.h"
+#include <memory>
 
 class VectorPaintController : public AbstractVectorPainter
 {
 public:
+    VectorPaintController();
     ~VectorPaintController() = default;
 
-    VectorSettings* getVectorSettings();
+    std::shared_ptr<VectorSettings> getVectorSettings() const;
 
     void setVectorLabel(int idx, const QString &vectorLabel);
     void setVectorColor(int idx, const QColor &vectorColor);
@@ -24,7 +26,7 @@ private:
     void adjustAngleSettings(const VectorDataCurrent& currentVectors);
     void calcAndSetMaxValues(const VectorDataCurrent& currentVectors);
 
-    VectorSettings m_vectorSettings;
+    std::shared_ptr<VectorSettings> m_vectorSettings;
 
     QVector<QColor> m_inVectorColors = QVector<QColor>(VectorConstants::COUNT_VECTORS);
     QVector<QString> m_inVectorLabels = QVector<QString>(VectorConstants::COUNT_VECTORS);
