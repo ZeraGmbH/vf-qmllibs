@@ -19,18 +19,27 @@ public:
     Q_ENUM(VectorType)
     Q_ENUM(VectorNominals)
 
-    // TODO maybe vectorWidthMode
+    // DIN / ISO / ANSI
     Q_VECTOR_PROPERTY(vectorStandard, VectorStandard, m_user, getVectorStandard, setVectorStandard)
+    // star / Δ / 3wire
     Q_VECTOR_PROPERTY(vectorType, VectorType, m_user, getVectorType, setVectorType)
+
+    // NOMINAL: Vectors with nominal length end on circle / MAXIMUM: Vectors with max length end on circle
     Q_VECTOR_PROPERTY(nominalSelection, VectorNominals, m_lengths, getNominalSelection, setNominalSelection)
-    Q_VECTOR_PROPERTY(maxOvershootFactor, float, m_lengths, getMaxOvershootFactor, setMaxOvershootFactor)
+    // effective for nominalSelection == VectorNominals::NOMINAL
     Q_VECTOR_PROPERTY(nominalVoltage, float, m_lengths, getNomVoltage, setNomVoltage)
-    Q_VECTOR_PROPERTY(minVoltage, float, m_lengths, getMinVoltage, setMinVoltage)
+    // effective for nominalSelection == VectorNominals::NOMINAL
     Q_VECTOR_PROPERTY(nominalCurrent, float, m_lengths, getNomCurrent, setNomCurrent)
+
+    // vectors shorter than min are not drawn
+    Q_VECTOR_PROPERTY(minVoltage, float, m_lengths, getMinVoltage, setMinVoltage)
     Q_VECTOR_PROPERTY(minCurrent, float, m_lengths, getMinCurrent, setMinCurrent)
+
+    Q_VECTOR_PROPERTY(maxOvershootFactor, float, m_lengths, getMaxOvershootFactor, setMaxOvershootFactor)
     Q_VECTOR_PROPERTY(coordCrossColor, QColor, m_layout, getCoordCrossColor, setCoordCrossColor)
     Q_VECTOR_PROPERTY(circleColor, QColor, m_layout, getCircleColor, setCircleColor)
 
+    // Readonly helpers for vector view radius values
     Q_PROPERTY(float maxVoltage READ maxVoltage NOTIFY maxVoltageChanged)
     Q_SIGNAL void maxVoltageChanged();
     float maxVoltage();
