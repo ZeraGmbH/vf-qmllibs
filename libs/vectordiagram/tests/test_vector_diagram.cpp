@@ -720,6 +720,87 @@ void test_vector_diagram::setMaximumTwice()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::setISameWidth0()
+{
+    QSKIP("Fails on OE/qemu");
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 0.0;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::SAME;
+    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setIWiderWidth0()
+{
+    QSKIP("Fails on OE/qemu");
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 0.0;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::I_WIDER;
+    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setIWiderWidth30()
+{
+    QSKIP("Fails on OE/qemu");
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::I_WIDER;
+    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::starVectorsNoOvershoot()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
