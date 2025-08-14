@@ -1,6 +1,8 @@
 #ifndef VECTORSETTINGSUSER_H
 #define VECTORSETTINGSUSER_H
 
+#include <QObject>
+
 enum class VectorStandard : int
 {
     DIN,
@@ -8,12 +10,16 @@ enum class VectorStandard : int
     ANSI
 };
 
+Q_DECLARE_METATYPE(VectorStandard)
+
 enum class VectorType : int
 {
-    VIEW_STAR = 0,
-    VIEW_TRIANGLE = 1,
-    VIEW_THREE_PHASE = 2
+    STAR = 0,
+    TRIANGLE = 1,
+    THREE_PHASE = 2
 };
+
+Q_DECLARE_METATYPE(VectorType)
 
 class VectorSettingsUser
 {
@@ -25,7 +31,7 @@ public:
     void setVectorType(VectorType vectorType);
 
 private:
-    VectorType m_vectorType = VectorType::VIEW_STAR;
+    VectorType m_vectorType = VectorType::STAR;
     VectorStandard m_vectorStandard = VectorStandard::DIN;
 };
 

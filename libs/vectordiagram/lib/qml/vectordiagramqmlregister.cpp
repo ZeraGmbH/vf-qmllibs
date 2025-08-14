@@ -14,5 +14,5 @@ void VectorDiagramQmlRegister::registerQml()
 
 void VectorDiagramQmlRegister::registerTypes()
 {
-    qmlRegisterType<VectorDiagramQml>("VectorDiagram", 1, 0, "VectorDiagram");
+    qmlRegisterType<VectorDiagramQml>("VectorDiagramQml", 1, 0, "VectorDiagram");
 }

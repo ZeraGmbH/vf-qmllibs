@@ -10,6 +10,8 @@ enum class VectorNominals : int
     MAXIMUM  // values with max values land on circle (nominal values are ignored)
 };
 
+Q_DECLARE_METATYPE(VectorNominals)
+
 class VectorSettingsLengths
 {
 public:

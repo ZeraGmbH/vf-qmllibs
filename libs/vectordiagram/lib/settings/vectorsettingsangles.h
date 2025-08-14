@@ -1,10 +1,14 @@
 #ifndef VECTORSETTINGSANGLES_H
 #define VECTORSETTINGSANGLES_H
 
+#include <QObject>
+
 enum class RotationDirection : int {
     Mathematical,
     Clockwise
 };
+
+Q_DECLARE_METATYPE(RotationDirection)
 
 class VectorSettingsAngles
 {

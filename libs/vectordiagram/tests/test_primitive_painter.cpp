@@ -43,8 +43,6 @@ void test_primitive_painter::initialTestPrimitivePainterStar()
     QVERIFY(ok);
 }
 
-Q_DECLARE_METATYPE(RotationDirection)
-
 void test_primitive_painter::variationAngleOffsetRotationDir_data()
 {
     QTest::addColumn<float>("angleOffset");

@@ -520,7 +520,7 @@ void test_vector_diagram::setStar()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::VIEW_STAR;
+    VectorType type = VectorType::STAR;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -544,7 +544,7 @@ void test_vector_diagram::setStarNoValues()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_STAR);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::STAR);
 
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
@@ -567,7 +567,7 @@ void test_vector_diagram::setTriangle()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::VIEW_TRIANGLE;
+    VectorType type = VectorType::TRIANGLE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
@@ -593,7 +593,7 @@ void test_vector_diagram::setTriangleNoCurrent()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::VIEW_TRIANGLE);
+    vectorPainter.getVectorSettings()->m_user.setVectorType(VectorType::TRIANGLE);
 
     setSymmetricValues(&vectorPainter, nomValue, 0, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -617,7 +617,7 @@ void test_vector_diagram::set3Wire()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorType type = VectorType::VIEW_THREE_PHASE;
+    VectorType type = VectorType::THREE_PHASE;
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
