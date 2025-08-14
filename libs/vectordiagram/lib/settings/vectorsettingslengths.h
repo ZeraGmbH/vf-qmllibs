@@ -6,8 +6,8 @@
 
 enum class VectorNominals : int
 {
-    NOMINAL, // values with length == nominal value land on circle
-    MAXIMUM  // values with max values land on circle (nominal values are ignored)
+    NOMINAL = 0, // values with length == nominal value land on circle
+    MAXIMUM = 1  // values with max values land on circle (nominal values are ignored)
 };
 
 class VectorSettingsLengths

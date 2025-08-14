@@ -5,9 +5,23 @@
 #include <QPainter>
 #include <QFont>
 
+enum class VectorUiWidth : int
+{
+    SAME = 0,
+    IWIDER = 1 // mimic WebSam approach
+};
+
 class VectorSettingsLayout
 {
 public:
+    VectorUiWidth getVectorUiWidth() const;
+    void setVectorUiWidth(VectorUiWidth vectorUiWidth);
+
+    QColor getCoordCrossColor() const;
+    void setCoordCrossColor(QColor coordCrossColor);
+    QColor getCircleColor() const;
+    void setCircleColor(QColor circleColor);
+
     bool getCoordCrossVisible() const;
     void setCoordCrossVisible(bool coordCrossVisible);
 
@@ -17,11 +31,6 @@ public:
     float getCoordCrossAndCircleLineWidth() const;
     void setCoordCrossAndCircleLineWidth(float coordCrossAndCircleLineWidth);
     float getCoordCrossAndCircleLineWidthPix(const QPainter *painter) const;
-
-    QColor getCoordCrossColor() const;
-    void setCoordCrossColor(QColor coordCrossColor);
-    QColor getCircleColor() const;
-    void setCircleColor(QColor circleColor);
 
     float getCenterDotDiameterPix(const QPainter *painter) const;
 
@@ -51,6 +60,7 @@ public:
     QFont getLabelFont(const QPainter *painter) const;
 
 private:
+    VectorUiWidth m_vectorUiWidth = VectorUiWidth::SAME;
     bool m_coordCrossVisible = true;
     bool m_circleVisible = true;
     float m_coordCrossAndCircleLineWidth = 0.004;
