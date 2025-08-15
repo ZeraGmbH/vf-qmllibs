@@ -1,50 +1,55 @@
 <RCC>
     <qresource prefix="/">
-        <file>svgs/noGridSquare.svg</file>
-        <file>svgs/gridOnlySquare.svg</file>
+        <file>svgs/gridAndCircleBlue.svg</file>
+        <file>svgs/gridAndCircleNoOvershoot.svg</file>
+        <file>svgs/gridAndCircleOvershoot.svg</file>
         <file>svgs/gridOnlyBlue.svg</file>
         <file>svgs/gridOnlyRectangleNarrow.svg</file>
         <file>svgs/gridOnlyRectangleWide.svg</file>
-        <file>svgs/gridAndCircleNoOvershoot.svg</file>
-        <file>svgs/gridAndCircleOvershoot.svg</file>
-        <file>svgs/setStarNoValues.svg</file>
-        <file>svgs/starVectorsIgnoreLessThanMin.svg</file>
-        <file>svgs/gridAndCircleBlue.svg</file>
-        <file>svgs/initialTestPrimitivePainterTriangle.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-clock.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-math.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-math.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-clock.svg</file>
+        <file>svgs/gridOnlySquare.svg</file>
+        <file>svgs/initialTestPrimitivePainterLabel.svg</file>
         <file>svgs/initialTestPrimitivePainterStar.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-clock.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-math.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-clock.svg</file>
-        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-math.svg</file>
-        <file>svgs/setTriangleNoCurrent.svg</file>
+        <file>svgs/initialTestPrimitivePainterTriangle.svg</file>
+        <file>svgs/noGridSquare.svg</file>
         <file>svgs/set3Wire.svg</file>
-        <file>svgs/setArrowWidthTooHigh.svg</file>
-        <file>svgs/setArrowWidthWide.svg</file>
-        <file>svgs/setArrowWidthMix.svg</file>
-        <file>svgs/setArrowWidthNarrow.svg</file>
-        <file>svgs/setArrowWidthTooLow.svg</file>
-        <file>svgs/setIEC.svg</file>
         <file>svgs/setANSI.svg</file>
         <file>svgs/setArrowHeight.svg</file>
-        <file>svgs/setDIN.svg</file>
-        <file>svgs/setStar.svg</file>
-        <file>svgs/setVectorStyleZenux30.svg</file>
-        <file>svgs/starVectorsNoOvershoot.svg</file>
-        <file>svgs/setVectorLineWidth.svg</file>
-        <file>svgs/setVectorStyleZenux0.svg</file>
+        <file>svgs/setArrowWidthMix.svg</file>
+        <file>svgs/setArrowWidthNarrow.svg</file>
+        <file>svgs/setArrowWidthTooHigh.svg</file>
+        <file>svgs/setArrowWidthTooLow.svg</file>
+        <file>svgs/setArrowWidthWide.svg</file>
         <file>svgs/setCrossAndCircleLineWidth.svg</file>
-        <file>svgs/setVectorStyleWebSam30.svg</file>
-        <file>svgs/setVectorStyleWebSam0.svg</file>
-        <file>svgs/starVectorsNoOvershootSmall.svg</file>
+        <file>svgs/setDIN.svg</file>
         <file>svgs/setFontSize.svg</file>
+        <file>svgs/setIEC.svg</file>
         <file>svgs/setMaximumMode.svg</file>
         <file>svgs/setMaximumTwice.svg</file>
         <file>svgs/setNominalMode.svg</file>
+        <file>svgs/setStar.svg</file>
+        <file>svgs/setStarNoValues.svg</file>
         <file>svgs/setTriangle.svg</file>
-        <file>svgs/initialTestPrimitivePainterLabel.svg</file>
+        <file>svgs/setTriangleNoCurrent.svg</file>
+        <file>svgs/setVectorLineWidth.svg</file>
+        <file>svgs/setVectorStyleWebSam0.svg</file>
+        <file>svgs/setVectorStyleWebSam30.svg</file>
+        <file>svgs/setVectorStyleZenux0.svg</file>
+        <file>svgs/setVectorStyleZenux30.svg</file>
+        <file>svgs/starVectorsIgnoreLessThanMin.svg</file>
+        <file>svgs/starVectorsNoOvershoot.svg</file>
+        <file>svgs/starVectorsNoOvershootSmall.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-0_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-90_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-180_rotatdir-math.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-clock.svg</file>
+        <file>svgs/variationAngleOffsetRotationDiroffset-270_rotatdir-math.svg</file>
+        <file>svgs/vectorLabelsTooLongovershoot-1.1.svg</file>
+        <file>svgs/vectorLabelsTooLongovershoot-1.2.svg</file>
+        <file>svgs/vectorLabelsTooLongovershoot-1.3.svg</file>
+        <file>svgs/vectorLabelsTooLongovershoot-1.4.svg</file>
+        <file>svgs/vectorLabelsTooLongovershoot-1.5.svg</file>
     </qresource>
 </RCC>

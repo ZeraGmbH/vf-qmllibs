@@ -26,6 +26,8 @@ public:
     static void drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
                            const VectorDataCurrent& currentVectors);
     static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
+private:
+    static QVector2D limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector, const QString &label);
 };
 
 #endif // VECTORGROUPSPAINTER_H

@@ -898,6 +898,41 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::vectorLabelsTooLong_data()
+{
+    QTest::addColumn<float>("overshoot");
+    QVector<float> overshoots{1.1, 1.2, 1.3, 1.4, 1.5};
+    for (float overshoot : overshoots) {
+        const QString overshootLabel = QString("overshoot-%1").arg(overshoot);
+        const QString rowName = QString("%1").arg(overshootLabel);
+        QTest::newRow(rowName.toUtf8()) << overshoot;
+    }
+}
+
+void test_vector_diagram::vectorLabelsTooLong()
+{
+    QFETCH(float, overshoot);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nom = 1;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+    setNominalUI(vectorPainter, nom);
+
+    setSymmetricValues(&vectorPainter, nom*overshoot, nom*overshoot, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle)
 {
     int dark = 130;
@@ -921,4 +956,12 @@ void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, dou
         std::complex<double> iRawValue = std::polar<double>(iValue, iPhi);
         painter->setVector(i+VectorConstants::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
     }
+}
+
+void test_vector_diagram::setNominalUI(VectorPaintController &vectorPainter, float nominal)
+{
+    VectorSettingsLengths &lengthSettings = vectorPainter.getVectorSettings()->m_lengths;
+    lengthSettings.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
+    lengthSettings.setNomCurrent(nominal);
+    lengthSettings.setNomVoltage(nominal);
 }

@@ -54,8 +54,12 @@ private slots:
     void starVectorsNoOvershootSmall();
     void starVectorsIgnoreLessThanMin();
 
+    void vectorLabelsTooLong_data();
+    void vectorLabelsTooLong();
+
 private:
     void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
+    void setNominalUI(VectorPaintController &vectorPainter, float nominal);
     std::unique_ptr<QSvgGenerator> m_generator;
 };
 

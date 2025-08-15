@@ -51,14 +51,17 @@ void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &ve
     for(int idx=0; idx<VectorConstants::COUNT_VECTORS; ++idx) {
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
-            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+            const QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
+            const QVector2D pixLenVectorLabel = pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor();
+            const QString &label = currentVectors.m_label[idx];
+            const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, pixLenVectorLabel, label);
             VectorPrimitivesPainter::drawLabel(painter,
                                                {phaseType,
-                                                pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor(),
+                                                pixLenVectorLabelAdj,
                                                 currentVectors.m_colors[idx]},
                                                vectorSettings.m_layout.getLabelFont(painter),
-                                               currentVectors.m_label[idx]);
+                                               label);
         }
     }
 }
@@ -83,4 +86,18 @@ VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurre
     data3Wire.m_vectorData[VectorConstants::IDX_IL2] = QVector2D(0,0);
 
     return data3Wire;
+}
+
+QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector, const QString &label)
+{
+    const QPointF textPixSize = VectorPaintCalc::approxFontMetrics(painter, label);
+    const float horizTextEnd = fabs(pixLenVector.x()) + textPixSize.x() / 2;
+    const float vertTextEnd = fabs(pixLenVector.y()) + textPixSize.y() / 2;
+    const float maxTextEnd = std::max(horizTextEnd, vertTextEnd);
+    const float lenAvail = VectorPaintCalc::getClipSquareLen(painter) / 2;
+    const float overshootRatio = maxTextEnd / lenAvail;
+    constexpr float maxOvershootRatio = 0.975; // deduced by tests
+    if (overshootRatio < maxOvershootRatio) // within square
+        return pixLenVector; // TODO: lenghten those too short
+    return pixLenVector * maxOvershootRatio / overshootRatio;
 }
