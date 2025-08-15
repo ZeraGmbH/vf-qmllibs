@@ -75,7 +75,7 @@ private:
     float m_arrowSpreadAngleDegU = 22.5;
     float m_arrowSpreadAngleDegI = 22.5;
     float m_labelFontSize = 0.03;
-    float m_labelVectorOvershootFactor = 1.07;
+    float m_labelVectorOvershootFactor = 1.11;
 };
 
 #endif // VECTORSETTINGSLAYOUT_H
