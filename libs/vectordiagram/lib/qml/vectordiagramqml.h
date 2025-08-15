@@ -19,8 +19,8 @@ public:
     Q_VECTOR_PROPERTY(vectorStandard, VectorSettingsUser::VectorStandard, m_user, getVectorStandard, setVectorStandard)
     // star / Δ / 3wire
     Q_VECTOR_PROPERTY(vectorType, VectorSettingsUser::VectorType, m_user, getVectorType, setVectorType)
-    // SAME: oldschool / I_WIDER: WebSam alike style
-    Q_VECTOR_PROPERTY(vectorUiWidth, VectorSettingsLayout::VectorUiWidth, m_layout, getVectorUiWidth, setVectorUiWidth)
+    // ZENUX: oldschool / WEBSAM: WebSam alike style (currents wider)
+    Q_VECTOR_PROPERTY(vectorStyle, VectorSettingsLayout::VectorStyle, m_layout, getVectorStyle, setVectorStyle)
 
     // NOMINAL: Vectors with nominal length end on circle / MAXIMUM: Vectors with max length end on circle
     Q_VECTOR_PROPERTY(nominalSelection, VectorSettingsLengths::VectorNominals, m_lengths, getNominalSelection, setNominalSelection)

@@ -720,9 +720,8 @@ void test_vector_diagram::setMaximumTwice()
     QVERIFY(ok);
 }
 
-void test_vector_diagram::setISameWidth0()
+void test_vector_diagram::setVectorStyleZenux0()
 {
-    QSKIP("Fails on OE/qemu");
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
@@ -731,9 +730,9 @@ void test_vector_diagram::setISameWidth0()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::SAME;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+    VectorSettingsLayout::VectorStyle width = VectorSettingsLayout::VectorStyle::ZENUX;
+    vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -747,20 +746,19 @@ void test_vector_diagram::setISameWidth0()
     QVERIFY(ok);
 }
 
-void test_vector_diagram::setIWiderWidth0()
+void test_vector_diagram::setVectorStyleZenux30()
 {
-    QSKIP("Fails on OE/qemu");
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     const float nomValue = 30;
-    const float angle = 0.0;
+    const float angle = 30.0;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::I_WIDER;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+    VectorSettingsLayout::VectorStyle width = VectorSettingsLayout::VectorStyle::ZENUX;
+    vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
@@ -774,9 +772,34 @@ void test_vector_diagram::setIWiderWidth0()
     QVERIFY(ok);
 }
 
-void test_vector_diagram::setIWiderWidth30()
+void test_vector_diagram::setVectorStyleWebSam0()
 {
-    QSKIP("Fails on OE/qemu");
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 0.0;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsLayout::VectorStyle width = VectorSettingsLayout::VectorStyle::WEBSAM;
+    vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
+
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    XmlDocumentCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setVectorStyleWebSam30()
+{
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
@@ -785,9 +808,9 @@ void test_vector_diagram::setIWiderWidth30()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    VectorSettingsLayout::VectorUiWidth width = VectorSettingsLayout::VectorUiWidth::I_WIDER;
-    vectorPainter.getVectorSettings()->m_layout.setVectorUiWidth(width);
-    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorUiWidth(), width);
+    VectorSettingsLayout::VectorStyle width = VectorSettingsLayout::VectorStyle::WEBSAM;
+    vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);

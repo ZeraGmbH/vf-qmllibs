@@ -45,9 +45,10 @@ private slots:
     void setMaximumMode();
     void setMaximumTwice();
 
-    void setISameWidth0();
-    void setIWiderWidth0();
-    void setIWiderWidth30();
+    void setVectorStyleZenux0();
+    void setVectorStyleZenux30();
+    void setVectorStyleWebSam0();
+    void setVectorStyleWebSam30();
 
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();

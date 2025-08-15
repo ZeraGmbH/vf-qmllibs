@@ -10,14 +10,14 @@ class VectorSettingsLayout : public QObject
 {
     Q_OBJECT
 public:
-    enum class VectorUiWidth : int
+    enum class VectorStyle : int
     {
-        SAME = 0,
-        I_WIDER = 1 // mimic WebSam approach
+        ZENUX,
+        WEBSAM // mimic WebSam approach
     };
-    Q_ENUM(VectorUiWidth)
-    VectorUiWidth getVectorUiWidth() const;
-    void setVectorUiWidth(VectorUiWidth vectorUiWidth);
+    Q_ENUM(VectorStyle)
+    VectorStyle getVectorStyle() const;
+    void setVectorStyle(VectorStyle vectorStyle);
 
     QColor getCoordCrossColor() const;
     void setCoordCrossColor(QColor coordCrossColor);
@@ -62,7 +62,7 @@ public:
     QFont getLabelFont(const QPainter *painter) const;
 
 private:
-    VectorUiWidth m_vectorUiWidth = VectorUiWidth::SAME;
+    VectorStyle m_vectorUiWidth = VectorStyle::ZENUX;
     bool m_coordCrossVisible = true;
     bool m_circleVisible = true;
     float m_coordCrossAndCircleLineWidth = 0.004;

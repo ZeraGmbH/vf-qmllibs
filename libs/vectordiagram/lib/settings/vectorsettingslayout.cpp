@@ -1,22 +1,22 @@
 #include "vectorsettingslayout.h"
 #include "vectorpaintcalc.h"
 
-VectorSettingsLayout::VectorUiWidth VectorSettingsLayout::getVectorUiWidth() const
+VectorSettingsLayout::VectorStyle VectorSettingsLayout::getVectorStyle() const
 {
     return m_vectorUiWidth;
 }
 
-void VectorSettingsLayout::setVectorUiWidth(VectorUiWidth vectorUiWidth)
+void VectorSettingsLayout::setVectorStyle(VectorStyle vectorStyle)
 {
     // This is a 'dummy' convenicence property. It applies multiple changes
     // on properties in here. This is fine ATTOW but as soon as QML (or other)
     // interfaces are extended to export e.g vectorLineWidthI it needs a
-    // signalling mechanism when calling setVectorUiWidth
-    m_vectorUiWidth = vectorUiWidth;
+    // signalling mechanism when calling setVectorStyle
+    m_vectorUiWidth = vectorStyle;
 
-    if (m_vectorUiWidth == VectorUiWidth::SAME) {
-        m_vectorLineWidthU = 0.01;
-        m_vectorLineWidthI = 0.01;
+    if (m_vectorUiWidth == VectorStyle::ZENUX) {
+        m_vectorLineWidthU = 0.005;
+        m_vectorLineWidthI = 0.005;
         m_arrowHeightI = 0.03;
         m_arrowSpreadAngleDegI = 22.5;
     }
