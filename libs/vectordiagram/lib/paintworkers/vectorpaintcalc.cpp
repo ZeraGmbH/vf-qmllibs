@@ -63,7 +63,7 @@ QVector2D VectorPaintCalc::calcPixVec(const QPainter *painter, const VectorSetti
 QPointF VectorPaintCalc::approxFontMetrics(const QPainter *painter, const QString &str)
 {
     float pointSize = painter->font().pointSizeF();
-    float approxXOffset = pointSize * 0.28 * str.size();
-    float approxYOffset = pointSize * 0.3;
+    float approxXOffset = pointSize * 0.35 * str.size();
+    float approxYOffset = pointSize * 0.4;
     return QPointF(approxXOffset, approxYOffset);
 }

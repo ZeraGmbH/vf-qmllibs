@@ -108,7 +108,7 @@ void test_primitive_painter::initialTestPrimitivePainterLabel()
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
     QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
-    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    VectorToSvgPainter svgPainter(500, 500);
     TestPrimitivePainterLabel primPainter;
     svgPainter.paintToFile(dumpFile, &primPainter);
 
