@@ -87,10 +87,9 @@ void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &ve
     const float centerY = VectorPaintCalc::centerY(painter);
     QPointF positionCenter(centerX + vectorParam.pixLenVector.x(), centerY + vectorParam.pixLenVector.y());
 
-    float pointSize = painter->font().pointSizeF();
-    float approxXOffset = pointSize * 0.28 * label.size();
-    float approxYOffset = pointSize * 0.3;
-    QPointF positionTopLeft(positionCenter.x()-approxXOffset, positionCenter.y()+approxYOffset);
+    const QPointF textPixSize = VectorPaintCalc::approxFontMetrics(painter, label);
+    QPointF positionTopLeft(positionCenter.x()-textPixSize.x(),
+                            positionCenter.y()+textPixSize.y());
 
     painter->setPen(QPen(vectorParam.color, 0));
     painter->drawText(positionTopLeft, label);

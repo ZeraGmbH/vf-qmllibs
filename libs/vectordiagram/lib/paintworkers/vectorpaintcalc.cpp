@@ -43,7 +43,7 @@ QVector2D VectorPaintCalc::calcVectorOtherLen(const QVector2D &vector, float len
     return resultVector;
 }
 
-QVector2D VectorPaintCalc::calcPixVec(QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
+QVector2D VectorPaintCalc::calcPixVec(const QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
                                       const QVector2D &value, float shorten)
 {
     const VectorSettings &vectorSetttings = vectorSettingsEx.vectorSetttings;
@@ -58,4 +58,12 @@ QVector2D VectorPaintCalc::calcPixVec(QPainter *painter, const VectorSettingsEx 
         vectLenPixels * cos(angle),
         vectLenPixels * sin(angle) * directionFactor);
     return resultVector;
+}
+
+QPointF VectorPaintCalc::approxFontMetrics(const QPainter *painter, const QString &str)
+{
+    float pointSize = painter->font().pointSizeF();
+    float approxXOffset = pointSize * 0.28 * str.size();
+    float approxYOffset = pointSize * 0.3;
+    return QPointF(approxXOffset, approxYOffset);
 }

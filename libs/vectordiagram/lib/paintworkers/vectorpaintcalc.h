@@ -24,9 +24,10 @@ public:
     static float centerY(const QPainter *painter);
     static float getClipSquareLen(const QPainter *painter);
     static QVector2D calcVectorOtherLen(const QVector2D &vector, float len);
-    static QVector2D calcPixVec(QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
+    static QVector2D calcPixVec(const QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
                                 const QVector2D &value,
                                 float shorten = 0.0);
+    static QPointF approxFontMetrics(const QPainter *painter, const QString &str);
 };
 
 #endif // VECTORPAINTCALC_H
