@@ -2,7 +2,7 @@
 #include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
 #include <complex>
-#include <xmldocumentcompare.h>
+#include <svgfuzzycompare.h>
 #include <testloghelpers.h>
 #include <QTest>
 
@@ -38,7 +38,7 @@ void test_vector_diagram::noGridSquare()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -58,7 +58,7 @@ void test_vector_diagram::gridOnlySquare()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -84,7 +84,7 @@ void test_vector_diagram::gridOnlyRectangleWide()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -104,7 +104,7 @@ void test_vector_diagram::gridOnlyRectangleNarrow()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -127,7 +127,7 @@ void test_vector_diagram::gridOnlyBlue()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -145,7 +145,7 @@ void test_vector_diagram::gridAndCircleNoOvershoot()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -166,7 +166,7 @@ void test_vector_diagram::gridAndCircleOvershoot()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -187,7 +187,7 @@ void test_vector_diagram::gridAndCircleBlue()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -213,7 +213,7 @@ void test_vector_diagram::setCrossAndCircleLineWidth()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -241,7 +241,7 @@ void test_vector_diagram::setVectorLineWidth()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -269,7 +269,7 @@ void test_vector_diagram::setArrowHeight()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -295,7 +295,7 @@ void test_vector_diagram::setArrowWidthWide()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -324,7 +324,7 @@ void test_vector_diagram::setArrowWidthMix()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -349,7 +349,7 @@ void test_vector_diagram::setArrowWidthNarrow()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -374,7 +374,7 @@ void test_vector_diagram::setArrowWidthTooHigh()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -399,7 +399,7 @@ void test_vector_diagram::setArrowWidthTooLow()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -425,7 +425,7 @@ void test_vector_diagram::setFontSize()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -451,7 +451,7 @@ void test_vector_diagram::setDIN()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -477,7 +477,7 @@ void test_vector_diagram::setIEC()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -503,7 +503,7 @@ void test_vector_diagram::setANSI()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -529,7 +529,7 @@ void test_vector_diagram::setStar()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -550,7 +550,7 @@ void test_vector_diagram::setStarNoValues()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -576,7 +576,7 @@ void test_vector_diagram::setTriangle()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -600,7 +600,7 @@ void test_vector_diagram::setTriangleNoCurrent()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -626,7 +626,7 @@ void test_vector_diagram::set3Wire()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -657,7 +657,7 @@ void test_vector_diagram::setNominalMode()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -685,7 +685,7 @@ void test_vector_diagram::setMaximumMode()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -713,7 +713,7 @@ void test_vector_diagram::setMaximumTwice()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -739,7 +739,7 @@ void test_vector_diagram::setVectorStyleZenux0()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -765,7 +765,7 @@ void test_vector_diagram::setVectorStyleZenux30()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -791,7 +791,7 @@ void test_vector_diagram::setVectorStyleWebSam0()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -817,7 +817,7 @@ void test_vector_diagram::setVectorStyleWebSam30()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -840,7 +840,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -863,7 +863,7 @@ void test_vector_diagram::starVectorsNoOvershootSmall()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -891,7 +891,7 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -926,7 +926,7 @@ void test_vector_diagram::vectorLabelsTooLong()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);

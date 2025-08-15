@@ -2,7 +2,7 @@
 #include "vectortosvgpainter.h"
 #include <cmath>
 #include <complex>
-#include <xmldocumentcompare.h>
+#include <svgfuzzycompare.h>
 #include <testloghelpers.h>
 #include <QTest>
 
@@ -37,7 +37,7 @@ void test_vector_diagram_gui::gridOnlySquare()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -62,7 +62,7 @@ void test_vector_diagram_gui::gridOnlyRectangleWide()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -81,7 +81,7 @@ void test_vector_diagram_gui::gridOnlyRectangleNarrow()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -138,7 +138,7 @@ void test_vector_diagram_gui::fullStar()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);

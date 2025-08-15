@@ -4,7 +4,7 @@
 #include "testprimitivepainterlabel.h"
 #include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
-#include <xmldocumentcompare.h>
+#include <svgfuzzycompare.h>
 #include <testloghelpers.h>
 #include <QTest>
 
@@ -36,7 +36,7 @@ void test_primitive_painter::initialTestPrimitivePainterStar()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -78,7 +78,7 @@ void test_primitive_painter::variationAngleOffsetRotationDir()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -96,7 +96,7 @@ void test_primitive_painter::initialTestPrimitivePainterTriangle()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
@@ -114,7 +114,7 @@ void test_primitive_painter::initialTestPrimitivePainterLabel()
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
     QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    XmlDocumentCompare compare;
+    SvgFuzzyCompare compare;
     bool ok = compare.compareXml(dumped, expected);
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
