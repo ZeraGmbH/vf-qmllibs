@@ -57,6 +57,8 @@ private slots:
     void vectorLabelsTooLong_data();
     void vectorLabelsTooLong();
 
+    void vectorLabelsTooShort_data();
+    void vectorLabelsTooShort();
 private:
     void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
     void setNominalUI(VectorPaintController &vectorPainter, float nominal);

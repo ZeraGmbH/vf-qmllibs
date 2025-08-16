@@ -933,6 +933,41 @@ void test_vector_diagram::vectorLabelsTooLong()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::vectorLabelsTooShort_data()
+{
+    QTest::addColumn<float>("undershoot");
+    QVector<float> undershoots{0.6, 0.5, 0.4, 0.3, 0.2, 0.1};
+    for (float undershoot : undershoots) {
+        const QString undershootLabel = QString("undershoot-%1").arg(undershoot);
+        const QString rowName = QString("%1").arg(undershootLabel);
+        QTest::newRow(rowName.toUtf8()) << undershoot;
+    }
+}
+
+void test_vector_diagram::vectorLabelsTooShort()
+{
+    QFETCH(float, undershoot);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nom = 1;
+    const float angle = 15;
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+    setNominalUI(vectorPainter, nom);
+
+    setSymmetricValues(&vectorPainter, nom*undershoot, nom*undershoot, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    SvgFuzzyCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle)
 {
     int dark = 130;

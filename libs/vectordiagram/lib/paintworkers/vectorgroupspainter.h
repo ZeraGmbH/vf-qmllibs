@@ -28,6 +28,7 @@ public:
     static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
 private:
     static QVector2D limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector, const QString &label);
+    static QVector2D lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector);
 };
 
 #endif // VECTORGROUPSPAINTER_H

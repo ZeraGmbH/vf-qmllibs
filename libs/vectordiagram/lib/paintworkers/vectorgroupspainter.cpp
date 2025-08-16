@@ -88,7 +88,8 @@ VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurre
     return data3Wire;
 }
 
-QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector, const QString &label)
+QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector,
+                                                   const QString &label)
 {
     const QPointF textPixSize = VectorPaintCalc::approxFontMetrics(painter, label);
     const float horizTextEnd = fabs(pixLenVector.x()) + textPixSize.x() / 2;
@@ -98,6 +99,16 @@ QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, cons
     const float overshootRatio = maxTextEnd / lenAvail;
     constexpr float maxOvershootRatio = 0.975; // deduced by tests
     if (overshootRatio < maxOvershootRatio) // within square
-        return pixLenVector; // TODO: lenghten those too short
+        return lengthenLabelTooShortVector(painter, pixLenVector);
     return pixLenVector * maxOvershootRatio / overshootRatio;
+}
+
+QVector2D VectorGroupsPainter::lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector)
+{
+    const float lenAvail = VectorPaintCalc::getClipSquareLen(painter) / 2;
+    constexpr float minLabelLenRel = 0.4;
+    const float minLabelLen = lenAvail * minLabelLenRel;
+    if (pixLenVector.length() > minLabelLen)
+        return pixLenVector;
+    return VectorPaintCalc::calcVectorOtherLen(pixLenVector, minLabelLen);
 }
