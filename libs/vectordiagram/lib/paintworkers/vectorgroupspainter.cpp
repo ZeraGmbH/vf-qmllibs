@@ -46,23 +46,22 @@ void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSet
                                           vectorSettings.m_layout);
 }
 
-void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
+                                     const VectorDataCurrent &currentVectors)
 {
-    for(int idx=0; idx<VectorConstants::COUNT_VECTORS; ++idx) {
+    const ShownLabels shownLabels = getShownLabelsAndPixLenWanted(painter, vectorSettings, currentVectors);
+
+    // TODO angles/collision
+
+    for (const ShownLabel &shownLabel : shownLabels) {
+        int idx = shownLabel.idx;
+        const QString &label = currentVectors.m_label[idx];
+        const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, shownLabel.wantedPixLenLabel, label);
         PhaseType phaseType = VectorConstants::getVectorType(idx);
-        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
-            const QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-                painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
-            const QVector2D pixLenVectorLabel = pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor();
-            const QString &label = currentVectors.m_label[idx];
-            const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, pixLenVectorLabel, label);
-            VectorPrimitivesPainter::drawLabel(painter,
-                                               {phaseType,
-                                                pixLenVectorLabelAdj,
-                                                currentVectors.m_colors[idx]},
-                                               vectorSettings.m_layout.getLabelFont(painter),
-                                               label);
-        }
+        VectorPrimitivesPainter::drawLabel(painter,
+                                           { phaseType, pixLenVectorLabelAdj, currentVectors.m_colors[idx] },
+                                           vectorSettings.m_layout.getLabelFont(painter),
+                                           label);
     }
 }
 
@@ -86,6 +85,22 @@ VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurre
     data3Wire.m_vectorData[VectorConstants::IDX_IL2] = QVector2D(0,0);
 
     return data3Wire;
+}
+
+VectorGroupsPainter::ShownLabels VectorGroupsPainter::getShownLabelsAndPixLenWanted(
+    const QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+{
+    ShownLabels shownLabels;
+    for (int idx=0; idx<VectorConstants::COUNT_VECTORS; ++idx) {
+        PhaseType phaseType = VectorConstants::getVectorType(idx);
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
+            const QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+                painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
+            const QVector2D pixLenVectorLabel = pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor();
+            shownLabels.append({pixLenVectorLabel, idx});
+        }
+    }
+    return shownLabels;
 }
 
 QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector,
