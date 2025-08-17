@@ -42,7 +42,7 @@ void VectorPaintController::paint(QPainter *painter)
         currentData = calc3WireVectorData(currentData);
 
     updateSettingsMaxValues(m_vectorSettings->m_lengths, currentData);
-    adjustAngleSettings(m_vectorSettings, currentData);
+    setAngleSettingsFromStandard(m_vectorSettings, currentData);
 
     bool vectorDrawn = false;
     switch (vectorType) {
@@ -86,8 +86,8 @@ VectorDataCurrent VectorPaintController::calc3WireVectorData(const VectorDataCur
     return data3Wire;
 }
 
-void VectorPaintController::adjustAngleSettings(std::shared_ptr<VectorSettings> vectorSettings,
-                                                const VectorDataCurrent& currentVectors)
+void VectorPaintController::setAngleSettingsFromStandard(std::shared_ptr<VectorSettings> vectorSettings,
+                                                         const VectorDataCurrent& currentVectors)
 {
     switch(vectorSettings->m_user.getVectorStandard()) {
     case VectorSettingsUser::VectorStandard::DIN: {
