@@ -3,14 +3,10 @@
 
 #include <QObject>
 
-class test_vector_diagram : public QObject
+class test_vector_default_settings : public QObject
 {
     Q_OBJECT
 private slots:
-    void setVectorLineWidth();
-
-    void setFontSize();
-
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
 

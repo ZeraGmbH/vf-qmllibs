@@ -59,5 +59,11 @@
         <file>svgs/vectorLabelsTooShortundershoot-0.4.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.5.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.6.svg</file>
+        <file>svgs/setArrowHeightTooHigh.svg</file>
+        <file>svgs/setArrowHeightTooLow.svg</file>
+        <file>svgs/setVectorLineWidthTooHigh.svg</file>
+        <file>svgs/setVectorLineWidthTooLow.svg</file>
+        <file>svgs/setFontTooHigh.svg</file>
+        <file>svgs/setFontTooLow.svg</file>
     </qresource>
 </RCC>

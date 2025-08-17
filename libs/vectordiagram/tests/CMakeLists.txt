@@ -26,11 +26,13 @@ endfunction()
 SETUP_QTESTS_VECTOR_DIAGRAM(
     test_primitive_painter
     test_coord_cross_and_circle
-    test_vector_diagram
+    test_vector_default_settings
     test_vector_standard
     test_vector_type
     test_vector_style
     test_vector_nominal_maximum
     test_vector_arrow_head
     test_vectors_long_short_limits
+    test_vector_line_width
+    test_vector_label_font_size
 )

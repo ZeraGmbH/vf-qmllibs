@@ -96,7 +96,7 @@ float VectorSettingsLayout::getVectorLineWidthU() const
 
 void VectorSettingsLayout::setVectorLineWidthU(float vectorLineWidth)
 {
-    m_vectorLineWidthU = vectorLineWidth;
+    m_vectorLineWidthU = limitLineWidth(vectorLineWidth);
 }
 
 float VectorSettingsLayout::getVectorLineWidthI() const
@@ -106,7 +106,7 @@ float VectorSettingsLayout::getVectorLineWidthI() const
 
 void VectorSettingsLayout::setVectorLineWidthI(float vectorLineWidth)
 {
-    m_vectorLineWidthI = vectorLineWidth;
+    m_vectorLineWidthI = limitLineWidth(vectorLineWidth);
 }
 
 float VectorSettingsLayout::getVectorLineWidthPix(const QPainter *painter, PhaseType phaseType) const
@@ -122,7 +122,7 @@ float VectorSettingsLayout::getArrowHeightU() const
 
 void VectorSettingsLayout::setArrowHeightU(float arrowHeight)
 {
-    m_arrowHeightU = arrowHeight;
+    m_arrowHeightU = limitArrowHeight(arrowHeight);
 }
 
 float VectorSettingsLayout::getArrowHeightI() const
@@ -132,7 +132,7 @@ float VectorSettingsLayout::getArrowHeightI() const
 
 void VectorSettingsLayout::setArrowHeightI(float arrowHeight)
 {
-    m_arrowHeightI = arrowHeight;
+    m_arrowHeightI = limitArrowHeight(arrowHeight);
 }
 
 float VectorSettingsLayout::getArrowHeightPix(const QPainter *painter, PhaseType phaseType) const
@@ -193,7 +193,7 @@ float VectorSettingsLayout::getLabelFontSize() const
 
 void VectorSettingsLayout::setLabelFontSize(float labelFontSize)
 {
-    m_labelFontSize = labelFontSize;
+    m_labelFontSize = limitFontSize(labelFontSize);
 }
 
 QFont VectorSettingsLayout::getLabelFont(const QPainter *painter) const
@@ -206,19 +206,67 @@ QFont VectorSettingsLayout::getLabelFont(const QPainter *painter) const
     return defaultFont;
 }
 
-float VectorSettingsLayout::limitArrowSpreadAngle(const float angleDeg)
+float VectorSettingsLayout::limitArrowHeight(const float value)
 {
-    float limAngle = angleDeg;
-    constexpr float minAngle = 5;
-    if(angleDeg < minAngle) {
-        qWarning("Arrow spread angle %f is too small - limit to %f", angleDeg, minAngle);
-        limAngle = minAngle;
+    float limValue = value;
+    constexpr float minValue = 0.0;
+    if(value < minValue) {
+        qWarning("Arrow height %f is too small - limit to %f", value, minValue);
+        limValue = minValue;
     }
-    constexpr float maxAngle = 60;
-    if(angleDeg > maxAngle) {
-        qWarning("Arrow spread angle %f is too large - limit to %f", angleDeg, maxAngle);
-        limAngle = maxAngle;
+    constexpr float maxValue = 0.25;
+    if(value > maxValue) {
+        qWarning("Arrow height %f is too large - limit to %f", value, maxValue);
+        limValue = maxValue;
     }
-    return limAngle;
+    return limValue;
+}
+
+float VectorSettingsLayout::limitArrowSpreadAngle(const float value)
+{
+    float limValue = value;
+    constexpr float minValue = 5;
+    if(value < minValue) {
+        qWarning("Arrow spread angle %f is too small - limit to %f", value, minValue);
+        limValue = minValue;
+    }
+    constexpr float maxValue = 60;
+    if(value > maxValue) {
+        qWarning("Arrow spread angle %f is too large - limit to %f", value, maxValue);
+        limValue = maxValue;
+    }
+    return limValue;
+}
+
+float VectorSettingsLayout::limitLineWidth(const float value)
+{
+    float limValue = value;
+    constexpr float minValue = 0;
+    if(value < minValue) {
+        qWarning("Line width %f is too small - limit to %f", value, minValue);
+        limValue = minValue;
+    }
+    constexpr float maxValue = 0.1;
+    if(value > maxValue) {
+        qWarning("Line width %f is too large - limit to %f", value, maxValue);
+        limValue = maxValue;
+    }
+    return limValue;
+}
+
+float VectorSettingsLayout::limitFontSize(const float value)
+{
+    float limValue = value;
+    constexpr float minValue = 0.015;
+    if(value < minValue) {
+        qWarning("Font size %f is too small - limit to %f", value, minValue);
+        limValue = minValue;
+    }
+    constexpr float maxValue = 0.1;
+    if(value > maxValue) {
+        qWarning("Font size %f is too large - limit to %f", value, maxValue);
+        limValue = maxValue;
+    }
+    return limValue;
 }
 

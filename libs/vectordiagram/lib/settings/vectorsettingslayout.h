@@ -69,7 +69,10 @@ public:
     QFont getLabelFont(const QPainter *painter) const;
 
 private:
-    float limitArrowSpreadAngle(const float angleDeg);
+    static float limitArrowHeight(const float value);
+    static float limitArrowSpreadAngle(const float value);
+    static float limitLineWidth(const float value);
+    static float limitFontSize(const float value);
 
     VectorStyle m_vectorStyle = VectorStyle::UNDEFINED;
     bool m_coordCrossVisible = true;

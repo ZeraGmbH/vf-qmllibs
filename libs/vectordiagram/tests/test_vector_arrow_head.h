@@ -8,6 +8,9 @@ class test_vector_arrow_head : public QObject
     Q_OBJECT
 private slots:
     void setArrowHeight();
+    void setArrowHeightTooHigh();
+    void setArrowHeightTooLow();
+
     void setArrowWidthWide();
     void setArrowWidthMix();
     void setArrowWidthNarrow();

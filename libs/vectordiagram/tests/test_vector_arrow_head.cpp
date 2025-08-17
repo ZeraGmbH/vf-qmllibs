@@ -38,6 +38,58 @@ void test_vector_arrow_head::setArrowHeight()
     QVERIFY(ok);
 }
 
+void test_vector_arrow_head::setArrowHeightTooHigh()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    VectorPaintController vectorPainter;
+
+    const float height = 10000;
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightU(height*2);
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightI(height);
+
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    SvgFuzzyCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_arrow_head::setArrowHeightTooLow()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    const float nomValue = 30;
+    const float angle = 30;
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
+    VectorPaintController vectorPainter;
+
+    const float height = -10000;
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightU(height*2);
+    vectorPainter.getVectorSettings()->m_layout.setArrowHeightI(height);
+
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    SvgFuzzyCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_arrow_head::setArrowWidthWide()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
