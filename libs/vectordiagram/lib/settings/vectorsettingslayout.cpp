@@ -3,7 +3,7 @@
 
 VectorSettingsLayout::VectorStyle VectorSettingsLayout::getVectorStyle() const
 {
-    return m_vectorUiWidth;
+    return m_vectorStyle;
 }
 
 void VectorSettingsLayout::setVectorStyle(VectorStyle vectorStyle)
@@ -12,9 +12,9 @@ void VectorSettingsLayout::setVectorStyle(VectorStyle vectorStyle)
     // on properties in here. This is fine ATTOW but as soon as QML (or other)
     // interfaces are extended to export e.g vectorLineWidthI it needs a
     // signalling mechanism when calling setVectorStyle
-    m_vectorUiWidth = vectorStyle;
+    m_vectorStyle = vectorStyle;
 
-    if (m_vectorUiWidth == VectorStyle::ZENUX) {
+    if (m_vectorStyle == VectorStyle::ZENUX) {
         m_vectorLineWidthU = 0.005;
         m_vectorLineWidthI = 0.005;
         m_arrowHeightI = 0.03;
