@@ -1,6 +1,7 @@
 #include "test_vector_diagram.h"
 #include "vectorpaintcalc.h"
 #include "vectortosvgpainter.h"
+#include <testvaluesetter.h>
 #include <complex>
 #include <svgfuzzycompare.h>
 #include <testloghelpers.h>
@@ -208,7 +209,7 @@ void test_vector_diagram::setCrossAndCircleLineWidth()
     vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidth(width);
     QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidth());
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -236,7 +237,7 @@ void test_vector_diagram::setVectorLineWidth()
     vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthI(width);
     QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthI());
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -264,7 +265,7 @@ void test_vector_diagram::setArrowHeight()
     vectorPainter.getVectorSettings()->m_layout.setArrowHeightI(height);
     QCOMPARE(height, vectorPainter.getVectorSettings()->m_layout.getArrowHeightI());
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -290,7 +291,7 @@ void test_vector_diagram::setArrowWidthWide()
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(angleArrow);
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(angleArrow);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -319,7 +320,7 @@ void test_vector_diagram::setArrowWidthMix()
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(angleArrowI);
     QCOMPARE(angleArrowI, vectorPainter.getVectorSettings()->m_layout.getArrowSpreadAngleDegI());
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -344,7 +345,7 @@ void test_vector_diagram::setArrowWidthNarrow()
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(12);
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(12);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -369,7 +370,7 @@ void test_vector_diagram::setArrowWidthTooHigh()
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(180);
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(180);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -394,7 +395,7 @@ void test_vector_diagram::setArrowWidthTooLow()
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegU(0);
     vectorPainter.getVectorSettings()->m_layout.setArrowSpreadAngleDegI(0);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -420,7 +421,7 @@ void test_vector_diagram::setFontSize()
     vectorPainter.getVectorSettings()->m_layout.setLabelFontSize(fontSize);
     QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getLabelFontSize(), fontSize);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -446,7 +447,7 @@ void test_vector_diagram::setDIN()
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -472,7 +473,7 @@ void test_vector_diagram::setDINUAngle()
 
     const float nomValue = 30;
     const float angle = 60;
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     const double uPhi = degToRad(30);
     std::complex<double> u0RawValue = std::polar<double>(nomValue, uPhi);
     vectorPainter.setVector(0, QVector2D(u0RawValue.real(), u0RawValue.imag()));
@@ -502,7 +503,7 @@ void test_vector_diagram::setIEC()
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -528,7 +529,7 @@ void test_vector_diagram::setANSI()
     vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -554,7 +555,7 @@ void test_vector_diagram::setANSIUAngle()
 
     const float nomValue = 30;
     const float angle = 60;
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     const double uPhi = degToRad(30);
     std::complex<double> u0RawValue = std::polar<double>(nomValue, uPhi);
     vectorPainter.setVector(0, QVector2D(u0RawValue.real(), u0RawValue.imag()));
@@ -584,7 +585,7 @@ void test_vector_diagram::setStar()
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -631,7 +632,7 @@ void test_vector_diagram::setTriangle()
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -655,7 +656,7 @@ void test_vector_diagram::setTriangleNoCurrent()
 
     vectorPainter.getVectorSettings()->m_user.setVectorType(VectorSettingsUser::VectorType::TRIANGLE);
 
-    setSymmetricValues(&vectorPainter, nomValue, 0, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, 0, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -681,7 +682,7 @@ void test_vector_diagram::set3Wire()
     vectorPainter.getVectorSettings()->m_user.setVectorType(type);
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorType(), type);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -712,7 +713,7 @@ void test_vector_diagram::setNominalMode()
     vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
     QCOMPARE(VectorSettingsLengths::VectorNominals::NOMINAL, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
-    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -740,7 +741,7 @@ void test_vector_diagram::setMaximumMode()
     vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::MAXIMUM);
     QCOMPARE(VectorSettingsLengths::VectorNominals::MAXIMUM, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
-    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -766,9 +767,9 @@ void test_vector_diagram::setMaximumTwice()
     vectorPainter.getVectorSettings()->m_lengths.setNomCurrent(iNom);
 
     vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::MAXIMUM);
-    setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
     svgPainter.paintToFile(dumpFile, &vectorPainter);
-    setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -794,7 +795,7 @@ void test_vector_diagram::setVectorStyleZenux0()
     vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
     QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -820,7 +821,7 @@ void test_vector_diagram::setVectorStyleZenux30()
     vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
     QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -846,7 +847,7 @@ void test_vector_diagram::setVectorStyleWebSam0()
     vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
     QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -872,7 +873,7 @@ void test_vector_diagram::setVectorStyleWebSam30()
     vectorPainter.getVectorSettings()->m_layout.setVectorStyle(width);
     QCOMPARE(vectorPainter.getVectorSettings()->m_layout.getVectorStyle(), width);
 
-    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -895,7 +896,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
 
-    setSymmetricValues(&vectorPainter, uNom, iNom, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -918,7 +919,7 @@ void test_vector_diagram::starVectorsNoOvershootSmall()
     VectorToSvgPainter svgPainter(50, 50);
     VectorPaintController vectorPainter;
 
-    setSymmetricValues(&vectorPainter, uNom, iNom, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, uNom, iNom, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -946,7 +947,7 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     vectorPainter.getVectorSettings()->m_lengths.setMinCurrent(iMin);
     QCOMPARE(iMin, vectorPainter.getVectorSettings()->m_lengths.getMinCurrent());
 
-    setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -979,9 +980,9 @@ void test_vector_diagram::vectorLabelsTooLong()
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    setNominalUI(vectorPainter, nom);
+    TestValueSetter::setNominalUI(vectorPainter, nom);
 
-    setSymmetricValues(&vectorPainter, nom*overshoot, nom*overshoot, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nom*overshoot, nom*overshoot, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -1014,9 +1015,9 @@ void test_vector_diagram::vectorLabelsTooShort()
     const float angle = 15;
     VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
     VectorPaintController vectorPainter;
-    setNominalUI(vectorPainter, nom);
+    TestValueSetter::setNominalUI(vectorPainter, nom);
 
-    setSymmetricValues(&vectorPainter, nom*undershoot, nom*undershoot, angle);
+    TestValueSetter::setSymmetricValues(&vectorPainter, nom*undershoot, nom*undershoot, angle);
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);
@@ -1026,37 +1027,4 @@ void test_vector_diagram::vectorLabelsTooShort()
     if(!ok)
         TestLogHelpers::compareAndLogOnDiff(expected, dumped);
     QVERIFY(ok);
-}
-
-void test_vector_diagram::setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle)
-{
-    int dark = 130;
-    QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark),
-                           QColor("red").lighter(), QColor("yellow").lighter(160), QColor("blue").lighter()};
-
-    for (int i=0; i<VectorConstants::COUNT_PHASES; i++) {
-        int uIdx = i;
-        int iIdx = i + VectorConstants::COUNT_PHASES;
-        painter->setVectorColor(uIdx, colors[uIdx]);
-        painter->setVectorColor(iIdx, colors[iIdx]);
-
-        painter->setVectorLabel(i, QString("UL%1").arg(i+1));
-        painter->setVectorLabel(i+VectorConstants::COUNT_PHASES, QString("IL%1").arg(i+1));
-
-        const double uPhi = degToRad(i*120);
-        std::complex<double> uRawValue = std::polar<double>(uValue, uPhi);
-        painter->setVector(i, QVector2D(uRawValue.real(), uRawValue.imag()));
-
-        const double iPhi = uPhi + degToRad(iAngle);
-        std::complex<double> iRawValue = std::polar<double>(iValue, iPhi);
-        painter->setVector(i+VectorConstants::COUNT_PHASES, QVector2D(iRawValue.real(), iRawValue.imag()));
-    }
-}
-
-void test_vector_diagram::setNominalUI(VectorPaintController &vectorPainter, float nominal)
-{
-    VectorSettingsLengths &lengthSettings = vectorPainter.getVectorSettings()->m_lengths;
-    lengthSettings.setNominalSelection(VectorSettingsLengths::VectorNominals::NOMINAL);
-    lengthSettings.setNomCurrent(nominal);
-    lengthSettings.setNomVoltage(nominal);
 }

@@ -62,8 +62,6 @@ private slots:
     void vectorLabelsTooShort_data();
     void vectorLabelsTooShort();
 private:
-    void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
-    void setNominalUI(VectorPaintController &vectorPainter, float nominal);
     std::unique_ptr<QSvgGenerator> m_generator;
 };
 
