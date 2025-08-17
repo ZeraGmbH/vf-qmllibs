@@ -1,30 +1,33 @@
 <RCC>
     <qresource prefix="/">
-        <file>svgs/gridAndCircleBlue.svg</file>
-        <file>svgs/gridAndCircleNoOvershoot.svg</file>
-        <file>svgs/gridAndCircleOvershoot.svg</file>
-        <file>svgs/gridOnlyBlue.svg</file>
-        <file>svgs/gridOnlyRectangleNarrow.svg</file>
-        <file>svgs/gridOnlyRectangleWide.svg</file>
-        <file>svgs/gridOnlySquare.svg</file>
+        <file>svgs/coordCrossAndCircleBlue.svg</file>
+        <file>svgs/coordCrossAndCircleLineWidth.svg</file>
+        <file>svgs/coordCrossAndCircleNoOvershoot.svg</file>
+        <file>svgs/coordCrossAndCircleOvershoot.svg</file>
+        <file>svgs/coordCrossOnlyBlue.svg</file>
+        <file>svgs/coordCrossOnlyRectangleNarrow.svg</file>
+        <file>svgs/coordCrossOnlyRectangleWide.svg</file>
+        <file>svgs/coordCrossOnlySquare.svg</file>
         <file>svgs/initialTestPrimitivePainterLabel.svg</file>
         <file>svgs/initialTestPrimitivePainterStar.svg</file>
         <file>svgs/initialTestPrimitivePainterTriangle.svg</file>
         <file>svgs/noGridSquare.svg</file>
         <file>svgs/set3Wire.svg</file>
         <file>svgs/setANSI.svg</file>
+        <file>svgs/setANSIUAngle.svg</file>
         <file>svgs/setArrowHeight.svg</file>
         <file>svgs/setArrowWidthMix.svg</file>
         <file>svgs/setArrowWidthNarrow.svg</file>
         <file>svgs/setArrowWidthTooHigh.svg</file>
         <file>svgs/setArrowWidthTooLow.svg</file>
         <file>svgs/setArrowWidthWide.svg</file>
-        <file>svgs/setCrossAndCircleLineWidth.svg</file>
         <file>svgs/setDIN.svg</file>
+        <file>svgs/setDINUAngle.svg</file>
         <file>svgs/setFontSize.svg</file>
         <file>svgs/setIEC.svg</file>
         <file>svgs/setMaximumMode.svg</file>
         <file>svgs/setMaximumTwice.svg</file>
+        <file>svgs/setNominalMode.svg</file>
         <file>svgs/setStar.svg</file>
         <file>svgs/setStarNoValues.svg</file>
         <file>svgs/setTriangle.svg</file>
@@ -56,8 +59,5 @@
         <file>svgs/vectorLabelsTooShortundershoot-0.4.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.5.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.6.svg</file>
-        <file>svgs/setNominalMode.svg</file>
-        <file>svgs/setANSIUAngle.svg</file>
-        <file>svgs/setDINUAngle.svg</file>
     </qresource>
 </RCC>

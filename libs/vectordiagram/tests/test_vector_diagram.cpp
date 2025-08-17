@@ -7,203 +7,7 @@
 
 QTEST_MAIN(test_vector_diagram)
 
-constexpr int clipLenShort = 2000;
-constexpr int clipLenLong = 3000;
-
-void test_vector_diagram::noGridSquare()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(false);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridOnlySquare()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
-    dumped = svgPainter.paintByteArray(&vectorPainter); // check byte array variant once
-    ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridOnlyRectangleWide()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenLong, clipLenShort);
-    VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridOnlyRectangleNarrow()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPaintController vectorPainter;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridOnlyBlue()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenLong);
-    VectorPaintController vectorPainter;
-    QColor blue = Qt::blue;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossColor(blue);
-    QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCoordCrossColor());
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossVisible(true);
-    vectorPainter.getVectorSettings()->m_layout.setCircleVisible(false);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridAndCircleNoOvershoot()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridAndCircleOvershoot()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-    const float over = 2.0;
-    vectorPainter.getVectorSettings()->m_lengths.setMaxOvershootFactor(over);
-    QCOMPARE(over, vectorPainter.getVectorSettings()->m_lengths.getMaxOvershootFactor());
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::gridAndCircleBlue()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-    QColor blue = Qt::blue;
-    vectorPainter.getVectorSettings()->m_layout.setCircleColor(blue);
-    QCOMPARE(blue, vectorPainter.getVectorSettings()->m_layout.getCircleColor());
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
-
-void test_vector_diagram::setCrossAndCircleLineWidth()
-{
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
-    const float nomValue = 30;
-    const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
-    VectorPaintController vectorPainter;
-
-    const float width = 0.05;
-    vectorPainter.getVectorSettings()->m_layout.setCoordCrossAndCircleLineWidth(width);
-    QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getCoordCrossAndCircleLineWidth());
-
-    TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
-
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-}
+constexpr int clipLen = 2000;
 
 void test_vector_diagram::setVectorLineWidth()
 {
@@ -212,7 +16,7 @@ void test_vector_diagram::setVectorLineWidth()
 
     const float nomValue = 30;
     const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
     const float width = 0.02;
@@ -240,7 +44,7 @@ void test_vector_diagram::setFontSize()
 
     const float nomValue = 30;
     const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
     const float fontSize = 0.06;
@@ -267,7 +71,7 @@ void test_vector_diagram::starVectorsNoOvershoot()
     const float uNom = 230;
     const float iNom = 10;
     const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
     TestValueSetter::setSymmetricValues(&vectorPainter, uNom, iNom, angle);
@@ -313,7 +117,7 @@ void test_vector_diagram::starVectorsIgnoreLessThanMin()
     const float uMin = 23;
     const float iMin = 1;
     const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
     vectorPainter.getVectorSettings()->m_lengths.setMinVoltage(uMin);
@@ -352,7 +156,7 @@ void test_vector_diagram::vectorLabelsTooLong()
 
     const float nom = 1;
     const float angle = 30;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
     TestValueSetter::setNominalUI(vectorPainter, nom);
 
@@ -387,7 +191,7 @@ void test_vector_diagram::vectorLabelsTooShort()
 
     const float nom = 1;
     const float angle = 15;
-    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
     TestValueSetter::setNominalUI(vectorPainter, nom);
 

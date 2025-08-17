@@ -7,16 +7,6 @@ class test_vector_diagram : public QObject
 {
     Q_OBJECT
 private slots:
-    void noGridSquare();
-    void gridOnlySquare();
-    void gridOnlyRectangleWide();
-    void gridOnlyRectangleNarrow();
-    void gridOnlyBlue();
-
-    void gridAndCircleNoOvershoot();
-    void gridAndCircleOvershoot();
-    void gridAndCircleBlue();
-    void setCrossAndCircleLineWidth();
     void setVectorLineWidth();
 
     void setFontSize();

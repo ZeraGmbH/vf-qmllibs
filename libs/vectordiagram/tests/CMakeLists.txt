@@ -25,6 +25,7 @@ endfunction()
 
 SETUP_QTESTS_VECTOR_DIAGRAM(
     test_primitive_painter
+    test_coord_cross_and_circle
     test_vector_diagram
     test_vector_standard
     test_vector_type
