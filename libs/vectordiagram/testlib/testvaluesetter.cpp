@@ -35,6 +35,15 @@ void TestValueSetter::setSymmetricValues(VectorPaintController *painter, double 
     }
 }
 
+void TestValueSetter::setVectors(VectorPaintController *painter, QVector<std::complex<float> > vectors)
+{
+    for (int idx=0; idx<vectors.count(); idx++) {
+        painter->setVectorColor(idx, m_testColors[idx]);
+        painter->setVectorLabel(idx, m_testLabels[idx]);
+        painter->setVector(idx, QVector2D(vectors[idx].real(), vectors[idx].imag()));
+    }
+}
+
 void TestValueSetter::setNominalUI(VectorPaintController &vectorPainter, float nominal)
 {
     VectorSettingsLengths &lengthSettings = vectorPainter.getVectorSettings()->m_lengths;
