@@ -1,21 +1,21 @@
-#include "vectorgroupspainter.h"
+#include "vectorvaluestopixatomics.h"
 #include "vectorpaintcalc.h"
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 #include <math.h>
 
-bool VectorGroupsPainter::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+bool VectorValuesToPixAtomics::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     return drawPhasesStar(painter, VectorConstants::IDX_UL1, VectorConstants::IDX_UL3,
                           vectorSettings, currentVectors);
 }
 
-bool VectorGroupsPainter::drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+bool VectorValuesToPixAtomics::drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     return drawPhasesStar(painter, VectorConstants::IDX_IL1, VectorConstants::IDX_IL3,
                           vectorSettings, currentVectors);
 }
 
-bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+bool VectorValuesToPixAtomics::drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     bool vectorDrawn = false;
     for(int idx=startPhaseIdx; idx<=endPhaseIdx; ++idx) {
@@ -23,7 +23,7 @@ bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, i
         if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
-            VectorPrimitivesPainter::drawVector(painter,
+            VectorPixAtomicsPainter::drawVector(painter,
                                                 { phaseType, pixLenVector, currentVectors.m_colors[idx] },
                                                 vectorSettings.m_layout);
             vectorDrawn = true;
@@ -32,21 +32,21 @@ bool VectorGroupsPainter::drawPhasesStar(QPainter *painter, int startPhaseIdx, i
     return vectorDrawn;
 }
 
-void VectorGroupsPainter::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
+void VectorValuesToPixAtomics::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
+    QVector<VectorPixAtomicsPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
     for(int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
             painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
         corners[idx] = { phaseType, pixLenVector, currentVectors.m_colors[idx] };
     }
-    VectorPrimitivesPainter::drawTriangle(painter,
+    VectorPixAtomicsPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],
                                           vectorSettings.m_layout);
 }
 
-void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
+void VectorValuesToPixAtomics::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
                                      const VectorDataCurrent &currentVectors)
 {
     const ShownLabels shownLabels = getShownLabelsAndPixLenWanted(painter, vectorSettings, currentVectors);
@@ -58,14 +58,14 @@ void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &ve
         const QString &label = currentVectors.m_label[idx];
         const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, shownLabel.wantedPixLenLabel, label);
         PhaseType phaseType = VectorConstants::getVectorType(idx);
-        VectorPrimitivesPainter::drawLabel(painter,
+        VectorPixAtomicsPainter::drawLabel(painter,
                                            { phaseType, pixLenVectorLabelAdj, currentVectors.m_colors[idx] },
                                            vectorSettings.m_layout.getLabelFont(painter),
                                            label);
     }
 }
 
-VectorGroupsPainter::ShownLabels VectorGroupsPainter::getShownLabelsAndPixLenWanted(
+VectorValuesToPixAtomics::ShownLabels VectorValuesToPixAtomics::getShownLabelsAndPixLenWanted(
     const QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     ShownLabels shownLabels;
@@ -81,7 +81,7 @@ VectorGroupsPainter::ShownLabels VectorGroupsPainter::getShownLabelsAndPixLenWan
     return shownLabels;
 }
 
-QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector,
+QVector2D VectorValuesToPixAtomics::limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector,
                                                    const QString &label)
 {
     const QPointF textPixSize = VectorPaintCalc::approxFontMetrics(painter, label);
@@ -96,7 +96,7 @@ QVector2D VectorGroupsPainter::limitLabelVectorLen(const QPainter *painter, cons
     return pixLenVector * maxOvershootRatio / overshootRatio;
 }
 
-QVector2D VectorGroupsPainter::lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector)
+QVector2D VectorValuesToPixAtomics::lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector)
 {
     const float lenAvail = VectorPaintCalc::getClipSquareLen(painter) / 2;
     constexpr float minLabelLenRel = 0.4;

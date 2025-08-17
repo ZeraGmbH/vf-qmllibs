@@ -1,7 +1,7 @@
 #include "testprimitivepaintertriangle.h"
 #include "vectorpaintcalc.h"
 #include "vectorconstants.h"
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 #include <QVector2D>
 #include <complex>
 
@@ -18,8 +18,8 @@ void TestPrimitivePainterTriangle::paint(QPainter *painter)
 {
     painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // for reproducability
 
-    VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
-    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
     drawTriangle(painter);
 }
@@ -30,7 +30,7 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
     QVector<QColor> colors{QColor("red").darker(dark), QColor("yellow"), QColor("blue").darker(dark)};
     Q_ASSERT(VectorConstants::COUNT_PHASES == colors.size());
 
-    QVector<VectorPrimitivesPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
+    QVector<VectorPixAtomicsPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
     QVector<QVector2D> vectorPixLens(VectorConstants::COUNT_PHASES);
     for(int idx=0; idx<colors.count(); ++idx) {
         std::complex<double> corner = std::polar<double>(vectorLen, degToRad(idx*120));
@@ -38,7 +38,7 @@ void TestPrimitivePainterTriangle::drawTriangle(QPainter *painter)
         vectorPixLens[idx] = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, PhaseType::TYPE_U}, value);
         corners[idx] = { PhaseType::TYPE_U, vectorPixLens[idx], colors[idx] };
     }
-    VectorPrimitivesPainter::drawTriangle(painter,
+    VectorPixAtomicsPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],
                                           m_vectorSettings.m_layout);
 }

@@ -1,6 +1,6 @@
 #include "vectorpaintcontroller.h"
 #include "vectorpaintcalc.h"
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 
 VectorPaintController::VectorPaintController() :
     m_vectorSettings(std::make_shared<VectorSettings>())
@@ -32,9 +32,9 @@ void VectorPaintController::paint(QPainter *painter)
     painter->setFont(m_vectorSettings->m_layout.getLabelFont(painter)); // yeah for the sake reproducability of test SVGs
 
     if(m_vectorSettings->m_layout.getCoordCrossVisible())
-        VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings->m_layout);
+        VectorPixAtomicsPainter::drawCoordCross(painter, m_vectorSettings->m_layout);
     if(m_vectorSettings->m_layout.getCircleVisible())
-        VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings->m_lengths, m_vectorSettings->m_layout);
+        VectorPixAtomicsPainter::drawCircle(painter, m_vectorSettings->m_lengths, m_vectorSettings->m_layout);
 
     const VectorSettingsUser::VectorType vectorType = m_vectorSettings->m_user.getVectorType();
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
@@ -48,20 +48,20 @@ void VectorPaintController::paint(QPainter *painter)
     switch (vectorType) {
     case VectorSettingsUser::VectorType::STAR:
     case VectorSettingsUser::VectorType::THREE_PHASE:
-        if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
+        if (VectorValuesToPixAtomics::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
-        if (VectorGroupsPainter::drawVoltageStar(painter, *m_vectorSettings, currentData))
+        if (VectorValuesToPixAtomics::drawVoltageStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
         break;
     case VectorSettingsUser::VectorType::TRIANGLE:
-        if (VectorGroupsPainter::drawCurrentStar(painter, *m_vectorSettings, currentData))
+        if (VectorValuesToPixAtomics::drawCurrentStar(painter, *m_vectorSettings, currentData))
             vectorDrawn = true;
-        VectorGroupsPainter::drawVoltageTriangle(painter, *m_vectorSettings, currentData);
+        VectorValuesToPixAtomics::drawVoltageTriangle(painter, *m_vectorSettings, currentData);
         break;
     }
-    VectorGroupsPainter::drawLabels(painter, *m_vectorSettings, currentData);
+    VectorValuesToPixAtomics::drawLabels(painter, *m_vectorSettings, currentData);
     if(vectorDrawn)
-        VectorPrimitivesPainter::drawCoordCenterDot(painter, m_vectorSettings->m_layout);
+        VectorPixAtomicsPainter::drawCoordCenterDot(painter, m_vectorSettings->m_layout);
 }
 
 VectorDataCurrent VectorPaintController::calc3WireVectorData(const VectorDataCurrent &currentData)

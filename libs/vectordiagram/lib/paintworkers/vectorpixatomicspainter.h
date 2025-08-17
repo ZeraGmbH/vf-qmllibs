@@ -1,5 +1,5 @@
-#ifndef VECTORPRIMITIVESPAINTER_H
-#define VECTORPRIMITIVESPAINTER_H
+#ifndef VECTORPIXATOMICSPAINTER_H
+#define VECTORPIXATOMICSPAINTER_H
 
 #include "vectorsettingslayout.h"
 #include "vectorsettingslengths.h"
@@ -8,7 +8,7 @@
 #include <QVector2D>
 #include <QPolygonF>
 
-class VectorPrimitivesPainter
+class VectorPixAtomicsPainter
 {
 public:
     static void drawCoordCross(QPainter *painter, const VectorSettingsLayout &layout);
@@ -38,4 +38,4 @@ private:
                                                    float shortenBothEnds = 0);
 };
 
-#endif // VECTORPRIMITIVESPAINTER_H
+#endif // VECTORPIXATOMICSPAINTER_H

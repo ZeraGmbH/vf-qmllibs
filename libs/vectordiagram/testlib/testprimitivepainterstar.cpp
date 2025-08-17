@@ -1,7 +1,7 @@
 #include "testprimitivepainterstar.h"
 #include "vectorpaintcalc.h"
 #include "vectorconstants.h"
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 #include <QVector2D>
 #include <complex>
 
@@ -18,8 +18,8 @@ void TestPrimitivePainterStar::paint(QPainter *painter)
 {
     painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // for reproducability
 
-    VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
-    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
     draw2Vectors(painter);
 }
@@ -43,10 +43,10 @@ void TestPrimitivePainterStar::draw2Vectors(QPainter *painter)
         if (vectors[idx].length() > m_vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { m_vectorSettings, phaseType }, vectors[idx]);
-            VectorPrimitivesPainter::drawVector(painter,
+            VectorPixAtomicsPainter::drawVector(painter,
                                                 { phaseType, pixLenVector, colors[idx] },
                                                 m_vectorSettings.m_layout);
-            VectorPrimitivesPainter::drawLabel(painter,
+            VectorPixAtomicsPainter::drawLabel(painter,
                                                {phaseType,
                                                 pixLenVector * m_vectorSettings.m_layout.getLabelVectorOvershootFactor(),
                                                 colors[idx]},

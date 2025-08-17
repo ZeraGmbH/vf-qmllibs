@@ -4,7 +4,7 @@
 #include "abstractvectorpainter.h"
 #include "vectorsettings.h"
 #include "vectorconstants.h"
-#include "vectorgroupspainter.h"
+#include "vectorvaluestopixatomics.h"
 #include <memory>
 
 class VectorPaintController : public AbstractVectorPainter

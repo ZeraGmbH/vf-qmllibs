@@ -1,10 +1,10 @@
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 #include "vectorconstants.h"
 #include "vectorpaintcalc.h"
 #include <QGradient>
 #include <QPainterPath>
 
-void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const VectorSettingsLayout &layout)
+void VectorPixAtomicsPainter::drawCoordCross(QPainter *painter, const VectorSettingsLayout &layout)
 {
     painter->setPen(QPen(layout.getCoordCrossColor(), layout.getCoordCrossAndCircleLineWidthPix(painter)));
     const float lenFromCenter = VectorPaintCalc::getClipSquareLen(painter) / 2;
@@ -16,7 +16,7 @@ void VectorPrimitivesPainter::drawCoordCross(QPainter *painter, const VectorSett
     painter->drawLine(lineYAxis);
 }
 
-void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const VectorSettingsLayout &layout)
+void VectorPixAtomicsPainter::drawCoordCenterDot(QPainter *painter, const VectorSettingsLayout &layout)
 {
     painter->setPen(Qt::NoPen);
     painter->setBrush(layout.getCoordCrossColor());
@@ -40,7 +40,7 @@ void VectorPrimitivesPainter::drawCoordCenterDot(QPainter *painter, const Vector
 
 // circle radius is nominal
 
-void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths,
+void VectorPixAtomicsPainter::drawCircle(QPainter *painter, const VectorSettingsLengths &lengths,
                                          const VectorSettingsLayout &layout)
 {
     painter->setPen(QPen(layout.getCircleColor(), layout.getCoordCrossAndCircleLineWidthPix(painter)));
@@ -53,14 +53,14 @@ void VectorPrimitivesPainter::drawCircle(QPainter *painter, const VectorSettings
     painter->drawArc(circleRect, 0, 16*360);
 }
 
-void VectorPrimitivesPainter::drawVector(QPainter *painter, const VectorParam &vectorParam,
+void VectorPixAtomicsPainter::drawVector(QPainter *painter, const VectorParam &vectorParam,
                                          const VectorSettingsLayout &layout)
 {
     drawVectorLine(painter, vectorParam, layout);
     drawArrowHead(painter, vectorParam, layout);
 }
 
-void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
+void VectorPixAtomicsPainter::drawTriangle(QPainter *painter,
                                            const VectorParam &vectorParam1, const VectorParam &vectorParam2, const VectorParam &vectorParam3,
                                            const VectorSettingsLayout &layout)
 {
@@ -80,7 +80,7 @@ void VectorPrimitivesPainter::drawTriangle(QPainter *painter,
     drawGradientLine(painter, lineWidth, {positions[2], vectorParam3.color}, {positions[0], vectorParam1.color});
 }
 
-void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QFont &labelFont, const QString &label)
+void VectorPixAtomicsPainter::drawLabel(QPainter *painter, const VectorParam &vectorParam, const QFont &labelFont, const QString &label)
 {
     painter->setFont(labelFont);
     const float centerX = VectorPaintCalc::centerX(painter);
@@ -95,7 +95,7 @@ void VectorPrimitivesPainter::drawLabel(QPainter *painter, const VectorParam &ve
     painter->drawText(positionTopLeft, label);
 }
 
-void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam,
+void VectorPixAtomicsPainter::drawVectorLine(QPainter *painter, const VectorParam &vectorParam,
                                              const VectorSettingsLayout &layout)
 {
     const float lineWidth = layout.getVectorLineWidthPix(painter, vectorParam.phaseType);
@@ -111,7 +111,7 @@ void VectorPrimitivesPainter::drawVectorLine(QPainter *painter, const VectorPara
     painter->drawLine(line);
 }
 
-void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam,
+void VectorPixAtomicsPainter::drawArrowHead(QPainter *painter, const VectorParam &vectorParam,
                                             const VectorSettingsLayout &layout)
 {
     painter->setPen(Qt::NoPen);
@@ -147,7 +147,7 @@ void VectorPrimitivesPainter::drawArrowHead(QPainter *painter, const VectorParam
     painter->fillPath(path, brush);
 }
 
-void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float lineWidth,
+void VectorPixAtomicsPainter::drawGradientLine(QPainter *painter, const float lineWidth,
                                                const PointData &pt1, const PointData &pt2)
 {
     // Lines with gradients are painted black on SVG.
@@ -175,7 +175,7 @@ void VectorPrimitivesPainter::drawGradientLine(QPainter *painter, const float li
     painter->drawEllipse(center2, lineWidth/2, lineWidth/2);
 }
 
-QPolygonF VectorPrimitivesPainter::lineToRectangleForSvgGradient(const QLineF &line, float width,
+QPolygonF VectorPixAtomicsPainter::lineToRectangleForSvgGradient(const QLineF &line, float width,
                                                                  float shortenBothEnds)
 {
     const QPointF &start = line.p1();

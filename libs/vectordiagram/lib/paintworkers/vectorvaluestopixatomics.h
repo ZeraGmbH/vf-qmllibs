@@ -1,5 +1,5 @@
-#ifndef VECTORGROUPSPAINTER_H
-#define VECTORGROUPSPAINTER_H
+#ifndef VECTORVALUESTOPIXATOMICS_H
+#define VECTORVALUESTOPIXATOMICS_H
 
 #include "vectorsettings.h"
 #include <QVector>
@@ -13,7 +13,7 @@ struct VectorDataCurrent {
     QVector<QVector2D> m_vectorData;
 };
 
-class VectorGroupsPainter
+class VectorValuesToPixAtomics
 {
 public:
     static bool drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings,
@@ -38,4 +38,4 @@ private:
     static QVector2D lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector);
 };
 
-#endif // VECTORGROUPSPAINTER_H
+#endif // VECTORVALUESTOPIXATOMICS_H

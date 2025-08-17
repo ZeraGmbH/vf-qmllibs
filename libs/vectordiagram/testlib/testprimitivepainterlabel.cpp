@@ -1,6 +1,6 @@
 #include "testprimitivepainterlabel.h"
 #include "vectorpaintcalc.h"
-#include "vectorprimitivespainter.h"
+#include "vectorpixatomicspainter.h"
 #include <QVector2D>
 #include <complex>
 
@@ -19,8 +19,8 @@ void TestPrimitivePainterLabel::paint(QPainter *painter)
 {
     painter->setFont(m_vectorSettings.m_layout.getLabelFont(painter)); // for reproducability
 
-    VectorPrimitivesPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
-    VectorPrimitivesPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCoordCross(painter, m_vectorSettings.m_layout);
+    VectorPixAtomicsPainter::drawCircle(painter, m_vectorSettings.m_lengths, m_vectorSettings.m_layout);
 
     constexpr int dark = 130;
     QVector<QColor> colors{QColor("black"), QColor("red").darker(dark), QColor("red").darker(dark)};
@@ -46,7 +46,7 @@ void TestPrimitivePainterLabel::paint(QPainter *painter)
         QVector2D value = QVector2D(corner.real(),corner.imag());
         QVector2D vectorPixLen = VectorPaintCalc::calcPixVec(painter, { m_vectorSettings, PhaseType::TYPE_U}, value);
 
-        VectorPrimitivesPainter::drawLabel(painter,
+        VectorPixAtomicsPainter::drawLabel(painter,
                                            { PhaseType::TYPE_U, vectorPixLen, color },
                                            m_vectorSettings.m_layout.getLabelFont(painter),
                                            label);
