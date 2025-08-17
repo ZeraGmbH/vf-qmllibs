@@ -148,7 +148,7 @@ float VectorSettingsLayout::getArrowSpreadAngleDegU() const
 
 void VectorSettingsLayout::setArrowSpreadAngleDegU(float arrowSpreadAngle)
 {
-    m_arrowSpreadAngleDegU = arrowSpreadAngle;
+    m_arrowSpreadAngleDegU = limitArrowSpreadAngle(arrowSpreadAngle);
 }
 
 float VectorSettingsLayout::getArrowSpreadAngleDegI() const
@@ -158,7 +158,7 @@ float VectorSettingsLayout::getArrowSpreadAngleDegI() const
 
 void VectorSettingsLayout::setArrowSpreadAngleDegI(float arrowSpreadAngle)
 {
-    m_arrowSpreadAngleDegI = arrowSpreadAngle;
+    m_arrowSpreadAngleDegI = limitArrowSpreadAngle(arrowSpreadAngle);
 }
 
 float VectorSettingsLayout::getArrowSpreadAngle(PhaseType phaseType) const
@@ -204,5 +204,21 @@ QFont VectorSettingsLayout::getLabelFont(const QPainter *painter) const
     defaultFont.setWeight(QFont::Medium);
     defaultFont.setKerning(false);
     return defaultFont;
+}
+
+float VectorSettingsLayout::limitArrowSpreadAngle(const float angleDeg)
+{
+    float limAngle = angleDeg;
+    constexpr float minAngle = 5;
+    if(angleDeg < minAngle) {
+        qWarning("Arrow spread angle %f is too small - limit to %f", angleDeg, minAngle);
+        limAngle = minAngle;
+    }
+    constexpr float maxAngle = 60;
+    if(angleDeg > maxAngle) {
+        qWarning("Arrow spread angle %f is too large - limit to %f", angleDeg, maxAngle);
+        limAngle = maxAngle;
+    }
+    return limAngle;
 }
 
