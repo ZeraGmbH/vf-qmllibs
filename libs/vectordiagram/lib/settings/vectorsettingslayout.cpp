@@ -15,16 +15,16 @@ void VectorSettingsLayout::setVectorStyle(VectorStyle vectorStyle)
     m_vectorStyle = vectorStyle;
 
     if (m_vectorStyle == VectorStyle::ZENUX) {
-        m_vectorLineWidthU = 0.005;
-        m_vectorLineWidthI = 0.005;
-        m_arrowHeightI = 0.03;
-        m_arrowSpreadAngleDegI = 22.5;
+        setVectorLineWidthU(0.005);
+        setVectorLineWidthI(0.005);
+        setArrowHeightI(0.03);
+        setArrowSpreadAngleDegI(22.5);
     }
     else {
-        m_vectorLineWidthU = 0.0075;
-        m_vectorLineWidthI = 0.0125;
-        m_arrowHeightI = 0.033;
-        m_arrowSpreadAngleDegI = 30;
+        setVectorLineWidthU(0.0075);
+        setVectorLineWidthI(0.0125);
+        setArrowHeightI(0.033);
+        setArrowSpreadAngleDegI(30);
     }
 }
 
