@@ -12,8 +12,9 @@ class VectorSettingsLayout : public QObject
 public:
     enum class VectorStyle : int
     {
-        ZENUX,
-        WEBSAM // mimic WebSam approach
+        UNDEFINED, // no style set - use defaults from settings (e.g for tests)
+        ZENUX,     // oldschoo ZENUX narrow vectors
+        WEBSAM     // mimic WebSam approach wide current vectors
     };
     Q_ENUM(VectorStyle)
     VectorStyle getVectorStyle() const;
@@ -68,7 +69,7 @@ public:
     QFont getLabelFont(const QPainter *painter) const;
 
 private:
-    VectorStyle m_vectorStyle = VectorStyle::ZENUX;
+    VectorStyle m_vectorStyle = VectorStyle::UNDEFINED;
     bool m_coordCrossVisible = true;
     bool m_circleVisible = true;
     float m_coordCrossAndCircleLineWidth = 0.004;
