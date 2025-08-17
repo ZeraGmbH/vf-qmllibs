@@ -41,8 +41,8 @@ void VectorPaintController::paint(QPainter *painter)
     if (vectorType == VectorSettingsUser::VectorType::THREE_PHASE)
         currentData = calc3WireVectorData(currentData);
 
-    calcAndSetMaxValues(currentData);
-    adjustAngleSettings(currentData);
+    updateSettingsMaxValues(m_vectorSettings->m_lengths, currentData);
+    adjustAngleSettings(m_vectorSettings, currentData);
 
     bool vectorDrawn = false;
     switch (vectorType) {
@@ -86,14 +86,15 @@ VectorDataCurrent VectorPaintController::calc3WireVectorData(const VectorDataCur
     return data3Wire;
 }
 
-void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& currentVectors)
+void VectorPaintController::adjustAngleSettings(std::shared_ptr<VectorSettings> vectorSettings,
+                                                const VectorDataCurrent& currentVectors)
 {
-    switch(m_vectorSettings->m_user.getVectorStandard()) {
+    switch(vectorSettings->m_user.getVectorStandard()) {
     case VectorSettingsUser::VectorStandard::DIN: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
-        m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
-        m_vectorSettings->m_angles.setOffsetAngle(-degToRad(90)-angleUL1);
+        vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
+        vectorSettings->m_angles.setOffsetAngle(-degToRad(90)-angleUL1);
         break;
     }
     case VectorSettingsUser::VectorStandard::IEC: {
@@ -101,37 +102,38 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
                                      currentVectors.m_vectorData[VectorConstants::IDX_IL1].x());
         // Interesting: We expected VectorSettingsAngles::Mathematical but that is true
         // only if angle passed in are in IEC sytyle too. ATTOW We come in as DIN always
-        m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
-        m_vectorSettings->m_angles.setOffsetAngle(-angleIL1);
+        vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
+        vectorSettings->m_angles.setOffsetAngle(-angleIL1);
         break;
     }
     case VectorSettingsUser::VectorStandard::ANSI: {
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
-        m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
-        m_vectorSettings->m_angles.setOffsetAngle(-angleUL1);
+        vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
+        vectorSettings->m_angles.setOffsetAngle(-angleUL1);
         break;
     }
     }
 }
 
-void VectorPaintController::calcAndSetMaxValues(const VectorDataCurrent &currentVectors)
+void VectorPaintController::updateSettingsMaxValues(VectorSettingsLengths &lengthSettings,
+                                                    const VectorDataCurrent &currentVectors)
 {
     float maxU = 1e-12;
-    const float minU = m_vectorSettings->m_lengths.getMinimalValue(PhaseType::TYPE_U);
+    const float minU = lengthSettings.getMinimalValue(PhaseType::TYPE_U);
     for (int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
         const float currU = currentVectors.m_vectorData[idx].length();
         if (currU > minU && currU > maxU)
             maxU = currU;
     }
-    m_vectorSettings->m_lengths.setMaxU(maxU);
+    lengthSettings.setMaxU(maxU);
 
     float maxI = 1e-12;
-    const float minI = m_vectorSettings->m_lengths.getMinimalValue(PhaseType::TYPE_I);
+    const float minI = lengthSettings.getMinimalValue(PhaseType::TYPE_I);
     for (int idx=VectorConstants::IDX_IL1; idx<=VectorConstants::IDX_IL3; ++idx) {
         const float currI = currentVectors.m_vectorData[idx].length();
         if (currI > minI && currI > maxI)
             maxI = currI;
     }
-    m_vectorSettings->m_lengths.setMaxI(maxI);
+    lengthSettings.setMaxI(maxI);
 }

@@ -24,8 +24,8 @@ public:
 
 private:
     static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
-    void adjustAngleSettings(const VectorDataCurrent& currentVectors);
-    void calcAndSetMaxValues(const VectorDataCurrent& currentVectors);
+    static void adjustAngleSettings(std::shared_ptr<VectorSettings> vectorSettings, const VectorDataCurrent& currentVectors);
+    static void updateSettingsMaxValues(VectorSettingsLengths &lengthSettings, const VectorDataCurrent& currentVectors);
 
     std::shared_ptr<VectorSettings> m_vectorSettings;
 
