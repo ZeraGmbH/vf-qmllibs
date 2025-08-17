@@ -26,7 +26,6 @@ public:
                                     const VectorDataCurrent& currentVectors);
     static void drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
                            const VectorDataCurrent& currentVectors);
-    static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
 private:
     struct ShownLabel {
         QVector2D wantedPixLenLabel;

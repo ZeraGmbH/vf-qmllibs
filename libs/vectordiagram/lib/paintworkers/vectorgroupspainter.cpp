@@ -65,28 +65,6 @@ void VectorGroupsPainter::drawLabels(QPainter *painter, const VectorSettings &ve
     }
 }
 
-VectorDataCurrent VectorGroupsPainter::calc3WireVectorData(const VectorDataCurrent &currentData)
-{
-    VectorDataCurrent data3Wire(currentData);
-
-    const float sqrt3 = sqrt(3);
-    data3Wire.m_vectorData[VectorConstants::IDX_UL1] = // UL1-UL2
-        (currentData.m_vectorData[VectorConstants::IDX_UL1] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorConstants::IDX_UL1] =
-        currentData.m_label[VectorConstants::IDX_UL1] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
-
-    data3Wire.m_vectorData[VectorConstants::IDX_UL2] = QVector2D(0,0);
-
-    data3Wire.m_vectorData[VectorConstants::IDX_UL3] = // UL3-UL2
-        (currentData.m_vectorData[VectorConstants::IDX_UL3] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
-    data3Wire.m_label[VectorConstants::IDX_UL3] =
-        currentData.m_label[VectorConstants::IDX_UL3] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
-
-    data3Wire.m_vectorData[VectorConstants::IDX_IL2] = QVector2D(0,0);
-
-    return data3Wire;
-}
-
 VectorGroupsPainter::ShownLabels VectorGroupsPainter::getShownLabelsAndPixLenWanted(
     const QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {

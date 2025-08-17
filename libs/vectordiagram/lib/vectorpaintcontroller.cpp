@@ -39,7 +39,7 @@ void VectorPaintController::paint(QPainter *painter)
     const VectorSettingsUser::VectorType vectorType = m_vectorSettings->m_user.getVectorType();
     VectorDataCurrent currentData = {m_inVectorColors, m_inVectorLabels, m_inVectors};
     if (vectorType == VectorSettingsUser::VectorType::THREE_PHASE)
-        currentData = VectorGroupsPainter::calc3WireVectorData(currentData);
+        currentData = calc3WireVectorData(currentData);
 
     calcAndSetMaxValues(currentData);
     adjustAngleSettings(currentData);
@@ -62,6 +62,28 @@ void VectorPaintController::paint(QPainter *painter)
     VectorGroupsPainter::drawLabels(painter, *m_vectorSettings, currentData);
     if(vectorDrawn)
         VectorPrimitivesPainter::drawCoordCenterDot(painter, m_vectorSettings->m_layout);
+}
+
+VectorDataCurrent VectorPaintController::calc3WireVectorData(const VectorDataCurrent &currentData)
+{
+    VectorDataCurrent data3Wire(currentData);
+
+    const float sqrt3 = sqrt(3);
+    data3Wire.m_vectorData[VectorConstants::IDX_UL1] = // UL1-UL2
+        (currentData.m_vectorData[VectorConstants::IDX_UL1] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorConstants::IDX_UL1] =
+        currentData.m_label[VectorConstants::IDX_UL1] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
+
+    data3Wire.m_vectorData[VectorConstants::IDX_UL2] = QVector2D(0,0);
+
+    data3Wire.m_vectorData[VectorConstants::IDX_UL3] = // UL3-UL2
+        (currentData.m_vectorData[VectorConstants::IDX_UL3] - currentData.m_vectorData[VectorConstants::IDX_UL2]) / sqrt3;
+    data3Wire.m_label[VectorConstants::IDX_UL3] =
+        currentData.m_label[VectorConstants::IDX_UL3] + "-" + currentData.m_label[VectorConstants::IDX_UL2];
+
+    data3Wire.m_vectorData[VectorConstants::IDX_IL2] = QVector2D(0,0);
+
+    return data3Wire;
 }
 
 void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& currentVectors)

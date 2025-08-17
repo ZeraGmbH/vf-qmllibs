@@ -23,6 +23,7 @@ public:
     void paint(QPainter *painter) override;
 
 private:
+    static VectorDataCurrent calc3WireVectorData(const VectorDataCurrent &currentData);
     void adjustAngleSettings(const VectorDataCurrent& currentVectors);
     void calcAndSetMaxValues(const VectorDataCurrent& currentVectors);
 
