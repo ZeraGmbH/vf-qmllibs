@@ -10,19 +10,6 @@
 
 QTEST_MAIN(test_primitive_painter)
 
-void test_primitive_painter::initTestCase()
-{
-    QDir dir;
-    dir.mkpath(TEST_SVG_FILE_PATH);
-}
-
-void test_primitive_painter::init()
-{
-    m_generator = std::make_unique<QSvgGenerator>();
-    m_generator->setTitle(tr("Test SVG"));
-    m_generator->setDescription("test_primitive_painter");
-}
-
 constexpr int clipLen = 3000;
 
 void test_primitive_painter::initialTestPrimitivePainterStar()

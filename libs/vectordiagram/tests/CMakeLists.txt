@@ -9,6 +9,7 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
         add_executable(${_testname}
             ${_testname}.h
             ${_testname}.cpp
+            test-data/test-svgs.qrc
             )
         target_link_libraries(${_testname}
             PUBLIC
@@ -25,14 +26,9 @@ endfunction()
 SETUP_QTESTS_VECTOR_DIAGRAM(
     test_primitive_painter
     test_vector_diagram
-)
-
-target_sources(test_primitive_painter
-    PRIVATE
-    test-data/test-svgs.qrc
-)
-
-target_sources(test_vector_diagram
-    PRIVATE
-    test-data/test-svgs.qrc
+    test_vector_standard
+    test_vector_type
+    test_vector_style
+    test_vector_nominal_maximum
+    test_vector_arrow_head
 )
