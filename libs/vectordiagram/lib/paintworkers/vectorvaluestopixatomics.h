@@ -20,13 +20,14 @@ public:
                                 const VectorDataCurrent& currentVectors);
     static bool drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings,
                                 const VectorDataCurrent& currentVectors);
-    static bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
-                               const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
     static void drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings,
                                     const VectorDataCurrent& currentVectors);
     static void drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
                            const VectorDataCurrent& currentVectors);
+
 private:
+    static bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
+                               const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
     struct ShownLabel {
         QVector2D wantedPixLenLabel;
         int idx;
