@@ -166,6 +166,16 @@ float VectorSettingsLayout::getArrowSpreadAngle(PhaseType phaseType) const
     return degToRad(phaseType==PhaseType::TYPE_U ? m_arrowSpreadAngleDegU : m_arrowSpreadAngleDegI);
 }
 
+bool VectorSettingsLayout::getLabelCollisionAvoidance() const
+{
+    return m_labelCollisionAvoidance;
+}
+
+void VectorSettingsLayout::setLabelCollisionAvoidance(bool collisionAvoidance)
+{
+    m_labelCollisionAvoidance = collisionAvoidance;
+}
+
 float VectorSettingsLayout::getLabelVectorOvershootFactor() const
 {
     return m_labelVectorOvershootFactor;

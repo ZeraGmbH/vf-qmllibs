@@ -51,7 +51,9 @@ void VectorValuesToPixAtomics::drawLabels(QPainter *painter, const VectorSetting
 {
     const ShownLabels shownLabels = getShownLabelsAndPixLenWanted(painter, vectorSettings, currentVectors);
 
-    // TODO angles/collision
+    if (vectorSettings.m_layout.getLabelCollisionAvoidance()) {
+        // TODO angles/collision
+    }
 
     for (const ShownLabel &shownLabel : shownLabels) {
         int idx = shownLabel.idx;

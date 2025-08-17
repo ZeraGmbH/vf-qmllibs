@@ -19,6 +19,9 @@ public:
     VectorStyle getVectorStyle() const;
     void setVectorStyle(VectorStyle vectorStyle);
 
+    // Below are intended to be set by tests or style selection
+    // Once we allow users to set them outside of style we have
+    // to implement change signalling
     QColor getCoordCrossColor() const;
     void setCoordCrossColor(QColor coordCrossColor);
     QColor getCircleColor() const;
@@ -54,6 +57,9 @@ public:
     void setArrowSpreadAngleDegI(float arrowSpreadAngle);
     float getArrowSpreadAngle(PhaseType phaseType) const;
 
+    bool getLabelCollisionAvoidance() const;
+    void setLabelCollisionAvoidance(bool collisionAvoidance);
+
     float getLabelVectorOvershootFactor() const;
     void setLabelVectorOvershootFactor(float labelVectorOvershootFactor);
 
@@ -76,6 +82,7 @@ private:
     float m_arrowSpreadAngleDegI = 22.5;
     float m_labelFontSize = 0.03;
     float m_labelVectorOvershootFactor = 1.11;
+    bool m_labelCollisionAvoidance = false;
 };
 
 #endif // VECTORSETTINGSLAYOUT_H
