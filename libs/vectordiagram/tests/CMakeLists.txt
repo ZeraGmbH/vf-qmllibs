@@ -32,4 +32,5 @@ SETUP_QTESTS_VECTOR_DIAGRAM(
     test_vector_style
     test_vector_nominal_maximum
     test_vector_arrow_head
+    test_vectors_long_short_limits
 )

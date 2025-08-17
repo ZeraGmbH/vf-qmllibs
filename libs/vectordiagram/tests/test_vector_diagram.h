@@ -13,13 +13,7 @@ private slots:
 
     void starVectorsNoOvershoot();
     void starVectorsNoOvershootSmall();
-    void starVectorsIgnoreLessThanMin();
 
-    void vectorLabelsTooLong_data();
-    void vectorLabelsTooLong();
-
-    void vectorLabelsTooShort_data();
-    void vectorLabelsTooShort();
 };
 
 #endif // TEST_VECTOR_DIAGRAM_GUI_H
