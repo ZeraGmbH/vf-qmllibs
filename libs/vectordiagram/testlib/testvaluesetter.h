@@ -8,6 +8,9 @@ class TestValueSetter
 public:
     static void setSymmetricValues(VectorPaintController *painter, double uValue, double iValue, double iAngle);
     static void setNominalUI(VectorPaintController &vectorPainter, float nominal);
+private:
+    const static QVector<QString> m_testLabels;
+    const static QVector<QColor> m_testColors;
 };
 
 #endif // TESTVALUESETTER_H
