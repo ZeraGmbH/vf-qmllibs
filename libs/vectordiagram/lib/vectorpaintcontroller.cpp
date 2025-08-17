@@ -87,7 +87,7 @@ void VectorPaintController::adjustAngleSettings(const VectorDataCurrent& current
         const float angleUL1 = atan2(currentVectors.m_vectorData[VectorConstants::IDX_UL1].y(),
                                      currentVectors.m_vectorData[VectorConstants::IDX_UL1].x());
         m_vectorSettings->m_angles.setRotationDirection(RotationDirection::Clockwise);
-        m_vectorSettings->m_angles.setOffsetAngle(angleUL1);
+        m_vectorSettings->m_angles.setOffsetAngle(-angleUL1);
         break;
     }
     }

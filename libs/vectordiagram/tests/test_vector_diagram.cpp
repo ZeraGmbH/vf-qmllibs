@@ -458,6 +458,36 @@ void test_vector_diagram::setDIN()
     QVERIFY(ok);
 }
 
+void test_vector_diagram::setDINUAngle()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsUser::VectorStandard standard = VectorSettingsUser::VectorStandard::DIN;
+    vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
+
+    const float nomValue = 30;
+    const float angle = 60;
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    const double uPhi = degToRad(30);
+    std::complex<double> u0RawValue = std::polar<double>(nomValue, uPhi);
+    vectorPainter.setVector(0, QVector2D(u0RawValue.real(), u0RawValue.imag()));
+
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    SvgFuzzyCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
 void test_vector_diagram::setIEC()
 {
     const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
@@ -499,6 +529,36 @@ void test_vector_diagram::setANSI()
     QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
 
     setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    svgPainter.paintToFile(dumpFile, &vectorPainter);
+
+    QString dumped = TestLogHelpers::loadFile(dumpFile);
+    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
+    SvgFuzzyCompare compare;
+    bool ok = compare.compareXml(dumped, expected);
+    if(!ok)
+        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
+    QVERIFY(ok);
+}
+
+void test_vector_diagram::setANSIUAngle()
+{
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
+
+    VectorToSvgPainter svgPainter(clipLenShort, clipLenShort);
+    VectorPaintController vectorPainter;
+
+    VectorSettingsUser::VectorStandard standard = VectorSettingsUser::VectorStandard::ANSI;
+    vectorPainter.getVectorSettings()->m_user.setVectorStandard(standard);
+    QCOMPARE(vectorPainter.getVectorSettings()->m_user.getVectorStandard(), standard);
+
+    const float nomValue = 30;
+    const float angle = 60;
+    setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
+    const double uPhi = degToRad(30);
+    std::complex<double> u0RawValue = std::polar<double>(nomValue, uPhi);
+    vectorPainter.setVector(0, QVector2D(u0RawValue.real(), u0RawValue.imag()));
+
     svgPainter.paintToFile(dumpFile, &vectorPainter);
 
     QString dumped = TestLogHelpers::loadFile(dumpFile);

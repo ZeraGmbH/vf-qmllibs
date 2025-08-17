@@ -25,7 +25,6 @@
         <file>svgs/setIEC.svg</file>
         <file>svgs/setMaximumMode.svg</file>
         <file>svgs/setMaximumTwice.svg</file>
-        <file>svgs/setNominalMode.svg</file>
         <file>svgs/setStar.svg</file>
         <file>svgs/setStarNoValues.svg</file>
         <file>svgs/setTriangle.svg</file>
@@ -57,5 +56,8 @@
         <file>svgs/vectorLabelsTooShortundershoot-0.4.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.5.svg</file>
         <file>svgs/vectorLabelsTooShortundershoot-0.6.svg</file>
+        <file>svgs/setNominalMode.svg</file>
+        <file>svgs/setANSIUAngle.svg</file>
+        <file>svgs/setDINUAngle.svg</file>
     </qresource>
 </RCC>

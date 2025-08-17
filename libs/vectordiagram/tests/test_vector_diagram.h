@@ -32,8 +32,10 @@ private slots:
     void setFontSize();
 
     void setDIN();
+    void setDINUAngle();
     void setIEC();
     void setANSI();
+    void setANSIUAngle();
 
     void setStar();
     void setStarNoValues();
