@@ -1,5 +1,7 @@
 #include "vectortosvgpainter.h"
 #include <QBuffer>
+#include <QFileInfo>
+#include <QDir>
 
 VectorToSvgPainter::VectorToSvgPainter(int width, int height,
                                        const QString &title, const QString &description) :
@@ -12,6 +14,10 @@ VectorToSvgPainter::VectorToSvgPainter(int width, int height,
 
 void VectorToSvgPainter::paintToFile(const QString &fileName, AbstractVectorPainter *abstractPainter)
 {
+    QFileInfo fi(fileName);
+    QDir dir = fi.absoluteDir();
+    dir.mkpath(dir.path());
+
     QSvgGenerator svgGenerator;
     svgGenerator.setSize(QSize(m_width, m_height));
     svgGenerator.setViewBox(QRect(0, 0, m_width, m_height));
