@@ -3,7 +3,7 @@
 #include <complex>
 
 const QVector<QString> TestValueSetter::m_testLabels{
-    "UL1", "UL2", "IL3",
+    "UL1", "UL2", "UL3",
     "IL1", "IL2", "IL3"
 };
 
