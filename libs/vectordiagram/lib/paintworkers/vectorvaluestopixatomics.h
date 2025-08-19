@@ -2,6 +2,7 @@
 #define VECTORVALUESTOPIXATOMICS_H
 
 #include "vectorsettings.h"
+#include "pixvectorshown.h"
 #include <QVector>
 #include <QList>
 #include <QVector2D>
@@ -28,13 +29,8 @@ public:
 private:
     static bool drawPhasesStar(QPainter *painter, int startPhaseIdx, int endPhaseIdx,
                                const VectorSettings &vectorSettings, const VectorDataCurrent& currentVectors);
-    struct ShownLabel {
-        QVector2D wantedPixLenLabel;
-        int idx;
-    };
-    typedef QList<ShownLabel> ShownLabels;
-    static ShownLabels getShownLabelsAndPixLenWanted(const QPainter *painter, const VectorSettings &vectorSettings,
-                                                     const VectorDataCurrent& currentVectors);
+    static PixVectorsShown getShownLabelsAndPixLenWanted(const QPainter *painter, const VectorSettings &vectorSettings,
+                                                           const VectorDataCurrent& currentVectors);
     static QVector2D limitLabelVectorLen(const QPainter *painter, const QVector2D &pixLenVector, const QString &label);
     static QVector2D lengthenLabelTooShortVector(const QPainter *painter, const QVector2D &pixLenVector);
 };

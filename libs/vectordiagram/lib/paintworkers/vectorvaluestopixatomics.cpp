@@ -47,18 +47,21 @@ void VectorValuesToPixAtomics::drawVoltageTriangle(QPainter *painter, const Vect
 }
 
 void VectorValuesToPixAtomics::drawLabels(QPainter *painter, const VectorSettings &vectorSettings,
-                                     const VectorDataCurrent &currentVectors)
+                                          const VectorDataCurrent &currentVectors)
 {
-    const ShownLabels shownLabels = getShownLabelsAndPixLenWanted(painter, vectorSettings, currentVectors);
+    const PixVectorsShown shownVectors = getShownLabelsAndPixLenWanted(painter, vectorSettings, currentVectors);
 
+    PixVectorsShown collisionAdjVectors = shownVectors;
     if (vectorSettings.m_layout.getLabelCollisionAvoidance()) {
         // TODO angles/collision
     }
 
-    for (const ShownLabel &shownLabel : shownLabels) {
-        int idx = shownLabel.idx;
+    for (int idx=0; idx<collisionAdjVectors.size(); idx++) {
+        const PixVectorShown &labelVector = collisionAdjVectors[idx];
+        if (!labelVector.shown)
+            continue;
         const QString &label = currentVectors.m_label[idx];
-        const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, shownLabel.wantedPixLenLabel, label);
+        const QVector2D pixLenVectorLabelAdj = limitLabelVectorLen(painter, labelVector.wantedPixVectorLabel, label);
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         VectorPixAtomicsPainter::drawLabel(painter,
                                            { phaseType, pixLenVectorLabelAdj, currentVectors.m_colors[idx] },
@@ -67,18 +70,20 @@ void VectorValuesToPixAtomics::drawLabels(QPainter *painter, const VectorSetting
     }
 }
 
-VectorValuesToPixAtomics::ShownLabels VectorValuesToPixAtomics::getShownLabelsAndPixLenWanted(
+PixVectorsShown VectorValuesToPixAtomics::getShownLabelsAndPixLenWanted(
     const QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    ShownLabels shownLabels;
+    PixVectorsShown shownLabels(currentVectors.m_vectorData.size());
     for (int idx=0; idx<VectorConstants::COUNT_VECTORS; ++idx) {
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
             const QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
                 painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
             const QVector2D pixLenVectorLabel = pixLenVector * vectorSettings.m_layout.getLabelVectorOvershootFactor();
-            shownLabels.append({pixLenVectorLabel, idx});
+            shownLabels[idx] = {pixLenVectorLabel, true};
         }
+        else
+            shownLabels[idx] = {QVector2D(), false};
     }
     return shownLabels;
 }
