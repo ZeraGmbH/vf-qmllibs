@@ -46,7 +46,7 @@ void test_vector_label_collision::detectCollision_data()
     QTest::addColumn<float>("angle");
     QTest::addColumn<float>("length");
     QTest::addColumn<VectorSettingsUser::VectorType>("vectorType");
-    QVector<float> angles{0, 2, 88, 90, 92, 118, 120, 122, 208, 210, 212, 238, 240, 242, 328, 330, 332, 358};
+    QVector<float> angles{0, 2, 88, 90, 92, 118, 120, 122, 208, 210, 212, 238, 240, 242, 268, 270, 272, 328, 330, 332, 358};
     QVector<float> lengths{1, 0.8};
     QVector<VectorSettingsUser::VectorType> vectorTypes{
         VectorSettingsUser::VectorType::STAR,
