@@ -43,6 +43,14 @@ QVector2D VectorPaintCalc::calcVectorOtherLen(const QVector2D &vector, float len
     return resultVector;
 }
 
+QVector2D VectorPaintCalc::rotateVector(const QVector2D &vector, float angleRotateRad)
+{
+    const float angleOrig = atan2(vector.y(), vector.x());
+    const float len = vector.length();
+    const float angleNew = angleOrig + angleRotateRad;
+    return QVector2D(len*cos(angleNew), len*sin(angleNew));
+}
+
 QVector2D VectorPaintCalc::calcPixVec(const QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
                                       const QVector2D &value, float shorten)
 {
