@@ -1,6 +1,7 @@
 #include "vectorvaluestopixatomics.h"
 #include "vectorpaintcalc.h"
 #include "vectorpixatomicspainter.h"
+#include "vectorlabelcollisionavoider.h"
 #include <math.h>
 
 bool VectorValuesToPixAtomics::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
@@ -53,7 +54,8 @@ void VectorValuesToPixAtomics::drawLabels(QPainter *painter, const VectorSetting
 
     PixVectorsShown collisionAdjVectors = shownVectors;
     if (vectorSettings.m_layout.getLabelCollisionAvoidance()) {
-        // TODO angles/collision
+        collisionAdjVectors = VectorLabelCollisionAvoider::getCollisionAdjVectors(shownVectors,
+                                                                                  vectorSettings.m_user.getVectorType());
     }
 
     for (int idx=0; idx<collisionAdjVectors.size(); idx++) {

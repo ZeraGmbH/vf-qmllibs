@@ -35,4 +35,5 @@ SETUP_QTESTS_VECTOR_DIAGRAM(
     test_vectors_long_short_limits
     test_vector_line_width
     test_vector_label_font_size
+    test_vector_label_collision
 )

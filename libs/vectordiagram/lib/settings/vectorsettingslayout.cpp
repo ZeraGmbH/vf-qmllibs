@@ -19,12 +19,14 @@ void VectorSettingsLayout::setVectorStyle(VectorStyle vectorStyle)
         setVectorLineWidthI(0.005);
         setArrowHeightI(0.03);
         setArrowSpreadAngleDegI(22.5);
+        setLabelCollisionAvoidance(true);
     }
     else {
         setVectorLineWidthU(0.0075);
         setVectorLineWidthI(0.0125);
         setArrowHeightI(0.033);
         setArrowSpreadAngleDegI(30);
+        setLabelCollisionAvoidance(true);
     }
 }
 
