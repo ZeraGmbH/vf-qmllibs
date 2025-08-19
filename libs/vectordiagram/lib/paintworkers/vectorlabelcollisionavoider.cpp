@@ -34,7 +34,7 @@ PixVectorsShown VectorLabelCollisionAvoider::getCollisionAdjVectors(const PixVec
             float angleI = atan2(inVectorI.wantedPixVectorLabel.y(), inVectorI.wantedPixVectorLabel.x());
             float diffAngle = fabs(angleU - angleI);
             float epsilonAngle = degToRad(0.1);
-            if(angleU > angleI+epsilonAngle && diffAngle < 0.7) { // stolen from old implementation
+            if(angleU > angleI+epsilonAngle && diffAngle < degToRad(40)) { // stolen from old implementation
                 offsetAngleU = -offsetAngleU;
                 offsetAngleI = -offsetAngleI;
                 iPhaseWasSwapped[idxI] = true;
