@@ -11,6 +11,11 @@ private slots:
 
     void detectCollision_data();
     void detectCollision();
+
+    void playgroundDebugInterestingCaseSingle();
+
+    void fullMonsterForCinema_data();
+    void fullMonsterForCinema();
 };
 
 #endif // TEST_VECTOR_LABEL_COLLISION_H
