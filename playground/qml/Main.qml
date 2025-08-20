@@ -61,20 +61,6 @@ ApplicationWindow {
             }
         }
         CheckBox {
-            id: shownuiv
-            checked: false;
-            Layout.fillWidth: true;
-            text: "Load uivector"
-            onCheckStateChanged: {
-                if(checked){
-                    commonLoader.active=true;
-                    commonLoader.source = "Uivectorgraph.qml";
-                }else{
-                    commonLoader.active=false;
-                }
-            }
-        }
-        CheckBox {
             checked: false;
             Layout.fillWidth: true;
             text: "Load ZComboBox"

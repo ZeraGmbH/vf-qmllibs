@@ -12,7 +12,6 @@ target_link_libraries(
         anmlib
         zeracomponents
         notificationmanager
-        uivlib
         zerafa
         ZVKeyboardLayout
         timedate-qml-wrapper
