@@ -6,13 +6,13 @@
 
 bool VectorValuesToPixAtomics::drawVoltageStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorConstants::IDX_UL1, VectorConstants::IDX_UL3,
+    return drawPhasesStar(painter, VectorConstants::IDX_U_START, VectorConstants::IDX_U_END,
                           vectorSettings, currentVectors);
 }
 
 bool VectorValuesToPixAtomics::drawCurrentStar(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
-    return drawPhasesStar(painter, VectorConstants::IDX_IL1, VectorConstants::IDX_IL3,
+    return drawPhasesStar(painter, VectorConstants::IDX_I_START, VectorConstants::IDX_I_END,
                           vectorSettings, currentVectors);
 }
 
@@ -36,7 +36,7 @@ bool VectorValuesToPixAtomics::drawPhasesStar(QPainter *painter, int startPhaseI
 void VectorValuesToPixAtomics::drawVoltageTriangle(QPainter *painter, const VectorSettings &vectorSettings, const VectorDataCurrent &currentVectors)
 {
     QVector<VectorPixAtomicsPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
-    for(int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
+    for(int idx=VectorConstants::IDX_U_START; idx<=VectorConstants::IDX_U_END; ++idx) {
         PhaseType phaseType = VectorConstants::getVectorType(idx);
         QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
             painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);

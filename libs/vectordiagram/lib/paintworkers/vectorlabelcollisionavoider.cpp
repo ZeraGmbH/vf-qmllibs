@@ -8,7 +8,7 @@ PixVectorsShown VectorLabelCollisionAvoider::getCollisionAdjVectors(const PixVec
 {
     PixVectorsShown adjVectors = shownVectors;
     QVector<bool> iPhaseWasSwapped(VectorConstants::COUNT_VECTORS);
-    for (int idxU=VectorConstants::IDX_UL1; idxU<=VectorConstants::IDX_UL3; idxU++) {
+    for (int idxU=VectorConstants::IDX_U_START; idxU<=VectorConstants::IDX_U_END; idxU++) {
         const PixVectorShown &inVectorU = shownVectors[idxU];
         if (!inVectorU.shown)
             continue;
@@ -25,7 +25,7 @@ PixVectorsShown VectorLabelCollisionAvoider::getCollisionAdjVectors(const PixVec
             offsetAngleU = degToRad(-10); // UL1-UL2 / UL3-UL2 need more rotation
             offsetAngleI = degToRad(6);
         }
-        for(int idxI=VectorConstants::IDX_IL1; idxI<=VectorConstants::IDX_IL3; idxI++) {
+        for(int idxI=VectorConstants::IDX_I_START; idxI<=VectorConstants::IDX_I_END; idxI++) {
             if (iPhaseWasSwapped[idxI])
                 continue;
             const PixVectorShown &inVectorI = shownVectors[idxI];

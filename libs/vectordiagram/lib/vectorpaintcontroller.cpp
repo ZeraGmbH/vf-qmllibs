@@ -121,7 +121,7 @@ void VectorPaintController::updateSettingsMaxValues(VectorSettingsLengths &lengt
 {
     float maxU = 1e-12;
     const float minU = lengthSettings.getMinimalValue(PhaseType::TYPE_U);
-    for (int idx=VectorConstants::IDX_UL1; idx<=VectorConstants::IDX_UL3; ++idx) {
+    for (int idx=VectorConstants::IDX_U_START; idx<=VectorConstants::IDX_U_END; ++idx) {
         const float currU = currentVectors.m_vectorData[idx].length();
         if (currU > minU && currU > maxU)
             maxU = currU;
@@ -130,7 +130,7 @@ void VectorPaintController::updateSettingsMaxValues(VectorSettingsLengths &lengt
 
     float maxI = 1e-12;
     const float minI = lengthSettings.getMinimalValue(PhaseType::TYPE_I);
-    for (int idx=VectorConstants::IDX_IL1; idx<=VectorConstants::IDX_IL3; ++idx) {
+    for (int idx=VectorConstants::IDX_I_START; idx<=VectorConstants::IDX_I_END; ++idx) {
         const float currI = currentVectors.m_vectorData[idx].length();
         if (currI > minI && currI > maxI)
             maxI = currI;
