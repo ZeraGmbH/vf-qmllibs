@@ -51,6 +51,15 @@ QVector2D VectorPaintCalc::rotateVector(const QVector2D &vector, float angleRota
     return QVector2D(len*cos(angleNew), len*sin(angleNew));
 }
 
+float VectorPaintCalc::normalizeAngle(float angleDeg)
+{
+    constexpr float angleDeg360 = degToRad(360);
+    float retAngle = fmod(angleDeg, angleDeg360);
+    if (retAngle < 0.0)
+        retAngle += angleDeg360;
+    return retAngle;
+}
+
 QVector2D VectorPaintCalc::calcPixVec(const QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
                                       const QVector2D &value, float shorten)
 {

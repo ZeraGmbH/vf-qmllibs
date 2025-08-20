@@ -12,7 +12,8 @@ PixVectorsShown VectorLabelCollisionAvoider::getCollisionAdjVectors(const PixVec
         const PixVectorShown &inVectorU = shownVectors[idxU];
         if (!inVectorU.shown)
             continue;
-        float angleU = atan2(inVectorU.wantedPixVectorLabel.y(), inVectorU.wantedPixVectorLabel.x());
+        const float angleU = VectorPaintCalc::normalizeAngle(
+            atan2(inVectorU.wantedPixVectorLabel.y(), inVectorU.wantedPixVectorLabel.x()));
         float offsetAngleU;
         float offsetAngleI;
          // direction as set by vector standard (attow all clockwise)
@@ -31,10 +32,14 @@ PixVectorsShown VectorLabelCollisionAvoider::getCollisionAdjVectors(const PixVec
             if (!inVectorI.shown)
                 continue;
 
-            float angleI = atan2(inVectorI.wantedPixVectorLabel.y(), inVectorI.wantedPixVectorLabel.x());
-            float diffAngle = fabs(angleU - angleI);
-            float epsilonAngle = degToRad(0.1);
-            if(angleU > angleI+epsilonAngle && diffAngle < degToRad(40)) { // stolen from old implementation
+            const float angleI = VectorPaintCalc::normalizeAngle(
+                atan2(inVectorI.wantedPixVectorLabel.y(), inVectorI.wantedPixVectorLabel.x()));
+            float diffAngle = VectorPaintCalc::normalizeAngle(angleU - angleI);
+            // Note: To avoid failing tests on different build environments, do not use
+            // integer values here. Tests use intergers and collision decisions can vary.
+            constexpr float minDiff = degToRad(0.25); // avoid cos(φ) = 0 toggle
+            constexpr float maxDiff = degToRad(28.5);   // long labels in 3Wire
+            if(diffAngle > minDiff && diffAngle < maxDiff) {
                 offsetAngleU = -offsetAngleU;
                 offsetAngleI = -offsetAngleI;
                 iPhaseWasSwapped[idxI] = true;

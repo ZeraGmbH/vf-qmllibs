@@ -25,6 +25,7 @@ public:
     static float getClipSquareLen(const QPainter *painter);
     static QVector2D calcVectorOtherLen(const QVector2D &vector, float len);
     static QVector2D rotateVector(const QVector2D &vector, float angleRotateRad);
+    static float normalizeAngle(float angleDeg);
     static QVector2D calcPixVec(const QPainter *painter, const VectorSettingsEx &vectorSettingsEx,
                                 const QVector2D &value,
                                 float shorten = 0.0);
