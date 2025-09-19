@@ -20,6 +20,7 @@ Rectangle {
     property int targetIndex;
     property string currentText;
     property string selectedText;
+    property string initialSelectedText;
     property real pointSize: height > 0 ? height * 0.3 : 10
 
     property int contentMaxRows: 0 // this makes colums
@@ -86,6 +87,7 @@ Rectangle {
                 comboRipple.startFlash()
         }
     }
+    Component.onCompleted: selectedText = initialSelectedText
 
     // List view does not support JS arrays
     ListModel {
