@@ -28,4 +28,8 @@ CheckBox {
         }
     }
     onControlHeightChanged: { recalcControls() }
+    // increase Qt's default a bit
+    implicitWidth: Math.max(implicitBackgroundWidth + leftInset + rightInset,
+                            implicitContentWidth + leftPadding + rightPadding) * 1.04
+
 }
