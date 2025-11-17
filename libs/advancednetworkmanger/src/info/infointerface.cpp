@@ -44,7 +44,7 @@ QVariant InfoInterface::data(const QModelIndex &index, int role) const
         case deviceRole:
             return entry->getDevice();
         case typeRole:
-            return entry->getType();
+            return int(entry->getType());
         }
     }
     return QVariant();

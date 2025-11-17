@@ -1,5 +1,4 @@
 #include "connectioninfo.h"
-#include <NetworkManagerQt/Manager>
 
 ConnectionInfo::ConnectionInfo(NetworkManager::ActiveConnection::Ptr activeConnection) :
     m_activeConnection(activeConnection)
@@ -17,22 +16,9 @@ QString ConnectionInfo::getDevice() const
     return m_device;
 }
 
-QString ConnectionInfo::getType() const
+NetworkManager::Device::Type ConnectionInfo::getType() const
 {
     return m_type;
-}
-
-static QString getConnectionTypeStr(NetworkManager::Device::Type type) {
-    switch(type) {
-    case NetworkManager::Device::UnknownType:
-        return "unknown";
-    case NetworkManager::Device::Ethernet:
-        return "Ethernet";
-    case NetworkManager::Device::Wifi:
-        return "Wifi";
-    default:
-        return "other";
-    };
 }
 
 bool ConnectionInfo::updateConnection()
@@ -41,8 +27,7 @@ bool ConnectionInfo::updateConnection()
     const QStringList devices = m_activeConnection->devices();
     if(devices.size() > 0) {
         NetworkManager::Device::Ptr device = NetworkManager::findNetworkInterface(devices.at(0));
-        const QString type = getConnectionTypeStr(device->type());
-        modified |= setType(type);
+        modified |= setType(device->type());
         QString deviceName = device->interfaceName();
         modified |= setDevice(deviceName);
     }
@@ -92,10 +77,10 @@ bool ConnectionInfo::setDevice(const QString &device)
     return false;
 }
 
-bool ConnectionInfo::setType(const QString &typeStr)
+bool ConnectionInfo::setType(NetworkManager::Device::Type type)
 {
-    if (m_type != typeStr) {
-        m_type = typeStr;
+    if (m_type != type) {
+        m_type = type;
         return true;
     }
     return false;

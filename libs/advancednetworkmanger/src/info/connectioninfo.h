@@ -2,6 +2,7 @@
 #define CONNECTIONINFO_H
 
 #include <NetworkManagerQt/ActiveConnection>
+#include <NetworkManagerQt/Manager>
 #include <memory>
 
 class ConnectionInfo {
@@ -9,7 +10,7 @@ public:
     explicit ConnectionInfo(NetworkManager::ActiveConnection::Ptr activeConnection);
     QString getPath() const;
     QString getDevice() const;
-    QString getType() const;
+    NetworkManager::Device::Type getType() const;
     bool updateConnection();
 
     const QString getIpV4() const;
@@ -18,7 +19,7 @@ public:
 private:
     const QString getNaAdjustedValue(const QString &value) const;
     bool setDevice(const QString &device);
-    bool setType(const QString &typeStr);
+    bool setType(NetworkManager::Device::Type type);
     bool setIpV4(const QString &ipv4);
     bool setSubnetMask(const QString &subnetmask);
     bool setIpV6(const QString &ipv6);
@@ -28,7 +29,7 @@ private:
     QString m_subnetmask;
     QString m_ipv6;
     QString m_device;
-    QString m_type;
+    NetworkManager::Device::Type m_type = NetworkManager::Device::UnknownType;
 };
 
 typedef std::shared_ptr<ConnectionInfo> ConnectionInfoPtr;

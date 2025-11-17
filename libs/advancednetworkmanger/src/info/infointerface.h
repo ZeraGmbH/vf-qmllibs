@@ -2,22 +2,22 @@
 #define INFOINTERFACE_H
 
 #include "connectioninfo.h"
+#include <timertemplateqt.h>
+#include <NetworkManagerQt/Manager>
 #include <QAbstractListModel>
 #include <QVariant>
-#include <NetworkManagerQt/Manager>
-#include <timertemplateqt.h>
 
 class InfoInterface: public QAbstractListModel
 {
-     Q_OBJECT
+    Q_OBJECT
 public:
-     enum InfoRoles {
+    enum InfoRoles {
         ipv4Role = Qt::UserRole + 1,
         ipv6Role,
         subnetmaskRole,
         deviceRole,
-        typeRole
-     };
+        typeRole // int - see NetworkManager::Device::Type in networkmanager-qt5/device.h
+    };
 
     InfoInterface();
     QHash<int, QByteArray> roleNames() const override;
