@@ -12,10 +12,11 @@ class InfoInterface: public QAbstractListModel
      Q_OBJECT
 public:
      enum InfoRoles {
-         ipv4Role = Qt::UserRole + 1,
-         ipv6Role,
-         subnetmaskRole,
-         deviceRole
+        ipv4Role = Qt::UserRole + 1,
+        ipv6Role,
+        subnetmaskRole,
+        deviceRole,
+        typeRole
      };
 
     InfoInterface();

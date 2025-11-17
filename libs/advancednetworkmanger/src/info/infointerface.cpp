@@ -20,6 +20,7 @@ QHash<int, QByteArray> InfoInterface::roleNames() const
     roles[ipv6Role] = "ipv6";
     roles[subnetmaskRole] = "subnetmask";
     roles[deviceRole] = "device";
+    roles[typeRole] = "type";
     return roles;
 }
 
@@ -42,6 +43,8 @@ QVariant InfoInterface::data(const QModelIndex &index, int role) const
             return entry->getIpV6();
         case deviceRole:
             return entry->getDevice();
+        case typeRole:
+            return entry->getType();
         }
     }
     return QVariant();

@@ -17,13 +17,34 @@ QString ConnectionInfo::getDevice() const
     return m_device;
 }
 
+QString ConnectionInfo::getType() const
+{
+    return m_type;
+}
+
+static QString getConnectionTypeStr(NetworkManager::Device::Type type) {
+    switch(type) {
+    case NetworkManager::Device::UnknownType:
+        return "unknown";
+    case NetworkManager::Device::Ethernet:
+        return "Ethernet";
+    case NetworkManager::Device::Wifi:
+        return "Wifi";
+    default:
+        return "other";
+    };
+}
+
 bool ConnectionInfo::updateConnection()
 {
     bool modified = false;
     const QStringList devices = m_activeConnection->devices();
     if(devices.size() > 0) {
-        QString device = NetworkManager::findNetworkInterface(devices.at(0))->interfaceName();
-        modified |= setDevice(device);
+        NetworkManager::Device::Ptr device = NetworkManager::findNetworkInterface(devices.at(0));
+        const QString type = getConnectionTypeStr(device->type());
+        modified |= setType(type);
+        QString deviceName = device->interfaceName();
+        modified |= setDevice(deviceName);
     }
     const NetworkManager::IpAddresses v4Adresses = m_activeConnection->ipV4Config().addresses();
     if (v4Adresses.size() > 0) {
@@ -66,6 +87,15 @@ bool ConnectionInfo::setDevice(const QString &device)
 {
     if (m_device != device) {
         m_device = device;
+        return true;
+    }
+    return false;
+}
+
+bool ConnectionInfo::setType(const QString &typeStr)
+{
+    if (m_type != typeStr) {
+        m_type = typeStr;
         return true;
     }
     return false;
