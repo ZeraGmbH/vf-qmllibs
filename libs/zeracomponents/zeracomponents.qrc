@@ -16,6 +16,7 @@
         <file>src/qml/ZeraComponents/ZLineEdit.qml</file>
         <file>src/qml/ZeraComponents/ZRadioButton.qml</file>
         <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
+        <file>src/qml/ZeraComponents/ZTabButton.qml</file>
         <file>src/qml/ZeraComponents/ZUnitComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZSwitch.qml</file>
