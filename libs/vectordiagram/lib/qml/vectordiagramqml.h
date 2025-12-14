@@ -3,6 +3,7 @@
 
 #include "vectorpaintcontroller.h"
 #include "vectordiagramqmlmacros.h"
+#include <timertemplateqt.h>
 #include <QQuickPaintedItem>
 #include <QQuickItem>
 #include <QVector2D>
@@ -69,11 +70,14 @@ public:
     Q_VECTOR_DATA_ARRAY_PROPERTY(4)
     Q_VECTOR_DATA_ARRAY_PROPERTY(5)
 
+private slots:
+    void onUpdateTimer();
 private:
     void paint(QPainter *painter) override;
     void startUpdate();
 
     VectorPaintController m_vectorPainter;
+    TimerTemplateQtPtr m_updateTimer;
 };
 
 #endif // VECTORDIAGRAMQML_H

@@ -1,4 +1,5 @@
 #include "vectordiagramqml.h"
+#include <timerfactoryqt.h>
 
 VectorDiagramQml::VectorDiagramQml(QQuickItem *parent) :
     QQuickPaintedItem(parent)
@@ -17,6 +18,11 @@ float VectorDiagramQml::maxCurrent()
     return m_vectorPainter.getVectorSettings()->m_lengths.getMaxCurrent();
 }
 
+void VectorDiagramQml::onUpdateTimer()
+{
+    update();
+}
+
 void VectorDiagramQml::paint(QPainter *painter)
 {
     m_vectorPainter.paint(painter);
@@ -26,5 +32,8 @@ void VectorDiagramQml::paint(QPainter *painter)
 
 void VectorDiagramQml::startUpdate()
 {
-    update();
+    m_updateTimer = TimerFactoryQt::createSingleShot(20);
+    connect(m_updateTimer.get(), &TimerTemplateQt::sigExpired,
+            this, &VectorDiagramQml::onUpdateTimer);
+    m_updateTimer->start();
 }

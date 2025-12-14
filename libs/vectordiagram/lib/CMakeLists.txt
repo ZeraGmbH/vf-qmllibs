@@ -17,6 +17,7 @@ target_link_libraries(vector-diagram-lib
     Qt5::Quick
     Qt5::Qml
     Qt5::Svg
+    Zera::zera-timers
     )
 
 target_include_directories(vector-diagram-lib
