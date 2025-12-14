@@ -14,7 +14,7 @@ public: \
         if (getter() != value) { \
             m_vectorPainter.getVectorSettings()->settingsmember.setter(value); \
             emit name##Changed(); \
-            update(); \
+            startUpdate(); \
         } \
 }
 // end Q_VECTOR_PROPERTY
@@ -30,7 +30,7 @@ public: \
             return; \
         variable##idx = v; \
         emit getter##Changed##idx(); \
-        update(); \
+        startUpdate(); \
     } \
 private: \
     type variable##idx;
@@ -50,7 +50,7 @@ public: \
             return; \
         m_vectorData##idx = v; \
         emit vectorDataChanged##idx(); \
-        update(); \
+        startUpdate(); \
     } \
 private: \
     QList<double> m_vectorData##idx;

@@ -71,6 +71,7 @@ public:
 
 private:
     void paint(QPainter *painter) override;
+    void startUpdate();
 
     VectorPaintController m_vectorPainter;
 };

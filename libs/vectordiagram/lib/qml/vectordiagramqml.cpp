@@ -23,3 +23,8 @@ void VectorDiagramQml::paint(QPainter *painter)
     emit maxVoltageChanged();
     emit maxCurrentChanged();
 }
+
+void VectorDiagramQml::startUpdate()
+{
+    update();
+}
