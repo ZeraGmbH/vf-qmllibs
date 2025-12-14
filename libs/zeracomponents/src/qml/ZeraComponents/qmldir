@@ -14,6 +14,7 @@ ZFlashingRipple 1.0 ZFlashingRipple.qml
 ZLineEdit 1.0 ZLineEdit.qml
 ZRadioButton 1.0 ZRadioButton.qml
 ZSpinBox 1.0 ZSpinBox.qml
+ZTabButton 1.0 ZTabButton.qml
 ZUnitComboBox 1.0 ZUnitComboBox.qml
 ZVisualComboBox 1.0 ZVisualComboBox.qml
 ZSwitch 1.0 ZSwitch.qml
