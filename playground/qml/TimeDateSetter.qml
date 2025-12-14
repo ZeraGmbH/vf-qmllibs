@@ -63,7 +63,7 @@ ApplicationWindow {
                     }
                     Layout.fillWidth: true
                 }
-                Button {
+                ZButton {
                     text: "..."
                     onClicked: timesetterPopup.open()
                 }

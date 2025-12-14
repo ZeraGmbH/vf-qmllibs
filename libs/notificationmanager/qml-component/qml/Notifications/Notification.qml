@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import ZeraComponents 1.0
 
 Popup {
     id: popup
@@ -41,7 +42,7 @@ Popup {
                 wrapMode: Text.Wrap
                 color: "white"
             }
-            Button {
+            ZButton {
                 text : "Ok"
                 onClicked: popup.close()
                 anchors.horizontalCenter: parent.horizontalCenter

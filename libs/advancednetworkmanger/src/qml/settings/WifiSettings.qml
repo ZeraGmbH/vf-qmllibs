@@ -125,7 +125,7 @@ Pane {
                     autoMoveFocusToNext()
                 }
             }
-            Button {
+            ZButton {
                 id: ssidButton
                 anchors.right: parent.right
                 font.family: FA.old
@@ -225,7 +225,7 @@ Pane {
         Item {
             Layout.fillWidth: true
         }
-        Button{
+        ZButton{
             id: cancelButton
             text: Z.tr("Cancel")
             font.pointSize: pointSize
@@ -236,7 +236,7 @@ Pane {
             width: implicitContentWidth
             height: implicitContentHeight
         }
-        Button {
+        ZButton {
             id: okButton
             text: Z.tr("OK")
             font.pointSize: pointSize

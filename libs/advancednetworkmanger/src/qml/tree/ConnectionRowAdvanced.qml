@@ -144,7 +144,7 @@ Item{
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            Button {
+            ZButton {
                 id: editButton
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin
@@ -165,7 +165,7 @@ Item{
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
-            Button {
+            ZButton {
                 id: trashButton
                 anchors.verticalCenter: parent.verticalCenter
                 bottomPadding: ZCC.standardTextBottomMargin

@@ -7,6 +7,7 @@ import QtQuick.Layouts 1.12
 import ZeraFa 1.0
 import anmsettings 1.0
 import ZeraTranslation 1.0
+import ZeraComponents 1.0
 import "../settings"
 
 Pane {
@@ -267,7 +268,7 @@ Pane {
     }
     readonly property real buttonPointSize: height>0 ? height * 0.055 : 10
     readonly property real buttonVerticalPadding: buttonPointSize * 0.33
-    Button {
+    ZButton {
         id: addbutton
         text: "+"
         font.pointSize: buttonPointSize
@@ -294,7 +295,7 @@ Pane {
             }
         }
     }
-    Button {
+    ZButton {
         id: infoButton
         anchors.right: parent.right
         anchors.bottom: parent.bottom

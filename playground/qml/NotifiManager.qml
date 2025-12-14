@@ -3,6 +3,7 @@ import QtQuick.Controls 2.2
 import Qt.labs.platform 1.0
 import QtQuick.Layouts 1.12
 import Notifications 1.0
+import ZeraComponents 1.0
 
 ApplicationWindow {
     id: mainWindow
@@ -25,7 +26,7 @@ ApplicationWindow {
         width: parent.width
         height: parent.height
 
-        Button {
+        ZButton {
             id: dyn
             text: "Dynamic"
             onClicked: {
@@ -33,7 +34,7 @@ ApplicationWindow {
                 count = count + 1 ;
             }
         }
-        Button {
+        ZButton {
             id: dyn2
             text: "Dynamic"
             anchors.left: dyn.right
@@ -42,7 +43,7 @@ ApplicationWindow {
                 count = count + 1 ;
             }
         }
-        Button {
+        ZButton {
             id: dyn3
             text: "Close"
             anchors.left: dyn2.right

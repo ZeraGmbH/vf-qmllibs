@@ -253,7 +253,7 @@ Popup {
 
         Item { Layout.fillWidth: true }
         readonly property real buttonWidth: Math.max(cancelButton.implicitWidth, okButton.implicitWidth) * 1.1
-        Button {
+        ZButton {
             id: cancelButton
             text: Z.tr("Cancel")
             font.pointSize: pointSize
@@ -262,7 +262,7 @@ Popup {
                 timeSetterPopup.close()
             }
         }
-        Button {
+        ZButton {
             id: okButton
             text: Z.tr("OK")
             font.pointSize: pointSize
