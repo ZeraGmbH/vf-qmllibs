@@ -8,6 +8,7 @@
 #include <QQuickItem>
 #include <QVector2D>
 #include <QPainter>
+#include <QByteArray>
 
 // VectorDiagramQml is the QML property interface to VectorPaintController
 class VectorDiagramQml: public QQuickPaintedItem
@@ -78,6 +79,7 @@ private:
 
     VectorPaintController m_vectorPainter;
     TimerTemplateQtPtr m_updateTimer;
+    QByteArray m_paintedRecording;
 };
 
 #endif // VECTORDIAGRAMQML_H

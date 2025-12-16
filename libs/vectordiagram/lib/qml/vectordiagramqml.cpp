@@ -1,5 +1,7 @@
 #include "vectordiagramqml.h"
+#include "fuzzypaintdevice.h"
 #include <timerfactoryqt.h>
+#include <QPicture>
 
 VectorDiagramQml::VectorDiagramQml(QQuickItem *parent) :
     QQuickPaintedItem(parent)
@@ -20,11 +22,27 @@ float VectorDiagramQml::maxCurrent()
 
 void VectorDiagramQml::onUpdateTimer()
 {
-    update();
+    qWarning("updateTimer");
+
+    FuzzyPaintDevice fuzzyPaintDev;
+    QPainter testPainter;
+    testPainter.begin(&fuzzyPaintDev);
+    m_vectorPainter.paint(&testPainter);
+    testPainter.end();
+
+    QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
+    if (m_paintedRecording != paintedRecording) {
+        m_paintedRecording = paintedRecording;
+        qWarning("update / len %i", paintedRecording.size());
+        update();
+    }
 }
 
 void VectorDiagramQml::paint(QPainter *painter)
 {
+    qWarning("paint");
+    QPicture picture;
+    picture.setData(m_paintedRecording.constData(), m_paintedRecording.size());
     m_vectorPainter.paint(painter);
     emit maxVoltageChanged();
     emit maxCurrentChanged();
@@ -32,7 +50,8 @@ void VectorDiagramQml::paint(QPainter *painter)
 
 void VectorDiagramQml::startUpdate()
 {
-    m_updateTimer = TimerFactoryQt::createSingleShot(20);
+    qWarning("start update");
+    m_updateTimer = TimerFactoryQt::createSingleShot(10);
     connect(m_updateTimer.get(), &TimerTemplateQt::sigExpired,
             this, &VectorDiagramQml::onUpdateTimer);
     m_updateTimer->start();
