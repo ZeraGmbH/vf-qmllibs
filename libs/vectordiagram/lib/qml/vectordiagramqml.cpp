@@ -22,8 +22,6 @@ float VectorDiagramQml::maxCurrent()
 
 void VectorDiagramQml::onUpdateTimer()
 {
-    qWarning("updateTimer");
-
     FuzzyPaintDevice fuzzyPaintDev;
     QPainter testPainter;
     testPainter.begin(&fuzzyPaintDev);
@@ -33,14 +31,12 @@ void VectorDiagramQml::onUpdateTimer()
     QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
     if (m_paintedRecording != paintedRecording) {
         m_paintedRecording = paintedRecording;
-        qWarning("update / len %i", paintedRecording.size());
         update();
     }
 }
 
 void VectorDiagramQml::paint(QPainter *painter)
 {
-    qWarning("paint");
     QPicture picture;
     picture.setData(m_paintedRecording.constData(), m_paintedRecording.size());
     m_vectorPainter.paint(painter);
@@ -50,7 +46,6 @@ void VectorDiagramQml::paint(QPainter *painter)
 
 void VectorDiagramQml::startUpdate()
 {
-    qWarning("start update");
     m_updateTimer = TimerFactoryQt::createSingleShot(10);
     connect(m_updateTimer.get(), &TimerTemplateQt::sigExpired,
             this, &VectorDiagramQml::onUpdateTimer);
