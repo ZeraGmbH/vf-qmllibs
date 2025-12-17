@@ -1,7 +1,6 @@
 #include "vectordiagramqml.h"
 #include "fuzzypaintdevice.h"
 #include <timerfactoryqt.h>
-#include <QPicture>
 
 VectorDiagramQml::VectorDiagramQml(QQuickItem *parent) :
     QQuickPaintedItem(parent)
@@ -37,8 +36,6 @@ void VectorDiagramQml::onUpdateTimer()
 
 void VectorDiagramQml::paint(QPainter *painter)
 {
-    QPicture picture;
-    picture.setData(m_paintedRecording.constData(), m_paintedRecording.size());
     m_vectorPainter.paint(painter);
     emit maxVoltageChanged();
     emit maxCurrentChanged();

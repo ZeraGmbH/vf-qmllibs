@@ -68,6 +68,21 @@ void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
         *m_dataStream << state.brush();*/
     if (state.state() & DirtyHints)
         *m_dataStream << reducePrecision(state.renderHints());
+    if (state.state() & DirtyClipRegion) {
+        QRegion region = state.clipRegion();
+        QRect rect = region.boundingRect();
+        *m_dataStream << reducePrecision(rect.x());
+        *m_dataStream << reducePrecision(rect.y());
+        *m_dataStream << reducePrecision(rect.width());
+        *m_dataStream << reducePrecision(rect.height());
+    }
+    if (state.state() & DirtyClipEnabled)
+        *m_dataStream << reducePrecision(state.isClipEnabled());
+    if (state.state() & DirtyClipPath) {
+        Qt::ClipOperation clipOperation = state.clipOperation();
+        *m_dataStream << reducePrecision(clipOperation);
+        storePaintPath(state.clipPath());
+    }
 
     ////////////////////
     // not required?
@@ -77,14 +92,8 @@ void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
         qWarning("Unhandled DirtyBackground");
     if (state.state() & DirtyBackgroundMode)
         qWarning("Unhandled DirtyBackgroundMode");
-    if (state.state() & DirtyClipRegion)
-        qWarning("Unhandled DirtyClipRegion");
-    if (state.state() & DirtyClipPath)
-        qWarning("Unhandled DirtyClipPath");
     if (state.state() & DirtyCompositionMode)
         qWarning("Unhandled DirtyCompositionMode");
-    if (state.state() & DirtyClipEnabled)
-        qWarning("Unhandled DirtyClipEnabled");
     if (state.state() & DirtyOpacity)
         qWarning("Unhandled DirtyOpacity");
 }
@@ -114,13 +123,7 @@ void FuzzyPaintEngine::drawLines(const QLineF *lines, int lineCount)
 
 void FuzzyPaintEngine::drawPath(const QPainterPath &path)
 {
-    int elemCount = path.elementCount();
-    for (int elemNo=0; elemNo<elemCount; ++elemNo) {
-        QPainterPath::Element elem = path.elementAt(elemNo);
-        *m_dataStream << reducePrecision(elem.type);
-        *m_dataStream << reducePrecision(elem.x);
-        *m_dataStream << reducePrecision(elem.y);
-    }
+    storePaintPath(path);
 }
 
 void FuzzyPaintEngine::drawImage(const QRectF &rectangle,
@@ -157,4 +160,26 @@ void FuzzyPaintEngine::drawPolygon(const QPointF *points, int pointCount, Polygo
         *m_dataStream << reducePrecision(points[point].y());
     }
     *m_dataStream << reducePrecision(mode);
+}
+
+void FuzzyPaintEngine::drawRects(const QRectF *rects, int rectCount)
+{
+    for (int rectNo=0; rectNo<rectCount; rectNo++) {
+        const QRectF &rect = rects[rectNo];
+        *m_dataStream << reducePrecision(rect.x());
+        *m_dataStream << reducePrecision(rect.y());
+        *m_dataStream << reducePrecision(rect.width());
+        *m_dataStream << reducePrecision(rect.height());
+    }
+}
+
+void FuzzyPaintEngine::storePaintPath(const QPainterPath &path)
+{
+    int elemCount = path.elementCount();
+    for (int elemNo=0; elemNo<elemCount; ++elemNo) {
+        QPainterPath::Element elem = path.elementAt(elemNo);
+        *m_dataStream << reducePrecision(elem.type);
+        *m_dataStream << reducePrecision(elem.x);
+        *m_dataStream << reducePrecision(elem.y);
+    }
 }

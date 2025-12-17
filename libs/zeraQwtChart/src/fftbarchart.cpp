@@ -1,8 +1,9 @@
 #include "fftbarchart.h"
-
-#include <QTimer>
-#include <QLoggingCategory>
-
+#include "bardata.h"
+#include "barscaledraw.h"
+#include "sidescaledraw.h"
+#include "fuzzypaintdevice.h"
+#include <timerfactoryqt.h>
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_barchart.h>
@@ -15,14 +16,9 @@
 #include <qwt_scale_widget.h>
 #include <qwt_text.h>
 
-#include "bardata.h"
-#include "barscaledraw.h"
-#include "sidescaledraw.h"
 
 FftBarChart::FftBarChart(QQuickItem *t_parent):
     QQuickPaintedItem(t_parent),
-    m_refreshTimer(new QTimer(this)),
-    m_valuesTimer(new QTimer(this)),
     m_canvas(new QwtPlotCanvas()),
     m_plot(new QwtPlot()),
     m_barDataLeft(new BarData()), //cleaned up by the plot
@@ -35,12 +31,11 @@ FftBarChart::FftBarChart(QQuickItem *t_parent):
     connect(this, SIGNAL(widthChanged()), this, SLOT(onWidthChanged()));
     connect(this, SIGNAL(labelsChanged(QStringList)), this, SLOT(onLabelsChanged(QStringList)));
 
-    connect(m_refreshTimer, SIGNAL(timeout()), this, SLOT(onRefreshTimeout()));
-    connect(m_valuesTimer, SIGNAL(timeout()), this, SLOT(onExternValuesChangedTimeout()));
-
     m_plot->setAttribute(Qt::WA_NoSystemBackground);
     m_plot->setAutoFillBackground(true);
 
+    m_canvas->setPaintAttribute(QwtPlotCanvas::BackingStore, false);
+    m_canvas->setPaintAttribute(QwtPlotCanvas::Opaque, false);
     m_canvas->setLineWidth(1);
     m_canvas->setFrameStyle(QFrame::NoFrame);
 
@@ -63,8 +58,6 @@ FftBarChart::~FftBarChart()
 {
     delete m_canvas;
     delete m_plot;
-    //delete m_barDataLeft; //cleaned up by the plot
-    //delete m_barDataRight; //cleaned up by the plot
 }
 
 bool FftBarChart::bottomLabels() const
@@ -99,13 +92,13 @@ QString FftBarChart::chartTitle() const
 
 void FftBarChart::componentComplete()
 {
-    onRefreshTimeout();
+    qWarning("FftBarChart::componentComplete()");
+    startUpdate();
 }
 
 void FftBarChart::paint(QPainter *t_painter)
 {
     //painter->setRenderHints(QPainter::Antialiasing, true);
-
     m_plot->render(t_painter);
 }
 
@@ -166,31 +159,23 @@ QString FftBarChart::titleRightAxis() const
 
 void FftBarChart::onExternValuesChanged()
 {
-    if(!m_valuesTimer->isActive()) {
-        m_valuesTimer->start(100);
-    }
+    startUpdate();
 }
 
 void FftBarChart::onHeightChanged()
 {
-    if(contentsBoundingRect().height() > 0) {
+    if(contentsBoundingRect().height() > 0)
         m_plot->setFixedHeight(contentsBoundingRect().height());
-    }
-    else {
+    else
         m_plot->setFixedHeight(0);
-    }
-    refreshPlot();
 }
 
 void FftBarChart::onWidthChanged()
 {
-    if(contentsBoundingRect().width() > 0) {
+    if(contentsBoundingRect().width() > 0)
         m_plot->setFixedWidth(contentsBoundingRect().width());
-    }
-    else {
+    else
         m_plot->setFixedWidth(0);
-    }
-    refreshPlot();
 }
 
 void FftBarChart::setBgColor(QColor t_backgroundColor)
@@ -220,12 +205,10 @@ void FftBarChart::useBottomLabels(bool t_labelsEnabled)
     if(t_labelsEnabled) {
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, new BarScaleDraw(Qt::Vertical, m_bottomLabels)); //cleaned up by the plot
         m_plot->setAxisMaxMajor(QwtPlot::xBottom, m_bottomLabels.count());
-        refreshPlot();
     }
     else {
         m_bottomLabels.clear();
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, new BarScaleDraw()); //cleaned up by the plot
-        refreshPlot();
     }
 }
 
@@ -246,7 +229,6 @@ void FftBarChart::setLegendEnabled(bool t_legendEnabled)
         }
         else
             m_plot->insertLegend(nullptr);
-        refreshPlot();
     }
     m_legendEnabled=t_legendEnabled;
 }
@@ -277,10 +259,7 @@ void FftBarChart::setTextColor(QColor t_textColor)
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, tmpScaleX);
 
         labelsChanged(m_bottomLabels);
-
-        refreshPlot();
     }
-
     m_textColor = t_textColor;
 }
 
@@ -299,7 +278,6 @@ void FftBarChart::setLogScaleLeftAxis(bool t_useLogScale)
         //calculate optimised scale min/max
         setMaxValueLeftAxis(m_maxValueLeftAxis);
         setMinValueLeftAxis(m_minValueLeftAxis);
-        refreshPlot();
     }
 }
 
@@ -316,7 +294,6 @@ void FftBarChart::setMaxValueLeftAxis(double t_maxValue)
     }
     m_plot->setAxisScale(QwtPlot::yLeft, m_minValueLeftAxis, tmpScale);
     m_maxValueLeftAxis = t_maxValue;
-    refreshPlot();
 }
 
 void FftBarChart::setMinValueLeftAxis(double t_minValue)
@@ -332,7 +309,6 @@ void FftBarChart::setMinValueLeftAxis(double t_minValue)
     }
     m_plot->setAxisScale(QwtPlot::yLeft, tmpScale, m_maxValueLeftAxis);
     m_minValueLeftAxis = t_minValue;
-    refreshPlot();
 }
 
 void FftBarChart::setColorLeftAxis(QColor t_color)
@@ -367,7 +343,6 @@ void FftBarChart::setLogScaleRightAxis(bool t_useLogScale)
         //calculate optimised scale min/max
         setMaxValueRightAxis(m_maxValueRightAxis);
         setMinValueRightAxis(m_minValueRightAxis);
-        refreshPlot();
     }
 }
 
@@ -384,7 +359,6 @@ void FftBarChart::setMaxValueRightAxis(double t_maxValue)
     }
     m_plot->setAxisScale(QwtPlot::yRight, m_minValueRightAxis, tmpScale);
     m_maxValueRightAxis = t_maxValue;
-    refreshPlot();
 }
 
 void FftBarChart::setMinValueRightAxis(double t_minValue)
@@ -400,7 +374,6 @@ void FftBarChart::setMinValueRightAxis(double t_minValue)
     }
     m_plot->setAxisScale(QwtPlot::yRight, tmpScale, m_maxValueRightAxis);
     m_minValueRightAxis = t_minValue;
-    refreshPlot();
 }
 
 void FftBarChart::setColorRightAxis(QColor t_color)
@@ -415,8 +388,6 @@ void FftBarChart::setColorRightAxis(QColor t_color)
     onLeftBarCountChanged(m_leftBarCount);
 }
 
-
-
 void FftBarChart::setTitleRightAxis(QString t_title)
 {
     m_plot->setAxisTitle(QwtPlot::yRight, t_title);
@@ -427,13 +398,11 @@ void FftBarChart::setRightAxisEnabled(bool t_rightAxisEnabled)
     m_plot->enableAxis(QwtPlot::yRight, t_rightAxisEnabled);
 }
 
-void FftBarChart::onExternValuesChangedTimeout()
+void FftBarChart::updateBarsAndLegends()
 {
     QVector<double> tmpSamples;
     int tmpLeftBarCount=0;
     const float tmpScaleFactor = m_maxValueLeftAxis/m_maxValueRightAxis;
-
-    m_valuesTimer->stop();
 
     if(m_valuesLeftAxis.count()>0 && m_valuesLeftAxis.count() == m_valuesRightAxis.count()) {
         //m_valuesLeftAxis is a list of mixed real and imaginary numbers
@@ -448,7 +417,6 @@ void FftBarChart::onExternValuesChangedTimeout()
         for(int i=0; i<tmpLeftBarCount-1; i+=2) {
             QVector2D tmpVectorA, tmpVectorB;
 
-
             tmpVectorA.setX(m_valuesLeftAxis.at(i));
             tmpVectorA.setY(m_valuesLeftAxis.at(i+1));
 
@@ -460,12 +428,10 @@ void FftBarChart::onExternValuesChangedTimeout()
             //this is bullshit, but due to management decisions it is required
             tmpSamples.append(tmpVectorB.length()*tmpScaleFactor);
         }
-        if(m_legendEnabled) {
+        if(m_legendEnabled)
             m_plot->insertLegend(new QwtLegend()); //cleaned up by the plot
-        }
         labelsChanged(m_barDataLeft->getTitles());
     }
-
     m_barDataLeft->setSamples(tmpSamples);
 }
 
@@ -473,27 +439,6 @@ void FftBarChart::onLabelsChanged(QStringList t_labels)
 {
     m_bottomLabels=t_labels;
     useBottomLabels(m_bottomLabelsEnabled);
-    refreshPlot();
-}
-
-void FftBarChart::onRefreshTimeout()
-{
-    m_refreshTimer->stop();
-    //qDebug("UPDATE");
-    m_plot->updateGeometry();
-    m_plot->updateAxes();
-    m_plot->updateLegend();
-    m_plot->updateLayout();
-    m_plot->updateCanvasMargins();
-    this->update();
-}
-
-void FftBarChart::refreshPlot()
-{
-    //when resizing is in progress it may not be suitable to refresh for every pixel changed in width or height
-    if(!m_refreshTimer->isActive()) {
-        m_refreshTimer->start(500);
-    }
 }
 
 void FftBarChart::onLeftValueChanged(QVariant t_leftValue)
@@ -508,6 +453,31 @@ void FftBarChart::onRightValueChanged(QVariant t_rightValue)
     onExternValuesChanged();
 }
 
+void FftBarChart::onUpdateTimer()
+{
+    qWarning("FftBarChart::onUpdateTimer()");
+    m_plot->updateGeometry();
+    m_plot->updateAxes();
+    m_plot->updateLegend();
+    m_plot->updateLayout();
+    m_plot->updateCanvasMargins();
+
+    updateBarsAndLegends();
+
+    FuzzyPaintDevice fuzzyPaintDev;
+    QPainter testPainter;
+    testPainter.begin(&fuzzyPaintDev);
+    m_plot->render(&testPainter);
+    testPainter.end();
+
+    QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
+    if (m_paintedRecording != paintedRecording) {
+        m_paintedRecording = paintedRecording;
+        qWarning("FftBarChart::update() / %i", paintedRecording.size());
+        update();
+    }
+}
+
 void FftBarChart::onLeftBarCountChanged(int t_barCount)
 {
     m_barDataLeft->clearData();
@@ -516,4 +486,12 @@ void FftBarChart::onLeftBarCountChanged(int t_barCount)
         m_barDataLeft->addData(m_colorLeftAxis, QString::number(i/2));
         m_barDataLeft->addData(m_colorRightAxis, QString(" "));
     }
+}
+
+void FftBarChart::startUpdate()
+{
+    m_updateTimer = TimerFactoryQt::createSingleShot(10);
+    connect(m_updateTimer.get(), &TimerTemplateQt::sigExpired,
+            this, &FftBarChart::onUpdateTimer);
+    m_updateTimer->start();
 }

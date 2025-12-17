@@ -1,6 +1,7 @@
 #ifndef FFTBARCHART_H
 #define FFTBARCHART_H
 
+#include <timertemplateqt.h>
 #include <QQuickPaintedItem>
 #include <QList>
 #include <QColor>
@@ -122,13 +123,16 @@ signals:
     void minValueChanged(double t_minValue);
 
 private slots:
-    void onExternValuesChangedTimeout();
+    void onUpdateTimer();
     void onLabelsChanged(QStringList t_labels);
-    void onRefreshTimeout();
-    void refreshPlot();
     void onLeftBarCountChanged(int t_barCount);
 
 private:
+    void startUpdate();
+    void updateBarsAndLegends();
+
+    TimerTemplateQtPtr m_updateTimer;
+    QByteArray m_paintedRecording;
     bool m_bottomLabelsEnabled;
     bool m_legendEnabled;
 
@@ -137,8 +141,6 @@ private:
     QColor m_textColor;
     QStringList m_bottomLabels;
     QString m_chartTitle;
-    QTimer *m_refreshTimer;
-    QTimer *m_valuesTimer;
     QwtPlotCanvas *m_canvas;
     QwtPlot *m_plot;
 

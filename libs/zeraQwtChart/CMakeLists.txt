@@ -15,6 +15,7 @@ add_library(qwtcharts
 target_link_libraries(
     qwtcharts
     PUBLIC
+    vector-diagram-lib
     Qt5::Quick
     Qt5::Qml
     ${QWT_LIBRARIES}

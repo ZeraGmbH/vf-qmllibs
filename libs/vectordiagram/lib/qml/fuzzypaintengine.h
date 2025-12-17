@@ -31,8 +31,10 @@ public:
 
     void drawPoints(const QPointF *points, int pointCount) override;
     void drawPolygon(const QPointF *points, int pointCount, QPaintEngine::PolygonDrawMode mode) override;
-
+    void drawRects(const QRectF *rects, int rectCount) override;
 private:
+    void storePaintPath(const QPainterPath &path);
+
     std::unique_ptr<QByteArray> m_streamedByteArray;
     std::unique_ptr<QBuffer> m_dataBuffer;
     std::unique_ptr<QDataStream> m_dataStream;
