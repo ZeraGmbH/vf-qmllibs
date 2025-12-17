@@ -106,11 +106,7 @@ void FftBarChart::paint(QPainter *t_painter)
 {
     //painter->setRenderHints(QPainter::Antialiasing, true);
 
-    //workaround for spam like "QObject::startTimer: Timers cannot be started from another thread"
-    ///@todo find out how to render widgets, that cannot be moved to the render thread, without the warning spam
-    QLoggingCategory::defaultCategory()->setEnabled(QtWarningMsg, false);
     m_plot->render(t_painter);
-    QLoggingCategory::defaultCategory()->setEnabled(QtWarningMsg, true);
 }
 
 bool FftBarChart::logScaleLeftAxis() const
