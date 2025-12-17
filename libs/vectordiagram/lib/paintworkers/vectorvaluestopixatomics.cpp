@@ -38,9 +38,11 @@ void VectorValuesToPixAtomics::drawVoltageTriangle(QPainter *painter, const Vect
     QVector<VectorPixAtomicsPainter::VectorParam> corners(VectorConstants::COUNT_PHASES);
     for(int idx=VectorConstants::IDX_U_START; idx<=VectorConstants::IDX_U_END; ++idx) {
         PhaseType phaseType = VectorConstants::getVectorType(idx);
-        QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
-            painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
-        corners[idx] = { phaseType, pixLenVector, currentVectors.m_colors[idx] };
+        if (currentVectors.m_vectorData[idx].length() > vectorSettings.m_lengths.getMinimalValue(phaseType)) {
+            QVector2D pixLenVector = VectorPaintCalc::calcPixVec(
+                painter, { vectorSettings, phaseType }, currentVectors.m_vectorData[idx]);
+            corners[idx] = { phaseType, pixLenVector, currentVectors.m_colors[idx] };
+        }
     }
     VectorPixAtomicsPainter::drawTriangle(painter,
                                           corners[0], corners[1], corners[2],
