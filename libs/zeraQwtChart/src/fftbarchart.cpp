@@ -90,12 +90,6 @@ QString FftBarChart::chartTitle() const
     return m_chartTitle;
 }
 
-void FftBarChart::componentComplete()
-{
-    qWarning("FftBarChart::componentComplete()");
-    startUpdate();
-}
-
 void FftBarChart::paint(QPainter *t_painter)
 {
     //painter->setRenderHints(QPainter::Antialiasing, true);

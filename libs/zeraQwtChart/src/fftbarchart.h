@@ -51,7 +51,6 @@ public:
     FftBarChart(QQuickItem *t_parent = 0);
     ~FftBarChart();
 
-
     bool bottomLabels() const;
     bool legendEnabled() const;
 
@@ -60,8 +59,6 @@ public:
     QColor textColor() const;
     QString chartTitle() const;
 
-    // QQmlParserStatus interface
-    void componentComplete() override;
     void paint(QPainter *t_painter) override;
 
     /**
