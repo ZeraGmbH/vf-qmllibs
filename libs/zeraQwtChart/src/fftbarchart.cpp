@@ -230,7 +230,6 @@ void FftBarChart::setLegendEnabled(bool t_legendEnabled)
 void FftBarChart::setTextColor(QColor t_textColor)
 {
     if(t_textColor != m_textColor) {
-        BarScaleDraw *tmpScaleX;
         QPalette tmpPa;
         tmpPa.setColor(QPalette::Text, t_textColor);
         tmpPa.setColor(QPalette::WindowText, t_textColor);
@@ -239,10 +238,9 @@ void FftBarChart::setTextColor(QColor t_textColor)
         if(m_plot->legend())
             m_plot->legend()->setPalette(tmpPa);
 
-        //plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
         m_plot->axisWidget(QwtPlot::xBottom)->setPalette(tmpPa);
 
-        tmpScaleX=new BarScaleDraw(); //cleaned up by the plot
+        BarScaleDraw *tmpScaleX=new BarScaleDraw(); //cleaned up by the plot
         tmpScaleX->setColor(t_textColor);
 
         ///todo check if this is necessary since the palette was set previously
