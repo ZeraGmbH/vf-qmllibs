@@ -2,9 +2,9 @@
 #include <QGuiApplication>
 #include <QScreen>
 
-FuzzyPaintDevice::FuzzyPaintDevice(const QRect &boundingRect) :
+FuzzyPaintDevice::FuzzyPaintDevice() :
     m_fuzzyEngine(std::make_unique<FuzzyPaintEngine>()),
-    m_boundingRect(boundingRect)
+    m_boundingRect(QRect(0, 0, 100, 100)) // This is bound to PRECISION_TYPE in fuzzypaintengine.cpp
 {
 }
 

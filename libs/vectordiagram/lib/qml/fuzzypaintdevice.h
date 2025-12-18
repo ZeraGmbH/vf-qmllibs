@@ -8,7 +8,7 @@
 class FuzzyPaintDevice : public QPaintDevice
 {
 public:
-    FuzzyPaintDevice(const QRect &boundingRect = QRect(0, 0, 100, 100));
+    FuzzyPaintDevice();
 
     QByteArray getDataRecorded() const;
 
