@@ -1,8 +1,10 @@
 #include "hpwbarchart.h"
-
-#include <QTimer>
-#include <QLoggingCategory>
-
+#include "bardata.h"
+#include "barscaledraw.h"
+#include "sidescaledraw.h"
+#include "fuzzypaintdevice.h"
+#include <cmath>
+#include <timerfactoryqt.h>
 #include <qwt_plot_renderer.h>
 #include <qwt_plot_canvas.h>
 #include <qwt_plot_barchart.h>
@@ -15,14 +17,8 @@
 #include <qwt_scale_widget.h>
 #include <qwt_text.h>
 
-#include "bardata.h"
-#include "barscaledraw.h"
-#include "sidescaledraw.h"
-
 HpwBarChart::HpwBarChart(QQuickItem *t_parent):
     QQuickPaintedItem(t_parent),
-    m_refreshTimer(new QTimer(this)),
-    m_valuesTimer(new QTimer(this)),
     m_canvas(new QwtPlotCanvas()),
     m_plot(new QwtPlot()),
     m_barDataLeft(new BarData()), //cleaned up by the plot
@@ -33,12 +29,11 @@ HpwBarChart::HpwBarChart(QQuickItem *t_parent):
     connect(this, SIGNAL(widthChanged()), this, SLOT(onWidthChanged()));
     connect(this, SIGNAL(labelsChanged(QStringList)), this, SLOT(onLabelsChanged(QStringList)));
 
-    connect(m_refreshTimer, SIGNAL(timeout()), this, SLOT(onRefreshTimeout()));
-    connect(m_valuesTimer, SIGNAL(timeout()), this, SLOT(onExternValuesChangedTimeout()));
-
     m_plot->setAttribute(Qt::WA_NoSystemBackground);
     m_plot->setAutoFillBackground(true);
 
+    m_canvas->setPaintAttribute(QwtPlotCanvas::BackingStore, false);
+    m_canvas->setPaintAttribute(QwtPlotCanvas::Opaque, false);
     m_canvas->setLineWidth(1);
     m_canvas->setFrameStyle(QFrame::NoFrame);
 
@@ -58,7 +53,6 @@ HpwBarChart::~HpwBarChart()
 {
     delete m_canvas;
     delete m_plot;
-    //delete m_barDataLeft; //cleaned up by the plot
 }
 
 bool HpwBarChart::bottomLabels() const
@@ -91,19 +85,9 @@ QString HpwBarChart::chartTitle() const
     return m_chartTitle;
 }
 
-void HpwBarChart::componentComplete()
-{
-    onRefreshTimeout();
-}
-
 void HpwBarChart::paint(QPainter *t_painter)
 {
-    //painter->setRenderHints(QPainter::Antialiasing, true);
-    //workaround for spam like "QObject::startTimer: Timers cannot be started from another thread"
-    ///@todo find out how to render widgets, that cannot be moved to the render thread, without the warning spam
-    QLoggingCategory::defaultCategory()->setEnabled(QtWarningMsg, false);
     m_plot->render(t_painter);
-    QLoggingCategory::defaultCategory()->setEnabled(QtWarningMsg, true);
 }
 
 double HpwBarChart::maxValueLeftAxis() const
@@ -128,34 +112,23 @@ QString HpwBarChart::titleLeftAxis() const
 
 void HpwBarChart::onExternValuesChanged()
 {
-    if(!m_valuesTimer->isActive())
-        m_valuesTimer->start(100);
+    startUpdate();
 }
 
 void HpwBarChart::onHeightChanged()
 {
     if(contentsBoundingRect().height()>0)
-    {
         m_plot->setFixedHeight(contentsBoundingRect().height());
-    }
     else
-    {
         m_plot->setFixedHeight(0);
-    }
-    refreshPlot();
 }
 
 void HpwBarChart::onWidthChanged()
 {
     if(contentsBoundingRect().width()>0)
-    {
         m_plot->setFixedWidth(contentsBoundingRect().width());
-    }
     else
-    {
         m_plot->setFixedWidth(0);
-    }
-    refreshPlot();
 }
 
 void HpwBarChart::setBgColor(QColor t_backgroundColor)
@@ -182,17 +155,13 @@ void HpwBarChart::setborderColor(QColor t_borderColor)
 void HpwBarChart::useBottomLabels(bool t_labelsEnabled)
 {
     m_bottomLabelsEnabled=t_labelsEnabled;
-    if(t_labelsEnabled)
-    {
+    if(t_labelsEnabled) {
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, new BarScaleDraw(Qt::Vertical, m_bottomLabels)); //cleaned up by the plot
         m_plot->setAxisMaxMajor(QwtPlot::xBottom, m_bottomLabels.count());
-        refreshPlot();
     }
-    else
-    {
+    else {
         m_bottomLabels.clear();
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, new BarScaleDraw(Qt::Vertical, {})); //cleaned up by the plot
-        refreshPlot();
     }
 }
 
@@ -206,10 +175,8 @@ void HpwBarChart::setChartTitle(QString t_chartTitle)
 
 void HpwBarChart::setLegendEnabled(bool t_legendEnabled)
 {
-    if(t_legendEnabled!=m_legendEnabled)
-    {
-        if(t_legendEnabled)
-        {
+    if(t_legendEnabled!=m_legendEnabled) {
+        if(t_legendEnabled) {
             QwtLegend *tmpLegend = new QwtLegend(); //cleaned up by the plot
             QPalette tmpPa;
             tmpPa.setColor(QPalette::Text, t_legendEnabled);
@@ -221,19 +188,14 @@ void HpwBarChart::setLegendEnabled(bool t_legendEnabled)
             m_plot->insertLegend(tmpLegend);
         }
         else
-        {
             m_plot->insertLegend(nullptr);
-        }
-        refreshPlot();
     }
     m_legendEnabled=t_legendEnabled;
 }
 
 void HpwBarChart::setTextColor(QColor t_textColor)
 {
-
-    if(t_textColor != m_textColor)
-    {
+    if(t_textColor != m_textColor) {
         BarScaleDraw *tmpScaleX;
         QPalette tmpPa;
         tmpPa.setColor(QPalette::Text, t_textColor);
@@ -242,11 +204,8 @@ void HpwBarChart::setTextColor(QColor t_textColor)
         tmpPa.setColor(QPalette::Base, Qt::transparent);
 
         m_plot->setPalette(tmpPa);
-
         if(m_plot->legend())
-        {
             m_plot->legend()->setPalette(tmpPa);
-        }
 
         //plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
         m_plot->axisWidget(QwtPlot::xBottom)->setPalette(tmpPa);
@@ -261,8 +220,6 @@ void HpwBarChart::setTextColor(QColor t_textColor)
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, tmpScaleX);
 
         labelsChanged(m_bottomLabels);
-
-        refreshPlot();
     }
 
     m_textColor = t_textColor;
@@ -273,7 +230,6 @@ void HpwBarChart::setMaxValueLeftAxis(double t_maxValue)
     m_plot->setAxisScale(QwtPlot::yLeft, m_minValueLeftAxis, t_maxValue);
     m_maxValueLeftAxis = t_maxValue;
     m_barDataLeft->setBaseline(0.0);
-    refreshPlot();
 }
 
 void HpwBarChart::setMinValueLeftAxis(double t_minValue)
@@ -281,7 +237,6 @@ void HpwBarChart::setMinValueLeftAxis(double t_minValue)
     m_plot->setAxisScale(QwtPlot::yLeft, t_minValue, m_maxValueLeftAxis);
     m_minValueLeftAxis = t_minValue;
     m_barDataLeft->setBaseline(0.0);
-    refreshPlot();
 }
 
 void HpwBarChart::setColorLeftAxis(QColor t_color)
@@ -303,64 +258,10 @@ void HpwBarChart::setTitleLeftAxis(QString t_title)
     m_plot->setAxisTitle(QwtPlot::yLeft, t_title);
 }
 
-void HpwBarChart::onExternValuesChangedTimeout()
-{
-    QVector<double> tmpSamples;
-    m_valuesTimer->stop();
-
-    if(m_pValues.count()>0 && m_qValues.count()>0 && m_sValues.count()>0
-        && m_pValues.count() == m_qValues.count() && m_pValues.count() == m_sValues.count())
-    {
-        int tmpLeftBarCount=0;
-        tmpLeftBarCount = m_pValues.count() + m_qValues.count() + m_sValues.count();
-
-        if(m_leftBarCount != tmpLeftBarCount)
-        {
-            m_leftBarCount = tmpLeftBarCount;
-            onLeftBarCountChanged(m_leftBarCount);
-        }
-
-        for(int sampleCount = 0; sampleCount < tmpLeftBarCount/3; ++sampleCount)
-        {
-            tmpSamples.append(m_pValues.at(sampleCount));
-            tmpSamples.append(m_qValues.at(sampleCount));
-            tmpSamples.append(m_sValues.at(sampleCount));
-        }
-
-        if(m_legendEnabled)
-        {
-            m_plot->insertLegend(new QwtLegend()); //cleaned up by the plot
-        }
-        labelsChanged(m_barDataLeft->getTitles());
-    }
-
-    m_barDataLeft->setSamples(tmpSamples);
-}
-
 void HpwBarChart::onLabelsChanged(QStringList t_labels)
 {
     m_bottomLabels=t_labels;
     useBottomLabels(m_bottomLabelsEnabled);
-    refreshPlot();
-}
-
-void HpwBarChart::onRefreshTimeout()
-{
-    m_refreshTimer->stop();
-    //qDebug("UPDATE");
-    m_plot->updateGeometry();
-    m_plot->updateAxes();
-    m_plot->updateLegend();
-    m_plot->updateLayout();
-    m_plot->updateCanvasMargins();
-    this->update();
-}
-
-void HpwBarChart::refreshPlot()
-{
-    //when resizing is in progress it may not be suitable to refresh for every pixel changed in width or height
-    if(!m_refreshTimer->isActive())
-        m_refreshTimer->start(500);
 }
 
 void HpwBarChart::setPValues(QList<double> t_pValues)
@@ -381,6 +282,29 @@ void HpwBarChart::setSValues(QList<double> t_sValues)
     onExternValuesChanged();
 }
 
+void HpwBarChart::onUpdateTimer()
+{
+    m_plot->updateGeometry();
+    m_plot->updateAxes();
+    m_plot->updateLegend();
+    m_plot->updateLayout();
+    m_plot->updateCanvasMargins();
+
+    updateBarsAndLegends();
+
+    FuzzyPaintDevice fuzzyPaintDev;
+    QPainter testPainter;
+    testPainter.begin(&fuzzyPaintDev);
+    m_plot->render(&testPainter);
+    testPainter.end();
+
+    QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
+    if (m_paintedRecording != paintedRecording) {
+        m_paintedRecording = paintedRecording;
+        update();
+    }
+}
+
 void HpwBarChart::onLeftBarCountChanged(int t_barCount)
 {
     m_barDataLeft->clearData();
@@ -388,12 +312,45 @@ void HpwBarChart::onLeftBarCountChanged(int t_barCount)
     //m_valuesLeftAxis is a list of P Q S values
     //for(int i=0; i<t_barCount-2; i+=3)
     t_barCount=41;
-    for(int i=0; i<t_barCount; ++i)
-    {
+    for(int i=0; i<t_barCount; ++i) {
         m_barDataLeft->addData(m_colorLeftAxis, QString::number(i));
         m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
         m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
     }
+}
+
+void HpwBarChart::startUpdate()
+{
+    m_updateTimer = TimerFactoryQt::createSingleShot(10);
+    connect(m_updateTimer.get(), &TimerTemplateQt::sigExpired,
+            this, &HpwBarChart::onUpdateTimer);
+    m_updateTimer->start();
+}
+
+void HpwBarChart::updateBarsAndLegends()
+{
+    QVector<double> tmpSamples;
+    if(m_pValues.count()>0 && m_qValues.count()>0 && m_sValues.count()>0
+        && m_pValues.count() == m_qValues.count() && m_pValues.count() == m_sValues.count()) {
+        int tmpLeftBarCount=0;
+        tmpLeftBarCount = m_pValues.count() + m_qValues.count() + m_sValues.count();
+
+        if(m_leftBarCount != tmpLeftBarCount) {
+            m_leftBarCount = tmpLeftBarCount;
+            onLeftBarCountChanged(m_leftBarCount);
+        }
+
+        for(int sampleCount = 0; sampleCount < tmpLeftBarCount/3; ++sampleCount) {
+            tmpSamples.append(m_pValues.at(sampleCount));
+            tmpSamples.append(m_qValues.at(sampleCount));
+            tmpSamples.append(m_sValues.at(sampleCount));
+        }
+
+        if(m_legendEnabled)
+            m_plot->insertLegend(new QwtLegend()); //cleaned up by the plot
+        labelsChanged(m_barDataLeft->getTitles());
+    }
+    m_barDataLeft->setSamples(tmpSamples);
 }
 
 QList<double> HpwBarChart::avoidZeroArtifacts(const QList<double> &values)
