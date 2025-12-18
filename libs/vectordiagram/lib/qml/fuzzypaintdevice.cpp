@@ -8,9 +8,9 @@ FuzzyPaintDevice::FuzzyPaintDevice() :
 {
 }
 
-QByteArray FuzzyPaintDevice::getDataRecorded() const
+quint32 FuzzyPaintDevice::getCrc32() const
 {
-    return m_fuzzyEngine->getDataRecorded();
+    return m_fuzzyEngine->getCrc32();
 }
 
 QPaintEngine *FuzzyPaintDevice::paintEngine() const

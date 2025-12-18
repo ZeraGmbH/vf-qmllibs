@@ -1,6 +1,7 @@
 #ifndef HPWBARCHART_H
 #define HPWBARCHART_H
 
+#include "pseudocrcbuffer.h"
 #include <QQuickPaintedItem>
 #include <QList>
 #include <QColor>
@@ -106,7 +107,7 @@ private:
     QList<double> avoidZeroArtifacts(const QList<double> &values);
 
     TimerTemplateQtPtr m_updateTimer;
-    QByteArray m_paintedRecording;
+    quint32 m_lastPaintCrc = PseudoCrcBuffer::InitialCrc;
     bool m_bottomLabelsEnabled;
     bool m_legendEnabled;
 

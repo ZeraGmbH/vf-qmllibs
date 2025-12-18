@@ -10,7 +10,7 @@ class FuzzyPaintDevice : public QPaintDevice
 public:
     FuzzyPaintDevice();
 
-    QByteArray getDataRecorded() const;
+    quint32 getCrc32() const;
 
     QPaintEngine *paintEngine() const override;
     int metric(PaintDeviceMetric metric) const override;

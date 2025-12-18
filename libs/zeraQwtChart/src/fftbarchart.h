@@ -1,6 +1,7 @@
 #ifndef FFTBARCHART_H
 #define FFTBARCHART_H
 
+#include "pseudocrcbuffer.h"
 #include <timertemplateqt.h>
 #include <QQuickPaintedItem>
 #include <QList>
@@ -128,7 +129,7 @@ private:
     void updateBarsAndLegends();
 
     TimerTemplateQtPtr m_updateTimer;
-    QByteArray m_paintedRecording;
+    quint32 m_lastPaintCrc = PseudoCrcBuffer::InitialCrc;
     bool m_bottomLabelsEnabled;
     bool m_legendEnabled;
 

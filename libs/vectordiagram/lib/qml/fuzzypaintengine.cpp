@@ -6,28 +6,27 @@ FuzzyPaintEngine::FuzzyPaintEngine() :
 {
 }
 
-QByteArray FuzzyPaintEngine::getDataRecorded() const
+quint32 FuzzyPaintEngine::getCrc32() const
 {
-    if (m_streamedByteArray == nullptr)
-        return QByteArray();
-    return *m_streamedByteArray;
+    if (m_crcBuffer == nullptr)
+        return PseudoCrcBuffer::InitialCrc;
+    return m_crcBuffer->getCrc();
 }
 
 bool FuzzyPaintEngine::begin(QPaintDevice *pdev)
 {
     Q_UNUSED(pdev);
-    m_streamedByteArray = std::make_unique<QByteArray>();
-    m_dataBuffer = std::make_unique<QBuffer>(m_streamedByteArray.get());
-    m_dataBuffer->open(QIODevice::WriteOnly);
-    m_dataStream = std::make_unique<QDataStream>(m_dataBuffer.get());
-    m_dataStream->setFloatingPointPrecision(QDataStream::SinglePrecision);
+    m_crcBuffer = std::make_unique<PseudoCrcBuffer>();
+    m_crcBuffer->open(QIODevice::WriteOnly);
+    m_stream = std::make_unique<QDataStream>(m_crcBuffer.get());
+    m_stream->setFloatingPointPrecision(QDataStream::SinglePrecision);
     setActive(true);
     return true;
 }
 
 bool FuzzyPaintEngine::end()
 {
-    m_dataBuffer->close();
+    m_crcBuffer->close();
     setActive(false);
     return true;
 }
@@ -45,11 +44,11 @@ PRECISION_TYPE reducePrecision(float x)
 void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
 {
     if (state.state() & DirtyPen)
-        *m_dataStream << state.pen().color(); // reduce to minimum
+        *m_stream << state.pen().color(); // reduce to minimum
     if (state.state() & DirtyFont) {
         QFont font = state.font();
-        *m_dataStream << reducePrecision(font.pixelSize());
-        *m_dataStream << font.family().toLocal8Bit();
+        *m_stream << reducePrecision(font.pixelSize());
+        *m_stream << font.family().toLocal8Bit();
     }
     if (state.state() & DirtyBrush)
         // Brush is not fuzzy yet
@@ -86,19 +85,19 @@ QPaintEngine::Type FuzzyPaintEngine::type() const
 
 void FuzzyPaintEngine::drawEllipse(const QRectF &rect)
 {
-    *m_dataStream << reducePrecision(rect.x());
-    *m_dataStream << reducePrecision(rect.y());
-    *m_dataStream << reducePrecision(rect.width());
-    *m_dataStream << reducePrecision(rect.height());
+    *m_stream << reducePrecision(rect.x());
+    *m_stream << reducePrecision(rect.y());
+    *m_stream << reducePrecision(rect.width());
+    *m_stream << reducePrecision(rect.height());
 }
 
 void FuzzyPaintEngine::drawLines(const QLineF *lines, int lineCount)
 {
     for (int lineNo=0; lineNo<lineCount; lineNo++) {
-        *m_dataStream << reducePrecision(lines[lineNo].x1());
-        *m_dataStream << reducePrecision(lines[lineNo].x2());
-        *m_dataStream << reducePrecision(lines[lineNo].y1());
-        *m_dataStream << reducePrecision(lines[lineNo].y2());
+        *m_stream << reducePrecision(lines[lineNo].x1());
+        *m_stream << reducePrecision(lines[lineNo].x2());
+        *m_stream << reducePrecision(lines[lineNo].y1());
+        *m_stream << reducePrecision(lines[lineNo].y2());
     }
 }
 
@@ -137,20 +136,20 @@ void FuzzyPaintEngine::drawPoints(const QPointF *points, int pointCount)
 void FuzzyPaintEngine::drawPolygon(const QPointF *points, int pointCount, PolygonDrawMode mode)
 {
     for (int point=0; point<pointCount; point++) {
-        *m_dataStream << reducePrecision(points[point].x());
-        *m_dataStream << reducePrecision(points[point].y());
+        *m_stream << reducePrecision(points[point].x());
+        *m_stream << reducePrecision(points[point].y());
     }
-    *m_dataStream << reducePrecision(mode);
+    *m_stream << reducePrecision(mode);
 }
 
 void FuzzyPaintEngine::drawRects(const QRectF *rects, int rectCount)
 {
     for (int rectNo=0; rectNo<rectCount; rectNo++) {
         const QRectF &rect = rects[rectNo];
-        *m_dataStream << reducePrecision(rect.x());
-        *m_dataStream << reducePrecision(rect.y());
-        *m_dataStream << reducePrecision(rect.width());
-        *m_dataStream << reducePrecision(rect.height());
+        *m_stream << reducePrecision(rect.x());
+        *m_stream << reducePrecision(rect.y());
+        *m_stream << reducePrecision(rect.width());
+        *m_stream << reducePrecision(rect.height());
     }
 }
 
@@ -162,9 +161,9 @@ void FuzzyPaintEngine::storePaintPath(const QPainterPath &path)
     /*int elemCount = path.elementCount();
     for (int elemNo=0; elemNo<elemCount; ++elemNo) {
         QPainterPath::Element elem = path.elementAt(elemNo);
-        *m_dataStream << reducePrecision(elem.type);
-        *m_dataStream << reducePrecision(elem.x);
-        *m_dataStream << reducePrecision(elem.y);
+        *m_stream << reducePrecision(elem.type);
+        *m_stream << reducePrecision(elem.x);
+        *m_stream << reducePrecision(elem.y);
     }*/
 }
 

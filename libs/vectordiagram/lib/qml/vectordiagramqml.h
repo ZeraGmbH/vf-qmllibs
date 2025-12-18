@@ -3,6 +3,7 @@
 
 #include "vectorpaintcontroller.h"
 #include "vectordiagramqmlmacros.h"
+#include "pseudocrcbuffer.h"
 #include <timertemplateqt.h>
 #include <QQuickPaintedItem>
 #include <QQuickItem>
@@ -79,7 +80,7 @@ private:
 
     VectorPaintController m_vectorPainter;
     TimerTemplateQtPtr m_updateTimer;
-    QByteArray m_paintedRecording;
+    quint32 m_lastPaintCrc = PseudoCrcBuffer::InitialCrc;
 };
 
 #endif // VECTORDIAGRAMQML_H

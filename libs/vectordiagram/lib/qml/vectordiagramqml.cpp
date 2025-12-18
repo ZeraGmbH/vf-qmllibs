@@ -27,9 +27,9 @@ void VectorDiagramQml::onUpdateTimer()
     m_vectorPainter.paint(&testPainter);
     testPainter.end();
 
-    QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
-    if (m_paintedRecording != paintedRecording) {
-        m_paintedRecording = paintedRecording;
+    quint32 newCrc = fuzzyPaintDev.getCrc32();
+    if (m_lastPaintCrc != newCrc) {
+        m_lastPaintCrc = newCrc;
         update();
     }
 }

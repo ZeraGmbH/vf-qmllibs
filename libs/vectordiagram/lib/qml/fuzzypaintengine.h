@@ -1,9 +1,9 @@
 #ifndef FUZZYPAINTENGINE_H
 #define FUZZYPAINTENGINE_H
 
+#include "pseudocrcbuffer.h"
 #include <QPaintEngine>
 #include <QByteArray>
-#include <QBuffer>
 #include <QDataStream>
 #include <memory>
 
@@ -11,7 +11,7 @@ class FuzzyPaintEngine : public QPaintEngine
 {
 public:
     FuzzyPaintEngine();
-    QByteArray getDataRecorded() const;
+    quint32 getCrc32() const;
 
     bool begin(QPaintDevice *pdev) override;
     bool end() override;
@@ -35,9 +35,8 @@ private:
     void storePaintPath(const QPainterPath &path);
     void calledButDataIgnored();
 
-    std::unique_ptr<QByteArray> m_streamedByteArray;
-    std::unique_ptr<QBuffer> m_dataBuffer;
-    std::unique_ptr<QDataStream> m_dataStream;
+    std::unique_ptr<PseudoCrcBuffer> m_crcBuffer;
+    std::unique_ptr<QDataStream> m_stream;
 };
 
 #endif // FUZZYPAINTENGINE_H
