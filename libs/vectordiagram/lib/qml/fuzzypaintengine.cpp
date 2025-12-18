@@ -51,38 +51,19 @@ void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
         *m_dataStream << reducePrecision(font.pixelSize());
         *m_dataStream << font.family().toLocal8Bit();
     }
-    if (state.state() & DirtyTransform) {
-        const QTransform trans = state.transform();
-        *m_dataStream << reducePrecision(trans.m11());
-        *m_dataStream << reducePrecision(trans.m12());
-        *m_dataStream << reducePrecision(trans.m13());
-        *m_dataStream << reducePrecision(trans.m21());
-        *m_dataStream << reducePrecision(trans.m22());
-        *m_dataStream << reducePrecision(trans.m23());
-        *m_dataStream << reducePrecision(trans.m31());
-        *m_dataStream << reducePrecision(trans.m32());
-        *m_dataStream << reducePrecision(trans.m33());
-    }
-    // Brush is not fuzzy yet
-    /*if (state.state() & DirtyBrush)
-        *m_dataStream << state.brush();*/
+    if (state.state() & DirtyTransform)
+        calledButDataIgnored();
+    if (state.state() & DirtyBrush)
+        // Brush is not fuzzy yet
+        calledButDataIgnored();
     if (state.state() & DirtyHints)
         *m_dataStream << reducePrecision(state.renderHints());
-    if (state.state() & DirtyClipRegion) {
-        QRegion region = state.clipRegion();
-        QRect rect = region.boundingRect();
-        *m_dataStream << reducePrecision(rect.x());
-        *m_dataStream << reducePrecision(rect.y());
-        *m_dataStream << reducePrecision(rect.width());
-        *m_dataStream << reducePrecision(rect.height());
-    }
+    if (state.state() & DirtyClipRegion)
+        calledButDataIgnored();
     if (state.state() & DirtyClipEnabled)
-        *m_dataStream << reducePrecision(state.isClipEnabled());
-    if (state.state() & DirtyClipPath) {
-        Qt::ClipOperation clipOperation = state.clipOperation();
-        *m_dataStream << reducePrecision(clipOperation);
-        storePaintPath(state.clipPath());
-    }
+        calledButDataIgnored();
+    if (state.state() & DirtyClipPath)
+        calledButDataIgnored();
 
     ////////////////////
     // not required?
@@ -182,4 +163,8 @@ void FuzzyPaintEngine::storePaintPath(const QPainterPath &path)
         *m_dataStream << reducePrecision(elem.x);
         *m_dataStream << reducePrecision(elem.y);
     }
+}
+
+void FuzzyPaintEngine::calledButDataIgnored()
+{
 }

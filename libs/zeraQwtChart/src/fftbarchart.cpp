@@ -449,7 +449,6 @@ void FftBarChart::onRightValueChanged(QVariant t_rightValue)
 
 void FftBarChart::onUpdateTimer()
 {
-    qWarning("FftBarChart::onUpdateTimer()");
     m_plot->updateGeometry();
     m_plot->updateAxes();
     m_plot->updateLegend();

@@ -33,6 +33,7 @@ public:
     void drawRects(const QRectF *rects, int rectCount) override;
 private:
     void storePaintPath(const QPainterPath &path);
+    void calledButDataIgnored();
 
     std::unique_ptr<QByteArray> m_streamedByteArray;
     std::unique_ptr<QBuffer> m_dataBuffer;
