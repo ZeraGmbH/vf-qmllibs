@@ -10,6 +10,7 @@ QByteArray FuzzyPaintEngine::getDataRecorded() const
 {
     if (m_streamedByteArray == nullptr)
         return QByteArray();
+    qWarning("Fuzzy size: %i", m_streamedByteArray->size());
     return *m_streamedByteArray;
 }
 
@@ -51,13 +52,13 @@ void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
         *m_dataStream << reducePrecision(font.pixelSize());
         *m_dataStream << font.family().toLocal8Bit();
     }
-    if (state.state() & DirtyTransform)
-        calledButDataIgnored();
     if (state.state() & DirtyBrush)
         // Brush is not fuzzy yet
         calledButDataIgnored();
+    if (state.state() & DirtyTransform)
+        calledButDataIgnored();
     if (state.state() & DirtyHints)
-        *m_dataStream << reducePrecision(state.renderHints());
+        calledButDataIgnored();
     if (state.state() & DirtyClipRegion)
         calledButDataIgnored();
     if (state.state() & DirtyClipEnabled)
@@ -66,7 +67,7 @@ void FuzzyPaintEngine::updateState(const QPaintEngineState &state)
         calledButDataIgnored();
 
     ////////////////////
-    // not required?
+    // not called in our use cases (yet)
     if (state.state() & DirtyBrushOrigin)
         qWarning("Unhandled DirtyBrushOrigin");
     if (state.state() & DirtyBackground)
