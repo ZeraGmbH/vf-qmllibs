@@ -466,7 +466,6 @@ void FftBarChart::onUpdateTimer()
     QByteArray paintedRecording = fuzzyPaintDev.getDataRecorded();
     if (m_paintedRecording != paintedRecording) {
         m_paintedRecording = paintedRecording;
-        qWarning("FftBarChart::update() / %i", paintedRecording.size());
         update();
     }
 }

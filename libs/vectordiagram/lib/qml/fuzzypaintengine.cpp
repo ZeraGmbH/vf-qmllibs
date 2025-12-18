@@ -10,7 +10,6 @@ QByteArray FuzzyPaintEngine::getDataRecorded() const
 {
     if (m_streamedByteArray == nullptr)
         return QByteArray();
-    qWarning("Fuzzy size: %i", m_streamedByteArray->size());
     return *m_streamedByteArray;
 }
 
