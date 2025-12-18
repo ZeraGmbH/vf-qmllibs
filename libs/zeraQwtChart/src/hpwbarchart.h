@@ -99,7 +99,6 @@ signals:
 private slots:
     void onUpdateTimer();
     void onLabelsChanged(QStringList t_labels);
-    void onLeftBarCountChanged(int t_barCount);
 
 private:
     void startUpdate();
@@ -127,7 +126,6 @@ private:
     QList<double> m_qValues;
     QList<double> m_sValues;
     QColor m_colorLeftAxis;
-    int m_leftBarCount;
 };
 
 #endif // HPWBARCHART_H

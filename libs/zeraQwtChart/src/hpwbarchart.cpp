@@ -22,8 +22,7 @@ HpwBarChart::HpwBarChart(QQuickItem *t_parent):
     m_canvas(new QwtPlotCanvas()),
     m_plot(new QwtPlot()),
     m_barDataLeft(new BarData()), //cleaned up by the plot
-    m_minValueLeftAxis(1.0),
-    m_leftBarCount(0)
+    m_minValueLeftAxis(1.0)
 {
     connect(this, SIGNAL(heightChanged()), this, SLOT(onHeightChanged()));
     connect(this, SIGNAL(widthChanged()), this, SLOT(onWidthChanged()));
@@ -139,6 +138,7 @@ void HpwBarChart::setBgColor(QColor t_backgroundColor)
         m_canvas->setPalette(p);
         m_bgColor = t_backgroundColor;
         emit bgColorChanged(t_backgroundColor);
+        startUpdate();
     }
 }
 
@@ -146,9 +146,8 @@ void HpwBarChart::setborderColor(QColor t_borderColor)
 {
     if (m_borderColor != t_borderColor) {
         m_borderColor = t_borderColor;
-
-        /// @todo Broken TBD
         emit borderColorChanged(t_borderColor);
+        startUpdate();
     }
 }
 
@@ -207,14 +206,10 @@ void HpwBarChart::setTextColor(QColor t_textColor)
         if(m_plot->legend())
             m_plot->legend()->setPalette(tmpPa);
 
-        //plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
         m_plot->axisWidget(QwtPlot::xBottom)->setPalette(tmpPa);
 
         tmpScaleX=new BarScaleDraw(); //cleaned up by the plot
         tmpScaleX->setColor(t_textColor);
-
-        //tmpScaleY=new BarScaleDraw();
-        //tmpScaleY->setColor(arg);
 
         ///todo check if this is necessary since the palette was set previously
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, tmpScaleX);
@@ -249,8 +244,6 @@ void HpwBarChart::setColorLeftAxis(QColor t_color)
 
     m_plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
     m_colorLeftAxis = t_color;
-    //refresh bars
-    onLeftBarCountChanged(m_leftBarCount);
 }
 
 void HpwBarChart::setTitleLeftAxis(QString t_title)
@@ -305,20 +298,6 @@ void HpwBarChart::onUpdateTimer()
     }
 }
 
-void HpwBarChart::onLeftBarCountChanged(int t_barCount)
-{
-    m_barDataLeft->clearData();
-
-    //m_valuesLeftAxis is a list of P Q S values
-    //for(int i=0; i<t_barCount-2; i+=3)
-    t_barCount=41;
-    for(int i=0; i<t_barCount; ++i) {
-        m_barDataLeft->addData(m_colorLeftAxis, QString::number(i));
-        m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
-        m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
-    }
-}
-
 void HpwBarChart::startUpdate()
 {
     m_updateTimer = TimerFactoryQt::createSingleShot(10);
@@ -330,14 +309,16 @@ void HpwBarChart::startUpdate()
 void HpwBarChart::updateBarsAndLegends()
 {
     QVector<double> tmpSamples;
-    if(m_pValues.count()>0 && m_qValues.count()>0 && m_sValues.count()>0
-        && m_pValues.count() == m_qValues.count() && m_pValues.count() == m_sValues.count()) {
-        int tmpLeftBarCount=0;
-        tmpLeftBarCount = m_pValues.count() + m_qValues.count() + m_sValues.count();
-
-        if(m_leftBarCount != tmpLeftBarCount) {
-            m_leftBarCount = tmpLeftBarCount;
-            onLeftBarCountChanged(m_leftBarCount);
+    if (m_pValues.count()>0 && m_qValues.count()>0 && m_sValues.count()>0 &&
+        m_pValues.count() == m_qValues.count() && m_pValues.count() == m_sValues.count()) {
+        // m_valuesLeftAxis is a list of P Q S values
+        int tmpLeftBarCount = m_pValues.count() + m_qValues.count() + m_sValues.count();
+        m_barDataLeft->clearData();
+        int t_barCount=41;
+        for(int i=0; i<t_barCount; ++i) {
+            m_barDataLeft->addData(m_colorLeftAxis, QString::number(i));
+            m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
+            m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
         }
 
         for(int sampleCount = 0; sampleCount < tmpLeftBarCount/3; ++sampleCount) {
