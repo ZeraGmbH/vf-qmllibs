@@ -23,7 +23,6 @@ FftBarChart::FftBarChart(QQuickItem *t_parent):
     m_plot(new QwtPlot()),
     m_barDataLeft(new BarData()), //cleaned up by the plot
     m_minValueLeftAxis(1.0),
-    m_leftBarCount(0),
     m_barDataRight(new BarData()), //cleaned up by the plot
     m_minValueRightAxis(1.0)
 {
@@ -180,6 +179,7 @@ void FftBarChart::setBgColor(QColor t_backgroundColor)
         m_canvas->setPalette(p);
         m_bgColor = t_backgroundColor;
         emit bgColorChanged(t_backgroundColor);
+        startUpdate();
     }
 }
 
@@ -187,9 +187,9 @@ void FftBarChart::setborderColor(QColor t_borderColor)
 {
     if (m_borderColor != t_borderColor) {
         m_borderColor = t_borderColor;
-
         /// @todo Broken TBD
         emit borderColorChanged(t_borderColor);
+        startUpdate();
     }
 }
 
@@ -236,9 +236,8 @@ void FftBarChart::setTextColor(QColor t_textColor)
         tmpPa.setColor(QPalette::WindowText, t_textColor);
         m_plot->setPalette(tmpPa);
 
-        if(m_plot->legend()) {
+        if(m_plot->legend())
             m_plot->legend()->setPalette(tmpPa);
-        }
 
         //plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
         m_plot->axisWidget(QwtPlot::xBottom)->setPalette(tmpPa);
@@ -246,15 +245,14 @@ void FftBarChart::setTextColor(QColor t_textColor)
         tmpScaleX=new BarScaleDraw(); //cleaned up by the plot
         tmpScaleX->setColor(t_textColor);
 
-        //tmpScaleY=new BarScaleDraw();
-        //tmpScaleY->setColor(arg);
-
         ///todo check if this is necessary since the palette was set previously
         m_plot->setAxisScaleDraw(QwtPlot::xBottom, tmpScaleX);
 
         labelsChanged(m_bottomLabels);
+        m_textColor = t_textColor;
+
+        startUpdate();
     }
-    m_textColor = t_textColor;
 }
 
 void FftBarChart::setLogScaleLeftAxis(bool t_useLogScale)
@@ -307,14 +305,16 @@ void FftBarChart::setMinValueLeftAxis(double t_minValue)
 
 void FftBarChart::setColorLeftAxis(QColor t_color)
 {
-    QPalette tmpPa;
-    tmpPa.setColor(QPalette::Text, t_color);
-    tmpPa.setColor(QPalette::WindowText, t_color);
+    if (m_colorLeftAxis != t_color) {
+        QPalette tmpPa;
+        tmpPa.setColor(QPalette::Text, t_color);
+        tmpPa.setColor(QPalette::WindowText, t_color);
 
-    m_plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
-    m_colorLeftAxis = t_color;
-    //refresh bars
-    onLeftBarCountChanged(m_leftBarCount);
+        m_plot->axisWidget(QwtPlot::yLeft)->setPalette(tmpPa);
+        m_colorLeftAxis = t_color;
+
+        startUpdate();
+    }
 }
 
 void FftBarChart::setTitleLeftAxis(QString t_title)
@@ -372,14 +372,16 @@ void FftBarChart::setMinValueRightAxis(double t_minValue)
 
 void FftBarChart::setColorRightAxis(QColor t_color)
 {
-    QPalette tmpPa;
-    tmpPa.setColor(QPalette::Text, t_color);
-    tmpPa.setColor(QPalette::WindowText, t_color);
+    if (m_colorRightAxis != t_color) {
+        QPalette tmpPa;
+        tmpPa.setColor(QPalette::Text, t_color);
+        tmpPa.setColor(QPalette::WindowText, t_color);
 
-    m_plot->axisWidget(QwtPlot::yRight)->setPalette(tmpPa);
-    m_colorRightAxis = t_color;
-    //refresh bars
-    onLeftBarCountChanged(m_leftBarCount);
+        m_plot->axisWidget(QwtPlot::yRight)->setPalette(tmpPa);
+        m_colorRightAxis = t_color;
+
+        startUpdate();
+    }
 }
 
 void FftBarChart::setTitleRightAxis(QString t_title)
@@ -395,17 +397,16 @@ void FftBarChart::setRightAxisEnabled(bool t_rightAxisEnabled)
 void FftBarChart::updateBarsAndLegends()
 {
     QVector<double> tmpSamples;
-    int tmpLeftBarCount=0;
     const float tmpScaleFactor = m_maxValueLeftAxis/m_maxValueRightAxis;
 
     if(m_valuesLeftAxis.count()>0 && m_valuesLeftAxis.count() == m_valuesRightAxis.count()) {
         //m_valuesLeftAxis is a list of mixed real and imaginary numbers
         //and m_valuesRightAxis needs to be mudballed into the samples
-        tmpLeftBarCount = m_valuesLeftAxis.count();
-
-        if(m_leftBarCount != tmpLeftBarCount) {
-            m_leftBarCount = tmpLeftBarCount;
-            onLeftBarCountChanged(m_leftBarCount);
+        int tmpLeftBarCount = m_valuesLeftAxis.count();
+        m_barDataLeft->clearData();
+        for(int i=0; i<tmpLeftBarCount-1; i+=2) {
+            m_barDataLeft->addData(m_colorLeftAxis, QString::number(i/2));
+            m_barDataLeft->addData(m_colorRightAxis, QString(" "));
         }
 
         for(int i=0; i<tmpLeftBarCount-1; i+=2) {
@@ -422,6 +423,7 @@ void FftBarChart::updateBarsAndLegends()
             //this is bullshit, but due to management decisions it is required
             tmpSamples.append(tmpVectorB.length()*tmpScaleFactor);
         }
+
         if(m_legendEnabled)
             m_plot->insertLegend(new QwtLegend()); //cleaned up by the plot
         labelsChanged(m_barDataLeft->getTitles());
@@ -467,16 +469,6 @@ void FftBarChart::onUpdateTimer()
     if (m_paintedRecording != paintedRecording) {
         m_paintedRecording = paintedRecording;
         update();
-    }
-}
-
-void FftBarChart::onLeftBarCountChanged(int t_barCount)
-{
-    m_barDataLeft->clearData();
-
-    for(int i=0; i<t_barCount-1; i+=2) {
-        m_barDataLeft->addData(m_colorLeftAxis, QString::number(i/2));
-        m_barDataLeft->addData(m_colorRightAxis, QString(" "));
     }
 }
 

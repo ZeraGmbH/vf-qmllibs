@@ -122,7 +122,6 @@ signals:
 private slots:
     void onUpdateTimer();
     void onLabelsChanged(QStringList t_labels);
-    void onLeftBarCountChanged(int t_barCount);
 
 private:
     void startUpdate();
@@ -148,7 +147,6 @@ private:
     double m_minValueLeftAxis = 0.0;
     QList<qreal> m_valuesLeftAxis;
     QColor m_colorLeftAxis;
-    int m_leftBarCount = 0;
 
     //right axis
     bool m_logScaleRightAxis = false;
