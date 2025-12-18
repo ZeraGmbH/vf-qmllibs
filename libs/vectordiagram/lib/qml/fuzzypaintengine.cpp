@@ -157,13 +157,16 @@ void FuzzyPaintEngine::drawRects(const QRectF *rects, int rectCount)
 
 void FuzzyPaintEngine::storePaintPath(const QPainterPath &path)
 {
-    int elemCount = path.elementCount();
+    Q_UNUSED(path)
+    calledButDataIgnored();
+    // This is big boy - learn if we can ignore it
+    /*int elemCount = path.elementCount();
     for (int elemNo=0; elemNo<elemCount; ++elemNo) {
         QPainterPath::Element elem = path.elementAt(elemNo);
         *m_dataStream << reducePrecision(elem.type);
         *m_dataStream << reducePrecision(elem.x);
         *m_dataStream << reducePrecision(elem.y);
-    }
+    }*/
 }
 
 void FuzzyPaintEngine::calledButDataIgnored()
