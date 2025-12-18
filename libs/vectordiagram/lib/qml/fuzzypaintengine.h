@@ -22,7 +22,6 @@ public:
     void drawLines(const QLineF *lines, int lineCount) override;
     void drawPath(const QPainterPath &path) override;
 
-    // How to avoid call of this???
     void drawImage(const QRectF &rectangle,
                    const QImage &image,
                    const QRectF &sr,
