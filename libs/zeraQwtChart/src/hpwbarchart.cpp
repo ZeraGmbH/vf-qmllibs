@@ -365,19 +365,19 @@ void HpwBarChart::refreshPlot()
 
 void HpwBarChart::setPValues(QList<double> t_pValues)
 {
-    m_pValues = t_pValues;
+    m_pValues = avoidZeroArtifacts(t_pValues);
     onExternValuesChanged();
 }
 
 void HpwBarChart::setQValues(QList<double> t_qValues)
 {
-    m_qValues = t_qValues;
+    m_qValues = avoidZeroArtifacts(t_qValues);
     onExternValuesChanged();
 }
 
 void HpwBarChart::setSValues(QList<double> t_sValues)
 {
-    m_sValues = t_sValues;
+    m_sValues = avoidZeroArtifacts(t_sValues);
     onExternValuesChanged();
 }
 
@@ -394,4 +394,18 @@ void HpwBarChart::onLeftBarCountChanged(int t_barCount)
         m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
         m_barDataLeft->addData(m_colorLeftAxis, QString(" "));
     }
+}
+
+QList<double> HpwBarChart::avoidZeroArtifacts(const QList<double> &values)
+{
+    QList<double> adjustedValues;
+    // optical tests: below is no change in value detectable
+    const double minValue = fabs(m_minValueLeftAxis-m_maxValueLeftAxis) / 500.0;
+    for (const double &value : values) {
+        if(fabs(value) > minValue)
+            adjustedValues.append(value);
+        else
+            adjustedValues.append(0.0);
+    }
+    return adjustedValues;
 }
