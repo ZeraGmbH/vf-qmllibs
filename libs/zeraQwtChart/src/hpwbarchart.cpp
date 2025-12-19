@@ -32,7 +32,6 @@ HpwBarChart::HpwBarChart(QQuickItem *t_parent):
     m_plot->setAutoFillBackground(true);
 
     m_canvas->setPaintAttribute(QwtPlotCanvas::BackingStore, false);
-    m_canvas->setPaintAttribute(QwtPlotCanvas::Opaque, false);
     m_canvas->setLineWidth(1);
     m_canvas->setFrameStyle(QFrame::NoFrame);
 
