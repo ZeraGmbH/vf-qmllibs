@@ -12,6 +12,10 @@ quint32 PseudoCrcBuffer::getCrc() const
 
 bool PseudoCrcBuffer::open(OpenMode flags)
 {
+    if (isOpen()) {
+        qWarning("PseudoCrcBuffer::open: Buffer cannot be opened more than once");
+        return false;
+    }
     if ((flags & (Append | Truncate)) != 0)
         flags |= WriteOnly;
 
@@ -65,6 +69,7 @@ qint64 PseudoCrcBuffer::readData(char *data, qint64 maxSize)
 
 qint64 PseudoCrcBuffer::writeData(const char *data, qint64 len)
 {
-    m_crc32 = calcCrc32IsoHdlc(m_crc32, data, len);
+    m_crc32 = Crc32IsoHdlc::calcCrc32(data, len, m_crc32);
+    m_size += len;
     return len;
 }
