@@ -1,6 +1,7 @@
 import QtQuick 2.14
 import QtQuick.Controls 2.14
 import QtGraphicalEffects 1.14
+import Qt5Compat.GraphicalEffects 1.0
 
 SacVuDefaults {
     id: root

@@ -35,6 +35,13 @@ target_include_directories(zeracomponents
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
     )
 
+if("${QT_MAJOR_VER}" STREQUAL "6")
+    target_link_libraries(zeracomponents
+        PRIVATE
+            Qt6::Core5Compat
+    )
+endif()
+
 set_target_properties(zeracomponents PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(zeracomponents PROPERTIES SOVERSION ${PROJECT_VERSION_MAJOR})
 
