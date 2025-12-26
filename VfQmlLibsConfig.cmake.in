@@ -1,11 +1,18 @@
 include(CMakeFindDependencyMacro)
 
-find_dependency(Qt5 REQUIRED COMPONENTS Core Qml Quick VirtualKeyboard DBus Xml Svg)
 find_dependency(ZenuxCore REQUIRED)
 find_dependency(ZeraTranslation REQUIRED)
 find_dependency(SortFilterProxyModel REQUIRED)
-find_dependency(KF5NetworkManagerQt REQUIRED)
-find_dependency(KF5ModemManagerQt REQUIRED)
+
+if("${QT_MAJOR_VER}" STREQUAL "6")
+    find_dependency(Qt6 REQUIRED COMPONENTS Core Core5Compat Qml Quick VirtualKeyboard DBus Xml Svg)
+    find_dependency(KF6NetworkManagerQt REQUIRED)
+    find_dependency(KF6ModemManagerQt REQUIRED)
+else()
+    find_dependency(Qt5 REQUIRED COMPONENTS Core Qml Quick VirtualKeyboard DBus Xml Svg)
+    find_dependency(KF5NetworkManagerQt REQUIRED)
+    find_dependency(KF5ModemManagerQt REQUIRED)
+endif()
 
 include("${CMAKE_CURRENT_LIST_DIR}/VfQmlLibsTargets.cmake")
 

@@ -16,8 +16,8 @@ target_link_libraries(
     qwtcharts
     PUBLIC
     vector-diagram-lib
-    Qt5::Quick
-    Qt5::Qml
+    ${QTX}::Quick
+    ${QTX}::Qml
     ${QWT_LIBRARIES}
     )
 

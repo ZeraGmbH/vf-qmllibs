@@ -9,7 +9,7 @@ add_library(timedate-qml-wrapper SHARED
 
 target_link_libraries(timedate-qml-wrapper
     PUBLIC
-    Qt5::Qml
+    ${QTX}::Qml
     timedate1-interface
 )
 

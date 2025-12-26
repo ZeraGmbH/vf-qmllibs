@@ -10,7 +10,7 @@ function(SETUP_QTESTS_TIMEZONE_TRANSLATIONS)
             )
         target_link_libraries(${_testname}
             PUBLIC
-            Qt5::Test
+            ${QTX}::Test
             Zera::zera-timers-testlib
             timezone-translations
         )

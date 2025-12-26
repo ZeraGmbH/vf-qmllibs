@@ -14,7 +14,7 @@ add_library(notificationmanager-static
 
 target_link_libraries(notificationmanager-static
     PUBLIC
-    Qt5::Core
+    ${QTX}::Core
     Zera::zera-timers
     )
 

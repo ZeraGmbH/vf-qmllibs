@@ -3,7 +3,11 @@ add_custom_target( # for visibility in qt creator
     SOURCES timedate1.xml timedate1.readme
 )
 
-qt5_add_dbus_interface(INTERFACE_SOURCES timedate1.xml timedate1interface)
+if("${QT_MAJOR_VER}" STREQUAL "6")
+    qt6_add_dbus_interface(INTERFACE_SOURCES timedate1.xml timedate1interface)
+else()
+    qt5_add_dbus_interface(INTERFACE_SOURCES timedate1.xml timedate1interface)
+endif()
 
 file(GLOB HEADERS
     *.h
@@ -29,7 +33,7 @@ target_link_libraries(timedate1-interface
     PUBLIC
     Zera::zera-timers
     Zera::zera-tasks-base
-    Qt5::DBus
+    ${QTX}::DBus
     timezone-translations
 )
 

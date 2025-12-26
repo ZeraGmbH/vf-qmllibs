@@ -10,7 +10,7 @@ function(SETUP_QTESTS_NOTIFICATION_MANAG)
             )
         target_link_libraries(${_testname}
             PUBLIC
-            Qt5::Test
+            ${QTX}::Test
             notificationmanager-static
             Zera::zera-timers-testlib
         )

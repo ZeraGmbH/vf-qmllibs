@@ -24,7 +24,7 @@ SET_QML_PATH(zeraveincomponents src/qml)
 target_link_libraries(
     zeraveincomponents
     PUBLIC
-    Qt5::Quick
+    ${QTX}::Quick
     zeracomponents
     ZeraTranslation::ZeraTranslation
     )

@@ -10,7 +10,7 @@ function(SETUP_QTESTS_TIMEDATE1)
             )
         target_link_libraries(${_testname}
             PUBLIC
-            Qt5::Test
+            ${QTX}::Test
             timedate1-interface
             timedate1-interface-testlib
             Zera::zera-timers-testlib

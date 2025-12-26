@@ -14,9 +14,9 @@ add_library(vector-diagram-lib
 
 target_link_libraries(vector-diagram-lib
     PUBLIC
-    Qt5::Quick
-    Qt5::Qml
-    Qt5::Svg
+    ${QTX}::Quick
+    ${QTX}::Qml
+    ${QTX}::Svg
     Zera::zera-timers
     )
 

@@ -23,11 +23,11 @@ SET_QML_PATH(anmlib src/qml)
 
 target_link_libraries(anmlib
     PUBLIC
-    Qt5::Quick
-    Qt5::Qml
-    Qt5::DBus
-    KF5::NetworkManagerQt
-    KF5::ModemManagerQt
+    ${QTX}::Quick
+    ${QTX}::Qml
+    ${QTX}::DBus
+    ${KFX}::NetworkManagerQt
+    ${KFX}::ModemManagerQt
     ZeraTranslation::ZeraTranslation
     SortFilterProxyModel::SortFilterProxyModel
     FontAweSomeQml::FontAweSomeQml

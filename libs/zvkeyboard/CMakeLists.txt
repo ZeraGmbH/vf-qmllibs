@@ -23,8 +23,8 @@ SET_QML_PATH(ZVKeyboardLayout zvkeyboard/layouts)
 
 target_link_libraries(ZVKeyboardLayout
     PUBLIC
-    Qt5::Core
-    Qt5::Qml
+    ${QTX}::Core
+    ${QTX}::Qml
 )
 
 target_include_directories(ZVKeyboardLayout

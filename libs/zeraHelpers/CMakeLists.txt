@@ -23,7 +23,7 @@ SET_QML_PATH(qmlhelpers qml)
 
 target_link_libraries(qmlhelpers
     PUBLIC
-    Qt5::Quick
+    ${QTX}::Quick
     )
 
 target_include_directories(qmlhelpers

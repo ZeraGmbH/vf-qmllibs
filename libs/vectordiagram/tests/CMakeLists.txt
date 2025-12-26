@@ -13,7 +13,7 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
             )
         target_link_libraries(${_testname}
             PUBLIC
-            Qt5::Test
+            ${QTX}::Test
             Zera::zera-timers-testlib
             Zera::testlib-common
             Zera::xml-compare-testlib

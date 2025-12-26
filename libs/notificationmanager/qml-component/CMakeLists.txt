@@ -23,7 +23,7 @@ SET_QML_PATH(notificationmanager qml)
 
 target_link_libraries(notificationmanager
     PUBLIC
-    Qt5::Quick
+    ${QTX}::Quick
     PRIVATE
     notificationmanager-static
     )
