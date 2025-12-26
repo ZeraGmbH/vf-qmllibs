@@ -1,14 +1,11 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Styles 1.4
-
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
 import ZeraTranslation 1.0
 import anmsettings 1.0
 
-
 Pane {
-id: rootItm
+    id: rootItm
     Label{
         id: header
         text: Z.tr("Connection Information")
