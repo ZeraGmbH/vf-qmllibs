@@ -203,7 +203,11 @@ QFont VectorSettingsLayout::getLabelFont(const QPainter *painter) const
     QFont defaultFont;
     defaultFont.setPointSizeF(VectorPaintCalc::getClipSquareLen(painter) * m_labelFontSize);
     defaultFont.setFamily("Sans");
-    defaultFont.setWeight(QFont::Medium);
+#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+    defaultFont.setWeight(QFont::Weight(QFont::Medium));
+#else
+    defaultFont.setWeight(QFont::Weight(570)); // Mimic Qt5
+#endif
     defaultFont.setKerning(false);
     return defaultFont;
 }
