@@ -1,8 +1,7 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.0
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Styles 1.4
-import QtQuick.VirtualKeyboard.Settings 2.2
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQuick.VirtualKeyboard.Settings 2.14
 import anmsettings 1.0
 import ZeraFa 1.0
 import ZeraLocale 1.0
@@ -83,7 +82,7 @@ Pane {
             pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
             description.width: labelWidth
-            validator: RegExpValidator{ regExp: /.{1,}/ }
+            validator: RegularExpressionValidator{ regularExpression: /.{1,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
                 return true
@@ -134,7 +133,7 @@ Pane {
             description.width: labelWidth
             height: rowHeight
             pointSize: rootItm.pointSize
-            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
             // overrides
             function doApplyInput(newText) {
@@ -157,7 +156,7 @@ Pane {
             description.width: labelWidth
             height: rowHeight
             pointSize: rootItm.pointSize
-            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
             // overrides
             function doApplyInput(newText) {
@@ -216,7 +215,7 @@ Pane {
             description.width: labelWidth
             height: rowHeight
             pointSize: rootItm.pointSize
-            validator: RegExpValidator { regExp: /([a-f0-9:]+:+)+[a-f0-9]+/}
+            validator: RegularExpressionValidator { regularExpression: /([a-f0-9:]+:+)+[a-f0-9]+/}
             enabled: backend.ipFieldsEnabled(ipv6Mode.currentIndex)
             // overrides
             function doApplyInput(newText) {
@@ -234,7 +233,7 @@ Pane {
             height: rowHeight
             pointSize: rootItm.pointSize
             // TODO: This looks like a copy & paste from IPv4
-            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             enabled: backend.ipFieldsEnabled(ipv6Mode.currentIndex)
             // overrides
             function doApplyInput(newText) {

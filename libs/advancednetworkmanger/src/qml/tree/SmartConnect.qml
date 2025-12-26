@@ -1,7 +1,7 @@
 import QtQuick 2.14
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Material 2.12
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQuick.Controls.Material 2.14
 import ZeraTranslation 1.0
 import anmsettings 1.0
 import "../components"
@@ -60,7 +60,7 @@ Dialog {
                 id: pw
                 echoMode: pwvisible.active ? TextInput.Normal : TextInput.Password
                 Layout.fillWidth: true
-                validator: RegExpValidator{ regExp: /.{8,}/}
+                validator: RegularExpressionValidator{ regularExpression: /.{8,}/}
                 horizontalAlignment: Text.AlignRight
                 Material.accent: {
                     if(!acceptableInput) {

@@ -1,8 +1,8 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.5
-import QtQuick.Layouts 1.12
-import QtQuick.Controls.Styles 1.4
-import QtQml.Models 2.11
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Layouts 1.14
+import QtQuick.Controls.Styles 1.14
+import QtQml.Models 2.14
 import anmsettings 1.0
 import ZeraFa 1.0
 import ZeraComponents 1.0
@@ -93,7 +93,7 @@ Pane {
             pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
             description.width: labelWidth
-            validator: RegExpValidator{ regExp: /.{1,}/ }
+            validator: RegularExpressionValidator{ regularExpression: /.{1,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
                 return true
@@ -116,7 +116,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("SSID:")
                 description.width: labelWidth
-                validator: RegExpValidator{ regExp: /.{1,}/}
+                validator: RegularExpressionValidator{ regularExpression: /.{1,}/}
                 function doApplyInput(newText) {
                     backend.ssid = newText;
                     return true
@@ -152,7 +152,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("Password:")
                 description.width: labelWidth
-                validator: RegExpValidator{ regExp: /.{8,}/}
+                validator: RegularExpressionValidator{ regularExpression: /.{8,}/}
                 function doApplyInput(newText) {
                     backend.password = newText;
                     return true
@@ -173,7 +173,7 @@ Pane {
             description.width: labelWidth
             height: rowHeight
             pointSize: rootItm.pointSize
-            validator: RegExpValidator { regExp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
+            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
             visible: hotspot
             // overrides
             function doApplyInput(newText) {

@@ -84,8 +84,8 @@ ApplicationWindow {
                 // Alphanum text
                 ZLineEdit {
                     text: "AlphaNum" + modelData
-                    validator: RegExpValidator {
-                        regExp: /AlphaNum[0-9].*/
+                    validator: RegularExpressionValidator {
+                        regularExpression: /AlphaNum[0-9].*/
                     }
                     DelayTest {
                         id: alNumTextTimer
