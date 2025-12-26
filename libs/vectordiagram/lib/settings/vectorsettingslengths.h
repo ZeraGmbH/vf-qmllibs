@@ -2,6 +2,7 @@
 #define VECTORSETTINGSLENGTHS_H
 
 #include "vectorconstants.h"
+#include <QObject>
 #include <QPainter>
 
 class VectorSettingsLengths : public QObject
