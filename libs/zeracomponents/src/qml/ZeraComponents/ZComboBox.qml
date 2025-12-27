@@ -10,7 +10,7 @@ import ZeraThemeConfig 1.0
 Rectangle {
     id: root
 
-    property var popupBorderItem: ApplicationWindow.overlay
+    property var popupBorderItem: Overlay.overlay
     property bool popupKeepHorizontalSize: false
     property alias headerComponent: headerLoader.sourceComponent
     readonly property alias headerItem: headerLoader.item

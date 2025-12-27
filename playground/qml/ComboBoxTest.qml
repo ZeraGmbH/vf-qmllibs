@@ -99,7 +99,7 @@ ApplicationWindow {
 
                             ZComboBox {
                                 anchors.fill: parent
-                                popupBorderItem: optApplicationBorder.checked ? ApplicationWindow.overlay : comboCollectionDisplay
+                                popupBorderItem: optApplicationBorder.checked ? Overlay.overlay : comboCollectionDisplay
                                 contentMaxRows: optContentMaxRows.value
                                 popupKeepHorizontalSize: optPopupKeepHorizontalSize.checked
                                 arrayMode: true
