@@ -155,6 +155,8 @@ void VectorPixAtomicsPainter::drawGradientLine(QPainter *painter, const float li
     painter->setPen(Qt::NoPen);
 
     QPolygonF polyRect = lineToRectangleForSvgGradient(QLineF(pt1.point, pt2.point), lineWidth, lineWidth/2);
+    if (polyRect.isEmpty())
+        return;
     painter->drawPolygon(polyRect);
 
     // Draw rounded caps
@@ -176,6 +178,9 @@ QPolygonF VectorPixAtomicsPainter::lineToRectangleForSvgGradient(const QLineF &l
 {
     const QPointF &start = line.p1();
     const QPointF &end = line.p2();
+    if (start == end)
+        return QPolygonF();
+
     // Calculate the direction vector
     QPointF direction = end - start;
 
