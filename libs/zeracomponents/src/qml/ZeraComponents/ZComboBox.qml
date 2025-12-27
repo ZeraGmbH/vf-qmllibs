@@ -114,9 +114,9 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: 8
         anchors.verticalCenter: parent.verticalCenter
+        font.pointSize: root.height > 0 ? root.height * 0.2 : 10
         text: "▼"
         textFormat: Text.PlainText
-        font.pointSize: root.height > 0 ? root.height * 0.2 : 10
     }
 
     MouseArea {

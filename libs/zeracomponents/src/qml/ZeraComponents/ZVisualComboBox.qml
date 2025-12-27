@@ -1,6 +1,6 @@
-import QtQuick 2.4
-import QtQuick.Controls 2.0
-import QtQuick.Controls.Material 2.0
+import QtQuick 2.14
+import QtQuick.Controls 2.14
+import QtQuick.Controls.Material 2.14
 import QtQuick.Controls.Material.impl 2.14
 import ZeraThemeConfig 1.0
 
@@ -10,11 +10,8 @@ import ZeraThemeConfig 1.0
 Rectangle {
     id: root
 
-    //List view does not support JS arrays
-    ListModel {
-        id: fakeModel
-    }
-
+    property var popupBorderItem: Overlay.overlay
+    property bool popupKeepHorizontalSize: false
     //supports only arrays, but the property is kept to remain compatible with the ZComboBox, maybe it is possible to join both into one type that can handle both use cases?
     readonly property bool arrayMode: true
     property int count: (model !==undefined) ? (arrayMode===true ? fakeModel.count : model.count) : 0;
@@ -23,14 +20,28 @@ Rectangle {
     property string currentText;
     property string selectedText;
     property var model: [];
+    property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
+    property int displayColumns: Math.ceil(count/displayRows)
     property var imageModel: [];
     property int contentMaxRows: 0
+
+    function openDropList() {
+        if(enabled && count > 0) {
+            getPositionInParent()
+            focus = true // here focus is intended
+            comboPopup.open()
+        }
+    }
     //used when the displayed text should only change from external value changes
     property bool automaticIndexChange: false
     property bool imageMipmap: true;
     readonly property bool modelInitialized: arrayMode === true && model.length>0 && imageModel.length>0;
     onModelInitializedChanged: updateFakeModel();
 
+    // List view does not support JS arrays
+    ListModel {
+        id: fakeModel
+    }
     function updateFakeModel() {
         if(modelInitialized === true) {
             fakeModel.clear();
@@ -39,9 +50,6 @@ Rectangle {
             }
         }
     }
-
-    readonly property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
-    readonly property int displayColums: Math.ceil(count/displayRows)
 
     function updateCurrentText() {
         if(root.arrayMode) {
@@ -65,13 +73,13 @@ Rectangle {
     onImageModelChanged: {
         fakeModel.clear();
         if(model && imageModel) {
-            selectionDialog.close()
+            comboPopup.close()
         }
     }
     onModelChanged: {
         if(model && imageModel) {
             updateFakeModel();
-            selectionDialog.close()
+            comboPopup.close()
         }
     }
     onTargetIndexChanged: {
@@ -108,32 +116,52 @@ Rectangle {
 
     MouseArea {
         anchors.fill: parent
-        onClicked: {
-            if(root.enabled && root.count > 0) {
-                root.focus = true // here focus is intended
-                selectionDialog.open()
-            }
-        }
+        onClicked: openDropList()
     }
 
+    function getPositionInParent() {
+        var l = mapToItem(comboPopup.parent, width/2, height/2)
+        comboPopup.posXInApplication = l.x
+        comboPopup.posYInApplication = l.y
+    }
+    readonly property real popupMargin: 2
     Popup {
-        id: selectionDialog
+        id: comboPopup
+        background: Item {} //remove background rectangle - is draws at unexpected upper left corner
 
-        property int heightOffset: -popupElement.height/2
-        property int widthOffset: - root.width * (displayColums - 1)
-        background: Item {} //remove background rectangle
         closePolicy: Popup.CloseOnPressOutside | Popup.CloseOnEscape
-        onClosed: {
-            root.focus = false
-        }
+        onClosed: root.focus = false
 
-        y:  -15 + heightOffset
-        x: -15 + widthOffset
+        parent: popupBorderItem
+        leftPadding: 0
+        rightPadding: 0
+        topPadding: 0
+        bottomPadding: 0
+        property real posXInApplication
+        property real posYInApplication
+        width: root.width * (popupKeepHorizontalSize ? 1 : displayColumns)
+        x: {
+            let posX = posXInApplication - width/2
+            if(posX < 0)
+                posX = 0
+            else if(posX + width > parent.width)
+                posX = parent.width - width
+            return posX
+        }
+        height: root.height * displayRows //+ headerLoader.height
+        y: {
+            let posY = posYInApplication - height/2
+            if(posY < 0)
+                posY = 0
+            else if(posY + height > parent.height)
+                posY = parent.height - height
+            return posY
+        }
 
         Rectangle {
             id: popupElement
-            width: root.width * displayColums + comboView.anchors.margins*2
-            height: root.height * displayRows + comboView.anchors.margins*2
+            width: comboPopup.width
+            height: comboPopup.height
             color: Material.backgroundColor //used to prevent opacity leak from Material.dropShadowColor of the delegates
             Rectangle {
                 anchors.fill: parent
@@ -144,30 +172,27 @@ Rectangle {
             GridView {
                 id: comboView
                 anchors.fill: parent
-                anchors.margins: 2
+                anchors.margins: popupMargin
 
                 boundsBehavior: ListView.StopAtBounds
 
-                //adding some space here is the same as "spacing: x" is in other components
-                cellHeight: root.height
-                cellWidth: root.width
+                cellHeight: height / displayRows
+                cellWidth: width / displayColumns
 
                 flow: GridView.FlowTopToBottom
 
                 //need to convert the array to a model
                 model: (root.arrayMode===true) ? fakeModel : root.model;
                 delegate: Rectangle {
-
                     color: (root.targetIndex === index) ? Material.accent : ZTC.buttonColor
                     border.color: Material.dropShadowColor
 
-                    height: root.height
-                    width: root.width
+                    height: comboView.cellHeight
+                    width: comboView.cellWidth
                     radius: 4
 
                     MouseArea {
                         anchors.fill: parent
-
                         onClicked: {
                             if(root.targetIndex !== index) {
                                 var refreshSelectedText = false;
@@ -187,7 +212,7 @@ Rectangle {
                                     root.selectedTextChanged();
                                 }
                             }
-                            selectionDialog.close()
+                            comboPopup.close()
                         }
                     }
 
