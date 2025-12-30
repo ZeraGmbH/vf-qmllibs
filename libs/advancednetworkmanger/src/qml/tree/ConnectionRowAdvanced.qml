@@ -99,7 +99,7 @@ Item{
             Layout.alignment: Qt.AlignVCenter
             ZSwitch {
                 id: actswitch
-                height: rootItm.height
+                implicitHeight: rootItm.height
                 width: rootItm.width
                 enabled: rootItm.available_
                 onClicked: {
