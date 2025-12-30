@@ -219,35 +219,34 @@ Pane {
             anchors.leftMargin: parent.width/30
             height: list.height / 15
             // Action handlers
-            onEdit: {
+            onEdit: (path) => {
                 if(groupe_ == "ETHERNET") {
-                    ethLoader.load(p_path)
+                    ethLoader.load(path)
                 }
                 else if(groupe_ === "WIFI") {
-                    wifiLoader.load(p_path, false)
+                    wifiLoader.load(path, false)
                 }
                 else if(groupe_ === "HOTSPOT"){
-                    wifiLoader.load(p_path, true)
+                    wifiLoader.load(path, true)
                 }
             }
-            onRemove: {
-                backend.removeConnection(p_path)
+            onRemove: (path) => {
+                backend.removeConnection(path)
             }
-            onActivate: {
-                var Device = device;
-                if(!stored_ && Device !== "") {
-                    smartConnectLoader.rowObject=this;
-                    smartConnectLoader.ssid = name_;
-                    smartConnectLoader.device = Device;
-                    smartConnectLoader.path = p_path;
-                    smartConnectLoader.newCon=true;
-                    smartConnectLoader.active=true;
-                } else if(Device !== "") {
-                    backend.connect(p_path, Device);
+            onActivate: (path, device) => {
+                if(!stored_ && device !== "") {
+                    smartConnectLoader.rowObject=this
+                    smartConnectLoader.ssid = name_
+                    smartConnectLoader.device = device
+                    smartConnectLoader.path = path
+                    smartConnectLoader.newCon=true
+                    smartConnectLoader.active=true
                 }
+                else if(device !== "")
+                    backend.connect(path, device)
             }
-            onDeactivate: {
-                backend.disconnect(p_path)
+            onDeactivate: (path) => {
+                backend.disconnect(path)
             }
         }
         // ListView section bindings
