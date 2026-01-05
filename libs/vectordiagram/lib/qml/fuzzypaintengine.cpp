@@ -31,7 +31,7 @@ bool FuzzyPaintEngine::end()
     return true;
 }
 
-#define PRECISION_TYPE qint8
+#define PRECISION_TYPE qint16
 
 PRECISION_TYPE reducePrecision(float x)
 {
