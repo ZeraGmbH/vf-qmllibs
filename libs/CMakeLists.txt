@@ -1,10 +1,10 @@
 add_subdirectory(advancednetworkmanger)
+add_subdirectory(charts-bar-qwt)
 add_subdirectory(datetime-setter)
 add_subdirectory(notificationmanager)
 add_subdirectory(vectordiagram)
 add_subdirectory(zeracomponents)
 add_subdirectory(zeraFa)
 add_subdirectory(zeraHelpers)
-add_subdirectory(zeraQwtChart)
 add_subdirectory(zvkeyboard)
 
