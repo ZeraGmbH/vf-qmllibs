@@ -17,6 +17,7 @@ target_link_libraries(vector-diagram-lib
     ${QTX}::Quick
     ${QTX}::Qml
     ${QTX}::Svg
+    painter-tools
     Zera::zera-timers
     )
 
