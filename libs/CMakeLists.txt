@@ -1,5 +1,6 @@
 add_subdirectory(advancednetworkmanger)
 add_subdirectory(charts-bar-qwt)
+add_subdirectory(charts-line-qt)
 add_subdirectory(datetime-setter)
 add_subdirectory(notificationmanager)
 add_subdirectory(painter-tools)

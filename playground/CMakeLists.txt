@@ -15,6 +15,7 @@ target_link_libraries(
         zerafa
         ZVKeyboardLayout
         timedate-qml-wrapper
+        line-charts-qt
 )
 
 install(TARGETS vf-qmllibs-examples

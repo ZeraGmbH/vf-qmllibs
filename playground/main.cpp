@@ -2,6 +2,7 @@
 #include "notificationmanager.h"
 #include "zeracomponents.h"
 #include "zvkeyboardlayout.h"
+#include "chartitemqmlregister.h"
 #include "QQmlApplicationEngine"
 #include <QGuiApplication>
 #include <QQmlEngine>
@@ -25,6 +26,7 @@ int main(int argc, char *argv[])
     AdvancedNetworkmanager::registerQml(engine);
     NotificationManager::registerQml(engine);
     ZeraComponents::registerQml(engine);
+    ChartItemQmlRegister::registerQml();
 
     return app.exec();
 }
