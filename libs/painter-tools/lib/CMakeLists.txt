@@ -15,6 +15,7 @@ add_library(painter-tools
 target_link_libraries(painter-tools
     PUBLIC
     ${QTX}::Gui
+    Zera::zera-crc
     )
 
 target_include_directories(painter-tools
