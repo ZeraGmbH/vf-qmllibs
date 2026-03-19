@@ -89,40 +89,40 @@ public slots:
     void onExternValuesChanged();
     void onHeightChanged();
     void onWidthChanged();
-    void setBgColor(QColor t_backgroundColor);
-    void setborderColor(QColor t_borderColor);
-    void useBottomLabels(bool t_labelsEnabled);
-    void setChartTitle(QString t_chartTitle);
-    void setLegendEnabled(bool t_legendEnabled);
-    void setTextColor(QColor t_textColor);
+    void setBgColor(const QColor &backgroundColor);
+    void setborderColor(const QColor &borderColor);
+    void useBottomLabels(bool labelsEnabled);
+    void setChartTitle(const QString &chartTitle);
+    void setLegendEnabled(bool legendEnabled);
+    void setTextColor(const QColor &textColor);
 
     //left axis
-    void setLogScaleLeftAxis(bool t_useLogScale);
-    void setMaxValueLeftAxis(double t_maxValue);
-    void setMinValueLeftAxis(double t_minValue);
-    void setColorLeftAxis(QColor t_color);
-    void setTitleLeftAxis(QString t_title);
-    void onLeftValueChanged(QVariant t_leftValue);
+    void setLogScaleLeftAxis(bool useLogScale);
+    void setMaxValueLeftAxis(double maxValue);
+    void setMinValueLeftAxis(double minValue);
+    void setColorLeftAxis(const QColor &color);
+    void setTitleLeftAxis(const QString &title);
+    void onLeftValueChanged(const QVariant &leftValue);
 
     //right axis
-    void setLogScaleRightAxis(bool t_useLogScale);
-    void setMaxValueRightAxis(double t_maxValue);
-    void setMinValueRightAxis(double t_minValue);
-    void setColorRightAxis(QColor t_color);
-    void setTitleRightAxis(QString t_title);
-    void setRightAxisEnabled(bool t_rightAxisEnabled);
-    void onRightValueChanged(QVariant t_rightValue);
+    void setLogScaleRightAxis(bool useLogScale);
+    void setMaxValueRightAxis(double maxValue);
+    void setMinValueRightAxis(double minValue);
+    void setColorRightAxis(const QColor &color);
+    void setTitleRightAxis(const QString &title);
+    void setRightAxisEnabled(bool rightAxisEnabled);
+    void onRightValueChanged(const QVariant &rightValue);
 
 signals:
-    void bgColorChanged(QColor t_backgroundColor);
-    void borderColorChanged(QColor t_borderColor);
-    void labelsChanged(QStringList t_labelsEnabled);
-    void maxValueLeftAxisChanged(double t_maxValueLeftAxis);
-    void minValueChanged(double t_minValue);
+    void bgColorChanged(const QColor &backgroundColor);
+    void borderColorChanged(const QColor borderColor);
+    void labelsChanged(const QStringList &labelsEnabled);
+    void maxValueLeftAxisChanged(double maxValueLeftAxis);
+    void minValueChanged(double minValue);
 
 private slots:
     void onUpdateTimer();
-    void onLabelsChanged(QStringList t_labels);
+    void onLabelsChanged(const QStringList &labels);
 
 private:
     void startUpdate();
