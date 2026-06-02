@@ -42,10 +42,7 @@ QString ConnectionTreeInterface::getDevice(QString p_conPath)
 
 void ConnectionTreeInterface::connect(QString p_conPath, QString p_devPath, bool force)
 {
-    QString devPath = getDevice(p_conPath);
-    if(devPath == "" || force)
-        devPath = p_devPath;
-    NetworkManager::activateConnection(p_conPath,p_devPath,"");
+    NetworkManager::activateConnection(p_conPath, p_devPath, "");
 }
 
 void ConnectionTreeInterface::disconnect(QString p_conPath)
