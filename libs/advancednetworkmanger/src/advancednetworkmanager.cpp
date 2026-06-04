@@ -33,7 +33,6 @@ void AdvancedNetworkmanager::registerQml(QQmlApplicationEngine &engine)
 void AdvancedNetworkmanager::registerCppTypes()
 {
     #define uri "anmsettings"
-    qmlRegisterType<ConnectionModel>(uri, 1, 0, "ConnectionModel");
     qmlRegisterType<ConnectionTreeInterface>(uri, 1, 0, "ConnectionTreeInterface");
     qmlRegisterType<WiredConnectionSettingsInterface>(uri, 1, 0, "WiredConnectionSettingsInterface");
     qmlRegisterType<WirelessConnectionSettingsInterface>(uri, 1, 0, "WirelessConnectionSettingsInterface");
