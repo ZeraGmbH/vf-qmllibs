@@ -49,7 +49,7 @@ ConnectionItem EthernetNetworks::CreateConItem(NetworkManager::Connection::Ptr p
     con.Name = p_con->name();
     con.Groupe = "ETHERNET";
     con.NmPath = p_con->path();
-    con.Available = true;
+    con.Available = false;
     con.Stored = true;
     con.Type = ConType::Cable;
     con.Connected = isConnectionActive(p_con->path());
