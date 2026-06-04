@@ -16,23 +16,29 @@
 #include <QList>
 #include <memory>
 
+enum class ConClassType {
+    NA = 0,
+    Con,
+    AP
+};
+
 class ConStruct{
 public:
-    QVariant metaData;
+    ConClassType m_connectionClass;
     QVariant con;
-    QList<QMetaObject::Connection> qtCons;
+    QList<QMetaObject::Connection> m_qtConnectionList;
 };
 
 class DevStruct{
 public:
-    NetworkManager::Device::Ptr dev;
-    QList<QMetaObject::Connection> qtCons;
+    NetworkManager::Device::Ptr m_netManDevice;
+    QList<QMetaObject::Connection> m_qtConnectionList;
 };
 
-class AconStruct{
+class ActiveConnnections{
 public:
     QString path;
-    QList<QMetaObject::Connection> qtCons;
+    QList<QMetaObject::Connection> m_qtConnectionList;
 };
 
 class AbstractNetwork : public QObject
@@ -63,7 +69,7 @@ protected:
 
     std::shared_ptr<ConnectionList> m_list;
     QMap<QString,ConStruct> m_conList;
-    QMap<QString,AconStruct> m_aConList;
+    QMap<QString,ActiveConnnections> m_aConList;
     QMap<QString,DevStruct> m_devList;
     std::shared_ptr<DeviceManager> m_devManager;
     NetworkManager::Device::Type m_type;

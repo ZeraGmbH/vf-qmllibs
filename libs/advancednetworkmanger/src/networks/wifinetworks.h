@@ -4,10 +4,6 @@
 #include "abstractnetwork.h"
 #include <NetworkManagerQt/WirelessDevice>
 
-
-enum class ConClassType{NA = 0, Con, AP};
-
-
 class WifiNetworks : public AbstractNetwork
 {
     Q_OBJECT

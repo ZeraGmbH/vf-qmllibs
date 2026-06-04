@@ -11,12 +11,12 @@ void AbstractNetwork::connectionActivated(const QString &p_path)
         QString path = acon->connection()->path();
         if(m_conList.contains(path)) {
             ConnectionItem itm = m_list->itemByPath(path);
-            AconStruct acons;
-            acons.path=path;
-            acons.qtCons.append(connect(acon.get(),&NetworkManager::ActiveConnection::stateChangedReason,this,[path,this](NetworkManager::ActiveConnection::State state, NetworkManager::ActiveConnection::Reason reason){
+            ActiveConnnections activeConnections;
+            activeConnections.path = path;
+            activeConnections.m_qtConnectionList.append(connect(acon.get(),&NetworkManager::ActiveConnection::stateChangedReason,this,[path,this](NetworkManager::ActiveConnection::State state, NetworkManager::ActiveConnection::Reason reason){
                 stateChangeReason(path,state,reason);
             }));
-            m_aConList[p_path]=acons;
+            m_aConList[p_path] = activeConnections;
             if(itm.NmPath == path) {
                 itm.Available=true;
                 m_list->setItemByPath(path,itm);
@@ -30,7 +30,7 @@ void AbstractNetwork::connectionDeactivate(const QString &p_path)
     if(m_aConList.contains(p_path)) {
         if(m_conList.contains(m_aConList[p_path].path)) {
             QString path = m_aConList[p_path].path;
-            for(QMetaObject::Connection qtcon : m_aConList[p_path].qtCons)
+            for(QMetaObject::Connection qtcon : m_aConList[p_path].m_qtConnectionList)
                 disconnect(qtcon);
             m_aConList.remove(p_path);
             ConnectionItem itm = m_list->itemByPath(path);
@@ -50,7 +50,7 @@ void AbstractNetwork::addConnectionToList(NetworkManager::Connection::Ptr p_con,
         ConStruct conBuf;
         conBuf.con.setValue(p_con);
         m_conList[path]=conBuf;
-        m_conList[path].qtCons.append(connect(p_con.get(),&NetworkManager::Connection::updated,this,[path,this](){
+        m_conList[path].m_qtConnectionList.append(connect(p_con.get(),&NetworkManager::Connection::updated,this,[path,this](){
             update(path);
         }));
         m_list->addItem(conItem);
@@ -133,7 +133,7 @@ void AbstractNetwork::addConnection(const QString &p_path)
 void AbstractNetwork::removeConnection(const QString &p_uni)
 {
     if(m_conList.contains(p_uni)) {
-        for(QMetaObject::Connection qtCon : qAsConst(m_conList[p_uni].qtCons))
+        for(QMetaObject::Connection qtCon : qAsConst(m_conList[p_uni].m_qtConnectionList))
             disconnect(qtCon);
         m_conList.remove(p_uni);
         m_list->removeByPath(p_uni);
@@ -169,13 +169,13 @@ void AbstractNetwork::addDevice(NetworkManager::Device::Type p_type, QString p_d
     if(p_type == m_type){
         NetworkManager::Device::Ptr dev = m_devManager->getDevice(p_device);
         DevStruct device;
-        device.dev = dev;
+        device.m_netManDevice = dev;
         m_devList[p_device] = device;
         findAvailableConnections(p_device);
-        device.qtCons.append(connect(device.dev.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
+        device.m_qtConnectionList.append(connect(device.m_netManDevice.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
             addAvailabelConnection(p_device, p_apPath);
         }));
-        device.qtCons.append(connect(device.dev.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
+        device.m_qtConnectionList.append(connect(device.m_netManDevice.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
             removeAvailabelConnection(p_device, p_apPath);
         }));
     }
@@ -185,7 +185,7 @@ void AbstractNetwork::removeDevice(QString p_device)
 {
     if(m_devList.contains(p_device)) {
         m_devList.remove(p_device);
-        for(QMetaObject::Connection qtCon : m_devList[p_device].qtCons)
+        for(QMetaObject::Connection qtCon : m_devList[p_device].m_qtConnectionList)
             disconnect(qtCon);
     }
 }
