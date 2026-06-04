@@ -2,7 +2,6 @@
 #define CONNECTIONTREEINTERFACE_H
 
 #include "connectionmodel.h"
-#include "abstractnetwork.h"
 #include "ethernetnetworks.h"
 #include "wifinetworks.h"
 #include <memory>
