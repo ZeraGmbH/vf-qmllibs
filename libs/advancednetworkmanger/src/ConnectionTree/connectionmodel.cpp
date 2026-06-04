@@ -50,7 +50,6 @@ int ConnectionModel::rowCount(const QModelIndex &parent) const
 
 QVariant ConnectionModel::data(const QModelIndex &index, int role) const
 {
-
     ConnectionItem itm = m_connectionList->items().at(index.row());
     switch(role){
     case GroupeRole:
@@ -87,45 +86,6 @@ QVariant ConnectionModel::data(const QModelIndex &index, int role) const
     default:
         return QVariant();
     }
-}
-
-bool ConnectionModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-    ConnectionItem itm = m_connectionList->items().at(index.row());
-    switch(role){
-    case GroupeRole:
-        itm.Groupe = value.toString();
-        break;
-    case NameRole:
-        itm.Name= value.toString();
-        break;
-    case NmPathRole:
-        itm.NmPath= value.toString();
-        break;
-    case AvailableRole:
-        itm.Available= value.toBool();
-        break;
-    case SignalStrengthRole:
-        itm.SignalStrength= value.toInt();
-        break;
-    case TypeRole:
-        itm.Type= (ConType)value.toInt();
-        break;
-    case ConnectedRole:
-        itm.Connected= value.toBool();
-        break;
-    case StoredRole:
-        itm.Stored= value.toBool();
-        break;
-    case DeviceMap:
-        //  itm.Devices= value.toMap();
-        break;
-    case Ipv4:
-        itm.Ipv4= value.toString();
-        break;
-    }
-    emit dataChanged(index, index, QVector<int>() << role);
-    return true;
 }
 
 Qt::ItemFlags ConnectionModel::flags(const QModelIndex &index) const
