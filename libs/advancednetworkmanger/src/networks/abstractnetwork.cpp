@@ -167,15 +167,15 @@ void AbstractNetwork::removeAvailabelConnection(const QString &p_devPath, const 
 void AbstractNetwork::addDevice(NetworkManager::Device::Type p_type, QString p_device)
 {
     if(p_type == m_type){
-        NetworkManager::Device::Ptr dev = m_devManager->getDevice(p_device);
+        NetworkManager::Device::Ptr netManDevice = m_devManager->getDevice(p_device);
         DevStruct device;
-        device.m_netManDevice = dev;
+        device.m_netManDevice = netManDevice;
         m_devList[p_device] = device;
         findAvailableConnections(p_device);
-        device.m_qtConnectionList.append(connect(device.m_netManDevice.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
+        device.m_qtConnectionList.append(connect(netManDevice.data(), &NetworkManager::Device::availableConnectionDisappeared, this, [p_device,this](const QString &p_apPath){
             addAvailabelConnection(p_device, p_apPath);
         }));
-        device.m_qtConnectionList.append(connect(device.m_netManDevice.data(),&NetworkManager::Device::availableConnectionDisappeared,this,[p_device,this](const QString &p_apPath){
+        device.m_qtConnectionList.append(connect(netManDevice.data(), &NetworkManager::Device::availableConnectionDisappeared, this, [p_device,this](const QString &p_apPath){
             removeAvailabelConnection(p_device, p_apPath);
         }));
     }
