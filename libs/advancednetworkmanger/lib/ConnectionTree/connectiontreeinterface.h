@@ -25,6 +25,7 @@ public:
     Q_INVOKABLE void disconnect(QString p_conPath);
 
     QAbstractListModel* getDataListQml();
+    Q_INVOKABLE QString deduceSubNetMaskIpv4(const QString &ipAddress);
 signals:
     void dummyNotify();
     void authFailed(const QString &name,const QString &path,const QString &device);

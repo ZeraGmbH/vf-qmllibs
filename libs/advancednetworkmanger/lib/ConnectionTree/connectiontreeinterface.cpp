@@ -54,6 +54,26 @@ void ConnectionTreeInterface::disconnect(QString p_conPath)
     }
 }
 
+QString ConnectionTreeInterface::deduceSubNetMaskIpv4(const QString &ipAddress)
+{
+    const QStringList ipEntries = ipAddress.split(".");
+    if (ipEntries.size() != 4)
+        return QString();
+
+    if (ipEntries[0] == "192" && ipEntries[1] == "168") // Class C
+        return "255.255.255.0";
+
+    if (ipEntries[0] == "172") { // Class B
+        int second = ipEntries[1].toInt();
+        if (second >= 16 && second <= 31)
+            return "255.255.0.0";
+    }
+    if (ipEntries[0] == "10") // Class A
+        return "255.0.0.0";
+
+    return QString();
+}
+
 QAbstractListModel* ConnectionTreeInterface::getDataListQml()
 {
     return &m_model;
