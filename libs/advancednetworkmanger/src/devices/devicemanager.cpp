@@ -7,41 +7,37 @@ DeviceManager::DeviceManager()
 
 void DeviceManager::init()
 {
-    m_devList = NetworkManager::networkInterfaces();
+    m_netManDeviceList = NetworkManager::networkInterfaces();
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceAdded,this,&DeviceManager::deviceAdded);
     connect(NetworkManager::notifier(),&NetworkManager::Notifier::deviceRemoved,this,&DeviceManager::deviceRemoved);
 }
 
-QList<QString> DeviceManager::getDevices(NetworkManager::Device::Type p_type)
+QStringList DeviceManager::getDevices(NetworkManager::Device::Type netManDeviceType)
 {
-    QList<QString> list;
-
-    for(NetworkManager::Device::Ptr dev : m_devList){
-        if(dev->type() == p_type){
-            list.append(dev->uni());
-        }
+    QStringList list;
+    for(NetworkManager::Device::Ptr netManDevice : m_netManDeviceList) {
+        if(netManDevice->type() == netManDeviceType)
+            list.append(netManDevice->uni());
     }
     return list;
 }
 
-NetworkManager::Device::Ptr DeviceManager::getDevice(QString p_devicePath)
+NetworkManager::Device::Ptr DeviceManager::getDevice(const QString &devicePath)
 {
-    m_devList = NetworkManager::networkInterfaces();
-    for(NetworkManager::Device::Ptr dev : m_devList){
-        if(dev->uni() == p_devicePath){
-           return dev;
-        }
+    m_netManDeviceList = NetworkManager::networkInterfaces();
+    for(NetworkManager::Device::Ptr netManDevice : m_netManDeviceList) {
+        if(netManDevice->uni() == devicePath)
+           return netManDevice;
     }
     return nullptr;
 }
 
-NetworkManager::Device::List DeviceManager::getDevicesbyInterface(QString p_interfaceName)
+NetworkManager::Device::List DeviceManager::getDevicesbyInterface(const QString &interfaceName)
 {
     NetworkManager::Device::List devList;
-    for(NetworkManager::Device::Ptr dev : m_devList){
-        if(dev->interfaceName() == p_interfaceName){
+    for(NetworkManager::Device::Ptr dev : m_netManDeviceList) {
+        if(dev->interfaceName() == interfaceName)
             devList.append(dev);
-        }
     }
     return devList;
 }
@@ -70,13 +66,13 @@ bool DeviceManager::isLocalHost(NetworkManager::ActiveConnection::Ptr activeConn
 
 void DeviceManager::deviceAdded(const QString &p_uni)
 {
-    m_devList = NetworkManager::networkInterfaces();
+    m_netManDeviceList = NetworkManager::networkInterfaces();
     NetworkManager::Device::Ptr dev = getDevice(p_uni);
     emit addDevice(dev->type(), p_uni);
 }
 
 void DeviceManager::deviceRemoved(const QString &p_uni)
 {
-    m_devList = NetworkManager::networkInterfaces();
+    m_netManDeviceList = NetworkManager::networkInterfaces();
     emit removeDevice(p_uni);
 }
