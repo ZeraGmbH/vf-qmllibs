@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/anmsettings/qmldir</file>
+        <file>qml/anmsettings/NetworkManager.qml</file>
+        <file>qml/components/HackVKeyboardFocus.qml</file>
+        <file>qml/components/PasswordPreviewButton.qml</file>
+        <file>qml/settings/AvailableApDialog.qml</file>
+        <file>qml/settings/EthernetSettings.qml</file>
+        <file>qml/settings/WifiSettings.qml</file>
+        <file>qml/tree/ConnectionInfo.qml</file>
+        <file>qml/tree/ConnectionRowAdvanced.qml</file>
+        <file>qml/tree/ConnectionTree.qml</file>
+        <file>qml/tree/SignalIcon.qml</file>
+        <file>qml/tree/SmartConnect.qml</file>
+    </qresource>
+</RCC>
