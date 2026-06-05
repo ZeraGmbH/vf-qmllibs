@@ -10,9 +10,9 @@ ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
     m_wifiNets.init(m_model.getConnectionList(), m_devManager);
 }
 
-void ConnectionTreeInterface::removeConnection(QString p_path)
+void ConnectionTreeInterface::removeConnection(const QString &connectionPath)
 {
-    NetworkManager::Connection::Ptr con = NetworkManager::findConnection(p_path);
+    NetworkManager::Connection::Ptr con = NetworkManager::findConnection(connectionPath);
     if(con != nullptr)
         con->remove();
 }
@@ -26,10 +26,10 @@ QList<QString> ConnectionTreeInterface::getDevices(int typeCableWifiOrUnknown)
     return m_devManager->getDevices(NetworkManager::Device::Type::UnknownType);
 }
 
-QString ConnectionTreeInterface::getDevice(QString p_conPath)
+QString ConnectionTreeInterface::getDevice(const QString &connectionPath)
 {
     QString ret;
-    NetworkManager::Connection::Ptr con = NetworkManager::findConnection(p_conPath);
+    NetworkManager::Connection::Ptr con = NetworkManager::findConnection(connectionPath);
     if(con != nullptr){
         QString intName = con->settings()->interfaceName();
         NetworkManager::Device::List devList = m_devManager->getDevicesbyInterface(intName);
@@ -39,16 +39,16 @@ QString ConnectionTreeInterface::getDevice(QString p_conPath)
     return ret;
 }
 
-void ConnectionTreeInterface::connect(QString p_conPath, QString p_devPath, bool force)
+void ConnectionTreeInterface::connect(const QString &connectionUniqueId, const QString &interfaceUniqueId)
 {
-    NetworkManager::activateConnection(p_conPath, p_devPath, "");
+    NetworkManager::activateConnection(connectionUniqueId, interfaceUniqueId, "");
 }
 
-void ConnectionTreeInterface::disconnect(QString p_conPath)
+void ConnectionTreeInterface::disconnect(const QString &connectionPath)
 {
-    for(NetworkManager::ActiveConnection::Ptr acon : NetworkManager::activeConnections()) {
-        if(acon->connection()->path() == p_conPath){
-            NetworkManager::deactivateConnection(acon->path());
+    for(NetworkManager::ActiveConnection::Ptr activeConnection : NetworkManager::activeConnections()) {
+        if(activeConnection->connection()->path() == connectionPath) {
+            NetworkManager::deactivateConnection(activeConnection->path());
             break;
         }
     }
