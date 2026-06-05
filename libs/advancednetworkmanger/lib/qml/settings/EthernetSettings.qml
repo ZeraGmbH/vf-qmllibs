@@ -124,13 +124,7 @@ Pane {
                     let mode = backend.modeModelBackend[currentIndex]
                     backend.ipv4Mode = mode
                     if (mode === "MANUAL" && ipv4Edits.ipv4.text === "")
-                        selectLaterIpv4Timer.start()
-                }
-                Timer {
-                    id: selectLaterIpv4Timer
-                    interval: 500
-                    repeat: false
-                    onTriggered: ipv4Edits.ipv4.textField.forceActiveFocus()
+                        Qt.callLater(ipv4Edits.ipv4.textField.forceActiveFocus)
                 }
             }
         }
@@ -178,6 +172,7 @@ Pane {
             anchors.right: parent.right
             description.text: Z.tr("IP:")
             description.width: labelWidth
+            selectAllOnFocus: true
             height: rowHeight
             pointSize: rootItm.pointSize
             validator: RegularExpressionValidator { regularExpression: /([a-f0-9:]+:+)+[a-f0-9]+/}

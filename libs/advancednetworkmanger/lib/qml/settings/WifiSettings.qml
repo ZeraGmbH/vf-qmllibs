@@ -43,10 +43,15 @@ Pane {
             if(path === "") {
                 if(hotspot) {
                     backend.mode = "HOTSPOT"
-                    name.text = backend.getNextHotspotName(Z.tr("Hotspot"));
-                    ssid.text = backend.getHostName();
-                    backend.ssid = ssid.text
-                    pw.textField.forceActiveFocus()
+                    name.text = backend.getNextHotspotName(Z.tr("Hotspot"))
+                    let hostname = backend.getHostName()
+                    if (hostname !== "") {
+                        ssid.text = hostname
+                        backend.ssid = hostname
+                        pw.textField.forceActiveFocus()
+                    }
+                    else
+                        ssid.textField.forceActiveFocus()
                 }
                 else {
                     backend.mode = "CLIENT"
@@ -92,6 +97,7 @@ Pane {
             pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
             description.width: labelWidth
+            placeholderText: Z.tr("Enter connection name displayed")
             validator: RegularExpressionValidator{ regularExpression: /.{1,}/ }
             function doApplyInput(newText) {
                 backend.conName = newText;
@@ -115,6 +121,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("SSID:")
                 description.width: labelWidth
+                placeholderText: "Enter SSID - the hotspot name"
                 validator: RegularExpressionValidator{ regularExpression: /.{1,}/}
                 function doApplyInput(newText) {
                     backend.ssid = newText;
@@ -151,6 +158,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("Password:")
                 description.width: labelWidth
+                placeholderText: "Enter password (minimum 8 characters)"
                 validator: RegularExpressionValidator{ regularExpression: /.{8,}/}
                 function doApplyInput(newText) {
                     backend.password = newText;
@@ -169,8 +177,9 @@ Pane {
             anchors.left: parent.left
             width: rootItm.width - rowHeight
             description.text: Z.tr("IP:")
-            placeholderText: enabled ? Z.tr("Enter IP address e.g 192.168.1.1") : ""
             description.width: labelWidth
+            placeholderText: enabled ? Z.tr("Enter IP address e.g 192.168.1.1") : ""
+            selectAllOnFocus: true
             height: rowHeight
             pointSize: rootItm.pointSize
             validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}

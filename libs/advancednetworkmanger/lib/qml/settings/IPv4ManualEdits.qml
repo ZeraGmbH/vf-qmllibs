@@ -19,8 +19,9 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         description.text: Z.tr("IP:")
-        placeholderText: enabled ? Z.tr("Enter IP address e.g 192.168.1.1") : ""
         description.width: labelWidth
+        placeholderText: enabled ? Z.tr("Enter IP address e.g 192.168.1.1") : ""
+        selectAllOnFocus: true
         height: rowHeight
         pointSize: rootItm.pointSize
         validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
@@ -30,10 +31,10 @@ Item {
         function doApplyInput(newText) {
             backend.ipv4 = newText
             let submask = connTreeIface.deduceSubNetMaskIpv4(newText)
-            if (submask !== "") {
-                sub4.text = submask
-                backend.ipv4Sub = submask
-            }
+            if (submask !== "")
+                sub4.setMask(submask)
+            else
+                Qt.callLater(sub4.textField.forceActiveFocus)
             return true
         }
         function activeFocusChange(actFocus) {
@@ -49,12 +50,17 @@ Item {
         anchors.left: parent.left
         anchors.right: parent.right
         description.text: Z.tr("Subnetmask:")
+        selectAllOnFocus: true
         placeholderText: enabled ? Z.tr("Enter subnet mask e.g 255.255.255.0") : ""
         description.width: labelWidth
         height: rowHeight
         pointSize: rootItm.pointSize
         validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
         enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
+        function setMask(mask) {
+            text = mask
+            backend.ipv4Sub = mask
+        }
         // overrides
         function doApplyInput(newText) {
             backend.ipv4Sub = newText
