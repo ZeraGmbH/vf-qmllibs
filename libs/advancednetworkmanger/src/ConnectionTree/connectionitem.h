@@ -5,7 +5,10 @@
 #include <QVariant>
 #include <QMap>
 
-enum class ConType{Cable, Wifi};
+enum class ConType {
+    Cable,
+    Wifi
+};
 
 class ConnectionItem
 {

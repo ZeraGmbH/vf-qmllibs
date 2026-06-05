@@ -17,11 +17,11 @@ void ConnectionTreeInterface::removeConnection(QString p_path)
         con->remove();
 }
 
-QList<QString> ConnectionTreeInterface::getDevices(int p_type)
+QList<QString> ConnectionTreeInterface::getDevices(int typeCableWifiOrUnknown)
 {
-    if (p_type==(int)ConType::Wifi)
+    if (typeCableWifiOrUnknown == (int)ConType::Wifi)
         return m_devManager->getDevices(NetworkManager::Device::Type::Wifi);
-    if (p_type==(int)ConType::Cable)
+    if (typeCableWifiOrUnknown == (int)ConType::Cable)
         return m_devManager->getDevices(NetworkManager::Device::Type::Ethernet);
     return m_devManager->getDevices(NetworkManager::Device::Type::UnknownType);
 }

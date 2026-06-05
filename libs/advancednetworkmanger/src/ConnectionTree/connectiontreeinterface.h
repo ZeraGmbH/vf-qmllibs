@@ -19,7 +19,7 @@ public:
     ConnectionTreeInterface(QObject* paretn = nullptr);
     Q_PROPERTY(QAbstractListModel* dataList READ getDataListQml NOTIFY dummyNotify)
     Q_INVOKABLE void removeConnection(QString path);
-    Q_INVOKABLE QList<QString> getDevices(int p_type);
+    Q_INVOKABLE QList<QString> getDevices(int typeCableWifiOrUnknown);
     Q_INVOKABLE QString getDevice(QString p_connection);
     Q_INVOKABLE void connect(QString p_conPath, QString p_devPath,bool force = true);
     Q_INVOKABLE void disconnect(QString p_conPath);
