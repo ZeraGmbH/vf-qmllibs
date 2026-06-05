@@ -27,9 +27,9 @@ bool WifiNetworks::init(std::shared_ptr<ConnectionList> connList, std::shared_pt
         findAvailableConnections(uni);
     }
 
-    connect(m_devManager.get(), &DeviceManager::addDevice,
+    connect(m_devManager.get(), &DeviceManager::sigAddDevice,
             this, &AbstractNetwork::addDevice);
-    connect(m_devManager.get(), &DeviceManager::removeDevice,
+    connect(m_devManager.get(), &DeviceManager::sigRemoveDevice,
             this, &AbstractNetwork::removeDevice);
 
     for(QString uni : m_devManager->getDevices(NetworkManager::Device::Type::Wifi)){

@@ -6,7 +6,6 @@ ConnectionTreeInterface::ConnectionTreeInterface(QObject* parent) :
 {
     QObject::connect(&m_wifiNets, &WifiNetworks::authFailed,
                      this, &ConnectionTreeInterface::authFailed);
-    m_devManager->init();
     m_etherNets.init(m_model.getConnectionList(), m_devManager);
     m_wifiNets.init(m_model.getConnectionList(), m_devManager);
 }
@@ -20,9 +19,9 @@ void ConnectionTreeInterface::removeConnection(QString p_path)
 
 QList<QString> ConnectionTreeInterface::getDevices(int p_type)
 {
-    if(p_type==(int)ConType::Wifi)
+    if (p_type==(int)ConType::Wifi)
         return m_devManager->getDevices(NetworkManager::Device::Type::Wifi);
-    else if(p_type==(int)ConType::Cable)
+    if (p_type==(int)ConType::Cable)
         return m_devManager->getDevices(NetworkManager::Device::Type::Ethernet);
     return m_devManager->getDevices(NetworkManager::Device::Type::UnknownType);
 }

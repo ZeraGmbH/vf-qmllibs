@@ -1,34 +1,31 @@
 #ifndef DEVICEMANAGER_H
 #define DEVICEMANAGER_H
 
-#include <QList>
 #include <NetworkManagerQt/Device>
 #include <NetworkManagerQt/Manager>
-#include <QObject>
 
-class DeviceManager : public  QObject
+class DeviceManager : public QObject
 {
     Q_OBJECT
 public:
     DeviceManager();
-    void init();
+
     QStringList getDevices(NetworkManager::Device::Type netManDeviceType);
-    QList<QString> getDevices();
     NetworkManager::Device::Ptr getDevice(const QString &devicePath);
     NetworkManager::Device::List getDevicesbyInterface(const QString &interfaceName);
+
     static bool isLocalHost(const QString &interfaceName);
     static bool isLocalHost(NetworkManager::Device::Ptr device);
     static bool isLocalHost(NetworkManager::ActiveConnection::Ptr activeConnection);
-private:
-    NetworkManager::Device::List m_netManDeviceList;
-public slots:
-    void deviceAdded(const QString &p_uni);
-    void deviceRemoved(const QString &p_uni);
-    //void StateChanged(QString p_path,NetworkManager::Device::State newstate, NetworkManager::Device::State oldstate, NetworkManager::Device::StateChangeReason reason);
-
 signals:
-    void addDevice(NetworkManager::Device::Type p_type, QString p_devicePath);
-    void removeDevice(QString p_devicePath);
+    void sigAddDevice(NetworkManager::Device::Type netManDevType, const QString &uni);
+    void sigRemoveDevice(const QString &uni);
+
+private slots:
+    void onDeviceAdded(const QString &uni);
+    void onDeviceRemoved(const QString &uni);
+private:
+    QSet<QString> m_deviceUnisAdded;
 };
 
 #endif // DEVICEMANAGER_H

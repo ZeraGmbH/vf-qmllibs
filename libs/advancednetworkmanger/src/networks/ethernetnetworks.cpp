@@ -29,9 +29,9 @@ bool EthernetNetworks::init(std::shared_ptr<ConnectionList> connList, std::share
         findAvailableConnections(uni);
     }
 
-    connect(m_devManager.get(), &DeviceManager::addDevice,
+    connect(m_devManager.get(), &DeviceManager::sigAddDevice,
             this, &AbstractNetwork::addDevice);
-    connect(m_devManager.get(), &DeviceManager::removeDevice,
+    connect(m_devManager.get(), &DeviceManager::sigRemoveDevice,
             this, &AbstractNetwork::removeDevice);
 
     connect(NetworkManager::settingsNotifier(), &NetworkManager::SettingsNotifier::connectionAdded, this, &AbstractNetwork::addConnection);
