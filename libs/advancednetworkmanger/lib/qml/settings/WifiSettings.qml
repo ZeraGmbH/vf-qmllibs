@@ -121,7 +121,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("SSID:")
                 description.width: labelWidth
-                placeholderText: "Enter SSID - the hotspot name"
+                placeholderText: Z.tr("SSID: the public hotspot name")
                 validator: RegularExpressionValidator{ regularExpression: /.{1,}/}
                 function doApplyInput(newText) {
                     backend.ssid = newText;
@@ -158,7 +158,7 @@ Pane {
                 pointSize: rootItm.pointSize
                 description.text: Z.tr("Password:")
                 description.width: labelWidth
-                placeholderText: "Enter password (minimum 8 characters)"
+                placeholderText: Z.tr("Enter password (minimum 8 characters)")
                 validator: RegularExpressionValidator{ regularExpression: /.{8,}/}
                 function doApplyInput(newText) {
                     backend.password = newText;
