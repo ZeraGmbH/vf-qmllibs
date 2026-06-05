@@ -46,8 +46,8 @@ Pane {
         onLoadComplete: {
             name.text = backend.conName;
             ipv4Mode.currentIndex = backend.modeModelBackend.indexOf(backend.ipv4Mode)
-            ipv4.text = backend.ipv4;
-            sub4.text = backend.ipv4Sub;
+            ipv4Edits.ipv4.text = backend.ipv4;
+            ipv4Edits.sub4.text = backend.ipv4Sub;
             ipv6Mode.currentIndex = backend.modeModelBackend.indexOf(backend.ipv6Mode)
             ipv6.text = backend.ipv6;
             sub6.text = backend.ipv6Sub;
@@ -82,6 +82,7 @@ Pane {
             height: rowHeight
             pointSize: rootItm.pointSize
             description.text: Z.tr("Connection name:")
+            placeholderText: Z.tr("Enter connection name displayed")
             description.width: labelWidth
             validator: RegularExpressionValidator{ regularExpression: /.{1,}/ }
             function doApplyInput(newText) {
@@ -120,57 +121,20 @@ Pane {
                 font.pointSize: pointSize
                 model: backend.modeModelDisplay
                 onCurrentIndexChanged: {
-                    backend.ipv4Mode = backend.modeModelBackend[currentIndex]
+                    let mode = backend.modeModelBackend[currentIndex]
+                    backend.ipv4Mode = mode
+                    if (mode === "MANUAL" && ipv4Edits.ipv4.text === "")
+                        selectLaterIpv4Timer.start()
+                }
+                Timer {
+                    id: selectLaterIpv4Timer
+                    interval: 500
+                    repeat: false
+                    onTriggered: ipv4Edits.ipv4.textField.forceActiveFocus()
                 }
             }
         }
-
-        ZLineEdit {
-            id: ipv4
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            description.text: Z.tr("IP:")
-            description.width: labelWidth
-            height: rowHeight
-            pointSize: rootItm.pointSize
-            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
-            enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
-            // overrides
-            function doApplyInput(newText) {
-                backend.ipv4 = newText;
-                return true
-            }
-            function activeFocusChange(actFocus) {
-                baseActiveFocusChange(actFocus)
-                // hack: force virtual keyboard numeric with decimal point
-                textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                hackVkFocusHelper.hackVKeyboardSettings(actFocus)
-            }
-        }
-        ZLineEdit {
-            id: sub4
-            anchors.left: parent.left
-            anchors.leftMargin: 20
-            anchors.right: parent.right
-            description.text: Z.tr("Subnetmask:")
-            description.width: labelWidth
-            height: rowHeight
-            pointSize: rootItm.pointSize
-            validator: RegularExpressionValidator { regularExpression: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/}
-            enabled: backend.ipFieldsEnabled(ipv4Mode.currentIndex)
-            // overrides
-            function doApplyInput(newText) {
-                backend.ipv4Sub = newText;
-                return true
-            }
-            function activeFocusChange(actFocus) {
-                baseActiveFocusChange(actFocus)
-                // hack: force virtual keyboard numeric with decimal point
-                textField.inputMethodHints = Qt.ImhFormattedNumbersOnly
-                hackVkFocusHelper.hackVKeyboardSettings(actFocus)
-            }
-        }
+        IPv4ManualEdits { id: ipv4Edits }
 
         //--------------------------
         // IPv6 area
@@ -284,9 +248,9 @@ Pane {
                     good = false;
                 else if(!sub6.acceptableInput && sub6.enabled)
                     good = false;
-                else if(!ipv4.acceptableInput &&ipv4.enabled)
+                else if(!ipv4Edits.ipv4.acceptableInput && ipv4Edits.ipv4.enabled)
                     good = false;
-                else if(!sub4.acceptableInput && sub4.enabled)
+                else if(!ipv4Edits.sub4.acceptableInput && ipv4Edits.sub4.enabled)
                     good = false;
                 else if(!name.acceptableInput)
                     good = false;

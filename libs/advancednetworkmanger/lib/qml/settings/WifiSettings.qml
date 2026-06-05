@@ -169,6 +169,7 @@ Pane {
             anchors.left: parent.left
             width: rootItm.width - rowHeight
             description.text: Z.tr("IP:")
+            placeholderText: enabled ? Z.tr("Enter IP address e.g 192.168.1.1") : ""
             description.width: labelWidth
             height: rowHeight
             pointSize: rootItm.pointSize

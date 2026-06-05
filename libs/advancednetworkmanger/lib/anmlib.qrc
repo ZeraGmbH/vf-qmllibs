@@ -6,6 +6,7 @@
         <file>qml/components/PasswordPreviewButton.qml</file>
         <file>qml/settings/AvailableApDialog.qml</file>
         <file>qml/settings/EthernetSettings.qml</file>
+        <file>qml/settings/IPv4ManualEdits.qml</file>
         <file>qml/settings/WifiSettings.qml</file>
         <file>qml/tree/ConnectionInfo.qml</file>
         <file>qml/tree/ConnectionRowAdvanced.qml</file>
