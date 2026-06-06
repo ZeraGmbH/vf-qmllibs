@@ -4,6 +4,7 @@ import QtQuick.Layouts 1.14
 import QtQuick.Controls.Material 2.14
 import anmsettings 1.0
 import ZeraFa 1.0
+import ZeraTranslation 1.0
 import ZeraComponentsConfig 1.0
 import ZeraComponents 1.0
 
@@ -165,6 +166,14 @@ Item{
             Layout.preferredWidth: rootItm.width/10
             Layout.fillHeight: true
             Layout.alignment: Qt.AlignVCenter
+            ZDeleteConfirmPopup {
+                id: deleteNetworkConnectionConfirmPopup
+                deleteTypeStr: Z.tr("network connection")
+                deleteInstanceStr: rootItm.name_
+                onSigDeleteConfirmed: {
+                    remove(rootItm.nmPath_)
+                }
+            }
             ZButton {
                 id: trashButton
                 anchors.verticalCenter: parent.verticalCenter
@@ -177,7 +186,7 @@ Item{
                     color: Material.backgroundColor
                 }
                 onClicked: {
-                    remove(rootItm.nmPath_)
+                    deleteNetworkConnectionConfirmPopup.open()
                 }
             }
         }

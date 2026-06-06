@@ -9,6 +9,7 @@ TimeSetterPopup 1.0 TimeSetterPopup.qml
 ZButton 1.0 ZButton.qml
 ZCheckBox 1.0 ZCheckBox.qml
 ZComboBox 1.0 ZComboBox.qml
+ZDeleteConfirmPopup 1.0 ZDeleteConfirmPopup.qml
 ZDoubleValidator 1.0 ZDoubleValidator.qml
 ZFlashingRipple 1.0 ZFlashingRipple.qml
 ZLineEdit 1.0 ZLineEdit.qml
