@@ -18,7 +18,7 @@ Item {
     readonly property bool acceptableInput: hasValidInput()
     property real pointSize: height > 0.0 ? height / 2.5 : 10
     property bool changeOnFocusLost: true
-    property bool selectAllOnFocus: isNumeric
+    property bool selectAllOnFocus: true
     property int textAlignment: Text.AlignRight
 
     // some extra labels (would like to get rid of them...)
