@@ -18,7 +18,7 @@ Popup {
     parent: Overlay.overlay
     anchors.centerIn: parent
     modal: true
-    property real rowHeight: parent.height / 25
+    property real rowHeight: parent ? Math.max(parent.height / 25, 10) : 10
     property real pointSize: rowHeight * 0.8
     readonly property real pointSizeHeader: pointSize * 1.25
 
