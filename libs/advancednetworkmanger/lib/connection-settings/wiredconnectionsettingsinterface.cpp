@@ -31,29 +31,20 @@ QStringList WiredConnectionSettingsInterface::getDevices()
 
 QString WiredConnectionSettingsInterface::getIpv4Mode()
 {
-    QString ret = "";
     NetworkManager::Ipv4Setting::Ptr ipv4Settings = NetManSubSettings::getIpv4Settings(m_settings);
     if (ipv4Settings != nullptr) {
         switch(ipv4Settings->method()) {
         case NetworkManager::Ipv4Setting::ConfigMethod::Manual:
-            ret= "MANUAL";
-            break;
+            return "MANUAL";
         case NetworkManager::Ipv4Setting::ConfigMethod::Automatic:
-            ret= "AUTOMATIC";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::LinkLocal:
-            ret= "";
-            break;
-        case NetworkManager::Ipv4Setting::ConfigMethod::Shared:
-            ret= "";
-            break;
+            return "AUTOMATIC";
         case NetworkManager::Ipv4Setting::ConfigMethod::Disabled:
-            ret= "DISABLED";
-            break;
-
+            return "DISABLED";
+        default:
+            return "";
         }
     }
-    return ret;
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv4Mode(const QString &ipv4Mode)
@@ -136,22 +127,18 @@ void WiredConnectionSettingsInterface::setIpv4Sub(const QString &ipv4Sub)
 
 QString WiredConnectionSettingsInterface::getIpv6Mode()
 {
-    QString ret = "";
     NetworkManager::Ipv6Setting::Ptr ipv6Settings = NetManSubSettings::getIpv6Settings(m_settings);
     if (ipv6Settings != nullptr) {
         switch (ipv6Settings->method()) {
         case NetworkManager::Ipv6Setting::ConfigMethod::Manual:
-            ret= "MANUAL";
-            break;
+            return "MANUAL";
         case NetworkManager::Ipv6Setting::ConfigMethod::Automatic:
-            ret= "AUTOMATIC";
-            break;
-        case NetworkManager::Ipv6Setting::ConfigMethod::LinkLocal:
-            ret= "";
-            break;
+            return "AUTOMATIC";
+        default:
+            return "";
         }
     }
-    return ret;
+    return "";
 }
 
 void WiredConnectionSettingsInterface::setIpv6Mode(const QString &ipv6Mode)
