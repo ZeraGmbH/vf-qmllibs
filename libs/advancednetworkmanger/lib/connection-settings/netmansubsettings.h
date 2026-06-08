@@ -11,8 +11,8 @@
 class NetManSubSettings
 {
 public:
-    static NetworkManager::Ipv4Setting::Ptr getIpV4Settings(const NetworkManager::ConnectionSettings::Ptr &settings);
-    static NetworkManager::Ipv6Setting::Ptr getIpV6Settings(const NetworkManager::ConnectionSettings::Ptr &settings);
+    static NetworkManager::Ipv4Setting::Ptr getIpv4Settings(const NetworkManager::ConnectionSettings::Ptr &settings);
+    static NetworkManager::Ipv6Setting::Ptr getIpv6Settings(const NetworkManager::ConnectionSettings::Ptr &settings);
     static NetworkManager::WirelessSetting::Ptr getWiressSettings(const NetworkManager::ConnectionSettings::Ptr &settings);
     static NetworkManager::WirelessSecuritySetting::Ptr getWiressSecuritySettings(const NetworkManager::ConnectionSettings::Ptr &settings);
 };

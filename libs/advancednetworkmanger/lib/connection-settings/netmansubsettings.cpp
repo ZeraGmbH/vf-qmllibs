@@ -1,13 +1,13 @@
 #include "netmansubsettings.h"
 
-NetworkManager::Ipv4Setting::Ptr NetManSubSettings::getIpV4Settings(const NetworkManager::ConnectionSettings::Ptr &settings)
+NetworkManager::Ipv4Setting::Ptr NetManSubSettings::getIpv4Settings(const NetworkManager::ConnectionSettings::Ptr &settings)
 {
     if (settings != nullptr)
         return settings->setting(NetworkManager::Setting::SettingType::Ipv4).dynamicCast<NetworkManager::Ipv4Setting>();
     return nullptr;
 }
 
-NetworkManager::Ipv6Setting::Ptr NetManSubSettings::getIpV6Settings(const NetworkManager::ConnectionSettings::Ptr &settings)
+NetworkManager::Ipv6Setting::Ptr NetManSubSettings::getIpv6Settings(const NetworkManager::ConnectionSettings::Ptr &settings)
 {
     if (settings != nullptr)
         return settings->setting(NetworkManager::Setting::SettingType::Ipv6).dynamicCast<NetworkManager::Ipv6Setting>();

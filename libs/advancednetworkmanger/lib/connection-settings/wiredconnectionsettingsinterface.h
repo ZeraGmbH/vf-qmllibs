@@ -18,22 +18,22 @@ public:
     QStringList getDevices() override;
 
     QString getIpv4Mode();
-    void setIpv4Mode(QString p_ipv4Mode);
+    void setIpv4Mode(const QString &ipv4Mode);
 
     QString getIpv4();
-    void setIpv4(QString p_ipv4);
+    void setIpv4(const QString &ipv4);
 
     QString getIpv4Sub();
-    void setIpv4Sub(QString p_ipv4Sub);
+    void setIpv4Sub(const QString &ipv4Sub);
 
     QString getIpv6Mode();
-    void setIpv6Mode(QString p_ipv6Mode);
+    void setIpv6Mode(const QString &ipv6Mode);
 
     QString getIpv6();
-    void setIpv6(QString p_ipv6);
+    void setIpv6(const QString &ipv6);
 
     QString getIpv6Sub();
-    void setIpv6Sub(QString p_ipv6Sub);
+    void setIpv6Sub(const QString &ipv6Sub);
 
 signals:
     void ipv4ModeChanged();

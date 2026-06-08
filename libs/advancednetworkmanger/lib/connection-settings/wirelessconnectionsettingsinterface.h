@@ -13,27 +13,27 @@ public:
     Q_PROPERTY(bool autoconnect READ getAutoconnect WRITE setAutoconnect NOTIFY devicesChanged)
     Q_PROPERTY(QString ipv4 READ getIpv4 WRITE setIpv4 NOTIFY ipv4Changed)
 
-    Q_INVOKABLE QString getNextHotspotName(QString p_name);
+    Q_INVOKABLE QString getNextHotspotName(const QString &name);
 
     void create() override;
-    void saveAndActivate(const QString &p_devUni,const QString &p_apPath) override;
-    QString getDevicePath(const QString &p_interfaceName) override;
+    void saveAndActivate(const QString &devUni,const QString &apPath) override;
+    QString getDevicePath(const QString &interfaceName) override;
     QStringList getDevices() override;
 
     QString getSsid();
-    void setSsid(QString p_ssid);
+    void setSsid(const QString &ssid);
 
     QString getPassword();
-    void setPassword(QString p_password);
+    void setPassword(const QString &password);
 
     QString getMode();
-    void setMode(QString p_mode);
+    void setMode(const QString &mode);
 
     bool getAutoconnect();
-    void setAutoconnect(bool p_autoconnect);
+    void setAutoconnect(bool autoconnect);
 
     QString getIpv4();
-    void setIpv4(QString p_ipv4);
+    void setIpv4(const QString &ipv4);
 signals:
     void ssidChanged();
     void passwordChanged();

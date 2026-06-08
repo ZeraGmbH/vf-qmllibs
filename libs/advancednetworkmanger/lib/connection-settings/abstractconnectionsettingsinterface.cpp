@@ -1,9 +1,6 @@
 #include "abstractconnectionsettingsinterface.h"
-#include <NetworkManagerQt/Settings>
+#include "netmansubsettings.h"
 #include <NetworkManagerQt/WirelessDevice>
-#include <NetworkManagerQt/WirelessSetting>
-#include <NetworkManagerQt/Ipv4Setting>
-#include <NetworkManagerQt/Ipv6Setting>
 
 void AbstractConnectionSettingsInterface::load(QString p_path)
 {
@@ -30,27 +27,25 @@ void AbstractConnectionSettingsInterface::save()
         }
     }
 
-    NetworkManager::Ipv4Setting::Ptr ipV4Settings = m_settings->setting(NetworkManager::Setting::SettingType::Ipv4).staticCast<NetworkManager::Ipv4Setting>();
-    NetworkManager::Ipv4Setting::ConfigMethod configMethod = ipV4Settings->method();
-    if(configMethod == NetworkManager::Ipv4Setting::ConfigMethod::Automatic){
-        if(map.contains("ipv4")){
-            if(map["ipv4"].contains("addresses")){
-                map["ipv4"].remove("addresses");
-            }
-            if(map["ipv4"].contains("address-data")){
-                map["ipv4"].remove("address-data");
+    NetworkManager::Ipv4Setting::Ptr ipv4Settings = NetManSubSettings::getIpv4Settings(m_settings);
+    if (ipv4Settings) {
+        if (ipv4Settings->method() == NetworkManager::Ipv4Setting::ConfigMethod::Automatic) {
+            if(map.contains("ipv4")) {
+                if(map["ipv4"].contains("addresses"))
+                    map["ipv4"].remove("addresses");
+                if(map["ipv4"].contains("address-data"))
+                    map["ipv4"].remove("address-data");
             }
         }
     }
 
-    if(m_settings->setting(NetworkManager::Setting::SettingType::Ipv6).staticCast<NetworkManager::Ipv6Setting>()->method() == NetworkManager::Ipv6Setting::ConfigMethod::Automatic){
-        if(map.contains("ipv6")){
-            if(map["ipv6"].contains("addresses")){
+    NetworkManager::Ipv6Setting::Ptr ipv6Settings = NetManSubSettings::getIpv6Settings(m_settings);
+    if(ipv6Settings) {
+        if(map.contains("ipv6")) {
+            if(map["ipv6"].contains("addresses"))
                 map["ipv6"].remove("addresses");
-            }
-            if(map["ipv6"].contains("address-data")){
+            if(map["ipv6"].contains("address-data"))
                 map["ipv6"].remove("address-data");
-            }
         }
     }
 
