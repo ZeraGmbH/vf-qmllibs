@@ -12,6 +12,7 @@ Popup {
     // => "Delete network connection <bold>'Hotspot 1'</bold>?"
     property string deleteTypeStr
     property string deleteInstanceStr
+    property string messageStr: Z.tr("Delete %1 <b>'%2'</b>?").arg(deleteConfirmationPopup.deleteTypeStr).arg(deleteConfirmationPopup.deleteInstanceStr)
     signal sigDeleteConfirmed()
 
     id: deleteConfirmationPopup
@@ -31,7 +32,7 @@ Popup {
         }
         Item { Layout.preferredHeight: rowHeight/3 }
         Label {
-            text: Z.tr("Delete %1 <b>'%2'</b>?").arg(deleteConfirmationPopup.deleteTypeStr).arg(deleteConfirmationPopup.deleteInstanceStr)
+            text: messageStr
             Layout.fillWidth: true
             font.pointSize: pointSize
         }
