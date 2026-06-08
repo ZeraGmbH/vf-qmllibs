@@ -4,15 +4,7 @@ import QtQuick.Layouts 1.14
 import ZeraTranslation 1.0
 
 Popup {
-    // User question will be
-    // "Delete <deleteTypeStr> <deleteInstanceStr>?"
-    // e.g
-    // deleteTypeStr: Z.tr("network connection")
-    // deleteInstanceStr: "Hotspot 1"
-    // => "Delete network connection <bold>'Hotspot 1'</bold>?"
-    property string deleteTypeStr
-    property string deleteInstanceStr
-    property string messageStr: Z.tr("Delete %1 <b>'%2'</b>?").arg(deleteConfirmationPopup.deleteTypeStr).arg(deleteConfirmationPopup.deleteInstanceStr)
+    property string messageStr
     signal sigDeleteConfirmed()
 
     id: deleteConfirmationPopup

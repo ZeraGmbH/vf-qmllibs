@@ -168,8 +168,7 @@ Item{
             Layout.alignment: Qt.AlignVCenter
             ZDeleteConfirmPopup {
                 id: deleteNetworkConnectionConfirmPopup
-                deleteTypeStr: Z.tr("network connection")
-                deleteInstanceStr: rootItm.name_
+                messageStr: Z.tr("Delete network connection <b>'%1'</b>?").arg(rootItm.name_)
                 onSigDeleteConfirmed: {
                     remove(rootItm.nmPath_)
                 }
