@@ -61,7 +61,7 @@ const QString ConnectionInfo::getIpV6() const
     return getNaAdjustedValue(m_ipv6);
 }
 
-const QString ConnectionInfo::getNaAdjustedValue(const QString &value) const
+const QString ConnectionInfo::getNaAdjustedValue(const QString &value)
 {
     if (!value.isEmpty())
         return value;

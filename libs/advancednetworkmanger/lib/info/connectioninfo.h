@@ -17,7 +17,7 @@ public:
     const QString getSubnetMask() const;
     const QString getIpV6() const;
 private:
-    const QString getNaAdjustedValue(const QString &value) const;
+    static const QString getNaAdjustedValue(const QString &value);
     bool setDevice(const QString &device);
     bool setType(NetworkManager::Device::Type type);
     bool setIpV4(const QString &ipv4);
