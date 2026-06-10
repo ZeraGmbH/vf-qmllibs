@@ -155,7 +155,6 @@ ConnectionItem WifiNetworks::CreateConItem(const NetworkManager::Connection::Ptr
 
 void WifiNetworks::addAccessPoint(const QString &p_devUni, const QString &p_apPath)
 {
-    QString path = "";
     NetworkManager::WirelessDevice::Ptr device = m_devManager->getDevice(p_devUni).dynamicCast<NetworkManager::WirelessDevice>();
     NetworkManager::AccessPoint::Ptr ap = device->findAccessPoint(p_apPath);
     if(ap != nullptr) {
@@ -192,6 +191,7 @@ void WifiNetworks::addAccessPoint(const QString &p_devUni, const QString &p_apPa
                 m_list->addItem(con);
             }
             else {
+                QString path = ""; // What ist this code supposed to achive???
                 ConnectionItem con2=m_list->itemByPath(p_apPath);
                 con2 = m_list->itemByPath(path);
                 con2.SignalStrength=ap->signalStrength();
