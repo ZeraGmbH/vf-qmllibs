@@ -8,7 +8,11 @@ ZLineEdit {
     // entitiy/component settings
     property QtObject entity
     property string controlPropertyName
-    text: transformIncoming(controlPropertyName !== "" ? entity[controlPropertyName] : text)
+    text: {
+        if (entity === null || entity === undefined)
+            return ""
+        return transformIncoming(controlPropertyName !== "" ? entity[controlPropertyName] : text)
+    }
 
     // overridable
     function transformIncoming(t_incoming) { return t_incoming; }
