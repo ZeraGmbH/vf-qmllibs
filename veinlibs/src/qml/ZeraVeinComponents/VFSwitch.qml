@@ -7,12 +7,14 @@ ZCheckBox {
     property string controlPropertyName
 
     onCheckedChanged: {
+        if (entity === null || entity === undefined)
+            return
         if(checked !== entity[controlPropertyName])
             entity[controlPropertyName] = checked
     }
     QtObject {
         readonly property bool intermediate: {
-            if (entity !== undefined)
+            if (entity !== null && entity !== undefined)
                 return entity[controlPropertyName]
             return false
         }
