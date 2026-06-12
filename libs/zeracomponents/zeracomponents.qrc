@@ -15,6 +15,7 @@
         <file>src/qml/ZeraComponents/ZDoubleValidator.qml</file>
         <file>src/qml/ZeraComponents/ZFlashingRipple.qml</file>
         <file>src/qml/ZeraComponents/ZLineEdit.qml</file>
+        <file>src/qml/ZeraComponents/ZPixmapComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZRadioButton.qml</file>
         <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
         <file>src/qml/ZeraComponents/ZTabButton.qml</file>

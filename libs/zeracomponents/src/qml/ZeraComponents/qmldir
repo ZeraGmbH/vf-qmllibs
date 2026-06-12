@@ -13,6 +13,7 @@ ZDeleteConfirmPopup 1.0 ZDeleteConfirmPopup.qml
 ZDoubleValidator 1.0 ZDoubleValidator.qml
 ZFlashingRipple 1.0 ZFlashingRipple.qml
 ZLineEdit 1.0 ZLineEdit.qml
+ZPixmapComboBox 1.0 ZPixmapComboBox.qml
 ZRadioButton 1.0 ZRadioButton.qml
 ZSpinBox 1.0 ZSpinBox.qml
 ZTabButton 1.0 ZTabButton.qml
