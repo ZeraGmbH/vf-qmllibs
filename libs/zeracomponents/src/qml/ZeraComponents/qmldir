@@ -16,6 +16,7 @@ ZLineEdit 1.0 ZLineEdit.qml
 ZPixmapComboBox 1.0 ZPixmapComboBox.qml
 ZRadioButton 1.0 ZRadioButton.qml
 ZSpinBox 1.0 ZSpinBox.qml
+ZSvgComboBox 1.0 ZSvgComboBox.qml
 ZTabButton 1.0 ZTabButton.qml
 ZUnitComboBox 1.0 ZUnitComboBox.qml
 ZVisualComboBox 1.0 ZVisualComboBox.qml

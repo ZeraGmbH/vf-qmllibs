@@ -16,6 +16,7 @@ target_link_libraries(pixman-item
     PUBLIC
     ${QTX}::Quick
     ${QTX}::Qml
+    ${QTX}::Svg
     )
 
 target_include_directories(pixman-item

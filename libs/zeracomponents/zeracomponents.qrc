@@ -18,6 +18,7 @@
         <file>src/qml/ZeraComponents/ZPixmapComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZRadioButton.qml</file>
         <file>src/qml/ZeraComponents/ZSpinBox.qml</file>
+        <file>src/qml/ZeraComponents/ZSvgComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZTabButton.qml</file>
         <file>src/qml/ZeraComponents/ZUnitComboBox.qml</file>
         <file>src/qml/ZeraComponents/ZVisualComboBox.qml</file>
