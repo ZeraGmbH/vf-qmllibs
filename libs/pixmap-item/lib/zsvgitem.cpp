@@ -47,8 +47,7 @@ void ZSvgItem::paint(QPainter *painter)
     if (m_svgRenderer != nullptr && m_svgRenderer->isValid()) {
         QRectF boundingRect = contentsBoundingRect();
         QSizeF boundingSize = boundingRect.size();
-        QRectF svgRect = m_svgRenderer->viewBoxF();
-        QSizeF svgSize = svgRect.size();
+        QSizeF svgSize = m_svgRenderer->defaultSize();
         QSizeF svgSizeScaled = svgSize.scaled(boundingSize, Qt::KeepAspectRatio);
 
         double topLeftX = 0;
