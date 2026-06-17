@@ -26,7 +26,7 @@ target_link_libraries(
     PUBLIC
     qmlhelpers
     timedate-qml-wrapper
-    pixman-item
+    pixmap-item
     zerafa
     )
 
