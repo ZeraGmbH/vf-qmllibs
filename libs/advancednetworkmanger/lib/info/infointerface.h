@@ -25,9 +25,13 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
     Q_PROPERTY(int entryCount READ getEntryCount NOTIFY sigEntryCountChanged)
+    Q_PROPERTY(bool networkConnected READ isNetworkConnected NOTIFY sigNetworkConnectedChanged())
+
     int getEntryCount() const;
+    bool isNetworkConnected();
 signals:
     void sigEntryCountChanged();
+    void sigNetworkConnectedChanged();
 
 private slots:
     void addActiveConnection(const QString &path);
@@ -39,6 +43,7 @@ private:
 
     QList<ConnectionInfoPtr> m_activeCons;
     TimerTemplateQtPtr m_delayTimer;
+    bool m_isNetworkConnected = false;
 };
 
 #endif // INFOINTERFACE_H

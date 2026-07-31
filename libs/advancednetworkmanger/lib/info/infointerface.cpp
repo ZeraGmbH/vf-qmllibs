@@ -55,6 +55,16 @@ int InfoInterface::getEntryCount() const
     return rowCount();
 }
 
+bool InfoInterface::isNetworkConnected()
+{
+    for (const auto &conn : qAsConst(m_activeCons)) {
+        if (!conn->getIpV4().isEmpty())
+            return true;
+    }
+    return false;
+}
+
+
 void InfoInterface::addActiveConnection(const QString &path)
 {
     NetworkManager::ActiveConnection::Ptr activeConnection = NetworkManager::findActiveConnection(path);
@@ -112,6 +122,13 @@ void InfoInterface::startDetailsDelayTimer()
 void InfoInterface::updateActiveConnections()
 {
     for (int idx=0; idx<m_activeCons.size(); idx++)
-        if (m_activeCons[idx]->updateConnection())
+        if (m_activeCons[idx]->updateConnection()) {
             emit dataChanged(index(idx), index(idx));
+        }
+
+    bool currNetworkConnected = isNetworkConnected();
+    if(currNetworkConnected != m_isNetworkConnected) {
+        m_isNetworkConnected = currNetworkConnected;
+        emit sigNetworkConnectedChanged();
+    }
 }
