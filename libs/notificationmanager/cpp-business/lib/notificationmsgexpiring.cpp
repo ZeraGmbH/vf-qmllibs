@@ -1,7 +1,7 @@
 #include "notificationmsgexpiring.h"
 #include <timerfactoryqt.h>
 
-NotificationMsgExpiring::NotificationMsgExpiring(QString msg, int fadeOutTimeMs) :
+NotificationMsgExpiring::NotificationMsgExpiring(const QString &msg, int fadeOutTimeMs) :
     NotificationMsg(msg),
     m_fadeOutTimer(TimerFactoryQt::createSingleShot(fadeOutTimeMs))
 {

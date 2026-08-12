@@ -19,7 +19,7 @@ void NotificationMsgContainer::clear()
 QVector<NotificationMsgPtr> NotificationMsgContainer::getMsgs()
 {
     QVector<NotificationMsgPtr> returnedVector;
-    for(auto &msg : m_msgs)
+    for(const auto &msg : qAsConst(m_msgs))
         returnedVector.append(msg);
     return returnedVector;
 }

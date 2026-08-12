@@ -13,7 +13,7 @@ public:
     quint32 getCrc32() const;
 
     QPaintEngine *paintEngine() const override;
-    int metric(PaintDeviceMetric metric) const override;
+    int metric(PaintDeviceMetric paintDeviceMetric) const override;
 
 private:
     std::unique_ptr<FuzzyPaintEngine> m_fuzzyEngine;

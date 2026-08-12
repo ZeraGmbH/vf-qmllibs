@@ -2,13 +2,13 @@
 
 static int currentId = 0;
 
-NotificationMsg::NotificationMsg(QString msg) :
+NotificationMsg::NotificationMsg(const QString &msg) :
     m_id(currentId++),
     m_msg(msg)
 {
 }
 
-QString NotificationMsg::getMsg() const
+const QString &NotificationMsg::getMsg() const
 {
     return m_msg;
 }

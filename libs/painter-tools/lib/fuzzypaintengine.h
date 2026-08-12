@@ -33,7 +33,7 @@ public:
     void drawRects(const QRectF *rects, int rectCount) override;
 private:
     void storePaintPath(const QPainterPath &path);
-    void calledButDataIgnored();
+    static void calledButDataIgnored();
 
     std::unique_ptr<PseudoCrcBuffer> m_crcBuffer;
     std::unique_ptr<QDataStream> m_stream;

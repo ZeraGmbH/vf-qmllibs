@@ -36,12 +36,12 @@ static int defaultDpiY()
     return 100;
 }
 
-int FuzzyPaintDevice::metric(PaintDeviceMetric metric) const
+int FuzzyPaintDevice::metric(PaintDeviceMetric paintDeviceMetric) const
 {
     // stolen from QPicture::metric(PaintDeviceMetric m)
     int val;
     QRect brect = m_boundingRect;
-    switch (metric) {
+    switch (paintDeviceMetric) {
     case PdmWidth:
         val = brect.width();
         break;

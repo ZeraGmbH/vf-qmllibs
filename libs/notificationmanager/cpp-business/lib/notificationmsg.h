@@ -8,8 +8,8 @@ class NotificationMsg : public QObject
 {
     Q_OBJECT
 public:
-    NotificationMsg(QString msg);
-    QString getMsg() const;
+    NotificationMsg(const QString &msg);
+    const QString &getMsg() const;
     int getId() const;
 signals:
     void sigFadeOut(int id);
