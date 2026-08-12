@@ -11,7 +11,7 @@ TestTimedate1Storage *TestTimedate1Storage::getInstance()
     return m_instance;
 }
 
-QString TestTimedate1Storage::getTimezone() const
+QString TestTimedate1Storage::getTimezone()
 {
     return m_timezone;
 }
@@ -30,7 +30,7 @@ void TestTimedate1Storage::setInitialTimezone(const QString &timezone)
     m_timezone = timezone;
 }
 
-bool TestTimedate1Storage::getNtpActive() const
+bool TestTimedate1Storage::getNtpActive()
 {
     return m_ntpActive;
 }

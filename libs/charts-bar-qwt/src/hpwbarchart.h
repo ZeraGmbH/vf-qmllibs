@@ -42,7 +42,7 @@ class HpwBarChart : public QQuickPaintedItem
     Q_PROPERTY(QList<double> sValueList READ fooDummy WRITE setSValues) //writeonly
 
 public:
-    HpwBarChart(QQuickItem *t_parent = 0);
+    explicit HpwBarChart(QQuickItem *t_parent = 0);
     ~HpwBarChart();
 
 
@@ -77,7 +77,7 @@ public slots:
     void setBgColor(QColor t_backgroundColor);
     void setborderColor(QColor t_borderColor);
     void useBottomLabels(bool t_labelsEnabled);
-    void setChartTitle(QString t_chartTitle);
+    void setChartTitle(const QString &t_chartTitle);
     void setLegendEnabled(bool t_legendEnabled);
     void setTextColor(QColor t_textColor);
 
@@ -85,21 +85,21 @@ public slots:
     void setMaxValueLeftAxis(double t_maxValue);
     void setMinValueLeftAxis(double t_minValue);
     void setColorLeftAxis(QColor t_color);
-    void setTitleLeftAxis(QString t_title);
+    void setTitleLeftAxis(const QString &t_title);
 
     //PQS values
-    void setPValues(QList<double> t_pValues);
-    void setQValues(QList<double> t_qValues);
-    void setSValues(QList<double> t_sValues);
+    void setPValues(const QList<double> &t_pValues);
+    void setQValues(const QList<double> &t_qValues);
+    void setSValues(const QList<double> &t_sValues);
 
 signals:
     void bgColorChanged(QColor t_backgroundColor);
     void borderColorChanged(QColor t_borderColor);
-    void labelsChanged(QStringList t_labelsEnabled);
+    void labelsChanged(const QStringList &t_labelsEnabled);
 
 private slots:
     void onUpdateTimer();
-    void onLabelsChanged(QStringList t_labels);
+    void onLabelsChanged(const QStringList &labels);
 
 private:
     void startUpdate();

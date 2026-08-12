@@ -163,7 +163,7 @@ void HpwBarChart::useBottomLabels(bool t_labelsEnabled)
     }
 }
 
-void HpwBarChart::setChartTitle(QString t_chartTitle)
+void HpwBarChart::setChartTitle(const QString &t_chartTitle)
 {
     if (m_chartTitle != t_chartTitle) {
         m_chartTitle = t_chartTitle;
@@ -245,30 +245,30 @@ void HpwBarChart::setColorLeftAxis(QColor t_color)
     m_colorLeftAxis = t_color;
 }
 
-void HpwBarChart::setTitleLeftAxis(QString t_title)
+void HpwBarChart::setTitleLeftAxis(const QString &t_title)
 {
     m_plot->setAxisTitle(QwtPlot::yLeft, t_title);
 }
 
-void HpwBarChart::onLabelsChanged(QStringList t_labels)
+void HpwBarChart::onLabelsChanged(const QStringList &labels)
 {
-    m_bottomLabels=t_labels;
+    m_bottomLabels = labels;
     useBottomLabels(m_bottomLabelsEnabled);
 }
 
-void HpwBarChart::setPValues(QList<double> t_pValues)
+void HpwBarChart::setPValues(const QList<double> &t_pValues)
 {
     m_pValues = avoidZeroArtifacts(t_pValues);
     onExternValuesChanged();
 }
 
-void HpwBarChart::setQValues(QList<double> t_qValues)
+void HpwBarChart::setQValues(const QList<double> &t_qValues)
 {
     m_qValues = avoidZeroArtifacts(t_qValues);
     onExternValuesChanged();
 }
 
-void HpwBarChart::setSValues(QList<double> t_sValues)
+void HpwBarChart::setSValues(const QList<double> &t_sValues)
 {
     m_sValues = avoidZeroArtifacts(t_sValues);
     onExternValuesChanged();

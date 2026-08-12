@@ -13,8 +13,8 @@ public:
 
     QList<ConnectionItem> items() const;
 
-    ConnectionItem itemByPath(QString p_path);
-    bool setItemByPath(QString p_key,const ConnectionItem &p_item);
+    ConnectionItem itemByPath(const QString &path);
+    bool setItemByPath(const QString &key, const ConnectionItem &item);
 signals:
     void preItemRemoved(int i);
     void postItemRemoved(int i);

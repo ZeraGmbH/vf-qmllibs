@@ -9,12 +9,12 @@ class TestTimedate1Storage : public QObject
 public:
     static TestTimedate1Storage* getInstance();
 
-    QString getTimezone() const;
+    static QString getTimezone();
     void setTimezone(const QString &timezone);
     Q_SIGNAL void sigTimezoneChanged();
     static void setInitialTimezone(const QString &timezone);
 
-    bool getNtpActive() const;
+    static bool getNtpActive();
     void setNtpActive(bool active) ;
     Q_SIGNAL void sigNtpActiveChanged();
 

@@ -36,21 +36,21 @@ QList<ConnectionItem> ConnectionList::items() const
     return m_connectionItemList;
 }
 
-ConnectionItem ConnectionList::itemByPath(QString p_path)
+ConnectionItem ConnectionList::itemByPath(const QString &path)
 {
-    int i = findPathPos(p_path);
+    int i = findPathPos(path);
     if(i==-1)
         return ConnectionItem();
     return m_connectionItemList.at(i);
 }
 
-bool ConnectionList::setItemByPath(QString p_path, const ConnectionItem &p_item)
+bool ConnectionList::setItemByPath(const QString &key, const ConnectionItem &item)
 {
-    int index = findPathPos(p_path);
+    int index = findPathPos(key);
     if(index < 0)
         return false;
 
-    m_connectionItemList[index]=p_item;
+    m_connectionItemList[index]=item;
     emit dataChanged(index);
     return true;
 }

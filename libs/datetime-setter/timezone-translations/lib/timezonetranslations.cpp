@@ -54,7 +54,7 @@ QString TimezoneTranslations::noRegionStringTranslated()
     return QString("<%1>").arg(ZeraTranslation::getInstance()->trValue(noRegionLabel).toString());
 }
 
-bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &language) const
+bool TimezoneTranslations::isDefaultAndHasNoTranslationFile(const QString &language)
 {
     return language == "C" || language == "en_US";
 }

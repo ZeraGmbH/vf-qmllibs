@@ -17,7 +17,7 @@ signals:
 
 private:
     static QString noRegionStringTranslated();
-    bool isDefaultAndHasNoTranslationFile(const QString &language) const;
+    static bool isDefaultAndHasNoTranslationFile(const QString &language);
     bool isSupportedLanguage(const QString &language) const;
 
     QString m_currentLanguage; // seems QTranslator::language() is not available in Qt 5.14
