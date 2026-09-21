@@ -1,6 +1,5 @@
 module ZeraComponents
 AnimationSlowBits 1.0 AnimationSlowBits.qml
-ButtonStoreLog 1.0 ButtonStoreLog.qml
 SacVuBase 1.0 SacVuBase.qml
 SacVuDefaults 1.0 SacVuDefaults.qml
 SacVuIndicator 1.0 SacVuIndicator.qml

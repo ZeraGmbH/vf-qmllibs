@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>src/qml/ZeraVeinComponents/AdjustmentState.qml</file>
+        <file>src/qml/ZeraVeinComponents/ButtonStoreLog.qml</file>
         <file>src/qml/ZeraVeinComponents/DeviceVersions.qml</file>
         <file>src/qml/ZeraVeinComponents/qmldir</file>
         <file>src/qml/ZeraVeinComponents/VFComboBox.qml</file>
