@@ -27,6 +27,7 @@ target_link_libraries(
     ${QTX}::Quick
     zeracomponents
     ZeraTranslation::ZeraTranslation
+    VeinMeta::VfFiles
     )
 
 target_include_directories(zeraveincomponents
