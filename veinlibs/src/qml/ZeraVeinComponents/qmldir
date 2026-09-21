@@ -1,6 +1,7 @@
 module ZeraVeinComponents
+AdjustmentState 1.0 AdjustmentState.qml
+DeviceVersions 1.0 DeviceVersions.qml
 VFComboBox 1.0 VFComboBox.qml
 VFLineEdit 1.0 VFLineEdit.qml
 VFSpinBox 1.0 VFSpinBox.qml
-AdjustmentState 1.0 AdjustmentState.qml
 VFSwitch 1.0 VFSwitch.qml

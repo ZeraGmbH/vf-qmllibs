@@ -1,10 +1,11 @@
 <RCC>
     <qresource prefix="/">
+        <file>src/qml/ZeraVeinComponents/AdjustmentState.qml</file>
+        <file>src/qml/ZeraVeinComponents/DeviceVersions.qml</file>
         <file>src/qml/ZeraVeinComponents/qmldir</file>
         <file>src/qml/ZeraVeinComponents/VFComboBox.qml</file>
         <file>src/qml/ZeraVeinComponents/VFLineEdit.qml</file>
         <file>src/qml/ZeraVeinComponents/VFSpinBox.qml</file>
         <file>src/qml/ZeraVeinComponents/VFSwitch.qml</file>
-        <file>src/qml/ZeraVeinComponents/AdjustmentState.qml</file>
     </qresource>
 </RCC>
