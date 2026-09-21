@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>src/qml/ZeraComponents/AnimationSlowBits.qml</file>
+        <file>src/qml/ZeraComponents/ButtonStoreLog.qml</file>
         <file>src/qml/ZeraComponents/qmldir</file>
         <file>src/qml/ZeraComponents/SacVuBase.qml</file>
         <file>src/qml/ZeraComponents/SacVuDefaults.qml</file>
