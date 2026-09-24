@@ -15,10 +15,12 @@ ZButton {
     readonly property var allVersionsForStore: {
         let versions = {}
         let allVersions = devVersions.allVersions
-        for(let entry = 0; entry < allVersions.length; entry++) {
-            let label = allVersions[entry][0]
-            let value = allVersions[entry][1]
-            versions[label] = value
+        if (allVersions !== undefined) {
+            for(let entry = 0; entry < allVersions.length; entry++) {
+                let label = allVersions[entry][0]
+                let value = allVersions[entry][1]
+                versions[label] = value
+            }
         }
         return versions
     }
