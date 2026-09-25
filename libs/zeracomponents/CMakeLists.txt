@@ -1,13 +1,13 @@
 file(GLOB_RECURSE HEADERS
-    src/*.h
+    lib/*.h
     )
 
 file(GLOB_RECURSE SOURCES
-    src/*.cpp
+    lib/*.cpp
     )
 
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
-    add_subdirectory("src/qml")
+    add_subdirectory("lib/qml")
 else()
     qtquick_compiler_add_resources(RESOURCES zeracomponents.qrc)
 endif()
@@ -19,7 +19,7 @@ add_library(zeracomponents
     ${RESOURCES}
     )
 
-SET_QML_PATH(zeracomponents src/qml)
+SET_QML_PATH(zeracomponents lib/qml)
 
 target_link_libraries(
     zeracomponents
@@ -33,7 +33,7 @@ target_link_libraries(
 target_include_directories(zeracomponents
     PUBLIC
     $<INSTALL_INTERFACE:include/zeracomponents>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/lib>
     )
 
 if("${QT_MAJOR_VER}" STREQUAL "6")
