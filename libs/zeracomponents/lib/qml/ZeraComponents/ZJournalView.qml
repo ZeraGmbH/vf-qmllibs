@@ -18,11 +18,9 @@ ListView {
     model: ZJournalModel {}
     delegate: Label {
         text: {
-            let txt
-            if (timestamp !== "")
-                txt = timestamp + " "
-            txt += message
-            return txt
+            if (timestamp === "")
+                return message
+            return timestamp + " " + message
         }
 
         font.family: "monospace"
