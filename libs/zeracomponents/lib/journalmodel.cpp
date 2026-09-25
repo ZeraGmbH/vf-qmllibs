@@ -1,4 +1,10 @@
 #include "journalmodel.h"
+#include <qqml.h>
+
+void JournalModel::registerQml()
+{
+    qmlRegisterType<JournalModel>("ZJournalModel", 1, 0, "ZJournalModel");
+}
 
 JournalModel::JournalModel(QObject *parent) :
     QAbstractListModel(parent)

@@ -2,6 +2,7 @@
 #include "timedateqmlwrapper.h"
 #include "zpixmapitem.h"
 #include "zsvgitem.h"
+#include "journalmodel.h"
 #include <zerafa.h>
 
 bool ZeraComponents::m_wasRegistered = false;
@@ -20,6 +21,7 @@ void ZeraComponents::registerQml(QQmlApplicationEngine &engine)
         ZPixmapItem::registerQml();
         ZSvgItem::registerQml();
         TimedateQmlWrapper::registerQml();
+        JournalModel::registerQml();
         // Unfortunataley FontAwesomeQml does not work without further investigation...
         ZeraFa::registerQml(engine);
 
