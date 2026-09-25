@@ -1,0 +1,2 @@
+[   15.447703] zera-mt310s2-unknown avahi-daemon[758]: [0;1;31m[0;1;39m[0;1;31m../../avahi-0.8/avahi-daemon/chroot.c: open() failed: No such file or directory[0m
+

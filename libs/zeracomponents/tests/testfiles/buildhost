@@ -1,0 +1,9 @@
+[    2.462883] localhost.localdomain kernel: BIOS-provided physical RAM map:
+[    2.463251] localhost.localdomain kernel: [0;1;39m[0;1;31m[0;1;39mrandom: crng init done[0m
+[    2.463551] localhost.localdomain kernel: [0;1;38:5:185m[0;1;39m[0;1;38:5:185mACPI BIOS Warning (bug): Optional FADT field Pm2ControlBlock has valid Length but zero Address: 0x0000000000000000/0x1 (20251212/tbfadt-611)[0m
+[    2.465269] localhost.localdomain kernel: [0;1;31m[0;1;39m[0;1;31mvirt/tdx: TDX not supported by the host platform[0m
+[    8.681348] localhost.localdomain rtkit-daemon[1178]: [0;38:5:245m[0;1;31m[0;38:5:245mCanary thread running.[0m
+[    5.884777] localhost.localdomain audit[1]: [0;34m[0;34mSERVICE_START pid=1 uid=0 auid=4294967295 ses=4294967295[0m
+
+
+

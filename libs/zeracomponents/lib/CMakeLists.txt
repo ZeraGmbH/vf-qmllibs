@@ -12,6 +12,8 @@ else()
     qtquick_compiler_add_resources(RESOURCES zeracomponents.qrc)
 endif()
 
+find_package(Qt5 REQUIRED COMPONENTS Core)
+
 add_library(zeracomponents
     SHARED
     ${HEADERS}
@@ -41,6 +43,7 @@ if("${QT_MAJOR_VER}" STREQUAL "6")
         PRIVATE
             Qt6::Core5Compat
     )
+target_link_libraries(zeracomponents PRIVATE Qt5::Core)
 endif()
 
 set_target_properties(zeracomponents PROPERTIES VERSION ${PROJECT_VERSION})

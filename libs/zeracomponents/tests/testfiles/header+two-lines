@@ -1,0 +1,5 @@
+-- Logs begin at Fri 2026-09-25 09:10:27 UTC, end at Fri 2026-09-25 10:55:39 UTC. --
+[    0.000000] imx6qdl-variscite-som kernel: Booting Linux on physical CPU 0x0
+[    0.000001] imx6qdl-variscite-som kernel: [0;1;39m[0;1;31m[0;1;39mLinux version 6.18.53-fslc-g1ad417679718 (oe-user@oe-host) (arm-mortsgna-linux-gnueabi-gcc (GCC) 9.3.0, GNU ld (GNU Binutils) 2.34.0.20200220) #1 SMP Thu Sep 24 08:05:39 UTC 2026[0m
+
+
