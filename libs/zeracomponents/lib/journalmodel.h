@@ -10,7 +10,6 @@
 class JournalModel : public QAbstractListModel
 {
     Q_OBJECT
-
 public:
     enum Roles {
         TimestampRole = Qt::UserRole + 1,
@@ -22,13 +21,16 @@ public:
     static void registerQml();
     explicit JournalModel(QObject *parent = nullptr);
 
+    Q_INVOKABLE void start(bool follow = false);
+    Q_PROPERTY(bool loadFinished READ getLoadFinished NOTIFY sigLoadFinishedChanged FINAL)
+
+    bool getLoadFinished() const;
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
-
-    Q_INVOKABLE void start(bool follow = false);
-    Q_INVOKABLE void stop();
-    Q_INVOKABLE void clear();
+signals:
+    void sigLoadFinishedChanged();
 
 private slots:
     void readJournalOutput();
@@ -36,6 +38,9 @@ private slots:
                       const QString &timeStampAndProcess,
                       const QString &message);
 private:
+    void stop();
+    void clear();
+    void setLoadFinished(bool finished);
     struct Entry {
         JournalAnsiLineConvert::JournalLineType type;
         QString timestampStr;
@@ -43,6 +48,7 @@ private:
     };
     QVector<Entry> m_entries;
     QProcess m_journalctlProcess;
+    bool m_processFinished = false;
     QByteArray m_pendingData;
     JournalAnsiLineConvert m_journalLineParser;
 };

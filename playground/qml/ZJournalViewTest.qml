@@ -13,5 +13,11 @@ ApplicationWindow {
     ZJournalView {
         anchors.fill: parent
         Component.onCompleted: model.start()
+
+        readonly property bool loadFinished: model.loadFinished
+        onLoadFinishedChanged: {
+            if(loadFinished)
+                positionViewAtEnd()
+        }
     }
 }

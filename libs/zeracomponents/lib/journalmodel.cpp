@@ -11,7 +11,8 @@ JournalModel::JournalModel(QObject *parent) :
 {
     connect(&m_journalctlProcess, &QProcess::readyReadStandardOutput,
             this, &JournalModel::readJournalOutput);
-    connect(&m_journalctlProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](int exitCode) {
+    connect(&m_journalctlProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), this, [&](int exitCode) {
+        setLoadFinished(true);
         if(exitCode != 0)
             qWarning("Process finished with error: %i", exitCode);
     });
@@ -61,8 +62,8 @@ QHash<int, QByteArray> JournalModel::roleNames() const
 
 void JournalModel::start(bool follow)
 {
-    if (m_journalctlProcess.state() != QProcess::NotRunning)
-        return;
+    stop();
+    clear();
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("SYSTEMD_COLORS", "1");
@@ -77,21 +78,13 @@ void JournalModel::start(bool follow)
     if (follow)
         params.append("--follow");
 
+    setLoadFinished(false);
     m_journalctlProcess.start(QStringLiteral("journalctl"), params);
 }
 
-void JournalModel::stop()
+bool JournalModel::getLoadFinished() const
 {
-    if (m_journalctlProcess.state() == QProcess::NotRunning)
-        return;
-    m_journalctlProcess.terminate();
-}
-
-void JournalModel::clear()
-{
-    beginResetModel();
-    m_entries.clear();
-    endResetModel();
+    return m_processFinished;
 }
 
 void JournalModel::readJournalOutput()
@@ -118,4 +111,26 @@ void JournalModel::onParsedLine(JournalAnsiLineConvert::JournalLineType lineType
     const Entry entry{lineType, timeStampAndProcess, message};
     m_entries.append(entry);
     endInsertRows();
+}
+
+void JournalModel::stop()
+{
+    if (m_journalctlProcess.state() == QProcess::NotRunning)
+        return;
+    m_journalctlProcess.terminate();
+}
+
+void JournalModel::clear()
+{
+    beginResetModel();
+    m_entries.clear();
+    endResetModel();
+}
+
+void JournalModel::setLoadFinished(bool finished)
+{
+    if (finished != m_processFinished) {
+        m_processFinished = finished;
+        emit sigLoadFinishedChanged();
+    }
 }
