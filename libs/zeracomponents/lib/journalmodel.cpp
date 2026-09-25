@@ -9,8 +9,15 @@ void JournalModel::registerQml()
 JournalModel::JournalModel(QObject *parent) :
     QAbstractListModel(parent)
 {
-    connect(&m_journalctlProces, &QProcess::readyReadStandardOutput,
+    connect(&m_journalctlProcess, &QProcess::readyReadStandardOutput,
             this, &JournalModel::readJournalOutput);
+    connect(&m_journalctlProcess, QOverload<int, QProcess::ExitStatus>::of(&QProcess::finished), [&](int exitCode) {
+        if(exitCode != 0)
+            qWarning("Process finished with error: %i", exitCode);
+    });
+    connect(&m_journalctlProcess, &QProcess::errorOccurred, this, [](QProcess::ProcessError error) {
+        qWarning("An error occured starting journalctl: %i", error);
+    });
     connect(&m_journalLineParser, &JournalAnsiLineConvert::sigParsedLine,
             this, &JournalModel::onParsedLine);
 }
@@ -54,29 +61,29 @@ QHash<int, QByteArray> JournalModel::roleNames() const
 
 void JournalModel::start(bool follow)
 {
-    if (m_journalctlProces.state() != QProcess::NotRunning)
+    if (m_journalctlProcess.state() != QProcess::NotRunning)
         return;
 
     QProcessEnvironment env = QProcessEnvironment::systemEnvironment();
     env.insert("SYSTEMD_COLORS", "1");
-    m_journalctlProces.setProcessEnvironment(env);
+    m_journalctlProcess.setProcessEnvironment(env);
 
     QStringList params = {
-        QStringLiteral("-o short-monotonic"),
-        QStringLiteral("--boot 0"),
+        QStringLiteral("-o"), QStringLiteral("short-monotonic"),
+        QStringLiteral("--boot"), QStringLiteral("0"),
         QStringLiteral("--no-pager")
     };
     if (follow)
         params.append("--follow");
 
-    m_journalctlProces.start(QStringLiteral("journalctl"), params);
+    m_journalctlProcess.start(QStringLiteral("journalctl"), params);
 }
 
 void JournalModel::stop()
 {
-    if (m_journalctlProces.state() == QProcess::NotRunning)
+    if (m_journalctlProcess.state() == QProcess::NotRunning)
         return;
-    m_journalctlProces.terminate();
+    m_journalctlProcess.terminate();
 }
 
 void JournalModel::clear()
@@ -88,7 +95,7 @@ void JournalModel::clear()
 
 void JournalModel::readJournalOutput()
 {
-    m_pendingData += m_journalctlProces.readAllStandardOutput();
+    m_pendingData += m_journalctlProcess.readAllStandardOutput();
     for (;;) {
         const int newline = m_pendingData.indexOf('\n');
         if (newline < 0)

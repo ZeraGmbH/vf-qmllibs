@@ -26,7 +26,7 @@ public:
     QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
     QHash<int, QByteArray> roleNames() const override;
 
-    Q_INVOKABLE void start(bool follow);
+    Q_INVOKABLE void start(bool follow = false);
     Q_INVOKABLE void stop();
     Q_INVOKABLE void clear();
 
@@ -42,7 +42,7 @@ private:
         QString message;
     };
     QVector<Entry> m_entries;
-    QProcess m_journalctlProces;
+    QProcess m_journalctlProcess;
     QByteArray m_pendingData;
     JournalAnsiLineConvert m_journalLineParser;
 };

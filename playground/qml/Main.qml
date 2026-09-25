@@ -125,6 +125,19 @@ ApplicationWindow {
                     commonLoader.active=false;
             }
         }
+        CheckBox {
+            checked: false;
+            Layout.fillWidth: true;
+            text: "Load journal viewer"
+            onCheckStateChanged: {
+                if(checked){
+                    commonLoader.active=true;
+                    commonLoader.source = "ZJournalViewTest.qml";
+                }else{
+                    commonLoader.active=false;
+                }
+            }
+        }
 
         // Next CheckBox here
 
