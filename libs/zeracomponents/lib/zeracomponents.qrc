@@ -1,0 +1,35 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/ZeraComponents/AnimationSlowBits.qml</file>
+        <file>qml/ZeraComponents/qmldir</file>
+        <file>qml/ZeraComponents/SacVuBase.qml</file>
+        <file>qml/ZeraComponents/SacVuDefaults.qml</file>
+        <file>qml/ZeraComponents/SacVuIndicator.qml</file>
+        <file>qml/ZeraComponents/SacVuSigned.qml</file>
+        <file>qml/ZeraComponents/SacVuUnsigned.qml</file>
+        <file>qml/ZeraComponents/TimezoneComboRow.qml</file>
+        <file>qml/ZeraComponents/TimeSetterPopup.qml</file>
+        <file>qml/ZeraComponents/WaitTransaction.qml</file>
+        <file>qml/ZeraComponents/ZButton.qml</file>
+        <file>qml/ZeraComponents/ZCheckBox.qml</file>
+        <file>qml/ZeraComponents/ZComboBox.qml</file>
+        <file>qml/ZeraComponents/ZDeleteConfirmPopup.qml</file>
+        <file>qml/ZeraComponents/ZDoubleValidator.qml</file>
+        <file>qml/ZeraComponents/ZFlashingRipple.qml</file>
+        <file>qml/ZeraComponents/ZLineEdit.qml</file>
+        <file>qml/ZeraComponents/ZPixmapComboBox.qml</file>
+        <file>qml/ZeraComponents/ZRadioButton.qml</file>
+        <file>qml/ZeraComponents/ZSpinBox.qml</file>
+        <file>qml/ZeraComponents/ZSvgComboBox.qml</file>
+        <file>qml/ZeraComponents/ZTabButton.qml</file>
+        <file>qml/ZeraComponents/ZUnitComboBox.qml</file>
+        <file>qml/ZeraComponents/ZVisualComboBox.qml</file>
+        <file>qml/ZeraComponents/ZSwitch.qml</file>
+        <file>qml/ZeraComponents/ZvKeyboardInputPanel.qml</file>
+        <file>qml/ZeraComponents/ZvKeyboardFlickable.qml</file>
+        <file>qml/ZeraComponentsConfig/qmldir</file>
+        <file>qml/ZeraComponentsConfig/ZeraComponentsConfig.qml</file>
+        <file>qml/ZeraThemeConfig/qmldir</file>
+        <file>qml/ZeraThemeConfig/ZeraThemeConfig.qml</file>
+    </qresource>
+</RCC>
