@@ -4,19 +4,24 @@ import QtQuick.Controls.Material 2.14
 import ZJournalModel 1.0
 
 ListView {
-    id: logView
-    property alias model: logView.model
-    anchors.fill: parent
+    id: root
+    property real rowHeight: 16
+    property int scrollbarWidth: 8
+
     clip: true
 
     ScrollBar.vertical: ScrollBar {
         anchors.right: parent.right
-        width: 8
+        width: scrollbarWidth
         orientation: Qt.Vertical
         policy: ScrollBar.AlwaysOn
     }
     model: ZJournalModel {}
     delegate: Label {
+        width: root.width - scrollbarWidth
+        height: rowHeight
+        clip: true
+
         text: {
             if (timestamp === "")
                 return message
@@ -24,7 +29,7 @@ ListView {
         }
 
         font.family: "monospace"
-        font.pixelSize: 13
+        font.pointSize: rowHeight*0.5
 
         color: {
             if (type === 3) // error
