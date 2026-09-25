@@ -29,7 +29,7 @@ ListView {
         }
 
         font.family: "monospace"
-        font.pointSize: rowHeight*0.5
+        font.pointSize: rowHeight*0.6
 
         color: {
             if (type === 3) // error
