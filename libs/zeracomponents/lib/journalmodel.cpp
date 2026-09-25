@@ -69,6 +69,7 @@ void JournalModel::start(bool follow)
     m_journalctlProcess.setProcessEnvironment(env);
 
     QStringList params = {
+        QStringLiteral("--no-hostname"),
         QStringLiteral("-o"), QStringLiteral("short-monotonic"),
         QStringLiteral("--boot"), QStringLiteral("0"),
         QStringLiteral("--no-pager")
