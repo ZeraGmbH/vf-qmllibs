@@ -3,46 +3,49 @@ import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 import ZJournalModel 1.0
 
-ListView {
+Item {
     id: root
     property real rowHeight: 16
-    property int scrollbarWidth: 8
-
-    clip: true
-
-    ScrollBar.vertical: ScrollBar {
+    property int scrollbarWidth: 80
+    property int scrollbarHeight: 8
+    readonly property QtObject model: ZJournalModel {}
+    Flickable {
+        anchors.fill: parent
+        anchors.rightMargin: scrollbarWidth
+        anchors.bottomMargin: scrollbarHeight
+        contentHeight: contentRows.implicitHeight
+        contentWidth: contentRows.implicitWidth
+        clip: true
+        Column {
+            id: contentRows
+            clip: true
+            Repeater {
+                model: root.model
+                delegate: ZJournalLine { height: rowHeight }
+            }
+        }
+        ScrollBar.vertical: verticalScrollbar
+        ScrollBar.horizontal: horizontalScrollbar
+    }
+    ScrollBar {
+        id: verticalScrollbar
         anchors.right: parent.right
         width: scrollbarWidth
+        height: root.height
         orientation: Qt.Vertical
         policy: ScrollBar.AlwaysOn
+        background: ShaderEffectSource {
+            anchors.fill: parent
+            sourceItem: contentRows
+        }
     }
-    model: ZJournalModel {}
-    delegate: Label {
+    ScrollBar {
+        id: horizontalScrollbar
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
         width: root.width - scrollbarWidth
-        height: rowHeight
-        clip: true
-
-        text: {
-            if (timestamp === "")
-                return message
-            return timestamp + " " + message
-        }
-
-        font.family: "monospace"
-        font.pointSize: rowHeight*0.6
-
-        color: {
-            if (type === 3) // error
-                return Material.color(Material.Red)
-            if (type === 4) // warning
-                return Material.color(Material.Yellow)
-            if (type === 5) // debug
-                return Material.color(Material.Grey)
-            if (type === 6) // audit
-                return Material.color(Material.Blue)
-            return Material.foreground
-        }
-        font.bold: type == 2
+        height: scrollbarHeight
+        orientation: Qt.Horizontal
+        policy: ScrollBar.AlwaysOn
     }
 }
-
