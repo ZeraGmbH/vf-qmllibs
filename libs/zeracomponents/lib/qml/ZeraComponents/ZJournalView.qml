@@ -9,7 +9,12 @@ Item {
     property int scrollbarWidth: 80
     property int scrollbarHeight: 8
     readonly property QtObject model: ZJournalModel {}
+    function positionViewAtEnd() {
+        flickable.contentY = Math.max(0, flickable.contentHeight - flickable.height)
+    }
+
     Flickable {
+        id: flickable
         anchors.fill: parent
         anchors.rightMargin: scrollbarWidth
         anchors.bottomMargin: scrollbarHeight
