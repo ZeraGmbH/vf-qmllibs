@@ -42,6 +42,9 @@ Item {
         background: ShaderEffectSource {
             anchors.fill: parent
             sourceItem: contentRows
+            // imx6 tweaks?
+            hideSource: false
+            textureSize: Qt.size(256, 2048)
         }
     }
     ScrollBar {
