@@ -3,7 +3,6 @@ import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 
 Rectangle {
-    height: 10
     implicitWidth: height * 0.7 * (timestamp + " " + message).length
     color: {
         if (type === 3) // error
