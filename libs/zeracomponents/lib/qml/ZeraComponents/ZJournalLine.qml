@@ -3,8 +3,6 @@ import QtQuick.Controls 2.14
 import QtQuick.Controls.Material 2.14
 
 Label {
-    clip: true
-
     text: {
         if (timestamp === "")
             return message

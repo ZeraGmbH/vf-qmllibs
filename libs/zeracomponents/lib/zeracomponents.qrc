@@ -17,6 +17,7 @@
         <file>qml/ZeraComponents/ZDoubleValidator.qml</file>
         <file>qml/ZeraComponents/ZFlashingRipple.qml</file>
         <file>qml/ZeraComponents/ZJournalLine.qml</file>
+        <file>qml/ZeraComponents/ZJournalLineBox.qml</file>
         <file>qml/ZeraComponents/ZJournalView.qml</file>
         <file>qml/ZeraComponents/ZLineEdit.qml</file>
         <file>qml/ZeraComponents/ZPixmapComboBox.qml</file>

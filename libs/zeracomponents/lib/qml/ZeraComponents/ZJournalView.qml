@@ -6,21 +6,25 @@ import ZJournalModel 1.0
 Item {
     id: root
     property real rowHeight: 16
-    property int scrollbarWidth: 80
-    property int scrollbarHeight: 8
+    property real verticalScrollbarWidth: 0.1 // relative 0..1
+    property int horizontalScrollbarHeight: 8
     readonly property QtObject model: ZJournalModel {}
     function positionViewAtEnd() {
-        flickable.contentY = Math.max(0, flickable.contentHeight - flickable.height)
+        flickableContent.contentY = Math.max(0, flickableContent.contentHeight - flickableContent.height)
     }
 
+
+    readonly property real absVerticalScrollbarWidth: root.width * verticalScrollbarWidth
     Flickable {
-        id: flickable
-        anchors.fill: parent
-        anchors.rightMargin: scrollbarWidth
-        anchors.bottomMargin: scrollbarHeight
+        id: flickableContent
+        anchors { fill: parent; rightMargin: absVerticalScrollbarWidth; bottomMargin: horizontalScrollbarHeight}
         contentHeight: contentRows.implicitHeight
         contentWidth: contentRows.implicitWidth
+        readonly property real lineHeight: contentHeight / root.model.rowCount() // pixel
+        readonly property real firstVisibleLine: contentY / lineHeight
+        readonly property real lastVisibleLine: firstVisibleLine + height / lineHeight
         clip: true
+
         Column {
             id: contentRows
             clip: true
@@ -32,28 +36,56 @@ Item {
         ScrollBar.vertical: verticalScrollbar
         ScrollBar.horizontal: horizontalScrollbar
     }
+
     ScrollBar {
         id: verticalScrollbar
         anchors.right: parent.right
-        width: scrollbarWidth
+        width: absVerticalScrollbarWidth
         height: root.height
         orientation: Qt.Vertical
         policy: ScrollBar.AlwaysOn
-        background: ShaderEffectSource {
-            anchors.fill: parent
-            sourceItem: contentRows
-            live: !loadFinished
-            // imx6 tweaks?
-            hideSource: false
-            textureSize: Qt.size(256, 2048)
+        readonly property int lineHeight: 1 // pixel
+        onPressedChanged: {
+            flickableContent.contentX = 0
+        }
+        background: Flickable {
+            id: flickableScrollBackgound
+            anchors { fill: parent; leftMargin: 3; bottomMargin: root.height * 0.0015; topMargin: root.height * 0.0015}
+            contentWidth: scrollBackgroundContents.implicitWidth
+            contentHeight: scrollBackgroundContents.implicitHeight
+            contentX: (contentWidth-width) * horizontalScrollbar.position / (1-horizontalScrollbar.size)
+            contentY: (contentHeight-height) * verticalScrollbar.position / (1-verticalScrollbar.size)
+            interactive: false
+            clip: true
+
+            Column {
+                id: scrollBackgroundContents
+                Repeater {
+                    model: root.model
+                    delegate: ZJournalLineBox { height: verticalScrollbar.lineHeight }
+                }
+            }
+        }
+        contentItem: Item { // ScrollBar adapts height / we set height -> 'hide' rectangle in item
+            id: scrollHandle
+            Rectangle {
+                id: scrollRectangle
+                width: absVerticalScrollbarWidth
+                height: (flickableContent.lastVisibleLine - flickableContent.firstVisibleLine) * verticalScrollbar.lineHeight
+                color: verticalScrollbar.pressed ? "#ffffff" : "#80ffffff"
+                opacity: verticalScrollbar.hovered ? 0.6 : 0.4
+                border.color: "#ffffff"
+                border.width: 2
+                y: (scrollHandle.height - height) * verticalScrollbar.position / (1-verticalScrollbar.size) // rectangle moves around in contentItem
+            }
         }
     }
     ScrollBar {
         id: horizontalScrollbar
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: root.width - scrollbarWidth
-        height: scrollbarHeight
+        width: root.width - absVerticalScrollbarWidth
+        height: horizontalScrollbarHeight
         orientation: Qt.Horizontal
         policy: ScrollBar.AlwaysOn
     }
