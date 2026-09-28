@@ -6,6 +6,7 @@ import ZJournalModel 1.0
 Item {
     id: root
     property real rowHeight: 16
+    property real scrollRowHeight: 1
     property real verticalScrollbarWidth: 0.1 // relative 0..1
     property int horizontalScrollbarHeight: 8
     readonly property QtObject model: ZJournalModel {}
@@ -44,7 +45,6 @@ Item {
         height: root.height
         orientation: Qt.Vertical
         policy: ScrollBar.AlwaysOn
-        readonly property int lineHeight: 1 // pixel
         background: Flickable {
             id: flickableScrollBackgound
             anchors { fill: parent; leftMargin: 3; bottomMargin: root.height * 0.0015; topMargin: root.height * 0.0015}
@@ -59,7 +59,7 @@ Item {
                 id: scrollBackgroundContents
                 Repeater {
                     model: root.model
-                    delegate: ZJournalLineBox { height: verticalScrollbar.lineHeight }
+                    delegate: ZJournalLineBox { height: scrollRowHeight }
                 }
             }
         }
@@ -68,7 +68,7 @@ Item {
             Rectangle {
                 id: scrollRectangle
                 width: absVerticalScrollbarWidth
-                height: (flickableContent.lastVisibleLine - flickableContent.firstVisibleLine) * verticalScrollbar.lineHeight
+                height: (flickableContent.lastVisibleLine - flickableContent.firstVisibleLine) * scrollRowHeight
                 color: mouseArea.pressed ? "#ffffff" : "#80ffffff"
                 opacity: mouseArea.hovered ? 0.6 : 0.4
                 border.color: "#ffffff"
@@ -94,7 +94,7 @@ Item {
             }
             function calcContentY(mouseY) {
                 let previewY = mouseY + flickableScrollBackgound.contentY
-                let targetLine = previewY / verticalScrollbar.lineHeight
+                let targetLine = previewY / scrollRowHeight
                 let targetY = (targetLine * flickableContent.lineHeight) - (flickableContent.height / 2)
                 let minY = 0
                 let maxY = flickableContent.contentHeight - flickableContent.height
