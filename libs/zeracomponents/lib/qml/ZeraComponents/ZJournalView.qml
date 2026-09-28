@@ -45,9 +45,6 @@ Item {
         orientation: Qt.Vertical
         policy: ScrollBar.AlwaysOn
         readonly property int lineHeight: 1 // pixel
-        onPressedChanged: {
-            flickableContent.contentX = 0
-        }
         background: Flickable {
             id: flickableScrollBackgound
             anchors { fill: parent; leftMargin: 3; bottomMargin: root.height * 0.0015; topMargin: root.height * 0.0015}
