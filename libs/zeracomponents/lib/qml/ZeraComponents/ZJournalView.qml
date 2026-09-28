@@ -69,11 +69,29 @@ Item {
                 id: scrollRectangle
                 width: absVerticalScrollbarWidth
                 height: (flickableContent.lastVisibleLine - flickableContent.firstVisibleLine) * verticalScrollbar.lineHeight
-                color: verticalScrollbar.pressed ? "#ffffff" : "#80ffffff"
-                opacity: verticalScrollbar.hovered ? 0.6 : 0.4
+                color: mouseArea.pressed ? "#ffffff" : "#80ffffff"
+                opacity: mouseArea.hovered ? 0.6 : 0.4
                 border.color: "#ffffff"
                 border.width: 2
                 y: (scrollHandle.height - height) * verticalScrollbar.position / (1-verticalScrollbar.size) // rectangle moves around in contentItem
+            }
+        }
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            hoverEnabled: true
+            function calcContentY(mouse) {
+                let previewY = mouse.y + flickableScrollBackgound.contentY
+                let targetLine = previewY / verticalScrollbar.lineHeight
+                let targetY = (targetLine * flickableContent.lineHeight) - (flickableContent.height / 2)
+                let minY = 0
+                let maxY = flickableContent.contentHeight - flickableContent.height
+                return Math.max(minY, Math.min(maxY, targetY))
+            }
+            onPressed: (mouse) => flickableContent.contentY = calcContentY(mouse)
+            onPositionChanged: (mouse) => {
+                if (pressed)
+                    flickableContent.contentY = calcContentY(mouse)
             }
         }
     }
