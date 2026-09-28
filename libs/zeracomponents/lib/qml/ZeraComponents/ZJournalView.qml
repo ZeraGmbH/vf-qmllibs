@@ -80,18 +80,42 @@ Item {
             id: mouseArea
             anchors.fill: parent
             hoverEnabled: true
-            function calcContentY(mouse) {
-                let previewY = mouse.y + flickableScrollBackgound.contentY
+            function isMouseInsideScrollHandle(mouse) {
+                let scrollRectangleTop = scrollHandle.y + scrollRectangle.y
+                let scrollRectangleBottom = scrollRectangleTop + scrollRectangle.height
+                return mouse.y >= scrollRectangleTop &&
+                        mouse.y <= scrollRectangleBottom
+            }
+            function calcMouseOffsetInScrollHandle(mouse) {
+                let scrollRectangleTop = scrollHandle.y + scrollRectangle.y
+                let scrollRectangleBottom = scrollRectangleTop + scrollRectangle.height
+                let scrollRectangleCenter = scrollRectangleTop + (scrollRectangleBottom-scrollRectangleTop)/2
+                return mouse.y - scrollRectangleCenter
+            }
+            function calcContentY(mouseY) {
+                let previewY = mouseY + flickableScrollBackgound.contentY
                 let targetLine = previewY / verticalScrollbar.lineHeight
                 let targetY = (targetLine * flickableContent.lineHeight) - (flickableContent.height / 2)
                 let minY = 0
                 let maxY = flickableContent.contentHeight - flickableContent.height
                 return Math.max(minY, Math.min(maxY, targetY))
             }
-            onPressed: (mouse) => flickableContent.contentY = calcContentY(mouse)
+            property real mouseOffsetOnEnter: 0
+            property bool canDrag: false
+            onPressed: (mouse) => {
+                if (isMouseInsideScrollHandle(mouse)) {
+                    canDrag = true
+                    mouseOffsetOnEnter = calcMouseOffsetInScrollHandle(mouse) // avoid start flicker by centering handle to mouse on drag
+                }
+                else {
+                    canDrag = false
+                    mouseOffsetOnEnter = 0
+                    flickableContent.contentY = calcContentY(mouse.y)
+                }
+            }
             onPositionChanged: (mouse) => {
-                if (pressed)
-                    flickableContent.contentY = calcContentY(mouse)
+                if (pressed && canDrag)
+                    flickableContent.contentY = calcContentY(mouse.y - mouseOffsetOnEnter)
             }
         }
     }
