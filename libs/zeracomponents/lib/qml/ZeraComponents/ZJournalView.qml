@@ -80,6 +80,7 @@ Item {
             id: mouseArea
             anchors.fill: parent
             hoverEnabled: true
+            preventStealing: true
             function isMouseInsideScrollHandle(mouse) {
                 let scrollRectangleTop = scrollHandle.y + scrollRectangle.y
                 let scrollRectangleBottom = scrollRectangleTop + scrollRectangle.height
