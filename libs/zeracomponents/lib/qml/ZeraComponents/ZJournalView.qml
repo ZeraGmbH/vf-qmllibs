@@ -54,6 +54,7 @@ Item {
             contentY: (contentHeight-height) * verticalScrollbar.position / (1-verticalScrollbar.size)
             interactive: false
             clip: true
+            pixelAligned: true
 
             Column {
                 id: scrollBackgroundContents
