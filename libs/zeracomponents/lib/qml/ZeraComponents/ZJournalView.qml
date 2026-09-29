@@ -82,42 +82,38 @@ Item {
             anchors.fill: parent
             hoverEnabled: true
             preventStealing: true
-            function isMouseInsideScrollHandle(mouse) {
-                let scrollRectangleTop = scrollHandle.y + scrollRectangle.y
-                let scrollRectangleBottom = scrollRectangleTop + scrollRectangle.height
-                return mouse.y >= scrollRectangleTop &&
-                        mouse.y <= scrollRectangleBottom
+            readonly property real scrollRectangleTop : scrollHandle.y + scrollRectangle.y
+            readonly property real scrollRectangleBottom : scrollRectangleTop + scrollRectangle.height
+            function isMouseInsideScrollHandle() {
+                return mouseY >= scrollRectangleTop && mouseY <= scrollRectangleBottom
             }
-            function calcMouseOffsetInScrollHandle(mouse) {
-                let scrollRectangleTop = scrollHandle.y + scrollRectangle.y
-                let scrollRectangleBottom = scrollRectangleTop + scrollRectangle.height
+            function calcMouseOffsetInScrollHandle() {
                 let scrollRectangleCenter = scrollRectangleTop + (scrollRectangleBottom-scrollRectangleTop)/2
-                return mouse.y - scrollRectangleCenter
+                return mouseY - scrollRectangleCenter
             }
-            function calcContentY(mouseY) {
+            function calcContentYFromMousePress() {
                 let previewY = mouseY + flickableScrollBackgound.contentY
                 let targetLine = previewY / scrollRowHeight
-                let targetY = (targetLine * flickableContent.lineHeight) - (flickableContent.height / 2)
-                let minY = 0
+                let targetY = (targetLine * flickableContent.lineHeight) - (flickableContent.height/2)
                 let maxY = flickableContent.contentHeight - flickableContent.height
-                return Math.max(minY, Math.min(maxY, targetY))
+                return Math.max(0, Math.min(maxY, targetY))
             }
             property real mouseOffsetOnEnter: 0
             property bool canDrag: false
-            onPressed: (mouse) => {
-                if (isMouseInsideScrollHandle(mouse)) {
-                    canDrag = true
-                    mouseOffsetOnEnter = calcMouseOffsetInScrollHandle(mouse) // avoid start flicker by centering handle to mouse on drag
-                }
-                else {
-                    canDrag = false
-                    mouseOffsetOnEnter = 0
-                    flickableContent.contentY = calcContentY(mouse.y)
-                }
+            onPressed: {
+                canDrag = isMouseInsideScrollHandle()
+                if (canDrag)
+                    mouseOffsetOnEnter = calcMouseOffsetInScrollHandle() // avoid start flicker by centering handle to mouse on drag
+                else
+                    flickableContent.contentY = calcContentYFromMousePress()
             }
-            onPositionChanged: (mouse) => {
-                if (pressed && canDrag)
-                    flickableContent.contentY = calcContentY(mouse.y - mouseOffsetOnEnter)
+            onPositionChanged: {
+                if (pressed && canDrag) {
+                    let scrollRectangleHeith = scrollRectangle.height
+                    let position = (mouseY - scrollRectangle.height/2 - mouseOffsetOnEnter) / (height - scrollRectangle.height)
+                    position = Math.max(0, Math.min(1, position))
+                    flickableContent.contentY = position * (flickableContent.contentHeight - flickableContent.height)
+                }
             }
         }
     }
