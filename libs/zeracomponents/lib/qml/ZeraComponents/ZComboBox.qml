@@ -42,7 +42,8 @@ Rectangle {
     property var model: [];
     readonly property bool modelInitialized: arrayMode === true && model.length>0;
     property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
-    property int displayColumns: Math.ceil(count/displayRows)
+    readonly property int defaultDisplayColumns: Math.ceil(count/displayRows)
+    property int displayColumns: defaultDisplayColumns
     onModelInitializedChanged: updateFakeModel();
 
     color: enabled ? ZTC.buttonColor : ZTC.buttonColorDisabled

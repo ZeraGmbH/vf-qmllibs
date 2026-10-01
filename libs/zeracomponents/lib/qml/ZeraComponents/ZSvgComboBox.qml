@@ -19,7 +19,8 @@ Rectangle { // Stolen from ZVisualComboBox
     property string selectedText;
     property var model: [];
     property int displayRows: contentMaxRows <= 0 || contentMaxRows > count ? count : contentMaxRows
-    property int displayColumns: Math.ceil(count/displayRows)
+    readonly property int defaultDisplayColumns: Math.ceil(count/displayRows)
+    property int displayColumns: defaultDisplayColumns
     property var imageModel: [];
     property int contentMaxRows: 0
 
