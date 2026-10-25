@@ -22,7 +22,7 @@ Rectangle {
     property string selectedText;
     property string initialSelectedText;
     property real pointSize: height > 0 ? height * 0.3 : 10
-    property real popupWidthFactor: 1
+    property real popupMinHorizontalSize: 0
 
     property int contentMaxRows: 0 // this makes colums
     property bool fadeOutOnClose: false
@@ -146,7 +146,7 @@ Rectangle {
         bottomPadding: 0
         property real posXInApplication
         property real posYInApplication
-        width: root.width * popupWidthFactor * (popupKeepHorizontalSize ? 1 : displayColumns)
+        width: Math.max(popupMinHorizontalSize, root.width * (popupKeepHorizontalSize ? 1 : displayColumns))
         x: {
             let posX = posXInApplication - width/2
             if(posX < 0)
