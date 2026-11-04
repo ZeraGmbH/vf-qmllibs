@@ -48,7 +48,7 @@ Rectangle {
     onModelInitializedChanged: updateFakeModel();
 
     color: enabled ? ZTC.buttonColor : ZTC.buttonColorDisabled
-    property color textColor: ZTC.primaryTextColor
+    property alias textColor: textField.color
     radius: 4
     activeFocusOnTab: true
 
@@ -99,6 +99,7 @@ Rectangle {
         anchors.fill: parent
         anchors.rightMargin: parent.width/5
         Label {
+            id: textField
             anchors.left: parent.left
             anchors.leftMargin: 8
             anchors.verticalCenter: parent.verticalCenter
@@ -109,7 +110,6 @@ Rectangle {
                 return retVal;
             }
             font.pointSize: pointSize
-            color: textColor
         }
     }
     Label {
