@@ -12,9 +12,6 @@ QTEST_MAIN(test_vector_nominal_maximum)
 
 void test_vector_nominal_maximum::setNominalMode()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float uNom = 230;
     const float iNom = 10;
     const float angle = -15;
@@ -30,23 +27,14 @@ void test_vector_nominal_maximum::setNominalMode()
     QCOMPARE(VectorSettingsLengths::VectorNominals::NOMINAL, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
     TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
-
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_nominal_maximum::setMaximumMode()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float uNom = 230;
     const float iNom = 10;
     const float angle = -15;
@@ -59,22 +47,14 @@ void test_vector_nominal_maximum::setMaximumMode()
     QCOMPARE(VectorSettingsLengths::VectorNominals::MAXIMUM, vectorPainter.getVectorSettings()->m_lengths.getNominalSelection());
 
     TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_nominal_maximum::setMaximumTwice()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float uNom = 230;
     const float iNom = 10;
     const float angle = -15;
@@ -85,15 +65,9 @@ void test_vector_nominal_maximum::setMaximumTwice()
 
     vectorPainter.getVectorSettings()->m_lengths.setNominalSelection(VectorSettingsLengths::VectorNominals::MAXIMUM);
     TestValueSetter::setSymmetricValues(&vectorPainter, uNom, iNom, angle); // start large
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
     TestValueSetter::setSymmetricValues(&vectorPainter, uNom*2/3, iNom*1/3, angle); // continue small
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }

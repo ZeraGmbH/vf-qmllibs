@@ -12,9 +12,6 @@ QTEST_MAIN(test_vectors_long_short_limits)
 
 void test_vectors_long_short_limits::starVectorsIgnoreLessThanMin()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float uMin = 23;
     const float iMin = 1;
     const float angle = 30;
@@ -27,15 +24,10 @@ void test_vectors_long_short_limits::starVectorsIgnoreLessThanMin()
     QCOMPARE(iMin, vectorPainter.getVectorSettings()->m_lengths.getMinCurrent());
 
     TestValueSetter::setSymmetricValues(&vectorPainter, uMin*0.99, iMin*0.99, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vectors_long_short_limits::vectorLabelsTooLong_data()
@@ -52,8 +44,6 @@ void test_vectors_long_short_limits::vectorLabelsTooLong_data()
 void test_vectors_long_short_limits::vectorLabelsTooLong()
 {
     QFETCH(float, overshoot);
-    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     const float nom = 1;
     const float angle = 30;
@@ -62,15 +52,10 @@ void test_vectors_long_short_limits::vectorLabelsTooLong()
     TestValueSetter::setNominalUI(vectorPainter, nom);
 
     TestValueSetter::setSymmetricValues(&vectorPainter, nom*overshoot, nom*overshoot, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vectors_long_short_limits::vectorLabelsTooShort_data()
@@ -87,8 +72,6 @@ void test_vectors_long_short_limits::vectorLabelsTooShort_data()
 void test_vectors_long_short_limits::vectorLabelsTooShort()
 {
     QFETCH(float, undershoot);
-    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     const float nom = 1;
     const float angle = 15;
@@ -97,13 +80,8 @@ void test_vectors_long_short_limits::vectorLabelsTooShort()
     TestValueSetter::setNominalUI(vectorPainter, nom);
 
     TestValueSetter::setSymmetricValues(&vectorPainter, nom*undershoot, nom*undershoot, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }

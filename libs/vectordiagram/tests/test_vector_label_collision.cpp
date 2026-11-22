@@ -11,9 +11,6 @@ constexpr int clipLen = 2000;
 
 void test_vector_label_collision::detectCollisionAllSameAngle()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
@@ -30,15 +27,10 @@ void test_vector_label_collision::detectCollisionAllSameAngle()
             std::polar<float>(0.6, 0.0),
             std::polar<float>(0.5, 0.0),
         });
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_label_collision::detectCollision_data()
@@ -83,8 +75,6 @@ void test_vector_label_collision::detectCollision()
     QFETCH(float, angle);
     QFETCH(float, length);
     QFETCH(VectorSettingsUser::VectorType, vectorType);
-    const QString fileBase = QString(QTest::currentTestFunction()) + "_" + QTest::currentDataTag() + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
@@ -98,22 +88,14 @@ void test_vector_label_collision::detectCollision()
     lengthSettings.setNomCurrent(nomValue);
     lengthSettings.setNomVoltage(nomValue);
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue*length, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + "_" + QTest::currentDataTag() + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_label_collision::playgroundDebugInterestingCaseSingle()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
 
@@ -126,15 +108,10 @@ void test_vector_label_collision::playgroundDebugInterestingCaseSingle()
     lengthSettings.setNomCurrent(nomValue);
     lengthSettings.setNomVoltage(nomValue);
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, 242);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_label_collision::fullMonsterForCinema_data()
@@ -173,7 +150,6 @@ void test_vector_label_collision::fullMonsterForCinema_data()
             }
         }
     }
-
 }
 
 void test_vector_label_collision::fullMonsterForCinema()
@@ -182,8 +158,6 @@ void test_vector_label_collision::fullMonsterForCinema()
     QFETCH(float, angle);
     QFETCH(float, length);
     QFETCH(VectorSettingsUser::VectorType, vectorType);
-    const QString fileBase = QString(QTest::currentTestFunction()) + "_" + QTest::currentDataTag() + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     VectorPaintController vectorPainter;
@@ -197,13 +171,8 @@ void test_vector_label_collision::fullMonsterForCinema()
     lengthSettings.setNomCurrent(nomValue);
     lengthSettings.setNomVoltage(nomValue);
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue*length, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + "_" + QTest::currentDataTag() + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }

@@ -1,4 +1,11 @@
-add_definitions(-DTEST_SVG_FILE_PATH="${CMAKE_CURRENT_BINARY_DIR}/TestSvgs/")
+# Dumps dummy target to see them in IDE
+file(GLOB_RECURSE TESTFILES
+    test-data/*
+)
+# Unique target name!
+add_custom_target(vectordiagram-test-data ALL
+    SOURCES ${TESTFILES}
+    )
 
 # Inspired by
 # https://github.com/KDAB/kdabtv/blob/master/Qt-Widgets-and-more/UnitTests/Tests/CMakeLists.txt
@@ -9,7 +16,6 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
         add_executable(${_testname}
             ${_testname}.h
             ${_testname}.cpp
-            test-data/test-svgs.qrc
             )
         target_link_libraries(${_testname}
             PUBLIC
@@ -19,7 +25,11 @@ function(SETUP_QTESTS_VECTOR_DIAGRAM)
             Zera::xml-compare-testlib
             vector-diagram-lib
             vector-diagram-testlib
-        )
+            )
+        target_compile_definitions(${_testname}
+            PRIVATE
+            TEST_SRC_DIR="${CMAKE_CURRENT_SOURCE_DIR}"
+            )
     endforeach()
 endfunction()
 

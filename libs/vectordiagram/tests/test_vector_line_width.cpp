@@ -11,9 +11,6 @@ constexpr int clipLen = 2000;
 
 void test_vector_line_width::setVectorLineWidth()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float nomValue = 30;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLen, clipLen);
@@ -26,22 +23,14 @@ void test_vector_line_width::setVectorLineWidth()
     QCOMPARE(width, vectorPainter.getVectorSettings()->m_layout.getVectorLineWidthI());
 
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_line_width::setVectorLineWidthTooHigh()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float nomValue = 30;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLen, clipLen);
@@ -52,22 +41,14 @@ void test_vector_line_width::setVectorLineWidthTooHigh()
     vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthI(width);
 
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_vector_line_width::setVectorLineWidthTooLow()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     const float nomValue = 30;
     const float angle = 30;
     VectorToSvgPainter svgPainter(clipLen, clipLen);
@@ -78,13 +59,8 @@ void test_vector_line_width::setVectorLineWidthTooLow()
     vectorPainter.getVectorSettings()->m_layout.setVectorLineWidthI(width);
 
     TestValueSetter::setSymmetricValues(&vectorPainter, nomValue, nomValue, angle);
-    svgPainter.paintToFile(dumpFile, &vectorPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&vectorPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }

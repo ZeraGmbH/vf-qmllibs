@@ -14,20 +14,12 @@ constexpr int clipLen = 3000;
 
 void test_primitive_painter::initialTestPrimitivePainterStar()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     TestPrimitivePainterStar primPainter;
-    svgPainter.paintToFile(dumpFile, &primPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&primPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_primitive_painter::variationAngleOffsetRotationDir_data()
@@ -53,57 +45,34 @@ void test_primitive_painter::variationAngleOffsetRotationDir()
 {
     QFETCH(float, angleOffset);
     QFETCH(RotationDirection, rotationDir);
-    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
 
     TestPrimitivePainterStar primPainter;
     primPainter.m_vectorSettings.m_angles.setOffsetAngle(degToRad(angleOffset));
     primPainter.m_vectorSettings.m_angles.setRotationDirection(rotationDir);
 
     VectorToSvgPainter svgPainter(clipLen, clipLen);
-    svgPainter.paintToFile(dumpFile, &primPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&primPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + QTest::currentDataTag() + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_primitive_painter::initialTestPrimitivePainterTriangle()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     VectorToSvgPainter svgPainter(clipLen, clipLen);
     TestPrimitivePainterTriangle primPainter;
-    svgPainter.paintToFile(dumpFile, &primPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&primPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
 
 void test_primitive_painter::initialTestPrimitivePainterLabel()
 {
-    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
-    QString dumpFile = QString(TEST_SVG_FILE_PATH) + fileBase;
-
     VectorToSvgPainter svgPainter(500, 500);
     TestPrimitivePainterLabel primPainter;
-    svgPainter.paintToFile(dumpFile, &primPainter);
 
-    QString dumped = TestLogHelpers::loadFile(dumpFile);
-    QString expected = TestLogHelpers::loadFile(QString(":/svgs/") + fileBase);
-    SvgFuzzyCompare compare;
-    bool ok = compare.compareXml(dumped, expected);
-    if(!ok)
-        TestLogHelpers::compareAndLogOnDiff(expected, dumped);
-    QVERIFY(ok);
+    QString dumped = svgPainter.paintByteArray(&primPainter);
+    const QString fileBase = QString(QTest::currentTestFunction()) + ".svg";
+    QVERIFY(SvgFuzzyCompare::compareXmlSrc(QString("svgs/") + fileBase, dumped, TEST_SRC_DIR));
 }
